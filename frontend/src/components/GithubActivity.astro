@@ -1,0 +1,30 @@
+---
+---
+<div class="github-activity-card">
+  <img src="https://ghchart.rshah.org/FF69B4/NayukiChiba" alt="NayeyYe's Github Chart" loading="lazy" />
+</div>
+
+<style>
+  .github-activity-card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align to right to show recent commits */
+    overflow: hidden;
+    height: 160px; /* Increased height for better visibility */
+    flex: 1; /* Fill remaining space */
+    opacity: 0.6; /* Make it subtle */
+  }
+
+  .github-activity-card img {
+    height: 100%;
+    width: 100%; /* Force fill width */
+    object-fit: cover; /* Cover the area to avoid empty spaces */
+    object-position: right; /* Focus on recent data */
+  }
+
+  @media (min-width: 768px) {
+    .github-activity-card {
+      margin-left: 0;
+    }
+  }
+</style>
