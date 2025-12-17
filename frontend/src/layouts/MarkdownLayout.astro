@@ -1,0 +1,17 @@
+---
+import PageLayout from './PageLayout.astro';
+
+const { frontmatter } = Astro.props;
+---
+
+<PageLayout title={frontmatter.title}>
+  <article class="prose">
+    <header style="margin-bottom: 2rem;">
+      <h1 style="margin-bottom: 0.5rem;">{frontmatter.title}</h1>
+      <div style="color: #888; font-size: 0.9rem; font-family: monospace;">
+        {frontmatter.date} · {frontmatter.tags?.map((t: string) => `#${t} `)}
+      </div>
+    </header>
+    <slot />
+  </article>
+</PageLayout>

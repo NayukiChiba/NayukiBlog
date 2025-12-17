@@ -1,0 +1,104 @@
+---
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/posts', label: 'Blog' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/about', label: 'About' },
+];
+---
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="site-title">Nayuki Blog</a>
+    <nav>
+      <ul class="nav-list">
+        {navItems.map(item => (
+          <li>
+            <a href={item.href} class={Astro.url.pathname === item.href ? 'active' : ''}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #eaeaea;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 1rem 0;
+    transition: transform 0.3s ease;
+  }
+
+  .site-header.hidden {
+    transform: translateY(-100%);
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .site-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .site-title:hover {
+    color: #000;
+  }
+
+  .nav-list {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-list a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .nav-list a:hover,
+  .nav-list a.active {
+    color: #000;
+  }
+</style>
+
+<script>
+  let lastScrollY = window.scrollY;
+  const header = document.querySelector('.site-header');
+
+  if (header) {
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+
+      // 向下滚动且滚动距离超过20px时隐藏，向上滚动时显示
+      if (currentScrollY > lastScrollY && currentScrollY > 20) {
+        header.classList.add('hidden');
+      } else {
+        header.classList.remove('hidden');
+      }
+
+      lastScrollY = currentScrollY;
+    });
+  }
+</script>
