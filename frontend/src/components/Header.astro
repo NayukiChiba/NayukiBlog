@@ -1,14 +1,20 @@
 ---
 const navItems = [
   { href: '/', label: 'Home' },
-  { href: '/posts', label: 'Blog' },
+  { href: '/articles', label: 'Articles' }, // Changed from /posts to /articles
   { href: '/projects', label: 'Projects' },
+  { href: '/diary', label: 'Diary' },
+  { href: '/library', label: 'Library' },
+  { href: '/gallery', label: 'Gallery' },
+  { href: '/todo', label: 'TODO' },
+  { href: '/toolbox', label: 'Tools' },
+  { href: '/status', label: 'Status' },
   { href: '/about', label: 'About' },
 ];
 ---
 
 <header class="site-header">
-  <div class="container">
+  <div class="header-container">
     <a href="/" class="site-title">Nayuki Blog</a>
     <nav>
       <ul class="nav-list">
@@ -40,10 +46,10 @@ const navItems = [
     transform: translateY(-100%);
   }
 
-  .container {
-    max-width: 1000px;
+  .header-container {
+    max-width: var(--max-width); /* 使用全局变量保持与页面内容对齐 */
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 var(--content-padding);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -63,18 +69,21 @@ const navItems = [
 
   .nav-list {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.2rem;
     list-style: none;
     margin: 0;
     padding: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
   .nav-list a {
     color: #666;
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 500;
     transition: color 0.2s ease;
+    white-space: nowrap;
   }
 
   .nav-list a:hover,
