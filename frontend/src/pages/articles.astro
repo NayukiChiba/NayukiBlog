@@ -1,0 +1,36 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import PostCard from '../components/PostCard.astro';
+
+// 获取 src/pages/posts/ 下的所有 Markdown 文件
+const allPosts = await Astro.glob('./posts/*.md');
+const posts = allPosts
+  .sort((a: any, b: any) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf())
+  .map((post: any) => ({
+    title: post.frontmatter.title,
+    date: post.frontmatter.date,
+    desc: post.frontmatter.desc,
+    url: post.url || '#',
+    tags: post.frontmatter.tags
+  }));
+---
+
+<PageLayout title="Articles | Nayuki Blog">
+  <div class="page-container">
+    <h1 class="page-title">文章与笔记</h1>
+    <p class="page-desc">技术教程、学习笔记与思考。</p>
+    
+    <div class="post-list">
+      {posts.map((post: any) => (
+        <PostCard {...post} />
+      ))}
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  .page-container { max-width: 720px; margin: 0 auto; }
+  .page-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .page-desc { color: #666; margin-bottom: 2rem; }
+  .post-list { display: flex; flex-direction: column; gap: 1rem; }
+</style>
