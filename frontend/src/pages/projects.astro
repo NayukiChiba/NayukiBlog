@@ -1,0 +1,41 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+  {
+    title: "NyeWeb",
+    desc: "个人作品集与知识管理系统，集成文章展示、项目管理等功能。采用前后端分离架构。",
+    url: "https://nyeweb.fun",
+    tech: ["Astro", "React", "FastAPI"]
+  },
+  {
+    title: "Face Login System",
+    desc: "基于PyQt5的人脸识别登录系统，整合MTCNN与FaceNet技术，支持活体验证。",
+    url: "/projects/face-login",
+    tech: ["Python", "PyQt5", "PyTorch"]
+  },
+  // Add more projects here
+];
+---
+
+<PageLayout title="Projects | Nayuki Blog">
+  <div class="page-container">
+    <h1 class="page-title">开源项目</h1>
+    <p class="page-desc">这里展示了我的一些开源项目和实验性作品。</p>
+    
+    <div class="project-grid">
+      {projects.map(project => (
+        <ProjectCard {...project} />
+      ))}
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  .page-container { max-width: 960px; margin: 0 auto; }
+  .page-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .page-desc { color: #666; margin-bottom: 2rem; }
+  .project-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+  @media (min-width: 640px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
