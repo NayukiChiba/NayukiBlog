@@ -1,0 +1,25 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ProfileCard from '../components/ProfileCard.astro';
+---
+
+<PageLayout title="About Me | Nayuki Blog">
+  <div class="container">
+    <h1>🙋 关于我</h1>
+    
+    <div style="margin: 2rem 0;">
+      <ProfileCard />
+    </div>
+
+    <div class="content">
+      <h2>你好，我是 Nayuki</h2>
+      <p>这里是我的个人博客，用于记录学习与生活。</p>
+      <p>（此处可以添加详细的个人介绍、技能栈、联系方式等）</p>
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  .container { max-width: 800px; margin: 0 auto; }
+  .content { line-height: 1.6; color: #333; }
+</style>
