@@ -3,12 +3,17 @@ import PageLayout from '../layouts/PageLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import projectsData from '../data/projects.json';
 
-const projects = projectsData.map((project) => ({
-  title: project.name,
-  desc: project.description,
-  url: project.link,
-  tech: project.techStack
-}));
+// Helper to map data format
+const mapProject = (p: any) => ({
+  title: p.name,
+  desc: p.description,
+  url: p.link,
+  tech: p.techStack
+});
+
+const inProgressProjects = projectsData.filter(p => p.status === 'in-progress').map(mapProject);
+const completedProjects = projectsData.filter(p => p.status === 'completed').map(mapProject);
+const planningProjects = projectsData.filter(p => p.status === 'planning').map(mapProject);
 ---
 
 <PageLayout title="Projects | Nayuki Blog">
@@ -16,10 +21,44 @@ const projects = projectsData.map((project) => ({
     <h1 class="page-title">开源项目</h1>
     <p class="page-desc">这里展示了我的一些开源项目和实验性作品。</p>
     
-    <div class="project-grid">
-      {projects.map(project => (
-        <ProjectCard {...project} />
-      ))}
+    <div class="sections-wrapper">
+      
+      <!-- In Progress -->
+      {inProgressProjects.length > 0 && (
+        <section class="project-section">
+          <h2 class="section-title">🚧 正在进行 (In Progress)</h2>
+          <div class="project-grid">
+            {inProgressProjects.map(project => (
+              <ProjectCard {...project} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Completed -->
+      {completedProjects.length > 0 && (
+        <section class="project-section">
+          <h2 class="section-title">✅ 已完成 (Completed)</h2>
+          <div class="project-grid">
+            {completedProjects.map(project => (
+              <ProjectCard {...project} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Planning -->
+      {planningProjects.length > 0 && (
+        <section class="project-section">
+          <h2 class="section-title">💡 正在新建仓库 (Planning)</h2>
+          <div class="project-grid">
+            {planningProjects.map(project => (
+              <ProjectCard {...project} />
+            ))}
+          </div>
+        </section>
+      )}
+
     </div>
   </div>
 </PageLayout>
@@ -27,7 +66,23 @@ const projects = projectsData.map((project) => ({
 <style>
   .page-container { max-width: 960px; margin: 0 auto; }
   .page-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .page-desc { color: #666; margin-bottom: 2rem; }
+  .page-desc { color: #666; margin-bottom: 3rem; }
+  
+  .sections-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+  }
+
   .project-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
   @media (min-width: 640px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
 </style>
