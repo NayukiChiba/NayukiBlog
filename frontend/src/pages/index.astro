@@ -21,12 +21,17 @@ const now = new Date();
 const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 const todaysDiary = diariesData.find(d => d.date === todayStr);
 
-const projects = projectsData.map((project) => ({
-  title: project.name,
-  desc: project.description,
-  url: project.link,
-  tech: project.techStack
-}));
+const filteredProjects = projectsData.filter(project => project.status === 'In Progress');
+const displayProjects = filteredProjects.length > 0 ? filteredProjects : projectsData;
+
+const projects = displayProjects
+  .slice(0, 2)
+  .map((project) => ({
+    title: project.name,
+    desc: project.description,
+    url: project.link,
+    tech: project.techStack
+  }));
 ---
 
 <PageLayout title="Nayuki Blog">
