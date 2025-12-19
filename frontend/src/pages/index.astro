@@ -7,7 +7,7 @@ import GithubActivity from '../components/GithubActivity.astro';
 import TodoCard from '../components/TodoCard.astro';
 
 // Fetch posts from src/pages/posts/*.md
-const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+const allPosts = await Astro.glob('./posts/*.md');
 const posts = allPosts
   .sort((a: any, b: any) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf())
   .map((post: any) => ({

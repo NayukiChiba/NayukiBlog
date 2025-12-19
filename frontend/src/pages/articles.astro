@@ -3,7 +3,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 import PostCard from '../components/PostCard.astro';
 
 // 获取 src/pages/posts/ 下的所有 Markdown 文件
-const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+const allPosts = await Astro.glob('./posts/*.md');
 const posts = allPosts
   .sort((a: any, b: any) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf())
   .map((post: any) => ({
