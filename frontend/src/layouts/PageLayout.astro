@@ -24,6 +24,33 @@ const { title, description = "A personal website" } = Astro.props;
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- KaTeX CSS for math support -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    
+    <style is:global>
+      :root {
+        --max-width: 1000px;
+        --content-padding: 1.5rem;
+      }
+
+      html {
+        scrollbar-gutter: stable;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      main {
+        flex: 1;
+        width: 100%;
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 2rem var(--content-padding);
+      }
+    </style>
   </head>
   <body>
     <Header />

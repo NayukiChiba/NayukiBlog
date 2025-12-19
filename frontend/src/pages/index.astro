@@ -115,6 +115,20 @@ const projects = displayProjects
     margin: 0 auto;
   }
 
+  /* Staggered Animation for Sections */
+  .home-container > section,
+  .home-container > .divider {
+    opacity: 0;
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  .home-container > *:nth-child(1) { animation-delay: 0.1s; }
+  .home-container > *:nth-child(2) { animation-delay: 0.15s; }
+  .home-container > *:nth-child(3) { animation-delay: 0.2s; }
+  .home-container > *:nth-child(4) { animation-delay: 0.25s; }
+  .home-container > *:nth-child(5) { animation-delay: 0.3s; }
+  .home-container > *:nth-child(6) { animation-delay: 0.35s; }
+
   /* Profile Section */
   .profile-section {
     margin-bottom: 2.5rem;
