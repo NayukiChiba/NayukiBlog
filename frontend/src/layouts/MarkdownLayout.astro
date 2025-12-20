@@ -1,17 +1,672 @@
 ---
-import PageLayout from './PageLayout.astro';
-
+import Header from '../components/Header.astro';
 const { frontmatter } = Astro.props;
+const date = new Date(frontmatter.date);
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
 ---
 
-<PageLayout title={frontmatter.title}>
-  <article class="prose">
-    <header style="margin-bottom: 2rem;">
-      <h1 style="margin-bottom: 0.5rem;">{frontmatter.title}</h1>
-      <div style="color: #888; font-size: 0.9rem; font-family: monospace;">
-        {frontmatter.date} · {frontmatter.tags?.map((t: string) => `#${t} `)}
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{frontmatter.title}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  </head>
+  <body>
+    <Header />
+    <main class="markdown-container">
+      <div class="layout-grid">
+        <article class="content">
+          <header class="post-header">
+            <div class="meta">
+              <span class="date">{formattedDate}</span>
+            </div>
+            <h1>{frontmatter.title}</h1>
+            {frontmatter.description && (
+              <div class="description-card">
+                <span class="description-label">简介</span>
+                <div class="description-content" data-text={frontmatter.description}></div>
+              </div>
+            )}
+            {frontmatter.tags && (
+              <div class="tags">
+                {frontmatter.tags.map((tag: any) => <span class="tag">#{tag}</span>)}
+              </div>
+            )}
+          </header>
+          <hr />
+          <slot />
+        </article>
+        
+        <aside class="toc-sidebar">
+          <div class="toc-sticky">
+            <div class="toc-header">文章目录</div>
+            <nav id="article-toc"></nav>
+          </div>
+        </aside>
       </div>
-    </header>
-    <slot />
-  </article>
-</PageLayout>
+    </main>
+
+    <!-- Copy Toast Notification -->
+    <div id="copy-toast" class="toast">
+      <span class="dot"></span>
+      <span class="message">已复制到剪贴板</span>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const toast = document.getElementById('copy-toast');
+        let timeout: any;
+
+        function showToast() {
+          if (!toast) return;
+          toast.classList.add('show');
+          if (timeout) clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            toast.classList.remove('show');
+          }, 2000);
+        }
+
+        // 处理 Shiki 代码块：添加包装器、语言标签和复制按钮
+        const codeBlocks = document.querySelectorAll('pre.astro-code');
+        codeBlocks.forEach(pre => {
+          // 1. 创建 Wrapper
+          const wrapper = document.createElement('div');
+          wrapper.className = 'code-wrapper';
+          pre.parentNode?.insertBefore(wrapper, pre);
+          wrapper.appendChild(pre);
+
+          // 2. 获取语言
+          // Astro Shiki 通常在 pre 上添加 class="astro-code github-light language-js"
+          // 或者在 code 上
+          let lang = '';
+          const classes = pre.className.split(' ');
+          const langClass = classes.find(c => c.startsWith('language-'));
+          if (langClass) {
+            lang = langClass.replace('language-', '');
+          } else {
+            // 尝试从 code 标签获取
+            const code = pre.querySelector('code');
+            if (code) {
+              const codeClasses = Array.from(code.classList);
+              const codeLangClass = codeClasses.find(c => c.startsWith('language-'));
+              if (codeLangClass) lang = codeLangClass.replace('language-', '');
+            }
+          }
+
+          // 3. 添加语言标签
+          if (lang) {
+            const langLabel = document.createElement('span');
+            langLabel.className = 'code-lang';
+            langLabel.textContent = lang;
+            wrapper.appendChild(langLabel);
+          }
+
+          // 4. 添加复制按钮
+          const copyBtn = document.createElement('button');
+          copyBtn.className = 'copy-btn';
+          // 使用 SVG 图标
+          copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+          
+          copyBtn.addEventListener('click', async () => {
+            const code = pre.querySelector('code');
+            if (code) {
+              try {
+                await navigator.clipboard.writeText(code.innerText);
+                showToast();
+              } catch (err) {
+                console.error('Failed to copy:', err);
+              }
+            }
+          });
+          wrapper.appendChild(copyBtn);
+        });
+        // 3. 简介打字机效果
+        const card = document.querySelector('.description-card');
+        if (card) {
+          const content = card.querySelector('.description-content');
+          if (content) {
+            const text = content.getAttribute('data-text') || '';
+            
+            // 清空内容准备打字
+            (content as HTMLElement).innerText = '';
+            
+            let i = 0;
+            function typeWriter() {
+              if (i < text.length) {
+                content!.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 20); // 打字速度
+              }
+            }
+            // 稍微延迟一点开始，让页面先渲染出来
+            setTimeout(typeWriter, 300);
+          }
+        }
+          
+
+        // 4. 自动生成目录 (TOC) 与 滚动监听
+        const tocContainer = document.getElementById('article-toc');
+        const content = document.querySelector('.content');
+        
+        if (tocContainer && content) {
+          // 获取所有标题
+          const headings = content.querySelectorAll('h1, h2, h3, h4');
+          
+          if (headings.length > 0) {
+            const ul = document.createElement('ul');
+            
+            headings.forEach((heading, index) => {
+              // 确保标题有 ID
+              if (!heading.id) {
+                heading.id = 'heading-' + index;
+              }
+              
+              const li = document.createElement('li');
+              // 根据标题层级添加 class (h1->level-1, h2->level-2...)
+              const level = parseInt(heading.tagName.substring(1));
+              li.className = `toc-item level-${level}`;
+              
+              const a = document.createElement('a');
+              a.href = '#' + heading.id;
+              a.textContent = heading.textContent;
+              
+              // 平滑滚动点击事件
+              a.addEventListener('click', (e) => {
+                e.preventDefault();
+                heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // 更新 URL hash 但不跳转
+                history.pushState(null, '', '#' + heading.id);
+              });
+              
+              li.appendChild(a);
+              ul.appendChild(li);
+            });
+            
+            tocContainer.appendChild(ul);
+            
+            // 滚动监听 (Intersection Observer)
+            const observerOptions = {
+              root: null,
+              rootMargin: '-100px 0px -70% 0px', // 在视口顶部附近触发
+              threshold: 0
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  // 移除所有激活状态
+                  document.querySelectorAll('.toc-item a').forEach(link => link.classList.remove('active'));
+                  
+                  // 激活当前
+                  const id = entry.target.id;
+                  const activeLink = document.querySelector(`.toc-item a[href="#${id}"]`);
+                  if (activeLink) {
+                    activeLink.classList.add('active');
+                    // 确保目录自身也滚动到可见位置
+                    activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                  }
+                }
+              });
+            }, observerOptions);
+            
+            headings.forEach(h => observer.observe(h));
+          } else {
+            // 如果没有标题，隐藏目录栏
+            const sidebar = document.querySelector('.toc-sidebar');
+            if (sidebar) (sidebar as HTMLElement).style.display = 'none';
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --primary-color: #3498db;
+    --code-bg: #f6f8fa;
+    --border-color: #eaecef;
+    /* 增加最大宽度以容纳侧边栏 -> 修改为 1024px 让文章更窄更聚拢，阅读体验更好 */
+    --max-width: 1024px;
+    --content-padding: 1rem;
+  }
+
+  /* Code Block Styles (Shiki) */
+  .code-wrapper {
+    position: relative;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    background-color: var(--code-bg);
+  }
+
+  /* 覆盖 Shiki 默认背景，确保统一 */
+  pre.astro-code {
+    background-color: var(--code-bg) !important;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 0; /* 由 wrapper 控制 margin */
+    border: none; /* 无边框 */
+    box-shadow: none; /* 无阴影 */
+  }
+  
+  pre.astro-code code {
+    background-color: transparent;
+    padding: 0;
+    font-size: 0.9rem;
+    color: inherit;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  }
+
+  /* 语言标签 */
+  .code-lang {
+    position: absolute;
+    top: 0.5rem;
+    right: 2.5rem;
+    font-size: 0.75rem;
+    color: #888;
+    font-weight: 600;
+    text-transform: uppercase;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* 复制按钮 */
+  .copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, background-color 0.2s;
+  }
+
+  .copy-btn:hover {
+    color: #333;
+    background-color: rgba(0,0,0,0.05);
+  }
+
+  /* 代码语言标识样式 - 旧的移除，使用上面的 .code-lang */
+
+  body {
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.7;
+  }
+
+  .markdown-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  /* 布局网格 */
+  .layout-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 200px; /* 调整侧边栏宽度，左侧自适应 */
+    gap: 4rem; /* 增加间距，让布局更透气，视觉上分离文章和目录 */
+    align-items: start;
+  }
+
+  /* 侧边栏样式 */
+  .toc-sidebar {
+    display: none; /* 默认隐藏，大屏显示 */
+    height: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .toc-sidebar {
+      display: block;
+    }
+  }
+
+  .toc-sticky {
+    position: sticky;
+    top: 100px; /* 距离顶部 Header 的距离 */
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    /* 移除旧样式的左边框和内边距 */
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .toc-header {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-left: 1rem; /* 对齐链接 */
+  }
+
+  #article-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #article-toc li {
+    margin: 0;
+    line-height: 1;
+  }
+
+  /* 仿照 Astro Pure 风格：左侧线条 + 缩进 */
+  #article-toc a {
+    text-decoration: none;
+    color: #888;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    display: block;
+    border-left: 2px solid var(--border-color); /* 默认线条颜色 */
+    padding: 0.5rem 0 0.5rem 1rem;
+    line-height: 1.4;
+  }
+
+  #article-toc a:hover {
+    color: #000;
+    border-left-color: #000;
+  }
+
+  #article-toc a.active {
+    color: #000;
+    font-weight: 600;
+    border-left-color: #000; /* 激活时线条变色 */
+    background: none; /* 移除背景 */
+  }
+
+  /* 目录层级缩进：通过 padding 实现视觉缩进，但保持左侧线条连续 */
+  .toc-item.level-1 a { padding-left: 1rem; }
+  .toc-item.level-2 a { padding-left: 1rem; }
+  .toc-item.level-3 a { padding-left: 2rem; font-size: 0.8rem; }
+  .toc-item.level-4 a { padding-left: 3rem; font-size: 0.8rem; }
+
+  /* 滚动条美化 */
+  .toc-sticky::-webkit-scrollbar {
+    width: 4px;
+  }
+  .toc-sticky::-webkit-scrollbar-thumb {
+    background-color: #eee;
+    border-radius: 4px;
+  }
+  .toc-sticky:hover::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+  }
+
+  /* Toast Styles */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    border: 1px solid var(--border-color);
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .toast .dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  /* 简介卡片样式 - 修复选择器 */
+  .description-card {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    width: 100%;
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* 装饰性引号 */
+  .description-card::after {
+    content: "”";
+    font-family: serif;
+    font-size: 6rem;
+    color: var(--primary-color);
+    opacity: 0.1;
+    position: absolute;
+    bottom: -1rem;
+    right: 1rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .description-label {
+    font-weight: 600;
+    color: #000;
+    margin-right: 0.8rem;
+    padding-right: 0.8rem;
+    border-right: 2px solid #e1e4e8;
+    float: left;
+    user-select: none;
+    line-height: 1.6;
+  }
+
+  .description-content {
+    display: inline;
+    line-height: 1.6;
+    color: #1a1a1a;
+  }
+
+  /* 恢复丢失的 Meta 和 Tag 样式 */
+  .meta {
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .tags {
+    margin-top: 1rem;
+  }
+
+  .tag {
+    margin-right: 1rem;
+    color: #999;
+    font-style: italic;
+    font-weight: 300;
+    font-family: "Georgia", serif;
+    background: none;
+    padding: 0;
+    font-size: 0.9rem;
+  }
+
+  /* Markdown Content Styles */
+  .content h1, .content h2, .content h3, .content h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #000000;
+    font-weight: 600;
+  }
+
+  .content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; }
+  
+  .content p { margin-bottom: 1.2rem; }
+
+  .content strong, .content b {
+    color: #000000;
+  }
+  .content strong, .content b {
+    color: #000000;
+  }
+  /* 2. 链接样式优化 */
+  .content a { 
+    color: #000000; 
+    text-decoration: none; 
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .content a:hover { 
+    border-bottom-color: #000;
+  }
+  .content a strong {
+    color: #000;
+    font-weight: 700;
+  }
+
+  /* 3. 列表样式优化 */
+  .content ul, .content ol {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+    color: #444;
+  }
+  
+  .content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .content ul li::marker {
+    color: #888;
+  }
+  
+  .content ol li::marker {
+    color: #888;
+    font-weight: 500;
+  }
+
+  /* 4. 引用卡片化 + 内部样式 */
+  .content blockquote {
+    margin: 2rem 0;
+    padding: 2rem;
+    border: none;
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* 突出外层阴影 */
+    color: #000000;
+    font-style: italic;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .content blockquote p {
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .content blockquote p:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+
+  /* 内容加上小引号 */
+  .content blockquote p:first-child::before {
+    content: "“";
+    margin-right: 4px;
+  }
+  
+  .content blockquote p:last-child::after {
+    content: "”";
+    margin-left: 4px;
+  }
+
+  /* 引号图标装饰放在卡片右侧 */
+  .content blockquote::after {
+    content: "”";
+    font-family: serif;
+    font-size: 10rem;
+    color: var(--primary-color);
+    opacity: 0.1;
+    position: absolute;
+    bottom: -3rem;
+    right: -1rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .content code {
+    background-color: rgba(27,31,35,0.05);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 85%;
+  }
+
+  /* Expressive Code handles pre/code blocks */
+  .content pre {
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color); /* 加上淡边框 */
+  }
+
+  /* 4. 表格样式调整：无外边框，内部有细线条 */
+  .content table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    margin: 1.5rem 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .content th, .content td {
+    padding: 0.8rem 1rem;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+  }
+
+  /* 去掉最后一列的右边框 */
+  .content th:last-child, .content td:last-child {
+    border-right: none;
+  }
+  
+  /* 去掉最后一行的下边框 */
+  .content tr:last-child td {
+    border-bottom: none;
+  }
+
+  .content th { 
+    background-color: #f6f8fa; 
+    font-weight: 600; 
+    text-align: left;
+  }
+  
+  /* 保持表头圆角 */
+  .content tr:first-child th:first-child { border-top-left-radius: 16px; }
+  .content tr:first-child th:last-child { border-top-right-radius: 16px; }
+
+  /* 文章底部边距 */
+  .content {
+    margin-bottom: 4rem;
+  }
+</style>
