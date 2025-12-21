@@ -44,7 +44,12 @@ const formattedDate = date.toLocaleDateString('en-US', {
         
         <aside class="toc-sidebar">
           <div class="toc-sticky">
-            <div class="toc-header">文章目录</div>
+            <div class="toc-header" id="toc-header-clickable">
+              <span>文章目录</span>
+              <button id="toc-toggle" class="toc-toggle" aria-label="Toggle Table of Contents">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+            </div>
             <nav id="article-toc"></nav>
           </div>
         </aside>
@@ -59,6 +64,20 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
+        // TOC Toggle Logic
+        const tocHeader = document.getElementById('toc-header-clickable');
+        const tocToggle = document.getElementById('toc-toggle');
+        const tocNav = document.getElementById('article-toc');
+        
+        if (tocHeader && tocToggle && tocNav) {
+          const toggleToc = () => {
+            tocNav.classList.toggle('collapsed');
+            tocToggle.classList.toggle('collapsed');
+          };
+          
+          tocHeader.addEventListener('click', toggleToc);
+        }
+
         const toast = document.getElementById('copy-toast');
         let timeout: any;
 
@@ -170,7 +189,12 @@ const formattedDate = date.toLocaleDateString('en-US', {
               // 根据标题层级添加 class (h1->level-1, h2->level-2...)
               const level = parseInt(heading.tagName.substring(1));
               li.className = `toc-item level-${level}`;
+              li.dataset.level = level.toString(); // 存储层级信息
               
+              // 创建容器以放置折叠按钮和链接
+              const div = document.createElement('div');
+              div.className = 'toc-item-container';
+
               const a = document.createElement('a');
               a.href = '#' + heading.id;
               a.textContent = heading.textContent;
@@ -183,11 +207,72 @@ const formattedDate = date.toLocaleDateString('en-US', {
                 history.pushState(null, '', '#' + heading.id);
               });
               
-              li.appendChild(a);
+              div.appendChild(a);
+              li.appendChild(div);
               ul.appendChild(li);
             });
             
             tocContainer.appendChild(ul);
+
+            // 添加折叠功能
+            const tocItems = ul.querySelectorAll('.toc-item');
+            tocItems.forEach((item, index) => {
+              const currentLevel = parseInt((item as HTMLElement).dataset.level || '0');
+              const nextItem = tocItems[index + 1] as HTMLElement;
+              
+              // 检查是否有子项 (下一个元素的 level 更大)
+              if (nextItem) {
+                const nextLevel = parseInt(nextItem.dataset.level || '0');
+                if (nextLevel > currentLevel) {
+                  // 添加折叠按钮
+                  const btn = document.createElement('span');
+                  btn.className = 'toc-collapse-btn';
+                  btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+                  
+                  // 插入到 div 的最后面 (右侧)
+                  const container = item.querySelector('.toc-item-container');
+                  if (container) {
+                    container.appendChild(btn);
+                    item.classList.add('has-children');
+                  }
+
+                  // 点击事件
+                  btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    btn.classList.toggle('collapsed');
+                    const isCollapsed = btn.classList.contains('collapsed');
+                    
+                    // 遍历后续兄弟节点进行折叠/展开
+                    for (let i = index + 1; i < tocItems.length; i++) {
+                      const sibling = tocItems[i] as HTMLElement;
+                      const siblingLevel = parseInt(sibling.dataset.level || '0');
+                      
+                      // 如果遇到同级或更高级别的标题，停止处理
+                      if (siblingLevel <= currentLevel) break;
+                      
+                      // 切换显示状态
+                      if (isCollapsed) {
+                        sibling.classList.add('hidden-by-parent');
+                      } else {
+                        // 只有当父级没有被折叠时才展开 (处理多级折叠的情况比较复杂，这里做简单处理：直接展开所有子集，或者只展开下一级)
+                        // 简单处理：直接移除 hidden-by-parent
+                        sibling.classList.remove('hidden-by-parent');
+                        // 如果子项自己也是折叠状态，保持其子项隐藏 (这里暂不处理深层嵌套状态恢复，简单展开)
+                        // 改进：如果我们要支持多级折叠，需要更复杂的逻辑。
+                        // 简单逻辑：只要父级展开，子级就显示。
+                        // 如果子级本身也是折叠的，它的子子级应该保持隐藏吗？
+                        // 目前逻辑：展开父级时，所有子孙都会显示。如果子级之前是折叠的，按钮状态可能不一致。
+                        // 为了简单且稳健，展开时只移除 hidden-by-parent。
+                        // 如果需要保持子级的折叠状态，需要检查子级是否也有 collapsed 类。
+                        // 但由于是扁平结构，hidden-by-parent 是通用的。
+                        // 让我们尝试一种递归查找逻辑：
+                        // 实际上，对于扁平结构，直接控制 display 即可。
+                      }
+                    }
+                  });
+                }
+              }
+            });
             
             // 滚动监听 (Intersection Observer)
             const observerOptions = {
@@ -354,6 +439,39 @@ const formattedDate = date.toLocaleDateString('en-US', {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     padding-left: 1rem; /* 对齐链接 */
+    padding-right: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .toc-toggle {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+  }
+
+  .toc-toggle.collapsed {
+    transform: rotate(-90deg);
+  }
+
+  #article-toc {
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 80vh; /* 限制最大高度 */
+    opacity: 1;
+    overflow: hidden;
+  }
+
+  #article-toc.collapsed {
+    max-height: 0;
+    opacity: 0;
   }
 
   #article-toc ul {
@@ -391,11 +509,59 @@ const formattedDate = date.toLocaleDateString('en-US', {
     background: none; /* 移除背景 */
   }
 
-  /* 目录层级缩进：通过 padding 实现视觉缩进，但保持左侧线条连续 */
+  /* 新增：TOC 容器布局 */
+  .toc-item-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  /* 新增：折叠按钮样式 */
+  .toc-collapse-btn {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #999;
+    transition: transform 0.2s ease;
+    z-index: 2;
+    margin-left: auto; /* 推到最右侧 */
+    padding-right: 0.5rem; /* 右侧留白 */
+  }
+
+  .toc-collapse-btn:hover {
+    color: #333;
+  }
+
+  .toc-collapse-btn.collapsed {
+    transform: rotate(-90deg);
+  }
+
+  /* 隐藏状态 */
+  .toc-item.hidden-by-parent {
+    display: none;
+  }
+
+  /* 调整链接样式以适应按钮 */
+  #article-toc a {
+    flex: 1;
+    /* 保持原有的 padding 和 border */
+  }
+
+  /* 目录层级缩进：恢复纯粹的缩进，不再为左侧按钮留空 */
+  /* Level 1 */
   .toc-item.level-1 a { padding-left: 1rem; }
-  .toc-item.level-2 a { padding-left: 1rem; }
-  .toc-item.level-3 a { padding-left: 2rem; font-size: 0.8rem; }
-  .toc-item.level-4 a { padding-left: 3rem; font-size: 0.8rem; }
+  
+  /* Level 2 */
+  .toc-item.level-2 a { padding-left: 2rem; }
+
+  /* Level 3 */
+  .toc-item.level-3 a { padding-left: 3rem; font-size: 0.8rem; }
+
+  /* Level 4 */
+  .toc-item.level-4 a { padding-left: 4rem; font-size: 0.8rem; }
 
   /* 滚动条美化 */
   .toc-sticky::-webkit-scrollbar {
