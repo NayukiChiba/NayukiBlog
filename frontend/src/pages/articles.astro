@@ -24,6 +24,26 @@ const getTagSize = (count: number) => {
   if (maxCount === minCount) return minSize;
   return minSize + ((count - minCount) / (maxCount - minCount)) * (maxSize - minSize);
 };
+
+// Folder Logic
+const folderSet = new Set<string>();
+posts.forEach(post => {
+  if (post.folder) {
+    const parts = post.folder.split('/');
+    let current = '';
+    parts.forEach(part => {
+      current = current ? `${current}/${part}` : part;
+      folderSet.add(current);
+    });
+  }
+});
+
+const folderList = [...folderSet].sort().map(path => {
+  const level = path.split('/').length - 1;
+  const name = path.split('/').pop();
+  const hasChildren = [...folderSet].some(p => p.startsWith(path + '/') && p !== path);
+  return { path, name, level, hasChildren };
+});
 ---
 
 <PageLayout title="Articles | Nayuki Blog">
@@ -32,7 +52,33 @@ const getTagSize = (count: number) => {
     <p class="page-desc">技术教程、学习笔记与思考。</p>
     
     <div class="filter-container">
-      <div class="filter-left"></div>
+      <div class="filter-left">
+        <div class="folder-box">
+          <div class="folder-item">
+            <button class="folder-btn active" data-folder="">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              全部文章
+            </button>
+          </div>
+          {folderList.map(folder => (
+            <div class="folder-item" data-path={folder.path} style={`padding-left: ${folder.level * 1}rem`}>
+              {folder.hasChildren && (
+                <button class="folder-toggle" data-target={folder.path}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+              )}
+              {!folder.hasChildren && <span class="folder-spacer"></span>}
+              <button 
+                class="folder-btn" 
+                data-folder={folder.path}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                {folder.name}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
       <div class="filter-separator"></div>
       <div class="filter-right">
         <div class="tags-box">
@@ -53,7 +99,7 @@ const getTagSize = (count: number) => {
 
     <div class="post-list">
       {posts.map((post: any) => (
-        <div class="post-wrapper" data-tags={post.tags ? post.tags.join(',') : ''}>
+        <div class="post-wrapper" data-tags={post.tags ? post.tags.join(',') : ''} data-folder={post.folder || ''}>
           <PostCard {...post} />
         </div>
       ))}
@@ -63,21 +109,69 @@ const getTagSize = (count: number) => {
 
 <script>
   const tagBtns = document.querySelectorAll('.tag-btn');
+  const folderBtns = document.querySelectorAll('.folder-btn');
+  const folderToggles = document.querySelectorAll('.folder-toggle');
   const posts = document.querySelectorAll('.post-wrapper');
+
+  let currentTag = '';
+  let currentFolder = '';
+
+  const filterPosts = () => {
+    posts.forEach(post => {
+      const el = post as HTMLElement;
+      const tags = el.dataset.tags?.split(',') || [];
+      const folder = el.dataset.folder || '';
+
+      const matchTag = !currentTag || tags.includes(currentTag);
+      // Match folder exactly or as a parent folder (e.g. "Tech" matches "Tech/Web")
+      const matchFolder = !currentFolder || folder === currentFolder || folder.startsWith(currentFolder + '/');
+
+      if (matchTag && matchFolder) {
+        el.style.display = 'block';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+  };
 
   tagBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       tagBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      currentTag = (btn as HTMLElement).dataset.tag || '';
+      filterPosts();
+    });
+  });
 
-      const selectedTag = (btn as HTMLElement).dataset.tag;
+  folderBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      folderBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFolder = (btn as HTMLElement).dataset.folder || '';
+      filterPosts();
+    });
+  });
+
+  folderToggles.forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const btn = toggle as HTMLElement;
+      const targetPath = btn.dataset.target;
+      const icon = btn.querySelector('.toggle-icon') as HTMLElement;
       
-      posts.forEach(post => {
-        const tags = (post as HTMLElement).dataset.tags?.split(',') || [];
-        if (!selectedTag || tags.includes(selectedTag)) {
-          (post as HTMLElement).style.display = 'block';
-        } else {
-          (post as HTMLElement).style.display = 'none';
+      // Toggle rotation
+      if (icon) {
+        const currentRotation = icon.style.transform;
+        icon.style.transform = currentRotation === 'rotate(-90deg)' ? 'rotate(0deg)' : 'rotate(-90deg)';
+      }
+
+      // Toggle visibility of children
+      const allFolders = document.querySelectorAll('.folder-item[data-path]');
+      allFolders.forEach(f => {
+        const path = (f as HTMLElement).dataset.path || '';
+        if (path.startsWith(targetPath + '/') && path !== targetPath) {
+          const currentDisplay = (f as HTMLElement).style.display;
+          (f as HTMLElement).style.display = currentDisplay === 'none' ? 'flex' : 'none';
         }
       });
     });
@@ -97,7 +191,104 @@ const getTagSize = (count: number) => {
   }
   .filter-left {
     flex: 1;
+    min-width: 0; /* Prevent flex item from overflowing */
   }
+  .folder-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+  /* Custom Scrollbar */
+  .folder-box::-webkit-scrollbar {
+    width: 4px;
+  }
+  .folder-box::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .folder-box::-webkit-scrollbar-thumb {
+    background: #eee;
+    border-radius: 4px;
+  }
+  .folder-box:hover::-webkit-scrollbar-thumb {
+    background: #ddd;
+  }
+
+  .folder-item {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .folder-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #999;
+    padding: 0;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+  .folder-toggle:hover {
+    background-color: rgba(0,0,0,0.05);
+    color: #333;
+  }
+  .toggle-icon {
+    transition: transform 0.2s ease;
+  }
+  .folder-spacer {
+    width: 20px;
+  }
+
+  .folder-btn {
+    flex: 1;
+    text-align: left;
+    padding: 0.4rem 0.6rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #666;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: inherit;
+  }
+  .folder-btn:hover {
+    background-color: rgba(0,0,0,0.04);
+    color: #000;
+  }
+  .folder-btn.active {
+    background-color: #f3f3f3;
+    color: #000;
+    font-weight: 600;
+  }
+  .folder-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.6;
+    transition: all 0.2s ease;
+  }
+  .folder-btn:hover .folder-icon {
+    opacity: 0.9;
+  }
+  .folder-btn.active .folder-icon {
+    opacity: 1;
+    stroke: #000;
+  }
+
   .filter-separator {
     width: 1px;
     background-color: #eaeaea;
@@ -105,6 +296,7 @@ const getTagSize = (count: number) => {
   }
   .filter-right {
     flex: 1;
+    min-width: 0;
   }
   .tags-box {
     display: flex;
