@@ -47,63 +47,65 @@ const folderList = [...folderSet].sort().map(path => {
 ---
 
 <PageLayout title="Articles | Nayuki Blog">
-  <div class="page-container">
-    <h1 class="page-title">文章与笔记</h1>
-    <p class="page-desc">技术教程、学习笔记与思考。</p>
-    
-    <div class="filter-container">
-      <div class="filter-left">
-        <div class="folder-box">
-          <div class="folder-item">
-            <button class="folder-btn active" data-folder="">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-              全部文章
+  <div class="layout-grid">
+    <aside class="sidebar-left">
+      <div class="sidebar-title">分类</div>
+      <div class="folder-box">
+        <div class="folder-item">
+          <button class="folder-btn active" data-folder="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            全部文章
+          </button>
+        </div>
+        {folderList.map(folder => (
+          <div class="folder-item" data-path={folder.path} style={`padding-left: ${folder.level * 1}rem`}>
+            {folder.hasChildren && (
+              <button class="folder-toggle" data-target={folder.path}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+            )}
+            {!folder.hasChildren && <span class="folder-spacer"></span>}
+            <button 
+              class="folder-btn" 
+              data-folder={folder.path}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              {folder.name}
             </button>
           </div>
-          {folderList.map(folder => (
-            <div class="folder-item" data-path={folder.path} style={`padding-left: ${folder.level * 1}rem`}>
-              {folder.hasChildren && (
-                <button class="folder-toggle" data-target={folder.path}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </button>
-              )}
-              {!folder.hasChildren && <span class="folder-spacer"></span>}
-              <button 
-                class="folder-btn" 
-                data-folder={folder.path}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                {folder.name}
-              </button>
-            </div>
-          ))}
-        </div>
+        ))}
       </div>
-      <div class="filter-separator"></div>
-      <div class="filter-right">
-        <div class="tags-box">
-          <button class="tag-btn active" data-tag="" style="font-size: 1rem">全部</button>
-          {tagsWithCount.map(({ tag, count }) => (
-            <button 
-              class="tag-btn" 
-              data-tag={tag}
-              style={`font-size: ${getTagSize(count)}rem`}
-              title={`${count} posts`}
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
+    </aside>
 
-    <div class="post-list">
-      {posts.map((post: any) => (
-        <div class="post-wrapper" data-tags={post.tags ? post.tags.join(',') : ''} data-folder={post.folder || ''}>
-          <PostCard {...post} />
-        </div>
-      ))}
-    </div>
+    <main class="page-container">
+      <h1 class="page-title">文章与笔记</h1>
+      <p class="page-desc">技术教程、学习笔记与思考。</p>
+      
+      <div class="post-list">
+        {posts.map((post: any) => (
+          <div class="post-wrapper" data-tags={post.tags ? post.tags.join(',') : ''} data-folder={post.folder || ''}>
+            <PostCard {...post} />
+          </div>
+        ))}
+      </div>
+    </main>
+
+    <aside class="sidebar-right">
+      <div class="sidebar-title">标签</div>
+      <div class="tags-box">
+        <button class="tag-btn active" data-tag="" style="font-size: 1rem">全部</button>
+        {tagsWithCount.map(({ tag, count }) => (
+          <button 
+            class="tag-btn" 
+            data-tag={tag}
+            style={`font-size: ${getTagSize(count)}rem`}
+            title={`${count} posts`}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+    </aside>
   </div>
 </PageLayout>
 
@@ -178,41 +180,102 @@ const folderList = [...folderSet].sort().map(path => {
   });
 </script>
 
+<style is:global>
+  /* Override global layout constraint for this page only */
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+</style>
+
 <style>
-  .page-container { max-width: 720px; margin: 0 auto; }
+  /* Layout Grid */
+  .layout-grid {
+    width: 90%;
+    max-width: 1920px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 260px 1fr 260px;
+    gap: 2rem;
+    position: relative;
+    align-items: start;
+    padding-top: 1rem;
+  }
+
+  .page-container { 
+    width: 100%;
+    min-width: 0; /* Prevent grid blowout */
+  }
+  
   .page-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
   .page-desc { color: #666; margin-bottom: 2rem; }
   
-  .filter-container { 
-    display: flex; 
-    align-items: stretch; 
-    margin-bottom: 2rem;
-    min-height: 200px;
+  /* Sidebars */
+  .sidebar-left, .sidebar-right {
+    position: sticky;
+    top: 2rem;
+    height: calc(100vh - 4rem);
+    overflow-y: auto;
+    padding-bottom: 2rem;
   }
-  .filter-left {
-    flex: 1;
-    min-width: 0; /* Prevent flex item from overflowing */
+
+  .sidebar-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
   }
+
+  /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    .layout-grid {
+      width: 90%;
+      gap: 2rem;
+      grid-template-columns: 200px 1fr 200px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .layout-grid {
+      display: flex;
+      flex-direction: column;
+      width: 90%;
+      gap: 2rem;
+    }
+    .sidebar-left, .sidebar-right {
+      position: static;
+      height: auto;
+      width: 100%;
+      overflow-y: visible;
+    }
+    .folder-box, .tags-box {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+  }
+
+  /* Folder Styles */
   .folder-box {
     display: flex;
     flex-direction: column;
     gap: 0.1rem;
-    max-height: 200px;
-    overflow-y: auto;
     padding-right: 0.5rem;
   }
   /* Custom Scrollbar */
-  .folder-box::-webkit-scrollbar {
+  .folder-box::-webkit-scrollbar, .sidebar-left::-webkit-scrollbar, .sidebar-right::-webkit-scrollbar {
     width: 4px;
   }
-  .folder-box::-webkit-scrollbar-track {
+  .folder-box::-webkit-scrollbar-track, .sidebar-left::-webkit-scrollbar-track, .sidebar-right::-webkit-scrollbar-track {
     background: transparent;
   }
-  .folder-box::-webkit-scrollbar-thumb {
+  .folder-box::-webkit-scrollbar-thumb, .sidebar-left::-webkit-scrollbar-thumb, .sidebar-right::-webkit-scrollbar-thumb {
     background: #eee;
     border-radius: 4px;
   }
-  .folder-box:hover::-webkit-scrollbar-thumb {
+  .folder-box:hover::-webkit-scrollbar-thumb, .sidebar-left:hover::-webkit-scrollbar-thumb, .sidebar-right:hover::-webkit-scrollbar-thumb {
     background: #ddd;
   }
 
@@ -289,23 +352,13 @@ const folderList = [...folderSet].sort().map(path => {
     stroke: #000;
   }
 
-  .filter-separator {
-    width: 1px;
-    background-color: #eaeaea;
-    margin: 0 1.5rem;
-  }
-  .filter-right {
-    flex: 1;
-    min-width: 0;
-  }
+  /* Tag Styles */
   .tags-box {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     align-content: flex-start;
     align-items: center;
-    max-height: 200px;
-    overflow-y: auto;
     padding-right: 0.5rem;
   }
   .tag-btn {
