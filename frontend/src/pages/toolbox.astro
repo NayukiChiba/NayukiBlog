@@ -1,7 +1,6 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import ToolCard from '../components/ToolCard.astro';
-import toolsData from '../data/tools.json';
 
 // Group tools by category
 const groupedTools = toolsData.reduce((acc: Record<string, typeof toolsData>, tool) => {
@@ -26,7 +25,7 @@ const categories = Object.keys(groupedTools).sort();
         <section class="category-section">
           <h2 class="category-title">{category}</h2>
           <div class="tools-grid">
-            {groupedTools[category].map(tool => (
+            {groupedTools[category].map((tools: any) => (
               <ToolCard {...tool} />
             ))}
           </div>
