@@ -7,10 +7,10 @@ import GithubActivity from '../components/GithubActivity.astro';
 import TodoCard from '../components/TodoCard.astro';
 import DiaryCard from '../components/DiaryCard.astro';
 
-// import postsData from '../data/posts.json'; // Removed
+// import postsData from '../data/posts.json';
 // import projectsData from '../data/projects.json';
 import todosData from '../data/todos.json';
-import diariesData from '../data/diaries.json';
+// import diariesData from '../data/diaries.json';
 
 let posts = [];
 try {
@@ -33,7 +33,7 @@ try {
   const response = await fetch('http://127.0.0.1:8000/api/projects');
   if (response.ok) {
     const data = await response.json();
-    const filteredProjects = data.filter((project: any) => project.status === 'In Progress');
+    const filteredProjects = data.filter((project: any) => project.status === 'In Progress' || project.status === 'in-progress');
     const displayProjects = filteredProjects.length > 0 ? filteredProjects : data;
 
     projects = displayProjects
@@ -51,10 +51,23 @@ try {
   console.error('Failed to fetch projects:', error);
 }
 
-// Get today's diary
-const now = new Date();
-const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-const todaysDiary = diariesData.find(d => d.date === todayStr);
+let latestDiary = null;
+try {
+  const response = await fetch('http://127.0.0.1:8000/api/diaries');
+  if (response.ok) {
+    const data = await response.json();
+    // Sort by date descending
+    const sorted = data.sort((a: any, b: any) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+    if (sorted.length > 0) {
+      latestDiary = sorted[0];
+    }
+  } else {
+    console.error(`Failed to fetch diaries: ${response.status} ${response.statusText}`);
+  }
+} catch (error) {
+  console.error('Failed to fetch diaries:', error);
+}
+
 ---
 
 <PageLayout title="Nayuki Blog">
@@ -77,15 +90,15 @@ const todaysDiary = diariesData.find(d => d.date === todayStr);
 
     <div class="divider"></div>
 
-    <!-- Today's Diary (Conditional) -->
-    {todaysDiary && (
+    <!-- Latest Diary (Conditional) -->
+    {latestDiary && (
       <section class="section-block">
         <div class="section-header">
-          <h2 class="section-title">Today's Diary</h2>
+          <h2 class="section-title">Latest Diary</h2>
           <a href="/diary" class="view-all">View all →</a>
         </div>
         <div class="diary-preview">
-          <DiaryCard {...todaysDiary} />
+          <DiaryCard {...latestDiary} />
         </div>
       </section>
     )}

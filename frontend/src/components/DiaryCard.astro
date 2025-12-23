@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { date, content, mood, weather, images = [] } = Astro.props;
+const validImages = Array.isArray(images) ? images : [];
 
 const moodMap: Record<string, string> = {
   happy: "😊",
@@ -55,9 +56,9 @@ const weatherMap: Record<string, string> = {
         </div>
         <div class="diary-body">
           <p>{content}</p>
-          {images.length > 0 && (
+          {validImages.length > 0 && (
             <div class="diary-images">
-              {images.map((img) => (
+              {validImages.map((img) => (
                 <img src={img} alt="Diary attachment" loading="lazy" />
               ))}
             </div>

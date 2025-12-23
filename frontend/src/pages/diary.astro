@@ -1,10 +1,29 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import DiaryCard from '../components/DiaryCard.astro';
-import diariesData from '../data/diaries.json';
+
+interface Diary {
+  date: string;
+  content: string;
+  mood: string;
+  weather: string;
+  images: string[];
+}
+
+let diaries: Diary[] = [];
+try {
+  const response = await fetch('http://127.0.0.1:8000/api/diaries');
+  if (response.ok) {
+    diaries = await response.json() as Diary[];
+  } else {
+    console.error(`Failed to fetch diaries: ${response.status} ${response.statusText}`);
+  }
+} catch (error) {
+  console.error('Failed to fetch diaries:', error);
+}
 
 // Sort diaries by date descending
-const diaries = diariesData.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+diaries = diaries.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
 ---
 
 <PageLayout title="Diary | Nayuki Blog">
