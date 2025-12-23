@@ -2,8 +2,28 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import ToolCard from '../components/ToolCard.astro';
 
+interface Tool {
+  name: string;
+  description: string;
+  url: string;
+  icon: string;
+  category: string;
+}
+
+let tools: Tool[] = [];
+try {
+  const response = await fetch('http://127.0.0.1:8000/api/tools');
+  if (response.ok) {
+    tools = await response.json() as Tool[];
+  } else {
+    console.error(`Failed to fetch tools: ${response.status} ${response.statusText}`);
+  }
+} catch (error) {
+  console.error('Failed to fetch tools:', error);
+}
+
 // Group tools by category
-const groupedTools = toolsData.reduce((acc: Record<string, typeof toolsData>, tool) => {
+const groupedTools = tools.reduce((acc: Record<string, Tool[]>, tool) => {
   const category = tool.category || 'Other';
   if (!acc[category]) {
     acc[category] = [];
@@ -26,7 +46,7 @@ const categories = Object.keys(groupedTools).sort();
           <h2 class="category-title">{category}</h2>
           <div class="tools-grid">
             {groupedTools[category].map((tools: any) => (
-              <ToolCard {...tool} />
+              <ToolCard {...tools} />
             ))}
           </div>
         </section>
