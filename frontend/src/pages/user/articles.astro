@@ -1,6 +1,6 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import PostCard from '../components/PostCard.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
+import PostCard from '../../components/User/articles/PostCard.astro';
 // import postsData from '../data/posts.json';
 
 interface Post {
@@ -18,6 +18,11 @@ try {
   const response = await fetch('http://127.0.0.1:8000/api/posts?limit=1000');
   if (response.ok) {
     posts = await response.json() as Post[];
+    // Update URLs to include /user prefix
+    posts = posts.map(post => ({
+      ...post,
+      url: post.url.startsWith('/posts/') ? `/user${post.url}` : post.url
+    }));
   } else {
     console.error(`Failed to fetch posts: ${response.status} ${response.statusText}`);
   }

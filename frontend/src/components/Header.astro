@@ -1,20 +1,20 @@
 ---
 const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/articles', label: 'Articles' }, // Changed from /posts to /articles
-  { href: '/projects', label: 'Projects' },
-  { href: '/diary', label: 'Diary' },
-  { href: '/library', label: 'Library' },
-  { href: '/gallery', label: 'Gallery' },
-  { href: '/todo', label: 'TODO' },
-  { href: '/toolbox', label: 'Tools' },
-  { href: '/about', label: 'About' },
+  { href: '/user', label: 'Home' },
+  { href: '/user/articles', label: 'Articles' },
+  { href: '/user/projects', label: 'Projects' },
+  { href: '/user/diary', label: 'Diary' },
+  { href: '/user/library', label: 'Library' },
+  { href: '/user/gallery', label: 'Gallery' },
+  { href: '/user/todo', label: 'TODO' },
+  { href: '/user/toolbox', label: 'Tools' },
+  { href: '/user/about', label: 'About' },
 ];
 ---
 
 <header class="site-header">
   <div class="header-container">
-    <a href="/" class="site-title">Nayuki Blog</a>
+    <a href="/user" class="site-title">Nayuki Blog</a>
     <nav>
       <ul class="nav-list">
         {navItems.map(item => (
