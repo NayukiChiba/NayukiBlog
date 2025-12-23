@@ -7,31 +7,56 @@ import GithubActivity from '../components/GithubActivity.astro';
 import TodoCard from '../components/TodoCard.astro';
 import DiaryCard from '../components/DiaryCard.astro';
 
-import postsData from '../data/posts.json';
-import projectsData from '../data/projects.json';
+// import postsData from '../data/posts.json';
+// import projectsData from '../data/projects.json';
 import todosData from '../data/todos.json';
-import diariesData from '../data/diaries.json';
+// import diariesData from '../data/diaries.json';
 
-const posts = postsData
-  .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
-  .slice(0, 3);
+let posts = [];
+try {
+  const res = await fetch('http://127.0.0.1:8000/api/posts');
+  if (res.ok) posts = await res.json();
+} catch (e) { console.error(e); }
+posts = posts.sort((a: any, b: any) => new Date(b.date).valueOf() - new Date(a.date).valueOf()).slice(0, 3);
 
-// Get today's diary
-const now = new Date();
-const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-const todaysDiary = diariesData.find(d => d.date === todayStr);
+let projects = [];
+try {
+  const res = await fetch('http://127.0.0.1:8000/api/projects');
+  if (res.ok) {
+    const data = await res.json();
+    // Note: API returns 'in-progress' (lowercase) usually, but let's check data. 
+    // In projects.json it was 'In Progress' or 'in-progress'?
+    // In projects.json it was "status": "in-progress".
+    // But in index.astro original code: project.status === 'In Progress'.
+    // Wait, let's check projects.json content again.
+    // I read it in previous turn.
+    // It said "status": "in-progress".
+    // But index.astro had: const filteredProjects = projectsData.filter(project => project.status === 'In Progress');
+    // This implies the original code might have been wrong or I misread json?
+    // Let's assume 'in-progress' is correct based on json file I read.
+    const filtered = data.filter((p: any) => p.status === 'in-progress' || p.status === 'In Progress'); 
+    const display = filtered.length > 0 ? filtered : data;
+    projects = display.slice(0, 2).map((p: any) => ({
+      title: p.name,
+      desc: p.description,
+      url: p.link,
+      tech: p.techStack
+    }));
+  }
+} catch (e) { console.error(e); }
 
-const filteredProjects = projectsData.filter(project => project.status === 'In Progress');
-const displayProjects = filteredProjects.length > 0 ? filteredProjects : projectsData;
-
-const projects = displayProjects
-  .slice(0, 2)
-  .map((project) => ({
-    title: project.name,
-    desc: project.description,
-    url: project.link,
-    tech: project.techStack
-  }));
+let latestDiary = null;
+try {
+  const res = await fetch('http://127.0.0.1:8000/api/diaries');
+  if (res.ok) {
+    const data = await res.json();
+    // Sort by date descending
+    const sorted = data.sort((a: any, b: any) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+    if (sorted.length > 0) {
+      latestDiary = sorted[0];
+    }
+  }
+} catch (e) { console.error(e); }
 ---
 
 <PageLayout title="Nayuki Blog">
@@ -54,15 +79,15 @@ const projects = displayProjects
 
     <div class="divider"></div>
 
-    <!-- Today's Diary (Conditional) -->
-    {todaysDiary && (
+    <!-- Latest Diary (Conditional) -->
+    {latestDiary && (
       <section class="section-block">
         <div class="section-header">
-          <h2 class="section-title">Today's Diary</h2>
+          <h2 class="section-title">Latest Diary</h2>
           <a href="/diary" class="view-all">View all →</a>
         </div>
         <div class="diary-preview">
-          <DiaryCard {...todaysDiary} />
+          <DiaryCard {...latestDiary} />
         </div>
       </section>
     )}
