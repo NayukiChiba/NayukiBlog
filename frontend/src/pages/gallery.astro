@@ -1,6 +1,25 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import galleryData from '../data/gallery.json';
+// import galleryData from '../data/gallery.json';
+
+interface GalleryItem {
+  title?: string;
+  url: string;
+  date?: string;
+  tags?: string[];
+}
+
+let gallery: GalleryItem[] = [];
+try {
+  const response = await fetch('http://127.0.0.1:8000/api/gallery?limit=10');
+  if (response.ok) {
+    gallery = await response.json() as GalleryItem[];
+  } else {
+    console.error(`Failed to fetch gallery: ${response.status} ${response.statusText}`);
+  }
+} catch (error) {
+  console.error('Failed to fetch gallery:', error);
+}
 ---
 
 <PageLayout title="Gallery | Nayuki Blog">
@@ -9,7 +28,7 @@ import galleryData from '../data/gallery.json';
     <p>收集我喜欢的图片与摄影作品。</p>
     
     <div class="gallery-masonry">
-      {galleryData.map((item) => (
+      {gallery.map((item) => (
         <div class="gallery-item group">
           <img src={item.url} alt={item.title} loading="lazy" />
           <div class="overlay">
