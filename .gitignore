@@ -50,3 +50,6 @@ venv.bak/
 # data
 data/
 posts/
+
+tests/
+blog.db
