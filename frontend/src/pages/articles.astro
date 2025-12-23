@@ -1,18 +1,39 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import PostCard from '../components/PostCard.astro';
-import postsData from '../data/posts.json';
+// import postsData from '../data/posts.json';
 
-const posts = postsData
-  .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+interface Post {
+  title: string;
+  date: string;
+  desc: string;
+  url: string;
+  tags: string[];
+  image: string;
+  folder: string;
+}
 
-const tagCounts = posts.flatMap(post => post.tags || []).reduce((acc: Record<string, number>, tag) => {
+let posts: Post[] = [];
+try {
+  const response = await fetch('http://127.0.0.1:8000/api/posts?limit=1000');
+  if (response.ok) {
+    posts = await response.json() as Post[];
+  } else {
+    console.error(`Failed to fetch posts: ${response.status} ${response.statusText}`);
+  }
+} catch (error) {
+  console.error('Failed to fetch posts:', error);
+}
+
+posts = posts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+
+const tagCounts = posts.flatMap(post => post.tags || []).reduce<Record<string, number>>((acc, tag) => {
   acc[tag] = (acc[tag] || 0) + 1;
   return acc;
 }, {});
 
 const tagsWithCount = Object.entries(tagCounts)
-  .map(([tag, count]) => ({ tag, count }))
+  .map(([tag, count]) => ({ tag, count: count as number }))
   .sort((a, b) => a.tag.localeCompare(b.tag));
 
 const maxCount = Math.max(...tagsWithCount.map(t => t.count));
