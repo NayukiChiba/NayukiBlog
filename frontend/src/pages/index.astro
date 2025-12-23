@@ -7,14 +7,26 @@ import GithubActivity from '../components/GithubActivity.astro';
 import TodoCard from '../components/TodoCard.astro';
 import DiaryCard from '../components/DiaryCard.astro';
 
-import postsData from '../data/posts.json';
+// import postsData from '../data/posts.json'; // Removed
 import projectsData from '../data/projects.json';
 import todosData from '../data/todos.json';
 import diariesData from '../data/diaries.json';
 
-const posts = postsData
-  .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
-  .slice(0, 3);
+let posts = [];
+try {
+  // 尝试使用 /api/posts 路径，并添加错误日志
+  const response = await fetch('http://127.0.0.1:8000/api/posts');
+  if (response.ok) {
+    const data = await response.json();
+    posts = data
+      .sort((a: any, b: any) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
+      .slice(0, 3);
+  } else {
+    console.error(`Failed to fetch posts: ${response.status} ${response.statusText}`);
+  }
+} catch (error) {
+  console.error('Failed to fetch posts:', error);
+}
 
 // Get today's diary
 const now = new Date();
