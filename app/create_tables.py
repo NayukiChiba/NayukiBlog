@@ -14,6 +14,7 @@ def create_tables():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         cover TEXT,
+        url TEXT,
         status TEXT,
         rating INTEGER,
         tags TEXT -- Stored as JSON string or comma-separated values

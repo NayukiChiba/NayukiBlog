@@ -15,6 +15,7 @@ def parse_json_list(v):
 class BookBase(BaseModel):
     title: str
     cover: Optional[str] = None
+    url: Optional[str] = None
     status: Optional[str] = None
     rating: Optional[int] = None
     tags: Optional[List[str]] = []
