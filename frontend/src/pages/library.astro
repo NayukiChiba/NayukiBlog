@@ -1,7 +1,28 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import BookCard from '../components/BookCard.astro';
-import booksData from '../data/books.json';
+// import booksData from '../data/books.json';
+
+interface Book {
+  title: string;
+  cover: string;
+  url: string;
+  status: string;
+  rating: number;
+  tags: string[];
+}
+
+let books: Book[] = [];
+try {
+  const response = await fetch('http://127.0.0.1:8000/api/books');
+  if (response.ok) {
+    books = await response.json() as Book[];
+  } else {
+    console.error(`Failed to fetch books: ${response.status} ${response.statusText}`);
+  }
+} catch (error) {
+  console.error('Failed to fetch books:', error);
+}
 ---
 
 <PageLayout title="Library | Nayuki Blog">
@@ -10,11 +31,12 @@ import booksData from '../data/books.json';
     <p class="page-desc">我的阅读清单与书籍收藏。</p>
     
     <div class="books-grid">
-      {booksData.map((book) => (
+      {books.map((book) => (
         <BookCard 
           title={book.title} 
           cover={book.cover} 
           tags={book.tags}
+          url={book.url}
         />
       ))}
     </div>
