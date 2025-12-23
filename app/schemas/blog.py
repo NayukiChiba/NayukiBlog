@@ -130,3 +130,8 @@ class Tool(ToolBase):
     id: int
     class Config:
         from_attributes = True
+
+# --- Auth ---
+class LoginRequest(BaseModel):
+    username: str
+    password: str
