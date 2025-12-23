@@ -10,14 +10,26 @@ const navItems = [
   { href: '/user/toolbox', label: 'Tools' },
   { href: '/user/about', label: 'About' },
 ];
+
+const adminNavItems = [
+  { href: '/admin', label: 'Dashboard' },
+  { href: '/admin/articles', label: 'Manage Articles' },
+  { href: '/admin/uploads', label: 'Uploads' },
+  { href: '/admin/settings', label: 'Settings' },
+];
+
+const isAdmin = Astro.url.pathname.startsWith('/admin');
+const currentNavItems = isAdmin ? adminNavItems : navItems;
+const homeLink = isAdmin ? '/admin' : '/user';
+const siteTitle = isAdmin ? 'Nayuki Admin' : 'Nayuki Blog';
 ---
 
 <header class="site-header">
   <div class="header-container">
-    <a href="/user" class="site-title">Nayuki Blog</a>
+    <a href={homeLink} class="site-title">{siteTitle}</a>
     <nav>
       <ul class="nav-list">
-        {navItems.map(item => (
+        {currentNavItems.map(item => (
           <li>
             <a href={item.href} class={Astro.url.pathname === item.href ? 'active' : ''}>
               {item.label}

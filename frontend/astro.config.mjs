@@ -3,9 +3,14 @@ import mdx from '@astrojs/mdx';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'static',
+  adapter: node({
+    mode: 'standalone',
+  }),
   // 5. 集成 MDX 以支持内嵌 Astro 组件
   integrations: [
     mdx(),
