@@ -1,19 +1,40 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import projectsData from '../data/projects.json';
+// import projectsData from '../data/projects.json';
+
+interface Project {
+  name: string;
+  description: string;
+  link: string;
+  techStack: string[];
+  image: string;
+  status: string;
+}
+
+let projects: Project[] = [];
+try {
+  const response = await fetch('http://127.0.0.1:8000/api/projects');
+  if (response.ok) {
+    projects = await response.json() as Project[];
+  } else {
+    console.error(`Failed to fetch projects: ${response.status} ${response.statusText}`);
+  }
+} catch (error) {
+  console.error('Failed to fetch projects:', error);
+}
 
 // Helper to map data format
-const mapProject = (p: any) => ({
+const mapProject = (p: Project) => ({
   title: p.name,
   desc: p.description,
   url: p.link,
   tech: p.techStack
 });
 
-const inProgressProjects = projectsData.filter(p => p.status === 'in-progress').map(mapProject);
-const completedProjects = projectsData.filter(p => p.status === 'completed').map(mapProject);
-const planningProjects = projectsData.filter(p => p.status === 'planning').map(mapProject);
+const inProgressProjects = projects.filter(p => p.status === 'in-progress').map(mapProject);
+const completedProjects = projects.filter(p => p.status === 'completed').map(mapProject);
+const planningProjects = projects.filter(p => p.status === 'planning').map(mapProject);
 ---
 
 <PageLayout title="Projects | Nayuki Blog">
