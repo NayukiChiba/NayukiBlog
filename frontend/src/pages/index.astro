@@ -7,31 +7,54 @@ import GithubActivity from '../components/GithubActivity.astro';
 import TodoCard from '../components/TodoCard.astro';
 import DiaryCard from '../components/DiaryCard.astro';
 
-import postsData from '../data/posts.json';
-import projectsData from '../data/projects.json';
+// import postsData from '../data/posts.json'; // Removed
+// import projectsData from '../data/projects.json';
 import todosData from '../data/todos.json';
 import diariesData from '../data/diaries.json';
 
-const posts = postsData
-  .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
-  .slice(0, 3);
+let posts = [];
+try {
+  // 尝试使用 /api/posts 路径，并添加错误日志
+  const response = await fetch('http://127.0.0.1:8000/api/posts');
+  if (response.ok) {
+    const data = await response.json();
+    posts = data
+      .sort((a: any, b: any) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
+      .slice(0, 3);
+  } else {
+    console.error(`Failed to fetch posts: ${response.status} ${response.statusText}`);
+  }
+} catch (error) {
+  console.error('Failed to fetch posts:', error);
+}
+
+let projects = [];
+try {
+  const response = await fetch('http://127.0.0.1:8000/api/projects');
+  if (response.ok) {
+    const data = await response.json();
+    const filteredProjects = data.filter((project: any) => project.status === 'In Progress');
+    const displayProjects = filteredProjects.length > 0 ? filteredProjects : data;
+
+    projects = displayProjects
+      .slice(0, 2)
+      .map((project: any) => ({
+        title: project.name,
+        desc: project.description,
+        url: project.link,
+        tech: project.techStack
+      }));
+  } else {
+    console.error(`Failed to fetch projects: ${response.status} ${response.statusText}`);
+  }
+} catch (error) {
+  console.error('Failed to fetch projects:', error);
+}
 
 // Get today's diary
 const now = new Date();
 const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 const todaysDiary = diariesData.find(d => d.date === todayStr);
-
-const filteredProjects = projectsData.filter(project => project.status === 'In Progress');
-const displayProjects = filteredProjects.length > 0 ? filteredProjects : projectsData;
-
-const projects = displayProjects
-  .slice(0, 2)
-  .map((project) => ({
-    title: project.name,
-    desc: project.description,
-    url: project.link,
-    tech: project.techStack
-  }));
 ---
 
 <PageLayout title="Nayuki Blog">
@@ -87,7 +110,7 @@ const projects = displayProjects
         <a href="/projects" class="view-all">View all →</a>
       </div>
       <div class="project-grid">
-        {projects.map(project => (
+        {projects.map((project: any) => (
           <ProjectCard {...project} />
         ))}
       </div>
