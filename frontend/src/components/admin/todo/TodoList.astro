@@ -1,0 +1,196 @@
+---
+---
+<div class="todo-list-card">
+    <div class="card-header">
+        <span>Todo List</span>
+        <span class="count" id="todo-count">0 tasks</span>
+    </div>
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Task</th>
+                    <th>Priority</th>
+                    <th>Type</th>
+                    <th>Progress</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="todo-table-body">
+                <tr><td colspan="6" class="loading-text">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    interface Todo {
+        id: number;
+        task: string;
+        completed: boolean;
+        priority?: string;
+        type?: string;
+        progress: number;
+        icon?: string;
+    }
+
+    async function fetchTodos() {
+        const tbody = document.getElementById('todo-table-body');
+        const countSpan = document.getElementById('todo-count');
+        if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="loading-text">Loading...</td></tr>';
+
+        try {
+            const res = await fetch('/api/todos');
+            if (!res.ok) throw new Error('Failed to fetch');
+            const todos: Todo[] = await res.json();
+
+            if (countSpan) countSpan.textContent = `${todos.length} tasks`;
+
+            if (tbody) {
+                tbody.innerHTML = todos.map(todo => `
+                    <tr>
+                        <td>
+                            <span class="status-dot ${todo.completed ? 'completed' : 'pending'}"></span>
+                            ${todo.completed ? 'Done' : 'Pending'}
+                        </td>
+                        <td>
+                            ${todo.icon ? `<i class="${todo.icon}"></i> ` : ''}
+                            ${todo.task}
+                        </td>
+                        <td><span class="priority-badge ${todo.priority?.toLowerCase() || 'normal'}">${todo.priority || 'Normal'}</span></td>
+                        <td>${todo.type || '-'}</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${todo.progress}%"></div>
+                            </div>
+                            <span class="progress-text">${todo.progress}%</span>
+                        </td>
+                        <td>
+                            <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        } catch (error) {
+            console.error(error);
+            if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="error-text">Failed to load todos.</td></tr>';
+        }
+    }
+
+    fetchTodos();
+</script>
+
+<style>
+    .todo-list-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #303133;
+    }
+
+    .count {
+        font-size: 14px;
+        color: #909399;
+        font-weight: normal;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .admin-table th {
+        text-align: left;
+        padding: 12px 0;
+        color: #909399;
+        font-weight: 500;
+        border-bottom: 1px solid #ebeef5;
+    }
+
+    .admin-table td {
+        padding: 12px 0;
+        border-bottom: 1px solid #ebeef5;
+        color: #606266;
+        vertical-align: middle;
+    }
+
+    .status-dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 6px;
+    }
+    .status-dot.completed { background: #67c23a; }
+    .status-dot.pending { background: #e6a23c; }
+
+    .priority-badge {
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        background: #f4f4f5;
+        color: #909399;
+    }
+    .priority-badge.high { background: #fef0f0; color: #f56c6c; }
+    .priority-badge.medium { background: #fdf6ec; color: #e6a23c; }
+    .priority-badge.low { background: #f0f9eb; color: #67c23a; }
+
+    .progress-bar {
+        width: 100px;
+        height: 6px;
+        background: #ebeef5;
+        border-radius: 3px;
+        display: inline-block;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: #409eff;
+        border-radius: 3px;
+    }
+
+    .progress-text {
+        font-size: 12px;
+        color: #909399;
+    }
+
+    .btn-icon {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px 8px;
+        font-size: 14px;
+        transition: color 0.3s;
+    }
+
+    .btn-icon.edit { color: #409eff; }
+    .btn-icon.edit:hover { color: #66b1ff; }
+    .btn-icon.delete { color: #f56c6c; }
+    .btn-icon.delete:hover { color: #f78989; }
+
+    .loading-text, .error-text {
+        text-align: center;
+        padding: 20px;
+        color: #909399;
+    }
+    .error-text { color: #f56c6c; }
+</style>

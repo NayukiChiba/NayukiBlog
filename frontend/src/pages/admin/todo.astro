@@ -1,0 +1,88 @@
+---
+export const prerender = false;
+
+import Header from '../../components/Header.astro';
+import Sidebar from '../../components/admin/Sidebar.astro';
+import TodoList from '../../components/admin/todo/TodoList.astro';
+
+// Auth check
+const authCookie = Astro.cookies.get('auth_token');
+if (!authCookie || authCookie.value !== 'authorized') {
+  return Astro.redirect('/admin/login', 302);
+}
+---
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Management - Nayuki Blog Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <Header />
+    
+    <main class="admin-container">
+        <Sidebar />
+
+        <div class="content-area">
+            <div class="page-header">
+                <h2>Todo Management</h2>
+                <button id="btn-new-todo" class="btn-primary"><i class="fas fa-plus"></i> New Task</button>
+            </div>
+
+            <TodoList />
+        </div>
+    </main>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: calc(100vh - 60px);
+        }
+
+        .content-area {
+            flex-grow: 1;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .page-header h2 {
+            margin: 0;
+            color: #303133;
+            font-size: 24px;
+        }
+
+        .btn-primary {
+            background: #409eff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #66b1ff;
+        }
+    </style>
+</body>
+</html>

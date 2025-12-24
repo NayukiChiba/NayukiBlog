@@ -1,0 +1,118 @@
+---
+export const prerender = false;
+
+import Header from '../../components/Header.astro';
+import Sidebar from '../../components/admin/Sidebar.astro';
+import CategoryFilter from '../../components/admin/articles/CategoryFilter.astro';
+import FilterControls from '../../components/admin/articles/FilterControls.astro';
+import ArticleList from '../../components/admin/articles/ArticleList.astro';
+import UploadArticleDialog from '../../components/admin/articles/UploadArticleDialog.astro';
+
+// Auth check
+const authCookie = Astro.cookies.get('auth_token');
+if (!authCookie || authCookie.value !== 'authorized') {
+  return Astro.redirect('/admin/login', 302);
+}
+---
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Management - Nayuki Blog Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <Header />
+    
+    <main class="admin-container">
+        <Sidebar />
+
+        <div class="content-area">
+            <div class="page-header">
+                <h2>Article Management</h2>
+                <button id="btn-new-article" class="btn-primary"><i class="fas fa-plus"></i> New Article</button>
+            </div>
+
+            <div class="filters-container">
+                <div class="filter-column">
+                    <CategoryFilter />
+                </div>
+                <div class="filter-column">
+                    <FilterControls />
+                </div>
+            </div>
+
+            <ArticleList />
+            <UploadArticleDialog />
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('btn-new-article')?.addEventListener('click', () => {
+            document.dispatchEvent(new CustomEvent('open-upload-modal'));
+        });
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: calc(100vh - 60px); /* Adjust based on header height */
+        }
+
+        .content-area {
+            flex-grow: 1;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .page-header h2 {
+            margin: 0;
+            color: #303133;
+            font-size: 24px;
+        }
+
+        .filters-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filter-column {
+            flex: 1;
+            min-width: 0; /* Prevent flex item overflow */
+        }
+
+        .btn-primary {
+            background: #409eff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #66b1ff;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,175 @@
+---
+---
+<div class="tool-list-card">
+    <div class="card-header">
+        <span>Tool List</span>
+        <span class="count" id="tool-count">0 tools</span>
+    </div>
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Icon</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Link</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tool-table-body">
+                <tr><td colspan="6" class="loading-text">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    interface Tool {
+        id: number;
+        name: string;
+        description?: string;
+        url?: string;
+        icon?: string;
+        category?: string;
+    }
+
+    async function fetchTools() {
+        const tbody = document.getElementById('tool-table-body');
+        const countSpan = document.getElementById('tool-count');
+        if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="loading-text">Loading...</td></tr>';
+
+        try {
+            const res = await fetch('/api/tools');
+            if (!res.ok) throw new Error('Failed to fetch');
+            const tools: Tool[] = await res.json();
+
+            if (countSpan) countSpan.textContent = `${tools.length} tools`;
+
+            if (tbody) {
+                tbody.innerHTML = tools.map(tool => `
+                    <tr>
+                        <td>${tool.icon ? `<img src="${tool.icon}" alt="icon" class="tool-icon"/>` : '<div class="no-icon"><i class="fas fa-tools"></i></div>'}</td>
+                        <td>${tool.name}</td>
+                        <td class="truncate" title="${tool.description || ''}">${tool.description || '-'}</td>
+                        <td><span class="category-badge">${tool.category || 'Uncategorized'}</span></td>
+                        <td>${tool.url ? `<a href="${tool.url}" target="_blank"><i class="fas fa-external-link-alt"></i></a>` : '-'}</td>
+                        <td>
+                            <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        } catch (error) {
+            console.error(error);
+            if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="error-text">Failed to load tools.</td></tr>';
+        }
+    }
+
+    fetchTools();
+</script>
+
+<style>
+    .tool-list-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #303133;
+    }
+
+    .count {
+        font-size: 14px;
+        color: #909399;
+        font-weight: normal;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .admin-table th {
+        text-align: left;
+        padding: 12px 0;
+        color: #909399;
+        font-weight: 500;
+        border-bottom: 1px solid #ebeef5;
+    }
+
+    .admin-table td {
+        padding: 12px 0;
+        border-bottom: 1px solid #ebeef5;
+        color: #606266;
+        vertical-align: middle;
+    }
+
+    .tool-icon {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+        border-radius: 4px;
+    }
+
+    .no-icon {
+        width: 32px;
+        height: 32px;
+        background: #f0f2f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #909399;
+        border-radius: 4px;
+    }
+
+    .truncate {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .category-badge {
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        background: #ecf5ff;
+        color: #409eff;
+    }
+
+    .btn-icon {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px 8px;
+        font-size: 14px;
+        transition: color 0.3s;
+    }
+
+    .btn-icon.edit { color: #409eff; }
+    .btn-icon.edit:hover { color: #66b1ff; }
+    .btn-icon.delete { color: #f56c6c; }
+    .btn-icon.delete:hover { color: #f78989; }
+
+    .loading-text, .error-text {
+        text-align: center;
+        padding: 20px;
+        color: #909399;
+    }
+    .error-text { color: #f56c6c; }
+</style>

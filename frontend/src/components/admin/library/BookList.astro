@@ -1,0 +1,186 @@
+---
+---
+<div class="book-list-card">
+    <div class="card-header">
+        <span>Library List</span>
+        <span class="count" id="book-count">0 books</span>
+    </div>
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Cover</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Rating</th>
+                    <th>Tags</th>
+                    <th>Link</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="book-table-body">
+                <tr><td colspan="7" class="loading-text">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    interface Book {
+        id: number;
+        title: string;
+        cover?: string;
+        url?: string;
+        status?: string;
+        rating?: number;
+        tags?: string[];
+    }
+
+    async function fetchBooks() {
+        const tbody = document.getElementById('book-table-body');
+        const countSpan = document.getElementById('book-count');
+        if(tbody) tbody.innerHTML = '<tr><td colspan="7" class="loading-text">Loading...</td></tr>';
+
+        try {
+            const res = await fetch('/api/books');
+            if (!res.ok) throw new Error('Failed to fetch');
+            const books: Book[] = await res.json();
+
+            if (countSpan) countSpan.textContent = `${books.length} books`;
+
+            if (tbody) {
+                tbody.innerHTML = books.map(book => `
+                    <tr>
+                        <td>${book.cover ? `<img src="${book.cover}" alt="cover" class="book-cover"/>` : '<div class="no-cover"><i class="fas fa-book"></i></div>'}</td>
+                        <td>${book.title}</td>
+                        <td><span class="status-badge ${book.status?.toLowerCase() || 'unknown'}">${book.status || 'Unknown'}</span></td>
+                        <td>${book.rating ? '★'.repeat(book.rating) : '-'}</td>
+                        <td>${book.tags ? book.tags.map(t => `<span class="tag">${t}</span>`).join('') : '-'}</td>
+                        <td>${book.url ? `<a href="${book.url}" target="_blank"><i class="fas fa-external-link-alt"></i></a>` : '-'}</td>
+                        <td>
+                            <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        } catch (error) {
+            console.error(error);
+            if(tbody) tbody.innerHTML = '<tr><td colspan="7" class="error-text">Failed to load books.</td></tr>';
+        }
+    }
+
+    fetchBooks();
+</script>
+
+<style>
+    .book-list-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #303133;
+    }
+
+    .count {
+        font-size: 14px;
+        color: #909399;
+        font-weight: normal;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .admin-table th {
+        text-align: left;
+        padding: 12px 0;
+        color: #909399;
+        font-weight: 500;
+        border-bottom: 1px solid #ebeef5;
+    }
+
+    .admin-table td {
+        padding: 12px 0;
+        border-bottom: 1px solid #ebeef5;
+        color: #606266;
+        vertical-align: middle;
+    }
+
+    .book-cover {
+        width: 40px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .no-cover {
+        width: 40px;
+        height: 60px;
+        background: #f0f2f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #909399;
+        border-radius: 4px;
+    }
+
+    .status-badge {
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        background: #f4f4f5;
+        color: #909399;
+    }
+
+    .status-badge.reading { background: #ecf5ff; color: #409eff; }
+    .status-badge.completed { background: #f0f9eb; color: #67c23a; }
+    .status-badge.wishlist { background: #fdf6ec; color: #e6a23c; }
+
+    .tag {
+        display: inline-block;
+        background: #f4f4f5;
+        color: #909399;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-right: 4px;
+        margin-bottom: 4px;
+    }
+
+    .btn-icon {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px 8px;
+        font-size: 14px;
+        transition: color 0.3s;
+    }
+
+    .btn-icon.edit { color: #409eff; }
+    .btn-icon.edit:hover { color: #66b1ff; }
+    .btn-icon.delete { color: #f56c6c; }
+    .btn-icon.delete:hover { color: #f78989; }
+
+    .loading-text, .error-text {
+        text-align: center;
+        padding: 20px;
+        color: #909399;
+    }
+    .error-text { color: #f56c6c; }
+</style>

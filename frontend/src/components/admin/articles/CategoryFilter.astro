@@ -1,0 +1,195 @@
+---
+---
+<div class="category-card">
+    <div class="card-header">
+        <span>Categories</span>
+        <button id="refresh-categories" class="btn-icon"><i class="fas fa-sync-alt"></i></button>
+    </div>
+    <div class="category-tree" id="category-tree">
+        <div class="loading">Loading...</div>
+    </div>
+</div>
+
+<script>
+    interface Category {
+        path: string;
+        [key: string]: any;
+    }
+
+    interface CategoryNode {
+        path: string;
+        label: string;
+        children: CategoryNode[];
+    }
+
+    let categories: Category[] = [];
+
+    // Listen for data from ArticleList
+    document.addEventListener('articles-data-loaded', (e: any) => {
+        const { categories } = e.detail;
+        const tree = buildTree(categories);
+        renderTree(tree);
+    });
+
+    function buildTree(categories: Category[]): CategoryNode[] {
+        const root: CategoryNode[] = [];
+        const map = new Map<string, CategoryNode>();
+
+        // Filter valid categories
+        const validCats = categories.filter(c => c.path && !c.path.includes('error'));
+
+        // Create nodes for all paths
+        const allPaths = new Set<string>();
+        validCats.forEach(c => {
+            const parts = c.path.split('/');
+            let current = '';
+            parts.forEach(p => {
+                if(!p) return;
+                current = current ? `${current}/${p}` : p;
+                allPaths.add(current);
+            });
+        });
+
+        const sortedPaths = Array.from(allPaths).sort();
+
+        sortedPaths.forEach(path => {
+            const parts = path.split('/');
+            const label = parts[parts.length - 1];
+            const parentPath = parts.slice(0, -1).join('/');
+            
+            const node: CategoryNode = { path, label, children: [] };
+            map.set(path, node);
+
+            if (parentPath && map.has(parentPath)) {
+                map.get(parentPath)!.children.push(node);
+            } else {
+                root.push(node);
+            }
+        });
+
+        return root;
+    }
+
+    function renderTree(nodes: CategoryNode[], container: HTMLElement | null = null) {
+        const treeContainer = container || document.getElementById('category-tree');
+        if (!treeContainer) return;
+        
+        if (!container) treeContainer.innerHTML = ''; // Clear if root
+
+        if (nodes.length === 0) {
+            if (!container) treeContainer.innerHTML = '<div class="empty">No categories</div>';
+            return;
+        }
+
+        const ul = document.createElement('ul');
+        ul.className = 'tree-ul';
+
+        nodes.forEach(node => {
+            const li = document.createElement('li');
+            li.className = 'tree-li';
+            
+            const content = document.createElement('div');
+            content.className = 'tree-content';
+            content.innerHTML = `<span class="tree-label">${node.label}</span>`;
+            content.onclick = (e) => {
+                e.stopPropagation();
+                // Toggle selection
+                document.querySelectorAll('.tree-content').forEach(el => el.classList.remove('selected'));
+                content.classList.add('selected');
+                document.dispatchEvent(new CustomEvent('filter-changed', { detail: { category: node.path } }));
+            };
+
+            li.appendChild(content);
+
+            if (node.children.length > 0) {
+                renderTree(node.children, li);
+            }
+
+            ul.appendChild(li);
+        });
+
+        treeContainer.appendChild(ul);
+    }
+
+    document.getElementById('refresh-categories')?.addEventListener('click', () => {
+        const treeContainer = document.getElementById('category-tree');
+        if(treeContainer) treeContainer.innerHTML = '<div class="loading">Refreshing...</div>';
+        document.dispatchEvent(new CustomEvent('refresh-articles'));
+    });
+
+    // Removed DOMContentLoaded fetch as we now wait for ArticleList to load data
+</script>
+
+<style>
+    .category-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,0.05);
+        height: 100%;
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-header {
+        padding: 12px 20px;
+        border-bottom: 1px solid #ebeef5;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+    }
+
+    .category-tree {
+        padding: 10px;
+        overflow-y: auto;
+        flex-grow: 1;
+    }
+
+    .btn-icon {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #909399;
+    }
+    .btn-icon:hover { color: #409eff; }
+
+    /* Tree Styles */
+    :global(.tree-ul) {
+        list-style: none;
+        padding-left: 20px;
+        margin: 0;
+    }
+    :global(.category-tree > .tree-ul) {
+        padding-left: 0;
+    }
+
+    :global(.tree-li) {
+        margin: 2px 0;
+    }
+
+    :global(.tree-content) {
+        padding: 6px 8px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+    }
+
+    :global(.tree-content:hover) {
+        background-color: #f5f7fa;
+    }
+
+    :global(.tree-content.selected) {
+        background-color: #ecf5ff;
+        color: #409eff;
+    }
+
+    .loading, .error, .empty {
+        padding: 20px;
+        text-align: center;
+        color: #909399;
+        font-size: 14px;
+    }
+</style>
