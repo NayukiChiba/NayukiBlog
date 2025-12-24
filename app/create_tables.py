@@ -96,6 +96,15 @@ def create_tables():
     );
     """)
 
+    # 8. Admins Table
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS admins (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL
+    );
+    """)
+
     conn.commit()
     conn.close()
     print(f"Database {DB_FILE} created and tables initialized successfully.")
