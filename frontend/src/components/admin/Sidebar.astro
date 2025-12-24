@@ -1,0 +1,112 @@
+---
+const navItems = [
+  { href: '/admin', label: 'Dashboard', icon: 'fa-home' },
+  { href: '/admin/articles', label: 'Articles', icon: 'fa-file-alt' },
+  { href: '/admin/projects', label: 'Projects', icon: 'fa-project-diagram' },
+  { href: '/admin/diary', label: 'Diary', icon: 'fa-book' },
+  { href: '/admin/library', label: 'Library', icon: 'fa-book-open' },
+  { href: '/admin/gallery', label: 'Gallery', icon: 'fa-images' },
+  { href: '/admin/todo', label: 'Todo', icon: 'fa-check-square' },
+  { href: '/admin/tools', label: 'Tools', icon: 'fa-tools' },
+  { href: '/admin/about', label: 'About', icon: 'fa-user' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<aside class="admin-sidebar">
+    <div class="user-profile">
+        <div class="avatar">A</div>
+        <div class="info">
+            <h3>Administrator</h3>
+            <span class="role">Super Admin</span>
+        </div>
+    </div>
+    <nav class="side-nav">
+        {navItems.map(item => (
+            <a href={item.href} class={currentPath === item.href || (item.href !== '/admin' && currentPath.startsWith(item.href)) ? 'active' : ''}>
+                <i class={`fas ${item.icon}`}></i> {item.label}
+            </a>
+        ))}
+    </nav>
+</aside>
+
+<style>
+    .admin-sidebar {
+        width: 260px;
+        background: var(--sidebar-bg, #ffffff);
+        border-right: 1px solid var(--border-color, #e5e7eb); /* 改为右边框 */
+        padding: 2rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        flex-shrink: 0;
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--border-color, #e5e7eb);
+    }
+
+    .avatar {
+        width: 48px;
+        height: 48px;
+        background: var(--primary-color, #2563eb);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .user-profile .info h3 {
+        margin: 0;
+        font-size: 1rem;
+        color: var(--text-main, #1f2937);
+    }
+
+    .user-profile .role {
+        font-size: 0.8rem;
+        color: var(--text-muted, #6b7280);
+    }
+
+    .side-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .side-nav a {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        color: var(--text-main, #1f2937);
+        text-decoration: none;
+        border-radius: 6px;
+        transition: all 0.2s;
+    }
+
+    .side-nav a:hover, .side-nav a.active {
+        background-color: #eff6ff;
+        color: var(--primary-color, #2563eb);
+    }
+
+    .side-nav i {
+        width: 20px;
+        text-align: center;
+    }
+
+    @media (max-width: 900px) {
+        .admin-sidebar {
+            width: auto;
+            border-right: none; /* 移动端移除右边框 */
+            border-bottom: 1px solid var(--border-color, #e5e7eb);
+        }
+    }
+</style>

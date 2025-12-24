@@ -11,33 +11,29 @@ const navItems = [
   { href: '/user/about', label: 'About' },
 ];
 
-const adminNavItems = [
-  { href: '/admin', label: 'Dashboard' },
-  { href: '/admin/articles', label: 'Manage Articles' },
-  { href: '/admin/uploads', label: 'Uploads' },
-  { href: '/admin/settings', label: 'Settings' },
-];
-
 const isAdmin = Astro.url.pathname.startsWith('/admin');
-const currentNavItems = isAdmin ? adminNavItems : navItems;
+// Admin 页面不显示导航项
+const currentNavItems = isAdmin ? [] : navItems;
 const homeLink = isAdmin ? '/admin' : '/user';
 const siteTitle = isAdmin ? 'Nayuki Admin' : 'Nayuki Blog';
 ---
 
 <header class="site-header">
-  <div class="header-container">
+  <div class:list={['header-container', { 'admin-center': isAdmin }]}>
     <a href={homeLink} class="site-title">{siteTitle}</a>
-    <nav>
-      <ul class="nav-list">
-        {currentNavItems.map(item => (
-          <li>
-            <a href={item.href} class={Astro.url.pathname === item.href ? 'active' : ''}>
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    {currentNavItems.length > 0 && (
+      <nav>
+        <ul class="nav-list">
+          {currentNavItems.map(item => (
+            <li>
+              <a href={item.href} class={Astro.url.pathname === item.href ? 'active' : ''}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
   </div>
 </header>
 
@@ -58,12 +54,17 @@ const siteTitle = isAdmin ? 'Nayuki Admin' : 'Nayuki Blog';
   }
 
   .header-container {
-    max-width: var(--max-width); /* 使用全局变量保持与页面内容对齐 */
+    max-width: var(--max-width, 1200px); /* 添加默认值 1200px */
     margin: 0 auto;
-    padding: 0 var(--content-padding);
+    padding: 0 var(--content-padding, 2rem); /* 添加默认值 2rem */
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  /* Admin 模式下标题居中 */
+  .header-container.admin-center {
+    justify-content: center;
   }
 
   .site-title {
