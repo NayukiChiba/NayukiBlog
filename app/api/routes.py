@@ -13,14 +13,13 @@ from app.core.database import get_db
 router = APIRouter()
 
 @router.post("/login")
-def login(login_data: schemas.LoginRequest):
-    env_username = os.getenv("ADMIN_USERNAME")
-    env_password = os.getenv("ADMIN_PASSWORD")
+def login(login_data: schemas.LoginRequest, db: Session = Depends(get_db)):
+    admin = crud.get_admin_by_username(db, username=login_data.username)
 
-    if not env_username or not env_password:
-        raise HTTPException(status_code=500, detail="Server configuration error: Admin credentials not set")
+    if not admin:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    if login_data.username == env_username and login_data.password == env_password:
+    if login_data.password == admin.password:
         return {"message": "Login successful", "status": "success"}
     else:
         raise HTTPException(status_code=401, detail="Invalid credentials")

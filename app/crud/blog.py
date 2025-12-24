@@ -21,3 +21,6 @@ def get_todos(db: Session, skip: int = 0, limit: int = 100):
 
 def get_tools(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Tool).offset(skip).limit(limit).all()
+
+def get_admin_by_username(db: Session, username: str):
+    return db.query(models.Admin).filter(models.Admin.username == username).first()
