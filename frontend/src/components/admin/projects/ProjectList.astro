@@ -1,0 +1,172 @@
+---
+---
+<div class="project-list-card">
+    <div class="card-header">
+        <span>Project List</span>
+        <span class="count" id="project-count">0 projects</span>
+    </div>
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Tech Stack</th>
+                    <th>Link</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="project-table-body">
+                <tr><td colspan="6" class="loading-text">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    interface Project {
+        id: number;
+        name: string;
+        description?: string;
+        link?: string;
+        techStack?: string[];
+        image?: string;
+        status?: string;
+    }
+
+    async function fetchProjects() {
+        const tbody = document.getElementById('project-table-body');
+        const countSpan = document.getElementById('project-count');
+        if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="loading-text">Loading...</td></tr>';
+
+        try {
+            const res = await fetch('/api/projects');
+            if (!res.ok) throw new Error('Failed to fetch');
+            const projects: Project[] = await res.json();
+
+            if (countSpan) countSpan.textContent = `${projects.length} projects`;
+
+            if (tbody) {
+                tbody.innerHTML = projects.map(project => `
+                    <tr>
+                        <td>${project.name}</td>
+                        <td class="truncate" title="${project.description || ''}">${project.description || '-'}</td>
+                        <td><span class="status-badge ${project.status?.toLowerCase() || 'unknown'}">${project.status || 'Unknown'}</span></td>
+                        <td>${project.techStack ? project.techStack.map(t => `<span class="tag">${t}</span>`).join('') : '-'}</td>
+                        <td>${project.link ? `<a href="${project.link}" target="_blank"><i class="fas fa-external-link-alt"></i></a>` : '-'}</td>
+                        <td>
+                            <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        } catch (error) {
+            console.error(error);
+            if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="error-text">Failed to load projects.</td></tr>';
+        }
+    }
+
+    fetchProjects();
+</script>
+
+<style>
+    .project-list-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #303133;
+    }
+
+    .count {
+        font-size: 14px;
+        color: #909399;
+        font-weight: normal;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .admin-table th {
+        text-align: left;
+        padding: 12px 0;
+        color: #909399;
+        font-weight: 500;
+        border-bottom: 1px solid #ebeef5;
+    }
+
+    .admin-table td {
+        padding: 12px 0;
+        border-bottom: 1px solid #ebeef5;
+        color: #606266;
+    }
+
+    .truncate {
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .status-badge {
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        background: #f4f4f5;
+        color: #909399;
+    }
+
+    .status-badge.completed { background: #f0f9eb; color: #67c23a; }
+    .status-badge.ongoing { background: #ecf5ff; color: #409eff; }
+    .status-badge.planned { background: #fdf6ec; color: #e6a23c; }
+
+    .tag {
+        display: inline-block;
+        background: #ecf5ff;
+        color: #409eff;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-right: 4px;
+        margin-bottom: 4px;
+    }
+
+    .btn-icon {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px 8px;
+        font-size: 14px;
+        transition: color 0.3s;
+    }
+
+    .btn-icon.edit { color: #409eff; }
+    .btn-icon.edit:hover { color: #66b1ff; }
+    .btn-icon.delete { color: #f56c6c; }
+    .btn-icon.delete:hover { color: #f78989; }
+
+    .loading-text, .error-text {
+        text-align: center;
+        padding: 20px;
+        color: #909399;
+    }
+    .error-text { color: #f56c6c; }
+</style>

@@ -1,0 +1,157 @@
+---
+---
+<div class="diary-list-card">
+    <div class="card-header">
+        <span>Diary List</span>
+        <span class="count" id="diary-count">0 entries</span>
+    </div>
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Content</th>
+                    <th>Mood</th>
+                    <th>Weather</th>
+                    <th>Images</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="diary-table-body">
+                <tr><td colspan="6" class="loading-text">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    interface Diary {
+        id: number;
+        date: string;
+        content?: string;
+        mood?: string;
+        weather?: string;
+        images?: string[];
+    }
+
+    async function fetchDiaries() {
+        const tbody = document.getElementById('diary-table-body');
+        const countSpan = document.getElementById('diary-count');
+        if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="loading-text">Loading...</td></tr>';
+
+        try {
+            const res = await fetch('/api/diaries');
+            if (!res.ok) throw new Error('Failed to fetch');
+            const diaries: Diary[] = await res.json();
+
+            if (countSpan) countSpan.textContent = `${diaries.length} entries`;
+
+            if (tbody) {
+                tbody.innerHTML = diaries.map(diary => `
+                    <tr>
+                        <td>${diary.date}</td>
+                        <td class="truncate" title="${diary.content || ''}">${diary.content || '-'}</td>
+                        <td>${diary.mood || '-'}</td>
+                        <td>${diary.weather || '-'}</td>
+                        <td>${diary.images && diary.images.length > 0 ? `<span class="tag">${diary.images.length} images</span>` : '-'}</td>
+                        <td>
+                            <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        } catch (error) {
+            console.error(error);
+            if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="error-text">Failed to load diaries.</td></tr>';
+        }
+    }
+
+    fetchDiaries();
+</script>
+
+<style>
+    .diary-list-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #303133;
+    }
+
+    .count {
+        font-size: 14px;
+        color: #909399;
+        font-weight: normal;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .admin-table th {
+        text-align: left;
+        padding: 12px 0;
+        color: #909399;
+        font-weight: 500;
+        border-bottom: 1px solid #ebeef5;
+    }
+
+    .admin-table td {
+        padding: 12px 0;
+        border-bottom: 1px solid #ebeef5;
+        color: #606266;
+    }
+
+    .truncate {
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .tag {
+        display: inline-block;
+        background: #f0f9eb;
+        color: #67c23a;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+
+    .btn-icon {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px 8px;
+        font-size: 14px;
+        transition: color 0.3s;
+    }
+
+    .btn-icon.edit { color: #409eff; }
+    .btn-icon.edit:hover { color: #66b1ff; }
+    .btn-icon.delete { color: #f56c6c; }
+    .btn-icon.delete:hover { color: #f78989; }
+
+    .loading-text, .error-text {
+        text-align: center;
+        padding: 20px;
+        color: #909399;
+    }
+    .error-text { color: #f56c6c; }
+</style>

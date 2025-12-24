@@ -1,0 +1,78 @@
+---
+---
+<div class="about-editor-card">
+    <div class="card-header">
+        <span>Edit About Page</span>
+    </div>
+    <div class="editor-container">
+        <div class="form-group">
+            <label for="about-content">Content (Markdown)</label>
+            <textarea id="about-content" rows="15" placeholder="Write something about yourself..."></textarea>
+        </div>
+        <div class="form-actions">
+            <button class="btn-primary">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .about-editor-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .card-header {
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #303133;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #606266;
+        font-weight: 500;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #dcdfe6;
+        border-radius: 4px;
+        font-family: inherit;
+        resize: vertical;
+        box-sizing: border-box;
+    }
+
+    textarea:focus {
+        outline: none;
+        border-color: #409eff;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .btn-primary {
+        background: #409eff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background 0.3s;
+    }
+
+    .btn-primary:hover {
+        background: #66b1ff;
+    }
+</style>

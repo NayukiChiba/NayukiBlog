@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form
 from sqlalchemy.orm import Session
 from typing import List
 import os
@@ -58,3 +58,29 @@ def read_todos(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 def read_tools(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     tools = crud.get_tools(db, skip=skip, limit=limit)
     return tools
+
+@router.get("/admin/articles", response_model=List[schemas.Post])
+def read_admin_articles(skip: int = 0, limit: int = 1000, db: Session = Depends(get_db)):
+    posts = crud.get_posts(db, skip=skip, limit=limit)
+    return posts
+
+@router.get("/articles/categories")
+def read_categories(db: Session = Depends(get_db)):
+    posts = crud.get_posts(db, skip=0, limit=10000)
+    folders = set(p.folder for p in posts if p.folder)
+    return {"categories": [{"path": f} for f in folders]}
+
+@router.post("/admin/articles/upload")
+async def upload_article(
+    title: str = Form(...),
+    date: str = Form(...),
+    category: str = Form(None),
+    tags: str = Form(None),
+    status: str = Form("draft"),
+    summary: str = Form(None),
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db)
+):
+    # TODO: Implement actual file saving and DB creation
+    print(f"Received upload: {title}, {category}")
+    return {"status": "success", "message": "Article uploaded successfully"}

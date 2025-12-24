@@ -1,0 +1,226 @@
+---
+---
+<div id="upload-modal" class="modal-overlay hidden">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3>Upload Article</h3>
+            <button class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="upload-form">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" name="title" required class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <!-- Simple select for now, ideally a tree selector -->
+                    <select name="category" id="upload-category-select" class="form-select">
+                        <option value="">Select Category</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" name="date" required class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Summary</label>
+                    <textarea name="summary" rows="3" class="form-input"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Tags (comma separated)</label>
+                    <input type="text" name="tags" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select name="status" class="form-select">
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Markdown File</label>
+                    <input type="file" name="file" accept=".md" required class="form-input">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-cancel close-btn">Cancel</button>
+            <button class="btn btn-primary" id="confirm-upload">Upload</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('upload-modal');
+    const form = document.getElementById('upload-form') as HTMLFormElement | null;
+    const categorySelect = document.getElementById('upload-category-select');
+
+    // Open modal event - Changed to listen on document for better decoupling
+    document.addEventListener('open-upload-modal', () => {
+        modal?.classList.remove('hidden');
+        loadCategories();
+    });
+
+    // Close modal
+    document.querySelectorAll('.close-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            modal?.classList.add('hidden');
+            form?.reset();
+        });
+    });
+
+    // Upload logic
+    document.getElementById('confirm-upload')?.addEventListener('click', async () => {
+        if (!form) return;
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const formData = new FormData(form);
+        // Process tags
+        const tagsStr = formData.get('tags')?.toString() || '';
+        const tags = tagsStr.split(',').map(t => t.trim()).filter(t => t);
+        
+        // Re-append tags properly if backend expects JSON string or individual fields
+        // Assuming backend handles FormData with a 'tags' field as JSON string
+        formData.set('tags', JSON.stringify(tags));
+
+        try {
+            const res = await fetch('/api/admin/articles/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (res.ok) {
+                alert('Article uploaded successfully');
+                modal?.classList.add('hidden');
+                form.reset();
+                // Dispatch event to refresh the list
+                document.dispatchEvent(new CustomEvent('refresh-articles'));
+                document.dispatchEvent(new CustomEvent('article-uploaded'));
+            } else {
+                const err = await res.json();
+                alert('Upload failed: ' + (err.detail || 'Unknown error'));
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Upload failed');
+        }
+    });
+
+    async function loadCategories() {
+        try {
+            const res = await fetch('/api/articles/categories');
+            const data = await res.json();
+            const categories: { path: string }[] = data.categories || [];
+            
+            if (categorySelect) {
+                categorySelect.innerHTML = '<option value="">Select Category</option>' + 
+                    categories.map((c: { path: string }) => `<option value="${c.path}">${c.path}</option>`).join('');
+            }
+        } catch (e) {
+            console.error('Failed to load categories for select', e);
+        }
+    }
+</script>
+
+<style>
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .modal-container {
+        background: white;
+        border-radius: 8px;
+        width: 500px;
+        max-width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-header {
+        padding: 16px 20px;
+        border-bottom: 1px solid #ebeef5;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .modal-header h3 { margin: 0; font-size: 18px; }
+
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #909399;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #606266;
+    }
+
+    .form-input, .form-select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #dcdfe6;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .modal-footer {
+        padding: 16px 20px;
+        border-top: 1px solid #ebeef5;
+        text-align: right;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    .btn-primary {
+        background: #409eff;
+        color: white;
+    }
+
+    .btn-cancel {
+        background: white;
+        border: 1px solid #dcdfe6;
+        color: #606266;
+    }
+</style>
