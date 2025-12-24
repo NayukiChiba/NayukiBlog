@@ -4,10 +4,16 @@ export const prerender = false;
 import Header from '../../components/Header.astro';
 
 // 简单的权限验证中间件逻辑
-const cookie = Astro.cookies.get('auth_token');
-if (!cookie || cookie.value !== 'authorized') {
-  return Astro.redirect('/admin/login');
+const authCookie = Astro.cookies.get('auth_token');
+console.log('Auth cookie:', authCookie?.value); // 调试用
+
+// 严格验证：cookie 必须存在且值为 'authorized'
+if (!authCookie || authCookie.value !== 'authorized') {
+  console.log('Not authenticated, redirecting to login'); // 调试用
+  return Astro.redirect('/admin/login', 302);
 }
+
+console.log('Authenticated, showing admin page'); // 调试用
 ---
 
 <html lang="en">
