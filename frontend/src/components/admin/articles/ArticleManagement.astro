@@ -1,6 +1,6 @@
 ---
 import ArticleList from './ArticleList.astro';
-import FilterControls from './FilterControls.astro';
+import TagFilter from './TagFilter.astro';
 import CategoryFilter from './CategoryFilter.astro';
 import UploadArticleDialog from './UploadArticleDialog.astro';
 ---
@@ -22,17 +22,16 @@ import UploadArticleDialog from './UploadArticleDialog.astro';
         </div>
     </div>
 
-    <div class="filter-section">
-        <FilterControls />
-    </div>
-
     <div class="content-layout">
-        <aside class="category-sidebar">
+        <aside class="sidebar-left">
             <CategoryFilter />
         </aside>
         <main class="article-list-container">
             <ArticleList />
         </main>
+        <aside class="sidebar-right">
+            <TagFilter />
+        </aside>
     </div>
 
     <UploadArticleDialog id="upload-dialog" />
@@ -79,18 +78,18 @@ import UploadArticleDialog from './UploadArticleDialog.astro';
     }
 
     .content-layout {
-        display: flex;
+        display: grid;
+        grid-template-columns: 280px 1fr 280px;
         gap: 20px;
         margin-top: 20px;
+        align-items: start;
     }
 
-    .category-sidebar {
-        width: 280px;
+    .sidebar-left, .sidebar-right {
         flex-shrink: 0;
     }
 
     .article-list-container {
-        flex-grow: 1;
         min-width: 0; /* Prevent overflow */
     }
 
@@ -130,11 +129,19 @@ import UploadArticleDialog from './UploadArticleDialog.astro';
     }
     .btn-danger:hover { background: #f78989; }
 
+    @media (max-width: 1200px) {
+        .content-layout {
+            grid-template-columns: 240px 1fr 240px;
+            gap: 15px;
+        }
+    }
+
     @media (max-width: 768px) {
         .content-layout {
+            display: flex;
             flex-direction: column;
         }
-        .category-sidebar {
+        .sidebar-left, .sidebar-right {
             width: 100%;
         }
     }

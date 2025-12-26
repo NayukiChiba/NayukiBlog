@@ -1,10 +1,7 @@
 ---
 ---
 <div class="category-card">
-    <div class="card-header">
-        <span>Categories</span>
-        <button id="refresh-categories" class="btn-icon"><i class="fas fa-sync-alt"></i></button>
-    </div>
+    <div class="sidebar-title">分类</div>
     <div class="category-tree" id="category-tree">
         <div class="loading">Loading...</div>
     </div>
@@ -20,9 +17,11 @@
         path: string;
         label: string;
         children: CategoryNode[];
+        hasChildren?: boolean;
     }
 
     let categories: Category[] = [];
+    const collapsedFolders = new Set<string>();
 
     // Listen for data from ArticleList
     document.addEventListener('articles-data-loaded', (e: any) => {
@@ -57,11 +56,18 @@
             const label = parts[parts.length - 1];
             const parentPath = parts.slice(0, -1).join('/');
             
-            const node: CategoryNode = { path, label, children: [] };
+            const node: CategoryNode = { 
+                path, 
+                label, 
+                children: [],
+                hasChildren: false
+            };
             map.set(path, node);
 
             if (parentPath && map.has(parentPath)) {
-                map.get(parentPath)!.children.push(node);
+                const parent = map.get(parentPath)!;
+                parent.children.push(node);
+                parent.hasChildren = true;
             } else {
                 root.push(node);
             }
@@ -70,52 +76,93 @@
         return root;
     }
 
-    function renderTree(nodes: CategoryNode[], container: HTMLElement | null = null) {
+    function renderTree(nodes: CategoryNode[], container: HTMLElement | null = null, level: number = 0) {
         const treeContainer = container || document.getElementById('category-tree');
         if (!treeContainer) return;
         
         if (!container) treeContainer.innerHTML = ''; // Clear if root
 
         if (nodes.length === 0) {
-            if (!container) treeContainer.innerHTML = '<div class="empty">No categories</div>';
+            if (!container) treeContainer.innerHTML = '<div class="empty">暂无分类</div>';
             return;
         }
 
-        const ul = document.createElement('ul');
-        ul.className = 'tree-ul';
-
         nodes.forEach(node => {
-            const li = document.createElement('li');
-            li.className = 'tree-li';
-            
-            const content = document.createElement('div');
-            content.className = 'tree-content';
-            content.innerHTML = `<span class="tree-label">${node.label}</span>`;
-            content.onclick = (e) => {
-                e.stopPropagation();
-                // Toggle selection
-                document.querySelectorAll('.tree-content').forEach(el => el.classList.remove('selected'));
-                content.classList.add('selected');
-                document.dispatchEvent(new CustomEvent('filter-changed', { detail: { category: node.path } }));
-            };
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'folder-item';
+            itemDiv.dataset.path = node.path;
+            itemDiv.style.paddingLeft = `${level * 1}rem`;
 
-            li.appendChild(content);
-
-            if (node.children.length > 0) {
-                renderTree(node.children, li);
+            // Toggle button for folders with children
+            if (node.hasChildren) {
+                const toggleBtn = document.createElement('button');
+                toggleBtn.className = 'folder-toggle';
+                toggleBtn.dataset.target = node.path;
+                toggleBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                `;
+                toggleBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const icon = toggleBtn.querySelector('.toggle-icon') as HTMLElement;
+                    const isCollapsed = collapsedFolders.has(node.path);
+                    
+                    if (isCollapsed) {
+                        collapsedFolders.delete(node.path);
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        collapsedFolders.add(node.path);
+                        icon.style.transform = 'rotate(-90deg)';
+                    }
+                    
+                    // Toggle children visibility
+                    toggleChildrenVisibility(node.path);
+                });
+                itemDiv.appendChild(toggleBtn);
+            } else {
+                const spacer = document.createElement('span');
+                spacer.className = 'folder-spacer';
+                itemDiv.appendChild(spacer);
             }
 
-            ul.appendChild(li);
-        });
+            // Folder button
+            const folderBtn = document.createElement('button');
+            folderBtn.className = 'folder-btn';
+            folderBtn.dataset.folder = node.path;
+            folderBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                ${node.label}
+            `;
+            folderBtn.addEventListener('click', () => {
+                document.querySelectorAll('.folder-btn').forEach(el => el.classList.remove('active'));
+                folderBtn.classList.add('active');
+                document.dispatchEvent(new CustomEvent('filter-changed', { detail: { category: node.path } }));
+            });
+            itemDiv.appendChild(folderBtn);
 
-        treeContainer.appendChild(ul);
+            treeContainer.appendChild(itemDiv);
+
+            // Render children
+            if (node.children.length > 0) {
+                renderTree(node.children, treeContainer, level + 1);
+            }
+        });
     }
 
-    document.getElementById('refresh-categories')?.addEventListener('click', () => {
-        const treeContainer = document.getElementById('category-tree');
-        if(treeContainer) treeContainer.innerHTML = '<div class="loading">Refreshing...</div>';
-        document.dispatchEvent(new CustomEvent('refresh-articles'));
-    });
+    function toggleChildrenVisibility(parentPath: string) {
+        const allItems = document.querySelectorAll('.folder-item[data-path]');
+        const isCollapsed = collapsedFolders.has(parentPath);
+        
+        allItems.forEach(item => {
+            const path = (item as HTMLElement).dataset.path || '';
+            if (path.startsWith(parentPath + '/') && path !== parentPath) {
+                (item as HTMLElement).style.display = isCollapsed ? 'none' : 'flex';
+            }
+        });
+    }
 
     // Removed DOMContentLoaded fetch as we now wait for ArticleList to load data
 </script>
@@ -123,73 +170,130 @@
 <style>
     .category-card {
         background: white;
-        border-radius: 12px;
-        box-shadow: 0 2px 12px 0 rgba(0,0,0,0.05);
-        height: 100%;
-        min-height: 300px;
+        /* Minimalist: Clean panel, auto height */
+        border: 1px solid #f0f0f0;
+        border-radius: 8px;
+        height: auto;
+        max-height: 400px; /* Limit height for category tree if it gets long */
+        min-height: 0;
         display: flex;
         flex-direction: column;
+        position: relative;
+        top: 0;
+        padding: 1.5rem;
     }
 
-    .card-header {
-        padding: 12px 20px;
-        border-bottom: 1px solid #ebeef5;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .sidebar-title {
+        font-size: 0.75rem;
         font-weight: 600;
+        color: #000;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0;
+        margin-bottom: 1rem;
+        border: none;
     }
 
     .category-tree {
-        padding: 10px;
+        padding: 0;
         overflow-y: auto;
-        flex-grow: 1;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
     }
 
-    .btn-icon {
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: #909399;
+    /* Custom Scrollbar */
+    .category-tree::-webkit-scrollbar {
+        width: 2px;
     }
-    .btn-icon:hover { color: #409eff; }
-
-    /* Tree Styles */
-    :global(.tree-ul) {
-        list-style: none;
-        padding-left: 20px;
-        margin: 0;
+    .category-tree::-webkit-scrollbar-track {
+        background: transparent;
     }
-    :global(.category-tree > .tree-ul) {
-        padding-left: 0;
+    .category-tree::-webkit-scrollbar-thumb {
+        background: #eee;
     }
 
-    :global(.tree-li) {
-        margin: 2px 0;
-    }
-
-    :global(.tree-content) {
-        padding: 6px 8px;
-        cursor: pointer;
-        border-radius: 4px;
-        transition: background 0.2s;
+    /* Folder Item Styles */
+    :global(.folder-item) {
         display: flex;
         align-items: center;
+        gap: 0.2rem;
     }
 
-    :global(.tree-content:hover) {
-        background-color: #f5f7fa;
+    :global(.folder-toggle) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        color: #999;
+        padding: 0;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+    :global(.folder-toggle:hover) {
+        color: #000;
+    }
+    :global(.toggle-icon) {
+        transition: transform 0.2s ease;
+    }
+    :global(.folder-spacer) {
+        width: 20px;
+        flex-shrink: 0;
     }
 
-    :global(.tree-content.selected) {
-        background-color: #ecf5ff;
-        color: #409eff;
+    :global(.folder-btn) {
+        flex: 1;
+        text-align: left;
+        padding: 0.4rem 0.6rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        color: #666;
+        font-size: 0.85rem;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: inherit;
+    }
+    :global(.folder-btn:hover) {
+        background-color: #f9f9f9;
+        color: #000;
+    }
+    :global(.folder-btn.active) {
+        background-color: #f0f0f0;
+        color: #000;
+        font-weight: 500;
+    }
+    :global(.folder-icon) {
+        width: 14px;
+        height: 14px;
+        opacity: 0.5;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+    :global(.folder-btn:hover .folder-icon) {
+        opacity: 0.8;
+    }
+    :global(.folder-btn.active .folder-icon) {
+        opacity: 1;
+        stroke: #000;
     }
 
     .loading, .error, .empty {
-        padding: 20px;
+        padding: 1rem;
         text-align: center;
-        color: #909399;
-        font-size: 14px;
+        color: #999;
+        font-size: 0.8rem;
     }
 </style>

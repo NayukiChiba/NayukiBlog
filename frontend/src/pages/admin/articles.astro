@@ -4,7 +4,7 @@ export const prerender = false;
 import Header from '../../components/Header.astro';
 import Sidebar from '../../components/admin/Sidebar.astro';
 import CategoryFilter from '../../components/admin/articles/CategoryFilter.astro';
-import FilterControls from '../../components/admin/articles/FilterControls.astro';
+import TagFilter from '../../components/admin/articles/TagFilter.astro';
 import ArticleList from '../../components/admin/articles/ArticleList.astro';
 import UploadArticleDialog from '../../components/admin/articles/UploadArticleDialog.astro';
 
@@ -39,7 +39,7 @@ if (!authCookie || authCookie.value !== 'authorized') {
                     <CategoryFilter />
                 </div>
                 <div class="filter-column">
-                    <FilterControls />
+                    <TagFilter />
                 </div>
             </div>
 
