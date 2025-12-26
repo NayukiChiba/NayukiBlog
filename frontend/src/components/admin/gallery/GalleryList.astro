@@ -38,7 +38,7 @@
         if(tbody) tbody.innerHTML = '<tr><td colspan="5" class="loading-text">Loading...</td></tr>';
 
         try {
-            const res = await fetch('/api/gallery');
+            const res = await fetch('http://127.0.0.1:8000/api/gallery');
             if (!res.ok) throw new Error('Failed to fetch');
             const gallery: Gallery[] = await res.json();
 

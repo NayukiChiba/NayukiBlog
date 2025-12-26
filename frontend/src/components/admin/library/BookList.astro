@@ -42,7 +42,7 @@
         if(tbody) tbody.innerHTML = '<tr><td colspan="7" class="loading-text">Loading...</td></tr>';
 
         try {
-            const res = await fetch('/api/books');
+            const res = await fetch('http://127.0.0.1:8000/api/books');
             if (!res.ok) throw new Error('Failed to fetch');
             const books: Book[] = await res.json();
 

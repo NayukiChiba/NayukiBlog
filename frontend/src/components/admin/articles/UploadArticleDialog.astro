@@ -88,7 +88,7 @@
         formData.set('tags', JSON.stringify(tags));
 
         try {
-            const res = await fetch('/api/admin/articles/upload', {
+            const res = await fetch('http://127.0.0.1:8000/api/admin/articles/upload', {
                 method: 'POST',
                 body: formData
             });
@@ -112,7 +112,7 @@
 
     async function loadCategories() {
         try {
-            const res = await fetch('/api/articles/categories');
+            const res = await fetch('http://127.0.0.1:8000/api/articles/categories');
             const data = await res.json();
             const categories: { path: string }[] = data.categories || [];
             

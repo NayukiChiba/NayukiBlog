@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form
 from sqlalchemy.orm import Session
 from typing import List
 import os
+import json
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -69,6 +70,21 @@ def read_categories(db: Session = Depends(get_db)):
     posts = crud.get_posts(db, skip=0, limit=10000)
     folders = set(p.folder for p in posts if p.folder)
     return {"categories": [{"path": f} for f in folders]}
+
+@router.get("/articles/tags")
+def read_tags(db: Session = Depends(get_db)):
+    posts = crud.get_posts(db, skip=0, limit=10000)
+    all_tags = set()
+    for p in posts:
+        if p.tags:
+            try:
+                tags_list = json.loads(p.tags)
+                if isinstance(tags_list, list):
+                    for tag in tags_list:
+                        all_tags.add(tag)
+            except:
+                pass
+    return {"tags": list(sorted(all_tags))}
 
 @router.post("/admin/articles/upload")
 async def upload_article(

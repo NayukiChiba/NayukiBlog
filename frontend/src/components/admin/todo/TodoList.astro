@@ -41,7 +41,7 @@
         if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="loading-text">Loading...</td></tr>';
 
         try {
-            const res = await fetch('/api/todos');
+            const res = await fetch('http://127.0.0.1:8000/api/todos');
             if (!res.ok) throw new Error('Failed to fetch');
             const todos: Todo[] = await res.json();
 

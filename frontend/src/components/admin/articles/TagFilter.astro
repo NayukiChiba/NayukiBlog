@@ -1,0 +1,523 @@
+---
+---
+<div class="filter-card">
+    <div class="sidebar-title">筛选</div>
+    <div class="filter-body">
+        <!-- Tags Filter -->
+        <div class="filter-section">
+            <label class="filter-label">标签筛选</label>
+            <div class="custom-select-wrapper">
+                <div class="custom-select multiple" id="tag-select">
+                    <div class="select-trigger">
+                        <div class="tags-input-container" id="tags-container">
+                            <input type="text" class="select-input" id="tag-input" placeholder="选择标签 (最多3个)" autocomplete="off">
+                        </div>
+                        <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="select-dropdown" id="tag-dropdown">
+                        <div class="loading-text">加载中...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sort Order Filter -->
+        <div class="filter-section">
+            <label class="filter-label">排序方式</label>
+            <div class="custom-select-wrapper">
+                <div class="custom-select" id="sort-select">
+                    <div class="select-trigger">
+                        <span class="select-value">最新优先</span>
+                        <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="select-dropdown" id="sort-dropdown">
+                        <button class="select-option active" data-value="desc">最新优先</button>
+                        <button class="select-option" data-value="asc">最早优先</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Filter -->
+        <div class="filter-section">
+            <label class="filter-label">状态筛选</label>
+            <div class="custom-select-wrapper">
+                <div class="custom-select" id="status-select">
+                    <div class="select-trigger">
+                        <span class="select-value">全部状态</span>
+                        <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="select-dropdown" id="status-dropdown">
+                        <button class="select-option active" data-value="">全部状态</button>
+                        <button class="select-option" data-value="published">已发布</button>
+                        <button class="select-option" data-value="draft">草稿</button>
+                        <button class="select-option" data-value="recycled">回收站</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    interface Tag {
+        name: string;
+        count: number;
+    }
+
+    let availableTags: string[] = [];
+    let filteredTags: string[] = [];
+    let selectedTags: string[] = [];
+    let sortOrder: 'asc' | 'desc' = 'desc';
+    let statusValue: string = '';
+    const MAX_TAGS = 3;
+
+    const tagSelect = document.getElementById('tag-select');
+    const tagTrigger = tagSelect?.querySelector('.select-trigger');
+    const tagInput = document.getElementById('tag-input') as HTMLInputElement;
+    const tagsContainer = document.getElementById('tags-container');
+    const tagDropdown = document.getElementById('tag-dropdown');
+
+    const sortSelect = document.getElementById('sort-select');
+    const sortTrigger = sortSelect?.querySelector('.select-trigger');
+    const sortDropdown = document.getElementById('sort-dropdown');
+    const sortValue = sortSelect?.querySelector('.select-value');
+
+    const statusSelect = document.getElementById('status-select');
+    const statusTrigger = statusSelect?.querySelector('.select-trigger');
+    const statusDropdown = document.getElementById('status-dropdown');
+    const statusValueSpan = statusSelect?.querySelector('.select-value');
+
+    let activeDropdown: HTMLElement | null = null;
+
+    // Fetch Tags from API
+    async function fetchTags() {
+        try {
+            const response = await fetch('/api/articles/tags');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log('Fetched tags:', data); // Debug log
+            if (data.tags && Array.isArray(data.tags)) {
+                availableTags = data.tags;
+                filteredTags = [...availableTags];
+                renderDropdownOptions();
+            } else {
+                console.warn('Unexpected tags data format:', data);
+            }
+        } catch (error) {
+            console.error('Failed to fetch tags:', error);
+            if (tagDropdown) tagDropdown.innerHTML = '<div class="empty-text">加载失败</div>';
+        }
+    }
+
+    // Initialize
+    fetchTags();
+
+    // Helper function to close all dropdowns
+    function closeAllDropdowns() {
+        document.querySelectorAll('.custom-select.open').forEach(el => {
+            el.classList.remove('open');
+        });
+        activeDropdown = null;
+    }
+
+    // Toggle Dropdown
+    function toggleDropdown(selectEl: HTMLElement | null, e: Event) {
+        // Don't close if clicking input or tags
+        if ((e.target as HTMLElement).closest('.tags-input-container')) {
+             if (!selectEl?.classList.contains('open')) {
+                 closeAllDropdowns();
+                 selectEl?.classList.add('open');
+                 activeDropdown = selectEl;
+                 tagInput?.focus();
+             }
+             return;
+        }
+
+        e.stopPropagation();
+        if (!selectEl) return;
+        
+        const isOpen = selectEl.classList.contains('open');
+        closeAllDropdowns();
+        
+        if (!isOpen) {
+            selectEl.classList.add('open');
+            activeDropdown = selectEl;
+            if (selectEl.id === 'tag-select') {
+                tagInput?.focus();
+            }
+        }
+    }
+
+    // Tag Input Filtering
+    tagInput?.addEventListener('input', (e) => {
+        const value = (e.target as HTMLInputElement).value.toLowerCase();
+        filteredTags = availableTags.filter(tag => tag.toLowerCase().includes(value));
+        renderDropdownOptions();
+        if (!tagSelect?.classList.contains('open')) {
+            tagSelect?.classList.add('open');
+            activeDropdown = tagSelect;
+        }
+    });
+
+    // Tag Selection Logic
+    function toggleTag(tagName: string) {
+        const index = selectedTags.indexOf(tagName);
+        if (index > -1) {
+            selectedTags.splice(index, 1);
+        } else {
+            if (selectedTags.length < MAX_TAGS) {
+                selectedTags.push(tagName);
+            }
+        }
+        renderSelectedTags();
+        renderDropdownOptions();
+        emitFilters();
+        tagInput.value = '';
+        filteredTags = [...availableTags];
+        tagInput.focus();
+    }
+
+    function renderSelectedTags() {
+        if (!tagsContainer) return;
+        
+        // Remove existing tags (keep input)
+        const existingTags = tagsContainer.querySelectorAll('.selected-tag-chip');
+        existingTags.forEach(el => el.remove());
+
+        // Insert new tags before input
+        selectedTags.forEach(tag => {
+            const chip = document.createElement('div');
+            chip.className = 'selected-tag-chip';
+            chip.innerHTML = `
+                <span>${tag}</span>
+                <span class="remove-icon">×</span>
+            `;
+            chip.querySelector('.remove-icon')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleTag(tag);
+            });
+            tagsContainer.insertBefore(chip, tagInput);
+        });
+
+        // Update placeholder
+        if (selectedTags.length > 0) {
+            tagInput.placeholder = '';
+        } else {
+            tagInput.placeholder = '选择标签 (最多3个)';
+        }
+    }
+
+    function renderDropdownOptions() {
+        if (!tagDropdown) return;
+        
+        if (filteredTags.length === 0) {
+            tagDropdown.innerHTML = '<div class="empty-text">无匹配标签</div>';
+            return;
+        }
+
+        tagDropdown.innerHTML = '';
+        
+        filteredTags.forEach(tag => {
+            const option = document.createElement('div');
+            option.className = 'tag-option';
+            if (selectedTags.includes(tag)) {
+                option.classList.add('selected');
+            }
+            if (selectedTags.length >= MAX_TAGS && !selectedTags.includes(tag)) {
+                option.classList.add('disabled');
+            }
+            
+            option.textContent = tag;
+            
+            if (!option.classList.contains('disabled')) {
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleTag(tag);
+                });
+            }
+            
+            tagDropdown.appendChild(option);
+        });
+    }
+
+    // Event Listeners
+    tagSelect?.addEventListener('click', (e) => toggleDropdown(tagSelect, e));
+    sortTrigger?.addEventListener('click', (e) => toggleDropdown(sortSelect, e));
+    statusTrigger?.addEventListener('click', (e) => toggleDropdown(statusSelect, e));
+
+    document.addEventListener('click', (e) => {
+        if (activeDropdown && !activeDropdown.contains(e.target as Node)) {
+            closeAllDropdowns();
+        }
+    });
+
+    // Sort & Status Logic (unchanged mostly)
+    sortDropdown?.querySelectorAll('.select-option').forEach(option => {
+        option.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const btn = option as HTMLButtonElement;
+            const value = btn.dataset.value as 'asc' | 'desc';
+            sortDropdown.querySelectorAll('.select-option').forEach(opt => opt.classList.remove('active'));
+            btn.classList.add('active');
+            if (sortValue) sortValue.textContent = btn.textContent;
+            sortOrder = value;
+            closeAllDropdowns();
+            emitFilters();
+        });
+    });
+
+    statusDropdown?.querySelectorAll('.select-option').forEach(option => {
+        option.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const btn = option as HTMLButtonElement;
+            const value = btn.dataset.value || '';
+            statusDropdown.querySelectorAll('.select-option').forEach(opt => opt.classList.remove('active'));
+            btn.classList.add('active');
+            if (statusValueSpan) statusValueSpan.textContent = btn.textContent;
+            statusValue = value;
+            closeAllDropdowns();
+            emitFilters();
+        });
+    });
+
+    function emitFilters() {
+        const filters = {
+            tags: selectedTags,
+            status: statusValue,
+            sortOrder: sortOrder
+        };
+        document.dispatchEvent(new CustomEvent('filter-changed', { detail: filters }));
+    }
+</script>
+
+<style>
+    .filter-card {
+        background: white;
+        border: 1px solid #ebeef5;
+        border-radius: 8px;
+        padding: 1.2rem;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+
+    .sidebar-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #303133;
+        margin-bottom: 0.5rem;
+    }
+
+    .filter-body {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+
+    .filter-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .filter-label {
+        font-size: 0.85rem;
+        color: #606266;
+        font-weight: 500;
+    }
+
+    /* Custom Select Wrapper */
+    .custom-select-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    .custom-select {
+        position: relative;
+        width: 100%;
+    }
+
+    /* Trigger Styles (Minimalist Black/White) */
+    .select-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4px 11px;
+        background: #fff;
+        border: 1px solid #dcdfe6;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-height: 32px;
+        box-sizing: border-box;
+    }
+
+    .select-trigger:hover {
+        border-color: #000;
+    }
+
+    .custom-select.open .select-trigger {
+        border-color: #000;
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+    }
+
+    .select-value {
+        font-size: 14px;
+        color: #333;
+    }
+
+    .select-arrow {
+        color: #999;
+        transition: transform 0.3s;
+        margin-left: 8px;
+        flex-shrink: 0;
+    }
+
+    .custom-select.open .select-arrow {
+        transform: rotate(180deg);
+        color: #000;
+    }
+
+    /* Multiple Select Specifics */
+    .tags-input-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        flex: 1;
+        align-items: center;
+        width: 100%;
+    }
+
+    .selected-tag-chip {
+        display: inline-flex;
+        align-items: center;
+        height: 24px;
+        padding: 0 8px;
+        font-size: 12px;
+        line-height: 24px;
+        color: #000;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        box-sizing: border-box;
+        white-space: nowrap;
+        font-weight: 500;
+    }
+
+    .selected-tag-chip .remove-icon {
+        margin-left: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        color: #999;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        transition: color 0.2s;
+    }
+
+    .selected-tag-chip .remove-icon:hover {
+        color: #000;
+    }
+
+    .select-input {
+        border: none;
+        outline: none;
+        padding: 0;
+        margin-left: 4px;
+        color: #333;
+        font-size: 14px;
+        background: transparent;
+        flex-grow: 1;
+        min-width: 50px;
+        height: 24px;
+        line-height: 24px;
+    }
+
+    .select-input::placeholder {
+        color: #999;
+    }
+
+    /* Dropdown Styles */
+    .select-dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        margin: 0;
+        z-index: 2000;
+        max-height: 274px;
+        overflow-y: auto;
+        display: none;
+        padding: 6px 0;
+    }
+
+    .custom-select.open .select-dropdown {
+        display: block;
+    }
+
+    /* Options */
+    .select-option, .tag-option {
+        padding: 0 16px;
+        height: 36px;
+        line-height: 36px;
+        cursor: pointer;
+        color: #666;
+        font-size: 14px;
+        box-sizing: border-box;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        background: #fff;
+        border: none;
+        width: 100%;
+        text-align: left;
+        display: block;
+        transition: all 0.1s;
+    }
+
+    .select-option:hover, .tag-option:hover:not(.disabled) {
+        background-color: #f9f9f9;
+        color: #000;
+    }
+
+    .select-option.active, .tag-option.selected {
+        color: #000;
+        font-weight: 600;
+        background-color: #fff;
+    }
+    
+    .tag-option.selected::after {
+        content: "✓";
+        float: right;
+        font-weight: 600;
+        color: #000;
+    }
+
+    .tag-option.disabled {
+        color: #ccc;
+        cursor: not-allowed;
+    }
+
+    .loading-text, .empty-text {
+        text-align: center;
+        color: #999;
+        padding: 10px 0;
+        font-size: 14px;
+    }
+</style>
