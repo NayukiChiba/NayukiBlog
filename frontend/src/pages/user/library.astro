@@ -14,7 +14,7 @@ interface Book {
 
 let books: Book[] = [];
 try {
-  const response = await fetch('http://127.0.0.1:8000/api/books');
+  const response = await fetch('http://127.0.0.1:8000/api/user/books');
   if (response.ok) {
     books = await response.json() as Book[];
   } else {

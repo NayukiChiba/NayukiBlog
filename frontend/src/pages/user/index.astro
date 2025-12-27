@@ -9,7 +9,7 @@ import DiaryCard from '../../components/User/DiaryCard.astro';
 let posts = [];
 try {
   // 尝试使用 /api/posts 路径，并添加错误日志
-  const response = await fetch('http://127.0.0.1:8000/api/posts');
+  const response = await fetch('http://127.0.0.1:8000/api/user/posts');
   if (response.ok) {
     const data = await response.json();
     posts = data

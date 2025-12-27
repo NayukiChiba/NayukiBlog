@@ -12,7 +12,7 @@ interface Tool {
 
 let tools: Tool[] = [];
 try {
-  const response = await fetch('http://127.0.0.1:8000/api/tools');
+  const response = await fetch('http://127.0.0.1:8000/api/user/tools');
   if (response.ok) {
     tools = await response.json() as Tool[];
   } else {

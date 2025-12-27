@@ -12,7 +12,7 @@ interface Diary {
 
 let diaries: Diary[] = [];
 try {
-  const response = await fetch('http://127.0.0.1:8000/api/diaries');
+  const response = await fetch('http://127.0.0.1:8000/api/user/diaries');
   if (response.ok) {
     diaries = await response.json() as Diary[];
   } else {

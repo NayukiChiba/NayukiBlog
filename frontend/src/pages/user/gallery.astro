@@ -11,7 +11,7 @@ interface GalleryItem {
 
 let gallery: GalleryItem[] = [];
 try {
-  const response = await fetch('http://127.0.0.1:8000/api/gallery?limit=10');
+  const response = await fetch('http://127.0.0.1:8000/api/user/gallery?limit=10');
   if (response.ok) {
     gallery = await response.json() as GalleryItem[];
   } else {
