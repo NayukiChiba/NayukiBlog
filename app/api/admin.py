@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form, Query
 from sqlalchemy.orm import Session
 from typing import List
+import json
 
 from app.crud import blog as crud
 from app.schemas import blog as schemas
@@ -47,3 +48,29 @@ async def upload_article(
     # TODO: Implement actual file saving and DB creation
     print(f"Received upload: {title}, {category}")
     return {"status": "success", "message": "Article uploaded successfully"}
+
+@router.get("/projects", response_model=List[schemas.Project])
+def read_admin_projects(
+    skip: int = 0, 
+    limit: int = 10, 
+    tech_stack: List[str] = Query(None),
+    status: str = None,
+    visibility: str = None,
+    db: Session = Depends(get_db)
+):
+    projects = crud.get_projects(db, skip=skip, limit=limit, visibility=visibility, tech_stack=tech_stack, project_status=status)
+    return projects
+
+@router.get("/projects/tech-stacks")
+def read_admin_tech_stacks(db: Session = Depends(get_db)):
+    projects = crud.get_projects(db, skip=0, limit=10000)
+    all_stacks = set()
+    for p in projects:
+        if p.techStack:
+            try:
+                stack_list = json.loads(p.techStack)
+                if isinstance(stack_list, list):
+                    all_stacks.update(stack_list)
+            except:
+                pass
+    return list(all_stacks)

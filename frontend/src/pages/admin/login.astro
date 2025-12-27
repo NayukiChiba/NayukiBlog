@@ -7,38 +7,38 @@ let errorMessage = '';
 let successMessage = '';
 let usernameInput = '';
 
-// if (Astro.request.method === 'POST') {
-//   try {
-//     const data = await Astro.request.formData();
-//     usernameInput = data.get('username')?.toString() || '';
-//     const password = data.get('password')?.toString();
+if (Astro.request.method === 'POST') {
+  try {
+    const data = await Astro.request.formData();
+    usernameInput = data.get('username')?.toString() || '';
+    const password = data.get('password')?.toString();
 
-//     // Call Python Backend for verification
-//     const response = await fetch('http://127.0.0.1:8000/api/login', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({ username: usernameInput, password })
-//     });
+    // Call Python Backend for verification
+    const response = await fetch('http://127.0.0.1:8000/api/admin/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username: usernameInput, password })
+    });
 
-//     if (response.ok) {
-//       // 验证成功，设置 Cookie（会话 cookie，关闭浏览器后失效）
-//       Astro.cookies.set('auth_token', 'authorized', {
-//         path: '/',
-//         httpOnly: true,
-//         secure: import.meta.env.PROD,
-//         sameSite: 'strict'
-//       });
-//       successMessage = 'Login successful! Redirecting...';
-//     } else {
-//       errorMessage = 'Invalid username or password';
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     errorMessage = 'An error occurred during login';
-//   }
-// }
+    if (response.ok) {
+      // 验证成功，设置 Cookie（会话 cookie，关闭浏览器后失效）
+      Astro.cookies.set('auth_token', 'authorized', {
+        path: '/',
+        httpOnly: true,
+        secure: import.meta.env.PROD,
+        sameSite: 'strict'
+      });
+      successMessage = 'Login successful! Redirecting...';
+    } else {
+      errorMessage = 'Invalid username or password';
+    }
+  } catch (error) {
+    console.error(error);
+    errorMessage = 'An error occurred during login';
+  }
+}
 ---
 
 <Layout title="Admin Login">

@@ -9,12 +9,12 @@
         <table class="admin-table">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Tech Stack</th>
-                    <th>Link</th>
-                    <th>Actions</th>
+                    <th class="col-name">Name</th>
+                    <th class="col-desc">Description</th>
+                    <th class="col-status">Status</th>
+                    <th class="col-stack">Tech Stack</th>
+                    <th class="col-link">Link</th>
+                    <th class="col-actions">Actions</th>
                 </tr>
             </thead>
             <tbody id="project-table-body">
@@ -40,27 +40,46 @@
         const countSpan = document.getElementById('project-count');
         if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="loading-text">Loading...</td></tr>';
 
+        const urlParams = new URLSearchParams(window.location.search);
+        const page = parseInt(urlParams.get('page') || '1');
+        const pageSize = 10;
+        const skip = (page - 1) * pageSize;
+
+        const apiParams = new URLSearchParams();
+        apiParams.append('skip', skip.toString());
+        apiParams.append('limit', pageSize.toString());
+
+        const status = urlParams.get('status');
+        if (status && status !== 'all') apiParams.append('status', status);
+
+        const techStacks = urlParams.getAll('tech_stack');
+        techStacks.forEach(t => apiParams.append('tech_stack', t));
+
         try {
-            const res = await fetch('http://127.0.0.1:8000/api/projects');
+            const res = await fetch(`http://127.0.0.1:8000/api/admin/projects?${apiParams.toString()}`);
             if (!res.ok) throw new Error('Failed to fetch');
             const projects: Project[] = await res.json();
 
             if (countSpan) countSpan.textContent = `${projects.length} projects`;
 
             if (tbody) {
-                tbody.innerHTML = projects.map(project => `
-                    <tr>
-                        <td>${project.name}</td>
-                        <td class="truncate" title="${project.description || ''}">${project.description || '-'}</td>
-                        <td><span class="status-badge ${project.status?.toLowerCase() || 'unknown'}">${project.status || 'Unknown'}</span></td>
-                        <td>${project.techStack ? project.techStack.map(t => `<span class="tag">${t}</span>`).join('') : '-'}</td>
-                        <td>${project.link ? `<a href="${project.link}" target="_blank"><i class="fas fa-external-link-alt"></i></a>` : '-'}</td>
-                        <td>
-                            <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
-                            <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `).join('');
+                if (projects.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="loading-text">No projects found.</td></tr>';
+                } else {
+                    tbody.innerHTML = projects.map(project => `
+                        <tr>
+                            <td>${project.name}</td>
+                            <td><div class="truncate" title="${project.description || ''}">${project.description || '-'}</div></td>
+                            <td><span class="status-badge ${project.status?.toLowerCase() || 'unknown'}">${project.status || 'Unknown'}</span></td>
+                            <td>${project.techStack ? project.techStack.map(t => `<span class="tag">${t}</span>`).join('') : '-'}</td>
+                            <td>${project.link ? `<a href="${project.link}" target="_blank"><i class="fas fa-external-link-alt"></i></a>` : '-'}</td>
+                            <td>
+                                <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
+                                <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
             }
         } catch (error) {
             console.error(error);
@@ -69,6 +88,14 @@
     }
 
     fetchProjects();
+
+    window.addEventListener('project-filter-change', () => {
+        fetchProjects();
+    });
+
+    window.addEventListener('popstate', () => {
+        fetchProjects();
+    });
 </script>
 
 <style>
@@ -103,42 +130,86 @@
         width: 100%;
         border-collapse: collapse;
         font-size: 14px;
+        table-layout: fixed;
     }
 
     .admin-table th {
         text-align: left;
-        padding: 12px 0;
+        padding: 12px 16px;
         color: #909399;
         font-weight: 500;
         border-bottom: 1px solid #ebeef5;
+        border-right: 1px solid #ebeef5;
     }
 
-    .admin-table td {
-        padding: 12px 0;
+    /* Column Widths */
+    .col-name { width: 20%; }
+    .col-desc { width: 35%; }
+    .col-status { width: 10%; }
+    .col-stack { width: 20%; }
+    .col-link { width: 5%; }
+    .col-actions { width: 10%; }
+
+    .admin-table th:last-child {
+        border-right: none;
+    }
+
+    /* Fix for dynamic content */
+    .admin-table :global(td) {
+        padding: 12px 16px;
         border-bottom: 1px solid #ebeef5;
+        border-right: 1px solid #ebeef5;
         color: #606266;
+        vertical-align: middle;
     }
 
-    .truncate {
-        max-width: 200px;
+    .admin-table :global(td:last-child) {
+        border-right: none;
+    }
+
+    /* Name column */
+    .admin-table :global(td:first-child) {
+        font-weight: 500;
+        color: #303133;
+    }
+
+    /* Link column */
+    .admin-table :global(a) {
+        color: #409eff;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+    .admin-table :global(a:hover) {
+        background-color: #ecf5ff;
+    }
+
+    :global(.truncate) {
+        width: 100%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    .status-badge {
+    :global(.status-badge) {
         padding: 2px 8px;
         border-radius: 12px;
         font-size: 12px;
         background: #f4f4f5;
         color: #909399;
+        display: inline-block;
     }
 
-    .status-badge.completed { background: #f0f9eb; color: #67c23a; }
-    .status-badge.ongoing { background: #ecf5ff; color: #409eff; }
-    .status-badge.planned { background: #fdf6ec; color: #e6a23c; }
+    :global(.status-badge.completed) { background: #f0f9eb; color: #67c23a; }
+    :global(.status-badge.in-progress) { background: #ecf5ff; color: #409eff; }
+    :global(.status-badge.planning) { background: #fdf6ec; color: #e6a23c; }
 
-    .tag {
+    :global(.tag) {
         display: inline-block;
         background: #f4f4f5;
         color: #606266;
@@ -149,24 +220,25 @@
         margin-bottom: 4px;
     }
 
-    .btn-icon {
+    :global(.btn-icon) {
         background: none;
         border: none;
         cursor: pointer;
         padding: 4px 8px;
         font-size: 14px;
         transition: color 0.3s;
+        margin-right: 4px;
     }
 
-    .btn-icon.edit { color: #000000; }
-    .btn-icon.edit:hover { color: #333333; }
-    .btn-icon.delete { color: #f56c6c; }
-    .btn-icon.delete:hover { color: #f78989; }
+    :global(.btn-icon.edit) { color: #409eff; }
+    :global(.btn-icon.edit:hover) { color: #66b1ff; }
+    :global(.btn-icon.delete) { color: #f56c6c; }
+    :global(.btn-icon.delete:hover) { color: #f78989; }
 
-    .loading-text, .error-text {
+    :global(.loading-text), :global(.error-text) {
         text-align: center;
         padding: 20px;
         color: #909399;
     }
-    .error-text { color: #f56c6c; }
+    :global(.error-text) { color: #f56c6c; }
 </style>

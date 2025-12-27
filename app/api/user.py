@@ -31,7 +31,7 @@ def read_posts(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 
 @router.get("/projects", response_model=List[schemas.Project])
 def read_projects(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    projects = crud.get_projects(db, skip=skip, limit=limit, status="published")
+    projects = crud.get_projects(db, skip=skip, limit=limit, visibility="published")
     return projects
 
 @router.get("/todos", response_model=List[schemas.Todo])
@@ -43,6 +43,19 @@ def read_todos(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 def read_tools(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     tools = crud.get_tools(db, skip=skip, limit=limit, status="published")
     return tools
+
+@router.get("/projects/tech-stacks")
+def read_tech_stacks(db: Session = Depends(get_db)):
+    projects = crud.get_projects(db, skip=0, limit=10000, visibility="published")
+    all_stacks = set()
+    for p in projects:
+        if p.techStack:
+            try:
+                stack_list = json.loads(p.techStack)
+                all_stacks.update(stack_list)
+            except:
+                pass
+    return list(all_stacks)
 
 @router.get("/articles/categories")
 def read_categories(db: Session = Depends(get_db)):

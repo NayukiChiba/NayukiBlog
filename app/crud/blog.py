@@ -36,10 +36,15 @@ def get_posts(db: Session, skip: int = 0, limit: int = 100, status: str = None, 
 
     return query.offset(skip).limit(limit).all()
 
-def get_projects(db: Session, skip: int = 0, limit: int = 100, status: str = None):
+def get_projects(db: Session, skip: int = 0, limit: int = 100, visibility: str = None, tech_stack: list[str] = None, project_status: str = None):
     query = db.query(models.Project)
-    if status:
-        query = query.filter(models.Project.visibility == status)
+    if visibility:
+        query = query.filter(models.Project.visibility == visibility)
+    if project_status:
+        query = query.filter(models.Project.status == project_status)
+    if tech_stack:
+        for tech in tech_stack:
+            query = query.filter(models.Project.techStack.like(f'%"{tech}"%'))
     return query.offset(skip).limit(limit).all()
 
 def get_todos(db: Session, skip: int = 0, limit: int = 100, status: str = None):

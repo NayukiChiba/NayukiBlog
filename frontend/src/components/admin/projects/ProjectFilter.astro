@@ -1,0 +1,476 @@
+---
+// ProjectFilter.astro
+---
+
+<div class="filter-card">
+  <div class="filter-header">
+    <h3 class="filter-title">筛选条件</h3>
+    <button id="resetFiltersBtn" class="reset-btn">重置</button>
+  </div>
+
+  <!-- 1. Tech Stack 筛选 -->
+  <div class="filter-group tag-group">
+    <label>技术栈筛选 (Max 3)</label>
+    <div class="tag-input-wrapper" id="techStackInputWrapper">
+      <div class="selected-tags" id="selectedTechStacks">
+        <span class="placeholder">选择技术栈...</span>
+      </div>
+      <div class="tag-dropdown hidden" id="techStackDropdown">
+        <!-- Options will be populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 状态筛选 -->
+  <div class="filter-group status-group">
+    <label>项目状态</label>
+    <div class="custom-select-wrapper" id="statusSelectWrapper">
+      <div class="custom-select-trigger" id="statusTrigger">
+        <span class="current-text">全部状态</span>
+        <i class="fas fa-chevron-down arrow-icon"></i>
+      </div>
+      <div class="custom-options hidden" id="statusOptions">
+        <div class="custom-option selected" data-value="all">全部状态</div>
+        <div class="custom-option" data-value="in-progress">In Progress</div>
+        <div class="custom-option" data-value="completed">Completed</div>
+        <div class="custom-option" data-value="planning">Planning</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .filter-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid #eee;
+    height: auto; /* Auto height */
+    min-height: 250px;
+    overflow-y: visible;
+  }
+
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .filter-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+
+  .reset-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover {
+    background: #f5f5f5;
+    color: #d32f2f;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .filter-group label {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+  }
+
+  /* Tag Input Styles */
+  .tag-group {
+    position: relative;
+    z-index: 20;
+  }
+
+  .tag-input-wrapper {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 0.5rem;
+    height: 42px;
+    cursor: pointer;
+    background: #fff;
+    position: relative;
+    transition: border-color 0.2s;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+  }
+
+  .tag-input-wrapper:hover {
+    border-color: #bbb;
+  }
+
+  .selected-tags {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    overflow-x: auto;
+    width: 100%;
+    align-items: center;
+    scrollbar-width: none;
+  }
+  .selected-tags::-webkit-scrollbar { display: none; }
+
+  .placeholder {
+    color: #999;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .selected-tags :global(.tag-chip) {
+    background: #e0e0e0;
+    color: #333;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .selected-tags :global(.tag-remove) {
+    cursor: pointer;
+    color: #666;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .selected-tags :global(.tag-remove:hover) { color: #000; }
+
+  .tag-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 4px;
+  }
+
+  .tag-dropdown.hidden {
+    display: none;
+  }
+
+  .tag-dropdown :global(.tag-option) {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    color: #444;
+    transition: all 0.2s ease;
+    margin-bottom: 2px;
+  }
+
+  .tag-dropdown :global(.tag-option:hover) {
+    background: #f5f5f7;
+    color: #000;
+  }
+
+  .tag-dropdown :global(.tag-option.disabled) {
+    color: #aaa;
+    background: #f9f9f9;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  /* Status Select Styles */
+  .status-group {
+    position: relative;
+    z-index: 10;
+  }
+
+  .custom-select-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .custom-select-trigger {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 1rem;
+    height: 42px;
+    cursor: pointer;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: border-color 0.2s;
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  .custom-select-trigger:hover {
+    border-color: #bbb;
+  }
+
+  .arrow-icon {
+    width: 1em;
+    height: 1em;
+    color: #999;
+  }
+
+  .custom-options {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 4px;
+  }
+
+  .custom-options.hidden {
+    display: none;
+  }
+
+  .custom-option {
+    padding: 10px 1rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #444;
+    transition: all 0.2s;
+  }
+
+  .custom-option:hover {
+    background: #f5f5f7;
+    color: #000;
+  }
+
+  .custom-option.selected {
+    background: #f0f7ff;
+    color: #0066cc;
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  const techStackWrapper = document.getElementById('techStackInputWrapper');
+  const techStackDropdown = document.getElementById('techStackDropdown');
+  const selectedTechStacksContainer = document.getElementById('selectedTechStacks');
+  const resetBtn = document.getElementById('resetFiltersBtn');
+  
+  const statusWrapper = document.getElementById('statusSelectWrapper');
+  const statusTrigger = document.getElementById('statusTrigger');
+  const statusOptions = document.getElementById('statusOptions');
+  const currentStatusText = statusTrigger?.querySelector('.current-text');
+
+  let selectedStacks: string[] = [];
+  const MAX_STACKS = 3;
+  let allStacks: string[] = [];
+
+  // Initialize from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  selectedStacks = urlParams.getAll('tech_stack');
+  renderStacks();
+
+  // Initialize Status from URL
+  const currentStatus = urlParams.get('status') || 'all';
+  if (statusTrigger && statusOptions) {
+    const options = statusOptions.querySelectorAll('.custom-option');
+    options.forEach(opt => {
+      if (opt.getAttribute('data-value') === currentStatus) {
+        opt.classList.add('selected');
+        if (currentStatusText) currentStatusText.textContent = opt.textContent;
+      } else {
+        opt.classList.remove('selected');
+      }
+    });
+  }
+
+  async function fetchTechStacks() {
+    try {
+      const res = await fetch('http://127.0.0.1:8000/api/admin/projects/tech-stacks');
+      if (res.ok) {
+        allStacks = await res.json();
+        renderDropdownOptions();
+      }
+    } catch (e) {
+      console.error("Failed to fetch tech stacks", e);
+    }
+  }
+
+  fetchTechStacks();
+
+  function renderDropdownOptions() {
+    if (!techStackDropdown) return;
+    techStackDropdown.innerHTML = allStacks.map(stack => {
+      const isSelected = selectedStacks.includes(stack);
+      const isDisabled = !isSelected && selectedStacks.length >= MAX_STACKS;
+      return `
+        <div class="tag-option ${isDisabled ? 'disabled' : ''}" 
+             data-value="${stack}">
+          ${stack} ${isSelected ? '✓' : ''}
+        </div>
+      `;
+    }).join('');
+  }
+
+  function updateDropdownState() {
+    renderDropdownOptions();
+  }
+
+  function updateUrl() {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('tech_stack');
+    selectedStacks.forEach(s => url.searchParams.append('tech_stack', s));
+    
+    const status = statusOptions?.querySelector('.custom-option.selected')?.getAttribute('data-value');
+    if (status && status !== 'all') {
+      url.searchParams.set('status', status);
+    } else {
+      url.searchParams.delete('status');
+    }
+
+    // Reset page to 1 on filter change
+    url.searchParams.set('page', '1');
+
+    window.history.pushState({}, '', url.toString());
+    window.dispatchEvent(new CustomEvent('project-filter-change'));
+  }
+
+  // Event Listeners
+  statusTrigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    statusOptions?.classList.toggle('hidden');
+    techStackDropdown?.classList.add('hidden');
+  });
+
+  statusOptions?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('custom-option')) {
+      const value = target.getAttribute('data-value');
+      const text = target.textContent;
+      
+      statusOptions.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+      target.classList.add('selected');
+      if (currentStatusText) currentStatusText.textContent = text;
+      statusOptions.classList.add('hidden');
+      
+      updateUrl();
+    }
+  });
+  
+  techStackWrapper?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    techStackDropdown?.classList.toggle('hidden');
+    statusOptions?.classList.add('hidden');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!techStackWrapper?.contains(e.target as Node)) {
+      techStackDropdown?.classList.add('hidden');
+    }
+    if (!statusWrapper?.contains(e.target as Node)) {
+      statusOptions?.classList.add('hidden');
+    }
+  });
+
+  techStackDropdown?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('tag-option')) {
+      if (target.classList.contains('disabled')) return;
+      
+      const stack = target.getAttribute('data-value');
+      if (stack) {
+        if (selectedStacks.includes(stack)) {
+          removeStack(stack);
+        } else {
+          addStack(stack);
+        }
+      }
+    }
+  });
+
+  function addStack(stack: string) {
+    if (selectedStacks.length < MAX_STACKS && !selectedStacks.includes(stack)) {
+      selectedStacks.push(stack);
+      renderStacks();
+      updateDropdownState();
+      updateUrl();
+    }
+  }
+
+  function removeStack(stack: string) {
+    selectedStacks = selectedStacks.filter(s => s !== stack);
+    renderStacks();
+    updateDropdownState();
+    updateUrl();
+  }
+
+  function renderStacks() {
+    if (!selectedTechStacksContainer) return;
+    
+    if (selectedStacks.length === 0) {
+      selectedTechStacksContainer.innerHTML = '<span class="placeholder">选择技术栈...</span>';
+    } else {
+      selectedTechStacksContainer.innerHTML = selectedStacks.map(stack => `
+        <div class="tag-chip">
+          ${stack}
+          <span class="tag-remove" onclick="event.stopPropagation();" data-stack="${stack}">×</span>
+        </div>
+      `).join('');
+      
+      // Re-attach event listeners for remove buttons
+      selectedTechStacksContainer.querySelectorAll('.tag-remove').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const s = (e.target as HTMLElement).getAttribute('data-stack');
+          if (s) removeStack(s);
+        });
+      });
+    }
+  }
+
+  resetBtn?.addEventListener('click', () => {
+    selectedStacks = [];
+    renderStacks();
+    
+    // Reset Status
+    if (statusOptions && currentStatusText) {
+      statusOptions.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+      const allOpt = statusOptions.querySelector('[data-value="all"]');
+      allOpt?.classList.add('selected');
+      currentStatusText.textContent = '全部状态';
+    }
+
+    updateDropdownState();
+    updateUrl();
+  });
+</script>
