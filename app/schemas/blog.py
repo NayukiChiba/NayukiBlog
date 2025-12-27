@@ -1,6 +1,7 @@
 from pydantic import BaseModel, field_validator
 from typing import List, Optional
 import json
+from app.models.blog import PostStatus, ContentStatus
 
 # --- Shared Validator ---
 def parse_json_list(v):
@@ -17,6 +18,7 @@ class BookBase(BaseModel):
     cover: Optional[str] = None
     url: Optional[str] = None
     status: Optional[str] = None
+    visibility: Optional[ContentStatus] = ContentStatus.PUBLISHED
     rating: Optional[int] = None
     tags: Optional[List[str]] = []
 
@@ -54,6 +56,7 @@ class GalleryBase(BaseModel):
     url: str
     date: Optional[str] = None
     tags: Optional[List[str]] = []
+    status: Optional[ContentStatus] = ContentStatus.PUBLISHED
 
     @field_validator('tags', mode='before')
     @classmethod
@@ -74,6 +77,7 @@ class PostBase(BaseModel):
     tags: Optional[List[str]] = []
     image: Optional[str] = None
     folder: Optional[str] = None
+    status: Optional[PostStatus] = PostStatus.PUBLIC
 
     @field_validator('tags', mode='before')
     @classmethod
@@ -93,6 +97,7 @@ class ProjectBase(BaseModel):
     techStack: Optional[List[str]] = []
     image: Optional[str] = None
     status: Optional[str] = None
+    visibility: Optional[ContentStatus] = ContentStatus.PUBLISHED
 
     @field_validator('techStack', mode='before')
     @classmethod
@@ -112,6 +117,7 @@ class TodoBase(BaseModel):
     type: Optional[str] = None
     progress: int = 0
     icon: Optional[str] = None
+    status: Optional[ContentStatus] = ContentStatus.PUBLISHED
 
 class Todo(TodoBase):
     id: int
@@ -125,6 +131,7 @@ class ToolBase(BaseModel):
     url: Optional[str] = None
     icon: Optional[str] = None
     category: Optional[str] = None
+    status: Optional[ContentStatus] = ContentStatus.PUBLISHED
 
 class Tool(ToolBase):
     id: int

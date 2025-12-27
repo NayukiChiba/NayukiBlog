@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import routes
+from app.api import user, admin
 from app.core.database import Base, engine
 
 # Create tables if they don't exist (though we already created them manually)
@@ -17,7 +17,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(routes.router, prefix="/api")
+app.include_router(user.router, prefix="/api/user", tags=["user"])
+app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
 
 @app.get("/")
 def read_root():
