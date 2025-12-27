@@ -15,7 +15,7 @@ def create_tables():
         title TEXT NOT NULL,
         cover TEXT,
         url TEXT,
-        status TEXT,
+        status TEXT CHECK( status IN ('draft', 'published', 'archived') ) DEFAULT 'published',
         rating INTEGER,
         tags TEXT -- Stored as JSON string or comma-separated values
     );
@@ -40,7 +40,8 @@ def create_tables():
         title TEXT,
         url TEXT NOT NULL,
         date TEXT,
-        tags TEXT -- Stored as JSON string
+        tags TEXT, -- Stored as JSON string
+        status TEXT CHECK( status IN ('draft', 'published', 'archived') ) DEFAULT 'published'
     );
     """)
 
@@ -54,7 +55,7 @@ def create_tables():
         url TEXT,
         tags TEXT, -- Stored as JSON string
         image TEXT,
-        folder TEXT
+        status TEXT CHECK( status IN ('public', 'draft', 'private') ) DEFAULT 'public'
     );
     """)
 
@@ -67,7 +68,7 @@ def create_tables():
         link TEXT,
         techStack TEXT, -- Stored as JSON string
         image TEXT,
-        status TEXT
+        status TEXT CHECK( status IN ('draft', 'published', 'archived') ) DEFAULT 'published'
     );
     """)
 
@@ -80,7 +81,8 @@ def create_tables():
         priority TEXT,
         type TEXT,
         progress INTEGER DEFAULT 0,
-        icon TEXT
+        icon TEXT,
+        status TEXT CHECK( status IN ('draft', 'published', 'archived') ) DEFAULT 'published'
     );
     """)
 
@@ -92,7 +94,8 @@ def create_tables():
         description TEXT,
         url TEXT,
         icon TEXT,
-        category TEXT
+        category TEXT,
+        status TEXT CHECK( status IN ('draft', 'published', 'archived') ) DEFAULT 'published'
     );
     """)
 

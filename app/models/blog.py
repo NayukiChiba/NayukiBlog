@@ -1,5 +1,16 @@
-from sqlalchemy import Column, Integer, String, Boolean, Text
+from sqlalchemy import Column, Integer, String, Boolean, Text, Enum
 from app.core.database import Base
+import enum
+
+class PostStatus(str, enum.Enum):
+    PUBLIC = "public"
+    DRAFT = "draft"
+    PRIVATE = "private"
+
+class ContentStatus(str, enum.Enum):
+    DRAFT = "draft"
+    PUBLISHED = "published"
+    ARCHIVED = "archived"
 
 class Book(Base):
     __tablename__ = "books"
@@ -7,7 +18,8 @@ class Book(Base):
     title = Column(String, nullable=False)
     cover = Column(String)
     url = Column(String)
-    status = Column(String)
+    status = Column(String) # Reading status: read, reading, wishlist
+    visibility = Column(String, default="published")
     rating = Column(Integer)
     tags = Column(Text) # JSON string
 
@@ -27,6 +39,7 @@ class Gallery(Base):
     url = Column(String, nullable=False)
     date = Column(String)
     tags = Column(Text) # JSON string
+    status = Column(String, default="published")
 
 class Post(Base):
     __tablename__ = "posts"
@@ -38,6 +51,7 @@ class Post(Base):
     tags = Column(Text) # JSON string
     image = Column(String)
     folder = Column(String)
+    status = Column(String, default="public")
 
 class Project(Base):
     __tablename__ = "projects"
@@ -47,7 +61,8 @@ class Project(Base):
     link = Column(String)
     techStack = Column(Text) # JSON string
     image = Column(String)
-    status = Column(String)
+    status = Column(String) # Project status: completed, ongoing, etc.
+    visibility = Column(String, default="published")
 
 class Todo(Base):
     __tablename__ = "todos"
@@ -58,6 +73,7 @@ class Todo(Base):
     type = Column(String)
     progress = Column(Integer, default=0)
     icon = Column(String)
+    status = Column(String, default="published")
 
 class Tool(Base):
     __tablename__ = "tools"
@@ -67,6 +83,7 @@ class Tool(Base):
     url = Column(String)
     icon = Column(String)
     category = Column(String)
+    status = Column(String, default="published")
 
 class Admin(Base):
     __tablename__ = "admins"
