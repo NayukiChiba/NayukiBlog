@@ -1,7 +1,12 @@
 ---
 ---
 <div class="category-card">
-    <div class="sidebar-title">分类</div>
+    <div class="card-header">
+        <div class="sidebar-title">分类</div>
+        <button id="resetCategoryBtn" class="reset-btn" title="重置筛选">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        </button>
+    </div>
     <div class="category-tree" id="category-tree">
         <div class="loading">Loading...</div>
     </div>
@@ -23,12 +28,43 @@
     let categories: Category[] = [];
     const collapsedFolders = new Set<string>();
 
-    // Listen for data from ArticleList
-    document.addEventListener('articles-data-loaded', (e: any) => {
-        const { categories } = e.detail;
-        const tree = buildTree(categories);
-        renderTree(tree);
+    // Reset button logic
+    const resetBtn = document.getElementById('resetCategoryBtn');
+    resetBtn?.addEventListener('click', () => {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('category');
+        url.searchParams.set('page', '1');
+        window.location.href = url.toString();
     });
+
+    // Fetch categories independently, similar to user/articles logic
+    async function fetchCategories() {
+        try {
+            // Fetch all articles to build the complete category tree
+            const response = await fetch('http://127.0.0.1:8000/api/admin/articles?limit=1000');
+            if (response.ok) {
+                const posts = await response.json();
+                
+                // Extract categories from posts
+                // We use 'folder' field as per user/articles.astro logic
+                const categories = posts
+                    .map((p: any) => ({ path: p.folder }))
+                    .filter((c: any) => c.path);
+                
+                const tree = buildTree(categories);
+                renderTree(tree);
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        } catch (e) {
+            console.error('Failed to fetch categories', e);
+            const treeContainer = document.getElementById('category-tree');
+            if (treeContainer) treeContainer.innerHTML = '<div class="error">加载失败</div>';
+        }
+    }
+
+    // Initialize
+    fetchCategories();
 
     function buildTree(categories: Category[]): CategoryNode[] {
         const root: CategoryNode[] = [];
@@ -130,6 +166,13 @@
             const folderBtn = document.createElement('button');
             folderBtn.className = 'folder-btn';
             folderBtn.dataset.folder = node.path;
+            
+            // Check if active
+            const currentCategory = new URLSearchParams(window.location.search).get('category');
+            if (node.path === currentCategory) {
+                folderBtn.classList.add('active');
+            }
+
             folderBtn.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon">
                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -137,9 +180,10 @@
                 ${node.label}
             `;
             folderBtn.addEventListener('click', () => {
-                document.querySelectorAll('.folder-btn').forEach(el => el.classList.remove('active'));
-                folderBtn.classList.add('active');
-                document.dispatchEvent(new CustomEvent('filter-changed', { detail: { category: node.path } }));
+                const url = new URL(window.location.href);
+                url.searchParams.set('category', node.path);
+                url.searchParams.set('page', '1');
+                window.location.href = url.toString();
             });
             itemDiv.appendChild(folderBtn);
 
@@ -173,14 +217,20 @@
         /* Minimalist: Clean panel, auto height */
         border: 1px solid #f0f0f0;
         border-radius: 8px;
-        height: auto;
-        max-height: 400px; /* Limit height for category tree if it gets long */
+        height: 350px; /* Fixed height as requested */
         min-height: 0;
         display: flex;
         flex-direction: column;
         position: relative;
         top: 0;
         padding: 1.5rem;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
     }
 
     .sidebar-title {
@@ -190,8 +240,29 @@
         text-transform: uppercase;
         letter-spacing: 0.1em;
         padding: 0;
-        margin-bottom: 1rem;
+        margin-bottom: 0;
         border: none;
+    }
+
+    .reset-btn {
+        background: transparent;
+        border: 1px solid #eee;
+        cursor: pointer;
+        color: #999;
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        padding: 0;
+    }
+    
+    .reset-btn:hover {
+        background-color: #f5f5f5;
+        color: #333;
+        border-color: #ddd;
     }
 
     .category-tree {

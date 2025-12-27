@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import or_
 from app.models import blog as models
 
 def get_books(db: Session, skip: int = 0, limit: int = 100, status: str = None):
@@ -16,11 +17,23 @@ def get_gallery(db: Session, skip: int = 0, limit: int = 100, status: str = None
         query = query.filter(models.Gallery.status == status)
     return query.offset(skip).limit(limit).all()
 
-def get_posts(db: Session, skip: int = 0, limit: int = 100, status: str = None):
+def get_posts(db: Session, skip: int = 0, limit: int = 100, status: str = None, folder: str = None, tags: list[str] = None, sort: str = "desc"):
     query = db.query(models.Post)
     if status:
         print(f"Filtering posts by status: {status} (Type: {type(status)})")
         query = query.filter(models.Post.status == status)
+    if folder:
+        # Filter by folder (exact match or subfolder)
+        query = query.filter(or_(models.Post.folder == folder, models.Post.folder.like(f"{folder}/%")))
+    if tags:
+        for tag in tags:
+            query = query.filter(models.Post.tags.like(f'%"{tag}"%'))
+    
+    if sort == "asc":
+        query = query.order_by(models.Post.date.asc())
+    else:
+        query = query.order_by(models.Post.date.desc())
+
     return query.offset(skip).limit(limit).all()
 
 def get_projects(db: Session, skip: int = 0, limit: int = 100, status: str = None):

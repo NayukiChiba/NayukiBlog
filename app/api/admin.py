@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form
+from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form, Query
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -21,8 +21,16 @@ def login(login_data: schemas.LoginRequest, db: Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
 @router.get("/articles", response_model=List[schemas.Post])
-def read_admin_articles(skip: int = 0, limit: int = 1000, db: Session = Depends(get_db)):
-    posts = crud.get_posts(db, skip=skip, limit=limit)
+def read_admin_articles(
+    skip: int = 0, 
+    limit: int = 10, 
+    category: str = None, 
+    tags: List[str] = Query(None),
+    sort: str = "desc",
+    status: str = None,
+    db: Session = Depends(get_db)
+):
+    posts = crud.get_posts(db, skip=skip, limit=limit, folder=category, tags=tags, sort=sort, status=status)
     return posts
 
 @router.post("/articles/upload")
