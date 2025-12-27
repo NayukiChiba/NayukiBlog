@@ -17,8 +17,7 @@ class BookBase(BaseModel):
     title: str
     cover: Optional[str] = None
     url: Optional[str] = None
-    status: Optional[str] = None
-    visibility: Optional[ContentStatus] = ContentStatus.PUBLISHED
+    status: Optional[ContentStatus] = ContentStatus.PUBLISHED
     rating: Optional[int] = None
     tags: Optional[List[str]] = []
 

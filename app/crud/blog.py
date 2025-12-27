@@ -5,7 +5,7 @@ from app.models import blog as models
 def get_books(db: Session, skip: int = 0, limit: int = 100, status: str = None):
     query = db.query(models.Book)
     if status:
-        query = query.filter(models.Book.visibility == status)
+        query = query.filter(models.Book.status == status)
     return query.offset(skip).limit(limit).all()
 
 def get_diaries(db: Session, skip: int = 0, limit: int = 100, year: str = None, month: str = None):
