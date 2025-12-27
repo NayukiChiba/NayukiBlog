@@ -50,6 +50,10 @@ class Diary(DiaryBase):
     class Config:
         from_attributes = True
 
+class DiaryPagination(BaseModel):
+    total: int
+    items: List[Diary]
+
 # --- Gallery ---
 class GalleryBase(BaseModel):
     title: Optional[str] = None

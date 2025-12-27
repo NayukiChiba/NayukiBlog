@@ -1,5 +1,9 @@
 ---
+import DiaryFilter from './DiaryFilter.astro';
 ---
+
+<DiaryFilter />
+
 <div class="diary-list-card">
     <div class="card-header">
         <span>Diary List</span>
@@ -9,18 +13,24 @@
         <table class="admin-table">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Content</th>
-                    <th>Mood</th>
-                    <th>Weather</th>
-                    <th>Images</th>
-                    <th>Actions</th>
+                    <th class="col-date">Date</th>
+                    <th class="col-content">Content</th>
+                    <th class="col-mood">Mood</th>
+                    <th class="col-weather">Weather</th>
+                    <th class="col-images">Images</th>
+                    <th class="col-actions">Actions</th>
                 </tr>
             </thead>
             <tbody id="diary-table-body">
                 <tr><td colspan="6" class="loading-text">Loading...</td></tr>
             </tbody>
         </table>
+    </div>
+    
+    <div class="pagination-container" id="pagination-container" style="display: none;">
+        <button class="page-btn" id="prev-page" disabled>&lt;</button>
+        <span class="page-info">Page <span id="current-page">1</span> of <span id="total-pages">1</span></span>
+        <button class="page-btn" id="next-page" disabled>&gt;</button>
     </div>
 </div>
 
@@ -34,32 +44,69 @@
         images?: string[];
     }
 
+    interface DiaryResponse {
+        total: number;
+        items: Diary[];
+    }
+
+    let currentPage = 1;
+    const limit = 10;
+    let totalPages = 1;
+
     async function fetchDiaries() {
         const tbody = document.getElementById('diary-table-body');
         const countSpan = document.getElementById('diary-count');
+        const paginationContainer = document.getElementById('pagination-container');
+        
         if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="loading-text">Loading...</td></tr>';
 
-        try {
-            const res = await fetch('http://127.0.0.1:8000/api/diaries');
-            if (!res.ok) throw new Error('Failed to fetch');
-            const diaries: Diary[] = await res.json();
+        // Get params from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const year = urlParams.get('year');
+        const month = urlParams.get('month');
+        const pageParam = urlParams.get('page');
+        
+        if (pageParam) currentPage = parseInt(pageParam);
+        
+        const skip = (currentPage - 1) * limit;
 
-            if (countSpan) countSpan.textContent = `${diaries.length} entries`;
+        let url = `http://127.0.0.1:8000/api/admin/diaries?skip=${skip}&limit=${limit}`;
+        if (year) url += `&year=${year}`;
+        if (month) url += `&month=${month}`;
+
+        try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error('Failed to fetch');
+            const data: DiaryResponse = await res.json();
+            const diaries = data.items;
+            const total = data.total;
+
+            totalPages = Math.ceil(total / limit);
+            updatePaginationUI();
+
+            if (countSpan) countSpan.textContent = `${total} entries`;
+            if (paginationContainer) paginationContainer.style.display = total > 0 ? 'flex' : 'none';
 
             if (tbody) {
-                tbody.innerHTML = diaries.map(diary => `
-                    <tr>
-                        <td>${diary.date}</td>
-                        <td class="truncate" title="${diary.content || ''}">${diary.content || '-'}</td>
-                        <td>${diary.mood || '-'}</td>
-                        <td>${diary.weather || '-'}</td>
-                        <td>${diary.images && diary.images.length > 0 ? `<span class="tag">${diary.images.length} images</span>` : '-'}</td>
-                        <td>
-                            <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
-                            <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `).join('');
+                if (diaries.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="empty-text">No diaries found.</td></tr>';
+                } else {
+                    tbody.innerHTML = diaries.map(diary => `
+                        <tr>
+                            <td>${diary.date}</td>
+                            <td><div class="truncate" title="${diary.content || ''}">${diary.content || '-'}</div></td>
+                            <td>${diary.mood || '-'}</td>
+                            <td>${diary.weather || '-'}</td>
+                            <td>${diary.images && diary.images.length > 0 ? `<span class="tag">${diary.images.length} images</span>` : '-'}</td>
+                            <td>
+                                <div class="actions">
+                                    <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
             }
         } catch (error) {
             console.error(error);
@@ -67,6 +114,39 @@
         }
     }
 
+    function updatePaginationUI() {
+        const prevBtn = document.getElementById('prev-page') as HTMLButtonElement;
+        const nextBtn = document.getElementById('next-page') as HTMLButtonElement;
+        const currentSpan = document.getElementById('current-page');
+        const totalSpan = document.getElementById('total-pages');
+
+        if (currentSpan) currentSpan.textContent = currentPage.toString();
+        if (totalSpan) totalSpan.textContent = totalPages.toString();
+
+        if (prevBtn) prevBtn.disabled = currentPage <= 1;
+        if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+    }
+
+    function changePage(delta: number) {
+        const newPage = currentPage + delta;
+        if (newPage >= 1 && newPage <= totalPages) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('page', newPage.toString());
+            window.history.pushState({}, '', url.toString());
+            fetchDiaries();
+        }
+    }
+
+    document.getElementById('prev-page')?.addEventListener('click', () => changePage(-1));
+    document.getElementById('next-page')?.addEventListener('click', () => changePage(1));
+
+    // Listen for filter changes
+    window.addEventListener('diary-filter-change', () => {
+        currentPage = 1; // Reset to page 1 on filter change
+        fetchDiaries();
+    });
+
+    // Initial load
     fetchDiaries();
 </script>
 
@@ -101,57 +181,135 @@
     .admin-table {
         width: 100%;
         border-collapse: collapse;
-        font-size: 14px;
+        table-layout: fixed; /* Important for truncation */
     }
 
     .admin-table th {
+        padding: 12px 15px;
         text-align: left;
-        padding: 12px 0;
-        color: #909399;
-        font-weight: 500;
         border-bottom: 1px solid #ebeef5;
-    }
-
-    .admin-table td {
-        padding: 12px 0;
-        border-bottom: 1px solid #ebeef5;
+        vertical-align: middle;
+        position: relative;
+        background-color: #f5f7fa;
         color: #606266;
+        font-weight: 600;
+        font-size: 14px;
     }
 
-    .truncate {
-        max-width: 300px;
+    /* Column Widths */
+    .col-date { width: 120px; }
+    .col-content { width: auto; }
+    .col-mood { width: 100px; }
+    .col-weather { width: 100px; }
+    .col-images { width: 80px; }
+    .col-actions { width: 100px; }
+
+    /* Dynamic TD styling */
+    .admin-table :global(td) {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ebeef5;
+        vertical-align: middle;
+        position: relative;
+        color: #606266;
+        font-size: 14px;
+    }
+    
+    /* Vertical divider */
+    .admin-table th:not(:last-child)::after,
+    .admin-table :global(td:not(:last-child)::after) {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 20%;
+        height: 60%;
+        width: 1px;
+        background-color: #ebeef5;
+    }
+
+    :global(.truncate) {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        max-width: 100%;
+        display: block;
     }
 
-    .tag {
+    :global(.tag) {
         display: inline-block;
-        background: #f0f9eb;
-        color: #67c23a;
-        padding: 2px 6px;
-        border-radius: 4px;
+        padding: 2px 8px;
         font-size: 12px;
+        border-radius: 4px;
+        background-color: #ecf5ff;
+        color: #409eff;
+        border: 1px solid #d9ecff;
     }
 
-    .btn-icon {
+    :global(.actions) {
+        display: flex;
+        gap: 8px;
+    }
+
+    :global(.btn-icon) {
         background: none;
         border: none;
         cursor: pointer;
-        padding: 4px 8px;
-        font-size: 14px;
-        transition: color 0.3s;
+        padding: 4px;
+        color: #909399;
+        transition: color 0.2s;
     }
 
-    .btn-icon.edit { color: #000000; }
-    .btn-icon.edit:hover { color: #333333; }
-    .btn-icon.delete { color: #f56c6c; }
-    .btn-icon.delete:hover { color: #f78989; }
+    :global(.btn-icon:hover) {
+        color: #409eff;
+    }
 
-    .loading-text, .error-text {
+    :global(.btn-icon.delete:hover) {
+        color: #f56c6c;
+    }
+
+    :global(.loading-text), :global(.error-text), :global(.empty-text) {
         text-align: center;
         padding: 20px;
         color: #909399;
     }
-    .error-text { color: #f56c6c; }
+
+    :global(.error-text) {
+        color: #f56c6c;
+    }
+
+    /* Pagination */
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        gap: 15px;
+    }
+
+    .page-btn {
+        padding: 6px 12px;
+        background: #f4f4f5;
+        border: 1px solid #dcdfe6;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #606266;
+        transition: all 0.2s;
+    }
+
+    .page-btn:hover:not(:disabled) {
+        color: #409eff;
+        border-color: #c6e2ff;
+        background-color: #ecf5ff;
+    }
+
+    .page-btn:disabled {
+        cursor: not-allowed;
+        color: #c0c4cc;
+        background-color: #f4f4f5;
+    }
+
+    .page-info {
+        font-size: 14px;
+        color: #606266;
+    }
 </style>

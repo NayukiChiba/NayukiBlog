@@ -8,8 +8,29 @@ def get_books(db: Session, skip: int = 0, limit: int = 100, status: str = None):
         query = query.filter(models.Book.visibility == status)
     return query.offset(skip).limit(limit).all()
 
-def get_diaries(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Diary).offset(skip).limit(limit).all()
+def get_diaries(db: Session, skip: int = 0, limit: int = 100, year: str = None, month: str = None):
+    query = db.query(models.Diary)
+    
+    if year and month:
+        query = query.filter(models.Diary.date.like(f"{year}-{month.zfill(2)}%"))
+    elif year:
+        query = query.filter(models.Diary.date.like(f"{year}%"))
+    elif month:
+        query = query.filter(models.Diary.date.like(f"%-{month.zfill(2)}-%"))
+        
+    return query.order_by(models.Diary.date.desc()).offset(skip).limit(limit).all()
+
+def get_diaries_count(db: Session, year: str = None, month: str = None):
+    query = db.query(models.Diary)
+    
+    if year and month:
+        query = query.filter(models.Diary.date.like(f"{year}-{month.zfill(2)}%"))
+    elif year:
+        query = query.filter(models.Diary.date.like(f"{year}%"))
+    elif month:
+        query = query.filter(models.Diary.date.like(f"%-{month.zfill(2)}-%"))
+        
+    return query.count()
 
 def get_gallery(db: Session, skip: int = 0, limit: int = 100, status: str = None):
     query = db.query(models.Gallery)

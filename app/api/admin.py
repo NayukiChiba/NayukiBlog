@@ -74,3 +74,15 @@ def read_admin_tech_stacks(db: Session = Depends(get_db)):
             except:
                 pass
     return list(all_stacks)
+
+@router.get("/diaries", response_model=schemas.DiaryPagination)
+def read_admin_diaries(
+    skip: int = 0, 
+    limit: int = 100, 
+    year: str = Query(None),
+    month: str = Query(None),
+    db: Session = Depends(get_db)
+):
+    diaries = crud.get_diaries(db, skip=skip, limit=limit, year=year, month=month)
+    total = crud.get_diaries_count(db, year=year, month=month)
+    return {"total": total, "items": diaries}
