@@ -154,15 +154,22 @@ const getPageUrl = (p: number) => {
 
 <script>
   const pageInput = document.getElementById('page-input') as HTMLInputElement;
+  const tbody = document.querySelector('.article-table tbody') as HTMLElement | null;
+  const paginationBar = document.querySelector('.pagination-bar');
   
+  // Function to update URL and fetch data
+  function updatePage(page: number) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', page.toString());
+    window.history.pushState({}, '', url.toString());
+    fetchAndRenderArticles();
+  }
+
   if (pageInput) {
     pageInput.addEventListener('change', () => {
       let page = parseInt(pageInput.value);
       if (isNaN(page) || page < 1) page = 1;
-      
-      const url = new URL(window.location.href);
-      url.searchParams.set('page', page.toString());
-      window.location.href = url.toString();
+      updatePage(page);
     });
 
     pageInput.addEventListener('keydown', (e) => {
@@ -170,6 +177,166 @@ const getPageUrl = (p: number) => {
         pageInput.blur(); // Trigger change event
       }
     });
+  }
+
+  // Listen for filter changes from other components
+  window.addEventListener('article-filter-change', () => {
+    fetchAndRenderArticles();
+  });
+
+  // Handle browser back/forward
+  window.addEventListener('popstate', () => {
+    fetchAndRenderArticles();
+  });
+
+  async function fetchAndRenderArticles() {
+    if (!tbody) return;
+    
+    // Show loading state (optional)
+    tbody.style.opacity = '0.5';
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = parseInt(urlParams.get('page') || '1');
+    const pageSize = 10;
+    const skip = (page - 1) * pageSize;
+    
+    // Construct API URL
+    const fetchLimit = pageSize + 1;
+    const apiParams = new URLSearchParams();
+    apiParams.append('skip', skip.toString());
+    apiParams.append('limit', fetchLimit.toString());
+    
+    const sort = urlParams.get('sort') || 'desc';
+    apiParams.append('sort', sort);
+    
+    const status = urlParams.get('status');
+    if (status && status !== 'all') apiParams.append('status', status);
+    
+    const category = urlParams.get('category');
+    if (category) apiParams.append('category', category);
+    
+    const tags = urlParams.getAll('tags');
+    tags.forEach(tag => apiParams.append('tags', tag));
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/admin/articles?${apiParams.toString()}`);
+      if (response.ok) {
+        const data = await response.json();
+        const mappedArticles = data.map((item: any) => ({
+          id: item.id,
+          title: item.title,
+          category: typeof item.category === 'object' ? item.folder?.name : (item.folder || 'Uncategorized'),
+          tags: Array.isArray(item.tags) ? item.tags.map((t: any) => typeof t === 'object' ? t.name : t) : [],
+          status: item.status || (item.is_published ? 'published' : 'draft'),
+          createdAt: item.date || (item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]),
+        }));
+
+        let articles = [];
+        let hasNextPage = false;
+
+        if (mappedArticles.length > pageSize) {
+          hasNextPage = true;
+          articles = mappedArticles.slice(0, pageSize);
+        } else {
+          hasNextPage = false;
+          articles = mappedArticles;
+        }
+
+        renderTable(articles);
+        renderPagination(page, hasNextPage);
+      }
+    } catch (e) {
+      console.error("Failed to fetch articles", e);
+    } finally {
+      tbody.style.opacity = '1';
+    }
+  }
+
+  function renderTable(articles: any[]) {
+    if (!tbody) return;
+    
+    if (articles.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" class="no-data">
+            <div class="empty-state">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="empty-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <p>没有找到符合条件的文章</p>
+            </div>
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    tbody.innerHTML = articles.map(article => `
+      <tr>
+        <td class="col-title">
+          <span class="title-text">${article.title}</span>
+        </td>
+        <td class="col-category">
+          <span class="category-badge">${article.category}</span>
+        </td>
+        <td class="col-tags">
+          <div class="tags-wrapper">
+            ${article.tags.map((tag: string) => `<span class="tag-box">${tag}</span>`).join('')}
+          </div>
+        </td>
+        <td class="col-status">
+          <div class="select-wrapper">
+            <select class="status-select status-${article.status}" value="${article.status}">
+              <option value="published" ${article.status === 'published' ? 'selected' : ''}>Published</option>
+              <option value="draft" ${article.status === 'draft' ? 'selected' : ''}>Draft</option>
+              <option value="archived" ${article.status === 'archived' ? 'selected' : ''}>Archived</option>
+            </select>
+          </div>
+        </td>
+        <td class="col-date">
+          <span class="date-text">${article.createdAt}</span>
+        </td>
+        <td class="col-actions">
+          <button class="btn-icon edit" aria-label="Edit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+          </button>
+          <button class="btn-icon delete" aria-label="Delete">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          </button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function renderPagination(page: number, hasNextPage: boolean) {
+    if (!paginationBar) return;
+    
+    // Update input value
+    if (pageInput) pageInput.value = page.toString();
+
+    // Update buttons
+    const prevBtn = paginationBar.querySelector('a[aria-label="Previous Page"]') as HTMLAnchorElement | null;
+    const nextBtn = paginationBar.querySelector('a[aria-label="Next Page"]') as HTMLAnchorElement | null;
+
+    if (prevBtn) {
+      if (page > 1) {
+        prevBtn.classList.remove('disabled');
+        prevBtn.setAttribute('href', '#'); // Prevent default navigation
+        prevBtn.onclick = (e: MouseEvent) => { e.preventDefault(); updatePage(page - 1); };
+      } else {
+        prevBtn.classList.add('disabled');
+        prevBtn.onclick = null;
+      }
+    }
+
+    if (nextBtn) {
+      if (hasNextPage) {
+        nextBtn.classList.remove('disabled');
+        nextBtn.setAttribute('href', '#'); // Prevent default navigation
+        nextBtn.onclick = (e: MouseEvent) => { e.preventDefault(); updatePage(page + 1); };
+      } else {
+        nextBtn.classList.add('disabled');
+        nextBtn.onclick = null;
+      }
+    }
   }
 </script>
 
@@ -228,7 +395,7 @@ const getPageUrl = (p: number) => {
     flex: 1;
   }
 
-  th {
+  .article-table :global(th) {
     background-color: var(--bg-hover);
     color: var(--text-secondary);
     font-weight: 600;
@@ -241,11 +408,11 @@ const getPageUrl = (p: number) => {
     border-right: 1px solid var(--border-color); /* 竖线分隔 */
   }
   
-  th:last-child {
+  .article-table :global(th:last-child) {
     border-right: none;
   }
 
-  td {
+  .article-table :global(td) {
     padding: 1rem 1.5rem;
     color: var(--text-primary);
     border-bottom: 1px solid var(--border-color);
@@ -253,24 +420,24 @@ const getPageUrl = (p: number) => {
     border-right: 1px solid var(--border-color); /* 竖线分隔 */
   }
 
-  td:last-child {
+  .article-table :global(td:last-child) {
     border-right: none;
   }
 
-  tr:last-child td {
+  .article-table :global(tr:last-child td) {
     border-bottom: none;
   }
 
-  tr:hover td {
+  .article-table :global(tr:hover td) {
     background-color: var(--bg-hover);
   }
 
   /* Column Specifics */
-  .col-title {
+  :global(.col-title) {
     width: 20%;
   }
 
-  .title-text {
+  :global(.title-text) {
     display: block;
     white-space: nowrap;
     overflow: hidden;
@@ -280,11 +447,11 @@ const getPageUrl = (p: number) => {
     color: var(--text-primary);
   }
 
-  .col-category {
+  :global(.col-category) {
     width: 10%;
   }
 
-  .category-badge {
+  :global(.category-badge) {
     display: inline-block;
     padding: 0.25rem 0.75rem;
     background-color: #e0e7ff;
@@ -294,17 +461,17 @@ const getPageUrl = (p: number) => {
     font-weight: 500;
   }
 
-  .col-tags {
+  :global(.col-tags) {
     width: 20%;
   }
 
-  .tags-wrapper {
+  :global(.tags-wrapper) {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
   }
 
-  .tag-box {
+  :global(.tag-box) {
     display: inline-block;
     padding: 2px 6px;
     background-color: #f1f5f9;
@@ -316,16 +483,16 @@ const getPageUrl = (p: number) => {
     line-height: 1.2;
   }
 
-  .col-status {
+  :global(.col-status) {
     width: 12%;
   }
 
-  .select-wrapper {
+  :global(.select-wrapper) {
     position: relative;
     width: 100%;
   }
 
-  .status-select {
+  :global(.status-select) {
     appearance: none;
     width: 100%;
     padding: 0.35rem 1.75rem 0.35rem 0.75rem;
@@ -341,32 +508,32 @@ const getPageUrl = (p: number) => {
     background-size: 1rem 1rem;
   }
 
-  .status-select:hover {
+  :global(.status-select:hover) {
     filter: brightness(0.95);
   }
 
-  .status-select:focus {
+  :global(.status-select:focus) {
     outline: none;
     box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
   }
 
-  .col-date {
+  :global(.col-date) {
     width: 8%;
   }
 
-  .date-text {
+  :global(.date-text) {
     font-size: 0.8rem;
     color: var(--text-secondary);
     font-family: var(--font-mono);
   }
 
-  .col-actions {
+  :global(.col-actions) {
     text-align: middle;
     white-space: nowrap;
     width: 5%;
   }
 
-  .btn-icon {
+  :global(.btn-icon) {
     background: transparent;
     border: none;
     cursor: pointer;
@@ -377,22 +544,22 @@ const getPageUrl = (p: number) => {
     margin-left: 0.25rem;
   }
 
-  .btn-icon:hover {
+  :global(.btn-icon:hover) {
     background-color: #e5e7eb;
   }
 
-  .btn-icon.edit:hover {
+  :global(.btn-icon.edit:hover) {
     color: var(--primary-color);
     background-color: #e0e7ff;
   }
 
-  .btn-icon.delete:hover {
+  :global(.btn-icon.delete:hover) {
     color: var(--danger-color);
     background-color: #fee2e2;
   }
 
   /* Pagination */
-  .pagination-bar {
+  :global(.pagination-bar) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -401,13 +568,13 @@ const getPageUrl = (p: number) => {
     background-color: var(--bg-surface);
   }
 
-  .pagination-controls {
+  :global(.pagination-controls) {
     display: flex;
     gap: 1rem;
     align-items: center;
   }
 
-  .btn-page {
+  :global(.btn-page) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -424,26 +591,26 @@ const getPageUrl = (p: number) => {
     transition: all 0.2s;
   }
 
-  .btn-page:hover:not(.disabled) {
+  :global(.btn-page:hover:not(.disabled)) {
     background-color: #f5f5f5;
     color: #000;
     border-color: #ddd;
   }
 
-  .btn-page.disabled {
+  :global(.btn-page.disabled) {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
     background-color: var(--bg-surface);
   }
 
-  .page-input-container {
+  :global(.page-input-container) {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
   
-  .page-input {
+  :global(.page-input) {
     width: 40px;
     height: 32px;
     text-align: center;
@@ -456,29 +623,29 @@ const getPageUrl = (p: number) => {
     transition: border-color 0.2s;
     -moz-appearance: textfield;
   }
-  .page-input::-webkit-outer-spin-button,
-  .page-input::-webkit-inner-spin-button {
+  :global(.page-input::-webkit-outer-spin-button),
+  :global(.page-input::-webkit-inner-spin-button) {
     -webkit-appearance: none;
     margin: 0;
   }
-  .page-input:focus {
+  :global(.page-input:focus) {
     border-color: var(--text-primary);
   }
 
-  .no-data {
+  :global(.no-data) {
     text-align: center;
     padding: 4rem 2rem;
     color: var(--text-secondary);
   }
   
-  .empty-state {
+  :global(.empty-state) {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
   }
   
-  .empty-icon {
+  :global(.empty-icon) {
     color: #d1d5db;
   }
 </style>
