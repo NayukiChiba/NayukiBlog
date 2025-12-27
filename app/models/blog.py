@@ -18,8 +18,7 @@ class Book(Base):
     title = Column(String, nullable=False)
     cover = Column(String)
     url = Column(String)
-    status = Column(String) # Reading status: read, reading, wishlist
-    visibility = Column(String, default="published")
+    status = Column(String, default="published")
     rating = Column(Integer)
     tags = Column(Text) # JSON string
 
