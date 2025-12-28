@@ -66,6 +66,21 @@ def create_post(db: Session, title: str, date: str, folder: str, tags: str, stat
     db.refresh(db_post)
     return db_post
 
+def update_post(db: Session, post_id: int, title: str = None, date: str = None, folder: str = None, tags: str = None, status: str = None, desc: str = None, url: str = None):
+    db_post = db.query(models.Post).filter(models.Post.id == post_id).first()
+    if db_post:
+        if title: db_post.title = title
+        if date: db_post.date = date
+        if folder: db_post.folder = folder
+        if tags: db_post.tags = tags
+        if status: db_post.status = status
+        if desc: db_post.desc = desc
+        if url: db_post.url = url
+        db.commit()
+        db.refresh(db_post)
+        return db_post
+    return None
+
 def get_post(db: Session, post_id: int):
     return db.query(models.Post).filter(models.Post.id == post_id).first()
 

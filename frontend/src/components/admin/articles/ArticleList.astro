@@ -117,6 +117,9 @@ const getPageUrl = (p: number) => {
   const prevBtn = document.getElementById('prev-page-btn') as HTMLAnchorElement;
   const nextBtn = document.getElementById('next-page-btn') as HTMLAnchorElement;
   
+  // Store current articles data to avoid JSON serialization issues in HTML
+  let currentArticlesData: any[] = [];
+
   // Function to update URL and fetch data
   function updatePage(page: number) {
     const url = new URL(window.location.href);
@@ -203,6 +206,9 @@ const getPageUrl = (p: number) => {
           hasNextPage = false;
           articles = mappedArticles;
         }
+        
+        // Update global data store
+        currentArticlesData = articles;
 
         if (countSpan) countSpan.textContent = `${articles.length} articles (Page ${page})`;
         renderTable(articles);
@@ -224,7 +230,8 @@ const getPageUrl = (p: number) => {
       return;
     }
 
-    tbody.innerHTML = articles.map(article => `
+    tbody.innerHTML = articles.map(article => {
+      return `
       <tr>
         <td class="col-title">
           <span class="title-text" title="${article.title}">${article.title}</span>
@@ -246,11 +253,49 @@ const getPageUrl = (p: number) => {
           <span class="date-text">${article.createdAt}</span>
         </td>
         <td class="col-actions">
-          <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
-          <button class="btn-icon delete" title="Delete" onclick="deleteArticle('${article.id}', '${article.title}')"><i class="fas fa-trash"></i></button>
+          <button class="btn-icon edit" title="Edit" data-id="${article.id}"><i class="fas fa-edit"></i></button>
+          <button class="btn-icon delete" title="Delete" data-id="${article.id}" data-title="${article.title}"><i class="fas fa-trash"></i></button>
         </td>
       </tr>
-    `).join('');
+    `}).join('');
+  }
+
+  // Event Delegation for Actions
+  if (tbody) {
+    tbody.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      
+      // Handle Edit
+      const editBtn = target.closest('.btn-icon.edit');
+      if (editBtn) {
+        const id = editBtn.getAttribute('data-id');
+        console.log('Edit button clicked for ID:', id);
+        if (id) {
+          // Find article data from memory instead of parsing HTML attribute
+          // Note: id is string in HTML but might be number in data, handle comparison carefully
+          const article = currentArticlesData.find(a => String(a.id) === String(id));
+          console.log('Found article data:', article);
+          if (article) {
+            console.log('Dispatching open-edit-article-modal event');
+            document.dispatchEvent(new CustomEvent('open-edit-article-modal', { detail: article }));
+          } else {
+            console.error('Article data not found for id:', id);
+          }
+        }
+        return;
+      }
+
+      // Handle Delete
+      const deleteBtn = target.closest('.btn-icon.delete');
+      if (deleteBtn) {
+        const id = deleteBtn.getAttribute('data-id');
+        const title = deleteBtn.getAttribute('data-title');
+        if (id && title) {
+          window.deleteArticle(id, title);
+        }
+        return;
+      }
+    });
   }
 
   // Define global types for window functions

@@ -80,6 +80,72 @@ async def upload_article(
     
     return {"status": "success", "message": "Article uploaded successfully"}
 
+@router.put("/articles/{post_id}")
+async def update_article(
+    post_id: int,
+    title: str = Form(None),
+    date: str = Form(None),
+    category: str = Form(None),
+    tags: str = Form(None),
+    status: str = Form(None),
+    summary: str = Form(None),
+    file: UploadFile = File(None),
+    db: Session = Depends(get_db)
+):
+    post = crud.get_post(db, post_id)
+    if not post:
+        raise HTTPException(status_code=404, detail="Article not found")
+
+    url_path = None
+    if file and file.filename:
+        # Save new file
+        base_path = "frontend/src/pages/user/posts"
+        os.makedirs(base_path, exist_ok=True)
+        
+        file_path = os.path.join(base_path, file.filename)
+        
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+            
+        filename_no_ext = os.path.splitext(file.filename)[0]
+        url_path = f"/user/posts/{filename_no_ext}"
+        
+        # Delete old file if filename is different
+        if post.url and "/user/posts/" in post.url:
+            old_filename_no_ext = post.url.split("/user/posts/")[-1]
+            if old_filename_no_ext != filename_no_ext:
+                possible_extensions = [".md", ".mdx"]
+                for ext in possible_extensions:
+                    old_file_path = os.path.join(base_path, old_filename_no_ext + ext)
+                    if os.path.exists(old_file_path):
+                        try:
+                            os.remove(old_file_path)
+                            print(f"Deleted old file: {old_file_path}")
+                        except Exception as e:
+                            print(f"Error deleting old file {old_file_path}: {e}")
+                        break
+
+    # Normalize status
+    if status == "published":
+        status = "public"
+
+    updated_post = crud.update_post(
+        db=db,
+        post_id=post_id,
+        title=title,
+        date=date,
+        folder=category,
+        tags=tags,
+        status=status,
+        desc=summary,
+        url=url_path
+    )
+    
+    if updated_post:
+        return {"status": "success", "message": "Article updated successfully"}
+    else:
+        raise HTTPException(status_code=500, detail="Failed to update article")
+
 @router.delete("/articles/{post_id}")
 def delete_article(post_id: int, db: Session = Depends(get_db)):
     post = crud.get_post(db, post_id)

@@ -1,0 +1,826 @@
+---
+// ArticleEdit.astro
+import AlertModal from '../AlertModal.astro';
+---
+
+<div id="edit-article-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 class="modal-title">Edit Article</h3>
+      <button class="close-btn">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <form id="edit-article-form" class="create-form">
+        <input type="hidden" name="post_id" id="edit-post-id" />
+        
+        <!-- 1. Upload File (Optional) -->
+        <div class="form-group">
+          <label class="form-label">Replace Markdown File (Optional)</label>
+          <div class="file-upload-wrapper">
+            <input type="file" id="edit-article-file" name="file" accept=".md" class="file-input" />
+            <div class="file-upload-placeholder" id="edit-file-placeholder">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <span>Click to upload or drag and drop</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Folder Selection -->
+        <div class="form-group">
+          <div class="folder-header">
+            <label class="form-label">Folder</label>
+            <button type="button" class="btn-icon-small" title="Create New Folder" id="edit-new-folder-btn">
+              <i class="fas fa-folder-plus"></i>
+            </button>
+          </div>
+          <div class="folder-tree-container">
+            <input type="hidden" name="folder" id="edit-selected-folder-input" />
+            <div class="folder-tree" id="edit-folder-tree">
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Title -->
+        <div class="form-group">
+          <label class="form-label">Title</label>
+          <input type="text" name="title" id="edit-title-input" class="form-input" placeholder="Article Title" />
+        </div>
+
+        <!-- 4. Tags -->
+        <div class="form-group">
+          <label class="form-label">Tags</label>
+          <div class="tags-input-container" id="edit-tags-container">
+            <div class="selected-tags" id="edit-selected-tags">
+              <!-- Tags will be added here -->
+            </div>
+            <div class="tag-input-wrapper">
+                <input type="text" class="tag-input" id="edit-tag-input" placeholder="Add tag" />
+                <div class="tag-controls">
+                    <button type="button" class="tag-control-btn confirm-tag-btn" id="edit-confirm-tag-btn" title="Add tag">
+                        <i class="fas fa-check"></i>
+                    </button>
+                </div>
+                <div class="tags-dropdown hidden" id="edit-tags-dropdown">
+                  <!-- Tag suggestions -->
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <!-- 5. Status -->
+          <div class="form-group half">
+            <label class="form-label">Status</label>
+            <div class="custom-select-wrapper" id="editArticleStatusWrapper">
+              <div class="custom-select-trigger" id="editArticleStatusTrigger">
+                <span class="current-text">Draft</span>
+                <input type="hidden" name="status" id="edit-status-input" value="draft">
+                <i class="fas fa-chevron-down arrow-icon"></i>
+              </div>
+              <div class="custom-options hidden" id="editArticleStatusOptions">
+                <div class="custom-option" data-value="draft">Draft</div>
+                <div class="custom-option" data-value="public">Published</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Date -->
+          <div class="form-group half">
+            <label class="form-label">Date</label>
+            <input type="date" name="date" id="edit-date-input" class="form-input" />
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-cancel close-btn">Cancel</button>
+      <button class="btn btn-confirm" id="edit-confirm-btn">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- New Folder Modal (Reused logic but scoped IDs if needed, or just reuse the same modal if possible. 
+     For simplicity, I'll duplicate the modal structure with unique IDs to avoid conflicts) -->
+<div id="edit-new-folder-modal" class="modal-overlay hidden" style="z-index: 2100;">
+  <div class="modal-card" style="width: 600px; height: auto; max-height: 80vh;">
+    <div class="modal-header">
+      <h3 class="modal-title">Create New Folder</h3>
+      <button class="close-new-folder-btn close-btn">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Select Parent Folder</label>
+        <div class="folder-tree-container" style="height: 200px;">
+          <div class="folder-tree" id="edit-parent-folder-tree">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">New Folder Name</label>
+        <input type="text" id="edit-new-folder-name" class="form-input" placeholder="e.g. tutorials" />
+      </div>
+      <div class="folder-preview-text" style="font-size: 0.85rem; color: #666; margin-top: 0.5rem; line-height: 1.4;">
+        Selected Parent: <span id="edit-selected-parent-display" style="font-weight: 600;">(Root)</span><br>
+        Creating Directory: <span id="edit-new-path-display" style="color: #0066cc;">/</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel close-new-folder-btn">Cancel</button>
+      <button class="btn btn-confirm" id="edit-confirm-new-folder">Create</button>
+    </div>
+  </div>
+</div>
+
+<AlertModal />
+
+<style>
+  /* Reuse styles from global or copy them. Since styles in Astro are scoped by default unless :global is used, 
+     and ArticleCreate uses :global for everything, we can rely on those if they are loaded. 
+     However, to be safe and self-contained, I'll include the same styles. 
+     Actually, since ArticleCreate uses :global, these styles are likely applied globally to the page 
+     when ArticleCreate is present. But to be safe, I will include them. */
+     
+  :global(.modal-overlay) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(2px);
+  }
+
+  :global(.modal-overlay.hidden) {
+    display: none;
+  }
+
+  :global(.modal-card) {
+    background: #fff;
+    border-radius: 12px;
+    width: 600px;
+    max-width: 90%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    animation: modal-slide-in 0.3s ease;
+  }
+
+  @keyframes modal-slide-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ... (Include other styles or rely on ArticleCreate's global styles if both are on the same page) ... */
+  /* Since both are on articles.astro, ArticleCreate's global styles will apply. 
+     I will only add specific overrides if needed. */
+</style>
+
+<script>
+  const modal = document.getElementById('edit-article-modal');
+  
+  // --- Tags Logic ---
+  const tagsContainer = document.getElementById('edit-tags-container');
+  const tagsInput = document.getElementById('edit-tag-input') as HTMLInputElement;
+  const tagsDropdown = document.getElementById('edit-tags-dropdown');
+  const selectedTagsContainer = document.getElementById('edit-selected-tags');
+  const confirmTagBtn = document.getElementById('edit-confirm-tag-btn');
+  
+  let availableTags: string[] = [];
+  let selectedTags: string[] = [];
+  const MAX_TAGS = 3;
+
+  async function fetchTags() {
+    try {
+      const res = await fetch('http://127.0.0.1:8000/api/admin/articles/tags');
+      if (res.ok) {
+        const data = await res.json();
+        availableTags = data.tags || [];
+      }
+    } catch (e) {
+      console.error('Failed to fetch tags', e);
+    }
+  }
+
+  function renderSelectedTags() {
+    if (!selectedTagsContainer) return;
+    selectedTagsContainer.innerHTML = selectedTags.map(tag => `
+      <span class="tag">
+        ${tag}
+        <i class="fas fa-times" data-tag="${tag}" style="cursor: pointer; margin-left: 4px;"></i>
+      </span>
+    `).join('');
+    
+    if (tagsInput) {
+        if (selectedTags.length >= MAX_TAGS) {
+            tagsInput.style.display = 'none';
+            if (confirmTagBtn) (confirmTagBtn as HTMLElement).style.display = 'none';
+        } else {
+            tagsInput.style.display = 'block';
+            if (confirmTagBtn) (confirmTagBtn as HTMLElement).style.display = 'flex';
+            tagsInput.placeholder = selectedTags.length > 0 ? 'Add another...' : 'Add tag';
+        }
+    }
+  }
+
+  function addTag(tag: string) {
+      tag = tag.trim();
+      if (tag && !selectedTags.includes(tag) && selectedTags.length < MAX_TAGS) {
+          selectedTags.push(tag);
+          renderSelectedTags();
+          if (tagsInput) {
+              tagsInput.value = '';
+              tagsInput.focus();
+          }
+          if (tagsDropdown) tagsDropdown.classList.add('hidden');
+      }
+  }
+
+  function removeTag(tag: string) {
+      selectedTags = selectedTags.filter(t => t !== tag);
+      renderSelectedTags();
+  }
+
+  // Event Delegation for removing tags
+  selectedTagsContainer?.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('fa-times')) {
+          const tag = target.getAttribute('data-tag');
+          if (tag) removeTag(tag);
+      }
+  });
+
+  // Button Handlers
+  confirmTagBtn?.addEventListener('mousedown', (e) => e.preventDefault());
+  confirmTagBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (tagsInput && tagsInput.value) {
+          addTag(tagsInput.value);
+      }
+  });
+
+  // Input Events
+  tagsInput?.addEventListener('input', (e) => {
+      const val = (e.target as HTMLInputElement).value.trim();
+      if (val) {
+          const matches = availableTags.filter(t => 
+              t.toLowerCase().includes(val.toLowerCase()) && !selectedTags.includes(t)
+          );
+          renderDropdown(matches);
+      } else {
+          const suggestions = availableTags.filter(t => !selectedTags.includes(t));
+          renderDropdown(suggestions);
+      }
+  });
+
+  tagsInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+          e.preventDefault();
+          const val = tagsInput.value;
+          if (val) addTag(val);
+      } else if (e.key === 'Backspace' && !tagsInput.value && selectedTags.length > 0) {
+          removeTag(selectedTags[selectedTags.length - 1]);
+      }
+  });
+
+  tagsInput?.addEventListener('focus', () => {
+      const val = tagsInput.value.trim();
+      let suggestions = [];
+      if (val) {
+          suggestions = availableTags.filter(t => 
+              t.toLowerCase().includes(val.toLowerCase()) && !selectedTags.includes(t)
+          );
+      } else {
+          suggestions = availableTags.filter(t => !selectedTags.includes(t));
+      }
+      renderDropdown(suggestions);
+  });
+
+  tagsInput?.addEventListener('click', () => {
+      if (tagsDropdown?.classList.contains('hidden')) {
+          const val = tagsInput.value.trim();
+          let suggestions = [];
+          if (val) {
+              suggestions = availableTags.filter(t => 
+                  t.toLowerCase().includes(val.toLowerCase()) && !selectedTags.includes(t)
+              );
+          } else {
+              suggestions = availableTags.filter(t => !selectedTags.includes(t));
+          }
+          renderDropdown(suggestions);
+      }
+  });
+
+  tagsInput?.addEventListener('blur', () => {
+      setTimeout(() => {
+          tagsDropdown?.classList.add('hidden');
+      }, 200);
+  });
+
+  function renderDropdown(tags: string[]) {
+      if (!tagsDropdown) return;
+      if (tags.length === 0) {
+          tagsDropdown.classList.add('hidden');
+          return;
+      }
+      
+      tagsDropdown.innerHTML = tags.map(tag => `
+          <div class="custom-option">${tag}</div>
+      `).join('');
+      tagsDropdown.classList.remove('hidden');
+  }
+
+  tagsDropdown?.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('custom-option')) {
+          addTag(target.textContent || '');
+      }
+  });
+
+  // Folder Tree Logic
+  const folderTreeContainer = document.getElementById('edit-folder-tree');
+  const folderInput = document.getElementById('edit-selected-folder-input') as HTMLInputElement;
+  const newFolderBtn = document.getElementById('edit-new-folder-btn');
+  
+  // New Folder Modal Elements
+  const newFolderModal = document.getElementById('edit-new-folder-modal');
+  const parentFolderTreeContainer = document.getElementById('edit-parent-folder-tree');
+  const newFolderNameInput = document.getElementById('edit-new-folder-name') as HTMLInputElement;
+  const selectedParentDisplay = document.getElementById('edit-selected-parent-display');
+  const newPathDisplay = document.getElementById('edit-new-path-display');
+  const confirmNewFolderBtn = document.getElementById('edit-confirm-new-folder');
+  
+  let collapsedFolders = new Set<string>();
+  let cachedCategories: any[] = [];
+  let selectedParentPath = '';
+
+  interface CategoryNode {
+      path: string;
+      label: string;
+      children: CategoryNode[];
+      hasChildren?: boolean;
+  }
+
+  // New Folder Button Logic
+  newFolderBtn?.addEventListener('click', () => {
+      newFolderModal?.classList.remove('hidden');
+      selectedParentPath = '';
+      if (newFolderNameInput) newFolderNameInput.value = '';
+      updateNewFolderPreview();
+      
+      if (cachedCategories.length > 0) {
+          const tree = buildTree(cachedCategories);
+          renderTree(tree, parentFolderTreeContainer, 0, (path) => {
+              selectedParentPath = path;
+              updateNewFolderPreview();
+          });
+      } else {
+          fetchAndRenderFolders().then(() => {
+             const tree = buildTree(cachedCategories);
+             renderTree(tree, parentFolderTreeContainer, 0, (path) => {
+                  selectedParentPath = path;
+                  updateNewFolderPreview();
+             });
+          });
+      }
+  });
+
+  newFolderModal?.querySelectorAll('.close-new-folder-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+          newFolderModal.classList.add('hidden');
+      });
+  });
+
+  function updateNewFolderPreview() {
+      const name = newFolderNameInput?.value.trim() || '';
+      if (selectedParentDisplay) selectedParentDisplay.textContent = selectedParentPath || '(Root)';
+      
+      let fullPath = '';
+      if (selectedParentPath) {
+          fullPath = name ? `${selectedParentPath}/${name}` : `${selectedParentPath}/...`;
+      } else {
+          fullPath = name ? name : '...';
+      }
+      
+      if (newPathDisplay) newPathDisplay.textContent = fullPath;
+  }
+
+  newFolderNameInput?.addEventListener('input', updateNewFolderPreview);
+
+  confirmNewFolderBtn?.addEventListener('click', () => {
+      const name = newFolderNameInput?.value.trim();
+      if (!name) {
+          window.showAdminAlert('Please enter a folder name (请输入文件夹名称)');
+          return;
+      }
+      
+      const fullPath = selectedParentPath ? `${selectedParentPath}/${name}` : name;
+      cachedCategories.push({ path: fullPath });
+      
+      const tree = buildTree(cachedCategories);
+      renderTree(tree, folderTreeContainer, 0, (path) => {
+          if (folderInput) folderInput.value = path;
+      });
+      
+      if (folderInput) folderInput.value = fullPath;
+      setTimeout(() => {
+          const newItem = folderTreeContainer?.querySelector(`.folder-btn[data-folder="${fullPath}"]`) as HTMLElement;
+          if (newItem) newItem.click();
+      }, 50);
+
+      newFolderModal?.classList.add('hidden');
+  });
+
+  async function fetchAndRenderFolders() {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/admin/articles?limit=1000');
+      if (response.ok) {
+        const posts = await response.json();
+        cachedCategories = posts
+            .map((p: any) => ({ path: p.folder }))
+            .filter((c: any) => c.path);
+        
+        const tree = buildTree(cachedCategories);
+        renderTree(tree, folderTreeContainer, 0, (path) => {
+            if (folderInput) folderInput.value = path;
+        });
+      }
+    } catch (e) {
+      console.error('Failed to fetch folders', e);
+      if (folderTreeContainer) folderTreeContainer.innerHTML = '<div class="error-text">Failed to load folders</div>';
+    }
+  }
+
+  function buildTree(categories: any[]): CategoryNode[] {
+      const root: CategoryNode[] = [];
+      const map = new Map<string, CategoryNode>();
+      const validCats = categories.filter(c => c.path && !c.path.includes('error'));
+      const allPaths = new Set<string>();
+      validCats.forEach(c => {
+          const parts = c.path.split('/');
+          let current = '';
+          parts.forEach((p: any) => {
+              if(!p) return;
+              current = current ? `${current}/${p}` : p;
+              allPaths.add(current);
+          });
+      });
+
+      const sortedPaths = Array.from(allPaths).sort();
+
+      sortedPaths.forEach(path => {
+          const parts = path.split('/');
+          const label = parts[parts.length - 1];
+          const parentPath = parts.slice(0, -1).join('/');
+          
+          const node: CategoryNode = { 
+              path, 
+              label, 
+              children: [],
+              hasChildren: false
+          };
+          map.set(path, node);
+
+          if (parentPath && map.has(parentPath)) {
+              const parent = map.get(parentPath)!;
+              parent.children.push(node);
+              parent.hasChildren = true;
+          } else {
+              root.push(node);
+          }
+      });
+
+      return root;
+  }
+
+  function renderTree(
+      nodes: CategoryNode[], 
+      container: HTMLElement | null = null, 
+      level: number = 0,
+      onSelect?: (path: string) => void
+  ) {
+      const targetContainer = container || folderTreeContainer;
+      if (!targetContainer) return;
+      
+      if (level === 0) targetContainer.innerHTML = '';
+
+      if (nodes.length === 0) {
+          if (level === 0) targetContainer.innerHTML = '<div class="empty-text">No folders found</div>';
+          return;
+      }
+
+      nodes.forEach(node => {
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'folder-item';
+          itemDiv.dataset.path = node.path;
+          itemDiv.style.paddingLeft = `${level * 1}rem`;
+
+          if (node.hasChildren) {
+              const toggleBtn = document.createElement('button');
+              toggleBtn.className = 'folder-toggle';
+              toggleBtn.type = 'button';
+              toggleBtn.dataset.target = node.path;
+              toggleBtn.innerHTML = `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+              `;
+              toggleBtn.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  const icon = toggleBtn.querySelector('.toggle-icon') as HTMLElement;
+                  const isCollapsed = collapsedFolders.has(node.path);
+                  
+                  if (isCollapsed) {
+                      collapsedFolders.delete(node.path);
+                      icon.style.transform = 'rotate(0deg)';
+                  } else {
+                      collapsedFolders.add(node.path);
+                      icon.style.transform = 'rotate(-90deg)';
+                  }
+                  
+                  toggleChildrenVisibility(node.path, targetContainer);
+              });
+              itemDiv.appendChild(toggleBtn);
+          } else {
+              const spacer = document.createElement('span');
+              spacer.className = 'folder-spacer';
+              itemDiv.appendChild(spacer);
+          }
+
+          const folderBtn = document.createElement('button');
+          folderBtn.className = 'folder-btn';
+          folderBtn.type = 'button';
+          folderBtn.dataset.folder = node.path;
+          
+          folderBtn.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              ${node.label}
+          `;
+          
+          folderBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const allBtns = targetContainer?.querySelectorAll('.folder-btn');
+              allBtns?.forEach(btn => btn.classList.remove('active'));
+              folderBtn.classList.add('active');
+              
+              if (onSelect) {
+                  onSelect(node.path);
+              }
+          });
+          
+          itemDiv.appendChild(folderBtn);
+          targetContainer.appendChild(itemDiv);
+
+          if (node.children.length > 0) {
+              renderTree(node.children, targetContainer, level + 1, onSelect);
+          }
+      });
+  }
+
+  function toggleChildrenVisibility(parentPath: string, container: HTMLElement) {
+      const allItems = container?.querySelectorAll('.folder-item[data-path]');
+      const isCollapsed = collapsedFolders.has(parentPath);
+      
+      allItems?.forEach(item => {
+          const path = (item as HTMLElement).dataset.path || '';
+          if (path.startsWith(parentPath + '/') && path !== parentPath) {
+              (item as HTMLElement).style.display = isCollapsed ? 'none' : 'flex';
+          }
+      });
+  }
+
+  // --- Initialization & Event Listeners ---
+  console.log('ArticleEdit script loaded');
+
+  // Open Modal Event (Listen on both document and window to be safe)
+  const openModalHandler = (e: any) => {
+    console.log('ArticleEdit received event:', e.detail);
+    const article = e.detail;
+    if (!article) return;
+
+    if (modal) {
+        modal.classList.remove('hidden');
+        console.log('Modal class list after remove hidden:', modal.classList);
+    } else {
+        console.error('Edit modal element not found!');
+        return;
+    }
+    
+    // Populate Fields
+    const postIdInput = document.getElementById('edit-post-id') as HTMLInputElement;
+    const titleInput = document.getElementById('edit-title-input') as HTMLInputElement;
+    const dateInput = document.getElementById('edit-date-input') as HTMLInputElement;
+    const statusInput = document.getElementById('edit-status-input') as HTMLInputElement;
+    const statusText = document.getElementById('editArticleStatusTrigger')?.querySelector('.current-text');
+    
+    if (postIdInput) postIdInput.value = article.id;
+    if (titleInput) titleInput.value = article.title;
+    if (dateInput) dateInput.value = article.createdAt;
+    
+    // Status
+    const status = article.status === 'published' ? 'public' : article.status;
+    if (statusInput) statusInput.value = status;
+    if (statusText) statusText.textContent = status === 'public' ? 'Published' : 'Draft';
+    
+    // Update Status Dropdown Selection
+    const statusOptions = document.getElementById('editArticleStatusOptions');
+    statusOptions?.querySelectorAll('.custom-option').forEach(opt => {
+        if (opt.getAttribute('data-value') === status) {
+            opt.classList.add('selected');
+        } else {
+            opt.classList.remove('selected');
+        }
+    });
+
+    // Tags
+    fetchTags();
+    selectedTags = [...article.tags];
+    renderSelectedTags();
+    if (tagsInput) tagsInput.value = '';
+
+    // Folder
+    fetchAndRenderFolders().then(() => {
+        if (folderInput) folderInput.value = article.category;
+        // Highlight folder
+        setTimeout(() => {
+            const folderBtn = folderTreeContainer?.querySelector(`.folder-btn[data-folder="${article.category}"]`) as HTMLElement;
+            if (folderBtn) {
+                folderBtn.classList.add('active');
+            }
+        }, 100);
+    });
+    
+    // Reset File Input
+    const fileInput = document.getElementById('edit-article-file') as HTMLInputElement;
+    const filePlaceholder = document.getElementById('edit-file-placeholder');
+    if (fileInput) fileInput.value = '';
+    if (filePlaceholder) {
+        filePlaceholder.innerHTML = `
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span>Click to upload or drag and drop</span>
+        `;
+    }
+  };
+
+  document.addEventListener('open-edit-article-modal', openModalHandler);
+  window.addEventListener('open-edit-article-modal', openModalHandler);
+
+  // Close Modal
+  modal?.querySelectorAll('.close-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+  });
+
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+    }
+  });
+
+  // Status Dropdown
+  const statusWrapper = document.getElementById('editArticleStatusWrapper');
+  const statusTrigger = document.getElementById('editArticleStatusTrigger');
+  const statusOptions = document.getElementById('editArticleStatusOptions');
+  const statusInput = document.getElementById('edit-status-input') as HTMLInputElement;
+  const statusText = statusTrigger?.querySelector('.current-text');
+
+  statusTrigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    statusOptions?.classList.toggle('hidden');
+  });
+
+  statusOptions?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('custom-option')) {
+      const value = target.getAttribute('data-value');
+      const text = target.textContent;
+      
+      statusOptions.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+      target.classList.add('selected');
+      if (statusText) statusText.textContent = text;
+      if (statusInput) statusInput.value = value || '';
+      
+      statusOptions.classList.add('hidden');
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!statusWrapper?.contains(e.target as Node)) {
+      statusOptions?.classList.add('hidden');
+    }
+  });
+
+  // File Input Change
+  const fileInput = document.getElementById('edit-article-file') as HTMLInputElement;
+  const filePlaceholder = document.getElementById('edit-file-placeholder');
+  
+  fileInput?.addEventListener('change', () => {
+      if (fileInput.files && fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          if (filePlaceholder) {
+              filePlaceholder.innerHTML = `
+                  <i class="fas fa-file-markdown" style="color: #0066cc;"></i>
+                  <span style="color: #333; font-weight: 500;">${file.name}</span>
+                  <span style="font-size: 0.8rem; color: #666;">(Click to change)</span>
+              `;
+          }
+      } else {
+          if (filePlaceholder) {
+              filePlaceholder.innerHTML = `
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <span>Click to upload or drag and drop</span>
+              `;
+          }
+      }
+  });
+
+  // Confirm Edit
+  const confirmBtn = document.getElementById('edit-confirm-btn');
+  confirmBtn?.addEventListener('click', async () => {
+      const form = document.getElementById('edit-article-form') as HTMLFormElement;
+      if (!form) return;
+
+      const formData = new FormData(form);
+      const postId = formData.get('post_id');
+      
+      // Remove empty file from formData
+      const fileInput = document.getElementById('edit-article-file') as HTMLInputElement;
+      if (fileInput && (!fileInput.files || fileInput.files.length === 0)) {
+          formData.delete('file');
+      }
+
+      // Handle tags manually
+      formData.append('tags', JSON.stringify(selectedTags));
+      
+      // Map folder to category for backend
+      const folderVal = formData.get('folder');
+      if (folderVal) {
+          formData.append('category', folderVal);
+      }
+
+      // Validate required fields
+      
+      // 1. Folder
+      if (!folderVal) {
+          window.showAdminAlert('Please select a folder (请选择文件夹)');
+          return;
+      }
+      
+      // 2. Title
+      const titleInput = document.getElementById('edit-title-input') as HTMLInputElement;
+      if (!titleInput.value.trim()) {
+          window.showAdminAlert('Please enter a title (请输入标题)');
+          return;
+      }
+
+      // 3. Tags
+      if (selectedTags.length === 0) {
+          window.showAdminAlert('Please add at least one tag (请至少添加一个标签)');
+          return;
+      }
+
+      // 4. Date
+      const dateInput = document.getElementById('edit-date-input') as HTMLInputElement;
+      if (!dateInput.value) {
+          window.showAdminAlert('Please select a date (请选择日期)');
+          return;
+      }
+
+      try {
+          const response = await fetch(`http://127.0.0.1:8000/api/admin/articles/${postId}`, {
+              method: 'PUT',
+              body: formData
+          });
+          
+          if (response.ok) {
+              window.showAdminAlert('Article updated successfully', 'success');
+              setTimeout(() => {
+                  modal?.classList.add('hidden');
+                  window.location.reload();
+              }, 1500);
+          } else {
+              const errorData = await response.json();
+              window.showAdminAlert('Failed to update article: ' + (errorData.detail || 'Unknown error'));
+          }
+      } catch (e) {
+          console.error(e);
+          window.showAdminAlert('Error updating article');
+      }
+  });
+</script>

@@ -7,6 +7,7 @@ import CategoryFilter from '../../components/admin/articles/CategoryFilter.astro
 import TagFilter from '../../components/admin/articles/TagFilter.astro';
 import ArticleList from '../../components/admin/articles/ArticleList.astro';
 import ArticleCreate from '../../components/admin/articles/ArticleCreate.astro';
+import ArticleEdit from '../../components/admin/articles/ArticleEdit.astro';
 
 // Auth check
 const authCookie = Astro.cookies.get('auth_token');
@@ -47,6 +48,7 @@ if (!authCookie || authCookie.value !== 'authorized') {
 
             <ArticleList />
             <ArticleCreate />
+            <ArticleEdit />
         </div>
     </main>
 
