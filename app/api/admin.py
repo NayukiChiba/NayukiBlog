@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form, Q
 from sqlalchemy.orm import Session
 from typing import List
 import json
+import os
+import shutil
 
 from app.crud import blog as crud
 from app.schemas import blog as schemas
@@ -45,8 +47,37 @@ async def upload_article(
     file: UploadFile = File(...),
     db: Session = Depends(get_db)
 ):
-    # TODO: Implement actual file saving and DB creation
-    print(f"Received upload: {title}, {category}")
+    # Save file
+    base_path = "frontend/src/pages/user/posts"
+    # User requested flat structure for physical files, logical folder in DB only
+    os.makedirs(base_path, exist_ok=True)
+    
+    file_path = os.path.join(base_path, file.filename)
+    
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    # Create DB entry
+    # Construct URL: /user/posts/{filename_without_ext}
+    filename_no_ext = os.path.splitext(file.filename)[0]
+    url_path = f"/user/posts/{filename_no_ext}"
+
+    # Normalize status
+    if status == "published":
+        status = "public"
+
+    crud.create_post(
+        db=db,
+        title=title,
+        date=date,
+        folder=category,
+        tags=tags,
+        status=status,
+        desc=summary,
+        url=url_path,
+        image="/placeholder.jpg"
+    )
+    
     return {"status": "success", "message": "Article uploaded successfully"}
 
 @router.get("/articles/tags")
