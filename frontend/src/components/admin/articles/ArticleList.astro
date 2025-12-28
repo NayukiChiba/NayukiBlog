@@ -194,6 +194,8 @@ const getPageUrl = (p: number) => {
           tags: Array.isArray(item.tags) ? item.tags.map((t: any) => typeof t === 'object' ? t.name : t) : [],
           status: (item.status === 'public' ? 'published' : item.status) || (item.is_published ? 'published' : 'draft'),
           createdAt: item.date || (item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]),
+          desc: item.desc,
+          image: item.image
         }));
 
         let articles = [];

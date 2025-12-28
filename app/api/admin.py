@@ -43,7 +43,8 @@ async def upload_article(
     category: str = Form(None),
     tags: str = Form(None),
     status: str = Form("draft"),
-    summary: str = Form(None),
+    desc: str = Form(None),
+    image: str = Form(None),
     file: UploadFile = File(...),
     db: Session = Depends(get_db)
 ):
@@ -73,9 +74,9 @@ async def upload_article(
         folder=category,
         tags=tags,
         status=status,
-        desc=summary,
+        desc=desc,
         url=url_path,
-        image="/placeholder.jpg"
+        image=image
     )
     
     return {"status": "success", "message": "Article uploaded successfully"}
@@ -88,7 +89,8 @@ async def update_article(
     category: str = Form(None),
     tags: str = Form(None),
     status: str = Form(None),
-    summary: str = Form(None),
+    desc: str = Form(None),
+    image: str = Form(None),
     file: UploadFile = File(None),
     db: Session = Depends(get_db)
 ):
@@ -137,8 +139,9 @@ async def update_article(
         folder=category,
         tags=tags,
         status=status,
-        desc=summary,
-        url=url_path
+        desc=desc,
+        url=url_path,
+        image=image
     )
     
     if updated_post:

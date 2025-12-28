@@ -46,6 +46,18 @@ import AlertModal from '../AlertModal.astro';
           <input type="text" name="title" class="form-input" placeholder="Article Title" />
         </div>
 
+        <!-- Description -->
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea name="desc" class="form-input" rows="3" placeholder="Article Description"></textarea>
+        </div>
+
+        <!-- Cover Image -->
+        <div class="form-group">
+          <label class="form-label">Cover Image URL</label>
+          <input type="text" name="image" class="form-input" placeholder="https://example.com/image.jpg" />
+        </div>
+
         <!-- 4. Tags -->
         <div class="form-group">
           <label class="form-label">Tags</label>
@@ -1249,6 +1261,20 @@ import AlertModal from '../AlertModal.astro';
       const titleInput = form.querySelector('input[name="title"]') as HTMLInputElement;
       if (!titleInput.value.trim()) {
           window.showAdminAlert('Please enter a title (请输入标题)');
+          return;
+      }
+
+      // Description
+      const descInput = form.querySelector('textarea[name="desc"]') as HTMLTextAreaElement;
+      if (!descInput.value.trim()) {
+          window.showAdminAlert('Please enter a description (请输入描述)');
+          return;
+      }
+
+      // Image
+      const imageInput = form.querySelector('input[name="image"]') as HTMLInputElement;
+      if (!imageInput.value.trim()) {
+          window.showAdminAlert('Please enter a cover image URL (请输入封面图片链接)');
           return;
       }
 
