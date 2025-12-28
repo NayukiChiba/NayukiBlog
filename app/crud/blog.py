@@ -80,10 +80,22 @@ def get_projects(db: Session, skip: int = 0, limit: int = 100, visibility: str =
             query = query.filter(models.Project.techStack.like(f'%"{tech}"%'))
     return query.offset(skip).limit(limit).all()
 
-def get_todos(db: Session, skip: int = 0, limit: int = 100, status: str = None):
+def get_todos(db: Session, skip: int = 0, limit: int = 100, status: str = None, priority: str = None, type: str = None, completed: bool = None, sort: str = "desc"):
     query = db.query(models.Todo)
     if status:
         query = query.filter(models.Todo.status == status)
+    if priority:
+        query = query.filter(models.Todo.priority == priority)
+    if type:
+        query = query.filter(models.Todo.type == type)
+    if completed is not None:
+        query = query.filter(models.Todo.completed == completed)
+        
+    if sort == "asc":
+        query = query.order_by(models.Todo.id.asc())
+    else:
+        query = query.order_by(models.Todo.id.desc())
+        
     return query.offset(skip).limit(limit).all()
 
 def get_tools(db: Session, skip: int = 0, limit: int = 100, status: str = None):

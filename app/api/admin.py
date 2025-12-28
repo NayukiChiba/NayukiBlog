@@ -49,6 +49,21 @@ async def upload_article(
     print(f"Received upload: {title}, {category}")
     return {"status": "success", "message": "Article uploaded successfully"}
 
+@router.get("/articles/tags")
+def read_admin_article_tags(db: Session = Depends(get_db)):
+    posts = crud.get_posts(db, skip=0, limit=10000)
+    all_tags = set()
+    for p in posts:
+        if p.tags:
+            try:
+                tags_list = json.loads(p.tags)
+                if isinstance(tags_list, list):
+                    for tag in tags_list:
+                        all_tags.add(tag)
+            except:
+                pass
+    return {"tags": list(sorted(all_tags))}
+
 @router.get("/books", response_model=List[schemas.Book])
 def read_admin_books(
     skip: int = 0, 
@@ -59,6 +74,21 @@ def read_admin_books(
 ):
     books = crud.get_books(db, skip=skip, limit=limit, status=status, tags=tags)
     return books
+
+@router.get("/books/tags")
+def read_admin_book_tags(db: Session = Depends(get_db)):
+    books = crud.get_books(db, skip=0, limit=10000)
+    all_tags = set()
+    for b in books:
+        if b.tags:
+            try:
+                tags_list = json.loads(b.tags)
+                if isinstance(tags_list, list):
+                    for tag in tags_list:
+                        all_tags.add(tag)
+            except:
+                pass
+    return {"tags": list(sorted(all_tags))}
 
 @router.get("/projects", response_model=List[schemas.Project])
 def read_admin_projects(
@@ -98,6 +128,21 @@ def read_admin_diaries(
     total = crud.get_diaries_count(db, year=year, month=month)
     return {"total": total, "items": diaries}
 
+@router.get("/gallery/tags")
+def read_admin_gallery_tags(db: Session = Depends(get_db)):
+    gallery = crud.get_gallery(db, skip=0, limit=10000)
+    all_tags = set()
+    for item in gallery:
+        if item.tags:
+            try:
+                tags_list = json.loads(item.tags)
+                if isinstance(tags_list, list):
+                    for tag in tags_list:
+                        all_tags.add(tag)
+            except:
+                pass
+    return {"tags": list(sorted(all_tags))}
+
 @router.get("/gallery", response_model=List[schemas.Gallery])
 def read_admin_gallery(
     skip: int = 0, 
@@ -109,3 +154,25 @@ def read_admin_gallery(
 ):
     gallery = crud.get_gallery(db, skip=skip, limit=limit, status=status, tags=tags, sort=sort)
     return gallery
+
+@router.get("/todos", response_model=List[schemas.Todo])
+def read_admin_todos(
+    skip: int = 0, 
+    limit: int = 100, 
+    priority: str = None,
+    type: str = None,
+    status: str = None,
+    completed: bool = None,
+    sort: str = "desc",
+    db: Session = Depends(get_db)
+):
+    if priority:
+        priority = priority.lower()
+    todos = crud.get_todos(db, skip=skip, limit=limit, status=status, priority=priority, type=type, completed=completed, sort=sort)
+    return todos
+
+@router.get("/todos/types")
+def read_admin_todo_types(db: Session = Depends(get_db)):
+    todos = crud.get_todos(db, skip=0, limit=10000)
+    all_types = set(t.type for t in todos if t.type)
+    return {"types": list(sorted(all_types))}

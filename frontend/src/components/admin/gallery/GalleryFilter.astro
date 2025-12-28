@@ -367,7 +367,7 @@
   // Fetch tags independently
   async function fetchTags() {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/user/gallery/tags');
+      const response = await fetch('http://127.0.0.1:8000/api/admin/gallery/tags');
       if (response.ok) {
         const data = await response.json();
         allTags = data.tags || [];

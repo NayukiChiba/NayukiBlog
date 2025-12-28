@@ -108,3 +108,9 @@ def read_gallery_tags(db: Session = Depends(get_db)):
                 pass
     return {"tags": list(sorted(all_tags))}
 
+@router.get("/todos/types")
+def read_todo_types(db: Session = Depends(get_db)):
+    todos = crud.get_todos(db, skip=0, limit=10000)
+    all_types = set(t.type for t in todos if t.type)
+    return {"types": list(sorted(all_types))}
+
