@@ -58,28 +58,10 @@
     </div>
 
     <div class="form-group">
-      <label>Images (Max 2)</label>
-      <div class="image-upload-row">
-        <div class="image-upload-box" id="upload-box-1">
-            <input type="file" accept="image/*" class="file-input" data-index="0">
-            <div class="upload-placeholder">
-                <i class="fas fa-plus"></i>
-            </div>
-            <div class="preview-container hidden">
-                <img src="" alt="Preview" class="preview-img">
-                <button type="button" class="remove-img-btn">&times;</button>
-            </div>
-        </div>
-        <div class="image-upload-box" id="upload-box-2">
-            <input type="file" accept="image/*" class="file-input" data-index="1">
-            <div class="upload-placeholder">
-                <i class="fas fa-plus"></i>
-            </div>
-            <div class="preview-container hidden">
-                <img src="" alt="Preview" class="preview-img">
-                <button type="button" class="remove-img-btn">&times;</button>
-            </div>
-        </div>
+      <label>Images (URLs)</label>
+      <div class="form-row">
+        <input type="text" name="image1" placeholder="Image URL 1" class="form-input">
+        <input type="text" name="image2" placeholder="Image URL 2" class="form-input">
       </div>
     </div>
 
@@ -224,82 +206,7 @@
   .custom-option:hover { background: #f5f5f7; }
   .custom-option.selected { background: #f0f7ff; color: #0066cc; }
 
-  /* Image Upload */
-  .image-upload-row {
-    display: flex;
-    gap: 1rem;
-  }
 
-  .image-upload-box {
-    width: 80px;
-    height: 80px;
-    border: 2px dashed #ddd;
-    border-radius: 8px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: #fafafa;
-  }
-
-  .image-upload-box:hover {
-    border-color: #999;
-    background: #f0f0f0;
-  }
-
-  .file-input {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-    z-index: 2;
-  }
-
-  .upload-placeholder {
-    color: #ccc;
-    font-size: 1.5rem;
-    pointer-events: none;
-  }
-
-  .preview-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 6px;
-    overflow: hidden;
-    z-index: 1;
-  }
-
-  .preview-container.hidden { display: none; }
-
-  .preview-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .remove-img-btn {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    background: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 3;
-  }
 
   .form-footer {
     margin-top: auto;
@@ -378,35 +285,7 @@
     document.querySelectorAll('.custom-options').forEach(el => el.classList.add('hidden'));
   });
 
-  // Image Upload Logic
-  const imageBoxes = document.querySelectorAll('.image-upload-box');
-  imageBoxes.forEach(box => {
-    const input = box.querySelector('.file-input') as HTMLInputElement;
-    const previewContainer = box.querySelector('.preview-container');
-    const previewImg = box.querySelector('.preview-img') as HTMLImageElement;
-    const removeBtn = box.querySelector('.remove-img-btn');
 
-    input.addEventListener('change', (e) => {
-        const file = (e.target as HTMLInputElement).files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                if (previewImg && e.target?.result) {
-                    previewImg.src = e.target.result as string;
-                    previewContainer?.classList.remove('hidden');
-                }
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    removeBtn?.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent triggering file input
-        input.value = '';
-        previewImg.src = '';
-        previewContainer?.classList.add('hidden');
-    });
-  });
 
   // Form Submission
   const form = document.getElementById('create-diary-form') as HTMLFormElement;
@@ -451,17 +330,17 @@
         if (response.ok) {
             // Reset form
             form.reset();
-            // Reset images
-            document.querySelectorAll('.preview-container').forEach(el => el.classList.add('hidden'));
             // Refresh list
-            window.dispatchEvent(new CustomEvent('diary-filter-change')); // Reuse this event to refresh list
-            alert('Diary entry created!');
-        } else {
-            alert('Failed to create diary entry');
-        }
-    } catch (error) {
-        console.error(error);
-        alert('Error creating entry');
-    }
-  });
-</script>
+        const images = [];
+        const img1 = formData.get('image1');
+        const img2 = formData.get('image2');
+        if (img1) images.push(img1);
+        if (img2) images.push(img2);
+
+        const payload: any = {
+            date: formData.get('date'),
+            content: formData.get('content'),
+            mood: formData.get('mood'),
+            weather: formData.get('weather'),
+            images: images
+        };
