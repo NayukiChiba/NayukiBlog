@@ -247,11 +247,55 @@ const getPageUrl = (p: number) => {
         </td>
         <td class="col-actions">
           <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
-          <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+          <button class="btn-icon delete" title="Delete" onclick="deleteArticle('${article.id}', '${article.title}')"><i class="fas fa-trash"></i></button>
         </td>
       </tr>
     `).join('');
   }
+
+  // Define global types for window functions
+  declare global {
+    interface Window {
+      deleteArticle: (id: string, title: string) => void;
+      showAdminAlert: (message: string, type?: 'error' | 'success' | 'info') => void;
+    }
+  }
+
+  // Delete function
+  window.deleteArticle = async (id: string, title: string) => {
+    if (confirm(`Are you sure you want to delete "${title}"?`)) {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/admin/articles/${id}`, {
+          method: 'DELETE'
+        });
+        
+        if (response.ok) {
+          if (window.showAdminAlert) {
+            window.showAdminAlert('Article deleted successfully', 'success');
+            // Refresh the list after a short delay
+            setTimeout(() => {
+              fetchAndRenderArticles();
+              // Dispatch event to refresh filters (categories and tags)
+              window.dispatchEvent(new CustomEvent('article-data-changed'));
+            }, 1000);
+          } else {
+            alert('Article deleted successfully');
+            fetchAndRenderArticles();
+            window.dispatchEvent(new CustomEvent('article-data-changed'));
+          }
+        } else {
+          throw new Error('Failed to delete');
+        }
+      } catch (e) {
+        console.error("Delete error:", e);
+        if (window.showAdminAlert) {
+          window.showAdminAlert('Failed to delete article', 'error');
+        } else {
+          alert('Failed to delete article');
+        }
+      }
+    }
+  };
 
   function renderPagination(page: number, hasNextPage: boolean) {
     if (pageInput) pageInput.value = page.toString();

@@ -80,6 +80,33 @@ async def upload_article(
     
     return {"status": "success", "message": "Article uploaded successfully"}
 
+@router.delete("/articles/{post_id}")
+def delete_article(post_id: int, db: Session = Depends(get_db)):
+    post = crud.get_post(db, post_id)
+    if not post:
+        raise HTTPException(status_code=404, detail="Article not found")
+    
+    # Delete file
+    if post.url and "/user/posts/" in post.url:
+        filename_no_ext = post.url.split("/user/posts/")[-1]
+        base_path = "frontend/src/pages/user/posts"
+        
+        # Try to find and delete the file (checking common extensions)
+        possible_extensions = [".md", ".mdx"]
+        for ext in possible_extensions:
+            file_path = os.path.join(base_path, filename_no_ext + ext)
+            if os.path.exists(file_path):
+                try:
+                    os.remove(file_path)
+                except Exception as e:
+                    print(f"Error deleting file {file_path}: {e}")
+                break
+
+    if crud.delete_post(db, post_id):
+        return {"status": "success", "message": "Article deleted successfully"}
+    else:
+        raise HTTPException(status_code=500, detail="Failed to delete article from database")
+
 @router.get("/articles/tags")
 def read_admin_article_tags(db: Session = Depends(get_db)):
     posts = crud.get_posts(db, skip=0, limit=10000)

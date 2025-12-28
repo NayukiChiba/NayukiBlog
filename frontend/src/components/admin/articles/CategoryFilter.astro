@@ -54,6 +54,8 @@
 
     window.addEventListener('article-filter-change', updateActiveCategory);
     window.addEventListener('popstate', updateActiveCategory);
+    // Listen for data changes (e.g. delete) to refresh categories
+    window.addEventListener('article-data-changed', fetchCategories);
 
     // Fetch categories independently, similar to user/articles logic
     async function fetchCategories() {

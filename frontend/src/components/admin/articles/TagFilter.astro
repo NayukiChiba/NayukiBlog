@@ -391,6 +391,9 @@
   }
 
   fetchTags();
+  
+  // Listen for data changes (e.g. delete) to refresh tags
+  window.addEventListener('article-data-changed', fetchTags);
 
   function renderDropdownOptions() {
     if (!tagDropdown) return;

@@ -66,6 +66,17 @@ def create_post(db: Session, title: str, date: str, folder: str, tags: str, stat
     db.refresh(db_post)
     return db_post
 
+def get_post(db: Session, post_id: int):
+    return db.query(models.Post).filter(models.Post.id == post_id).first()
+
+def delete_post(db: Session, post_id: int):
+    db_post = db.query(models.Post).filter(models.Post.id == post_id).first()
+    if db_post:
+        db.delete(db_post)
+        db.commit()
+        return True
+    return False
+
 def get_posts(db: Session, skip: int = 0, limit: int = 100, status: str = None, folder: str = None, tags: list[str] = None, sort: str = "desc"):
     query = db.query(models.Post)
     if status:
