@@ -2,10 +2,13 @@ from sqlalchemy.orm import Session
 from sqlalchemy import or_
 from app.models import blog as models
 
-def get_books(db: Session, skip: int = 0, limit: int = 100, status: str = None):
+def get_books(db: Session, skip: int = 0, limit: int = 100, status: str = None, tags: list[str] = None):
     query = db.query(models.Book)
     if status:
         query = query.filter(models.Book.status == status)
+    if tags:
+        for tag in tags:
+            query = query.filter(models.Book.tags.like(f'%"{tag}"%'))
     return query.offset(skip).limit(limit).all()
 
 def get_diaries(db: Session, skip: int = 0, limit: int = 100, year: str = None, month: str = None):

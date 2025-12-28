@@ -4,6 +4,7 @@ export const prerender = false;
 import Header from '../../components/Header.astro';
 import Sidebar from '../../components/admin/Sidebar.astro';
 import BookList from '../../components/admin/library/BookList.astro';
+import BookFilter from '../../components/admin/library/BookFilter.astro';
 
 // Auth check
 const authCookie = Astro.cookies.get('auth_token');
@@ -31,6 +32,7 @@ if (!authCookie || authCookie.value !== 'authorized') {
                 <button id="btn-new-book" class="btn-primary"><i class="fas fa-plus"></i> New Book</button>
             </div>
 
+            <BookFilter />
             <BookList />
         </div>
     </main>

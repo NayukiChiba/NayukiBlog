@@ -77,3 +77,19 @@ def read_tags(db: Session = Depends(get_db)):
             except:
                 pass
     return {"tags": list(sorted(all_tags))}
+
+@router.get("/books/tags")
+def read_book_tags(db: Session = Depends(get_db)):
+    books = crud.get_books(db, skip=0, limit=10000)
+    all_tags = set()
+    for b in books:
+        if b.tags:
+            try:
+                tags_list = json.loads(b.tags)
+                if isinstance(tags_list, list):
+                    for tag in tags_list:
+                        all_tags.add(tag)
+            except:
+                pass
+    return {"tags": list(sorted(all_tags))}
+
