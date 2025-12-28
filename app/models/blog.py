@@ -59,7 +59,6 @@ class Project(Base):
     description = Column(Text)
     link = Column(String)
     techStack = Column(Text) # JSON string
-    image = Column(String)
     status = Column(String) # Project status: completed, ongoing, etc.
     visibility = Column(String, default="published")
 

@@ -240,6 +240,61 @@ def read_admin_tech_stacks(db: Session = Depends(get_db)):
                 pass
     return list(all_stacks)
 
+@router.post("/projects/upload")
+async def upload_project(
+    name: str = Form(...),
+    description: str = Form(None),
+    link: str = Form(None),
+    techStack: str = Form(None),
+    status: str = Form(None),
+    visibility: str = Form("published"),
+    db: Session = Depends(get_db)
+):
+    crud.create_project(
+        db=db,
+        name=name,
+        description=description,
+        link=link,
+        techStack=techStack,
+        status=status,
+        visibility=visibility
+    )
+    return {"status": "success", "message": "Project created successfully"}
+
+@router.put("/projects/{project_id}")
+async def update_project(
+    project_id: int,
+    name: str = Form(None),
+    description: str = Form(None),
+    link: str = Form(None),
+    techStack: str = Form(None),
+    status: str = Form(None),
+    visibility: str = Form(None),
+    db: Session = Depends(get_db)
+):
+    project = crud.get_project(db, project_id)
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+
+    crud.update_project(
+        db=db,
+        project_id=project_id,
+        name=name,
+        description=description,
+        link=link,
+        techStack=techStack,
+        status=status,
+        visibility=visibility
+    )
+    return {"status": "success", "message": "Project updated successfully"}
+
+@router.delete("/projects/{project_id}")
+def delete_project(project_id: int, db: Session = Depends(get_db)):
+    if crud.delete_project(db, project_id):
+        return {"status": "success", "message": "Project deleted successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Project not found")
+
 @router.get("/diaries", response_model=schemas.DiaryPagination)
 def read_admin_diaries(
     skip: int = 0, 

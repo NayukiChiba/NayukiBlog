@@ -105,7 +105,6 @@ class ProjectBase(BaseModel):
     description: Optional[str] = None
     link: Optional[str] = None
     techStack: Optional[List[str]] = []
-    image: Optional[str] = None
     status: Optional[str] = None
     visibility: Optional[ContentStatus] = ContentStatus.PUBLISHED
 

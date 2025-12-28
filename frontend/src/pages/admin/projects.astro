@@ -6,6 +6,7 @@ import Sidebar from '../../components/admin/Sidebar.astro';
 import ProjectList from '../../components/admin/projects/ProjectList.astro';
 import ProjectFilter from '../../components/admin/projects/ProjectFilter.astro';
 import ProjectCreate from '../../components/admin/projects/ProjectCreate.astro';
+import AlertModal from '../../components/admin/AlertModal.astro';
 
 // Auth check
 const authCookie = Astro.cookies.get('auth_token');
@@ -43,6 +44,7 @@ if (!authCookie || authCookie.value !== 'authorized') {
 
             <ProjectList />
         </div>
+        <AlertModal />
     </main>
 
     <style>

@@ -122,6 +122,45 @@ def get_projects(db: Session, skip: int = 0, limit: int = 100, visibility: str =
             query = query.filter(models.Project.techStack.like(f'%"{tech}"%'))
     return query.offset(skip).limit(limit).all()
 
+def create_project(db: Session, name: str, description: str, link: str, techStack: str, status: str, visibility: str):
+    db_project = models.Project(
+        name=name,
+        description=description,
+        link=link,
+        techStack=techStack,
+        status=status,
+        visibility=visibility
+    )
+    db.add(db_project)
+    db.commit()
+    db.refresh(db_project)
+    return db_project
+
+def update_project(db: Session, project_id: int, name: str = None, description: str = None, link: str = None, techStack: str = None, status: str = None, visibility: str = None):
+    db_project = db.query(models.Project).filter(models.Project.id == project_id).first()
+    if db_project:
+        if name: db_project.name = name
+        if description: db_project.description = description
+        if link: db_project.link = link
+        if techStack: db_project.techStack = techStack
+        if status: db_project.status = status
+        if visibility: db_project.visibility = visibility
+        db.commit()
+        db.refresh(db_project)
+        return db_project
+    return None
+
+def get_project(db: Session, project_id: int):
+    return db.query(models.Project).filter(models.Project.id == project_id).first()
+
+def delete_project(db: Session, project_id: int):
+    db_project = db.query(models.Project).filter(models.Project.id == project_id).first()
+    if db_project:
+        db.delete(db_project)
+        db.commit()
+        return True
+    return False
+
 def get_todos(db: Session, skip: int = 0, limit: int = 100, status: str = None, priority: str = None, type: str = None, completed: bool = None, sort: str = "desc"):
     query = db.query(models.Todo)
     if status:
