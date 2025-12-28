@@ -62,17 +62,13 @@
                 }
                 tbody.innerHTML = books.map(book => `
                     <tr>
-                        <td class="col-title"><span class="title-text" title="${book.title}">${book.title}</span></td>
-                        <td class="col-status"><span class="status-badge ${book.status?.toLowerCase() || 'unknown'}">${book.status || 'Unknown'}</span></td>
-                        <td class="col-rating"><span class="rating-stars">${book.rating ? '★'.repeat(book.rating) : '-'}</span></td>
-                        <td class="col-tags"><div class="tags-wrapper">${book.tags ? (typeof book.tags === 'string' ? JSON.parse(book.tags) : book.tags).map((t: string) => `<span class="tag">${t}</span>`).join('') : '-'}</div></td>
-                        <td class="col-actions">
-                            <button class="btn-action edit" title="Edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                            </button>
-                            <button class="btn-action delete" title="Delete">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                            </button>
+                        <td><div class="truncate" title="${book.title}">${book.title}</div></td>
+                        <td><span class="status-badge ${book.status?.toLowerCase() || 'unknown'}">${book.status || 'Unknown'}</span></td>
+                        <td><span class="rating-stars">${book.rating ? '★'.repeat(book.rating) : '-'}</span></td>
+                        <td>${book.tags ? (typeof book.tags === 'string' ? JSON.parse(book.tags) : book.tags).map((t: string) => `<span class="tag">${t}</span>`).join('') : '-'}</td>
+                        <td>
+                            <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                 `).join('');
@@ -130,13 +126,12 @@
     }
 
     .admin-table th {
-        text-align: center;
+        text-align: left;
         padding: 12px 16px;
         color: #909399;
-        font-weight: 600;
+        font-weight: 500;
         border-bottom: 1px solid #ebeef5;
-        border-right: 1px solid #ebeef5; /* 添加竖线 */
-        background-color: #f9fafb;
+        border-right: 1px solid #ebeef5;
     }
 
     .admin-table th:last-child {
@@ -146,7 +141,7 @@
     .admin-table :global(td) {
         padding: 12px 16px;
         border-bottom: 1px solid #ebeef5;
-        border-right: 1px solid #ebeef5; /* 添加竖线 */
+        border-right: 1px solid #ebeef5;
         color: #606266;
         vertical-align: middle;
     }
@@ -155,21 +150,24 @@
         border-right: none;
     }
 
-    /* Column Widths */
-    :global(.col-title) { width: 30%; }
-    :global(.col-status) { width: 15%; }
-    :global(.col-rating) { width: 15%; }
-    :global(.col-tags) { width: 25%; }
-    :global(.col-actions) { width: 15%; text-align: center; } /* Actions 居中 */
+    /* First column styling */
+    .admin-table :global(td:first-child) {
+        font-weight: 500;
+        color: #303133;
+    }
 
-    :global(.title-text) {
-        display: block;
+    /* Column Widths */
+    .col-title { width: 30%; }
+    .col-status { width: 15%; }
+    .col-rating { width: 15%; }
+    .col-tags { width: 25%; }
+    .col-actions { width: 15%; }
+
+    :global(.truncate) {
         width: 100%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-weight: 500;
-        color: #303133;
     }
 
     :global(.status-badge) {
@@ -190,41 +188,31 @@
         letter-spacing: 2px;
     }
 
-    :global(.tags-wrapper) {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
-    }
-
     :global(.tag) {
         display: inline-block;
         background: #f4f4f5;
-        color: #909399;
+        color: #606266;
         padding: 2px 6px;
         border-radius: 4px;
         font-size: 12px;
+        margin-right: 4px;
+        margin-bottom: 4px;
     }
 
-    :global(.btn-action) {
+    :global(.btn-icon) {
         background: none;
         border: none;
         cursor: pointer;
-        padding: 6px;
-        border-radius: 4px;
-        color: #909399;
-        transition: all 0.2s;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 2px; /* 调整间距，使其在居中时更好看 */
+        padding: 4px 8px;
+        font-size: 14px;
+        transition: color 0.3s;
+        margin-right: 4px;
     }
 
-    :global(.btn-action:hover) {
-        background-color: #f0f2f5;
-    }
-
-    :global(.btn-action.edit:hover) { color: #409eff; background-color: #ecf5ff; }
-    :global(.btn-action.delete:hover) { color: #f56c6c; background-color: #fef0f0; }
+    :global(.btn-icon.edit) { color: #409eff; }
+    :global(.btn-icon.edit:hover) { color: #66b1ff; }
+    :global(.btn-icon.delete) { color: #f56c6c; }
+    :global(.btn-icon.delete:hover) { color: #f78989; }
 
     :global(.loading-text), :global(.error-text) {
         text-align: center;

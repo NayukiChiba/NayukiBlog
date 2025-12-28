@@ -96,10 +96,8 @@
                             <td>${diary.weather || '-'}</td>
                             <td>${diary.images && diary.images.length > 0 ? `<span class="tag">${diary.images.length} images</span>` : '-'}</td>
                             <td>
-                                <div class="actions">
-                                    <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
-                                    <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
-                                </div>
+                                <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
+                                <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                     `).join('');
@@ -178,19 +176,17 @@
     .admin-table {
         width: 100%;
         border-collapse: collapse;
+        font-size: 14px;
         table-layout: fixed; /* Important for truncation */
     }
 
     .admin-table th {
-        padding: 12px 15px;
         text-align: left;
+        padding: 12px 16px;
+        color: #909399;
+        font-weight: 500;
         border-bottom: 1px solid #ebeef5;
-        vertical-align: middle;
-        position: relative;
-        background-color: #f5f7fa;
-        color: #606266;
-        font-weight: 600;
-        font-size: 14px;
+        border-right: 1px solid #ebeef5;
     }
 
     /* Column Widths */
@@ -198,30 +194,30 @@
     .col-content { width: auto; }
     .col-mood { width: 100px; }
     .col-weather { width: 100px; }
-    .col-images { width: 80px; }
+    .col-images { width: 100px; }
     .col-actions { width: 100px; }
+
+    .admin-table th:last-child {
+        border-right: none;
+    }
 
     /* Dynamic TD styling */
     .admin-table :global(td) {
-        padding: 12px 15px;
-        text-align: left;
+        padding: 12px 16px;
         border-bottom: 1px solid #ebeef5;
-        vertical-align: middle;
-        position: relative;
+        border-right: 1px solid #ebeef5;
         color: #606266;
-        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    .admin-table :global(td:last-child) {
+        border-right: none;
     }
     
-    /* Vertical divider */
-    .admin-table th:not(:last-child)::after,
-    .admin-table :global(td:not(:last-child)::after) {
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 20%;
-        height: 60%;
-        width: 1px;
-        background-color: #ebeef5;
+    /* First column styling */
+    .admin-table :global(td:first-child) {
+        font-weight: 500;
+        color: #303133;
     }
 
     :global(.truncate) {
@@ -234,35 +230,27 @@
 
     :global(.tag) {
         display: inline-block;
-        padding: 2px 8px;
-        font-size: 12px;
+        background: #f4f4f5;
+        color: #606266;
+        padding: 2px 6px;
         border-radius: 4px;
-        background-color: #ecf5ff;
-        color: #409eff;
-        border: 1px solid #d9ecff;
-    }
-
-    :global(.actions) {
-        display: flex;
-        gap: 8px;
+        font-size: 12px;
     }
 
     :global(.btn-icon) {
         background: none;
         border: none;
         cursor: pointer;
-        padding: 4px;
-        color: #909399;
-        transition: color 0.2s;
+        padding: 4px 8px;
+        font-size: 14px;
+        transition: color 0.3s;
+        margin-right: 4px;
     }
 
-    :global(.btn-icon:hover) {
-        color: #409eff;
-    }
-
-    :global(.btn-icon.delete:hover) {
-        color: #f56c6c;
-    }
+    :global(.btn-icon.edit) { color: #409eff; }
+    :global(.btn-icon.edit:hover) { color: #66b1ff; }
+    :global(.btn-icon.delete) { color: #f56c6c; }
+    :global(.btn-icon.delete:hover) { color: #f78989; }
 
     :global(.loading-text), :global(.error-text), :global(.empty-text) {
         text-align: center;
