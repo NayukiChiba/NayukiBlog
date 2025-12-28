@@ -293,44 +293,8 @@
     e.preventDefault();
     
     const formData = new FormData(form);
-    // Handle images manually if needed, or let FormData handle it if backend expects 'file'
-    // Assuming backend expects JSON for data and maybe separate upload for images, 
-    // OR multipart/form-data. Let's assume multipart/form-data for simplicity if backend supports it.
-    // If backend is JSON only, we need to upload images first or base64 them.
-    // Given the context, let's try to construct a JSON payload first as per typical FastAPI + Pydantic,
-    // but images usually require multipart.
-    
-    // Let's assume we just log it for now as I don't have the exact API spec for image upload.
-    // But I will implement a basic fetch.
     
     try {
-        // Construct payload
-        // Note: This part depends heavily on backend implementation.
-        // I'll assume a simple JSON post for now, ignoring images or assuming they are handled elsewhere.
-        // If images are needed, we might need to upload them separately and get URLs.
-        
-        const payload: any = {
-            date: formData.get('date'),
-            content: formData.get('content'),
-            mood: formData.get('mood'),
-            weather: formData.get('weather'),
-            images: [] // Placeholder
-        };
-
-        // TODO: Handle image upload to get URLs, then add to payload.images
-        
-        const response = await fetch('http://127.0.0.1:8000/api/admin/diaries', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
-
-        if (response.ok) {
-            // Reset form
-            form.reset();
-            // Refresh list
         const images = [];
         const img1 = formData.get('image1');
         const img2 = formData.get('image2');
@@ -344,3 +308,26 @@
             weather: formData.get('weather'),
             images: images
         };
+        
+        const response = await fetch('http://127.0.0.1:8000/api/admin/diaries', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+            // Reset form
+            form.reset();
+            // Refresh list
+            window.dispatchEvent(new CustomEvent('diary-filter-change'));
+            alert('Diary entry created!');
+        } else {
+            alert('Failed to create diary entry');
+        }
+    } catch (error) {
+        console.error(error);
+        alert('Error creating entry');
+    }
+  });
