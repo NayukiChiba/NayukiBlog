@@ -242,6 +242,17 @@
     z-index: 10;
   }
 
+  .status-group .custom-options {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 6px;
+    margin-top: 0;
+  }
+
+  .filter-group.active {
+    z-index: 100 !important;
+  }
+
   .custom-select-wrapper {
     position: relative;
     width: 100%;
@@ -417,10 +428,28 @@
   // Initialize
   // fetchTags(); // Called above
 
+  // Helper to toggle active class
+  function toggleGroupActive(groupClass: string, active: boolean) {
+    const group = document.querySelector(`.${groupClass}`);
+    if (active) group?.classList.add('active');
+    else group?.classList.remove('active');
+  }
+
   statusTrigger?.addEventListener('click', (e) => {
     e.stopPropagation();
-    statusOptions?.classList.toggle('hidden');
-    tagDropdown?.classList.add('hidden'); // Close other dropdown
+    const isHidden = statusOptions?.classList.contains('hidden');
+    
+    // Close others
+    tagDropdown?.classList.add('hidden');
+    toggleGroupActive('tag-group', false);
+    
+    if (isHidden) {
+        statusOptions?.classList.remove('hidden');
+        toggleGroupActive('status-group', true);
+    } else {
+        statusOptions?.classList.add('hidden');
+        toggleGroupActive('status-group', false);
+    }
   });
 
   statusOptions?.addEventListener('click', (e) => {
@@ -438,6 +467,7 @@
       
       // Close dropdown
       statusOptions.classList.add('hidden');
+      toggleGroupActive('status-group', false);
       
       // Update URL
       const url = new URL(window.location.href);
@@ -457,17 +487,31 @@
   tagWrapper?.addEventListener('click', (e) => {
     // 防止点击移除按钮时触发
     if ((e.target as HTMLElement).classList.contains('tag-remove')) return;
-    tagDropdown?.classList.toggle('hidden');
-    statusOptions?.classList.add('hidden'); // Close other dropdown
+    
+    const isHidden = tagDropdown?.classList.contains('hidden');
+    
+    // Close others
+    statusOptions?.classList.add('hidden');
+    toggleGroupActive('status-group', false);
+    
+    if (isHidden) {
+        tagDropdown?.classList.remove('hidden');
+        toggleGroupActive('tag-group', true);
+    } else {
+        tagDropdown?.classList.add('hidden');
+        toggleGroupActive('tag-group', false);
+    }
   });
 
   // Close dropdown when clicking outside
   document.addEventListener('click', (e) => {
     if (!tagWrapper?.contains(e.target as Node)) {
       tagDropdown?.classList.add('hidden');
+      toggleGroupActive('tag-group', false);
     }
     if (!statusWrapper?.contains(e.target as Node)) {
       statusOptions?.classList.add('hidden');
+      toggleGroupActive('status-group', false);
     }
   });
 
@@ -511,6 +555,7 @@
           ${tag}
           <span class="tag-remove" data-tag="${tag}">×</span>
         </span>
+  });
       `).join('');
       
       // Re-attach remove listeners
@@ -544,6 +589,7 @@
 
     window.history.pushState({}, '', url.toString());
     window.dispatchEvent(new CustomEvent('article-filter-change'));
+  });
 
   // Reset Button Logic
   resetBtn?.addEventListener('click', () => {
@@ -580,6 +626,5 @@
     
     window.history.pushState({}, '', url.toString());
     window.dispatchEvent(new CustomEvent('article-filter-change'));
-  });
   });
 </script>
