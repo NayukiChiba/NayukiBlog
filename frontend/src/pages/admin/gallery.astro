@@ -4,6 +4,7 @@ export const prerender = false;
 import Header from '../../components/Header.astro';
 import Sidebar from '../../components/admin/Sidebar.astro';
 import GalleryList from '../../components/admin/gallery/GalleryList.astro';
+import GalleryFilter from '../../components/admin/gallery/GalleryFilter.astro';
 
 // Auth check
 const authCookie = Astro.cookies.get('auth_token');
@@ -31,7 +32,19 @@ if (!authCookie || authCookie.value !== 'authorized') {
                 <button id="btn-new-image" class="btn-primary"><i class="fas fa-plus"></i> New Image</button>
             </div>
 
-            <GalleryList />
+            <div class="gallery-layout">
+                <div class="top-section">
+                    <div class="filter-container">
+                        <GalleryFilter />
+                    </div>
+                    <div class="editor-placeholder">
+                        <!-- Future Edit Component -->
+                    </div>
+                </div>
+                <div class="list-container">
+                    <GalleryList />
+                </div>
+            </div>
         </div>
     </main>
 
@@ -81,7 +94,42 @@ if (!authCookie || authCookie.value !== 'authorized') {
         }
 
         .btn-primary:hover {
-            background: #333333;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .top-section {
+            display: flex;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .filter-container {
+            flex: 1;
+            max-width: 50%;
+        }
+
+        .editor-placeholder {
+            flex: 1;
+        }
+
+        .list-container {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .top-section {
+                flex-direction: column;
+            }
+            
+            .filter-container {
+                max-width: 100%column-reverse;
+            }
+            
+            .filter-container {
+                width: 100%;
+                position: static;
+            }
         }
     </style>
 </body>

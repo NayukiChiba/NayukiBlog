@@ -35,10 +35,19 @@ def get_diaries_count(db: Session, year: str = None, month: str = None):
         
     return query.count()
 
-def get_gallery(db: Session, skip: int = 0, limit: int = 100, status: str = None):
+def get_gallery(db: Session, skip: int = 0, limit: int = 100, status: str = None, tags: list[str] = None, sort: str = "desc"):
     query = db.query(models.Gallery)
     if status:
         query = query.filter(models.Gallery.status == status)
+    if tags:
+        for tag in tags:
+            query = query.filter(models.Gallery.tags.like(f'%"{tag}"%'))
+            
+    if sort == "asc":
+        query = query.order_by(models.Gallery.date.asc())
+    else:
+        query = query.order_by(models.Gallery.date.desc())
+
     return query.offset(skip).limit(limit).all()
 
 def get_posts(db: Session, skip: int = 0, limit: int = 100, status: str = None, folder: str = None, tags: list[str] = None, sort: str = "desc"):

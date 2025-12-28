@@ -97,3 +97,15 @@ def read_admin_diaries(
     diaries = crud.get_diaries(db, skip=skip, limit=limit, year=year, month=month)
     total = crud.get_diaries_count(db, year=year, month=month)
     return {"total": total, "items": diaries}
+
+@router.get("/gallery", response_model=List[schemas.Gallery])
+def read_admin_gallery(
+    skip: int = 0, 
+    limit: int = 100, 
+    tags: List[str] = Query(None),
+    sort: str = "desc",
+    status: str = None,
+    db: Session = Depends(get_db)
+):
+    gallery = crud.get_gallery(db, skip=skip, limit=limit, status=status, tags=tags, sort=sort)
+    return gallery

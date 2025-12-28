@@ -93,3 +93,18 @@ def read_book_tags(db: Session = Depends(get_db)):
                 pass
     return {"tags": list(sorted(all_tags))}
 
+@router.get("/gallery/tags")
+def read_gallery_tags(db: Session = Depends(get_db)):
+    gallery = crud.get_gallery(db, skip=0, limit=10000)
+    all_tags = set()
+    for item in gallery:
+        if item.tags:
+            try:
+                tags_list = json.loads(item.tags)
+                if isinstance(tags_list, list):
+                    for tag in tags_list:
+                        all_tags.add(tag)
+            except:
+                pass
+    return {"tags": list(sorted(all_tags))}
+
