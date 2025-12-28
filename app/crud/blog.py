@@ -98,10 +98,12 @@ def get_todos(db: Session, skip: int = 0, limit: int = 100, status: str = None, 
         
     return query.offset(skip).limit(limit).all()
 
-def get_tools(db: Session, skip: int = 0, limit: int = 100, status: str = None):
+def get_tools(db: Session, skip: int = 0, limit: int = 100, status: str = None, category: str = None):
     query = db.query(models.Tool)
     if status:
         query = query.filter(models.Tool.status == status)
+    if category:
+        query = query.filter(models.Tool.category == category)
     return query.offset(skip).limit(limit).all()
 
 def get_admin_by_username(db: Session, username: str):

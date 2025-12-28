@@ -176,3 +176,20 @@ def read_admin_todo_types(db: Session = Depends(get_db)):
     todos = crud.get_todos(db, skip=0, limit=10000)
     all_types = set(t.type for t in todos if t.type)
     return {"types": list(sorted(all_types))}
+
+@router.get("/tools", response_model=List[schemas.Tool])
+def read_admin_tools(
+    skip: int = 0, 
+    limit: int = 100, 
+    category: str = None,
+    status: str = None,
+    db: Session = Depends(get_db)
+):
+    tools = crud.get_tools(db, skip=skip, limit=limit, status=status, category=category)
+    return tools
+
+@router.get("/tools/categories")
+def read_admin_tool_categories(db: Session = Depends(get_db)):
+    tools = crud.get_tools(db, skip=0, limit=10000)
+    all_categories = set(t.category for t in tools if t.category)
+    return {"categories": list(sorted(all_categories))}

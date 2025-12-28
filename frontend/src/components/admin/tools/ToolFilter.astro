@@ -1,0 +1,314 @@
+---
+// ---
+---
+
+<div class="filter-card">
+  <div class="filter-header">
+    <h3 class="filter-title">筛选条件</h3>
+    <button id="resetFiltersBtn" class="reset-btn">重置</button>
+  </div>
+
+  <!-- 1. Category 筛选 -->
+  <div class="filter-group">
+    <label>分类</label>
+    <div class="custom-select-wrapper" id="categorySelectWrapper">
+      <div class="custom-select-trigger" id="categoryTrigger">
+        <span class="current-text">全部分类</span>
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </div>
+      <div class="custom-options hidden" id="categoryOptions">
+        <div class="custom-option selected" data-value="all">全部分类</div>
+        <div class="loading-text" style="padding: 8px; color: #999; font-size: 0.85rem;">Loading...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Status 筛选 -->
+  <div class="filter-group">
+    <label>状态</label>
+    <div class="custom-select-wrapper" id="statusSelectWrapper">
+      <div class="custom-select-trigger" id="statusTrigger">
+        <span class="current-text">全部状态</span>
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </div>
+      <div class="custom-options hidden" id="statusOptions">
+        <div class="custom-option selected" data-value="all">全部状态</div>
+        <div class="custom-option" data-value="published">已发布</div>
+        <div class="custom-option" data-value="draft">草稿</div>
+        <div class="custom-option" data-value="archived">归档</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .filter-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid #eee;
+    height: 300px;
+    overflow: visible;
+  }
+
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .filter-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+
+  .reset-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover {
+    background: #f5f5f5;
+    color: #d32f2f;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .filter-group:nth-child(2) { z-index: 20; } /* Category */
+  .filter-group:nth-child(3) { z-index: 10; } /* Status */
+
+  .filter-group label {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+  }
+
+  .custom-select-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .custom-select-trigger {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 1rem;
+    height: 42px;
+    cursor: pointer;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: border-color 0.2s;
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  .custom-select-trigger:hover {
+    border-color: #bbb;
+  }
+
+  .arrow-icon {
+    width: 1em;
+    height: 1em;
+    color: #999;
+  }
+
+  .custom-options {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 4px;
+    z-index: 100;
+  }
+
+  .custom-options.hidden {
+    display: none;
+  }
+
+  :global(.custom-option) {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    color: #444;
+    transition: all 0.2s ease;
+    margin-bottom: 2px;
+  }
+
+  :global(.custom-option:hover) {
+    background: #f5f5f7;
+    color: #000;
+  }
+
+  :global(.custom-option.selected) {
+    background: #f0f0f0;
+    color: #000;
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  // Elements
+  const resetBtn = document.getElementById('resetFiltersBtn');
+  
+  // Category
+  const categoryWrapper = document.getElementById('categorySelectWrapper');
+  const categoryTrigger = document.getElementById('categoryTrigger');
+  const categoryOptions = document.getElementById('categoryOptions');
+  const currentCategoryText = categoryTrigger?.querySelector('.current-text');
+
+  // Status
+  const statusWrapper = document.getElementById('statusSelectWrapper');
+  const statusTrigger = document.getElementById('statusTrigger');
+  const statusOptions = document.getElementById('statusOptions');
+  const currentStatusText = statusTrigger?.querySelector('.current-text');
+
+  // Initialize from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  function initDropdown(paramName: string, optionsEl: HTMLElement | null, textEl: Element | null | undefined) {
+      const currentVal = urlParams.get(paramName) || 'all';
+      if (optionsEl) {
+          const selectedOption = optionsEl.querySelector(`.custom-option[data-value="${currentVal}"]`);
+          if (selectedOption) {
+              if (textEl && selectedOption.textContent) textEl.textContent = selectedOption.textContent;
+              optionsEl.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+              selectedOption.classList.add('selected');
+          }
+      }
+  }
+
+  initDropdown('status', statusOptions, currentStatusText);
+  // Category is initialized after fetch
+
+  // Fetch Categories
+  async function fetchCategories() {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/admin/tools/categories');
+      if (response.ok) {
+        const data = await response.json();
+        const categories = data.categories || [];
+        
+        if (categoryOptions) {
+            const allOption = '<div class="custom-option" data-value="all">全部分类</div>';
+            const catHtml = categories.map((c: string) => `<div class="custom-option" data-value="${c}">${c}</div>`).join('');
+            categoryOptions.innerHTML = allOption + catHtml;
+            
+            // Re-init selection after render
+            initDropdown('category', categoryOptions, currentCategoryText);
+        }
+      }
+    } catch (e) {
+      console.error('Failed to fetch categories', e);
+      if (categoryOptions) categoryOptions.innerHTML = '<div class="custom-option" data-value="all">全部分类</div>';
+    }
+  }
+
+  fetchCategories();
+
+  // Generic Dropdown Handler
+  function setupDropdown(trigger: HTMLElement | null, options: HTMLElement | null, wrapper: HTMLElement | null, paramName: string, textEl: Element | null | undefined) {
+      if (!trigger || !options || !wrapper) return;
+
+      trigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // Close others
+          [categoryOptions, statusOptions].forEach(opt => {
+              if (opt && opt !== options) opt.classList.add('hidden');
+          });
+          options.classList.toggle('hidden');
+      });
+
+      options.addEventListener('click', (e) => {
+          const target = e.target as HTMLElement;
+          if (target.classList.contains('custom-option')) {
+              const value = target.dataset.value;
+              const text = target.textContent;
+              
+              if (textEl && text) textEl.textContent = text;
+              
+              options.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+              target.classList.add('selected');
+              options.classList.add('hidden');
+              
+              updateUrl(paramName, value);
+          }
+      });
+  }
+
+  setupDropdown(categoryTrigger, categoryOptions, categoryWrapper, 'category', currentCategoryText);
+  setupDropdown(statusTrigger, statusOptions, statusWrapper, 'status', currentStatusText);
+
+  // Close on click outside
+  document.addEventListener('click', (e) => {
+      if (!categoryWrapper?.contains(e.target as Node)) categoryOptions?.classList.add('hidden');
+      if (!statusWrapper?.contains(e.target as Node)) statusOptions?.classList.add('hidden');
+  });
+
+  function updateUrl(key: string, value: string | undefined) {
+      const url = new URL(window.location.href);
+      if (value && value !== 'all') {
+          url.searchParams.set(key, value);
+      } else {
+          url.searchParams.delete(key);
+      }
+      url.searchParams.set('page', '1');
+      
+      window.history.pushState({}, '', url.toString());
+      window.dispatchEvent(new CustomEvent('tool-filter-change'));
+  }
+
+  // Reset
+  resetBtn?.addEventListener('click', () => {
+      // Reset UI
+      [
+          { opts: categoryOptions, text: currentCategoryText, defaultText: '全部分类' },
+          { opts: statusOptions, text: currentStatusText, defaultText: '全部状态' }
+      ].forEach(({ opts, text, defaultText }) => {
+          if (text) text.textContent = defaultText;
+          if (opts) {
+              opts.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+              const allOpt = opts.querySelector('[data-value="all"]');
+              if (allOpt) allOpt.classList.add('selected');
+          }
+      });
+
+      // Reset URL
+      const url = new URL(window.location.href);
+      ['category', 'status'].forEach(k => url.searchParams.delete(k));
+      url.searchParams.set('page', '1');
+      
+      window.history.pushState({}, '', url.toString());
+      window.dispatchEvent(new CustomEvent('tool-filter-change'));
+  });
+</script>
