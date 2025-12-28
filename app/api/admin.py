@@ -310,6 +310,57 @@ def read_admin_diaries(
     total = crud.get_diaries_count(db, year=year, month=month)
     return {"total": total, "items": diaries}
 
+@router.post("/diaries/upload")
+async def upload_diary(
+    date: str = Form(...),
+    content: str = Form(None),
+    mood: str = Form(None),
+    weather: str = Form(None),
+    images: str = Form(None), # JSON string
+    db: Session = Depends(get_db)
+):
+    crud.create_diary(
+        db=db,
+        date=date,
+        content=content,
+        mood=mood,
+        weather=weather,
+        images=images
+    )
+    return {"status": "success", "message": "Diary created successfully"}
+
+@router.put("/diaries/{diary_id}")
+async def update_diary(
+    diary_id: int,
+    date: str = Form(None),
+    content: str = Form(None),
+    mood: str = Form(None),
+    weather: str = Form(None),
+    images: str = Form(None),
+    db: Session = Depends(get_db)
+):
+    diary = crud.get_diary(db, diary_id)
+    if not diary:
+        raise HTTPException(status_code=404, detail="Diary not found")
+
+    crud.update_diary(
+        db=db,
+        diary_id=diary_id,
+        date=date,
+        content=content,
+        mood=mood,
+        weather=weather,
+        images=images
+    )
+    return {"status": "success", "message": "Diary updated successfully"}
+
+@router.delete("/diaries/{diary_id}")
+def delete_diary(diary_id: int, db: Session = Depends(get_db)):
+    if crud.delete_diary(db, diary_id):
+        return {"status": "success", "message": "Diary deleted successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Diary not found")
+
 @router.get("/gallery/tags")
 def read_admin_gallery_tags(db: Session = Depends(get_db)):
     gallery = crud.get_gallery(db, skip=0, limit=10000)

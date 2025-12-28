@@ -1,4 +1,5 @@
 ---
+// DiaryList.astro
 ---
 
 <div class="diary-list-card">
@@ -38,7 +39,7 @@
         content?: string;
         mood?: string;
         weather?: string;
-        images?: string[];
+        images?: string[] | string;
     }
 
     interface DiaryResponse {
@@ -54,6 +55,10 @@
         const tbody = document.getElementById('diary-table-body');
         const countSpan = document.getElementById('diary-count');
         const paginationContainer = document.getElementById('pagination-container');
+        const prevBtn = document.getElementById('prev-page') as HTMLButtonElement;
+        const nextBtn = document.getElementById('next-page') as HTMLButtonElement;
+        const currentPageSpan = document.getElementById('current-page');
+        const totalPagesSpan = document.getElementById('total-pages');
         
         if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="loading-text">Loading...</td></tr>';
 
@@ -61,9 +66,6 @@
         const urlParams = new URLSearchParams(window.location.search);
         const year = urlParams.get('year');
         const month = urlParams.get('month');
-        const pageParam = urlParams.get('page');
-        
-        if (pageParam) currentPage = parseInt(pageParam);
         
         const skip = (currentPage - 1) * limit;
 
@@ -79,28 +81,49 @@
             const total = data.total;
 
             totalPages = Math.ceil(total / limit);
-            updatePaginationUI();
+            if (totalPages === 0) totalPages = 1;
+
+            // Update Pagination UI
+            if (currentPageSpan) currentPageSpan.textContent = currentPage.toString();
+            if (totalPagesSpan) totalPagesSpan.textContent = totalPages.toString();
+            if (prevBtn) prevBtn.disabled = currentPage <= 1;
+            if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+            if (paginationContainer) paginationContainer.style.display = total > 0 ? 'flex' : 'none';
 
             if (countSpan) countSpan.textContent = `${total} entries`;
-            if (paginationContainer) paginationContainer.style.display = total > 0 ? 'flex' : 'none';
 
             if (tbody) {
                 if (diaries.length === 0) {
                     tbody.innerHTML = '<tr><td colspan="6" class="empty-text">No diaries found.</td></tr>';
                 } else {
-                    tbody.innerHTML = diaries.map(diary => `
+                    tbody.innerHTML = diaries.map(diary => {
+                        // Parse images if string
+                        let images = diary.images;
+                        if (typeof images === 'string') {
+                            try { images = JSON.parse(images); } catch { images = []; }
+                        }
+                        const imageCount = Array.isArray(images) ? images.length : 0;
+
+                        const d = new Date(diary.date);
+                        const dateStr = d.getFullYear() + '-' + 
+                            String(d.getMonth() + 1).padStart(2, '0') + '-' + 
+                            String(d.getDate()).padStart(2, '0') + ' ' + 
+                            String(d.getHours()).padStart(2, '0') + ':' + 
+                            String(d.getMinutes()).padStart(2, '0');
+
+                        return `
                         <tr>
-                            <td>${diary.date}</td>
+                            <td>${dateStr}</td>
                             <td><div class="truncate" title="${diary.content || ''}">${diary.content || '-'}</div></td>
-                            <td>${diary.mood || '-'}</td>
+                            <td>${diary.mood ? `<span class="mood-badge ${diary.mood}">${diary.mood}</span>` : '-'}</td>
                             <td>${diary.weather || '-'}</td>
-                            <td>${diary.images && diary.images.length > 0 ? `<span class="tag">${diary.images.length} images</span>` : '-'}</td>
+                            <td>${imageCount > 0 ? `<span class="tag">${imageCount} images</span>` : '-'}</td>
                             <td>
-                                <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
-                                <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                <button class="btn-icon edit" title="Edit" data-diary='${JSON.stringify(diary).replace(/'/g, "&#39;")}'><i class="fas fa-edit"></i></button>
+                                <button class="btn-icon delete" title="Delete" data-id="${diary.id}"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
-                    `).join('');
+                    `}).join('');
                 }
             }
         } catch (error) {
@@ -109,40 +132,71 @@
         }
     }
 
-    function updatePaginationUI() {
-        const prevBtn = document.getElementById('prev-page') as HTMLButtonElement;
-        const nextBtn = document.getElementById('next-page') as HTMLButtonElement;
-        const currentSpan = document.getElementById('current-page');
-        const totalSpan = document.getElementById('total-pages');
+    // Initial Fetch
+    fetchDiaries();
 
-        if (currentSpan) currentSpan.textContent = currentPage.toString();
-        if (totalSpan) totalSpan.textContent = totalPages.toString();
+    // Event Listeners
+    const tbody = document.getElementById('diary-table-body');
+    tbody?.addEventListener('click', async (e) => {
+        const target = e.target as HTMLElement;
+        const btn = target.closest('button');
+        if (!btn) return;
 
-        if (prevBtn) prevBtn.disabled = currentPage <= 1;
-        if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
-    }
+        if (btn.classList.contains('delete')) {
+            const id = btn.getAttribute('data-id');
+            if (id && confirm('Are you sure you want to delete this diary entry?')) {
+                try {
+                    const res = await fetch(`http://127.0.0.1:8000/api/admin/diaries/${id}`, {
+                        method: 'DELETE'
+                    });
+                    if (res.ok) {
+                        fetchDiaries();
+                        window.dispatchEvent(new CustomEvent('diary-updated'));
+                    } else {
+                        alert('Failed to delete diary');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('Error deleting diary');
+                }
+            }
+        } else if (btn.classList.contains('edit')) {
+            const diaryData = btn.getAttribute('data-diary');
+            if (diaryData) {
+                const diary = JSON.parse(diaryData);
+                // Parse images if string
+                if (typeof diary.images === 'string') {
+                    try { diary.images = JSON.parse(diary.images); } catch { diary.images = []; }
+                }
+                window.dispatchEvent(new CustomEvent('edit-diary', { detail: diary }));
+            }
+        }
+    });
 
-    function changePage(delta: number) {
-        const newPage = currentPage + delta;
-        if (newPage >= 1 && newPage <= totalPages) {
-            const url = new URL(window.location.href);
-            url.searchParams.set('page', newPage.toString());
-            window.history.pushState({}, '', url.toString());
+    // Pagination Listeners
+    document.getElementById('prev-page')?.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
             fetchDiaries();
         }
-    }
+    });
 
-    document.getElementById('prev-page')?.addEventListener('click', () => changePage(-1));
-    document.getElementById('next-page')?.addEventListener('click', () => changePage(1));
+    document.getElementById('next-page')?.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            fetchDiaries();
+        }
+    });
 
-    // Listen for filter changes
+    // External Events
     window.addEventListener('diary-filter-change', () => {
-        currentPage = 1; // Reset to page 1 on filter change
+        currentPage = 1;
         fetchDiaries();
     });
 
-    // Initial load
-    fetchDiaries();
+    window.addEventListener('diary-created', () => {
+        fetchDiaries();
+    });
 </script>
 
 <style>
@@ -190,7 +244,7 @@
     }
 
     /* Column Widths */
-    .col-date { width: 120px; }
+    .col-date { width: 150px; }
     .col-content { width: auto; }
     .col-mood { width: 100px; }
     .col-weather { width: 100px; }

@@ -10,6 +10,15 @@ interface Props {
 const { date, content, mood, weather, images = [] } = Astro.props;
 const validImages = Array.isArray(images) ? images : [];
 
+const d = new Date(date);
+const displayDate = isNaN(d.getTime()) ? date : (
+  d.getFullYear() + '-' + 
+  String(d.getMonth() + 1).padStart(2, '0') + '-' + 
+  String(d.getDate()).padStart(2, '0') + ' ' + 
+  String(d.getHours()).padStart(2, '0') + ':' + 
+  String(d.getMinutes()).padStart(2, '0')
+);
+
 const moodMap: Record<string, string> = {
   happy: "😊",
   relieved: "😌",
@@ -34,14 +43,14 @@ const weatherMap: Record<string, string> = {
   <div class="timeline-content">
     <details class="diary-details">
       <summary class="diary-summary">
-        <span class="diary-date">{date}</span>
+        <span class="diary-date">{displayDate}</span>
         <span class="diary-mood-preview">{moodMap[mood] || "😐"}</span>
       </summary>
       
       <div class="diary-card-inner">
         <div class="diary-header">
           <div class="meta-group">
-            <span class="meta-item" title="Date">📅 {date}</span>
+            <span class="meta-item" title="Date">📅 {displayDate}</span>
             {weather && (
               <span class="meta-item" title="Weather">
                 {weatherMap[weather] || "🌤️"} 

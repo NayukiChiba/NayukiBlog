@@ -5,9 +5,12 @@
 <div class="create-card">
   <div class="card-header">
     <h3 class="card-title">New Diary Entry</h3>
+    <button class="btn-reset">Reset</button>
   </div>
   
-  <form id="create-diary-form" class="create-form">
+  <form id="create-diary-form" class="create-form" onsubmit="event.preventDefault();">
+    <input type="hidden" id="diaryId" name="diary_id" />
+
     <div class="form-row">
       <div class="form-group date-group">
         <label>Time</label>
@@ -19,7 +22,7 @@
         <div class="custom-select-wrapper" id="moodSelectWrapper">
             <div class="custom-select-trigger" id="moodTrigger">
                 <span class="current-text">Happy</span>
-                <input type="hidden" name="mood" value="happy">
+                <input type="hidden" name="mood" value="happy" id="moodInput">
                 <i class="fas fa-chevron-down arrow-icon"></i>
             </div>
             <div class="custom-options hidden" id="moodOptions">
@@ -38,7 +41,7 @@
         <div class="custom-select-wrapper" id="weatherSelectWrapper">
             <div class="custom-select-trigger" id="weatherTrigger">
                 <span class="current-text">Sunny</span>
-                <input type="hidden" name="weather" value="sunny">
+                <input type="hidden" name="weather" value="sunny" id="weatherInput">
                 <i class="fas fa-chevron-down arrow-icon"></i>
             </div>
             <div class="custom-options hidden" id="weatherOptions">
@@ -54,19 +57,19 @@
 
     <div class="form-group">
       <label>Content</label>
-      <textarea name="content" rows="3" class="form-textarea" placeholder="Write about your day..."></textarea>
+      <textarea name="content" rows="3" class="form-textarea" placeholder="Write about your day..." id="diaryContent"></textarea>
     </div>
 
     <div class="form-group">
       <label>Images (URLs)</label>
       <div class="form-row">
-        <input type="text" name="image1" placeholder="Image URL 1" class="form-input">
-        <input type="text" name="image2" placeholder="Image URL 2" class="form-input">
+        <input type="text" name="image1" placeholder="Image URL 1" class="form-input image-input">
+        <input type="text" name="image2" placeholder="Image URL 2" class="form-input image-input">
       </div>
     </div>
 
     <div class="form-footer">
-      <button type="submit" class="btn-submit">
+      <button type="submit" class="btn-submit" id="submitDiaryBtn">
         <i class="fas fa-paper-plane"></i> Publish
       </button>
     </div>
@@ -90,6 +93,9 @@
   .card-header {
     padding-bottom: 0.8rem;
     border-bottom: 1px solid #f5f5f5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .card-title {
@@ -108,6 +114,20 @@
     height: 16px;
     background: #000; /* Black accent for creation */
     border-radius: 2px;
+  }
+
+  .btn-reset {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+  .btn-reset:hover {
+    background: #f5f5f5;
+    color: #333;
   }
 
   .create-form {
@@ -234,8 +254,20 @@
 </style>
 
 <script>
-  // Set default date to now
+  // Elements
+  const form = document.getElementById('create-diary-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submitDiaryBtn');
+  const resetBtn = document.getElementById('resetDiaryBtn');
+  const cardTitle = document.getElementById('diaryCardTitle');
+  
+  const diaryIdInput = document.getElementById('diaryId') as HTMLInputElement;
   const dateInput = document.getElementById('diary-date-input') as HTMLInputElement;
+  const contentInput = document.getElementById('diaryContent') as HTMLTextAreaElement;
+  const moodInput = document.getElementById('moodInput') as HTMLInputElement;
+  const weatherInput = document.getElementById('weatherInput') as HTMLInputElement;
+  const imageInputs = document.querySelectorAll('.image-input');
+
+  // Set default date to now
   if (dateInput) {
     const now = new Date();
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -285,49 +317,132 @@
     document.querySelectorAll('.custom-options').forEach(el => el.classList.add('hidden'));
   });
 
+  // Submit Logic
+  submitBtn?.addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      if (!dateInput.value) {
+          window.showAdminAlert ? window.showAdminAlert('Please select a date', 'error') : alert('Please select a date');
+          return;
+      }
+      if (!moodInput.value) {
+          window.showAdminAlert ? window.showAdminAlert('Please select a mood', 'error') : alert('Please select a mood');
+          return;
+      }
+      if (!weatherInput.value) {
+          window.showAdminAlert ? window.showAdminAlert('Please select weather', 'error') : alert('Please select weather');
+          return;
+      }
+      if (!contentInput.value.trim()) {
+          window.showAdminAlert ? window.showAdminAlert('Please enter content', 'error') : alert('Please enter content');
+          return;
+      }
 
+      const formData = new FormData();
+      formData.append('date', dateInput.value);
+      formData.append('content', contentInput.value);
+      formData.append('mood', moodInput.value);
+      formData.append('weather', weatherInput.value);
+      
+      const images: string[] = [];
+      imageInputs.forEach((input: any) => {
+          if (input.value.trim()) images.push(input.value.trim());
+      });
+      formData.append('images', JSON.stringify(images));
 
-  // Form Submission
-  const form = document.getElementById('create-diary-form') as HTMLFormElement;
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData(form);
-    
-    try {
-        const images = [];
-        const img1 = formData.get('image1');
-        const img2 = formData.get('image2');
-        if (img1) images.push(img1);
-        if (img2) images.push(img2);
+      const isEdit = !!diaryIdInput.value;
+      const url = isEdit 
+          ? `http://127.0.0.1:8000/api/admin/diaries/${diaryIdInput.value}`
+          : `http://127.0.0.1:8000/api/admin/diaries/upload`;
+      
+      const method = isEdit ? 'PUT' : 'POST';
 
-        const payload: any = {
-            date: formData.get('date'),
-            content: formData.get('content'),
-            mood: formData.get('mood'),
-            weather: formData.get('weather'),
-            images: images
-        };
-        
-        const response = await fetch('http://127.0.0.1:8000/api/admin/diaries', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
+      try {
+          const res = await fetch(url, {
+              method: method,
+              body: formData
+          });
 
-        if (response.ok) {
-            // Reset form
-            form.reset();
-            // Refresh list
-            window.dispatchEvent(new CustomEvent('diary-filter-change'));
-            alert('Diary entry created!');
-        } else {
-            alert('Failed to create diary entry');
-        }
-    } catch (error) {
-        console.error(error);
-        alert('Error creating entry');
-    }
+          if (res.ok) {
+              resetForm();
+              window.dispatchEvent(new CustomEvent('diary-created')); // Refresh list
+              if (window.showAdminAlert) {
+                  window.showAdminAlert(isEdit ? 'Diary updated!' : 'Diary created!', 'success');
+              } else {
+                  alert(isEdit ? 'Diary updated!' : 'Diary created!');
+              }
+          } else {
+              if (window.showAdminAlert) {
+                  window.showAdminAlert('Operation failed', 'error');
+              } else {
+                  alert('Operation failed');
+              }
+          }
+      } catch (err) {
+          console.error(err);
+          if (window.showAdminAlert) {
+              window.showAdminAlert('Error occurred', 'error');
+          } else {
+              alert('Error occurred');
+          }
+      }
+  });
+
+  // Reset Logic
+  resetBtn?.addEventListener('click', resetForm);
+
+  function resetForm() {
+      form.reset();
+      diaryIdInput.value = '';
+      if (submitBtn) submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publish';
+      if (cardTitle) cardTitle.textContent = 'New Diary Entry';
+      
+      // Reset custom selects
+      updateSelect('mood', 'happy', 'Happy');
+      updateSelect('weather', 'sunny', 'Sunny');
+      
+      // Reset date to now
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      dateInput.value = now.toISOString().slice(0, 16);
+  }
+
+  function updateSelect(type: string, value: string, text: string) {
+      const trigger = document.getElementById(`${type}Trigger`);
+      const input = document.getElementById(`${type}Input`) as HTMLInputElement;
+      const options = document.getElementById(`${type}Options`);
+      
+      if (trigger) trigger.querySelector('.current-text')!.textContent = text;
+      if (input) input.value = value;
+      
+      options?.querySelectorAll('.custom-option').forEach(opt => {
+          opt.classList.remove('selected');
+          if (opt.getAttribute('data-value') === value) opt.classList.add('selected');
+          else opt.classList.remove('selected');
+      });
+  }
+
+  // Edit Listener
+  window.addEventListener('edit-diary', (e: any) => {
+      const diary = e.detail;
+      if (!diary) return;
+
+      diaryIdInput.value = diary.id;
+      dateInput.value = diary.date; 
+      contentInput.value = diary.content || '';
+      
+      const mood = diary.mood || 'happy';
+      updateSelect('mood', mood, mood.charAt(0).toUpperCase() + mood.slice(1));
+      
+      const weather = diary.weather || 'sunny';
+      updateSelect('weather', weather, weather.charAt(0).toUpperCase() + weather.slice(1));
+
+      // Images
+      const images = diary.images || [];
+      imageInputs.forEach((input: any, index) => {
+          input.value = images[index] || '';
+      });
+
+      if (submitBtn) submitBtn.innerHTML = '<i class="fas fa-save"></i> Update';
+      if (cardTitle) cardTitle.textContent = 'Edit Diary Entry';
   });

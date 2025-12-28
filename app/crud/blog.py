@@ -35,6 +35,43 @@ def get_diaries_count(db: Session, year: str = None, month: str = None):
         
     return query.count()
 
+def create_diary(db: Session, date: str, content: str, mood: str, weather: str, images: str):
+    db_diary = models.Diary(
+        date=date,
+        content=content,
+        mood=mood,
+        weather=weather,
+        images=images
+    )
+    db.add(db_diary)
+    db.commit()
+    db.refresh(db_diary)
+    return db_diary
+
+def update_diary(db: Session, diary_id: int, date: str = None, content: str = None, mood: str = None, weather: str = None, images: str = None):
+    db_diary = db.query(models.Diary).filter(models.Diary.id == diary_id).first()
+    if db_diary:
+        if date: db_diary.date = date
+        if content: db_diary.content = content
+        if mood: db_diary.mood = mood
+        if weather: db_diary.weather = weather
+        if images: db_diary.images = images
+        db.commit()
+        db.refresh(db_diary)
+        return db_diary
+    return None
+
+def get_diary(db: Session, diary_id: int):
+    return db.query(models.Diary).filter(models.Diary.id == diary_id).first()
+
+def delete_diary(db: Session, diary_id: int):
+    db_diary = db.query(models.Diary).filter(models.Diary.id == diary_id).first()
+    if db_diary:
+        db.delete(db_diary)
+        db.commit()
+        return True
+    return False
+
 def get_gallery(db: Session, skip: int = 0, limit: int = 100, status: str = None, tags: list[str] = None, sort: str = "desc"):
     query = db.query(models.Gallery)
     if status:
