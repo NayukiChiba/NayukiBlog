@@ -192,7 +192,7 @@ const getPageUrl = (p: number) => {
           title: item.title,
           category: typeof item.category === 'object' ? item.folder?.name : (item.folder || 'Uncategorized'),
           tags: Array.isArray(item.tags) ? item.tags.map((t: any) => typeof t === 'object' ? t.name : t) : [],
-          status: item.status || (item.is_published ? 'published' : 'draft'),
+          status: (item.status === 'public' ? 'published' : item.status) || (item.is_published ? 'published' : 'draft'),
           createdAt: item.date || (item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]),
         }));
 
@@ -483,6 +483,7 @@ const getPageUrl = (p: number) => {
 
   :global(.status-published) { background: #f0f9eb; color: #67c23a; }
   :global(.status-draft) { background: #fdf6ec; color: #e6a23c; }
+  :global(.status-private) { background: #f4f4f5; color: #909399; }
   :global(.status-archived) { background: #f4f4f5; color: #909399; }
 
   /* Actions */

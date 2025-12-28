@@ -81,6 +81,7 @@ import AlertModal from '../AlertModal.astro';
               <div class="custom-options hidden" id="editArticleStatusOptions">
                 <div class="custom-option" data-value="draft">Draft</div>
                 <div class="custom-option" data-value="public">Published</div>
+                <div class="custom-option" data-value="private">Private</div>
               </div>
             </div>
           </div>
@@ -635,7 +636,12 @@ import AlertModal from '../AlertModal.astro';
     // Status
     const status = article.status === 'published' ? 'public' : article.status;
     if (statusInput) statusInput.value = status;
-    if (statusText) statusText.textContent = status === 'public' ? 'Published' : 'Draft';
+    
+    let displayText = 'Draft';
+    if (status === 'public') displayText = 'Published';
+    else if (status === 'private') displayText = 'Private';
+    
+    if (statusText) statusText.textContent = displayText;
     
     // Update Status Dropdown Selection
     const statusOptions = document.getElementById('editArticleStatusOptions');
