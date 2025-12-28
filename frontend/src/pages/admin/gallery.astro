@@ -5,6 +5,7 @@ import Header from '../../components/Header.astro';
 import Sidebar from '../../components/admin/Sidebar.astro';
 import GalleryList from '../../components/admin/gallery/GalleryList.astro';
 import GalleryFilter from '../../components/admin/gallery/GalleryFilter.astro';
+import GalleryCreate from '../../components/admin/gallery/GalleryCreate.astro';
 
 // Auth check
 const authCookie = Astro.cookies.get('auth_token');
@@ -38,7 +39,7 @@ if (!authCookie || authCookie.value !== 'authorized') {
                         <GalleryFilter />
                     </div>
                     <div class="editor-placeholder">
-                        <!-- Future Edit Component -->
+                        <GalleryCreate />
                     </div>
                 </div>
                 <div class="list-container">

@@ -6,7 +6,7 @@ import Sidebar from '../../components/admin/Sidebar.astro';
 import CategoryFilter from '../../components/admin/articles/CategoryFilter.astro';
 import TagFilter from '../../components/admin/articles/TagFilter.astro';
 import ArticleList from '../../components/admin/articles/ArticleList.astro';
-import UploadArticleDialog from '../../components/admin/articles/UploadArticleDialog.astro';
+import ArticleCreate from '../../components/admin/articles/ArticleCreate.astro';
 
 // Auth check
 const authCookie = Astro.cookies.get('auth_token');
@@ -44,13 +44,13 @@ if (!authCookie || authCookie.value !== 'authorized') {
             </div>
 
             <ArticleList />
-            <UploadArticleDialog />
+            <ArticleCreate />
         </div>
     </main>
 
     <script>
         document.getElementById('btn-new-article')?.addEventListener('click', () => {
-            document.dispatchEvent(new CustomEvent('open-upload-modal'));
+            document.dispatchEvent(new CustomEvent('open-create-article-modal'));
         });
     </script>
 

@@ -5,6 +5,7 @@ import Header from '../../components/Header.astro';
 import Sidebar from '../../components/admin/Sidebar.astro';
 import ToolList from '../../components/admin/tools/ToolList.astro';
 import ToolFilter from '../../components/admin/tools/ToolFilter.astro';
+import ToolCreate from '../../components/admin/tools/ToolCreate.astro';
 
 // Auth check
 const authCookie = Astro.cookies.get('auth_token');
@@ -32,11 +33,19 @@ if (!authCookie || authCookie.value !== 'authorized') {
                 <button id="btn-new-tool" class="btn-primary"><i class="fas fa-plus"></i> New Tool</button>
             </div>
 
-            <div class="filter-section">
-                <ToolFilter />
+            <div class="tools-layout">
+                <div class="top-section">
+                    <div class="filter-container">
+                        <ToolFilter />
+                    </div>
+                    <div class="create-container">
+                        <ToolCreate />
+                    </div>
+                </div>
+                <div class="list-container">
+                    <ToolList />
+                </div>
             </div>
-
-            <ToolList />
         </div>
     </main>
 
@@ -58,9 +67,29 @@ if (!authCookie || authCookie.value !== 'authorized') {
             padding: 20px;
         }
 
-        .filter-section {
-            width: 50%;
+        .tools-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .top-section {
+            display: flex;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .filter-container {
+            flex: 1;
             min-width: 300px;
+        }
+
+        .create-container {
+            flex: 1;
+        }
+
+        .list-container {
+            width: 100%;
         }
 
         .page-header {

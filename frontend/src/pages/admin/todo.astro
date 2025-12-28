@@ -5,6 +5,7 @@ import Header from '../../components/Header.astro';
 import Sidebar from '../../components/admin/Sidebar.astro';
 import TodoList from '../../components/admin/todo/TodoList.astro';
 import TodoFilter from '../../components/admin/todo/TodoFilter.astro';
+import TodoCreate from '../../components/admin/todo/TodoCreate.astro';
 
 // Auth check
 const authCookie = Astro.cookies.get('auth_token');
@@ -38,7 +39,7 @@ if (!authCookie || authCookie.value !== 'authorized') {
                         <TodoFilter />
                     </div>
                     <div class="stats-placeholder">
-                        <!-- Reserved for Edit Card -->
+                        <TodoCreate />
                     </div>
                 </div>
                 <div class="list-container">

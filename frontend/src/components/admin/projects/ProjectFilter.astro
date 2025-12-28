@@ -40,7 +40,7 @@
 </div>
 
 <style>
-  .filter-card {
+  :global(.filter-card) {
     background: #fff;
     border-radius: 8px;
     padding: 1.5rem;
@@ -50,12 +50,12 @@
     gap: 1.5rem;
     margin-bottom: 2rem;
     border: 1px solid #eee;
-    height: auto; /* Auto height */
-    min-height: 250px;
+    height: 360px;
     overflow-y: visible;
+    box-sizing: border-box;
   }
 
-  .filter-header {
+  :global(.filter-header) {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -64,14 +64,14 @@
     border-bottom: 1px solid #eee;
   }
 
-  .filter-title {
+  :global(.filter-title) {
     font-size: 0.75rem;
     font-weight: 600;
     color: #333;
     margin: 0;
   }
 
-  .reset-btn {
+  :global(.reset-btn) {
     background: none;
     border: none;
     color: #666;
@@ -82,31 +82,31 @@
     transition: all 0.2s;
   }
 
-  .reset-btn:hover {
+  :global(.reset-btn:hover) {
     background: #f5f5f5;
     color: #d32f2f;
   }
 
-  .filter-group {
+  :global(.filter-group) {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     width: 100%;
   }
 
-  .filter-group label {
+  :global(.filter-group label) {
     font-size: 0.85rem;
     color: #666;
     font-weight: 500;
   }
 
   /* Tag Input Styles */
-  .tag-group {
+  :global(.tag-group) {
     position: relative;
     z-index: 20;
   }
 
-  .tag-input-wrapper {
+  :global(.tag-input-wrapper) {
     border: 1px solid #ddd;
     border-radius: 6px;
     padding: 0 0.5rem;
@@ -120,11 +120,11 @@
     overflow: visible;
   }
 
-  .tag-input-wrapper:hover {
+  :global(.tag-input-wrapper:hover) {
     border-color: #bbb;
   }
 
-  .selected-tags {
+  :global(.selected-tags) {
     display: flex;
     flex-wrap: nowrap;
     gap: 0.5rem;
@@ -133,15 +133,15 @@
     align-items: center;
     scrollbar-width: none;
   }
-  .selected-tags::-webkit-scrollbar { display: none; }
+  :global(.selected-tags::-webkit-scrollbar) { display: none; }
 
-  .placeholder {
+  :global(.placeholder) {
     color: #999;
     font-size: 0.9rem;
     line-height: 1.5;
   }
 
-  .selected-tags :global(.tag-chip) {
+  :global(.selected-tags .tag-chip) {
     background: #e0e0e0;
     color: #333;
     padding: 4px 10px;
@@ -154,16 +154,16 @@
     font-weight: 500;
   }
 
-  .selected-tags :global(.tag-remove) {
+  :global(.selected-tags .tag-remove) {
     cursor: pointer;
     color: #666;
     font-weight: bold;
     font-size: 1rem;
     line-height: 1;
   }
-  .selected-tags :global(.tag-remove:hover) { color: #000; }
+  :global(.selected-tags .tag-remove:hover) { color: #000; }
 
-  .tag-dropdown {
+  :global(.tag-dropdown) {
     position: absolute;
     top: calc(100% + 6px);
     left: 0;
@@ -178,11 +178,11 @@
     padding: 4px;
   }
 
-  .tag-dropdown.hidden {
+  :global(.tag-dropdown.hidden) {
     display: none;
   }
 
-  .tag-dropdown :global(.tag-option) {
+  :global(.tag-dropdown .tag-option) {
     padding: 8px 12px;
     cursor: pointer;
     font-size: 0.85rem;
@@ -192,12 +192,12 @@
     margin-bottom: 2px;
   }
 
-  .tag-dropdown :global(.tag-option:hover) {
+  :global(.tag-dropdown .tag-option:hover) {
     background: #f5f5f7;
     color: #000;
   }
 
-  .tag-dropdown :global(.tag-option.disabled) {
+  :global(.tag-dropdown .tag-option.disabled) {
     color: #aaa;
     background: #f9f9f9;
     cursor: not-allowed;
@@ -205,17 +205,17 @@
   }
 
   /* Status Select Styles */
-  .status-group {
+  :global(.status-group) {
     position: relative;
     z-index: 10;
   }
 
-  .custom-select-wrapper {
+  :global(.custom-select-wrapper) {
     position: relative;
     width: 100%;
   }
 
-  .custom-select-trigger {
+  :global(.custom-select-trigger) {
     border: 1px solid #ddd;
     border-radius: 6px;
     padding: 0 1rem;
@@ -230,17 +230,17 @@
     color: #333;
   }
 
-  .custom-select-trigger:hover {
+  :global(.custom-select-trigger:hover) {
     border-color: #bbb;
   }
 
-  .arrow-icon {
+  :global(.arrow-icon) {
     width: 1em;
     height: 1em;
     color: #999;
   }
 
-  .custom-options {
+  :global(.custom-options) {
     position: absolute;
     top: calc(100% + 6px);
     left: 0;
@@ -255,11 +255,11 @@
     padding: 4px;
   }
 
-  .custom-options.hidden {
+  :global(.custom-options.hidden) {
     display: none;
   }
 
-  .custom-option {
+  :global(.custom-option) {
     padding: 10px 1rem;
     cursor: pointer;
     font-size: 0.9rem;
@@ -267,12 +267,12 @@
     transition: all 0.2s;
   }
 
-  .custom-option:hover {
+  :global(.custom-option:hover) {
     background: #f5f5f7;
     color: #000;
   }
 
-  .custom-option.selected {
+  :global(.custom-option.selected) {
     background: #f0f7ff;
     color: #0066cc;
     font-weight: 500;
