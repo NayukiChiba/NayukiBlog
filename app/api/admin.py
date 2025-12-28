@@ -49,6 +49,17 @@ async def upload_article(
     print(f"Received upload: {title}, {category}")
     return {"status": "success", "message": "Article uploaded successfully"}
 
+@router.get("/books", response_model=List[schemas.Book])
+def read_admin_books(
+    skip: int = 0, 
+    limit: int = 100, 
+    tags: List[str] = Query(None),
+    status: str = None,
+    db: Session = Depends(get_db)
+):
+    books = crud.get_books(db, skip=skip, limit=limit, status=status, tags=tags)
+    return books
+
 @router.get("/projects", response_model=List[schemas.Project])
 def read_admin_projects(
     skip: int = 0, 
