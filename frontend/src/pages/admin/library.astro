@@ -5,6 +5,7 @@ import Header from '../../components/Header.astro';
 import Sidebar from '../../components/admin/Sidebar.astro';
 import BookList from '../../components/admin/library/BookList.astro';
 import BookFilter from '../../components/admin/library/BookFilter.astro';
+import BookCreate from '../../components/admin/library/BookCreate.astro';
 
 // Auth check
 const authCookie = Astro.cookies.get('auth_token');
@@ -29,10 +30,17 @@ if (!authCookie || authCookie.value !== 'authorized') {
         <div class="content-area">
             <div class="page-header">
                 <h2>Library Management</h2>
-                <button id="btn-new-book" class="btn-primary"><i class="fas fa-plus"></i> New Book</button>
             </div>
 
-            <BookFilter />
+            <div class="top-section">
+                <div class="filter-wrapper">
+                    <BookFilter />
+                </div>
+                <div class="create-wrapper">
+                    <BookCreate />
+                </div>
+            </div>
+
             <BookList />
         </div>
     </main>
@@ -68,22 +76,15 @@ if (!authCookie || authCookie.value !== 'authorized') {
             font-size: 24px;
         }
 
-        .btn-primary {
-            background: #000000;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
+        .top-section {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.3s;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: stretch;
         }
 
-        .btn-primary:hover {
-            background: #333333;
+        .filter-wrapper, .create-wrapper {
+            flex: 1;
         }
     </style>
 </body>

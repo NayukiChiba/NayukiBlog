@@ -4,6 +4,8 @@ export const prerender = false;
 import Header from '../../components/Header.astro';
 import Sidebar from '../../components/admin/Sidebar.astro';
 import DiaryList from '../../components/admin/diary/DiaryList.astro';
+import DiaryFilter from '../../components/admin/diary/DiaryFilter.astro';
+import DiaryCreate from '../../components/admin/diary/DiaryCreate.astro';
 
 // Auth check
 const authCookie = Astro.cookies.get('auth_token');
@@ -28,7 +30,15 @@ if (!authCookie || authCookie.value !== 'authorized') {
         <div class="content-area">
             <div class="page-header">
                 <h2>Diary Management</h2>
-                <button id="btn-new-diary" class="btn-primary"><i class="fas fa-plus"></i> New Entry</button>
+            </div>
+
+            <div class="top-section">
+                <div class="filter-wrapper">
+                    <DiaryFilter />
+                </div>
+                <div class="create-wrapper">
+                    <DiaryCreate />
+                </div>
             </div>
 
             <DiaryList />
@@ -66,23 +76,25 @@ if (!authCookie || authCookie.value !== 'authorized') {
             font-size: 24px;
         }
 
-        .btn-primary {
-            background: #000000;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
+        .top-section {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.3s;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: stretch;
         }
 
-        .btn-primary:hover {
-            background: #333333;
+        .filter-wrapper {
+            flex: 1;
         }
+
+        .create-wrapper {
+            flex: 1;
+        }
+
+        /* Override DiaryFilter margin if needed, but scoped styles might prevent it. 
+           We can rely on the wrapper or global styles if necessary. 
+           Since DiaryFilter has margin-bottom: 2rem, it might push down inside the wrapper.
+           That's fine, or we can try to negate it. */
     </style>
 </body>
 </html>

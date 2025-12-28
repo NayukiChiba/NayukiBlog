@@ -5,6 +5,7 @@ import Header from '../../components/Header.astro';
 import Sidebar from '../../components/admin/Sidebar.astro';
 import ProjectList from '../../components/admin/projects/ProjectList.astro';
 import ProjectFilter from '../../components/admin/projects/ProjectFilter.astro';
+import ProjectCreate from '../../components/admin/projects/ProjectCreate.astro';
 
 // Auth check
 const authCookie = Astro.cookies.get('auth_token');
@@ -32,8 +33,13 @@ if (!authCookie || authCookie.value !== 'authorized') {
                 <button id="btn-new-project" class="btn-primary"><i class="fas fa-plus"></i> New Project</button>
             </div>
 
-            <div class="filters-container">
-                <ProjectFilter />
+            <div class="management-panel">
+                <div class="panel-column">
+                    <ProjectFilter />
+                </div>
+                <div class="panel-column">
+                    <ProjectCreate />
+                </div>
             </div>
 
             <ProjectList />
@@ -71,9 +77,15 @@ if (!authCookie || authCookie.value !== 'authorized') {
             font-size: 24px;
         }
 
-        .filters-container {
+        .management-panel {
+            display: flex;
+            gap: 20px;
             margin-bottom: 20px;
-            max-width: 400px; /* Limit width of filter */
+        }
+
+        .panel-column {
+            flex: 1;
+            min-width: 0; /* Prevent flex item overflow */
         }
 
         .btn-primary {

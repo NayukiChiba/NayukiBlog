@@ -1,0 +1,365 @@
+---
+// ProjectCreate.astro
+---
+
+<div class="create-card">
+  <div class="create-header">
+    <h3 class="create-title">创建项目</h3>
+    <button class="btn-reset">重置</button>
+  </div>
+  
+  <div class="create-content">
+    <form class="create-form" onsubmit="event.preventDefault();">
+      <!-- Project Name -->
+      <div class="form-group">
+        <label class="form-label">项目名称</label>
+        <input type="text" class="form-input" placeholder="Project Name" />
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label class="form-label">描述</label>
+        <textarea class="form-input textarea" rows="3" placeholder="Project Description"></textarea>
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="form-group">
+        <label class="form-label">技术栈</label>
+        <div class="tags-input-container">
+          <div class="selected-tags">
+            <!-- Tags will be added here -->
+          </div>
+          <input type="text" class="tag-input" placeholder="Add tech..." />
+        </div>
+      </div>
+
+      <!-- URL & Status -->
+      <div class="form-row">
+        <div class="form-group half">
+          <label class="form-label">项目链接</label>
+          <input type="text" class="form-input" placeholder="https://..." />
+        </div>
+        <div class="form-group half">
+          <label class="form-label">状态</label>
+          <div class="custom-select-wrapper" id="createStatusWrapper">
+            <div class="custom-select-trigger" id="createStatusTrigger">
+              <span class="current-text">Planning</span>
+              <input type="hidden" name="status" value="planning">
+              <i class="fas fa-chevron-down arrow-icon"></i>
+            </div>
+            <div class="custom-options hidden" id="createStatusOptions">
+              <div class="custom-option selected" data-value="planning">Planning</div>
+              <div class="custom-option" data-value="in-progress">In Progress</div>
+              <div class="custom-option" data-value="completed">Completed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-submit">
+          <i class="fas fa-plus"></i> 创建
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  :global(.create-card) {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid #eee;
+    height: 360px;
+    box-sizing: border-box;
+  }
+
+  :global(.create-header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    flex-shrink: 0;
+  }
+
+  :global(.create-content) {
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 4px;
+  }
+
+  :global(.create-content::-webkit-scrollbar) {
+    width: 4px;
+  }
+  
+  :global(.create-content::-webkit-scrollbar-track) {
+    background: transparent;
+  }
+  
+  :global(.create-content::-webkit-scrollbar-thumb) {
+    background: #ddd;
+    border-radius: 4px;
+  }
+
+  :global(.create-title) {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+
+  :global(.btn-reset) {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  :global(.btn-reset:hover) {
+    background: #f5f5f5;
+    color: #d32f2f;
+  }
+
+  :global(.create-form) {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  :global(.form-group) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  :global(.form-row) {
+    display: flex;
+    gap: 1rem;
+  }
+
+  :global(.form-group.half) {
+    flex: 1;
+  }
+
+  :global(.form-label) {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+  }
+
+  :global(.form-input), :global(.form-select) {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #333;
+    transition: border-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+  }
+
+  :global(.form-input:focus), :global(.form-select:focus) {
+    border-color: #000;
+    outline: none;
+  }
+
+  :global(.form-input.textarea) {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  :global(.custom-select-wrapper) {
+    position: relative;
+  }
+
+  :global(.custom-select-trigger) {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    cursor: pointer;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: border-color 0.2s;
+    font-size: 0.9rem;
+    color: #333;
+    box-sizing: border-box;
+    min-height: 38px;
+  }
+
+  :global(.custom-select-trigger:hover) {
+    border-color: #000;
+  }
+
+  :global(.custom-options) {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 4px;
+  }
+
+  :global(.custom-options.hidden) {
+    display: none;
+  }
+
+  :global(.custom-option) {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #444;
+    transition: all 0.2s;
+    border-radius: 4px;
+  }
+
+  :global(.custom-option:hover) {
+    background: #f5f5f7;
+    color: #000;
+  }
+
+  :global(.custom-option.selected) {
+    background: #f0f7ff;
+    color: #0066cc;
+    font-weight: 500;
+  }
+
+  :global(.arrow-icon) {
+    color: #999;
+    font-size: 0.8rem;
+    pointer-events: none;
+  }
+
+  /* Tags Input */
+  :global(.tags-input-container) {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    background: #fff;
+    min-height: 40px;
+    box-sizing: border-box;
+  }
+
+  :global(.tags-input-container:focus-within) {
+    border-color: #000;
+  }
+
+  :global(.selected-tags) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  :global(.tag) {
+    background: #f0f0f0;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #333;
+  }
+
+  :global(.tag i) {
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #999;
+    transition: color 0.2s;
+  }
+
+  :global(.tag i:hover) {
+    color: #d32f2f;
+  }
+
+  :global(.tag-input) {
+    border: none;
+    outline: none;
+    flex: 1;
+    min-width: 60px;
+    font-size: 0.9rem;
+    padding: 0.2rem;
+    background: transparent;
+  }
+
+  :global(.form-actions) {
+    margin-top: 0.5rem;
+  }
+
+  :global(.btn-submit) {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn-submit:hover {
+    background: #333;
+  }
+</style>
+
+<script>
+  const wrapper = document.getElementById('createStatusWrapper');
+  const trigger = document.getElementById('createStatusTrigger');
+  const options = document.getElementById('createStatusOptions');
+  const hiddenInput = trigger?.querySelector('input');
+  const currentText = trigger?.querySelector('.current-text');
+
+  trigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    options?.classList.toggle('hidden');
+  });
+
+  options?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('custom-option')) {
+      const value = target.getAttribute('data-value');
+      const text = target.textContent;
+      
+      // Update UI
+      options.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+      target.classList.add('selected');
+      if (currentText) currentText.textContent = text;
+      if (hiddenInput) hiddenInput.value = value || '';
+      
+      options.classList.add('hidden');
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!wrapper?.contains(e.target as Node)) {
+      options?.classList.add('hidden');
+    }
+  });
+</script>
