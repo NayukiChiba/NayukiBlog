@@ -1,5 +1,6 @@
 ---
 // ArticleCreate.astro
+import AlertModal from '../AlertModal.astro';
 ---
 
 <div id="create-article-modal" class="modal-overlay hidden">
@@ -52,9 +53,16 @@
             <div class="selected-tags">
               <!-- Tags will be added here -->
             </div>
-            <input type="text" class="tag-input" placeholder="Add tag" />
-            <div class="tags-dropdown hidden">
-              <!-- Tag suggestions -->
+            <div class="tag-input-wrapper">
+                <input type="text" class="tag-input" placeholder="Add tag" />
+                <div class="tag-controls">
+                    <button type="button" class="tag-control-btn confirm-tag-btn" title="Add tag">
+                        <i class="fas fa-check"></i>
+                    </button>
+                </div>
+                <div class="tags-dropdown hidden">
+                  <!-- Tag suggestions -->
+                </div>
             </div>
           </div>
         </div>
@@ -71,7 +79,7 @@
               </div>
               <div class="custom-options hidden" id="articleStatusOptions">
                 <div class="custom-option selected" data-value="draft">Draft</div>
-                <div class="custom-option" data-value="published">Published</div>
+                <div class="custom-option" data-value="public">Published</div>
               </div>
             </div>
           </div>
@@ -123,6 +131,8 @@
     </div>
   </div>
 </div>
+
+<AlertModal />
 
 <style>
   :global(.modal-overlay) {
@@ -548,25 +558,83 @@
     min-width: 80px;
     font-size: 0.95rem;
     padding: 0.2rem;
+    padding-right: 30px !important; /* Space for button */
     background: transparent;
+  }
+
+  :global(.tag-input-wrapper) {
+      display: flex;
+      position: relative;
+      align-items: center;
+  }
+
+  :global(#create-article-form .tag-input-wrapper) {
+      flex: 1;
+  }
+
+  :global(.tag-controls) {
+      position: absolute;
+      right: 4px;
+      display: flex;
+      gap: 2px;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+
+  :global(.tag-control-btn) {
+      background: none;
+      border: none;
+      color: #aaa;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+  }
+
+  :global(.tag-control-btn:hover) {
+      background: #f0f0f0;
+      color: #333;
+  }
+
+  :global(.confirm-tag-btn) {
+      color: #28a745;
+  }
+
+  :global(.confirm-tag-btn:hover) {
+      background: #e6f4ea;
+      color: #1e7e34;
   }
 
   :global(.tags-dropdown) {
     position: absolute;
-    top: 100%;
+    bottom: 100%; /* Flip up */
     left: 0;
     width: 100%;
     background: white;
     border: 1px solid #ddd;
     border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    z-index: 10;
-    margin-top: 4px;
-    display: none; /* Hidden by default */
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+    z-index: 100;
+    margin-bottom: 4px;
+    max-height: 200px; /* Fixed height */
+    overflow-y: auto; /* Scrollable */
   }
   
-  :global(.tags-dropdown.show) {
-    display: block;
+  :global(.tags-dropdown.hidden) {
+    display: none;
+  }
+
+  :global(.selected-tags) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
   }
 
   :global(.modal-footer) {
@@ -612,6 +680,168 @@
 <script>
   const modal = document.getElementById('create-article-modal');
   
+  // --- Tags Logic ---
+  const tagsContainer = document.querySelector('.tags-input-container');
+  const tagsInput = tagsContainer?.querySelector('.tag-input') as HTMLInputElement;
+  const tagsDropdown = tagsContainer?.querySelector('.tags-dropdown');
+  const selectedTagsContainer = tagsContainer?.querySelector('.selected-tags');
+  const confirmTagBtn = tagsContainer?.querySelector('.confirm-tag-btn');
+  
+  let availableTags: string[] = [];
+  let selectedTags: string[] = [];
+  const MAX_TAGS = 3;
+
+  async function fetchTags() {
+    try {
+      const res = await fetch('http://127.0.0.1:8000/api/admin/articles/tags');
+      if (res.ok) {
+        const data = await res.json();
+        availableTags = data.tags || [];
+        console.log('Fetched tags:', availableTags);
+      }
+    } catch (e) {
+      console.error('Failed to fetch tags', e);
+    }
+  }
+
+  function renderSelectedTags() {
+    if (!selectedTagsContainer) return;
+    selectedTagsContainer.innerHTML = selectedTags.map(tag => `
+      <span class="tag">
+        ${tag}
+        <i class="fas fa-times" data-tag="${tag}" style="cursor: pointer; margin-left: 4px;"></i>
+      </span>
+    `).join('');
+    
+    if (tagsInput) {
+        if (selectedTags.length >= MAX_TAGS) {
+            tagsInput.style.display = 'none';
+            if (confirmTagBtn) (confirmTagBtn as HTMLElement).style.display = 'none';
+        } else {
+            tagsInput.style.display = 'block';
+            if (confirmTagBtn) (confirmTagBtn as HTMLElement).style.display = 'flex';
+            tagsInput.placeholder = selectedTags.length > 0 ? 'Add another...' : 'Add tag';
+        }
+    }
+  }
+
+  function addTag(tag: string) {
+      tag = tag.trim();
+      if (tag && !selectedTags.includes(tag) && selectedTags.length < MAX_TAGS) {
+          selectedTags.push(tag);
+          renderSelectedTags();
+          if (tagsInput) {
+              tagsInput.value = '';
+              tagsInput.focus();
+          }
+          if (tagsDropdown) tagsDropdown.classList.add('hidden');
+      }
+  }
+
+  function removeTag(tag: string) {
+      selectedTags = selectedTags.filter(t => t !== tag);
+      renderSelectedTags();
+  }
+
+  // Event Delegation for removing tags
+  selectedTagsContainer?.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('fa-times')) {
+          const tag = target.getAttribute('data-tag');
+          if (tag) removeTag(tag);
+      }
+  });
+
+  // Button Handlers
+  confirmTagBtn?.addEventListener('mousedown', (e) => e.preventDefault()); // Prevent blur
+  confirmTagBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (tagsInput && tagsInput.value) {
+          addTag(tagsInput.value);
+      }
+  });
+
+  // Input Events
+  tagsInput?.addEventListener('input', (e) => {
+      const val = (e.target as HTMLInputElement).value.trim();
+      if (val) {
+          const matches = availableTags.filter(t => 
+              t.toLowerCase().includes(val.toLowerCase()) && !selectedTags.includes(t)
+          );
+          renderDropdown(matches);
+      } else {
+          // Show all if input cleared
+          const suggestions = availableTags.filter(t => !selectedTags.includes(t));
+          renderDropdown(suggestions);
+      }
+  });
+
+  tagsInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+          e.preventDefault();
+          const val = tagsInput.value;
+          if (val) addTag(val);
+      } else if (e.key === 'Backspace' && !tagsInput.value && selectedTags.length > 0) {
+          removeTag(selectedTags[selectedTags.length - 1]);
+      }
+  });
+
+  tagsInput?.addEventListener('focus', () => {
+      const val = tagsInput.value.trim();
+      let suggestions = [];
+      if (val) {
+          suggestions = availableTags.filter(t => 
+              t.toLowerCase().includes(val.toLowerCase()) && !selectedTags.includes(t)
+          );
+      } else {
+          suggestions = availableTags.filter(t => !selectedTags.includes(t));
+      }
+      renderDropdown(suggestions);
+  });
+
+  tagsInput?.addEventListener('click', () => {
+      if (tagsDropdown?.classList.contains('hidden')) {
+          const val = tagsInput.value.trim();
+          let suggestions = [];
+          if (val) {
+              suggestions = availableTags.filter(t => 
+                  t.toLowerCase().includes(val.toLowerCase()) && !selectedTags.includes(t)
+              );
+          } else {
+              suggestions = availableTags.filter(t => !selectedTags.includes(t));
+          }
+          renderDropdown(suggestions);
+      }
+  });
+
+  // Blur handling
+  tagsInput?.addEventListener('blur', () => {
+      // Delay to allow click on dropdown
+      setTimeout(() => {
+          tagsDropdown?.classList.add('hidden');
+      }, 200);
+  });
+
+  function renderDropdown(tags: string[]) {
+      if (!tagsDropdown) return;
+      if (tags.length === 0) {
+          tagsDropdown.classList.add('hidden');
+          return;
+      }
+      
+      tagsDropdown.innerHTML = tags.map(tag => `
+          <div class="custom-option">${tag}</div>
+      `).join('');
+      tagsDropdown.classList.remove('hidden');
+  }
+
+  tagsDropdown?.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('custom-option')) {
+          addTag(target.textContent || '');
+      }
+  });
+
   // Folder Tree Logic
   const folderTreeContainer = document.getElementById('create-folder-tree');
   const folderInput = document.getElementById('selected-folder-input') as HTMLInputElement;
@@ -691,7 +921,7 @@
   confirmNewFolderBtn?.addEventListener('click', () => {
       const name = newFolderNameInput?.value.trim();
       if (!name) {
-          alert('Please enter a folder name');
+          window.showAdminAlert('Please enter a folder name (请输入文件夹名称)');
           return;
       }
       
@@ -793,10 +1023,10 @@
       const targetContainer = container || folderTreeContainer;
       if (!targetContainer) return;
       
-      if (!container) targetContainer.innerHTML = ''; // Clear if root
+      if (level === 0) targetContainer.innerHTML = ''; // Clear if root
 
       if (nodes.length === 0) {
-          if (!container) targetContainer.innerHTML = '<div class="empty-text">No folders found</div>';
+          if (level === 0) targetContainer.innerHTML = '<div class="empty-text">No folders found</div>';
           return;
       }
 
@@ -892,6 +1122,11 @@
   document.addEventListener('open-create-article-modal', () => {
     modal?.classList.remove('hidden');
     fetchAndRenderFolders();
+    // Reset Tags
+    fetchTags();
+    selectedTags = [];
+    renderSelectedTags();
+    if (tagsInput) tagsInput.value = '';
   });
 
   // Close Modal Events
@@ -939,5 +1174,115 @@
     if (!statusWrapper?.contains(e.target as Node)) {
       statusOptions?.classList.add('hidden');
     }
+  });
+
+  // File Input Change Listener
+  const fileInput = document.getElementById('article-file') as HTMLInputElement;
+  const filePlaceholder = document.querySelector('.file-upload-placeholder');
+  
+  fileInput?.addEventListener('change', () => {
+      if (fileInput.files && fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          if (filePlaceholder) {
+              filePlaceholder.innerHTML = `
+                  <i class="fas fa-file-markdown" style="color: #0066cc;"></i>
+                  <span style="color: #333; font-weight: 500;">${file.name}</span>
+                  <span style="font-size: 0.8rem; color: #666;">(Click to change)</span>
+              `;
+          }
+          
+          // Auto-fill title if empty
+          const titleInput = document.querySelector('input[name="title"]') as HTMLInputElement;
+          if (titleInput && !titleInput.value) {
+              // Remove extension and replace dashes/underscores with spaces
+              let title = file.name.replace(/\.md$/i, '');
+              title = title.replace(/[-_]/g, ' ');
+              // Capitalize first letter of each word
+              title = title.replace(/\b\w/g, l => l.toUpperCase());
+              titleInput.value = title;
+          }
+      } else {
+          // Reset placeholder
+          if (filePlaceholder) {
+              filePlaceholder.innerHTML = `
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <span>Click to upload or drag and drop</span>
+              `;
+          }
+      }
+  });
+
+  // Confirm Create Article
+  const confirmBtn = modal?.querySelector('.btn-confirm');
+  confirmBtn?.addEventListener('click', async () => {
+      const form = document.getElementById('create-article-form') as HTMLFormElement;
+      if (!form) return;
+
+      const formData = new FormData(form);
+      
+      // Handle tags manually
+      formData.append('tags', JSON.stringify(selectedTags));
+      
+      // Map folder to category for backend
+      const folderVal = formData.get('folder');
+      if (folderVal) {
+          formData.append('category', folderVal);
+      }
+
+      // Validate required fields
+      
+      // 1. File
+      const fileInput = document.getElementById('article-file') as HTMLInputElement;
+      if (!fileInput.files || fileInput.files.length === 0) {
+          window.showAdminAlert('Please upload a markdown file (请上传 Markdown 文件)');
+          return;
+      }
+
+      // 2. Folder
+      if (!folderVal) {
+          window.showAdminAlert('Please select a folder (请选择文件夹)');
+          return;
+      }
+      
+      // 3. Title
+      const titleInput = form.querySelector('input[name="title"]') as HTMLInputElement;
+      if (!titleInput.value.trim()) {
+          window.showAdminAlert('Please enter a title (请输入标题)');
+          return;
+      }
+
+      // 4. Tags
+      if (selectedTags.length === 0) {
+          window.showAdminAlert('Please add at least one tag (请至少添加一个标签)');
+          return;
+      }
+
+      // 5. Date
+      const dateInput = form.querySelector('input[name="date"]') as HTMLInputElement;
+      if (!dateInput.value) {
+          window.showAdminAlert('Please select a date (请选择日期)');
+          return;
+      }
+
+      try {
+          const response = await fetch('http://127.0.0.1:8000/api/admin/articles/upload', {
+              method: 'POST',
+              body: formData
+          });
+          
+          if (response.ok) {
+              window.showAdminAlert('Article created successfully', 'success');
+              setTimeout(() => {
+                  modal?.classList.add('hidden');
+                  window.location.reload();
+              }, 1500);
+          } else {
+              const errorData = await response.json();
+              window.showAdminAlert('Failed to create article: ' + (errorData.detail || 'Unknown error'));
+          }
+      } catch (e) {
+          console.error(e);
+          window.showAdminAlert('Error creating article');
+      }
   });
 </script>

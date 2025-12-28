@@ -87,6 +87,13 @@ class PostBase(BaseModel):
     def parse_tags(cls, v):
         return parse_json_list(v)
 
+    @field_validator('status', mode='before')
+    @classmethod
+    def normalize_status(cls, v):
+        if v == "published":
+            return PostStatus.PUBLIC
+        return v
+
 class Post(PostBase):
     id: int
     class Config:

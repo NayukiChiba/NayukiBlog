@@ -50,6 +50,22 @@ def get_gallery(db: Session, skip: int = 0, limit: int = 100, status: str = None
 
     return query.offset(skip).limit(limit).all()
 
+def create_post(db: Session, title: str, date: str, folder: str, tags: str, status: str, desc: str, url: str, image: str = None):
+    db_post = models.Post(
+        title=title,
+        date=date,
+        folder=folder,
+        tags=tags,
+        status=status,
+        desc=desc,
+        url=url,
+        image=image
+    )
+    db.add(db_post)
+    db.commit()
+    db.refresh(db_post)
+    return db_post
+
 def get_posts(db: Session, skip: int = 0, limit: int = 100, status: str = None, folder: str = None, tags: list[str] = None, sort: str = "desc"):
     query = db.query(models.Post)
     if status:
