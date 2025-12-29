@@ -67,8 +67,8 @@ def create_tables():
         description TEXT,
         link TEXT,
         techStack TEXT, -- Stored as JSON string
-        image TEXT,
-        status TEXT CHECK( status IN ('draft', 'published', 'archived') ) DEFAULT 'published'
+        status TEXT, -- Project status: completed, ongoing, etc.
+        visibility TEXT CHECK( visibility IN ('draft', 'published', 'archived') ) DEFAULT 'published'
     );
     """)
 
