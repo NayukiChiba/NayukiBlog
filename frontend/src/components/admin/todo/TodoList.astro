@@ -97,7 +97,15 @@ const getPageUrl = (p: number) => {
                     todos.map((todo) => (
                         <tr>
                             <td>
-                                {todo.icon && <i class={`${todo.icon} task-icon`}></i>}
+                                {todo.icon ? (
+                                    todo.icon.startsWith('<svg') ? (
+                                        <Fragment set:html={todo.icon} />
+                                    ) : todo.icon.startsWith('http') || todo.icon.startsWith('/') ? (
+                                        <img src={todo.icon} alt="icon" class="task-icon-img" />
+                                    ) : (
+                                        <i class={`${todo.icon} task-icon`}></i>
+                                    )
+                                ) : null}
                             </td>
                             <td>
                                 <div class="truncate" title={todo.task}>{todo.task}</div>
@@ -307,6 +315,13 @@ const getPageUrl = (p: number) => {
 
   function renderTable(todos: any[]) {
     if (!tbody) return;
+
+    const getIconHtml = (icon: string) => {
+        if (!icon) return '';
+        if (icon.startsWith('<svg')) return icon;
+        if (icon.startsWith('http') || icon.startsWith('/')) return `<img src="${icon}" class="task-icon-img" />`;
+        return `<i class="${icon} task-icon"></i>`;
+    };
     
     if (todos.length === 0) {
       tbody.innerHTML = `<tr><td colspan="7" class="loading-text">No tasks found</td></tr>`;
@@ -316,7 +331,7 @@ const getPageUrl = (p: number) => {
     tbody.innerHTML = todos.map(todo => `
       <tr>
         <td>
-            ${todo.icon ? `<i class="${todo.icon} task-icon"></i>` : ''}
+            ${getIconHtml(todo.icon)}
         </td>
         <td>
             <div class="truncate" title="${todo.task}">${todo.task}</div>

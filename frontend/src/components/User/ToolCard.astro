@@ -7,21 +7,17 @@ interface Props {
 }
 
 const { name, description, url, icon } = Astro.props;
-
-// Simple icon mapping or use an icon library
-const iconMap: Record<string, string> = {
-  code: "💻",
-  image: "🖼️",
-  edit: "✏️",
-  default: "🔧"
-};
-
-const displayIcon = iconMap[icon] || iconMap.default;
 ---
 
 <a href={url} target="_blank" rel="noopener noreferrer" class="tool-card">
   <div class="tool-icon">
-    {displayIcon}
+    {icon && icon.startsWith('<svg') ? (
+      <Fragment set:html={icon} />
+    ) : icon && (icon.startsWith('http') || icon.startsWith('/')) ? (
+      <img src={icon} alt={name} class="tool-icon-img" />
+    ) : (
+      <span class="emoji-icon">{icon || "🔧"}</span>
+    )}
   </div>
   <div class="tool-content">
     <div class="tool-header">

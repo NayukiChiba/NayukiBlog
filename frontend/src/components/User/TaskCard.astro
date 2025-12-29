@@ -21,7 +21,15 @@ const colors = priorityColors[priority.toLowerCase()] || { bg: "#f5f5f5", text: 
 
 <div class="task-card" data-id={id} data-completed={completed.toString()} data-progress={progress}>
   <div class="card-top">
-    <span class="icon">{icon}</span>
+    <span class="icon">
+      {icon.startsWith('<svg') ? (
+        <Fragment set:html={icon} />
+      ) : icon.startsWith('http') || icon.startsWith('/') ? (
+        <img src={icon} alt="icon" class="task-icon-img" />
+      ) : (
+        <i class={`${icon}`}></i>
+      )}
+    </span>
     <span class="priority-text" style={`background-color: ${colors.bg}; color: ${colors.text}; border-color: ${colors.bg}`}>
       {priority}
     </span>
