@@ -132,19 +132,6 @@ try {
       </div>
     </section>
 
-    <!-- Explore / Navigation -->
-    <section class="section-block">
-      <h2 class="section-title" style="margin-bottom: 1rem;">Explore</h2>
-      <div class="nav-grid">
-        <a href="/user/diary" class="nav-card">📔 日记 (Diary)</a>
-        <a href="/user/library" class="nav-card">📚 图书馆 (Library)</a>
-        <a href="/user/gallery" class="nav-card">🖼️ 图库 (Gallery)</a>
-        <a href="/user/todo" class="nav-card">✅ 待办 (TODO)</a>
-        <a href="/user/toolbox" class="nav-card">🧰 工具箱 (Toolbox)</a>
-        <a href="/user/about" class="nav-card">🙋 关于我 (About)</a>
-      </div>
-    </section>
-
   </div>
 </PageLayout>
 
@@ -254,36 +241,9 @@ try {
     gap: 1rem;
   }
 
-  /* Navigation Grid */
-  .nav-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .nav-card {
-    display: block;
-    padding: 1rem;
-    background: #f9f9f9;
-    border-radius: 8px;
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    transition: background 0.2s;
-    border: 1px solid #eee;
-  }
-
-  .nav-card:hover {
-    background: #f0f0f0;
-    border-color: #ddd;
-  }
-
   @media (min-width: 640px) {
     .project-grid {
       grid-template-columns: repeat(2, 1fr);
-    }
-    .nav-grid {
-      grid-template-columns: repeat(4, 1fr);
     }
   }
 </style>
