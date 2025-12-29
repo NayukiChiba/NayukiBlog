@@ -301,6 +301,47 @@ def get_tools(db: Session, skip: int = 0, limit: int = 100, status: str = None, 
         query = query.filter(models.Tool.category == category)
     return query.offset(skip).limit(limit).all()
 
+def get_tool(db: Session, tool_id: int):
+    return db.query(models.Tool).filter(models.Tool.id == tool_id).first()
+
+def create_tool(db: Session, name: str, url: str, description: str = None, icon: str = None, category: str = None, status: str = "published"):
+    db_tool = models.Tool(
+        name=name,
+        url=url,
+        description=description,
+        icon=icon,
+        category=category,
+        status=status
+    )
+    db.add(db_tool)
+    db.commit()
+    db.refresh(db_tool)
+    return db_tool
+
+def update_tool(db: Session, tool_id: int, name: str = None, url: str = None, description: str = None, icon: str = None, category: str = None, status: str = None):
+    db_tool = get_tool(db, tool_id)
+    if not db_tool:
+        return None
+    
+    if name is not None: db_tool.name = name
+    if url is not None: db_tool.url = url
+    if description is not None: db_tool.description = description
+    if icon is not None: db_tool.icon = icon
+    if category is not None: db_tool.category = category
+    if status is not None: db_tool.status = status
+    
+    db.commit()
+    db.refresh(db_tool)
+    return db_tool
+
+def delete_tool(db: Session, tool_id: int):
+    db_tool = get_tool(db, tool_id)
+    if not db_tool:
+        return False
+    db.delete(db_tool)
+    db.commit()
+    return True
+
 def get_admin_by_username(db: Session, username: str):
     return db.query(models.Admin).filter(models.Admin.username == username).first()
 
