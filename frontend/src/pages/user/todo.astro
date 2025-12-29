@@ -15,7 +15,8 @@ interface Todo {
 
 let todos: Todo[] = [];
 try {
-  const response = await fetch('/api/user/todos');
+  const apiBase = import.meta.env.SSR ? 'http://127.0.0.1:8000' : '';
+  const response = await fetch(`${apiBase}/api/user/todos`);
   if (response.ok) {
     todos = await response.json() as Todo[];
   } else {

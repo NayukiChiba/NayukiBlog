@@ -14,7 +14,8 @@ interface Project {
 
 let projects: Project[] = [];
 try {
-  const response = await fetch('/api/user/projects');
+  const apiBase = import.meta.env.SSR ? 'http://127.0.0.1:8000' : '';
+  const response = await fetch(`${apiBase}/api/user/projects`);
   if (response.ok) {
     projects = await response.json() as Project[];
   } else {

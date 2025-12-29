@@ -11,7 +11,8 @@ interface GalleryItem {
 
 let gallery: GalleryItem[] = [];
 try {
-  const response = await fetch('/api/user/gallery?limit=10');
+  const apiBase = import.meta.env.SSR ? 'http://127.0.0.1:8000' : '';
+  const response = await fetch(`${apiBase}/api/user/gallery?limit=10`);
   if (response.ok) {
     gallery = await response.json() as GalleryItem[];
   } else {

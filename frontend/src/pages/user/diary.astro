@@ -12,7 +12,8 @@ interface Diary {
 
 let diaries: Diary[] = [];
 try {
-  const response = await fetch('/api/user/diaries');
+  const apiBase = import.meta.env.SSR ? 'http://127.0.0.1:8000' : '';
+  const response = await fetch(`${apiBase}/api/user/diaries`);
   if (response.ok) {
     diaries = await response.json() as Diary[];
   } else {

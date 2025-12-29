@@ -32,7 +32,8 @@ if (gallery.length === 0) {
     if (status && status !== 'all') params.append('status', status);
     tags.forEach(tag => params.append('tags', tag));
 
-    const response = await fetch(`/api/admin/gallery?${params.toString()}`);
+    const apiBase = import.meta.env.SSR ? 'http://127.0.0.1:8000' : '';
+    const response = await fetch(`${apiBase}/api/admin/gallery?${params.toString()}`);
     if (response.ok) {
       const data = await response.json();
       const mappedGallery = data.map((item: any) => ({

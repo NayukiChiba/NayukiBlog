@@ -12,7 +12,8 @@ interface Tool {
 
 let tools: Tool[] = [];
 try {
-  const response = await fetch('/api/user/tools');
+  const apiBase = import.meta.env.SSR ? 'http://127.0.0.1:8000' : '';
+  const response = await fetch(`${apiBase}/api/user/tools`);
   if (response.ok) {
     tools = await response.json() as Tool[];
   } else {

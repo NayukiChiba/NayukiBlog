@@ -38,7 +38,8 @@ if (todos.length === 0) {
     if (status && status !== 'all') params.append('status', status);
     if (completed && completed !== 'all') params.append('completed', completed);
 
-    const response = await fetch(`/api/admin/todos?${params.toString()}`);
+    const apiBase = import.meta.env.SSR ? 'http://127.0.0.1:8000' : '';
+    const response = await fetch(`${apiBase}/api/admin/todos?${params.toString()}`);
     if (response.ok) {
       const data = await response.json();
       const mappedTodos = data.map((item: any) => ({

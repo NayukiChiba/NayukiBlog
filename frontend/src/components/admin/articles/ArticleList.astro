@@ -35,7 +35,8 @@ if (articles.length === 0) {
     if (category) params.append('category', category);
     tags.forEach(tag => params.append('tags', tag));
 
-    const response = await fetch(`/api/admin/articles?${params.toString()}`);
+    const apiBase = import.meta.env.SSR ? 'http://127.0.0.1:8000' : '';
+    const response = await fetch(`${apiBase}/api/admin/articles?${params.toString()}`);
     if (response.ok) {
       const data = await response.json();
       const mappedArticles = data.map((item: any) => ({
