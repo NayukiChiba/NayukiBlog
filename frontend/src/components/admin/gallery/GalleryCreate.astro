@@ -346,7 +346,8 @@ import AlertModal from '../AlertModal.astro';
   // Fetch available tags
   async function fetchTags() {
     try {
-      const response = await fetch('/api/admin/gallery/tags');
+      const API_BASE = (window as any).API_BASE || '';
+      const response = await fetch(`${API_BASE}/api/admin/gallery/tags`);
       if (response.ok) {
         const data = await response.json();
         availableTags = data.tags;
@@ -504,9 +505,10 @@ import AlertModal from '../AlertModal.astro';
     formData.append('tags', JSON.stringify(selectedTags));
 
     try {
+      const API_BASE = (window as any).API_BASE || '';
       const urlEndpoint = isEdit 
-        ? `/api/admin/gallery/${galleryId}`
-        : '/api/admin/gallery/upload';
+        ? `${API_BASE}/api/admin/gallery/${galleryId}`
+        : `${API_BASE}/api/admin/gallery/upload`;
       
       const method = isEdit ? 'PUT' : 'POST';
 

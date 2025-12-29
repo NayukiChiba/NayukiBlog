@@ -17,7 +17,7 @@ interface Post {
 
 let posts: Post[] = [];
 try {
-  const apiBase = import.meta.env.SSR ? 'http://127.0.0.1:8000' : '';
+  const apiBase = import.meta.env.PUBLIC_API_BASE || '';
   const response = await fetch(`${apiBase}/api/user/posts?limit=1000`);
   if (response.ok) {
     posts = await response.json() as Post[];

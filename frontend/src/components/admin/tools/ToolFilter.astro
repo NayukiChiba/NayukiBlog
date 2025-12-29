@@ -214,7 +214,8 @@
   // Fetch Categories
   async function fetchCategories() {
     try {
-      const response = await fetch('/api/admin/tools/categories');
+      const API_BASE = (window as any).API_BASE || '';
+      const response = await fetch(`${API_BASE}/api/admin/tools/categories`);
       if (response.ok) {
         const data = await response.json();
         const categories = data.categories || [];

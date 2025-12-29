@@ -306,9 +306,10 @@
     }
 
     try {
+      const API_BASE = (window as any).API_BASE || '';
       const urlEndpoint = isEdit 
-        ? `/api/admin/tools/${toolId}`
-        : '/api/admin/tools/upload';
+        ? `${API_BASE}/api/admin/tools/${toolId}`
+        : `${API_BASE}/api/admin/tools/upload`;
       
       const method = isEdit ? 'PUT' : 'POST';
 

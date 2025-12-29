@@ -367,7 +367,8 @@
   // Fetch tags independently
   async function fetchTags() {
     try {
-      const response = await fetch('/api/admin/gallery/tags');
+      const API_BASE = (window as any).API_BASE || '';
+      const response = await fetch(`${API_BASE}/api/admin/gallery/tags`);
       if (response.ok) {
         const data = await response.json();
         allTags = data.tags || [];

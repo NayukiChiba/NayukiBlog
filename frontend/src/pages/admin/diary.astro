@@ -12,6 +12,8 @@ const authCookie = Astro.cookies.get('auth_token');
 if (!authCookie || authCookie.value !== 'authorized') {
   return Astro.redirect('/admin/login', 302);
 }
+
+const apiBase = import.meta.env.PUBLIC_API_BASE || '';
 ---
 
 <html lang="en">
@@ -20,6 +22,9 @@ if (!authCookie || authCookie.value !== 'authorized') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diary Management - Nayuki Blog Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script define:vars={{ apiBase }}>
+        window.API_BASE = apiBase;
+    </script>
 </head>
 <body>
     <Header />

@@ -88,7 +88,8 @@
         formData.set('tags', JSON.stringify(tags));
 
         try {
-            const res = await fetch('/api/admin/articles/upload', {
+            const API_BASE = (window as any).API_BASE || '';
+            const res = await fetch(`${API_BASE}/api/admin/articles/upload`, {
                 method: 'POST',
                 body: formData
             });
@@ -112,7 +113,8 @@
 
     async function loadCategories() {
         try {
-            const res = await fetch('/api/articles/categories');
+            const API_BASE = (window as any).API_BASE || '';
+            const res = await fetch(`${API_BASE}/api/articles/categories`);
             const data = await res.json();
             const categories: { path: string }[] = data.categories || [];
             

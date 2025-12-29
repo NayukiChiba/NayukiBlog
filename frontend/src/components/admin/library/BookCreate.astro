@@ -401,7 +401,8 @@ import AlertModal from '../AlertModal.astro';
 
   async function fetchBookTags() {
     try {
-      const res = await fetch('/api/admin/books/tags');
+      const API_BASE = (window as any).API_BASE || '';
+      const res = await fetch(`${API_BASE}/api/admin/books/tags`);
       if (res.ok) {
         const data = await res.json();
         availableBookTags = data.tags || [];
@@ -604,9 +605,10 @@ import AlertModal from '../AlertModal.astro';
     formData.set('tags', JSON.stringify(bookTags));
 
     const isEdit = !!bookIdInput?.value;
+    const API_BASE = (window as any).API_BASE || '';
     const apiUrl = isEdit 
-        ? `/api/admin/books/${bookIdInput.value}`
-        : `/api/admin/books/upload`;
+        ? `${API_BASE}/api/admin/books/${bookIdInput.value}`
+        : `${API_BASE}/api/admin/books/upload`;
     
     const method = isEdit ? 'PUT' : 'POST';
 

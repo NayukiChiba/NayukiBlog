@@ -406,9 +406,10 @@
     }
 
     try {
+      const API_BASE = (window as any).API_BASE || '';
       const urlEndpoint = isEdit 
-        ? `/api/admin/todos/${todoId}`
-        : '/api/admin/todos/upload';
+        ? `${API_BASE}/api/admin/todos/${todoId}`
+        : `${API_BASE}/api/admin/todos/upload`;
       
       const method = isEdit ? 'PUT' : 'POST';
 

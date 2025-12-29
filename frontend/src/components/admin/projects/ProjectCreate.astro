@@ -439,7 +439,8 @@
   // Fetch available stacks
   async function fetchTechStacks() {
     try {
-      const res = await fetch('/api/admin/projects/tech-stacks');
+      const API_BASE = (window as any).API_BASE || '';
+      const res = await fetch(`${API_BASE}/api/admin/projects/tech-stacks`);
       if (res.ok) {
         availableStacks = await res.json();
       }
@@ -573,9 +574,10 @@
     // No image field!
 
     const isEdit = !!projectIdInput.value;
+    const API_BASE = (window as any).API_BASE || '';
     const url = isEdit 
-        ? `/api/admin/projects/${projectIdInput.value}`
-        : `/api/admin/projects/upload`;
+        ? `${API_BASE}/api/admin/projects/${projectIdInput.value}`
+        : `${API_BASE}/api/admin/projects/upload`;
     
     const method = isEdit ? 'PUT' : 'POST';
 

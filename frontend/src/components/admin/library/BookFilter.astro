@@ -323,7 +323,8 @@
   // Fetch tags independently
   async function fetchTags() {
     try {
-      const response = await fetch('/api/admin/books/tags');
+      const API_BASE = (window as any).API_BASE || '';
+      const response = await fetch(`${API_BASE}/api/admin/books/tags`);
       if (response.ok) {
         const data = await response.json();
         allTags = data.tags || [];
