@@ -34,6 +34,46 @@
         tags?: string[];
     }
 
+    declare global {
+        interface Window {
+            showAdminAlert: (message: string, type?: 'error' | 'success' | 'info') => void;
+        }
+    }
+
+    let currentBooks: Book[] = [];
+
+    async function deleteBook(id: number) {
+        try {
+            const res = await fetch(`http://127.0.0.1:8000/api/admin/books/${id}`, {
+                method: 'DELETE'
+            });
+            
+            if (res.ok) {
+                if (window.showAdminAlert) {
+                    window.showAdminAlert('Book deleted successfully', 'success');
+                } else {
+                    alert('Book deleted successfully');
+                }
+                fetchBooks(); // Refresh list
+            } else {
+                const data = await res.json();
+                const msg = data.detail || data.message || 'Failed to delete book';
+                if (window.showAdminAlert) {
+                    window.showAdminAlert(msg, 'error');
+                } else {
+                    alert(msg);
+                }
+            }
+        } catch (e) {
+            console.error(e);
+            if (window.showAdminAlert) {
+                window.showAdminAlert('An error occurred while deleting', 'error');
+            } else {
+                alert('An error occurred');
+            }
+        }
+    }
+
     async function fetchBooks() {
         const tbody = document.getElementById('book-table-body');
         const countSpan = document.getElementById('book-count');
@@ -52,6 +92,7 @@
             const res = await fetch(`http://127.0.0.1:8000/api/admin/books?${apiParams.toString()}`);
             if (!res.ok) throw new Error('Failed to fetch');
             const books: Book[] = await res.json();
+            currentBooks = books;
 
             if (countSpan) countSpan.textContent = `${books.length} books`;
 
@@ -67,11 +108,32 @@
                         <td><span class="rating-stars">${book.rating ? '★'.repeat(book.rating) : '-'}</span></td>
                         <td>${book.tags ? (typeof book.tags === 'string' ? JSON.parse(book.tags) : book.tags).map((t: string) => `<span class="tag">${t}</span>`).join('') : '-'}</td>
                         <td>
-                            <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
-                            <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                            <button class="btn-icon edit" title="Edit" data-id="${book.id}"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon delete" title="Delete" data-id="${book.id}"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                 `).join('');
+
+                // Add event listeners for edit buttons
+                tbody.querySelectorAll('.edit').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = Number((e.currentTarget as HTMLElement).getAttribute('data-id'));
+                        const book = currentBooks.find(b => b.id === id);
+                        if (book) {
+                            window.dispatchEvent(new CustomEvent('edit-book', { detail: book }));
+                        }
+                    });
+                });
+
+                // Add event listeners for delete buttons
+                tbody.querySelectorAll('.delete').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = Number((e.currentTarget as HTMLElement).getAttribute('data-id'));
+                        if (confirm('Are you sure you want to delete this book?')) {
+                            deleteBook(id);
+                        }
+                    });
+                });
             }
         } catch (error) {
             console.error(error);

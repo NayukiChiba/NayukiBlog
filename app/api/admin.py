@@ -202,6 +202,61 @@ def read_admin_books(
     books = crud.get_books(db, skip=skip, limit=limit, status=status, tags=tags)
     return books
 
+@router.post("/books/upload")
+async def upload_book(
+    title: str = Form(...),
+    cover: str = Form(None),
+    url: str = Form(None),
+    status: str = Form("published"),
+    rating: int = Form(None),
+    tags: str = Form(None), # JSON string
+    db: Session = Depends(get_db)
+):
+    crud.create_book(
+        db=db,
+        title=title,
+        cover=cover,
+        url=url,
+        status=status,
+        rating=rating,
+        tags=tags
+    )
+    return {"status": "success", "message": "Book created successfully"}
+
+@router.put("/books/{book_id}")
+async def update_book(
+    book_id: int,
+    title: str = Form(None),
+    cover: str = Form(None),
+    url: str = Form(None),
+    status: str = Form(None),
+    rating: int = Form(None),
+    tags: str = Form(None),
+    db: Session = Depends(get_db)
+):
+    book = crud.get_book(db, book_id)
+    if not book:
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    crud.update_book(
+        db=db,
+        book_id=book_id,
+        title=title,
+        cover=cover,
+        url=url,
+        status=status,
+        rating=rating,
+        tags=tags
+    )
+    return {"status": "success", "message": "Book updated successfully"}
+
+@router.delete("/books/{book_id}")
+def delete_book(book_id: int, db: Session = Depends(get_db)):
+    if crud.delete_book(db, book_id):
+        return {"status": "success", "message": "Book deleted successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Book not found")
+
 @router.get("/books/tags")
 def read_admin_book_tags(db: Session = Depends(get_db)):
     books = crud.get_books(db, skip=0, limit=10000)

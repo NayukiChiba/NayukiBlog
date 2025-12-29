@@ -11,6 +11,45 @@ def get_books(db: Session, skip: int = 0, limit: int = 100, status: str = None, 
             query = query.filter(models.Book.tags.like(f'%"{tag}"%'))
     return query.offset(skip).limit(limit).all()
 
+def create_book(db: Session, title: str, cover: str, url: str, status: str, rating: int, tags: str):
+    db_book = models.Book(
+        title=title,
+        cover=cover,
+        url=url,
+        status=status,
+        rating=rating,
+        tags=tags
+    )
+    db.add(db_book)
+    db.commit()
+    db.refresh(db_book)
+    return db_book
+
+def update_book(db: Session, book_id: int, title: str = None, cover: str = None, url: str = None, status: str = None, rating: int = None, tags: str = None):
+    db_book = db.query(models.Book).filter(models.Book.id == book_id).first()
+    if db_book:
+        if title: db_book.title = title
+        if cover: db_book.cover = cover
+        if url: db_book.url = url
+        if status: db_book.status = status
+        if rating is not None: db_book.rating = rating
+        if tags: db_book.tags = tags
+        db.commit()
+        db.refresh(db_book)
+        return db_book
+    return None
+
+def get_book(db: Session, book_id: int):
+    return db.query(models.Book).filter(models.Book.id == book_id).first()
+
+def delete_book(db: Session, book_id: int):
+    db_book = db.query(models.Book).filter(models.Book.id == book_id).first()
+    if db_book:
+        db.delete(db_book)
+        db.commit()
+        return True
+    return False
+
 def get_diaries(db: Session, skip: int = 0, limit: int = 100, year: str = None, month: str = None):
     query = db.query(models.Diary)
     

@@ -1,18 +1,26 @@
 ---
 // BookCreate.astro
+import AlertModal from '../AlertModal.astro';
 ---
 
 <div class="create-card">
   <div class="card-header">
-    <h3 class="card-title">New Book</h3>
+    <div style="display:flex; align-items:center; gap:10px;">
+        <h3 class="card-title" id="bookCardTitle">New Book</h3>
+        <button type="button" id="resetBookBtn" class="btn-reset hidden" style="background:none;border:none;cursor:pointer;color:#666;font-size:0.8rem;"><i class="fas fa-times"></i> Cancel</button>
+    </div>
+    <button type="submit" form="create-book-form" class="btn-submit-header" id="bookSubmitBtn">
+      <i class="fas fa-plus"></i> Add
+    </button>
   </div>
 
-  <form id="create-book-form" class="create-form">
+  <form id="create-book-form" class="create-form" novalidate>
+    <input type="hidden" name="book_id" id="bookIdInput">
     <!-- Title -->
     <div class="form-row">
       <div class="form-group title-group">
         <label>Title</label>
-        <input type="text" name="title" required class="form-input" placeholder="Book Title">
+        <input type="text" name="title" class="form-input" placeholder="Book Title">
       </div>
     </div>
 
@@ -43,8 +51,17 @@
     <!-- Tags -->
     <div class="form-row">
       <div class="form-group tags-group">
-        <label>Tags (comma separated)</label>
-        <input type="text" name="tags" class="form-input" placeholder="Tech, Sci-Fi...">
+        <label>Tags</label>
+        <div class="tags-input-container" id="bookTagsContainer">
+          <div class="create-selected-tags" id="bookSelectedTags"></div>
+          <div class="create-tag-wrapper">
+            <input type="text" id="bookTagInput" class="create-tag-input" placeholder="Add tag..." autocomplete="off">
+            <button type="button" class="create-tag-confirm-btn" id="bookConfirmTagBtn">
+              <i class="fas fa-check"></i>
+            </button>
+            <div class="create-tags-dropdown hidden" id="bookTagsDropdown"></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -56,13 +73,17 @@
       </div>
     </div>
 
-    <div class="form-footer">
-      <button type="submit" class="btn-submit">
-        <i class="fas fa-plus"></i> Add Book
-      </button>
+    <!-- Book URL -->
+    <div class="form-row">
+      <div class="form-group url-group">
+        <label>Book URL</label>
+        <input type="url" name="url" class="form-input" placeholder="https://example.com/book-link">
+      </div>
     </div>
   </form>
 </div>
+
+<AlertModal />
 
 <style>
   .create-card {
@@ -82,6 +103,9 @@
     padding-bottom: 0.8rem;
     border-bottom: 1px solid #eee;
     margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .card-title {
@@ -185,31 +209,142 @@
 
 
 
-  .form-footer {
-    margin-top: auto;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .btn-submit {
+  .btn-submit-header {
     background: #000;
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 4px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
+    transition: background 0.2s;
   }
 
-  .btn-submit:hover {
+  .btn-submit-header:hover {
     background: #333;
+  }
+
+  /* Tags Input Styles */
+  :global(.tags-input-container) {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    background: #fff;
+    min-height: 36px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  :global(.tags-input-container:focus-within) {
+    border-color: #000;
+  }
+
+  :global(.create-selected-tags) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  :global(.create-tag) {
+    background: #f0f0f0;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #333;
+  }
+
+  :global(.create-tag i) {
+    cursor: pointer;
+    font-size: 0.75rem;
+    color: #999;
+    transition: color 0.2s;
+  }
+
+  :global(.create-tag i:hover) {
+    color: #d32f2f;
+  }
+
+  :global(.create-tag-input) {
+    border: none;
+    outline: none;
+    flex: 1;
+    min-width: 60px;
+    font-size: 0.85rem;
+    padding: 0.2rem;
+    background: transparent;
+  }
+
+  :global(.create-tag-wrapper) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 100px;
+  }
+
+  :global(.create-tag-confirm-btn) {
+    background: none;
+    border: none;
+    color: #4caf50;
+    cursor: pointer;
+    padding: 0 8px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+  }
+  
+  :global(.create-tag-confirm-btn:hover) {
+    color: #388e3c;
+  }
+
+  :global(.create-tags-dropdown) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 100;
+    margin-top: 4px;
+  }
+
+  :global(.create-tags-dropdown.hidden) {
+    display: none;
+  }
+
+  :global(.create-tag-suggestion) {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #333;
+  }
+
+  :global(.create-tag-suggestion:hover) {
+    background: #f5f5f5;
   }
 </style>
 
 <script>
+  declare global {
+    interface Window {
+      showAdminAlert: (message: string, type?: 'error' | 'success' | 'info') => void;
+    }
+  }
+
   // Status Dropdown
   const statusWrapper = document.getElementById('createStatusWrapper');
   const statusTrigger = document.getElementById('createStatusTrigger');
@@ -256,11 +391,246 @@
     }
   });
 
+  // Tags Logic
+  const bookTagInput = document.getElementById('bookTagInput') as HTMLInputElement;
+  const bookConfirmTagBtn = document.getElementById('bookConfirmTagBtn');
+  const bookTagsDropdown = document.getElementById('bookTagsDropdown');
+  const bookSelectedTags = document.getElementById('bookSelectedTags');
+  let bookTags: string[] = [];
+  let availableBookTags: string[] = [];
+
+  async function fetchBookTags() {
+    try {
+      const res = await fetch('http://127.0.0.1:8000/api/admin/books/tags');
+      if (res.ok) {
+        const data = await res.json();
+        availableBookTags = data.tags || [];
+      }
+    } catch (e) {
+      console.error('Failed to fetch book tags', e);
+    }
+  }
+  fetchBookTags();
+
+  function renderBookTags() {
+    if (!bookSelectedTags) return;
+    bookSelectedTags.innerHTML = bookTags.map(tag => `
+      <span class="create-tag">
+        ${tag}
+        <i class="fas fa-times" data-tag="${tag}"></i>
+      </span>
+    `).join('');
+    
+    bookSelectedTags.querySelectorAll('.create-tag i').forEach(icon => {
+        icon.addEventListener('click', (e) => {
+            const tagToRemove = (e.target as HTMLElement).getAttribute('data-tag');
+            if (tagToRemove) removeBookTag(tagToRemove);
+        });
+    });
+  }
+
+  function removeBookTag(tag: string) {
+    bookTags = bookTags.filter(t => t !== tag);
+    renderBookTags();
+    filterBookTagsDropdown(bookTagInput.value);
+  }
+
+  function addBookTag(val: string) {
+    val = val.trim();
+    if (val && !bookTags.includes(val)) {
+      bookTags.push(val);
+      if (bookTagInput) bookTagInput.value = '';
+      renderBookTags();
+      filterBookTagsDropdown('');
+    }
+  }
+
+  function filterBookTagsDropdown(query: string) {
+    if (!bookTagsDropdown) return;
+    
+    const filtered = availableBookTags.filter(t => 
+      t.toLowerCase().includes(query.toLowerCase()) && !bookTags.includes(t)
+    );
+
+    if (filtered.length > 0) {
+      bookTagsDropdown.innerHTML = filtered.map(t => `
+        <div class="create-tag-suggestion" data-value="${t}">${t}</div>
+      `).join('');
+      bookTagsDropdown.classList.remove('hidden');
+    } else {
+      bookTagsDropdown.classList.add('hidden');
+    }
+  }
+
+  bookTagInput?.addEventListener('focus', () => {
+    filterBookTagsDropdown(bookTagInput.value);
+  });
+
+  bookTagInput?.addEventListener('input', () => {
+    filterBookTagsDropdown(bookTagInput.value);
+  });
+
+  bookTagInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addBookTag(bookTagInput.value);
+    }
+  });
+
+  bookConfirmTagBtn?.addEventListener('click', () => {
+    addBookTag(bookTagInput.value);
+  });
+
+  bookTagsDropdown?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('create-tag-suggestion')) {
+      const val = target.getAttribute('data-value');
+      if (val) {
+          addBookTag(val);
+          bookTagInput?.focus();
+      }
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!bookTagInput?.contains(e.target as Node) && !bookTagsDropdown?.contains(e.target as Node)) {
+      bookTagsDropdown?.classList.add('hidden');
+    }
+  });
+
   // Form Submit
   const form = document.getElementById('create-book-form') as HTMLFormElement;
+  const bookIdInput = document.getElementById('bookIdInput') as HTMLInputElement;
+  const bookCardTitle = document.getElementById('bookCardTitle');
+  const bookSubmitBtn = document.getElementById('bookSubmitBtn');
+  const resetBookBtn = document.getElementById('resetBookBtn');
+
+  // Reset function
+  function resetBookForm() {
+      form.reset();
+      if (bookIdInput) bookIdInput.value = '';
+      if (bookCardTitle) bookCardTitle.textContent = 'New Book';
+      if (bookSubmitBtn) {
+          bookSubmitBtn.innerHTML = '<i class="fas fa-plus"></i> Add';
+      }
+      if (resetBookBtn) resetBookBtn.classList.add('hidden');
+      
+      // Reset tags
+      bookTags = [];
+      renderBookTags();
+      
+      // Reset status
+      if (statusText) statusText.textContent = 'Published';
+      if (statusInput) statusInput.value = 'published';
+      statusOptions?.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+      statusOptions?.querySelector('[data-value="published"]')?.classList.add('selected');
+  }
+
+  resetBookBtn?.addEventListener('click', resetBookForm);
+
+  // Listen for edit
+  window.addEventListener('edit-book', (e: any) => {
+      const book = e.detail;
+      if (!book) return;
+      
+      resetBookForm(); // Clear first
+      
+      if (bookIdInput) bookIdInput.value = book.id;
+      if (bookCardTitle) bookCardTitle.textContent = 'Edit Book';
+      if (bookSubmitBtn) {
+          bookSubmitBtn.innerHTML = '<i class="fas fa-save"></i> Save';
+      }
+      if (resetBookBtn) resetBookBtn.classList.remove('hidden');
+
+      // Fill fields
+      const titleInput = form.querySelector('input[name="title"]') as HTMLInputElement;
+      const ratingInput = form.querySelector('input[name="rating"]') as HTMLInputElement;
+      const coverInput = form.querySelector('input[name="cover"]') as HTMLInputElement;
+      const urlInput = form.querySelector('input[name="url"]') as HTMLInputElement;
+      
+      if (titleInput) titleInput.value = book.title;
+      if (ratingInput) ratingInput.value = book.rating || '';
+      if (coverInput) coverInput.value = book.cover || '';
+      if (urlInput) urlInput.value = book.url || '';
+      
+      // Status
+      const status = book.status?.toLowerCase() || 'published';
+      if (statusInput) statusInput.value = status;
+      // Update UI text for status
+      const statusOption = statusOptions?.querySelector(`[data-value="${status}"]`);
+      if (statusOption && statusText) {
+          statusText.textContent = statusOption.textContent;
+          statusOptions?.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+          statusOption.classList.add('selected');
+      }
+
+      // Tags
+      if (book.tags) {
+          try {
+              bookTags = typeof book.tags === 'string' ? JSON.parse(book.tags) : book.tags;
+          } catch (e) {
+              bookTags = [];
+          }
+          renderBookTags();
+      }
+  });
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    // TODO: Implement API call
-    alert('Book creation logic to be implemented');
+    
+    const formData = new FormData(form);
+    const title = formData.get('title') as string;
+    const cover = formData.get('cover') as string;
+    const url = formData.get('url') as string;
+    
+    // Validation
+    if (!title?.trim()) {
+        window.showAdminAlert('Please enter a book title', 'error');
+        return;
+    }
+    if (!cover?.trim()) {
+        window.showAdminAlert('Please enter a cover URL', 'error');
+        return;
+    }
+    if (!url?.trim()) {
+        window.showAdminAlert('Please enter a book URL', 'error');
+        return;
+    }
+    if (bookTags.length === 0) {
+        window.showAdminAlert('Please add at least one tag', 'error');
+        return;
+    }
+
+    formData.set('tags', JSON.stringify(bookTags));
+
+    const isEdit = !!bookIdInput?.value;
+    const apiUrl = isEdit 
+        ? `http://127.0.0.1:8000/api/admin/books/${bookIdInput.value}`
+        : `http://127.0.0.1:8000/api/admin/books/upload`;
+    
+    const method = isEdit ? 'PUT' : 'POST';
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: method,
+        body: formData
+      });
+
+      if (response.ok) {
+        const successMsg = isEdit ? 'Book updated successfully!' : 'Book created successfully!';
+        window.showAdminAlert(successMsg, 'success');
+        resetBookForm();
+        
+        // Refresh the list (dispatch event or reload)
+        setTimeout(() => window.location.reload(), 1000);
+      } else {
+        const error = await response.json();
+        const msg = error.detail || error.message || 'Failed to save book';
+        window.showAdminAlert(msg, 'error');
+      }
+    } catch (err) {
+      console.error('Error saving book:', err);
+      window.showAdminAlert('An error occurred while saving the book.', 'error');
+    }
   });
 </script>
