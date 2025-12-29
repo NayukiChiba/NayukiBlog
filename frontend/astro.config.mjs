@@ -11,6 +11,12 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
+
+  // === 添加这一段 ===
+  // 强制关闭跨站请求检查 (解决 403 Forbidden 问题)
+  security: {
+    checkOrigin: false,
+  },
   // 5. 集成 MDX 以支持内嵌 Astro 组件
   integrations: [
     mdx(),
