@@ -49,14 +49,39 @@ async def upload_article(
     db: Session = Depends(get_db)
 ):
     # Save file
-    base_path = "frontend/src/pages/user/posts"
+    base_path = "frontend/blog"
     # User requested flat structure for physical files, logical folder in DB only
     os.makedirs(base_path, exist_ok=True)
     
     file_path = os.path.join(base_path, file.filename)
     
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
+    content = await file.read()
+    try:
+        content_str = content.decode("utf-8")
+    except UnicodeDecodeError:
+        # Fallback for non-utf8 files, though markdown should be utf8
+        content_str = content.decode("gbk", errors="ignore")
+
+    if not content_str.strip().startswith("---"):
+        # Create frontmatter
+        # Handle tags list format
+        tags_list = tags.split(",") if tags else []
+        tags_str = ", ".join([f"'{t.strip()}'" for t in tags_list])
+        use_desc = desc if desc else ""
+        
+        frontmatter = f"""---
+layout: ../../../layouts/MarkdownLayout.astro
+title: {title}
+date: {date}
+tags: [{tags_str}]
+description: {use_desc}
+---
+
+"""
+        content_str = frontmatter + content_str
+    
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(content_str)
         
     # Create DB entry
     # Construct URL: /user/posts/{filename_without_ext}
@@ -101,13 +126,40 @@ async def update_article(
     url_path = None
     if file and file.filename:
         # Save new file
-        base_path = "frontend/src/pages/user/posts"
+        base_path = "frontend/blog"
         os.makedirs(base_path, exist_ok=True)
         
         file_path = os.path.join(base_path, file.filename)
         
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
+        content = await file.read()
+        try:
+            content_str = content.decode("utf-8")
+        except UnicodeDecodeError:
+            content_str = content.decode("gbk", errors="ignore")
+
+        if not content_str.strip().startswith("---"):
+            # Create frontmatter
+            tags_list = tags.split(",") if tags else []
+            tags_str = ", ".join([f"'{t.strip()}'" for t in tags_list])
+            
+            # Use existing title/date if not provided in update
+            use_title = title if title else post.title
+            use_date = date if date else post.date
+            use_desc = desc if desc else (post.desc if post.desc else "")
+            
+            frontmatter = f"""---
+layout: ../../../layouts/MarkdownLayout.astro
+title: {use_title}
+date: {use_date}
+tags: [{tags_str}]
+description: {use_desc}
+---
+
+"""
+            content_str = frontmatter + content_str
+        
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(content_str)
             
         filename_no_ext = os.path.splitext(file.filename)[0]
         url_path = f"/user/posts/{filename_no_ext}"
@@ -158,7 +210,7 @@ def delete_article(post_id: int, db: Session = Depends(get_db)):
     # Delete file
     if post.url and "/user/posts/" in post.url:
         filename_no_ext = post.url.split("/user/posts/")[-1]
-        base_path = "frontend/src/pages/user/posts"
+        base_path = "frontend/blog"
         
         # Try to find and delete the file (checking common extensions)
         possible_extensions = [".md", ".mdx"]

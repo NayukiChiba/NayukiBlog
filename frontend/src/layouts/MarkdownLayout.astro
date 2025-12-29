@@ -730,6 +730,16 @@ const formattedDate = date.toLocaleDateString('en-US', {
     font-weight: 500;
   }
 
+  /* 任务列表样式 */
+  .content ul li input[type="checkbox"] {
+    margin-right: 0.5rem;
+  }
+  
+  .content ul li:has(input[type="checkbox"]) {
+    list-style: none;
+    margin-left: -1.5rem; /* 抵消 ul 的 padding */
+  }
+
   /* 4. 引用卡片化 + 内部样式 */
   .content blockquote {
     margin: 2rem 0;
@@ -834,5 +844,25 @@ const formattedDate = date.toLocaleDateString('en-US', {
   /* 文章底部边距 */
   .content {
     margin-bottom: 4rem;
+  }
+
+  /* KaTeX 公式样式优化 */
+  .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1rem 0;
+    margin: 1.5rem 0;
+    text-align: center;
+    background-color: transparent;
+  }
+  
+  /* 让行内公式稍微大一点，更清晰 */
+  .katex {
+    font-size: 1.1em;
+  }
+  
+  /* 修复 KaTeX 在某些情况下的字体显示问题 */
+  .katex .base {
+    margin-top: 2px;
   }
 </style>

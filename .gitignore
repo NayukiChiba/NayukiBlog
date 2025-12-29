@@ -49,8 +49,7 @@ venv.bak/
 
 # data
 data/
-posts/
-
+blog/
 tests/
 blog.db
 dist

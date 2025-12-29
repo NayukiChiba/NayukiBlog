@@ -1,0 +1,94 @@
+---
+export const prerender = false;
+
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import matter from 'gray-matter';
+import { marked } from 'marked';
+import markedKatex from 'marked-katex-extension';
+import { createHighlighter } from 'shiki';
+import MarkdownLayout from '../../../layouts/MarkdownLayout.astro';
+
+const { slug } = Astro.params;
+const decodedSlug = decodeURIComponent(slug || '');
+
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
+// Define the content directory
+// Handle running from root or frontend directory
+let contentDir = path.join(process.cwd(), 'blog');
+try {
+  await fs.access(contentDir);
+} catch {
+  contentDir = path.join(process.cwd(), 'frontend/blog');
+}
+
+// Try to find the file with .md or .mdx extension
+let filePath = path.join(contentDir, `${decodedSlug}.md`);
+let fileContent = '';
+
+try {
+  try {
+    fileContent = await fs.readFile(filePath, 'utf-8');
+  } catch (e) {
+    // Try .mdx if .md fails
+    filePath = path.join(contentDir, `${decodedSlug}.mdx`);
+    fileContent = await fs.readFile(filePath, 'utf-8');
+  }
+} catch (e) {
+  console.error(`Post not found: ${decodedSlug}`, e);
+  return Astro.redirect('/404');
+}
+
+// Parse frontmatter and content
+const { data: frontmatter, content } = matter(fileContent);
+
+// Configure marked to match Astro's output structure for CSS compatibility
+const renderer = new marked.Renderer();
+
+// Initialize highlighter
+const highlighter = await createHighlighter({
+  themes: ['github-light'],
+  langs: ['javascript', 'typescript', 'python', 'html', 'css', 'json', 'bash', 'shell', 'markdown']
+});
+
+// Custom code block renderer to add 'astro-code' class and syntax highlighting
+renderer.code = ({ text, lang }) => {
+  const language = lang || 'plaintext';
+  try {
+    const html = highlighter.codeToHtml(text, {
+      lang: language,
+      theme: 'github-light'
+    });
+    // Shiki returns a <pre>...</pre> block. We need to ensure it has the classes our CSS expects.
+    // Our CSS expects: pre.astro-code
+    // Shiki output usually looks like: <pre class="shiki github-light" ...>
+    // Or in newer versions: <pre class="shiki shiki-themes github-light" ...>
+    // We use a regex to replace the class attribute safely
+    return html.replace(/class="shiki[^"]*"/, `class="astro-code github-light language-${language}"`);
+  } catch (e) {
+    // Fallback if language not found
+    return `<pre class="astro-code language-${language}"><code>${text}</code></pre>`;
+  }
+};
+
+// Configure marked options
+marked.use(markedKatex({
+  throwOnError: false
+}));
+
+marked.use({ 
+  renderer, 
+  gfm: true, // GitHub Flavored Markdown
+  breaks: true // Convert \n to <br>
+});
+
+// Render Markdown to HTML
+const contentHtml = await marked.parse(content);
+---
+
+<MarkdownLayout frontmatter={frontmatter}>
+  <div set:html={contentHtml} />
+</MarkdownLayout>
