@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import TaskCard from '../../components/User/TaskCard.astro';
+import { apiUrl } from '../../lib/api';
 // import todosData from '../data/todos.json';
 
 interface Todo {
@@ -15,8 +16,7 @@ interface Todo {
 
 let todos: Todo[] = [];
 try {
-  const apiBase = import.meta.env.PUBLIC_API_BASE || '';
-  const response = await fetch(`${apiBase}/api/user/todos`);
+  const response = await fetch(apiUrl('/api/user/todos'));
   if (response.ok) {
     todos = await response.json() as Todo[];
   } else {

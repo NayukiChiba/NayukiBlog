@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import ProjectCard from '../../components/User/projects/ProjectCard.astro';
+import { apiUrl } from '../../lib/api';
 // import projectsData from '../data/projects.json';
 
 interface Project {
@@ -14,8 +15,7 @@ interface Project {
 
 let projects: Project[] = [];
 try {
-  const apiBase = import.meta.env.PUBLIC_API_BASE || '';
-  const response = await fetch(`${apiBase}/api/user/projects`);
+  const response = await fetch(apiUrl('/api/user/projects'));
   if (response.ok) {
     projects = await response.json() as Project[];
   } else {

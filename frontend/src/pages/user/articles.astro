@@ -3,6 +3,7 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import PostCard from '../../components/User/articles/PostCard.astro';
 import CategorySidebar from '../../components/User/articles/CategorySidebar.astro';
 import TagSidebar from '../../components/User/articles/TagSidebar.astro';
+import { apiUrl } from '../../lib/api';
 // import postsData from '../data/posts.json';
 
 interface Post {
@@ -17,8 +18,7 @@ interface Post {
 
 let posts: Post[] = [];
 try {
-  const apiBase = import.meta.env.PUBLIC_API_BASE || '';
-  const response = await fetch(`${apiBase}/api/user/posts?limit=1000`);
+  const response = await fetch(apiUrl('/api/user/posts?limit=1000'));
   if (response.ok) {
     posts = await response.json() as Post[];
     // Update URLs to include /user prefix

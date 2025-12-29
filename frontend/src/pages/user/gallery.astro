@@ -1,5 +1,6 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
+import { apiUrl } from '../../lib/api';
 // import galleryData from '../data/gallery.json';
 
 interface GalleryItem {
@@ -11,8 +12,7 @@ interface GalleryItem {
 
 let gallery: GalleryItem[] = [];
 try {
-  const apiBase = import.meta.env.PUBLIC_API_BASE || '';
-  const response = await fetch(`${apiBase}/api/user/gallery?limit=10`);
+  const response = await fetch(apiUrl('/api/user/gallery?limit=10'));
   if (response.ok) {
     gallery = await response.json() as GalleryItem[];
   } else {

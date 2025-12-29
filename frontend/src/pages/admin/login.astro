@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { apiUrl } from '../../lib/api';
 
 export const prerender = false;
 
@@ -14,9 +15,8 @@ if (Astro.request.method === 'POST') {
     const password = data.get('password')?.toString();
 
     // Call Python Backend for verification
-    // 服务端请求使用环境变量配置的 API 地址
-    const API_BASE = import.meta.env.PUBLIC_API_BASE || '';
-    const response = await fetch(`${API_BASE}/api/admin/login`, {
+    // 使用 apiUrl 构建完整的 API 地址
+    const response = await fetch(apiUrl('/api/admin/login'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

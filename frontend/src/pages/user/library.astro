@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import BookCard from '../../components/User/BookCard.astro';
+import { apiUrl } from '../../lib/api';
 // import booksData from '../data/books.json';
 
 interface Book {
@@ -14,8 +15,7 @@ interface Book {
 
 let books: Book[] = [];
 try {
-  const apiBase = import.meta.env.PUBLIC_API_BASE || '';
-  const response = await fetch(`${apiBase}/api/user/books`);
+  const response = await fetch(apiUrl('/api/user/books'));
   if (response.ok) {
     books = await response.json() as Book[];
   } else {

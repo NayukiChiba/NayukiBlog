@@ -6,13 +6,12 @@ import ProfileCard from '../../components/User/index/ProfileCard.astro';
 import GithubActivity from '../../components/User/index/GithubActivity.astro';
 import TodoCard from '../../components/User/index/TodoCard.astro';
 import DiaryCard from '../../components/User/DiaryCard.astro';
-
-const apiBase = import.meta.env.PUBLIC_API_BASE || '';
+import { apiUrl } from '../../lib/api';
 
 let posts = [];
 try {
   // 尝试使用 /api/posts 路径，并添加错误日志
-  const response = await fetch(`${apiBase}/api/user/posts`);
+  const response = await fetch(apiUrl('/api/user/posts'));
   if (response.ok) {
     const data = await response.json();
     posts = data
@@ -31,7 +30,7 @@ try {
 
 let projects = [];
 try {
-  const response = await fetch(`${apiBase}/api/user/projects`);
+  const response = await fetch(apiUrl('/api/user/projects'));
   if (response.ok) {
     const data = await response.json();
     const filteredProjects = data.filter((project: any) => project.status === 'In Progress' || project.status === 'in-progress');
@@ -54,7 +53,7 @@ try {
 
 let latestDiary = null;
 try {
-  const response = await fetch(`${apiBase}/api/user/diaries`);
+  const response = await fetch(apiUrl('/api/user/diaries'));
   if (response.ok) {
     const data = await response.json();
     // Sort by date descending
@@ -71,7 +70,7 @@ try {
 
 let todos = [];
 try {
-  const res = await fetch(`${apiBase}/api/user/todos`);
+  const res = await fetch(apiUrl('/api/user/todos'));
   if (res.ok) todos = await res.json();
 } catch (e) { console.error(e); }
 ---

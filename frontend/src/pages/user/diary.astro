@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import DiaryCard from '../../components/User/DiaryCard.astro';
+import { apiUrl } from '../../lib/api';
 
 interface Diary {
   date: string;
@@ -12,8 +13,7 @@ interface Diary {
 
 let diaries: Diary[] = [];
 try {
-  const apiBase = import.meta.env.PUBLIC_API_BASE || '';
-  const response = await fetch(`${apiBase}/api/user/diaries`);
+  const response = await fetch(apiUrl('/api/user/diaries'));
   if (response.ok) {
     diaries = await response.json() as Diary[];
   } else {

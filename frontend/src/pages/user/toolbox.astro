@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import ToolCard from '../../components/User/ToolCard.astro';
+import { apiUrl } from '../../lib/api';
 
 interface Tool {
   name: string;
@@ -12,8 +13,7 @@ interface Tool {
 
 let tools: Tool[] = [];
 try {
-  const apiBase = import.meta.env.PUBLIC_API_BASE || '';
-  const response = await fetch(`${apiBase}/api/user/tools`);
+  const response = await fetch(apiUrl('/api/user/tools'));
   if (response.ok) {
     tools = await response.json() as Tool[];
   } else {
