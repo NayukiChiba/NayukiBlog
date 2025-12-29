@@ -28,7 +28,7 @@ try {
 
 let projects = [];
 try {
-  const response = await fetch('http://127.0.0.1:8000/api/projects');
+  const response = await fetch('http://127.0.0.1:8000/api/user/projects');
   if (response.ok) {
     const data = await response.json();
     const filteredProjects = data.filter((project: any) => project.status === 'In Progress' || project.status === 'in-progress');
@@ -68,7 +68,7 @@ try {
 
 let todos = [];
 try {
-  const res = await fetch('http://127.0.0.1:8000/api/todos');
+  const res = await fetch('http://127.0.0.1:8000/api/user/todos');
   if (res.ok) todos = await res.json();
 } catch (e) { console.error(e); }
 ---
