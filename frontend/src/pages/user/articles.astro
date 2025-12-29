@@ -1,6 +1,8 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import PostCard from '../../components/User/articles/PostCard.astro';
+import CategorySidebar from '../../components/User/articles/CategorySidebar.astro';
+import TagSidebar from '../../components/User/articles/TagSidebar.astro';
 // import postsData from '../data/posts.json';
 
 interface Post {
@@ -41,16 +43,6 @@ const tagsWithCount = Object.entries(tagCounts)
   .map(([tag, count]) => ({ tag, count: count as number }))
   .sort((a, b) => a.tag.localeCompare(b.tag));
 
-const maxCount = Math.max(...tagsWithCount.map(t => t.count));
-const minCount = Math.min(...tagsWithCount.map(t => t.count));
-
-const getTagSize = (count: number) => {
-  const minSize = 0.85;
-  const maxSize = 1.3;
-  if (maxCount === minCount) return minSize;
-  return minSize + ((count - minCount) / (maxCount - minCount)) * (maxSize - minSize);
-};
-
 // Folder Logic
 const folderSet = new Set<string>();
 posts.forEach(post => {
@@ -68,40 +60,13 @@ const folderList = [...folderSet].sort().map(path => {
   const level = path.split('/').length - 1;
   const name = path.split('/').pop();
   const hasChildren = [...folderSet].some(p => p.startsWith(path + '/') && p !== path);
-  return { path, name, level, hasChildren };
+  return { path, name: name || '', level, hasChildren };
 });
 ---
 
 <PageLayout title="Articles | Nayuki Blog">
   <div class="layout-grid">
-    <aside class="sidebar-left">
-      <div class="sidebar-title">分类</div>
-      <div class="folder-box">
-        <div class="folder-item">
-          <button class="folder-btn active" data-folder="">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-            全部文章
-          </button>
-        </div>
-        {folderList.map(folder => (
-          <div class="folder-item" data-path={folder.path} style={`padding-left: ${folder.level * 1}rem`}>
-            {folder.hasChildren && (
-              <button class="folder-toggle" data-target={folder.path}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </button>
-            )}
-            {!folder.hasChildren && <span class="folder-spacer"></span>}
-            <button 
-              class="folder-btn" 
-              data-folder={folder.path}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-              {folder.name}
-            </button>
-          </div>
-        ))}
-      </div>
-    </aside>
+    <CategorySidebar folders={folderList} />
 
     <main class="page-container">
       <h1 class="page-title">文章与笔记</h1>
@@ -138,29 +103,15 @@ const folderList = [...folderSet].sort().map(path => {
       </div>
     </main>
 
-    <aside class="sidebar-right">
-      <div class="sidebar-title">标签</div>
-      <div class="tags-box">
-        <button class="tag-btn active" data-tag="" style="font-size: 1rem">全部</button>
-        {tagsWithCount.map(({ tag, count }) => (
-          <button 
-            class="tag-btn" 
-            data-tag={tag}
-            style={`font-size: ${getTagSize(count)}rem`}
-            title={`${count} posts`}
-          >
-            {tag}
-          </button>
-        ))}
-      </div>
-    </aside>
+    <TagSidebar tags={tagsWithCount} />
+  </div>
+</PageLayout>
   </div>
 </PageLayout>
 
 <script>
   const tagBtns = document.querySelectorAll('.tag-btn');
   const folderBtns = document.querySelectorAll('.folder-btn');
-  const folderToggles = document.querySelectorAll('.folder-toggle');
   const allPostWrappers = Array.from(document.querySelectorAll('.post-wrapper')) as HTMLElement[];
   
   const firstBtn = document.getElementById('first-btn') as HTMLButtonElement;
@@ -275,31 +226,6 @@ const folderList = [...folderSet].sort().map(path => {
     });
   });
 
-  folderToggles.forEach(toggle => {
-    toggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const btn = toggle as HTMLElement;
-      const targetPath = btn.dataset.target;
-      const icon = btn.querySelector('.toggle-icon') as HTMLElement;
-      
-      // Toggle rotation
-      if (icon) {
-        const currentRotation = icon.style.transform;
-        icon.style.transform = currentRotation === 'rotate(-90deg)' ? 'rotate(0deg)' : 'rotate(-90deg)';
-      }
-
-      // Toggle visibility of children
-      const allFolders = document.querySelectorAll('.folder-item[data-path]');
-      allFolders.forEach(f => {
-        const path = (f as HTMLElement).dataset.path || '';
-        if (path.startsWith(targetPath + '/') && path !== targetPath) {
-          const currentDisplay = (f as HTMLElement).style.display;
-          (f as HTMLElement).style.display = currentDisplay === 'none' ? 'flex' : 'none';
-        }
-      });
-    });
-  });
-
   // Initial load
   filterPosts();
 </script>
@@ -335,23 +261,7 @@ const folderList = [...folderSet].sort().map(path => {
   .page-desc { color: #666; margin-bottom: 2rem; }
   
   /* Sidebars */
-  .sidebar-left, .sidebar-right {
-    position: sticky;
-    top: 2rem;
-    height: calc(100vh - 4rem);
-    overflow-y: auto;
-    padding-bottom: 2rem;
-  }
-
-  .sidebar-title {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #999;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
-    padding-left: 0.5rem;
-  }
+  /* Styles moved to components */
 
   /* Responsive adjustments */
   @media (max-width: 1200px) {
@@ -369,142 +279,10 @@ const folderList = [...folderSet].sort().map(path => {
       width: 90%;
       gap: 2rem;
     }
-    .sidebar-left, .sidebar-right {
-      position: static;
-      height: auto;
-      width: 100%;
-      overflow-y: visible;
-    }
-    .folder-box, .tags-box {
-      max-height: 300px;
-      overflow-y: auto;
-    }
   }
 
-  /* Folder Styles */
-  .folder-box {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    padding-right: 0.5rem;
-  }
-  /* Custom Scrollbar */
-  .folder-box::-webkit-scrollbar, .sidebar-left::-webkit-scrollbar, .sidebar-right::-webkit-scrollbar {
-    width: 4px;
-  }
-  .folder-box::-webkit-scrollbar-track, .sidebar-left::-webkit-scrollbar-track, .sidebar-right::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .folder-box::-webkit-scrollbar-thumb, .sidebar-left::-webkit-scrollbar-thumb, .sidebar-right::-webkit-scrollbar-thumb {
-    background: #eee;
-    border-radius: 4px;
-  }
-  .folder-box:hover::-webkit-scrollbar-thumb, .sidebar-left:hover::-webkit-scrollbar-thumb, .sidebar-right:hover::-webkit-scrollbar-thumb {
-    background: #ddd;
-  }
-
-  .folder-item {
-    display: flex;
-    align-items: center;
-    gap: 0.2rem;
-  }
-
-  .folder-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    color: #999;
-    padding: 0;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-  }
-  .folder-toggle:hover {
-    background-color: rgba(0,0,0,0.05);
-    color: #333;
-  }
-  .toggle-icon {
-    transition: transform 0.2s ease;
-  }
-  .folder-spacer {
-    width: 20px;
-  }
-
-  .folder-btn {
-    flex: 1;
-    text-align: left;
-    padding: 0.4rem 0.6rem;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    color: #666;
-    font-size: 0.9rem;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: inherit;
-  }
-  .folder-btn:hover {
-    background-color: rgba(0,0,0,0.04);
-    color: #000;
-  }
-  .folder-btn.active {
-    background-color: #f3f3f3;
-    color: #000;
-    font-weight: 600;
-  }
-  .folder-icon {
-    width: 16px;
-    height: 16px;
-    opacity: 0.6;
-    transition: all 0.2s ease;
-  }
-  .folder-btn:hover .folder-icon {
-    opacity: 0.9;
-  }
-  .folder-btn.active .folder-icon {
-    opacity: 1;
-    stroke: #000;
-  }
-
-  /* Tag Styles */
-  .tags-box {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    align-content: flex-start;
-    align-items: center;
-    padding-right: 0.5rem;
-  }
-  .tag-btn {
-    padding: 0.4em 0.8em;
-    border: 1px solid transparent;
-    border-radius: 2em;
-    background-color: #f5f5f5;
-    color: #555;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    line-height: 1;
-  }
-  .tag-btn:hover {
-    background-color: #e0e0e0;
-    color: #000;
-    transform: translateY(-1px);
-  }
-  .tag-btn.active {
-    background-color: #000;
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
+  /* Folder Styles - Moved to CategorySidebar.astro */
+  /* Tag Styles - Moved to TagSidebar.astro */
 
   .post-list { display: flex; flex-direction: column; gap: 1rem; }
 
