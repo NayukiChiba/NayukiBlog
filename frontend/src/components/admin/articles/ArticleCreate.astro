@@ -706,7 +706,7 @@ import AlertModal from '../AlertModal.astro';
 
   async function fetchTags() {
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/admin/articles/tags');
+      const res = await fetch('/api/admin/articles/tags');
       if (res.ok) {
         const data = await res.json();
         availableTags = data.tags || [];
@@ -963,7 +963,7 @@ import AlertModal from '../AlertModal.astro';
 
   async function fetchAndRenderFolders() {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/admin/articles?limit=1000');
+      const response = await fetch('/api/admin/articles?limit=1000');
       if (response.ok) {
         const posts = await response.json();
         cachedCategories = posts
@@ -1292,7 +1292,7 @@ import AlertModal from '../AlertModal.astro';
       }
 
       try {
-          const response = await fetch('http://127.0.0.1:8000/api/admin/articles/upload', {
+          const response = await fetch('/api/admin/articles/upload', {
               method: 'POST',
               body: formData
           });

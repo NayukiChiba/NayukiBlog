@@ -265,7 +265,7 @@
   // Fetch Types
   async function fetchTypes() {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/admin/todos/types');
+      const response = await fetch('/api/admin/todos/types');
       if (response.ok) {
         const data = await response.json();
         const types = data.types || [];

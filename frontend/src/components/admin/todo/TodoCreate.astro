@@ -407,8 +407,8 @@
 
     try {
       const urlEndpoint = isEdit 
-        ? `http://127.0.0.1:8000/api/admin/todos/${todoId}`
-        : 'http://127.0.0.1:8000/api/admin/todos/upload';
+        ? `/api/admin/todos/${todoId}`
+        : '/api/admin/todos/upload';
       
       const method = isEdit ? 'PUT' : 'POST';
 

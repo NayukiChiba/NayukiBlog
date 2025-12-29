@@ -56,7 +56,7 @@
         techStacks.forEach(t => apiParams.append('tech_stack', t));
 
         try {
-            const res = await fetch(`http://127.0.0.1:8000/api/admin/projects?${apiParams.toString()}`);
+            const res = await fetch(`/api/admin/projects?${apiParams.toString()}`);
             if (!res.ok) throw new Error('Failed to fetch');
             const projects: Project[] = await res.json();
 
@@ -99,7 +99,7 @@
             const id = btn.getAttribute('data-id');
             if (id && confirm('Are you sure you want to delete this project?')) {
                 try {
-                    const res = await fetch(`http://127.0.0.1:8000/api/admin/projects/${id}`, {
+                    const res = await fetch(`/api/admin/projects/${id}`, {
                         method: 'DELETE'
                     });
                     if (res.ok) {

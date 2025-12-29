@@ -38,7 +38,7 @@ if (todos.length === 0) {
     if (status && status !== 'all') params.append('status', status);
     if (completed && completed !== 'all') params.append('completed', completed);
 
-    const response = await fetch(`http://127.0.0.1:8000/api/admin/todos?${params.toString()}`);
+    const response = await fetch(`/api/admin/todos?${params.toString()}`);
     if (response.ok) {
       const data = await response.json();
       const mappedTodos = data.map((item: any) => ({
@@ -251,7 +251,7 @@ const getPageUrl = (p: number) => {
     if (completed && completed !== 'all') apiParams.append('completed', completed);
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/admin/todos?${apiParams.toString()}`);
+      const response = await fetch(`/api/admin/todos?${apiParams.toString()}`);
       if (response.ok) {
         const data = await response.json();
         const mappedTodos = data.map((item: any) => ({
@@ -293,7 +293,7 @@ const getPageUrl = (p: number) => {
 
   async function deleteTodo(id: number) {
     try {
-        const response = await fetch(`http://127.0.0.1:8000/api/admin/todos/${id}`, {
+        const response = await fetch(`/api/admin/todos/${id}`, {
             method: 'DELETE'
         });
         if (response.ok) {

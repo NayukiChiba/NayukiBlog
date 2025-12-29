@@ -352,8 +352,8 @@
 
       const isEdit = !!diaryIdInput.value;
       const url = isEdit 
-          ? `http://127.0.0.1:8000/api/admin/diaries/${diaryIdInput.value}`
-          : `http://127.0.0.1:8000/api/admin/diaries/upload`;
+          ? `/api/admin/diaries/${diaryIdInput.value}`
+          : `/api/admin/diaries/upload`;
       
       const method = isEdit ? 'PUT' : 'POST';
 

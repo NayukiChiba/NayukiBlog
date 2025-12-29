@@ -9,7 +9,7 @@ import DiaryCard from '../../components/User/DiaryCard.astro';
 let posts = [];
 try {
   // 尝试使用 /api/posts 路径，并添加错误日志
-  const response = await fetch('http://127.0.0.1:8000/api/user/posts');
+  const response = await fetch('/api/user/posts');
   if (response.ok) {
     const data = await response.json();
     posts = data
@@ -28,7 +28,7 @@ try {
 
 let projects = [];
 try {
-  const response = await fetch('http://127.0.0.1:8000/api/user/projects');
+  const response = await fetch('/api/user/projects');
   if (response.ok) {
     const data = await response.json();
     const filteredProjects = data.filter((project: any) => project.status === 'In Progress' || project.status === 'in-progress');
@@ -51,7 +51,7 @@ try {
 
 let latestDiary = null;
 try {
-  const response = await fetch('http://127.0.0.1:8000/api/user/diaries');
+  const response = await fetch('/api/user/diaries');
   if (response.ok) {
     const data = await response.json();
     // Sort by date descending
@@ -68,7 +68,7 @@ try {
 
 let todos = [];
 try {
-  const res = await fetch('http://127.0.0.1:8000/api/user/todos');
+  const res = await fetch('/api/user/todos');
   if (res.ok) todos = await res.json();
 } catch (e) { console.error(e); }
 ---

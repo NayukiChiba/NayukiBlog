@@ -31,7 +31,7 @@ if (tools.length === 0) {
     if (category && category !== 'all') params.append('category', category);
     if (status && status !== 'all') params.append('status', status);
 
-    const response = await fetch(`http://127.0.0.1:8000/api/admin/tools?${params.toString()}`);
+    const response = await fetch(`/api/admin/tools?${params.toString()}`);
     if (response.ok) {
       const data = await response.json();
       const mappedTools = data.map((item: any) => ({
@@ -223,7 +223,7 @@ const getPageUrl = (p: number) => {
     if (status && status !== 'all') apiParams.append('status', status);
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/admin/tools?${apiParams.toString()}`);
+      const response = await fetch(`/api/admin/tools?${apiParams.toString()}`);
       if (response.ok) {
         const data = await response.json();
         const mappedTools = data.map((item: any) => ({
@@ -307,7 +307,7 @@ const getPageUrl = (p: number) => {
         
         if (confirm('Are you sure you want to delete this tool?')) {
             try {
-                const res = await fetch(`http://127.0.0.1:8000/api/admin/tools/${id}`, { method: 'DELETE' });
+                const res = await fetch(`/api/admin/tools/${id}`, { method: 'DELETE' });
                 if (res.ok) {
                     window.showAdminAlert('Tool deleted successfully', 'success');
                     fetchAndRenderTools();

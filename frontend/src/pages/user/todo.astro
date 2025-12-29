@@ -15,7 +15,7 @@ interface Todo {
 
 let todos: Todo[] = [];
 try {
-  const response = await fetch('http://127.0.0.1:8000/api/user/todos');
+  const response = await fetch('/api/user/todos');
   if (response.ok) {
     todos = await response.json() as Todo[];
   } else {

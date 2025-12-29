@@ -315,7 +315,7 @@
 
   async function fetchTechStacks() {
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/admin/projects/tech-stacks');
+      const res = await fetch('/api/admin/projects/tech-stacks');
       if (res.ok) {
         allStacks = await res.json();
         renderDropdownOptions();

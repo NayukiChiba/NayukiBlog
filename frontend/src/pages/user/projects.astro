@@ -14,7 +14,7 @@ interface Project {
 
 let projects: Project[] = [];
 try {
-  const response = await fetch('http://127.0.0.1:8000/api/user/projects');
+  const response = await fetch('/api/user/projects');
   if (response.ok) {
     projects = await response.json() as Project[];
   } else {
