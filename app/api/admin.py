@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form, Query
 from sqlalchemy.orm import Session
 from typing import List
-import json
 import os
-import shutil
 
 from app.crud import blog as crud
 from app.schemas import blog as schemas
 from app.core.database import get_db
+from app.services.article_service import save_article_file, delete_article_file
+from app.utils.tag_utils import extract_unique_tags
 
 router = APIRouter()
 
@@ -48,48 +48,14 @@ async def upload_article(
     file: UploadFile = File(...),
     db: Session = Depends(get_db)
 ):
-    # Save file
-    base_path = "frontend/blog"
-    # User requested flat structure for physical files, logical folder in DB only
-    os.makedirs(base_path, exist_ok=True)
-    
-    file_path = os.path.join(base_path, file.filename)
-    
-    content = await file.read()
-    try:
-        content_str = content.decode("utf-8")
-    except UnicodeDecodeError:
-        # Fallback for non-utf8 files, though markdown should be utf8
-        content_str = content.decode("gbk", errors="ignore")
-
-    # Normalize line endings to prevent double newlines on Windows
-    content_str = content_str.replace("\r\n", "\n").replace("\r", "\n")
-
-    if not content_str.strip().startswith("---"):
-        # Create frontmatter
-        # Handle tags list format
-        tags_list = tags.split(",") if tags else []
-        tags_str = ", ".join([f"'{t.strip()}'" for t in tags_list])
-        use_desc = desc if desc else ""
-        
-        frontmatter = f"""---
-layout: ../../../layouts/MarkdownLayout.astro
-title: {title}
-date: {date}
-tags: [{tags_str}]
-description: {use_desc}
----
-
-"""
-        content_str = frontmatter + content_str
-    
-    with open(file_path, "w", encoding="utf-8") as f:
-        f.write(content_str)
-        
-    # Create DB entry
-    # Construct URL: /user/posts/{filename_without_ext}
-    filename_no_ext = os.path.splitext(file.filename)[0]
-    url_path = f"/user/posts/{filename_no_ext}"
+    # Save file using service
+    url_path = await save_article_file(
+        file=file,
+        title=title,
+        date=date,
+        tags=tags,
+        desc=desc
+    )
 
     # Normalize status
     if status == "published":
@@ -128,62 +94,26 @@ async def update_article(
 
     url_path = None
     if file and file.filename:
-        # Save new file
-        base_path = "frontend/blog"
-        os.makedirs(base_path, exist_ok=True)
+        # Use existing title/date if not provided in update
+        use_title = title if title else post.title
+        use_date = date if date else post.date
+        use_desc = desc if desc else (post.desc if post.desc else "")
         
-        file_path = os.path.join(base_path, file.filename)
-        
-        content = await file.read()
-        try:
-            content_str = content.decode("utf-8")
-        except UnicodeDecodeError:
-            content_str = content.decode("gbk", errors="ignore")
-            
-        # Normalize line endings to prevent double newlines on Windows
-        content_str = content_str.replace("\r\n", "\n").replace("\r", "\n")
-
-        if not content_str.strip().startswith("---"):
-            # Create frontmatter
-            tags_list = tags.split(",") if tags else []
-            tags_str = ", ".join([f"'{t.strip()}'" for t in tags_list])
-            
-            # Use existing title/date if not provided in update
-            use_title = title if title else post.title
-            use_date = date if date else post.date
-            use_desc = desc if desc else (post.desc if post.desc else "")
-            
-            frontmatter = f"""---
-layout: ../../../layouts/MarkdownLayout.astro
-title: {use_title}
-date: {use_date}
-tags: [{tags_str}]
-description: {use_desc}
----
-
-"""
-            content_str = frontmatter + content_str
-        
-        with open(file_path, "w", encoding="utf-8") as f:
-            f.write(content_str)
-            
-        filename_no_ext = os.path.splitext(file.filename)[0]
-        url_path = f"/user/posts/{filename_no_ext}"
+        # Save new file using service
+        url_path = await save_article_file(
+            file=file,
+            title=use_title,
+            date=use_date,
+            tags=tags,
+            desc=use_desc
+        )
         
         # Delete old file if filename is different
         if post.url and "/user/posts/" in post.url:
             old_filename_no_ext = post.url.split("/user/posts/")[-1]
+            filename_no_ext = os.path.splitext(file.filename)[0]
             if old_filename_no_ext != filename_no_ext:
-                possible_extensions = [".md", ".mdx"]
-                for ext in possible_extensions:
-                    old_file_path = os.path.join(base_path, old_filename_no_ext + ext)
-                    if os.path.exists(old_file_path):
-                        try:
-                            os.remove(old_file_path)
-                            print(f"Deleted old file: {old_file_path}")
-                        except Exception as e:
-                            print(f"Error deleting old file {old_file_path}: {e}")
-                        break
+                delete_article_file(post.url)
 
     # Normalize status
     if status == "published":
@@ -214,20 +144,7 @@ def delete_article(post_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Article not found")
     
     # Delete file
-    if post.url and "/user/posts/" in post.url:
-        filename_no_ext = post.url.split("/user/posts/")[-1]
-        base_path = "frontend/blog"
-        
-        # Try to find and delete the file (checking common extensions)
-        possible_extensions = [".md", ".mdx"]
-        for ext in possible_extensions:
-            file_path = os.path.join(base_path, filename_no_ext + ext)
-            if os.path.exists(file_path):
-                try:
-                    os.remove(file_path)
-                except Exception as e:
-                    print(f"Error deleting file {file_path}: {e}")
-                break
+    delete_article_file(post.url)
 
     if crud.delete_post(db, post_id):
         return {"status": "success", "message": "Article deleted successfully"}
@@ -237,17 +154,7 @@ def delete_article(post_id: int, db: Session = Depends(get_db)):
 @router.get("/articles/tags")
 def read_admin_article_tags(db: Session = Depends(get_db)):
     posts = crud.get_posts(db, skip=0, limit=10000)
-    all_tags = set()
-    for p in posts:
-        if p.tags:
-            try:
-                tags_list = json.loads(p.tags)
-                if isinstance(tags_list, list):
-                    for tag in tags_list:
-                        all_tags.add(tag)
-            except:
-                pass
-    return {"tags": list(sorted(all_tags))}
+    return {"tags": extract_unique_tags(posts, field_name="tags")}
 
 @router.get("/books", response_model=List[schemas.Book])
 def read_admin_books(
@@ -318,17 +225,7 @@ def delete_book(book_id: int, db: Session = Depends(get_db)):
 @router.get("/books/tags")
 def read_admin_book_tags(db: Session = Depends(get_db)):
     books = crud.get_books(db, skip=0, limit=10000)
-    all_tags = set()
-    for b in books:
-        if b.tags:
-            try:
-                tags_list = json.loads(b.tags)
-                if isinstance(tags_list, list):
-                    for tag in tags_list:
-                        all_tags.add(tag)
-            except:
-                pass
-    return {"tags": list(sorted(all_tags))}
+    return {"tags": extract_unique_tags(books, field_name="tags")}
 
 @router.get("/projects", response_model=List[schemas.Project])
 def read_admin_projects(
@@ -345,16 +242,7 @@ def read_admin_projects(
 @router.get("/projects/tech-stacks")
 def read_admin_tech_stacks(db: Session = Depends(get_db)):
     projects = crud.get_projects(db, skip=0, limit=10000)
-    all_stacks = set()
-    for p in projects:
-        if p.techStack:
-            try:
-                stack_list = json.loads(p.techStack)
-                if isinstance(stack_list, list):
-                    all_stacks.update(stack_list)
-            except:
-                pass
-    return list(all_stacks)
+    return extract_unique_tags(projects, field_name="techStack")
 
 @router.post("/projects/upload")
 async def upload_project(
@@ -477,17 +365,7 @@ def delete_diary(diary_id: int, db: Session = Depends(get_db)):
 @router.get("/gallery/tags")
 def read_admin_gallery_tags(db: Session = Depends(get_db)):
     gallery = crud.get_gallery(db, skip=0, limit=10000)
-    all_tags = set()
-    for item in gallery:
-        if item.tags:
-            try:
-                tags_list = json.loads(item.tags)
-                if isinstance(tags_list, list):
-                    for tag in tags_list:
-                        all_tags.add(tag)
-            except:
-                pass
-    return {"tags": list(sorted(all_tags))}
+    return {"tags": extract_unique_tags(gallery, field_name="tags")}
 
 @router.get("/gallery", response_model=List[schemas.Gallery])
 def read_admin_gallery(

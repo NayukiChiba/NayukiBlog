@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-import json
 
 from app.crud import blog as crud
 from app.schemas import blog as schemas
 from app.core.database import get_db
+from app.utils.tag_utils import extract_unique_tags
 
 router = APIRouter()
 
@@ -47,15 +47,7 @@ def read_tools(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 @router.get("/projects/tech-stacks")
 def read_tech_stacks(db: Session = Depends(get_db)):
     projects = crud.get_projects(db, skip=0, limit=10000, visibility="published")
-    all_stacks = set()
-    for p in projects:
-        if p.techStack:
-            try:
-                stack_list = json.loads(p.techStack)
-                all_stacks.update(stack_list)
-            except:
-                pass
-    return list(all_stacks)
+    return extract_unique_tags(projects, field_name="techStack")
 
 @router.get("/articles/categories")
 def read_categories(db: Session = Depends(get_db)):
@@ -66,47 +58,17 @@ def read_categories(db: Session = Depends(get_db)):
 @router.get("/articles/tags")
 def read_tags(db: Session = Depends(get_db)):
     posts = crud.get_posts(db, skip=0, limit=10000, status="public")
-    all_tags = set()
-    for p in posts:
-        if p.tags:
-            try:
-                tags_list = json.loads(p.tags)
-                if isinstance(tags_list, list):
-                    for tag in tags_list:
-                        all_tags.add(tag)
-            except:
-                pass
-    return {"tags": list(sorted(all_tags))}
+    return {"tags": extract_unique_tags(posts, field_name="tags")}
 
 @router.get("/books/tags")
 def read_book_tags(db: Session = Depends(get_db)):
     books = crud.get_books(db, skip=0, limit=10000)
-    all_tags = set()
-    for b in books:
-        if b.tags:
-            try:
-                tags_list = json.loads(b.tags)
-                if isinstance(tags_list, list):
-                    for tag in tags_list:
-                        all_tags.add(tag)
-            except:
-                pass
-    return {"tags": list(sorted(all_tags))}
+    return {"tags": extract_unique_tags(books, field_name="tags")}
 
 @router.get("/gallery/tags")
 def read_gallery_tags(db: Session = Depends(get_db)):
     gallery = crud.get_gallery(db, skip=0, limit=10000)
-    all_tags = set()
-    for item in gallery:
-        if item.tags:
-            try:
-                tags_list = json.loads(item.tags)
-                if isinstance(tags_list, list):
-                    for tag in tags_list:
-                        all_tags.add(tag)
-            except:
-                pass
-    return {"tags": list(sorted(all_tags))}
+    return {"tags": extract_unique_tags(gallery, field_name="tags")}
 
 @router.get("/todos/types")
 def read_todo_types(db: Session = Depends(get_db)):
