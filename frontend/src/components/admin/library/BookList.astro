@@ -44,7 +44,8 @@
 
     async function deleteBook(id: number) {
         try {
-            const res = await fetch(`/api/admin/books/${id}`, {
+            const API_BASE = (window as any).API_BASE || '';
+            const res = await fetch(`${API_BASE}/api/admin/books/${id}`, {
                 method: 'DELETE'
             });
             
@@ -89,7 +90,8 @@
         tags.forEach(tag => apiParams.append('tags', tag));
 
         try {
-            const res = await fetch(`/api/admin/books?${apiParams.toString()}`);
+            const API_BASE = (window as any).API_BASE || '';
+            const res = await fetch(`${API_BASE}/api/admin/books?${apiParams.toString()}`);
             if (!res.ok) throw new Error('Failed to fetch');
             const books: Book[] = await res.json();
             currentBooks = books;

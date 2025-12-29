@@ -315,7 +315,8 @@
 
   async function fetchTechStacks() {
     try {
-      const res = await fetch('/api/admin/projects/tech-stacks');
+      const API_BASE = (window as any).API_BASE || '';
+      const res = await fetch(`${API_BASE}/api/admin/projects/tech-stacks`);
       if (res.ok) {
         allStacks = await res.json();
         renderDropdownOptions();

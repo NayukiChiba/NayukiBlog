@@ -7,7 +7,7 @@ import GithubActivity from '../../components/User/index/GithubActivity.astro';
 import TodoCard from '../../components/User/index/TodoCard.astro';
 import DiaryCard from '../../components/User/DiaryCard.astro';
 
-const apiBase = import.meta.env.SSR ? 'http://127.0.0.1:8000' : '';
+const apiBase = import.meta.env.PUBLIC_API_BASE || '';
 
 let posts = [];
 try {

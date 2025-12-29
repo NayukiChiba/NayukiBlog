@@ -351,9 +351,10 @@
       formData.append('images', JSON.stringify(images));
 
       const isEdit = !!diaryIdInput.value;
+      const API_BASE = (window as any).API_BASE || '';
       const url = isEdit 
-          ? `/api/admin/diaries/${diaryIdInput.value}`
-          : `/api/admin/diaries/upload`;
+          ? `${API_BASE}/api/admin/diaries/${diaryIdInput.value}`
+          : `${API_BASE}/api/admin/diaries/upload`;
       
       const method = isEdit ? 'PUT' : 'POST';
 

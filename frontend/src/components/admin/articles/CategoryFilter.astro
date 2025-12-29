@@ -61,7 +61,8 @@
     async function fetchCategories() {
         try {
             // Fetch all articles to build the complete category tree
-            const response = await fetch('/api/admin/articles?limit=1000');
+            const API_BASE = (window as any).API_BASE || '';
+            const response = await fetch(`${API_BASE}/api/admin/articles?limit=1000`);
             if (response.ok) {
                 const posts = await response.json();
                 

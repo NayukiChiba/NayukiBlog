@@ -215,7 +215,8 @@ const getPageUrl = (p: number) => {
     tags.forEach(tag => apiParams.append('tags', tag));
 
     try {
-      const response = await fetch(`/api/admin/gallery?${apiParams.toString()}`);
+      const API_BASE = (window as any).API_BASE || '';
+      const response = await fetch(`${API_BASE}/api/admin/gallery?${apiParams.toString()}`);
       if (response.ok) {
         const data = await response.json();
         const mappedGallery = data.map((item: any) => ({
@@ -255,7 +256,8 @@ const getPageUrl = (p: number) => {
 
   async function deleteGallery(id: number) {
     try {
-        const response = await fetch(`/api/admin/gallery/${id}`, {
+        const API_BASE = (window as any).API_BASE || '';
+        const response = await fetch(`${API_BASE}/api/admin/gallery/${id}`, {
             method: 'DELETE'
         });
         if (response.ok) {

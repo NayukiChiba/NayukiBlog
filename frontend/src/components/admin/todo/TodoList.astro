@@ -252,7 +252,8 @@ const getPageUrl = (p: number) => {
     if (completed && completed !== 'all') apiParams.append('completed', completed);
 
     try {
-      const response = await fetch(`/api/admin/todos?${apiParams.toString()}`);
+      const API_BASE = (window as any).API_BASE || '';
+      const response = await fetch(`${API_BASE}/api/admin/todos?${apiParams.toString()}`);
       if (response.ok) {
         const data = await response.json();
         const mappedTodos = data.map((item: any) => ({
@@ -294,7 +295,8 @@ const getPageUrl = (p: number) => {
 
   async function deleteTodo(id: number) {
     try {
-        const response = await fetch(`/api/admin/todos/${id}`, {
+        const API_BASE = (window as any).API_BASE || '';
+        const response = await fetch(`${API_BASE}/api/admin/todos/${id}`, {
             method: 'DELETE'
         });
         if (response.ok) {
