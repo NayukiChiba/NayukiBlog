@@ -4,10 +4,18 @@
 
 <div class="create-card">
   <div class="card-header">
-    <h3 class="card-title">New Tool</h3>
+    <div style="display:flex; align-items:center; gap:10px;">
+        <h3 class="card-title" id="toolCardTitle">New Tool</h3>
+        <button type="button" id="resetToolBtn" class="btn-reset hidden" style="background:none;border:none;cursor:pointer;color:#666;font-size:0.8rem;"><i class="fas fa-times"></i> Cancel</button>
+    </div>
+    <button type="submit" form="create-tool-form" class="btn-submit-header" id="toolSubmitBtn">
+      <i class="fas fa-plus"></i> Add
+    </button>
   </div>
 
-  <form id="create-tool-form" class="create-form">
+  <form id="create-tool-form" class="create-form" novalidate>
+    <input type="hidden" name="tool_id" id="toolIdInput">
+    
     <!-- Icon URL -->
     <div class="form-row">
       <div class="form-group icon-group">
@@ -22,6 +30,9 @@
         <label>Name</label>
         <input type="text" name="name" required class="form-input" placeholder="Tool Name">
       </div>
+    </div>
+    
+    <div class="form-row">
       <div class="form-group desc-group">
         <label>Description</label>
         <input type="text" name="description" class="form-input" placeholder="Short description...">
@@ -45,7 +56,7 @@
 
       <div class="form-group status-group">
         <label>Status</label>
-        <div class="custom-select-wrapper" id="createStatusWrapper">
+        <div class="custom-select-wrapper upward" id="createStatusWrapper">
           <div class="custom-select-trigger" id="createStatusTrigger">
             <span class="current-text">Published</span>
             <input type="hidden" name="status" value="published">
@@ -54,16 +65,9 @@
           <div class="custom-options hidden" id="createStatusOptions">
             <div class="custom-option selected" data-value="published">Published</div>
             <div class="custom-option" data-value="draft">Draft</div>
-            <div class="custom-option" data-value="archived">Archived</div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="form-footer">
-      <button type="submit" class="btn-submit">
-        <i class="fas fa-plus"></i> Add Tool
-      </button>
     </div>
   </form>
 </div>
@@ -75,7 +79,7 @@
     padding: 1.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     border: 1px solid #eee;
-    height: 450px; /* Fixed height to match filter */
+    height: 550px; /* Fixed height to match filter */
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -86,6 +90,9 @@
     padding-bottom: 0.8rem;
     border-bottom: 1px solid #eee;
     margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .card-title {
@@ -100,7 +107,7 @@
   .create-form {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 1.2rem;
     flex: 1;
     overflow-y: auto;
   }
@@ -117,9 +124,11 @@
     flex: 1;
   }
 
+  .icon-group { flex: 1; }
   .name-group { flex: 1; }
-  .desc-group { flex: 2; }
-  .category-group { flex: 3; }
+  .desc-group { flex: 1; }
+  .url-group { flex: 1; }
+  .category-group { flex: 1; }
   .status-group { flex: 1; }
 
   label {
@@ -167,7 +176,7 @@
 
   .custom-options {
     position: absolute;
-    bottom: 100%;
+    top: 100%;
     left: 0;
     right: 0;
     background: #fff;
@@ -175,7 +184,15 @@
     border-radius: 4px;
     z-index: 100;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-top: 4px;
+  }
+
+  .custom-select-wrapper.upward .custom-options {
+    top: auto;
+    bottom: 100%;
+    margin-top: 0;
     margin-bottom: 4px;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
   }
 
   .custom-options.hidden { display: none; }
@@ -190,70 +207,230 @@
   .custom-option:hover { background: #f5f5f7; }
   .custom-option.selected { background: #f0f7ff; color: #0066cc; }
 
-  .form-footer {
-    margin-top: auto;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .btn-submit {
+  .btn-submit-header {
     background: #000;
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 4px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
+    transition: background 0.2s;
   }
 
-  .btn-submit:hover {
+  .btn-submit-header:hover {
     background: #333;
+  }
+
+  .btn-submit-header.edit-mode {
+    background: #0066cc;
+  }
+  
+  .btn-submit-header.edit-mode:hover {
+    background: #0052a3;
   }
 </style>
 
 <script>
-  // Status Dropdown
-  const statusWrapper = document.getElementById('createStatusWrapper');
-  const statusTrigger = document.getElementById('createStatusTrigger');
-  const statusOptions = document.getElementById('createStatusOptions');
-  const statusInput = statusWrapper?.querySelector('input');
-  const statusText = statusWrapper?.querySelector('.current-text');
+  // Generic Dropdown Handler
+  function setupDropdown(wrapperId: string, triggerId: string, optionsId: string) {
+    const wrapper = document.getElementById(wrapperId);
+    const trigger = document.getElementById(triggerId);
+    const options = document.getElementById(optionsId);
+    const input = wrapper?.querySelector('input');
+    const textDisplay = wrapper?.querySelector('.current-text');
 
-  statusTrigger?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    statusOptions?.classList.toggle('hidden');
-  });
+    trigger?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // Close other dropdowns
+      document.querySelectorAll('.custom-options').forEach(el => {
+        if (el.id !== optionsId) el.classList.add('hidden');
+      });
+      options?.classList.toggle('hidden');
+    });
 
-  statusOptions?.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
-    if (target.classList.contains('custom-option')) {
-      const value = target.getAttribute('data-value');
-      const text = target.textContent;
-      
-      statusOptions.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
-      target.classList.add('selected');
-      
-      if (statusText) statusText.textContent = text;
-      if (statusInput) statusInput.value = value || '';
-      
-      statusOptions.classList.add('hidden');
-    }
-  });
+    options?.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('custom-option')) {
+        const value = target.getAttribute('data-value');
+        const text = target.textContent;
+        
+        options.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+        target.classList.add('selected');
+        
+        if (textDisplay) textDisplay.textContent = text;
+        if (input) input.value = value || '';
+        
+        options.classList.add('hidden');
+      }
+    });
+  }
+
+  setupDropdown('createStatusWrapper', 'createStatusTrigger', 'createStatusOptions');
 
   document.addEventListener('click', (e) => {
-    if (!statusWrapper?.contains(e.target as Node)) {
-      statusOptions?.classList.add('hidden');
+    const target = e.target as HTMLElement;
+    if (!target.closest('.custom-select-wrapper')) {
+      document.querySelectorAll('.custom-options').forEach(el => el.classList.add('hidden'));
     }
   });
 
   // Form Submit
   const form = document.getElementById('create-tool-form') as HTMLFormElement;
+  const idInput = document.getElementById('toolIdInput') as HTMLInputElement;
+  const cardTitle = document.getElementById('toolCardTitle');
+  const submitBtn = document.getElementById('toolSubmitBtn');
+  const resetBtn = document.getElementById('resetToolBtn');
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    // TODO: Implement API call
-    alert('Tool creation logic to be implemented');
+    
+    const formData = new FormData(form);
+    const toolId = idInput.value;
+    const isEdit = !!toolId;
+
+    // Validation
+    const name = formData.get('name');
+    const url = formData.get('url');
+    
+    if (!name) {
+        window.showAdminAlert('Please enter a tool name', 'error');
+        return;
+    }
+    if (!url) {
+        window.showAdminAlert('Please enter a tool URL', 'error');
+        return;
+    }
+
+    try {
+      const urlEndpoint = isEdit 
+        ? `http://127.0.0.1:8000/api/admin/tools/${toolId}`
+        : 'http://127.0.0.1:8000/api/admin/tools/upload';
+      
+      const method = isEdit ? 'PUT' : 'POST';
+
+      const response = await fetch(urlEndpoint, {
+        method: method,
+        body: formData
+      });
+
+      if (response.ok) {
+        window.showAdminAlert(
+            isEdit ? 'Tool updated successfully!' : 'Tool created successfully!', 
+            'success'
+        );
+        if (!isEdit) {
+            resetToolForm();
+        } else {
+            setTimeout(() => {
+                resetToolForm();
+                window.location.reload();
+            }, 1500);
+        }
+        if (!isEdit) {
+            setTimeout(() => window.location.reload(), 1500);
+        }
+      } else {
+        const error = await response.json();
+        window.showAdminAlert(error.detail || 'Operation failed', 'error');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      window.showAdminAlert('An error occurred. Please try again.', 'error');
+    }
   });
+
+  // Edit Mode Handling
+  window.addEventListener('edit-tool', ((e: CustomEvent) => {
+    const tool = e.detail;
+    if (!tool) return;
+
+    // Switch to Edit Mode
+    if (cardTitle) cardTitle.textContent = 'Edit Tool';
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Update';
+        submitBtn.classList.add('edit-mode');
+    }
+    if (resetBtn) resetBtn.classList.remove('hidden');
+    if (idInput) idInput.value = tool.id;
+
+    // Fill Form
+    const nameInput = form.querySelector('input[name="name"]') as HTMLInputElement;
+    const urlInput = form.querySelector('input[name="url"]') as HTMLInputElement;
+    const descInput = form.querySelector('input[name="description"]') as HTMLInputElement;
+    const iconInput = form.querySelector('input[name="icon"]') as HTMLInputElement;
+    const categoryInput = form.querySelector('input[name="category"]') as HTMLInputElement;
+    
+    if (nameInput) nameInput.value = tool.name || '';
+    if (urlInput) urlInput.value = tool.url || '';
+    if (descInput) descInput.value = tool.description || '';
+    if (iconInput) iconInput.value = tool.icon || '';
+    if (categoryInput) categoryInput.value = tool.category || '';
+
+    // Helper to set dropdown
+    const setDropdown = (wrapperId: string, value: string, text: string) => {
+        const wrapper = document.getElementById(wrapperId);
+        const input = wrapper?.querySelector('input');
+        const textDisplay = wrapper?.querySelector('.current-text');
+        const options = wrapper?.querySelector('.custom-options');
+        
+        if (input) input.value = value;
+        if (textDisplay) textDisplay.textContent = text;
+        
+        options?.querySelectorAll('.custom-option').forEach(opt => {
+            if (opt.getAttribute('data-value') === String(value)) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    };
+
+    // Set Dropdowns
+    setDropdown('createStatusWrapper', tool.status || 'published', (tool.status || 'published').charAt(0).toUpperCase() + (tool.status || 'published').slice(1));
+
+    // Scroll to view
+    const card = document.querySelector('.create-card');
+    card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  }) as EventListener);
+
+  // Reset Logic
+  function resetToolForm() {
+    form.reset();
+    if (idInput) idInput.value = '';
+
+    if (cardTitle) cardTitle.textContent = 'New Tool';
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-plus"></i> Add';
+        submitBtn.classList.remove('edit-mode');
+    }
+    if (resetBtn) resetBtn.classList.add('hidden');
+
+    // Reset Dropdowns to defaults
+    const setDropdown = (wrapperId: string, value: string, text: string) => {
+        const wrapper = document.getElementById(wrapperId);
+        const input = wrapper?.querySelector('input');
+        const textDisplay = wrapper?.querySelector('.current-text');
+        const options = wrapper?.querySelector('.custom-options');
+        
+        if (input) input.value = value;
+        if (textDisplay) textDisplay.textContent = text;
+        
+        options?.querySelectorAll('.custom-option').forEach(opt => {
+            if (opt.getAttribute('data-value') === String(value)) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    };
+
+    setDropdown('createStatusWrapper', 'published', 'Published');
+  }
+
+  resetBtn?.addEventListener('click', resetToolForm);
 </script>

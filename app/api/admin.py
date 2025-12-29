@@ -591,3 +591,58 @@ def read_admin_tool_categories(db: Session = Depends(get_db)):
     tools = crud.get_tools(db, skip=0, limit=10000)
     all_categories = set(t.category for t in tools if t.category)
     return {"categories": list(sorted(all_categories))}
+
+@router.post("/tools/upload")
+async def upload_tool(
+    name: str = Form(...),
+    url: str = Form(...),
+    description: str = Form(None),
+    icon: str = Form(None),
+    category: str = Form(None),
+    status: str = Form("published"),
+    db: Session = Depends(get_db)
+):
+    crud.create_tool(
+        db=db,
+        name=name,
+        url=url,
+        description=description,
+        icon=icon,
+        category=category,
+        status=status
+    )
+    return {"status": "success", "message": "Tool created successfully"}
+
+@router.put("/tools/{tool_id}")
+async def update_tool(
+    tool_id: int,
+    name: str = Form(None),
+    url: str = Form(None),
+    description: str = Form(None),
+    icon: str = Form(None),
+    category: str = Form(None),
+    status: str = Form(None),
+    db: Session = Depends(get_db)
+):
+    tool = crud.get_tool(db, tool_id)
+    if not tool:
+        raise HTTPException(status_code=404, detail="Tool not found")
+
+    crud.update_tool(
+        db=db,
+        tool_id=tool_id,
+        name=name,
+        url=url,
+        description=description,
+        icon=icon,
+        category=category,
+        status=status
+    )
+    return {"status": "success", "message": "Tool updated successfully"}
+
+@router.delete("/tools/{tool_id}")
+def delete_tool(tool_id: int, db: Session = Depends(get_db)):
+    if crud.delete_tool(db, tool_id):
+        return {"status": "success", "message": "Tool deleted successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Tool not found")

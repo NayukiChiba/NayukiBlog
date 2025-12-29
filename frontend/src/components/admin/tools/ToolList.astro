@@ -111,8 +111,8 @@ const getPageUrl = (p: number) => {
                                 <span class={`status-badge ${tool.status}`}>{tool.status}</span>
                             </td>
                             <td>
-                                <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
-                                <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                <button class="btn-icon edit" title="Edit" data-id={tool.id}><i class="fas fa-edit"></i></button>
+                                <button class="btn-icon delete" title="Delete" data-id={tool.id}><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                     ))
@@ -140,7 +140,28 @@ const getPageUrl = (p: number) => {
     </div>
 </div>
 
+<script define:vars={{ initialTools: tools }}>
+  window.initialTools = initialTools;
+</script>
+
 <script>
+  interface Tool {
+    id: number;
+    name: string;
+    description?: string;
+    url?: string;
+    icon?: string;
+    category?: string;
+    status?: string;
+  }
+
+  declare global {
+    interface Window {
+      initialTools: Tool[];
+    }
+  }
+
+  let currentTools: Tool[] = window.initialTools || [];
   const pageInput = document.getElementById('page-input') as HTMLInputElement;
   const tbody = document.getElementById('tool-table-body');
   const countSpan = document.getElementById('tool-count');
@@ -176,6 +197,9 @@ const getPageUrl = (p: number) => {
   window.addEventListener('popstate', () => {
     fetchAndRenderTools();
   });
+
+  // Initial attach
+  attachEventListeners();
 
   async function fetchAndRenderTools() {
     if (!tbody) return;
@@ -223,10 +247,13 @@ const getPageUrl = (p: number) => {
           tools = mappedTools;
         }
 
+        currentTools = tools; // Update global
+
         if (countSpan) countSpan.textContent = `${tools.length} tools`;
 
         renderTable(tools);
         renderPagination(page, hasNextPage);
+        attachEventListeners();
       }
     } catch (e) {
       console.error("Failed to fetch tools", e);
@@ -265,11 +292,45 @@ const getPageUrl = (p: number) => {
             <span class="status-badge ${tool.status}">${tool.status}</span>
         </td>
         <td>
-            <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
-            <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+            <button class="btn-icon edit" title="Edit" data-id="${tool.id}"><i class="fas fa-edit"></i></button>
+            <button class="btn-icon delete" title="Delete" data-id="${tool.id}"><i class="fas fa-trash"></i></button>
         </td>
       </tr>
     `).join('');
+  }
+
+  function attachEventListeners() {
+    document.querySelectorAll('.btn-icon.delete').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const id = (e.currentTarget as HTMLElement).getAttribute('data-id');
+        if (!id) return;
+        
+        if (confirm('Are you sure you want to delete this tool?')) {
+            try {
+                const res = await fetch(`http://127.0.0.1:8000/api/admin/tools/${id}`, { method: 'DELETE' });
+                if (res.ok) {
+                    window.showAdminAlert('Tool deleted successfully', 'success');
+                    fetchAndRenderTools();
+                } else {
+                    window.showAdminAlert('Failed to delete tool', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                window.showAdminAlert('Error deleting tool', 'error');
+            }
+        }
+      });
+    });
+
+    document.querySelectorAll('.btn-icon.edit').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = (e.currentTarget as HTMLElement).getAttribute('data-id');
+        const tool = currentTools.find((t: Tool) => t.id === Number(id));
+        if (tool) {
+            window.dispatchEvent(new CustomEvent('edit-tool', { detail: tool }));
+        }
+      });
+    });
   }
 
   function renderPagination(page: number, hasNextPage: boolean) {
