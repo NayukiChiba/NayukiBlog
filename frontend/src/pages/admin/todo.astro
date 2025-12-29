@@ -6,6 +6,7 @@ import Sidebar from '../../components/admin/Sidebar.astro';
 import TodoList from '../../components/admin/todo/TodoList.astro';
 import TodoFilter from '../../components/admin/todo/TodoFilter.astro';
 import TodoCreate from '../../components/admin/todo/TodoCreate.astro';
+import AlertModal from '../../components/admin/AlertModal.astro';
 
 // Auth check
 const authCookie = Astro.cookies.get('auth_token');
@@ -23,6 +24,7 @@ if (!authCookie || authCookie.value !== 'authorized') {
 </head>
 <body>
     <Header />
+    <AlertModal />
     
     <main class="admin-container">
         <Sidebar />

@@ -4,10 +4,17 @@
 
 <div class="create-card">
   <div class="card-header">
-    <h3 class="card-title">New Task</h3>
+    <div style="display:flex; align-items:center; gap:10px;">
+        <h3 class="card-title" id="todoCardTitle">New Task</h3>
+        <button type="button" id="resetTodoBtn" class="btn-reset hidden" style="background:none;border:none;cursor:pointer;color:#666;font-size:0.8rem;"><i class="fas fa-times"></i> Cancel</button>
+    </div>
+    <button type="submit" form="create-todo-form" class="btn-submit-header" id="todoSubmitBtn">
+      <i class="fas fa-plus"></i> Add
+    </button>
   </div>
 
-  <form id="create-todo-form" class="create-form">
+  <form id="create-todo-form" class="create-form" novalidate>
+    <input type="hidden" name="todo_id" id="todoIdInput">
     <!-- Icon -->
     <div class="form-row">
       <div class="form-group icon-group">
@@ -98,12 +105,6 @@
         </div>
       </div>
     </div>
-
-    <div class="form-footer">
-      <button type="submit" class="btn-submit">
-        <i class="fas fa-plus"></i> Add Task
-      </button>
-    </div>
   </form>
 </div>
 
@@ -125,6 +126,9 @@
     padding-bottom: 0.8rem;
     border-bottom: 1px solid #eee;
     margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .card-title {
@@ -297,6 +301,32 @@
   .btn-submit:hover {
     background: #333;
   }
+
+  .btn-submit-header {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: background 0.2s;
+  }
+
+  .btn-submit-header:hover {
+    background: #333;
+  }
+
+  .btn-submit-header.edit-mode {
+    background: #0066cc;
+  }
+  
+  .btn-submit-header.edit-mode:hover {
+    background: #0052a3;
+  }
 </style>
 
 <script>
@@ -356,9 +386,157 @@
 
   // Form Submit
   const form = document.getElementById('create-todo-form') as HTMLFormElement;
+  const idInput = document.getElementById('todoIdInput') as HTMLInputElement;
+  const cardTitle = document.getElementById('todoCardTitle');
+  const submitBtn = document.getElementById('todoSubmitBtn');
+  const resetBtn = document.getElementById('resetTodoBtn');
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    // TODO: Implement API call
-    alert('Todo creation logic to be implemented');
+    
+    const formData = new FormData(form);
+    const todoId = idInput.value;
+    const isEdit = !!todoId;
+
+    // Validation
+    const task = formData.get('task');
+    if (!task) {
+        window.showAdminAlert('Please enter a task description', 'error');
+        return;
+    }
+
+    try {
+      const urlEndpoint = isEdit 
+        ? `http://127.0.0.1:8000/api/admin/todos/${todoId}`
+        : 'http://127.0.0.1:8000/api/admin/todos/upload';
+      
+      const method = isEdit ? 'PUT' : 'POST';
+
+      const response = await fetch(urlEndpoint, {
+        method: method,
+        body: formData
+      });
+
+      if (response.ok) {
+        window.showAdminAlert(
+            isEdit ? 'Task updated successfully!' : 'Task created successfully!', 
+            'success'
+        );
+        if (!isEdit) {
+            resetTodoForm();
+        } else {
+            setTimeout(() => {
+                resetTodoForm();
+                window.location.reload();
+            }, 1500);
+        }
+        if (!isEdit) {
+            setTimeout(() => window.location.reload(), 1500);
+        }
+      } else {
+        const error = await response.json();
+        window.showAdminAlert(error.detail || 'Operation failed', 'error');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      window.showAdminAlert('An error occurred. Please try again.', 'error');
+    }
   });
+
+  // Edit Mode Handling
+  window.addEventListener('edit-todo', ((e: CustomEvent) => {
+    const todo = e.detail;
+    if (!todo) return;
+
+    // Switch to Edit Mode
+    if (cardTitle) cardTitle.textContent = 'Edit Task';
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Update';
+        submitBtn.classList.add('edit-mode');
+    }
+    if (resetBtn) resetBtn.classList.remove('hidden');
+    if (idInput) idInput.value = todo.id;
+
+    // Fill Form
+    const taskInput = form.querySelector('input[name="task"]') as HTMLInputElement;
+    const iconInput = form.querySelector('input[name="icon"]') as HTMLInputElement;
+    const progressInput = form.querySelector('input[name="progress"]') as HTMLInputElement;
+    
+    if (taskInput) taskInput.value = todo.task || '';
+    if (iconInput) iconInput.value = todo.icon || '';
+    if (progressInput) {
+        progressInput.value = todo.progress || 0;
+        if (progressValue) progressValue.textContent = todo.progress || 0;
+    }
+
+    // Helper to set dropdown
+    const setDropdown = (wrapperId: string, value: string, text: string) => {
+        const wrapper = document.getElementById(wrapperId);
+        const input = wrapper?.querySelector('input');
+        const textDisplay = wrapper?.querySelector('.current-text');
+        const options = wrapper?.querySelector('.custom-options');
+        
+        if (input) input.value = value;
+        if (textDisplay) textDisplay.textContent = text;
+        
+        options?.querySelectorAll('.custom-option').forEach(opt => {
+            if (opt.getAttribute('data-value') === String(value)) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    };
+
+    // Set Dropdowns
+    setDropdown('createPriorityWrapper', todo.priority?.toLowerCase() || 'medium', todo.priority || 'Medium');
+    setDropdown('createTypeWrapper', todo.type || 'short-term', (todo.type || 'short-term').charAt(0).toUpperCase() + (todo.type || 'short-term').slice(1));
+    setDropdown('createStatusWrapper', todo.status || 'published', (todo.status || 'published').charAt(0).toUpperCase() + (todo.status || 'published').slice(1));
+    setDropdown('createCompletedWrapper', String(todo.completed), todo.completed ? 'Completed' : 'Pending');
+
+    // Scroll to view
+    const card = document.querySelector('.create-card');
+    card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  }) as EventListener);
+
+  // Reset Logic
+  function resetTodoForm() {
+    form.reset();
+    if (idInput) idInput.value = '';
+    if (progressValue) progressValue.textContent = '0';
+
+    if (cardTitle) cardTitle.textContent = 'New Task';
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-plus"></i> Add';
+        submitBtn.classList.remove('edit-mode');
+    }
+    if (resetBtn) resetBtn.classList.add('hidden');
+
+    // Reset Dropdowns to defaults
+    const setDropdown = (wrapperId: string, value: string, text: string) => {
+        const wrapper = document.getElementById(wrapperId);
+        const input = wrapper?.querySelector('input');
+        const textDisplay = wrapper?.querySelector('.current-text');
+        const options = wrapper?.querySelector('.custom-options');
+        
+        if (input) input.value = value;
+        if (textDisplay) textDisplay.textContent = text;
+        
+        options?.querySelectorAll('.custom-option').forEach(opt => {
+            if (opt.getAttribute('data-value') === String(value)) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    };
+
+    setDropdown('createPriorityWrapper', 'medium', 'Medium');
+    setDropdown('createTypeWrapper', 'short-term', 'Short-term');
+    setDropdown('createStatusWrapper', 'published', 'Published');
+    setDropdown('createCompletedWrapper', 'false', 'Pending');
+  }
+
+  resetBtn?.addEventListener('click', resetTodoForm);
 </script>

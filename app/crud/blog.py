@@ -303,3 +303,44 @@ def get_tools(db: Session, skip: int = 0, limit: int = 100, status: str = None, 
 
 def get_admin_by_username(db: Session, username: str):
     return db.query(models.Admin).filter(models.Admin.username == username).first()
+
+def create_todo(db: Session, task: str, priority: str, type: str, progress: int, icon: str, status: str, completed: bool):
+    db_todo = models.Todo(
+        task=task,
+        priority=priority,
+        type=type,
+        progress=progress,
+        icon=icon,
+        status=status,
+        completed=completed
+    )
+    db.add(db_todo)
+    db.commit()
+    db.refresh(db_todo)
+    return db_todo
+
+def update_todo(db: Session, todo_id: int, task: str = None, priority: str = None, type: str = None, progress: int = None, icon: str = None, status: str = None, completed: bool = None):
+    db_todo = db.query(models.Todo).filter(models.Todo.id == todo_id).first()
+    if db_todo:
+        if task: db_todo.task = task
+        if priority: db_todo.priority = priority
+        if type: db_todo.type = type
+        if progress is not None: db_todo.progress = progress
+        if icon: db_todo.icon = icon
+        if status: db_todo.status = status
+        if completed is not None: db_todo.completed = completed
+        db.commit()
+        db.refresh(db_todo)
+        return db_todo
+    return None
+
+def get_todo(db: Session, todo_id: int):
+    return db.query(models.Todo).filter(models.Todo.id == todo_id).first()
+
+def delete_todo(db: Session, todo_id: int):
+    db_todo = db.query(models.Todo).filter(models.Todo.id == todo_id).first()
+    if db_todo:
+        db.delete(db_todo)
+        db.commit()
+        return True
+    return False

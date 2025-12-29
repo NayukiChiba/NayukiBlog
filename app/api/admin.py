@@ -510,6 +510,65 @@ def read_admin_todos(
     todos = crud.get_todos(db, skip=skip, limit=limit, status=status, priority=priority, type=type, completed=completed, sort=sort)
     return todos
 
+@router.post("/todos/upload")
+async def upload_todo(
+    task: str = Form(...),
+    priority: str = Form("medium"),
+    type: str = Form("short-term"),
+    progress: int = Form(0),
+    icon: str = Form(None),
+    status: str = Form("published"),
+    completed: bool = Form(False),
+    db: Session = Depends(get_db)
+):
+    crud.create_todo(
+        db=db,
+        task=task,
+        priority=priority,
+        type=type,
+        progress=progress,
+        icon=icon,
+        status=status,
+        completed=completed
+    )
+    return {"status": "success", "message": "Task created successfully"}
+
+@router.put("/todos/{todo_id}")
+async def update_todo(
+    todo_id: int,
+    task: str = Form(None),
+    priority: str = Form(None),
+    type: str = Form(None),
+    progress: int = Form(None),
+    icon: str = Form(None),
+    status: str = Form(None),
+    completed: bool = Form(None),
+    db: Session = Depends(get_db)
+):
+    todo = crud.get_todo(db, todo_id)
+    if not todo:
+        raise HTTPException(status_code=404, detail="Task not found")
+
+    crud.update_todo(
+        db=db,
+        todo_id=todo_id,
+        task=task,
+        priority=priority,
+        type=type,
+        progress=progress,
+        icon=icon,
+        status=status,
+        completed=completed
+    )
+    return {"status": "success", "message": "Task updated successfully"}
+
+@router.delete("/todos/{todo_id}")
+def delete_todo(todo_id: int, db: Session = Depends(get_db)):
+    if crud.delete_todo(db, todo_id):
+        return {"status": "success", "message": "Task deleted successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Task not found")
+
 @router.get("/todos/types")
 def read_admin_todo_types(db: Session = Depends(get_db)):
     todos = crud.get_todos(db, skip=0, limit=10000)
