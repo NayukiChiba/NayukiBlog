@@ -62,6 +62,9 @@ async def upload_article(
         # Fallback for non-utf8 files, though markdown should be utf8
         content_str = content.decode("gbk", errors="ignore")
 
+    # Normalize line endings to prevent double newlines on Windows
+    content_str = content_str.replace("\r\n", "\n").replace("\r", "\n")
+
     if not content_str.strip().startswith("---"):
         # Create frontmatter
         # Handle tags list format
@@ -136,6 +139,9 @@ async def update_article(
             content_str = content.decode("utf-8")
         except UnicodeDecodeError:
             content_str = content.decode("gbk", errors="ignore")
+            
+        # Normalize line endings to prevent double newlines on Windows
+        content_str = content_str.replace("\r\n", "\n").replace("\r", "\n")
 
         if not content_str.strip().startswith("---"):
             # Create frontmatter
