@@ -15,6 +15,11 @@ const formattedDate = date.toLocaleDateString('en-US', {
     <meta name="viewport" content="width=device-width" />
     <title>{frontmatter.title}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <!-- KaTeX 自动渲染扩展 - 处理遗漏的 LaTeX 公式 -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <!-- Mermaid 支持 -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   </head>
   <body>
     <Header />
@@ -63,7 +68,80 @@ const formattedDate = date.toLocaleDateString('en-US', {
     </div>
 
     <script>
+      // 声明全局类型
+      declare const renderMathInElement: any;
+      declare const mermaid: any;
+
+      // 初始化 Mermaid
       document.addEventListener('DOMContentLoaded', () => {
+        // KaTeX 自动渲染 - 处理遗漏的 LaTeX 公式
+        if (typeof renderMathInElement !== 'undefined') {
+          renderMathInElement(document.body, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false,
+            ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            ignoredClasses: ['katex', 'katex-display'], // 跳过已经渲染的公式
+            displayMode: true, // 块级公式使用 display 模式
+            trust: true
+          });
+        }
+
+        // Mermaid 初始化配置
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            securityLevel: 'loose',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+          });
+          
+          // 查找所有 mermaid 代码块并渲染
+          // Shiki 可能生成: pre.astro-code.language-mermaid 或其他格式
+          const mermaidSelectors = [
+            'pre > code.language-mermaid',
+            'pre.language-mermaid code',
+            'pre.astro-code.language-mermaid code',
+            'pre[data-language="mermaid"] code',
+            '.astro-code code.language-mermaid'
+          ];
+          
+          const mermaidBlocks = document.querySelectorAll(mermaidSelectors.join(', '));
+          
+          // 如果没找到，尝试通过 pre 的 class 包含 mermaid 来查找
+          let blocks = Array.from(mermaidBlocks);
+          if (blocks.length === 0) {
+            const allPres = document.querySelectorAll('pre.astro-code');
+            allPres.forEach(pre => {
+              if (pre.className.includes('mermaid')) {
+                const code = pre.querySelector('code');
+                if (code) blocks.push(code);
+              }
+            });
+          }
+          
+          blocks.forEach((block, index) => {
+            const pre = block.parentElement;
+            const code = block.textContent || '';
+            
+            // 创建 mermaid 容器
+            const container = document.createElement('div');
+            container.className = 'mermaid';
+            container.id = `mermaid-${index}`;
+            container.textContent = code;
+            
+            // 替换 pre 元素
+            pre?.parentNode?.replaceChild(container, pre);
+          });
+          
+          // 运行 mermaid 渲染
+          mermaid.run();
+        }
+
         // TOC Toggle Logic
         const tocHeader = document.getElementById('toc-header-clickable');
         const tocToggle = document.getElementById('toc-toggle');
@@ -850,19 +928,65 @@ const formattedDate = date.toLocaleDateString('en-US', {
   .katex-display {
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 1rem 0;
-    margin: 1.5rem 0;
+    padding: 1.5rem 0;
+    margin: 2rem auto;
     text-align: center;
     background-color: transparent;
+    display: block;
+    width: 100%;
+  }
+
+  /* 确保块级公式容器居中 */
+  .katex-display > .katex {
+    display: inline-block;
+    text-align: center;
+  }
+
+  /* 块级公式使用更大的字体和正确的 displaystyle */
+  .katex-display > .katex > .katex-html {
+    display: block;
+    text-align: center;
   }
   
   /* 让行内公式稍微大一点，更清晰 */
   .katex {
     font-size: 1.1em;
   }
+
+  /* 块级公式字体更大 */
+  .katex-display .katex {
+    font-size: 1.21em;
+  }
   
   /* 修复 KaTeX 在某些情况下的字体显示问题 */
   .katex .base {
     margin-top: 2px;
+  }
+
+  /* 确保 displaystyle 的求和、积分等符号正确显示 */
+  .katex-display .katex .mop {
+    /* 确保大运算符正确显示 */
+  }
+
+  /* 段落中的块级公式居中 */
+  p > .katex-display,
+  .content > .katex-display {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Mermaid 图表样式 */
+  .mermaid {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  .mermaid svg {
+    max-width: 100%;
+    height: auto;
   }
 </style>

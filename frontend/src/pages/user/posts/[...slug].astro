@@ -76,17 +76,43 @@ renderer.code = ({ text, lang }) => {
 
 // Configure marked options
 marked.use(markedKatex({
-  throwOnError: false
+  throwOnError: false,
+  displayMode: true, // Support block-level math with $$...$$
+  output: 'html'
 }));
 
 marked.use({ 
   renderer, 
   gfm: true, // GitHub Flavored Markdown
-  breaks: true // Convert \n to <br>
+  breaks: false // Disable breaks to prevent <br> inside math blocks
 });
 
+// Preprocess content to ensure $$ blocks are properly formatted
+// marked-katex-extension requires empty lines before and after $$ blocks
+function preprocessMathBlocks(text: string): string {
+  // Normalize line endings to \n (handle Windows CRLF)
+  let result = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  
+  // Fix inline math followed by ( without space (e.g., $D^1$(...) should be $D^1$ (...))
+  // In JS replace: $$ outputs literal $, so $$$$1$$ means $[group1]$
+  result = result.replace(/\$([^$\n]+)\$\(/g, '$$$$1$$ (');
+  
+  // Process $$ blocks: ensure empty lines before and after
+  // Match: newline, $$, newline, content, newline, $$, end
+  result = result.replace(/(\n)(\$\$)\n([\s\S]*?)\n(\$\$)(\n|$)/g, (match, before, open, content, close, after) => {
+    // Ensure opening $$ has empty line before it
+    const prefix = '\n\n';
+    // Ensure closing $$ has empty line after it (if there's more content)
+    const suffix = after === '\n' ? '\n\n' : '\n';
+    return `${prefix}${open}\n${content.trim()}\n${close}${suffix}`;
+  });
+  
+  return result;
+}
+
 // Render Markdown to HTML
-const contentHtml = await marked.parse(content);
+const processedContent = preprocessMathBlocks(content);
+const contentHtml = await marked.parse(processedContent);
 ---
 
 <MarkdownLayout frontmatter={frontmatter}>
