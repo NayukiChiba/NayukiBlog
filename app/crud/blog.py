@@ -126,6 +126,43 @@ def get_gallery(db: Session, skip: int = 0, limit: int = 100, status: str = None
 
     return query.offset(skip).limit(limit).all()
 
+def create_gallery(db: Session, title: str, url: str, date: str, tags: str, status: str):
+    db_gallery = models.Gallery(
+        title=title,
+        url=url,
+        date=date,
+        tags=tags,
+        status=status
+    )
+    db.add(db_gallery)
+    db.commit()
+    db.refresh(db_gallery)
+    return db_gallery
+
+def update_gallery(db: Session, gallery_id: int, title: str = None, url: str = None, date: str = None, tags: str = None, status: str = None):
+    db_gallery = db.query(models.Gallery).filter(models.Gallery.id == gallery_id).first()
+    if db_gallery:
+        if title: db_gallery.title = title
+        if url: db_gallery.url = url
+        if date: db_gallery.date = date
+        if tags: db_gallery.tags = tags
+        if status: db_gallery.status = status
+        db.commit()
+        db.refresh(db_gallery)
+        return db_gallery
+    return None
+
+def get_gallery_item(db: Session, gallery_id: int):
+    return db.query(models.Gallery).filter(models.Gallery.id == gallery_id).first()
+
+def delete_gallery(db: Session, gallery_id: int):
+    db_gallery = db.query(models.Gallery).filter(models.Gallery.id == gallery_id).first()
+    if db_gallery:
+        db.delete(db_gallery)
+        db.commit()
+        return True
+    return False
+
 def create_post(db: Session, title: str, date: str, folder: str, tags: str, status: str, desc: str, url: str, image: str = None):
     db_post = models.Post(
         title=title,

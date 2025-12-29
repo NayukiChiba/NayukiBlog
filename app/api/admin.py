@@ -443,6 +443,57 @@ def read_admin_gallery(
     gallery = crud.get_gallery(db, skip=skip, limit=limit, status=status, tags=tags, sort=sort)
     return gallery
 
+@router.post("/gallery/upload")
+async def upload_gallery(
+    title: str = Form(None),
+    url: str = Form(...),
+    date: str = Form(None),
+    tags: str = Form(None), # JSON string
+    status: str = Form("published"),
+    db: Session = Depends(get_db)
+):
+    crud.create_gallery(
+        db=db,
+        title=title,
+        url=url,
+        date=date,
+        tags=tags,
+        status=status
+    )
+    return {"status": "success", "message": "Image created successfully"}
+
+@router.put("/gallery/{gallery_id}")
+async def update_gallery(
+    gallery_id: int,
+    title: str = Form(None),
+    url: str = Form(None),
+    date: str = Form(None),
+    tags: str = Form(None),
+    status: str = Form(None),
+    db: Session = Depends(get_db)
+):
+    gallery = crud.get_gallery_item(db, gallery_id)
+    if not gallery:
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    crud.update_gallery(
+        db=db,
+        gallery_id=gallery_id,
+        title=title,
+        url=url,
+        date=date,
+        tags=tags,
+        status=status
+    )
+    return {"status": "success", "message": "Image updated successfully"}
+
+@router.delete("/gallery/{gallery_id}")
+def delete_gallery(gallery_id: int, db: Session = Depends(get_db)):
+    if crud.delete_gallery(db, gallery_id):
+        return {"status": "success", "message": "Image deleted successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Image not found")
+
 @router.get("/todos", response_model=List[schemas.Todo])
 def read_admin_todos(
     skip: int = 0, 

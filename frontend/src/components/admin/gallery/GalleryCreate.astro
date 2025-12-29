@@ -1,18 +1,26 @@
 ---
 // GalleryCreate.astro
+import AlertModal from '../AlertModal.astro';
 ---
 
 <div class="create-card">
   <div class="card-header">
-    <h3 class="card-title">New Image</h3>
+    <div style="display:flex; align-items:center; gap:10px;">
+        <h3 class="card-title" id="galleryCardTitle">New Image</h3>
+        <button type="button" id="resetGalleryBtn" class="btn-reset hidden" style="background:none;border:none;cursor:pointer;color:#666;font-size:0.8rem;"><i class="fas fa-times"></i> Cancel</button>
+    </div>
+    <button type="submit" form="create-gallery-form" class="btn-submit-header" id="gallerySubmitBtn">
+      <i class="fas fa-plus"></i> Add
+    </button>
   </div>
 
-  <form id="create-gallery-form" class="create-form">
+  <form id="create-gallery-form" class="create-form" novalidate>
+    <input type="hidden" name="gallery_id" id="galleryIdInput">
     <!-- Title & Date -->
     <div class="form-row">
       <div class="form-group title-group">
         <label>Title</label>
-        <input type="text" name="title" required class="form-input" placeholder="Image Title">
+        <input type="text" name="title" class="form-input" placeholder="Image Title">
       </div>
       <div class="form-group date-group">
         <label>Date</label>
@@ -31,8 +39,17 @@
     <!-- Tags & Status -->
     <div class="form-row">
       <div class="form-group tags-group">
-        <label>Tags (comma separated)</label>
-        <input type="text" name="tags" class="form-input" placeholder="Add tags">
+        <label>Tags</label>
+        <div class="tags-input-container" id="galleryTagsContainer">
+          <div class="create-selected-tags" id="gallerySelectedTags"></div>
+          <div class="create-tag-wrapper">
+            <input type="text" id="galleryTagInput" class="create-tag-input" placeholder="Add tag..." autocomplete="off">
+            <button type="button" class="create-tag-confirm-btn" id="galleryConfirmTagBtn">
+              <i class="fas fa-check"></i>
+            </button>
+            <div class="create-tags-dropdown hidden" id="galleryTagsDropdown"></div>
+          </div>
+        </div>
       </div>
 
       <div class="form-group status-group">
@@ -51,14 +68,10 @@
         </div>
       </div>
     </div>
-
-    <div class="form-footer">
-      <button type="submit" class="btn-submit">
-        <i class="fas fa-plus"></i> Add Image
-      </button>
-    </div>
   </form>
 </div>
+
+<AlertModal />
 
 <style>
   .create-card {
@@ -78,6 +91,9 @@
     padding-bottom: 0.8rem;
     border-bottom: 1px solid #eee;
     margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .card-title {
@@ -128,7 +144,6 @@
     width: 100%;
     box-sizing: border-box;
     height: 36px;
-    font-family: inherit;
   }
 
   .form-input:focus {
@@ -175,7 +190,6 @@
     bottom: 100%;
     margin-top: 0;
     margin-bottom: 4px;
-    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
   }
 
   .custom-options.hidden { display: none; }
@@ -190,63 +204,180 @@
   .custom-option:hover { background: #f5f5f7; }
   .custom-option.selected { background: #f0f7ff; color: #0066cc; }
 
-  .form-footer {
-    margin-top: auto;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .btn-submit {
+  .btn-submit-header {
     background: #000;
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 4px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
+    transition: background 0.2s;
   }
 
-  .btn-submit:hover {
+  .btn-submit-header:hover {
     background: #333;
+  }
+
+  /* Tags Input Styles */
+  :global(.tags-input-container) {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    background: #fff;
+    min-height: 36px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  :global(.tags-input-container:focus-within) {
+    border-color: #000;
+  }
+
+  :global(.create-selected-tags) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  :global(.create-tag) {
+    background: #f0f0f0;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #333;
+  }
+
+  :global(.create-tag i) {
+    cursor: pointer;
+    font-size: 0.75rem;
+    color: #999;
+    transition: color 0.2s;
+  }
+
+  :global(.create-tag i:hover) {
+    color: #d32f2f;
+  }
+
+  :global(.create-tag-input) {
+    border: none;
+    outline: none;
+    flex: 1;
+    min-width: 60px;
+    font-size: 0.85rem;
+    padding: 0.2rem;
+    background: transparent;
+  }
+
+  :global(.create-tag-wrapper) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 100px;
+  }
+
+  :global(.create-tag-confirm-btn) {
+    background: none;
+    border: none;
+    color: #4caf50;
+    cursor: pointer;
+    padding: 0 8px;
+    font-size: 0.9rem;
+    display: none;
+  }
+
+  :global(.create-tag-input:not(:placeholder-shown) + .create-tag-confirm-btn) {
+    display: block;
+  }
+
+  :global(.create-tags-dropdown) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 100;
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 4px;
+  }
+
+  :global(.create-tags-dropdown.hidden) {
+    display: none;
+  }
+
+  :global(.create-tag-option) {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #444;
+  }
+
+  :global(.create-tag-option:hover) {
+    background: #f5f5f7;
+  }
+
+  .btn-submit-header.edit-mode {
+    background: #0066cc;
+  }
+  
+  .btn-submit-header.edit-mode:hover {
+    background: #0052a3;
   }
 </style>
 
 <script>
-  // Set default date to today
-  const dateInput = document.querySelector('input[name="date"]') as HTMLInputElement;
-  if (dateInput) {
-    dateInput.valueAsDate = new Date();
+  let selectedTags: string[] = [];
+  let availableTags: string[] = [];
+
+  // Fetch available tags
+  async function fetchTags() {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/admin/gallery/tags');
+      if (response.ok) {
+        const data = await response.json();
+        availableTags = data.tags;
+      }
+    } catch (error) {
+      console.error('Error fetching tags:', error);
+    }
   }
 
-  // Status Dropdown
+  // Initialize
+  fetchTags();
+
+  // DOM Elements
+  const form = document.getElementById('create-gallery-form') as HTMLFormElement;
+  const tagInput = document.getElementById('galleryTagInput') as HTMLInputElement;
+  const tagsContainer = document.getElementById('gallerySelectedTags');
+  const tagsDropdown = document.getElementById('galleryTagsDropdown');
+  const confirmTagBtn = document.getElementById('galleryConfirmTagBtn');
   const statusWrapper = document.getElementById('createStatusWrapper');
   const statusTrigger = document.getElementById('createStatusTrigger');
   const statusOptions = document.getElementById('createStatusOptions');
-  const statusInput = statusWrapper?.querySelector('input');
-  const statusText = statusWrapper?.querySelector('.current-text');
+  const statusInput = form?.querySelector('input[name="status"]') as HTMLInputElement;
+  const cardTitle = document.getElementById('galleryCardTitle');
+  const submitBtn = document.getElementById('gallerySubmitBtn');
+  const resetBtn = document.getElementById('resetGalleryBtn');
+  const idInput = document.getElementById('galleryIdInput') as HTMLInputElement;
 
+  // Status Select Logic
   statusTrigger?.addEventListener('click', (e) => {
     e.stopPropagation();
     statusOptions?.classList.toggle('hidden');
-  });
-
-  statusOptions?.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
-    if (target.classList.contains('custom-option')) {
-      const value = target.getAttribute('data-value');
-      const text = target.textContent;
-      
-      statusOptions.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
-      target.classList.add('selected');
-      
-      if (statusText) statusText.textContent = text;
-      if (statusInput) statusInput.value = value || '';
-      
-      statusOptions.classList.add('hidden');
-    }
   });
 
   document.addEventListener('click', (e) => {
@@ -255,11 +386,242 @@
     }
   });
 
-  // Form Submit
-  const form = document.getElementById('create-gallery-form') as HTMLFormElement;
+  statusOptions?.querySelectorAll('.custom-option').forEach(option => {
+    option.addEventListener('click', () => {
+      const value = option.getAttribute('data-value');
+      const text = option.textContent;
+      
+      if (statusInput) statusInput.value = value || 'published';
+      if (statusTrigger) {
+        const span = statusTrigger.querySelector('.current-text');
+        if (span) span.textContent = text;
+      }
+      
+      statusOptions.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+      option.classList.add('selected');
+      statusOptions.classList.add('hidden');
+    });
+  });
+
+  // Tags Logic
+  function renderTags() {
+    if (!tagsContainer) return;
+    tagsContainer.innerHTML = selectedTags.map(tag => `
+      <span class="create-tag">
+        ${tag}
+        <i class="fas fa-times" onclick="removeGalleryTag('${tag}')"></i>
+      </span>
+    `).join('');
+  }
+
+  // Expose remove function globally
+  (window as any).removeGalleryTag = (tag: string) => {
+    selectedTags = selectedTags.filter(t => t !== tag);
+    renderTags();
+  };
+
+  function addTag(tag: string) {
+    const trimmedTag = tag.trim();
+    if (trimmedTag && !selectedTags.includes(trimmedTag)) {
+      selectedTags.push(trimmedTag);
+      renderTags();
+      tagInput.value = '';
+      tagsDropdown?.classList.add('hidden');
+    }
+  }
+
+  function showDropdown(value: string = '') {
+    if (!tagsDropdown) return;
+    
+    const lowerValue = value.toLowerCase();
+    const filtered = availableTags.filter(t => 
+      !selectedTags.includes(t) && 
+      (lowerValue === '' || t.toLowerCase().includes(lowerValue))
+    );
+
+    if (filtered.length > 0) {
+      tagsDropdown.innerHTML = filtered.map(tag => `
+        <div class="create-tag-option">${tag}</div>
+      `).join('');
+      tagsDropdown.classList.remove('hidden');
+
+      tagsDropdown.querySelectorAll('.create-tag-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          addTag(opt.textContent || '');
+        });
+      });
+    } else {
+      tagsDropdown.classList.add('hidden');
+    }
+  }
+
+  tagInput?.addEventListener('focus', () => {
+      showDropdown(tagInput.value);
+  });
+
+  tagInput?.addEventListener('input', (e) => {
+    const value = (e.target as HTMLInputElement).value;
+    showDropdown(value);
+  });
+
+  tagInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addTag(tagInput.value);
+    }
+  });
+
+  confirmTagBtn?.addEventListener('click', () => {
+    addTag(tagInput.value);
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      const wrapper = document.querySelector('.create-tag-wrapper');
+      if (wrapper && !wrapper.contains(target)) {
+          tagsDropdown?.classList.add('hidden');
+      }
+  });
+
+  // Form Submission
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    // TODO: Implement API call
-    alert('Gallery image creation logic to be implemented');
+    
+    const formData = new FormData(form);
+    const galleryId = idInput.value;
+    const isEdit = !!galleryId;
+    
+    // Validation
+    const url = formData.get('url');
+    
+    if (!url) {
+        window.showAdminAlert('Please enter an image URL', 'error');
+        return;
+    }
+
+    // Add tags
+    formData.append('tags', JSON.stringify(selectedTags));
+
+    try {
+      const urlEndpoint = isEdit 
+        ? `http://127.0.0.1:8000/api/admin/gallery/${galleryId}`
+        : 'http://127.0.0.1:8000/api/admin/gallery/upload';
+      
+      const method = isEdit ? 'PUT' : 'POST';
+
+      const response = await fetch(urlEndpoint, {
+        method: method,
+        body: formData
+      });
+
+      if (response.ok) {
+        window.showAdminAlert(
+            isEdit ? 'Image updated successfully!' : 'Image created successfully!', 
+            'success'
+        );
+        if (!isEdit) {
+            resetGalleryForm();
+        } else {
+            setTimeout(() => {
+                resetGalleryForm();
+                window.location.reload();
+            }, 1500);
+        }
+        if (!isEdit) {
+            setTimeout(() => window.location.reload(), 1500);
+        }
+      } else {
+        const error = await response.json();
+        window.showAdminAlert(error.detail || 'Operation failed', 'error');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      window.showAdminAlert('An error occurred. Please try again.', 'error');
+    }
   });
+
+  // Edit Mode Handling
+  window.addEventListener('edit-gallery', ((e: CustomEvent) => {
+    console.log('GalleryCreate received edit-gallery event:', e.detail);
+    const gallery = e.detail;
+    if (!gallery) return;
+
+    // Switch to Edit Mode
+    if (cardTitle) cardTitle.textContent = 'Edit Image';
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Update';
+        submitBtn.classList.add('edit-mode');
+    }
+    if (resetBtn) resetBtn.classList.remove('hidden');
+    if (idInput) idInput.value = gallery.id;
+
+    // Fill Form
+    const titleInput = form.querySelector('input[name="title"]') as HTMLInputElement;
+    const dateInput = form.querySelector('input[name="date"]') as HTMLInputElement;
+    const urlInput = form.querySelector('input[name="url"]') as HTMLInputElement;
+    
+    if (titleInput) titleInput.value = gallery.title || '';
+    if (dateInput) dateInput.value = gallery.date || '';
+    if (urlInput) urlInput.value = gallery.url || '';
+
+    // Set Status
+    if (statusInput) statusInput.value = gallery.status || 'published';
+    if (statusTrigger) {
+        const span = statusTrigger.querySelector('.current-text');
+        if (span) span.textContent = (gallery.status || 'published').charAt(0).toUpperCase() + (gallery.status || 'published').slice(1);
+    }
+    statusOptions?.querySelectorAll('.custom-option').forEach(opt => {
+        if (opt.getAttribute('data-value') === gallery.status) {
+            opt.classList.add('selected');
+        } else {
+            opt.classList.remove('selected');
+        }
+    });
+
+    // Set Tags
+    selectedTags = Array.isArray(gallery.tags) ? gallery.tags : [];
+    renderTags();
+
+    // Scroll to view
+    const card = document.querySelector('.create-card');
+    card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  }) as EventListener);
+
+  // Reset Logic
+  function resetGalleryForm() {
+    form.reset();
+    selectedTags = [];
+    renderTags();
+    if (idInput) idInput.value = '';
+    
+    // Reset Date to Today
+    const dateInput = form.querySelector('input[name="date"]') as HTMLInputElement;
+    if (dateInput) dateInput.valueAsDate = new Date();
+
+    if (cardTitle) cardTitle.textContent = 'New Image';
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-plus"></i> Add';
+        submitBtn.classList.remove('edit-mode');
+    }
+    if (resetBtn) resetBtn.classList.add('hidden');
+
+    // Reset Status
+    if (statusInput) statusInput.value = 'published';
+    if (statusTrigger) {
+        const span = statusTrigger.querySelector('.current-text');
+        if (span) span.textContent = 'Published';
+    }
+    statusOptions?.querySelectorAll('.custom-option').forEach(opt => {
+        if (opt.getAttribute('data-value') === 'published') {
+            opt.classList.add('selected');
+        } else {
+            opt.classList.remove('selected');
+        }
+    });
+  }
+
+  resetBtn?.addEventListener('click', resetGalleryForm);
+
 </script>

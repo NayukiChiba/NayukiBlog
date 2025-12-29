@@ -101,8 +101,8 @@ const getPageUrl = (p: number) => {
                                 <span class={`status-badge ${item.status}`}>{item.status}</span>
                             </td>
                             <td>
-                                <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
-                                <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                <button class="btn-icon edit" title="Edit" data-id={item.id}><i class="fas fa-edit"></i></button>
+                                <button class="btn-icon delete" title="Delete" data-id={item.id}><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                     ))
@@ -130,12 +130,36 @@ const getPageUrl = (p: number) => {
     </div>
 </div>
 
+<script define:vars={{ initialGallery: gallery }}>
+  window.initialGalleryData = initialGallery;
+</script>
+
 <script>
+  // Define global alert function
+  declare global {
+    interface Window {
+      showAdminAlert: (message: string, type?: 'error' | 'success' | 'info') => void;
+      initialGalleryData: any[];
+    }
+  }
+
   const pageInput = document.getElementById('page-input') as HTMLInputElement;
   const tbody = document.getElementById('gallery-table-body');
   const countSpan = document.getElementById('gallery-count');
   const paginationBar = document.querySelector('.pagination-container');
   
+  // Store current gallery items for edit access
+  let currentGalleryItems: any[] = [];
+  
+  // Initialize from window data if available
+  if (window.initialGalleryData) {
+      currentGalleryItems = window.initialGalleryData;
+      console.log('Initialized gallery items:', currentGalleryItems);
+  }
+
+  // Initialize event listeners on load
+  attachEventListeners();
+
   function updatePage(page: number) {
     const url = new URL(window.location.href);
     url.searchParams.set('page', page.toString());
@@ -213,7 +237,9 @@ const getPageUrl = (p: number) => {
           gallery = mappedGallery;
         }
 
-        if (countSpan) countSpan.textContent = `${gallery.length} images`; // Note: This is page count, ideally should be total from API
+        currentGalleryItems = gallery; // Store for edit access
+
+        if (countSpan) countSpan.textContent = `${gallery.length} images`; 
 
         renderTable(gallery);
         renderPagination(page, hasNextPage);
@@ -223,6 +249,28 @@ const getPageUrl = (p: number) => {
       if(tbody) tbody.innerHTML = '<tr><td colspan="6" class="error-text">Failed to load gallery.</td></tr>';
     } finally {
       if(tbody) tbody.style.opacity = '1';
+    }
+  }
+
+  async function deleteGallery(id: number) {
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/api/admin/gallery/${id}`, {
+            method: 'DELETE'
+        });
+        if (response.ok) {
+            window.showAdminAlert('Image deleted successfully', 'success');
+            fetchAndRenderGallery();
+        } else {
+            if (response.status === 404) {
+                window.showAdminAlert('Image already deleted or not found. Refreshing...', 'info');
+                fetchAndRenderGallery();
+            } else {
+                window.showAdminAlert('Failed to delete image', 'error');
+            }
+        }
+    } catch (error) {
+        console.error('Error deleting image:', error);
+        window.showAdminAlert('An error occurred while deleting', 'error');
     }
   }
 
@@ -250,11 +298,51 @@ const getPageUrl = (p: number) => {
             <span class="status-badge ${item.status}">${item.status}</span>
         </td>
         <td>
-            <button class="btn-icon edit" title="Edit"><i class="fas fa-edit"></i></button>
-            <button class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
+            <button class="btn-icon edit" title="Edit" data-id="${item.id}"><i class="fas fa-edit"></i></button>
+            <button class="btn-icon delete" title="Delete" data-id="${item.id}"><i class="fas fa-trash"></i></button>
         </td>
       </tr>
     `).join('');
+
+    attachEventListeners();
+  }
+
+  function attachEventListeners() {
+    if (!tbody) return;
+
+    // Add event listeners
+    tbody.querySelectorAll('.edit').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const btnEl = e.currentTarget as HTMLElement;
+            const idAttr = btnEl.getAttribute('data-id');
+            const id = Number(idAttr);
+            
+            console.log('Edit clicked. ID attribute:', idAttr, 'Parsed ID:', id);
+            console.log('Current items:', currentGalleryItems);
+
+            const item = currentGalleryItems.find(g => g.id === id);
+            if (item) {
+                console.log('Dispatching edit-gallery event', item);
+                window.dispatchEvent(new CustomEvent('edit-gallery', { detail: item }));
+            } else {
+                console.error('Item not found for ID:', id);
+                // Fallback: try to construct item from row data if possible, or alert
+                window.showAdminAlert('Error: Could not find image data for editing.', 'error');
+            }
+        });
+    });
+
+    tbody.querySelectorAll('.delete').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const btnEl = e.currentTarget as HTMLElement;
+            const id = Number(btnEl.getAttribute('data-id'));
+            console.log('Delete clicked. ID:', id);
+            
+            if (confirm('Are you sure you want to delete this image?')) {
+                deleteGallery(id);
+            }
+        });
+    });
   }
 
   function renderPagination(page: number, hasNextPage: boolean) {
