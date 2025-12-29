@@ -8,6 +8,7 @@ from app.schemas import blog as schemas
 from app.core.database import get_db
 from app.services.article_service import save_article_file, delete_article_file
 from app.utils.tag_utils import extract_unique_tags
+from app.utils.security import verify_password
 
 router = APIRouter()
 
@@ -18,7 +19,17 @@ def login(login_data: schemas.LoginRequest, db: Session = Depends(get_db)):
     if not admin:
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    if login_data.password == admin.password:
+    # Verify password (supports both hashed and legacy plain text)
+    is_valid = False
+    
+    # 1. Try verifying as hashed password
+    if verify_password(login_data.password, admin.password):
+        is_valid = True
+    # 2. Fallback: Check if it matches plain text (legacy support)
+    elif login_data.password == admin.password:
+        is_valid = True
+
+    if is_valid:
         return {"message": "Login successful", "status": "success"}
     else:
         raise HTTPException(status_code=401, detail="Invalid credentials")
