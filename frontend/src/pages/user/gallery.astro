@@ -11,12 +11,23 @@ interface GalleryItem {
 }
 
 let gallery: GalleryItem[] = [];
+let allTags: string[] = [];
+
 try {
-  const response = await fetch(apiUrl('/api/user/gallery?limit=10'));
-  if (response.ok) {
-    gallery = await response.json() as GalleryItem[];
+  const [galleryResponse, tagsResponse] = await Promise.all([
+    fetch(apiUrl('/api/user/gallery?limit=100')),
+    fetch(apiUrl('/api/user/gallery/tags'))
+  ]);
+  
+  if (galleryResponse.ok) {
+    gallery = await galleryResponse.json() as GalleryItem[];
   } else {
-    console.error(`Failed to fetch gallery: ${response.status} ${response.statusText}`);
+    console.error(`Failed to fetch gallery: ${galleryResponse.status} ${galleryResponse.statusText}`);
+  }
+  
+  if (tagsResponse.ok) {
+    const tagsData = await tagsResponse.json();
+    allTags = tagsData.tags || [];
   }
 } catch (error) {
   console.error('Failed to fetch gallery:', error);
@@ -28,9 +39,33 @@ try {
     <h1>图库</h1>
     <p>收集我喜欢的图片与摄影作品。</p>
     
-    <div class="gallery-masonry">
+    <!-- Tag Filter -->
+    <div class="filter-section">
+      <label>按标签筛选：</label>
+      <div class="custom-select" id="tag-selector">
+        <div class="select-trigger" id="select-trigger">
+          <div class="selected-tags" id="selected-tags">
+            <span class="placeholder">选择标签（最多3个）</span>
+          </div>
+          <svg class="select-arrow" width="12" height="12" viewBox="0 0 12 12">
+            <path fill="#666" d="M6 8L1 3h10z"/>
+          </svg>
+        </div>
+        <div class="select-options" id="select-options">
+          {allTags.map((tag) => (
+            <div class="select-option" data-value={tag}>
+              <span class="checkbox"></span>
+              <span>{tag}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <button class="clear-btn" id="clear-btn" style="display: none;">清除</button>
+    </div>
+    
+    <div class="gallery-masonry" id="gallery-container">
       {gallery.map((item) => (
-        <div class="gallery-item group">
+        <div class="gallery-item group" data-tags={JSON.stringify(item.tags || [])}>
           <img src={item.url} alt={item.title} loading="lazy" />
           <div class="overlay">
             <h3 class="image-title">{item.title}</h3>
@@ -48,9 +83,307 @@ try {
   </div>
 </PageLayout>
 
-<style>
+<script>
+  const selectTrigger = document.getElementById('select-trigger');
+  const selectOptions = document.getElementById('select-options');
+  const selectedTagsContainer = document.getElementById('selected-tags');
+  const options = document.querySelectorAll('.select-option');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const tagSelector = document.getElementById('tag-selector');
+  const clearBtn = document.getElementById('clear-btn');
+
+  let selectedTags: string[] = [];
+  const MAX_TAGS = 3;
+
+  // Toggle dropdown
+  selectTrigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    tagSelector?.classList.toggle('open');
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', () => {
+    tagSelector?.classList.remove('open');
+  });
+
+  // Prevent closing when clicking inside options
+  selectOptions?.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+
+  // Update the display of selected tags
+  function updateSelectedDisplay() {
+    if (!selectedTagsContainer) return;
+    
+    if (selectedTags.length === 0) {
+      selectedTagsContainer.innerHTML = '<span class="placeholder">选择标签（最多3个）</span>';
+      if (clearBtn) clearBtn.style.display = 'none';
+    } else {
+      selectedTagsContainer.innerHTML = selectedTags
+        .map(tag => `<span class="selected-tag">${tag}<span class="remove-tag" data-tag="${tag}">×</span></span>`)
+        .join('');
+      if (clearBtn) clearBtn.style.display = 'inline-flex';
+    }
+
+    // Add remove handlers
+    document.querySelectorAll('.remove-tag').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const tag = (btn as HTMLElement).dataset.tag;
+        if (tag) {
+          removeTag(tag);
+        }
+      });
+    });
+  }
+
+  // Filter gallery items based on selected tags (AND logic)
+  function filterGallery() {
+    galleryItems.forEach((item) => {
+      const element = item as HTMLElement;
+      const tagsAttr = element.dataset.tags;
+      const itemTags: string[] = tagsAttr ? JSON.parse(tagsAttr) : [];
+      
+      // AND logic: item must contain ALL selected tags
+      const matchesAll = selectedTags.length === 0 || 
+        selectedTags.every(tag => itemTags.includes(tag));
+      
+      element.style.display = matchesAll ? '' : 'none';
+    });
+  }
+
+  // Remove a tag
+  function removeTag(tag: string) {
+    selectedTags = selectedTags.filter(t => t !== tag);
+    // Update option checkbox state
+    options.forEach(opt => {
+      if ((opt as HTMLElement).dataset.value === tag) {
+        opt.classList.remove('checked');
+      }
+    });
+    updateSelectedDisplay();
+    filterGallery();
+  }
+
+  // Clear all tags
+  clearBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    selectedTags = [];
+    options.forEach(opt => opt.classList.remove('checked'));
+    updateSelectedDisplay();
+    filterGallery();
+  });
+
+  // Handle option selection
+  options.forEach((option) => {
+    option.addEventListener('click', () => {
+      const value = (option as HTMLElement).dataset.value || '';
+      
+      if (option.classList.contains('checked')) {
+        // Deselect
+        selectedTags = selectedTags.filter(t => t !== value);
+        option.classList.remove('checked');
+      } else {
+        // Select (if under limit)
+        if (selectedTags.length < MAX_TAGS) {
+          selectedTags.push(value);
+          option.classList.add('checked');
+        }
+      }
+      
+      updateSelectedDisplay();
+      filterGallery();
+    });
+  });
+
+  // Initialize
+  updateSelectedDisplay();
+</script>
+
+<style is:global>
   .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
   
+  /* Filter Section */
+  .filter-section {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-section label {
+    font-size: 0.9rem;
+    color: #666;
+    white-space: nowrap;
+  }
+
+  /* Custom Select */
+  .custom-select {
+    position: relative;
+    min-width: 360px;
+  }
+
+  .select-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    min-height: 40px;
+  }
+
+  .select-trigger:hover {
+    border-color: #ccc;
+  }
+
+  .custom-select.open .select-trigger {
+    border-color: #333;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    flex: 1;
+    align-items: center;
+  }
+
+  .placeholder {
+    color: #999;
+    font-size: 0.85rem;
+  }
+
+  .selected-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: #f0f0f0;
+    color: #333;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+
+  .remove-tag {
+    cursor: pointer;
+    color: #999;
+    font-size: 1rem;
+    line-height: 1;
+    margin-left: 0.2rem;
+  }
+
+  .remove-tag:hover {
+    color: #666;
+  }
+
+  .select-arrow {
+    transition: transform 0.2s ease;
+    margin-left: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .custom-select.open .select-arrow {
+    transform: rotate(180deg);
+  }
+
+  .select-options {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  }
+
+  .custom-select.open .select-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .select-option {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  .select-option:first-child {
+    border-radius: 7px 7px 0 0;
+  }
+
+  .select-option:last-child {
+    border-radius: 0 0 7px 7px;
+  }
+
+  .select-option:hover {
+    background-color: #f5f5f5;
+  }
+
+  .select-option .checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .select-option.checked .checkbox {
+    background: #333;
+    border-color: #333;
+  }
+
+  .select-option.checked .checkbox::after {
+    content: '';
+    width: 4px;
+    height: 8px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+  }
+
+  .clear-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    background: #fff;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .clear-btn:hover {
+    border-color: #ccc;
+    color: #333;
+  }
+
   /* Masonry Layout using CSS Columns */
   .gallery-masonry {
     column-count: 1;

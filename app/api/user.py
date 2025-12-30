@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -20,8 +20,8 @@ def read_diaries(skip: int = 0, limit: int = 100, db: Session = Depends(get_db))
     return diaries
 
 @router.get("/gallery", response_model=List[schemas.Gallery])
-def read_gallery(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    gallery = crud.get_gallery(db, skip=skip, limit=limit, status="published")
+def read_gallery(skip: int = 0, limit: int = 100, tags: List[str] = Query(None), db: Session = Depends(get_db)):
+    gallery = crud.get_gallery(db, skip=skip, limit=limit, status="published", tags=tags)
     return gallery
 
 @router.get("/posts", response_model=List[schemas.Post])
