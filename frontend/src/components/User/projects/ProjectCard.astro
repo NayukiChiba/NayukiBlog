@@ -11,25 +11,24 @@ const { title, desc, url, tech = [] } = Astro.props;
 
 <div class="project-card">
   <div class="project-content">
-    <h3 class="project-title">
-      <a href={url} class="card-link">{title}</a>
-    </h3>
-    <p class="project-desc">{desc}</p>
-    
-    <div class="project-footer">
+    <div class="project-header">
+      <h3 class="project-title">
+        <span class="card-link">{title}</span>
+      </h3>
       <!-- GitHub Icon -->
-      <a href="" target="_blank" class="icon-link" aria-label="GitHub">
+      <a href={url} target="_blank" class="icon-link" aria-label="GitHub">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
       </a>
-      <!-- Website/Globe Icon -->
-      <a href="" target="_blank" class="icon-link" aria-label="Website">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-      </a>
-      <!-- File/Docs Icon -->
-      <a href="" target="_blank" class="icon-link" aria-label="Documentation">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-      </a>
     </div>
+    <p class="project-desc">{desc}</p>
+    
+    {tech.length > 0 && (
+      <div class="project-tags">
+        {tech.map(tag => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    )}
   </div>
 </div>
 
@@ -47,21 +46,6 @@ const { title, desc, url, tech = [] } = Astro.props;
     box-sizing: border-box;
   }
 
-  .card-link {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .card-link::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-  }
-
   .project-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
@@ -74,28 +58,53 @@ const { title, desc, url, tech = [] } = Astro.props;
     height: 100%;
   }
 
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+  }
+
   .project-title {
-    margin: 0 0 0.8rem 0;
+    margin: 0;
     font-size: 1.1rem;
     font-weight: 600;
     color: #111;
   }
 
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
   .project-desc {
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 1rem 0;
     color: #666;
     font-size: 0.9rem;
     line-height: 1.6;
     flex-grow: 1;
   }
 
-  .project-footer {
+  .project-tags {
     display: flex;
-    gap: 1rem;
-    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     margin-top: auto;
-    position: relative;
-    z-index: 2;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    background: #f5f5f5;
+    color: #666;
+    font-size: 0.75rem;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+  }
+
+  .tag:hover {
+    background: #eee;
+    color: #333;
   }
 
   .icon-link {
@@ -104,6 +113,7 @@ const { title, desc, url, tech = [] } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
 
   .icon-link:hover {
