@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
@@ -7,6 +7,10 @@ import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
+  // 从根目录读取 .env 文件
+  vite: {
+    envDir: '..',
+  },
   output: 'server',
   adapter: node({
     mode: 'standalone',
