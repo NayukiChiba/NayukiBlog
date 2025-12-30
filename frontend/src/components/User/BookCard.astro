@@ -25,13 +25,13 @@ const { title, cover, url, tags = [] } = Astro.props;
     )}
 
     {url ? (
-      <a href={url} class="download-btn" target="_blank" rel="noopener noreferrer">
-        <span class="icon">⬇️</span> Download
+      <a href={url} class="link-btn" target="_blank" rel="noopener noreferrer">
+        <span class="icon">🔗</span> 下载链接
       </a>
     ) : (
-      <button class="download-btn" disabled title="No download link available">
-        <span class="icon">⬇️</span> Download
-      </button>
+      <span class="link-btn disabled" title="暂无链接">
+        <span class="icon">🔗</span> 暂无链接
+      </span>
     )}
   </div>
 </div>
@@ -107,7 +107,7 @@ const { title, cover, url, tags = [] } = Astro.props;
     border-radius: 4px;
   }
 
-  .download-btn {
+  .link-btn {
     margin-top: auto;
     width: 100%;
     padding: 0.6rem;
@@ -126,21 +126,21 @@ const { title, cover, url, tags = [] } = Astro.props;
     text-decoration: none;
   }
 
-  .download-btn:hover:not(:disabled) {
+  .link-btn:hover:not(.disabled) {
     background: #333;
   }
 
-  .download-btn:disabled {
+  .link-btn.disabled {
     background: #f5f5f5;
     color: #aaa;
     cursor: not-allowed;
   }
 
-  .download-btn .icon {
+  .link-btn .icon {
     font-size: 1rem;
   }
 
-  .download-btn:disabled .icon {
+  .link-btn.disabled .icon {
     opacity: 0.5;
     filter: grayscale(1);
   }
