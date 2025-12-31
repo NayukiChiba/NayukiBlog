@@ -13,15 +13,15 @@ const formattedDate = date.toLocaleDateString('en-US', {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{frontmatter.title}</title>
-    <!-- KaTeX CSS - 预加载以避免 FOUT -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"></noscript>
+    <!-- KaTeX CSS - 使用本地资源 -->
+    <link rel="stylesheet" href="/lib/katex/katex.min.css" />
     <!-- KaTeX 自动渲染扩展 - 处理遗漏的 LaTeX 公式 -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script defer src="/lib/katex/katex.min.js"></script>
+    <script defer src="/lib/katex/auto-render.min.js"></script>
     <!-- Mermaid 支持 -->
-    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script defer src="/lib/mermaid/mermaid.min.js"></script>
   </head>
   <body>
     <Header />

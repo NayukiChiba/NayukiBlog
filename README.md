@@ -51,6 +51,23 @@ uvicorn app.main:app --reload
 - 📝 Markdown 博客撰写支持
 - 🎨 响应式设计
 
+## 📦 下载前端本地依赖
+
+项目使用本地资源来避免 CDN 连接问题。首次克隆项目后，运行初始化脚本下载 KaTeX 和 Mermaid 相关文件：
+
+### Windows (PowerShell)
+
+```powershell
+.\init.ps1
+```
+
+### Linux / macOS (Bash)
+
+```bash
+chmod +x init.sh
+./init.sh
+```
+
 ## 系统架构
 
 ### 后端模块交互 (app 文件夹结构)

@@ -24,9 +24,9 @@ const { title, description = "A personal website", needsMath = false } = Astro.p
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- KaTeX CSS - 仅在需要数学公式时加载 -->
+    <!-- KaTeX CSS - 仅在需要数学公式时加载，使用本地资源 -->
     {needsMath && (
-      <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous" />
+      <link rel="stylesheet" href="/lib/katex/katex.min.css" />
     )}
     
     <style is:global>
