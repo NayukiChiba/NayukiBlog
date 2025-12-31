@@ -5,9 +5,10 @@ import '../styles/global.css'; // Import global styles
 interface Props {
   title: string;
   description?: string;
+  needsMath?: boolean; // 是否需要加载 KaTeX
 }
 
-const { title, description = "A personal website" } = Astro.props;
+const { title, description = "A personal website", needsMath = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,11 +20,14 @@ const { title, description = "A personal website" } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <!-- 字体预连接 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- KaTeX CSS for math support -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <!-- KaTeX CSS - 仅在需要数学公式时加载 -->
+    {needsMath && (
+      <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous" />
+    )}
     
     <style is:global>
       :root {
