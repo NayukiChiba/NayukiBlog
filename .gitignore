@@ -53,4 +53,4 @@ tests/
 blog.db
 dist
 
-public/lib/
+frontend/public/lib/
