@@ -15,6 +15,10 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || '';
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<!-- DNS 预解析，加速 API 请求 -->
+		<link rel="dns-prefetch" href={apiBase} />
+		<link rel="preconnect" href={apiBase} crossorigin />
+		<!-- 预加载关键字体（如果使用） -->
 		<title>{title}</title>
 		<script define:vars={{ apiBase }}>
 			window.API_BASE = apiBase;
