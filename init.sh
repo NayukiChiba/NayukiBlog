@@ -17,26 +17,33 @@ FONTS_DIR="$KATEX_DIR/fonts"
 MERMAID_DIR="$LIB_DIR/mermaid"
 
 # 创建目录
-echo "[1/5] 创建目录结构..."
+echo "[1/4] 创建目录结构..."
 mkdir -p "$FONTS_DIR"
 mkdir -p "$MERMAID_DIR"
 echo "  ✓ 目录创建完成"
 
 # 下载 KaTeX 核心文件
-echo "[2/5] 下载 KaTeX 核心文件..."
+echo "[2/4] 下载 KaTeX 核心文件..."
 cd "$KATEX_DIR"
-echo -n "  下载 katex.min.css..."
-curl -sO "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-echo " ✓"
-echo -n "  下载 katex.min.js..."
-curl -sO "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
-echo " ✓"
-echo -n "  下载 auto-render.min.js..."
-curl -sO "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-echo " ✓"
+
+download_if_not_exists() {
+    local url=$1
+    local filename=$2
+    if [ -f "$filename" ]; then
+        echo "  跳过 $filename (已存在)"
+    else
+        echo -n "  下载 $filename..."
+        curl -sO "$url"
+        echo " ✓"
+    fi
+}
+
+download_if_not_exists "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" "katex.min.css"
+download_if_not_exists "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" "katex.min.js"
+download_if_not_exists "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" "auto-render.min.js"
 
 # 下载 KaTeX 字体
-echo "[3/5] 下载 KaTeX 字体文件..."
+echo "[3/4] 下载 KaTeX 字体文件..."
 cd "$FONTS_DIR"
 fonts=(
     "KaTeX_AMS-Regular.woff2"
@@ -62,32 +69,32 @@ fonts=(
 )
 
 count=0
+skipped=0
 total=${#fonts[@]}
 for font in "${fonts[@]}"; do
     count=$((count + 1))
-    echo -n "  [$count/$total] $font..."
-    curl -sO "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/fonts/$font"
-    echo " ✓"
+    if [ -f "$font" ]; then
+        skipped=$((skipped + 1))
+    else
+        echo -n "  [$count/$total] $font..."
+        curl -sO "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/fonts/$font"
+        echo " ✓"
+    fi
 done
+if [ $skipped -gt 0 ]; then
+    echo "  跳过 $skipped 个已存在的字体文件"
+fi
 
 # 下载 Mermaid
-echo "[4/5] 下载 Mermaid..."
+echo "[4/4] 下载 Mermaid..."
 cd "$MERMAID_DIR"
-echo -n "  下载 mermaid.min.js..."
-curl -sO "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"
-echo " ✓"
-
-# 修改 CSS 中的字体路径
-echo "[5/5] 修改 CSS 字体路径..."
-cd "$KATEX_DIR"
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS
-    sed -i '' 's|url(fonts/|url(/lib/katex/fonts/|g' katex.min.css
+if [ -f "mermaid.min.js" ]; then
+    echo "  跳过 mermaid.min.js (已存在)"
 else
-    # Linux
-    sed -i 's|url(fonts/|url(/lib/katex/fonts/|g' katex.min.css
+    echo -n "  下载 mermaid.min.js..."
+    curl -sO "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"
+    echo " ✓"
 fi
-echo "  ✓ CSS 路径修改完成"
 
 echo ""
 echo "========================================"

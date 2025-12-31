@@ -15,13 +15,13 @@ $fontsDir = Join-Path $katexDir "fonts"
 $mermaidDir = Join-Path $libDir "mermaid"
 
 # 创建目录
-Write-Host "[1/5] 创建目录结构..." -ForegroundColor Yellow
+Write-Host "[1/4] 创建目录结构..." -ForegroundColor Yellow
 New-Item -ItemType Directory -Force -Path $fontsDir | Out-Null
 New-Item -ItemType Directory -Force -Path $mermaidDir | Out-Null
 Write-Host "  ✓ 目录创建完成" -ForegroundColor Green
 
 # 下载 KaTeX 核心文件
-Write-Host "[2/5] 下载 KaTeX 核心文件..." -ForegroundColor Yellow
+Write-Host "[2/4] 下载 KaTeX 核心文件..." -ForegroundColor Yellow
 $katexFiles = @(
     @{ url = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"; name = "katex.min.css" },
     @{ url = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"; name = "katex.min.js" },
@@ -30,13 +30,17 @@ $katexFiles = @(
 
 foreach ($file in $katexFiles) {
     $outPath = Join-Path $katexDir $file.name
-    Write-Host "  下载 $($file.name)..." -NoNewline
-    Invoke-WebRequest -Uri $file.url -OutFile $outPath -UseBasicParsing
-    Write-Host " ✓" -ForegroundColor Green
+    if (Test-Path $outPath) {
+        Write-Host "  跳过 $($file.name) (已存在)" -ForegroundColor DarkGray
+    } else {
+        Write-Host "  下载 $($file.name)..." -NoNewline
+        Invoke-WebRequest -Uri $file.url -OutFile $outPath -UseBasicParsing
+        Write-Host " ✓" -ForegroundColor Green
+    }
 }
 
 # 下载 KaTeX 字体
-Write-Host "[3/5] 下载 KaTeX 字体文件..." -ForegroundColor Yellow
+Write-Host "[3/4] 下载 KaTeX 字体文件..." -ForegroundColor Yellow
 $fonts = @(
     "KaTeX_AMS-Regular.woff2",
     "KaTeX_Caligraphic-Bold.woff2",
@@ -61,28 +65,32 @@ $fonts = @(
 )
 
 $fontCount = 0
+$skippedCount = 0
 foreach ($font in $fonts) {
     $fontCount++
     $outPath = Join-Path $fontsDir $font
-    Write-Host "  [$fontCount/$($fonts.Count)] $font..." -NoNewline
-    Invoke-WebRequest -Uri "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/fonts/$font" -OutFile $outPath -UseBasicParsing
-    Write-Host " ✓" -ForegroundColor Green
+    if (Test-Path $outPath) {
+        $skippedCount++
+    } else {
+        Write-Host "  [$fontCount/$($fonts.Count)] $font..." -NoNewline
+        Invoke-WebRequest -Uri "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/fonts/$font" -OutFile $outPath -UseBasicParsing
+        Write-Host " ✓" -ForegroundColor Green
+    }
+}
+if ($skippedCount -gt 0) {
+    Write-Host "  跳过 $skippedCount 个已存在的字体文件" -ForegroundColor DarkGray
 }
 
 # 下载 Mermaid
-Write-Host "[4/5] 下载 Mermaid..." -ForegroundColor Yellow
+Write-Host "[4/4] 下载 Mermaid..." -ForegroundColor Yellow
 $mermaidPath = Join-Path $mermaidDir "mermaid.min.js"
-Write-Host "  下载 mermaid.min.js..." -NoNewline
-Invoke-WebRequest -Uri "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" -OutFile $mermaidPath -UseBasicParsing
-Write-Host " ✓" -ForegroundColor Green
-
-# 修改 CSS 中的字体路径
-Write-Host "[5/5] 修改 CSS 字体路径..." -ForegroundColor Yellow
-$cssPath = Join-Path $katexDir "katex.min.css"
-$css = Get-Content $cssPath -Raw
-$css = $css -replace 'url\(fonts/', 'url(/lib/katex/fonts/'
-Set-Content $cssPath $css -NoNewline
-Write-Host "  ✓ CSS 路径修改完成" -ForegroundColor Green
+if (Test-Path $mermaidPath) {
+    Write-Host "  跳过 mermaid.min.js (已存在)" -ForegroundColor DarkGray
+} else {
+    Write-Host "  下载 mermaid.min.js..." -NoNewline
+    Invoke-WebRequest -Uri "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" -OutFile $mermaidPath -UseBasicParsing
+    Write-Host " ✓" -ForegroundColor Green
+}
 
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Cyan
