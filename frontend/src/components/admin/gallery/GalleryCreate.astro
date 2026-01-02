@@ -485,6 +485,36 @@ import AlertModal from '../AlertModal.astro';
       }
   });
 
+  // Auto-fill title from URL
+  const urlInput = form?.querySelector('input[name="url"]') as HTMLInputElement;
+  const titleInput = form?.querySelector('input[name="title"]') as HTMLInputElement;
+
+  urlInput?.addEventListener('input', () => {
+    const url = urlInput.value.trim();
+    if (!url || titleInput.value.trim()) return; // Don't overwrite existing title
+    
+    try {
+      // Extract filename from URL using regex
+      // Matches the last part of the path before query string or hash
+      const match = url.match(/\/([^\/?#]+?)(?:\.[a-zA-Z0-9]+)?(?:[?#]|$)/);
+      if (match && match[1]) {
+        // Replace common separators with spaces and decode URI
+        let filename = decodeURIComponent(match[1]);
+        filename = filename
+          .replace(/[-_]+/g, ' ')  // Replace dashes and underscores with spaces
+          .replace(/\s+/g, ' ')     // Normalize multiple spaces
+          .trim();
+        
+        // Capitalize first letter of each word
+        filename = filename.replace(/\b\w/g, c => c.toUpperCase());
+        
+        titleInput.value = filename;
+      }
+    } catch (e) {
+      // Ignore invalid URLs
+    }
+  });
+
   // Form Submission
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
