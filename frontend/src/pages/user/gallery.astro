@@ -80,6 +80,25 @@ try {
         </div>
       ))}
     </div>
+    
+    <!-- Pagination -->
+    <div class="pagination" id="pagination">
+      <button class="page-btn" id="prev-btn" disabled>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M10.5 12.5L5.5 8l5-4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        上一页
+      </button>
+      <div class="page-info">
+        <span id="current-page">1</span> / <span id="total-pages">1</span>
+      </div>
+      <button class="page-btn" id="next-btn">
+        下一页
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M5.5 3.5L10.5 8l-5 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </PageLayout>
 
@@ -91,9 +110,18 @@ try {
   const galleryItems = document.querySelectorAll('.gallery-item');
   const tagSelector = document.getElementById('tag-selector');
   const clearBtn = document.getElementById('clear-btn');
+  
+  // Pagination elements
+  const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+  const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+  const currentPageSpan = document.getElementById('current-page');
+  const totalPagesSpan = document.getElementById('total-pages');
 
   let selectedTags: string[] = [];
   const MAX_TAGS = 3;
+  const ITEMS_PER_PAGE = 10;
+  let currentPage = 1;
+  let filteredItems: HTMLElement[] = [];
 
   // Toggle dropdown
   selectTrigger?.addEventListener('click', (e) => {
@@ -139,6 +167,8 @@ try {
 
   // Filter gallery items based on selected tags (AND logic)
   function filterGallery() {
+    // First, filter items based on tags
+    filteredItems = [];
     galleryItems.forEach((item) => {
       const element = item as HTMLElement;
       const tagsAttr = element.dataset.tags;
@@ -148,9 +178,66 @@ try {
       const matchesAll = selectedTags.length === 0 || 
         selectedTags.every(tag => itemTags.includes(tag));
       
-      element.style.display = matchesAll ? '' : 'none';
+      if (matchesAll) {
+        filteredItems.push(element);
+      }
+    });
+    
+    // Reset to first page when filter changes
+    currentPage = 1;
+    updatePagination();
+  }
+  
+  // Update pagination display and show correct items
+  function updatePagination() {
+    const totalPages = Math.max(1, Math.ceil(filteredItems.length / ITEMS_PER_PAGE));
+    
+    // Ensure currentPage is within bounds
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+    
+    // Update page info display
+    if (currentPageSpan) currentPageSpan.textContent = String(currentPage);
+    if (totalPagesSpan) totalPagesSpan.textContent = String(totalPages);
+    
+    // Update button states
+    if (prevBtn) prevBtn.disabled = currentPage <= 1;
+    if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+    
+    // Calculate which items to show
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    
+    // Hide all items first
+    galleryItems.forEach((item) => {
+      (item as HTMLElement).style.display = 'none';
+    });
+    
+    // Show only items for current page
+    filteredItems.forEach((item, index) => {
+      if (index >= startIndex && index < endIndex) {
+        item.style.display = '';
+      }
     });
   }
+  
+  // Pagination button handlers
+  prevBtn?.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      updatePagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+  
+  nextBtn?.addEventListener('click', () => {
+    const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+    if (currentPage < totalPages) {
+      currentPage++;
+      updatePagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
 
   // Remove a tag
   function removeTag(tag: string) {
@@ -198,6 +285,11 @@ try {
 
   // Initialize
   updateSelectedDisplay();
+  // Initialize filtered items with all items
+  galleryItems.forEach((item) => {
+    filteredItems.push(item as HTMLElement);
+  });
+  updatePagination();
 </script>
 
 <style is:global>
@@ -475,5 +567,59 @@ try {
     border-radius: 99px;
     backdrop-filter: blur(4px);
     font-weight: 500;
+  }
+
+  /* Pagination Styles */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+  }
+
+  .page-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .page-btn:hover:not(:disabled) {
+    border-color: #333;
+    background: #fafafa;
+  }
+
+  .page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .page-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .page-info {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 500;
+  }
+
+  .page-info #current-page {
+    color: #333;
+    font-weight: 600;
   }
 </style>
