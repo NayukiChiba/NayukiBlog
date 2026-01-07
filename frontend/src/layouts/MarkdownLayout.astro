@@ -50,7 +50,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
           <slot />
         </article>
         
-        <aside class="toc-sidebar">
+        <aside class="toc-sidebar desktop-only">
           <div class="toc-sticky">
             <div class="toc-header" id="toc-header-clickable">
               <span>文章目录</span>
@@ -61,6 +61,33 @@ const formattedDate = date.toLocaleDateString('en-US', {
             <nav id="article-toc"></nav>
           </div>
         </aside>
+      </div>
+
+      <!-- 移动端目录悬浮按钮 -->
+      <button class="mobile-toc-btn mobile-only" id="toc-float-btn" aria-label="文章目录">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="6" x2="21" y2="6"></line>
+          <line x1="8" y1="12" x2="21" y2="12"></line>
+          <line x1="8" y1="18" x2="21" y2="18"></line>
+          <line x1="3" y1="6" x2="3.01" y2="6"></line>
+          <line x1="3" y1="12" x2="3.01" y2="12"></line>
+          <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+      </button>
+
+      <!-- 移动端目录抽屉 -->
+      <div class="mobile-toc-overlay" id="toc-overlay"></div>
+      <div class="mobile-toc-drawer" id="toc-drawer">
+        <div class="drawer-header">
+          <span class="drawer-title">文章目录</span>
+          <button class="drawer-close" id="toc-drawer-close" aria-label="关闭">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <nav class="drawer-content" id="mobile-toc"></nav>
       </div>
     </main>
 
@@ -251,130 +278,147 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
         // 4. 自动生成目录 (TOC) 与 滚动监听
         const tocContainer = document.getElementById('article-toc');
-        const content = document.querySelector('.content');
+        const mobileTocContainer = document.getElementById('mobile-toc');
+        const contentEl = document.querySelector('.content');
         
-        if (tocContainer && content) {
+        // 移动端目录抽屉逻辑
+        const tocFloatBtn = document.getElementById('toc-float-btn');
+        const tocDrawer = document.getElementById('toc-drawer');
+        const tocOverlay = document.getElementById('toc-overlay');
+        const tocDrawerClose = document.getElementById('toc-drawer-close');
+
+        function openTocDrawer() {
+          tocDrawer?.classList.add('open');
+          tocOverlay?.classList.add('visible');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeTocDrawer() {
+          tocDrawer?.classList.remove('open');
+          tocOverlay?.classList.remove('visible');
+          document.body.style.overflow = '';
+        }
+
+        tocFloatBtn?.addEventListener('click', openTocDrawer);
+        tocDrawerClose?.addEventListener('click', closeTocDrawer);
+        tocOverlay?.addEventListener('click', closeTocDrawer);
+        
+        if ((tocContainer || mobileTocContainer) && contentEl) {
           // 获取所有标题
-          const headings = content.querySelectorAll('h1, h2, h3, h4');
+          const headings = contentEl.querySelectorAll('h1, h2, h3, h4');
           
           if (headings.length > 0) {
-            const ul = document.createElement('ul');
-            
-            headings.forEach((heading, index) => {
-              // 确保标题有 ID
-              if (!heading.id) {
-                heading.id = 'heading-' + index;
-              }
+            // 为桌面端和移动端都生成目录
+            const createTocList = (forMobile = false) => {
+              const ul = document.createElement('ul');
               
-              const li = document.createElement('li');
-              // 根据标题层级添加 class (h1->level-1, h2->level-2...)
-              const level = parseInt(heading.tagName.substring(1));
-              li.className = `toc-item level-${level}`;
-              li.dataset.level = level.toString(); // 存储层级信息
-              
-              // 创建容器以放置折叠按钮和链接
-              const div = document.createElement('div');
-              div.className = 'toc-item-container';
+              headings.forEach((heading, index) => {
+                // 确保标题有 ID
+                if (!heading.id) {
+                  heading.id = 'heading-' + index;
+                }
+                
+                const li = document.createElement('li');
+                const level = parseInt(heading.tagName.substring(1));
+                li.className = `toc-item level-${level}`;
+                li.dataset.level = level.toString();
+                
+                const div = document.createElement('div');
+                div.className = 'toc-item-container';
 
-              const a = document.createElement('a');
-              a.href = '#' + heading.id;
-              a.textContent = heading.textContent;
-              
-              // 平滑滚动点击事件
-              a.addEventListener('click', (e) => {
-                e.preventDefault();
-                heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                // 更新 URL hash 但不跳转
-                history.pushState(null, '', '#' + heading.id);
+                const a = document.createElement('a');
+                a.href = '#' + heading.id;
+                a.textContent = heading.textContent;
+                
+                a.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  history.pushState(null, '', '#' + heading.id);
+                  // 如果是移动端，关闭抽屉
+                  if (forMobile) {
+                    closeTocDrawer();
+                  }
+                });
+                
+                div.appendChild(a);
+                li.appendChild(div);
+                ul.appendChild(li);
               });
               
-              div.appendChild(a);
-              li.appendChild(div);
-              ul.appendChild(li);
-            });
-            
-            tocContainer.appendChild(ul);
+              return ul;
+            };
 
-            // 添加折叠功能
-            const tocItems = ul.querySelectorAll('.toc-item');
-            tocItems.forEach((item, index) => {
-              const currentLevel = parseInt((item as HTMLElement).dataset.level || '0');
-              const nextItem = tocItems[index + 1] as HTMLElement;
+            // 桌面端目录
+            if (tocContainer) {
+              tocContainer.appendChild(createTocList(false));
               
-              // 检查是否有子项 (下一个元素的 level 更大)
-              if (nextItem) {
-                const nextLevel = parseInt(nextItem.dataset.level || '0');
-                if (nextLevel > currentLevel) {
-                  // 添加折叠按钮
-                  const btn = document.createElement('span');
-                  btn.className = 'toc-collapse-btn';
-                  btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
-                  
-                  // 插入到 div 的最后面 (右侧)
-                  const container = item.querySelector('.toc-item-container');
-                  if (container) {
-                    container.appendChild(btn);
-                    item.classList.add('has-children');
-                  }
-
-                  // 点击事件
-                  btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    btn.classList.toggle('collapsed');
-                    const isCollapsed = btn.classList.contains('collapsed');
+              // 添加折叠功能（仅桌面端）
+              const tocItems = tocContainer.querySelectorAll('.toc-item');
+              tocItems.forEach((item, index) => {
+                const currentLevel = parseInt((item as HTMLElement).dataset.level || '0');
+                const nextItem = tocItems[index + 1] as HTMLElement;
+                
+                if (nextItem) {
+                  const nextLevel = parseInt(nextItem.dataset.level || '0');
+                  if (nextLevel > currentLevel) {
+                    const btn = document.createElement('span');
+                    btn.className = 'toc-collapse-btn';
+                    btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
                     
-                    // 遍历后续兄弟节点进行折叠/展开
-                    for (let i = index + 1; i < tocItems.length; i++) {
-                      const sibling = tocItems[i] as HTMLElement;
-                      const siblingLevel = parseInt(sibling.dataset.level || '0');
-                      
-                      // 如果遇到同级或更高级别的标题，停止处理
-                      if (siblingLevel <= currentLevel) break;
-                      
-                      // 切换显示状态
-                      if (isCollapsed) {
-                        sibling.classList.add('hidden-by-parent');
-                      } else {
-                        // 只有当父级没有被折叠时才展开 (处理多级折叠的情况比较复杂，这里做简单处理：直接展开所有子集，或者只展开下一级)
-                        // 简单处理：直接移除 hidden-by-parent
-                        sibling.classList.remove('hidden-by-parent');
-                        // 如果子项自己也是折叠状态，保持其子项隐藏 (这里暂不处理深层嵌套状态恢复，简单展开)
-                        // 改进：如果我们要支持多级折叠，需要更复杂的逻辑。
-                        // 简单逻辑：只要父级展开，子级就显示。
-                        // 如果子级本身也是折叠的，它的子子级应该保持隐藏吗？
-                        // 目前逻辑：展开父级时，所有子孙都会显示。如果子级之前是折叠的，按钮状态可能不一致。
-                        // 为了简单且稳健，展开时只移除 hidden-by-parent。
-                        // 如果需要保持子级的折叠状态，需要检查子级是否也有 collapsed 类。
-                        // 但由于是扁平结构，hidden-by-parent 是通用的。
-                        // 让我们尝试一种递归查找逻辑：
-                        // 实际上，对于扁平结构，直接控制 display 即可。
-                      }
+                    const container = item.querySelector('.toc-item-container');
+                    if (container) {
+                      container.appendChild(btn);
+                      item.classList.add('has-children');
                     }
-                  });
+
+                    btn.addEventListener('click', (e) => {
+                      e.stopPropagation();
+                      btn.classList.toggle('collapsed');
+                      const isCollapsed = btn.classList.contains('collapsed');
+                      
+                      for (let i = index + 1; i < tocItems.length; i++) {
+                        const sibling = tocItems[i] as HTMLElement;
+                        const siblingLevel = parseInt(sibling.dataset.level || '0');
+                        
+                        if (siblingLevel <= currentLevel) break;
+                        
+                        if (isCollapsed) {
+                          sibling.classList.add('hidden-by-parent');
+                        } else {
+                          sibling.classList.remove('hidden-by-parent');
+                        }
+                      }
+                    });
+                  }
                 }
-              }
-            });
+              });
+            }
+            
+            // 移动端目录
+            if (mobileTocContainer) {
+              mobileTocContainer.appendChild(createTocList(true));
+            }
             
             // 滚动监听 (Intersection Observer)
             const observerOptions = {
               root: null,
-              rootMargin: '-100px 0px -70% 0px', // 在视口顶部附近触发
+              rootMargin: '-100px 0px -70% 0px',
               threshold: 0
             };
             
             const observer = new IntersectionObserver((entries) => {
               entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                  // 移除所有激活状态
                   document.querySelectorAll('.toc-item a').forEach(link => link.classList.remove('active'));
                   
-                  // 激活当前
                   const id = entry.target.id;
-                  const activeLink = document.querySelector(`.toc-item a[href="#${id}"]`);
-                  if (activeLink) {
+                  const activeLinks = document.querySelectorAll(`.toc-item a[href="#${id}"]`);
+                  activeLinks.forEach(activeLink => {
                     activeLink.classList.add('active');
-                    // 确保目录自身也滚动到可见位置
-                    activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                  });
+                  const desktopActiveLink = tocContainer?.querySelector(`.toc-item a[href="#${id}"]`);
+                  if (desktopActiveLink) {
+                    desktopActiveLink.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                   }
                 }
               });
@@ -382,9 +426,11 @@ const formattedDate = date.toLocaleDateString('en-US', {
             
             headings.forEach(h => observer.observe(h));
           } else {
-            // 如果没有标题，隐藏目录栏
+            // 如果没有标题，隐藏目录栏和移动端按钮
             const sidebar = document.querySelector('.toc-sidebar');
+            const mobileBtn = document.querySelector('.mobile-toc-btn');
             if (sidebar) (sidebar as HTMLElement).style.display = 'none';
+            if (mobileBtn) (mobileBtn as HTMLElement).style.display = 'none';
           }
         }
       });
@@ -491,17 +537,196 @@ const formattedDate = date.toLocaleDateString('en-US', {
     align-items: start;
   }
 
-  /* 侧边栏样式 */
-  .toc-sidebar {
-    display: none; /* 默认隐藏，大屏显示 */
-    height: 100%;
-  }
-
-  @media (min-width: 1024px) {
-    .toc-sidebar {
+  /* 移动端单列布局 */
+  @media (max-width: 1023px) {
+    .layout-grid {
       display: block;
     }
   }
+
+  /* 桌面端/移动端显示控制 */
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .desktop-only {
+      display: block;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .mobile-only {
+      display: flex;
+    }
+  }
+
+  /* 侧边栏样式 */
+  .toc-sidebar {
+    height: 100%;
+  }
+
+  /* ====== 移动端目录悬浮按钮和抽屉样式 ====== */
+  .mobile-toc-btn {
+    position: fixed;
+    top: 5rem;
+    right: 1rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-toc-btn:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+  }
+
+  .mobile-toc-btn svg {
+    width: 24px;
+    height: 24px;
+    color: #666;
+  }
+
+  .mobile-toc-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  /* 桌面端隐藏移动端目录组件 */
+  @media (min-width: 1024px) {
+    .mobile-toc-overlay,
+    .mobile-toc-drawer {
+      display: none !important;
+    }
+  }
+
+  .mobile-toc-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-toc-drawer {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 280px;
+    max-width: 80vw;
+    height: 100vh;
+    background: white;
+    z-index: 201;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .mobile-toc-drawer.open {
+    right: 0;
+  }
+
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+
+  .drawer-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  .drawer-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: color 0.2s;
+  }
+
+  .drawer-close:hover {
+    color: #333;
+  }
+
+  .drawer-close svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .drawer-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+
+  /* 移动端目录样式 */
+  #mobile-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #mobile-toc li {
+    margin: 0;
+    line-height: 1;
+  }
+
+  #mobile-toc a {
+    text-decoration: none;
+    color: #666;
+    font-size: 0.9rem;
+    display: block;
+    padding: 0.75rem 1rem;
+    border-left: 2px solid var(--border-color);
+    transition: all 0.2s;
+  }
+
+  #mobile-toc a:hover {
+    color: #000;
+    border-left-color: #000;
+    background: #f5f5f5;
+  }
+
+  #mobile-toc a.active {
+    color: #000;
+    font-weight: 600;
+    border-left-color: #000;
+    background: #f0f0f0;
+  }
+
+  /* 移动端目录层级缩进 */
+  #mobile-toc .level-1 a { padding-left: 1rem; }
+  #mobile-toc .level-2 a { padding-left: 2rem; }
+  #mobile-toc .level-3 a { padding-left: 3rem; font-size: 0.85rem; }
+  #mobile-toc .level-4 a { padding-left: 4rem; font-size: 0.85rem; }
 
   .toc-sticky {
     position: sticky;
