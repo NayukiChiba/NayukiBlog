@@ -55,6 +55,17 @@ const { title, description = "A personal website", needsMath = false } = Astro.p
         margin: 0 auto;
         padding: 2rem var(--content-padding);
       }
+
+      /* 移动端响应式 */
+      @media (max-width: 767px) {
+        :root {
+          --content-padding: 1rem;
+        }
+        
+        main {
+          padding: 1.5rem var(--content-padding);
+        }
+      }
     </style>
   </head>
   <body>
@@ -78,5 +89,12 @@ const { title, description = "A personal website", needsMath = false } = Astro.p
     font-size: 0.875rem;
     border-top: 1px solid #eaeaea;
     margin-top: auto;
+  }
+
+  @media (max-width: 767px) {
+    footer {
+      padding: 1.5rem 1rem;
+      font-size: 0.8rem;
+    }
   }
 </style>

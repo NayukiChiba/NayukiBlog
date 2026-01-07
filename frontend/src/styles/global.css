@@ -76,6 +76,15 @@ p {
 .prose th, .prose td { border: 1px solid #eaeaea; padding: 0.75rem; text-align: left; }
 .prose th { background: #f9f9f9; font-weight: 600; }
 
+/* Mobile responsive for prose */
+@media (max-width: 767px) {
+  .prose h1 { font-size: 1.75rem; }
+  .prose h2 { font-size: 1.4rem; }
+  .prose h3 { font-size: 1.2rem; }
+  .prose pre { padding: 0.75rem; font-size: 0.85rem; }
+  .prose th, .prose td { padding: 0.5rem; font-size: 0.9rem; }
+}
+
 /* Animations */
 @keyframes fadeInUp {
   from {

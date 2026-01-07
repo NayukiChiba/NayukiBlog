@@ -13,7 +13,8 @@ interface Props {
 const { folders } = Astro.props;
 ---
 
-<aside class="sidebar-left">
+<!-- 桌面端侧边栏 -->
+<aside class="sidebar-left desktop-only">
   <div class="sidebar-title">分类</div>
   <div class="folder-box">
     <div class="folder-item">
@@ -42,6 +43,52 @@ const { folders } = Astro.props;
   </div>
 </aside>
 
+<!-- 移动端悬浮按钮 -->
+<button class="mobile-filter-btn mobile-only" id="category-float-btn" aria-label="分类筛选">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+  </svg>
+</button>
+
+<!-- 移动端抽屉 -->
+<div class="mobile-drawer-overlay mobile-only" id="category-overlay"></div>
+<div class="mobile-drawer mobile-only" id="category-drawer">
+  <div class="drawer-header">
+    <span class="drawer-title">分类</span>
+    <button class="drawer-close" id="category-close" aria-label="关闭">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <div class="drawer-content">
+    <div class="folder-item">
+      <button class="folder-btn active" data-folder="">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        全部文章
+      </button>
+    </div>
+    {folders.map(folder => (
+      <div class="folder-item" data-path={folder.path} style={`padding-left: ${folder.level * 1}rem`}>
+        {folder.hasChildren && (
+          <button class="folder-toggle" data-target={folder.path}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        )}
+        {!folder.hasChildren && <span class="folder-spacer"></span>}
+        <button 
+          class="folder-btn" 
+          data-folder={folder.path}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          {folder.name}
+        </button>
+      </div>
+    ))}
+  </div>
+</div>
+
 <script>
   const folderToggles = document.querySelectorAll('.folder-toggle');
   
@@ -69,9 +116,40 @@ const { folders } = Astro.props;
       });
     });
   });
+
+  // 移动端抽屉逻辑
+  const categoryFloatBtn = document.getElementById('category-float-btn');
+  const categoryDrawer = document.getElementById('category-drawer');
+  const categoryOverlay = document.getElementById('category-overlay');
+  const categoryClose = document.getElementById('category-close');
+
+  function openCategoryDrawer() {
+    categoryDrawer?.classList.add('active');
+    categoryOverlay?.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCategoryDrawer() {
+    categoryDrawer?.classList.remove('active');
+    categoryOverlay?.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  categoryFloatBtn?.addEventListener('click', openCategoryDrawer);
+  categoryClose?.addEventListener('click', closeCategoryDrawer);
+  categoryOverlay?.addEventListener('click', closeCategoryDrawer);
+
+  // 点击分类后关闭抽屉
+  const drawerFolderBtns = categoryDrawer?.querySelectorAll('.folder-btn');
+  drawerFolderBtns?.forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(closeCategoryDrawer, 150);
+    });
+  });
 </script>
 
 <style>
+  /* 桌面端侧边栏 */
   .sidebar-left {
     position: sticky;
     top: 2rem;
@@ -90,7 +168,7 @@ const { folders } = Astro.props;
     padding-left: 0.5rem;
   }
 
-  .folder-box {
+  .folder-box, .drawer-content {
     display: flex;
     flex-direction: column;
     gap: 0.1rem;
@@ -185,16 +263,128 @@ const { folders } = Astro.props;
     stroke: #000;
   }
 
+  /* 移动端悬浮按钮 */
+  .mobile-filter-btn {
+    position: fixed;
+    top: 5rem;
+    left: 1rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    z-index: 998;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-filter-btn:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    color: #333;
+  }
+
+  /* 移动端遮罩 */
+  .mobile-drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-drawer-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* 移动端抽屉 */
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100vh;
+    background: white;
+    z-index: 1000;
+    transition: left 0.3s ease;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-drawer.active {
+    left: 0;
+  }
+
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #eaeaea;
+    flex-shrink: 0;
+  }
+
+  .drawer-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  .drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+
+  .drawer-close:hover {
+    background-color: #f5f5f5;
+  }
+
+  .drawer-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+
+  /* 显示/隐藏控制 */
+  .desktop-only {
+    display: block;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
   @media (max-width: 900px) {
-    .sidebar-left {
-      position: static;
-      height: auto;
-      width: 100%;
-      overflow-y: visible;
+    .desktop-only {
+      display: none;
     }
-    .folder-box {
-      max-height: 300px;
-      overflow-y: auto;
+
+    .mobile-only {
+      display: flex;
+    }
+
+    .mobile-drawer {
+      display: flex;
     }
   }
 </style>

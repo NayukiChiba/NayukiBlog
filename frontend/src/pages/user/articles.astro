@@ -277,8 +277,18 @@ const folderList = [...folderSet].sort().map(path => {
     .layout-grid {
       display: flex;
       flex-direction: column;
-      width: 90%;
-      gap: 2rem;
+      width: 95%;
+      gap: 1.5rem;
+      padding-top: 0.5rem;
+    }
+
+    .page-title {
+      font-size: 1.5rem;
+    }
+
+    .page-desc {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
     }
   }
 
@@ -349,5 +359,28 @@ const folderList = [...folderSet].sort().map(path => {
   }
   .page-input:focus {
     border-color: #000;
+  }
+
+  /* 移动端分页优化 */
+  @media (max-width: 480px) {
+    .pagination {
+      gap: 0.5rem;
+    }
+    .page-btn {
+      width: 36px;
+      height: 36px;
+    }
+    .page-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+    .page-input {
+      width: 36px;
+      height: 28px;
+      font-size: 0.85rem;
+    }
+    .page-input-container {
+      font-size: 0.85rem;
+    }
   }
 </style>
