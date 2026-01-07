@@ -1,5 +1,6 @@
 ---
 import Header from '../components/Header.astro';
+import FloatingButton from '../components/FloatingButton.astro';
 const { frontmatter } = Astro.props;
 const date = new Date(frontmatter.date);
 const formattedDate = date.toLocaleDateString('en-US', {
@@ -388,6 +389,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
         }
       });
     </script>
+    <FloatingButton />
   </body>
 </html>
 
