@@ -1,5 +1,6 @@
 ---
 import Header from '../components/Header.astro';
+import FloatingButton from '../components/FloatingButton.astro';
 import '../styles/global.css'; // Import global styles
 
 interface Props {
@@ -64,6 +65,7 @@ const { title, description = "A personal website", needsMath = false } = Astro.p
     <footer>
       <p>&copy; {new Date().getFullYear()} Nayuki. All rights reserved.</p>
     </footer>
+    <FloatingButton />
   </body>
 </html>
 

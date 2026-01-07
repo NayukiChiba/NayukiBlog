@@ -1,4 +1,6 @@
 ---
+import FloatingButton from '../components/FloatingButton.astro';
+
 interface Props {
 	title: string;
 }
@@ -26,6 +28,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || '';
 	</head>
 	<body>
 		<slot />
+		<FloatingButton />
 	</body>
 </html>
 <style is:global>
