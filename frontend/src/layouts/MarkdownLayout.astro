@@ -544,14 +544,28 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
   #article-toc {
     transition: max-height 0.3s ease, opacity 0.3s ease;
-    max-height: 80vh; /* 限制最大高度 */
+    max-height: calc(100vh - 180px); /* 限制最大高度，留出 header 和标题空间 */
     opacity: 1;
-    overflow: hidden;
+    overflow-y: auto; /* 允许垂直滚动 */
+    overflow-x: hidden; /* 隐藏水平滚动 */
   }
 
   #article-toc.collapsed {
     max-height: 0;
     opacity: 0;
+    overflow: hidden; /* 折叠时隐藏所有溢出内容 */
+  }
+
+  /* 目录滚动条美化 */
+  #article-toc::-webkit-scrollbar {
+    width: 4px;
+  }
+  #article-toc::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 4px;
+  }
+  #article-toc:hover::-webkit-scrollbar-thumb {
+    background-color: #ccc;
   }
 
   #article-toc ul {
