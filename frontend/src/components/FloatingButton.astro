@@ -267,7 +267,10 @@
     function updateProgress() {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = docHeight > 0 ? Math.round((scrollTop / docHeight) * 100) : 0;
+      let scrollPercent = docHeight > 0 ? Math.round((scrollTop / docHeight) * 100) : 0;
+      
+      // 确保百分比在 0-100 范围内
+      scrollPercent = Math.max(0, Math.min(100, scrollPercent));
 
       if (progressText) {
         progressText.textContent = scrollPercent + '%';

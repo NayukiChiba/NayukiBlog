@@ -21,7 +21,8 @@ const getTagSize = (count: number) => {
 };
 ---
 
-<aside class="sidebar-right">
+<!-- 桌面端侧边栏 -->
+<aside class="sidebar-right desktop-only">
   <div class="sidebar-title">标签</div>
   <div class="tags-box">
     <button class="tag-btn active" data-tag="" style="font-size: 1rem">全部</button>
@@ -38,7 +39,75 @@ const getTagSize = (count: number) => {
   </div>
 </aside>
 
+<!-- 移动端悬浮按钮 -->
+<button class="mobile-filter-btn mobile-only" id="tag-float-btn" aria-label="标签筛选">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+    <line x1="7" y1="7" x2="7.01" y2="7"></line>
+  </svg>
+</button>
+
+<!-- 移动端抽屉 -->
+<div class="mobile-drawer-overlay mobile-only" id="tag-overlay"></div>
+<div class="mobile-drawer mobile-only" id="tag-drawer">
+  <div class="drawer-header">
+    <span class="drawer-title">标签</span>
+    <button class="drawer-close" id="tag-close" aria-label="关闭">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <div class="drawer-content">
+    <button class="tag-btn active" data-tag="" style="font-size: 1rem">全部</button>
+    {tags.map(({ tag, count }) => (
+      <button 
+        class="tag-btn" 
+        data-tag={tag}
+        style={`font-size: ${getTagSize(count)}rem`}
+        title={`${count} posts`}
+      >
+        {tag}
+      </button>
+    ))}
+  </div>
+</div>
+
+<script>
+  // 移动端抽屉逻辑
+  const tagFloatBtn = document.getElementById('tag-float-btn');
+  const tagDrawer = document.getElementById('tag-drawer');
+  const tagOverlay = document.getElementById('tag-overlay');
+  const tagClose = document.getElementById('tag-close');
+
+  function openTagDrawer() {
+    tagDrawer?.classList.add('active');
+    tagOverlay?.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeTagDrawer() {
+    tagDrawer?.classList.remove('active');
+    tagOverlay?.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  tagFloatBtn?.addEventListener('click', openTagDrawer);
+  tagClose?.addEventListener('click', closeTagDrawer);
+  tagOverlay?.addEventListener('click', closeTagDrawer);
+
+  // 点击标签后关闭抽屉
+  const drawerTagBtns = tagDrawer?.querySelectorAll('.tag-btn');
+  drawerTagBtns?.forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(closeTagDrawer, 150);
+    });
+  });
+</script>
+
 <style>
+  /* 桌面端侧边栏 */
   .sidebar-right {
     position: sticky;
     top: 2rem;
@@ -57,7 +126,7 @@ const getTagSize = (count: number) => {
     padding-left: 0.5rem;
   }
 
-  .tags-box {
+  .tags-box, .drawer-content {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -102,16 +171,128 @@ const getTagSize = (count: number) => {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 
+  /* 移动端悬浮按钮 */
+  .mobile-filter-btn {
+    position: fixed;
+    top: 5rem;
+    right: 1rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    z-index: 998;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-filter-btn:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    color: #333;
+  }
+
+  /* 移动端遮罩 */
+  .mobile-drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-drawer-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* 移动端抽屉 - 从右侧滑出 */
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 280px;
+    height: 100vh;
+    background: white;
+    z-index: 1000;
+    transition: right 0.3s ease;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-drawer.active {
+    right: 0;
+  }
+
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #eaeaea;
+    flex-shrink: 0;
+  }
+
+  .drawer-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  .drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+
+  .drawer-close:hover {
+    background-color: #f5f5f5;
+  }
+
+  .drawer-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+
+  /* 显示/隐藏控制 */
+  .desktop-only {
+    display: block;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
   @media (max-width: 900px) {
-    .sidebar-right {
-      position: static;
-      height: auto;
-      width: 100%;
-      overflow-y: visible;
+    .desktop-only {
+      display: none;
     }
-    .tags-box {
-      max-height: 300px;
-      overflow-y: auto;
+
+    .mobile-only {
+      display: flex;
+    }
+
+    .mobile-drawer {
+      display: flex;
     }
   }
 </style>
