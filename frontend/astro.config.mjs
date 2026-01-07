@@ -58,11 +58,8 @@ export default defineConfig({
     // 3. & 4. remark-gfm 支持表格、HTML 元素 (kbd, b, i 等)
     remarkPlugins: [remarkMath, remarkGfm],
     rehypePlugins: [rehypeKatex],
-    // 使用 Shiki 进行代码高亮
-    shikiConfig: {
-      theme: 'github-light',
-      wrap: true,
-    },
+    // 禁用内置语法高亮，由 [slug].astro 中的 Shiki 单例处理
+    syntaxHighlight: false,
     extendDefaultPlugins: true,
   },
   server: {

@@ -6,20 +6,8 @@ import path from 'node:path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 import markedKatex from 'marked-katex-extension';
-import { createHighlighter, type Highlighter } from 'shiki';
+import { getShikiHighlighter } from '../../../lib/shiki';
 import MarkdownLayout from '../../../layouts/MarkdownLayout.astro';
-
-// 缓存 Shiki highlighter 实例（单例模式）
-let cachedHighlighter: Highlighter | null = null;
-async function getHighlighter() {
-  if (!cachedHighlighter) {
-    cachedHighlighter = await createHighlighter({
-      themes: ['github-light'],
-      langs: ['javascript', 'typescript', 'python', 'html', 'css', 'json', 'bash', 'shell', 'markdown']
-    });
-  }
-  return cachedHighlighter;
-}
 
 const { slug } = Astro.params;
 const decodedSlug = decodeURIComponent(slug || '');
@@ -61,7 +49,7 @@ const { data: frontmatter, content } = matter(fileContent);
 const renderer = new marked.Renderer();
 
 // 使用缓存的 highlighter 实例
-const highlighter = await getHighlighter();
+const highlighter = await getShikiHighlighter();
 
 // Custom code block renderer to add 'astro-code' class and syntax highlighting
 renderer.code = ({ text, lang }) => {
