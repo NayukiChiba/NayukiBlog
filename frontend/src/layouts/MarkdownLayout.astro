@@ -782,6 +782,16 @@ const formattedDate = date.toLocaleDateString('en-US', {
   
   .content p { margin-bottom: 1.2rem; }
 
+  /* 图片样式 - 限制最大宽度防止溢出 */
+  .content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
   .content strong, .content b {
     color: #000000;
   }
