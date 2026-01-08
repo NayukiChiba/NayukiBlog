@@ -199,19 +199,20 @@ const siteTitle = isAdmin ? 'Nayuki Admin' : 'Nayuki Blog';
   .mobile-nav {
     position: fixed;
     top: 0;
-    right: -280px;
+    right: 0;
     width: 280px;
     height: 100vh;
     background: white;
     z-index: 999;
-    transition: right 0.3s ease, visibility 0.3s ease;
+    transform: translateX(100%);
+    transition: transform 0.3s ease, visibility 0.3s ease;
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     visibility: hidden;
   }
 
   .mobile-nav.active {
-    right: 0;
+    transform: translateX(0);
     visibility: visible;
   }
 
@@ -279,7 +280,7 @@ const siteTitle = isAdmin ? 'Nayuki Admin' : 'Nayuki Blog';
   }
 
   /* 平板及以上显示桌面导航，隐藏移动菜单 */
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .desktop-nav {
       display: block;
     }
@@ -295,7 +296,7 @@ const siteTitle = isAdmin ? 'Nayuki Admin' : 'Nayuki Blog';
   }
 
   /* 小屏幕下调整 header padding */
-  @media (max-width: 767px) {
+  @media (max-width: 1023px) {
     .header-container {
       padding: 0 1rem;
     }
