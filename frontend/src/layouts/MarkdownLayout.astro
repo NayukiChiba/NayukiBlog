@@ -287,6 +287,10 @@ const formattedDate = date.toLocaleDateString('en-US', {
         const tocOverlay = document.getElementById('toc-overlay');
         const tocDrawerClose = document.getElementById('toc-drawer-close');
 
+        // 确保初始状态关闭
+        tocDrawer?.classList.remove('open');
+        tocOverlay?.classList.remove('visible');
+
         function openTocDrawer() {
           tocDrawer?.classList.add('open');
           tocOverlay?.classList.add('visible');
@@ -635,14 +639,16 @@ const formattedDate = date.toLocaleDateString('en-US', {
     height: 100vh;
     background: white;
     z-index: 201;
-    transition: right 0.3s ease;
+    transition: right 0.3s ease, visibility 0.3s ease;
     display: flex;
     flex-direction: column;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    visibility: hidden;
   }
 
   .mobile-toc-drawer.open {
     right: 0;
+    visibility: visible;
   }
 
   .drawer-header {
