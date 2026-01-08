@@ -204,13 +204,15 @@ const siteTitle = isAdmin ? 'Nayuki Admin' : 'Nayuki Blog';
     height: 100vh;
     background: white;
     z-index: 999;
-    transition: right 0.3s ease;
+    transition: right 0.3s ease, visibility 0.3s ease;
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    visibility: hidden;
   }
 
   .mobile-nav.active {
     right: 0;
+    visibility: visible;
   }
 
   .mobile-nav-header {
@@ -321,39 +323,49 @@ const siteTitle = isAdmin ? 'Nayuki Admin' : 'Nayuki Blog';
   }
 
   // 移动端菜单逻辑
-  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-  const mobileNav = document.getElementById('mobile-nav');
-  const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
-  const mobileNavClose = document.getElementById('mobile-nav-close');
+  function initMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+    const mobileNavClose = document.getElementById('mobile-nav-close');
 
-  function openMobileMenu() {
-    mobileMenuBtn?.classList.add('active');
-    mobileNav?.classList.add('active');
-    mobileNavOverlay?.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMobileMenu() {
-    mobileMenuBtn?.classList.remove('active');
+    // 确保菜单初始状态是关闭的
     mobileNav?.classList.remove('active');
     mobileNavOverlay?.classList.remove('active');
-    document.body.style.overflow = '';
+    mobileMenuBtn?.classList.remove('active');
+
+    function openMobileMenu() {
+      mobileMenuBtn?.classList.add('active');
+      mobileNav?.classList.add('active');
+      mobileNavOverlay?.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      mobileMenuBtn?.classList.remove('active');
+      mobileNav?.classList.remove('active');
+      mobileNavOverlay?.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    mobileMenuBtn?.addEventListener('click', () => {
+      if (mobileNav?.classList.contains('active')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+
+    mobileNavClose?.addEventListener('click', closeMobileMenu);
+    mobileNavOverlay?.addEventListener('click', closeMobileMenu);
+
+    // 点击导航链接后关闭菜单
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-list a');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
   }
 
-  mobileMenuBtn?.addEventListener('click', () => {
-    if (mobileNav?.classList.contains('active')) {
-      closeMobileMenu();
-    } else {
-      openMobileMenu();
-    }
-  });
-
-  mobileNavClose?.addEventListener('click', closeMobileMenu);
-  mobileNavOverlay?.addEventListener('click', closeMobileMenu);
-
-  // 点击导航链接后关闭菜单
-  const mobileNavLinks = document.querySelectorAll('.mobile-nav-list a');
-  mobileNavLinks.forEach(link => {
-    link.addEventListener('click', closeMobileMenu);
-  });
+  // 初始化移动端菜单
+  initMobileMenu();
 </script>
