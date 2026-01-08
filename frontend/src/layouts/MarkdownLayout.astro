@@ -252,6 +252,16 @@ const formattedDate = date.toLocaleDateString('en-US', {
           });
           wrapper.appendChild(copyBtn);
         });
+
+        // 处理表格：添加包装器以支持横向滚动
+        const tables = document.querySelectorAll('.content table');
+        tables.forEach(table => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-wrapper';
+          table.parentNode?.insertBefore(wrapper, table);
+          wrapper.appendChild(table);
+        });
+
         // 3. 简介打字机效果
         const card = document.querySelector('.description-card');
         if (card) {
@@ -1154,14 +1164,33 @@ const formattedDate = date.toLocaleDateString('en-US', {
     border: 1px solid var(--border-color); /* 加上淡边框 */
   }
 
-  /* 4. 表格样式调整：无外边框，内部有细线条 */
+  /* 4. 表格样式调整：添加包装器支持移动端滚动 */
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    -webkit-overflow-scrolling: touch; /* iOS 滚动优化 */
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
   .content table {
     border-collapse: separate;
     border-spacing: 0;
     width: 100%;
-    margin: 1.5rem 0;
+    margin: 0; /* 由 table-wrapper 统一管理 margin */
     border: none;
     box-shadow: none;
+    min-width: 500px; /* 移动端最小宽度，防止内容过挤 */
+  }
+
+  @media (min-width: 1024px) {
+    .content table {
+      min-width: 100%; /* 桌面端恢复 100% 宽度 */
+    }
+    .table-wrapper {
+      box-shadow: none; /* 桌面端不需要阴影 */
+    }
   }
 
   .content th, .content td {
