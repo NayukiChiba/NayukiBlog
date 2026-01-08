@@ -90,62 +90,71 @@ const { folders } = Astro.props;
 </div>
 
 <script>
-  const folderToggles = document.querySelectorAll('.folder-toggle');
-  
-  folderToggles.forEach(toggle => {
-    toggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const btn = toggle as HTMLElement;
-      const targetPath = btn.dataset.target;
-      const icon = btn.querySelector('.toggle-icon') as HTMLElement;
-      
-      // Toggle rotation
-      if (icon) {
-        const currentRotation = icon.style.transform;
-        icon.style.transform = currentRotation === 'rotate(-90deg)' ? 'rotate(0deg)' : 'rotate(-90deg)';
-      }
-
-      // Toggle visibility of children
-      const allFolders = document.querySelectorAll('.folder-item[data-path]');
-      allFolders.forEach(f => {
-        const path = (f as HTMLElement).dataset.path || '';
-        if (path.startsWith(targetPath + '/') && path !== targetPath) {
-          const currentDisplay = (f as HTMLElement).style.display;
-          (f as HTMLElement).style.display = currentDisplay === 'none' ? 'flex' : 'none';
+  function initCategorySidebar() {
+    const folderToggles = document.querySelectorAll('.folder-toggle');
+    
+    folderToggles.forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const btn = toggle as HTMLElement;
+        const targetPath = btn.dataset.target;
+        const icon = btn.querySelector('.toggle-icon') as HTMLElement;
+        
+        // Toggle rotation
+        if (icon) {
+          const currentRotation = icon.style.transform;
+          icon.style.transform = currentRotation === 'rotate(-90deg)' ? 'rotate(0deg)' : 'rotate(-90deg)';
         }
+
+        // Toggle visibility of children
+        const allFolders = document.querySelectorAll('.folder-item[data-path]');
+        allFolders.forEach(f => {
+          const path = (f as HTMLElement).dataset.path || '';
+          if (path.startsWith(targetPath + '/') && path !== targetPath) {
+            const currentDisplay = (f as HTMLElement).style.display;
+            (f as HTMLElement).style.display = currentDisplay === 'none' ? 'flex' : 'none';
+          }
+        });
       });
     });
-  });
 
-  // 移动端抽屉逻辑
-  const categoryFloatBtn = document.getElementById('category-float-btn');
-  const categoryDrawer = document.getElementById('category-drawer');
-  const categoryOverlay = document.getElementById('category-overlay');
-  const categoryClose = document.getElementById('category-close');
+    // 移动端抽屉逻辑
+    const categoryFloatBtn = document.getElementById('category-float-btn');
+    const categoryDrawer = document.getElementById('category-drawer');
+    const categoryOverlay = document.getElementById('category-overlay');
+    const categoryClose = document.getElementById('category-close');
 
-  function openCategoryDrawer() {
-    categoryDrawer?.classList.add('active');
-    categoryOverlay?.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeCategoryDrawer() {
+    // 确保初始状态关闭
     categoryDrawer?.classList.remove('active');
     categoryOverlay?.classList.remove('active');
-    document.body.style.overflow = '';
+
+    function openCategoryDrawer() {
+      categoryDrawer?.classList.add('active');
+      categoryOverlay?.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCategoryDrawer() {
+      categoryDrawer?.classList.remove('active');
+      categoryOverlay?.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    categoryFloatBtn?.addEventListener('click', openCategoryDrawer);
+    categoryClose?.addEventListener('click', closeCategoryDrawer);
+    categoryOverlay?.addEventListener('click', closeCategoryDrawer);
+
+    // 点击分类后关闭抽屉
+    const drawerFolderBtns = categoryDrawer?.querySelectorAll('.folder-btn');
+    drawerFolderBtns?.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setTimeout(closeCategoryDrawer, 150);
+      });
+    });
   }
 
-  categoryFloatBtn?.addEventListener('click', openCategoryDrawer);
-  categoryClose?.addEventListener('click', closeCategoryDrawer);
-  categoryOverlay?.addEventListener('click', closeCategoryDrawer);
-
-  // 点击分类后关闭抽屉
-  const drawerFolderBtns = categoryDrawer?.querySelectorAll('.folder-btn');
-  drawerFolderBtns?.forEach(btn => {
-    btn.addEventListener('click', () => {
-      setTimeout(closeCategoryDrawer, 150);
-    });
-  });
+  // 初始化
+  initCategorySidebar();
 </script>
 
 <style>
@@ -316,14 +325,16 @@ const { folders } = Astro.props;
     height: 100vh;
     background: white;
     z-index: 1000;
-    transition: left 0.3s ease;
+    transition: left 0.3s ease, visibility 0.3s ease;
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    visibility: hidden;
   }
 
   .mobile-drawer.active {
     left: 0;
+    visibility: visible;
   }
 
   .drawer-header {

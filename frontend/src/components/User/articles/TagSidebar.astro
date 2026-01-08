@@ -76,34 +76,43 @@ const getTagSize = (count: number) => {
 
 <script>
   // 移动端抽屉逻辑
-  const tagFloatBtn = document.getElementById('tag-float-btn');
-  const tagDrawer = document.getElementById('tag-drawer');
-  const tagOverlay = document.getElementById('tag-overlay');
-  const tagClose = document.getElementById('tag-close');
+  function initTagDrawer() {
+    const tagFloatBtn = document.getElementById('tag-float-btn');
+    const tagDrawer = document.getElementById('tag-drawer');
+    const tagOverlay = document.getElementById('tag-overlay');
+    const tagClose = document.getElementById('tag-close');
 
-  function openTagDrawer() {
-    tagDrawer?.classList.add('active');
-    tagOverlay?.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeTagDrawer() {
+    // 确保初始状态关闭
     tagDrawer?.classList.remove('active');
     tagOverlay?.classList.remove('active');
-    document.body.style.overflow = '';
+
+    function openTagDrawer() {
+      tagDrawer?.classList.add('active');
+      tagOverlay?.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeTagDrawer() {
+      tagDrawer?.classList.remove('active');
+      tagOverlay?.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    tagFloatBtn?.addEventListener('click', openTagDrawer);
+    tagClose?.addEventListener('click', closeTagDrawer);
+    tagOverlay?.addEventListener('click', closeTagDrawer);
+
+    // 点击标签后关闭抽屉
+    const drawerTagBtns = tagDrawer?.querySelectorAll('.tag-btn');
+    drawerTagBtns?.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setTimeout(closeTagDrawer, 150);
+      });
+    });
   }
 
-  tagFloatBtn?.addEventListener('click', openTagDrawer);
-  tagClose?.addEventListener('click', closeTagDrawer);
-  tagOverlay?.addEventListener('click', closeTagDrawer);
-
-  // 点击标签后关闭抽屉
-  const drawerTagBtns = tagDrawer?.querySelectorAll('.tag-btn');
-  drawerTagBtns?.forEach(btn => {
-    btn.addEventListener('click', () => {
-      setTimeout(closeTagDrawer, 150);
-    });
-  });
+  // 初始化
+  initTagDrawer();
 </script>
 
 <style>
@@ -224,14 +233,16 @@ const getTagSize = (count: number) => {
     height: 100vh;
     background: white;
     z-index: 1000;
-    transition: right 0.3s ease;
+    transition: right 0.3s ease, visibility 0.3s ease;
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    visibility: hidden;
   }
 
   .mobile-drawer.active {
     right: 0;
+    visibility: visible;
   }
 
   .drawer-header {
