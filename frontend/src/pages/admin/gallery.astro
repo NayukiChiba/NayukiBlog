@@ -99,22 +99,17 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || '';
         }
 
         .btn-primary:hover {
-            flex-direction: column;
-            gap: 24px;
+            background: #333333;
         }
 
         .top-section {
             display: flex;
             gap: 24px;
             width: 100%;
+            margin-bottom: 24px;
         }
 
         .filter-container {
-            flex: 1;
-            max-width: 50%;
-        }
-
-        .editor-placeholder {
             flex: 1;
         }
 
@@ -122,18 +117,33 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || '';
             width: 100%;
         }
 
-        @media (max-width: 768px) {
-            .top-section {
+        @media (max-width: 1023px) {
+            .admin-container {
                 flex-direction: column;
             }
-            
-            .filter-container {
-                max-width: 100%column-reverse;
+
+            .content-area {
+                padding: 1rem;
             }
-            
-            .filter-container {
-                width: 100%;
-                position: static;
+
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+
+            .page-header h2 {
+                text-align: center;
+                font-size: 1.5rem;
+            }
+
+            .btn-primary {
+                justify-content: center;
+            }
+
+            .top-section {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
     </style>

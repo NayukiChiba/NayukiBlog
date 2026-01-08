@@ -19,7 +19,16 @@ const siteTitle = isAdmin ? 'Nayuki Admin' : 'Nayuki Blog';
 ---
 
 <header class="site-header">
-  <div class:list={['header-container', { 'admin-center': isAdmin }]}>
+  <div class:list={['header-container', { 'admin-layout': isAdmin }]}>
+    {isAdmin && (
+      <button class="admin-sidebar-btn" id="admin-sidebar-btn" aria-label="打开侧边栏">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    )}
     <a href={homeLink} class="site-title">{siteTitle}</a>
     {currentNavItems.length > 0 && (
       <>
@@ -95,9 +104,34 @@ const siteTitle = isAdmin ? 'Nayuki Admin' : 'Nayuki Blog';
     align-items: center;
   }
 
-  /* Admin 模式下标题居中 */
-  .header-container.admin-center {
+  /* Admin 模式布局 */
+  .header-container.admin-layout {
+    justify-content: space-between;
+  }
+
+  @media (min-width: 1024px) {
+    .header-container.admin-layout {
+      justify-content: center;
+    }
+    .admin-sidebar-btn {
+      display: none;
+    }
+  }
+
+  .admin-sidebar-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    color: #666;
+    transition: color 0.2s;
+  }
+
+  .admin-sidebar-btn:hover {
+    color: #000;
   }
 
   .site-title {
@@ -329,6 +363,13 @@ const siteTitle = isAdmin ? 'Nayuki Admin' : 'Nayuki Blog';
     const mobileNav = document.getElementById('mobile-nav');
     const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
     const mobileNavClose = document.getElementById('mobile-nav-close');
+    const adminSidebarBtn = document.getElementById('admin-sidebar-btn');
+
+    if (adminSidebarBtn) {
+      adminSidebarBtn.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent('open-admin-sidebar'));
+      });
+    }
 
     // 确保菜单初始状态是关闭的
     mobileNav?.classList.remove('active');
