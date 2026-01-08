@@ -430,10 +430,6 @@ const formattedDate = date.toLocaleDateString('en-US', {
                   activeLinks.forEach(activeLink => {
                     activeLink.classList.add('active');
                   });
-                  const desktopActiveLink = tocContainer?.querySelector(`.toc-item a[href="#${id}"]`);
-                  if (desktopActiveLink) {
-                    desktopActiveLink.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                  }
                 }
               });
             }, observerOptions);
@@ -597,33 +593,35 @@ const formattedDate = date.toLocaleDateString('en-US', {
   }
 
   /* ====== 移动端目录悬浮按钮和抽屉样式 ====== */
-  .mobile-toc-btn {
-    position: fixed;
-    top: 5rem;
-    right: 1rem;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: white;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-  }
+  @media (max-width: 1023px) {
+    .mobile-toc-btn {
+      position: fixed;
+      top: 5rem;
+      right: 1rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: white;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
 
-  .mobile-toc-btn:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transform: scale(1.05);
-  }
+    .mobile-toc-btn:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: scale(1.05);
+    }
 
-  .mobile-toc-btn svg {
-    width: 24px;
-    height: 24px;
-    color: #666;
+    .mobile-toc-btn svg {
+      width: 24px;
+      height: 24px;
+      color: #666;
+    }
   }
 
   .mobile-toc-overlay {
