@@ -12,7 +12,17 @@ const navItems = [
 const currentPath = Astro.url.pathname;
 ---
 
-<aside class="admin-sidebar">
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-header mobile-only">
+        <span class="sidebar-title">管理菜单</span>
+        <button id="sidebar-close" class="sidebar-close" aria-label="关闭">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
     <div class="user-profile">
         <div class="avatar">A</div>
         <div class="info">
@@ -29,6 +39,30 @@ const currentPath = Astro.url.pathname;
     </nav>
 </aside>
 
+<script>
+    const sidebar = document.getElementById('admin-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    const closeBtn = document.getElementById('sidebar-close');
+
+    function openSidebar() {
+        sidebar?.classList.add('open');
+        overlay?.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+        sidebar?.classList.remove('open');
+        overlay?.classList.remove('visible');
+        document.body.style.overflow = '';
+    }
+
+    // 监听来自 Header 的打开指令
+    document.addEventListener('open-admin-sidebar', openSidebar);
+    
+    closeBtn?.addEventListener('click', closeSidebar);
+    overlay?.addEventListener('click', closeSidebar);
+</script>
+
 <style>
     .admin-sidebar {
         width: 260px;
@@ -39,6 +73,79 @@ const currentPath = Astro.url.pathname;
         flex-direction: column;
         gap: 2rem;
         flex-shrink: 0;
+        z-index: 1000;
+    }
+
+    /* 移动端抽屉样式 */
+    @media (max-width: 1023px) {
+        .admin-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 280px;
+            max-width: 80vw;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease, visibility 0.3s ease;
+            visibility: hidden;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .admin-sidebar.open {
+            transform: translateX(0);
+            visibility: visible;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-only {
+            display: flex;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .mobile-only {
+            display: none;
+        }
+        .sidebar-overlay {
+            display: none;
+        }
+    }
+
+    .sidebar-header {
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color, #e5e7eb);
+    }
+
+    .sidebar-title {
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    .sidebar-close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #6b7280;
+        padding: 4px;
     }
 
     .user-profile {

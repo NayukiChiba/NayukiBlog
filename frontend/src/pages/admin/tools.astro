@@ -130,6 +130,31 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || '';
         .btn-primary:hover {
             background: #333333;
         }
+
+        @media (max-width: 1023px) {
+            .admin-container {
+                flex-direction: column;
+            }
+
+            .content-area {
+                padding: 1rem;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+
+            .page-header h2 {
+                text-align: center;
+                font-size: 1.5rem;
+            }
+
+            .btn-primary {
+                justify-content: center;
+            }
+        }
     </style>
 </body>
 </html>
