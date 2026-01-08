@@ -9,7 +9,7 @@ interface Props {
 }
 
 // Note: This component does not use Astro.glob. The warning likely comes from the parent page fetching posts.
-const { title, date, desc, url, tags = [], image = "/test.jpg" } = Astro.props;
+const { title, date, desc, url, tags = [], image = "/profile.jpg" } = Astro.props;
 
 const formattedDate = new Date(date).toLocaleDateString('en-US', {
   year: 'numeric',
