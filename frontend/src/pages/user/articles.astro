@@ -267,19 +267,19 @@ const folderList = [...folderSet].sort().map(path => {
   /* Responsive adjustments */
   @media (max-width: 1200px) {
     .layout-grid {
-      width: 90%;
-      gap: 2rem;
-      grid-template-columns: 200px 1fr 200px;
+      width: 95%;
+      gap: 1.5rem;
+      grid-template-columns: 240px 1fr 240px;
     }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1023px) {
     .layout-grid {
       display: flex;
       flex-direction: column;
-      width: 95%;
-      gap: 1.5rem;
-      padding-top: 0.5rem;
+      width: 100%;
+      gap: 1rem;
+      padding: 0 1rem;
     }
 
     .page-title {

@@ -228,12 +228,13 @@ const getTagSize = (count: number) => {
   .mobile-drawer {
     position: fixed;
     top: 0;
-    right: -300px;
+    right: 0;
     width: 280px;
     height: 100vh;
     background: white;
     z-index: 1000;
-    transition: right 0.3s ease, visibility 0.3s ease;
+    transform: translateX(100%);
+    transition: transform 0.3s ease, visibility 0.3s ease;
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -241,7 +242,7 @@ const getTagSize = (count: number) => {
   }
 
   .mobile-drawer.active {
-    right: 0;
+    transform: translateX(0);
     visibility: visible;
   }
 
@@ -293,7 +294,7 @@ const getTagSize = (count: number) => {
     display: none;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1023px) {
     .desktop-only {
       display: none;
     }

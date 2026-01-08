@@ -320,12 +320,13 @@ const { folders } = Astro.props;
   .mobile-drawer {
     position: fixed;
     top: 0;
-    left: -300px;
+    left: 0;
     width: 280px;
     height: 100vh;
     background: white;
     z-index: 1000;
-    transition: left 0.3s ease, visibility 0.3s ease;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease, visibility 0.3s ease;
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -333,7 +334,7 @@ const { folders } = Astro.props;
   }
 
   .mobile-drawer.active {
-    left: 0;
+    transform: translateX(0);
     visibility: visible;
   }
 
@@ -385,7 +386,7 @@ const { folders } = Astro.props;
     display: none;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1023px) {
     .desktop-only {
       display: none;
     }
