@@ -1,5 +1,4 @@
 import { defineConfig, envField } from 'astro/config';
-import mdx from '@astrojs/mdx';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -43,9 +42,8 @@ export default defineConfig({
   security: {
     checkOrigin: false,
   },
-  // 5. 集成 MDX 以支持内嵌 Astro 组件
+  // 集成插件
   integrations: [
-    mdx(),
     compress({
       CSS: true,
       HTML: true,
