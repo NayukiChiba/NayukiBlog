@@ -42,7 +42,10 @@ const formattedDate = date.toLocaleDateString('en-US', {
             )}
             {frontmatter.tags && (
               <div class="tags">
-                {frontmatter.tags.map((tag: any) => <span class="tag">#{tag}</span>)}
+                {frontmatter.tags.map((tag: any) => {
+                  const cleanTag = String(tag).replace(/[\[\]"']/g, '');
+                  return <span class="tag">{cleanTag}</span>;
+                })}
               </div>
             )}
           </header>
