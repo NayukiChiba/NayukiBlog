@@ -590,6 +590,8 @@ const formattedDate = date.toLocaleDateString('en-US', {
   /* 侧边栏样式 */
   .toc-sidebar {
     height: 100%;
+    width: 200px; /* 固定宽度 */
+    flex-shrink: 0; /* 防止收缩 */
   }
 
   /* ====== 移动端目录悬浮按钮和抽屉样式 ====== */
@@ -758,6 +760,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
   .toc-sticky {
     position: fixed;
     top: 100px; /* 距离顶部 Header 的距离 */
+    width: 200px; /* 固定宽度 */
     max-height: calc(100vh - 120px);
     overflow-y: auto;
     /* 移除旧样式的左边框和内边距 */
@@ -844,6 +847,9 @@ const formattedDate = date.toLocaleDateString('en-US', {
     border-left: 2px solid var(--border-color); /* 默认线条颜色 */
     padding: 0.5rem 0 0.5rem 1rem;
     line-height: 1.4;
+    overflow: hidden; /* 隐藏溢出内容 */
+    text-overflow: ellipsis; /* 显示省略号 */
+    white-space: nowrap; /* 不换行 */
   }
 
   #article-toc a:hover {
@@ -896,6 +902,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
   /* 调整链接样式以适应按钮 */
   #article-toc a {
     flex: 1;
+    min-width: 0; /* 允许链接收缩 */
     /* 保持原有的 padding 和 border */
   }
 
