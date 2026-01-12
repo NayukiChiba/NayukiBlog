@@ -27,8 +27,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
   <body>
     <Header />
     <main class="markdown-container page-enter">
-      <div class="layout-grid">
-        <article class="content">
+      <article class="content">
           <header class="post-header">
             <div class="meta">
               <span class="date">{formattedDate}</span>
@@ -59,63 +58,64 @@ const formattedDate = date.toLocaleDateString("en-US", {
           <hr />
           <slot />
         </article>
+      </main>
 
-        <aside class="toc-sidebar desktop-only">
-          <div class="toc-sticky">
-            <div class="toc-header" id="toc-header-clickable">
-              <span>文章目录</span>
-              <button
-                id="toc-toggle"
-                class="toc-toggle"
-                aria-label="Toggle Table of Contents"
+      <!-- 桌面端固定目录 -->
+      <aside class="toc-sidebar desktop-only">
+        <div class="toc-sticky">
+          <div class="toc-header" id="toc-header-clickable">
+            <span>文章目录</span>
+            <button
+              id="toc-toggle"
+              class="toc-toggle"
+              aria-label="Toggle Table of Contents"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><polyline points="6 9 12 15 18 9"></polyline></svg
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  ><polyline points="6 9 12 15 18 9"></polyline></svg
-                >
-              </button>
-            </div>
-            <nav id="article-toc"></nav>
+            </button>
           </div>
-        </aside>
-      </div>
+          <nav id="article-toc"></nav>
+        </div>
+      </aside>
 
-      <!-- 移动端目录悬浮按钮 -->
-      <button
-        class="mobile-toc-btn mobile-only"
-        id="toc-float-btn"
-        aria-label="文章目录"
+    <!-- 移动端目录悬浮按钮 -->
+    <button
+      class="mobile-toc-btn mobile-only"
+      id="toc-float-btn"
+      aria-label="文章目录"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <line x1="8" y1="6" x2="21" y2="6"></line>
-          <line x1="8" y1="12" x2="21" y2="12"></line>
-          <line x1="8" y1="18" x2="21" y2="18"></line>
-          <line x1="3" y1="6" x2="3.01" y2="6"></line>
-          <line x1="3" y1="12" x2="3.01" y2="12"></line>
-          <line x1="3" y1="18" x2="3.01" y2="18"></line>
-        </svg>
-      </button>
+        <line x1="8" y1="6" x2="21" y2="6"></line>
+        <line x1="8" y1="12" x2="21" y2="12"></line>
+        <line x1="8" y1="18" x2="21" y2="18"></line>
+        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+      </svg>
+    </button>
 
-      <!-- 移动端目录抽屉 -->
-      <div class="mobile-toc-overlay" id="toc-overlay"></div>
+    <!-- 移动端目录抽屉 -->
+    <div class="mobile-toc-overlay" id="toc-overlay"></div>
       <div class="mobile-toc-drawer" id="toc-drawer">
         <div class="drawer-header">
           <span class="drawer-title">文章目录</span>
@@ -138,7 +138,6 @@ const formattedDate = date.toLocaleDateString("en-US", {
         </div>
         <nav class="drawer-content" id="mobile-toc"></nav>
       </div>
-    </main>
 
     <!-- Copy Toast Notification -->
     <div id="copy-toast" class="toast">
@@ -527,8 +526,8 @@ const formattedDate = date.toLocaleDateString("en-US", {
     --primary-color: #3498db;
     --code-bg: #f6f8fa;
     --border-color: #eaecef;
-    /* 增加最大宽度以容纳侧边栏 -> 修改为 1024px 让文章更窄更聚拢，阅读体验更好 */
-    --max-width: 1024px;
+    /* 减小文章宽度，让布局更协调 */
+    --max-width: 750px;
     --content-padding: 1rem;
   }
 
@@ -627,49 +626,17 @@ const formattedDate = date.toLocaleDateString("en-US", {
     padding: 2rem 1rem;
   }
 
-  /* 页面进入动画 */
-  @keyframes pageEnter {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* 文章内容居中 */
+  .content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    margin-bottom: 4rem;
   }
 
-  .page-enter {
-    animation: pageEnter 0.6s ease-out forwards;
-  }
-
-  .page-enter .post-header {
-    animation: pageEnter 0.6s ease-out 0.1s forwards;
-    opacity: 0;
-  }
-
-  .page-enter .content {
-    animation: pageEnter 0.6s ease-out 0.2s forwards;
-    opacity: 0;
-  }
-
-  .page-enter .toc-sidebar {
-    animation: pageEnter 0.6s ease-out 0.3s forwards;
-    opacity: 0;
-  }
-
-  /* 布局网格 */
-  .layout-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 200px; /* 调整侧边栏宽度，左侧自适应 */
-    gap: 4rem; /* 增加间距，让布局更透气，视觉上分离文章和目录 */
-    align-items: start;
-  }
-
-  /* 移动端单列布局 */
-  @media (max-width: 1023px) {
-    .layout-grid {
-      display: block;
+  /* 桌面端：去掉偏移，让文章居中 */
+  @media (min-width: 1024px) {
+    .markdown-container {
+      margin-right: auto;
     }
   }
 
@@ -694,11 +661,28 @@ const formattedDate = date.toLocaleDateString("en-US", {
     }
   }
 
-  /* 侧边栏样式 */
+  /* 侧边栏样式 - Fixed 定位在屏幕右侧 */
   .toc-sidebar {
-    height: 100%;
-    width: 200px; /* 固定宽度 */
-    flex-shrink: 0; /* 防止收缩 */
+    position: fixed;
+    top: 100px;
+    width: 200px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    z-index: 50;
+  }
+
+  /* 大屏幕：目录在内容右侧，距离内容有间距 */
+  @media (min-width: 1200px) {
+    .toc-sidebar {
+      left: calc(50% + var(--max-width) / 2 + 2rem);
+    }
+  }
+
+  /* 中等屏幕：目录靠右 */
+  @media (min-width: 1024px) and (max-width: 1199px) {
+    .toc-sidebar {
+      right: 1rem;
+    }
   }
 
   /* ====== 移动端目录悬浮按钮和抽屉样式 ====== */
@@ -877,15 +861,8 @@ const formattedDate = date.toLocaleDateString("en-US", {
   }
 
   .toc-sticky {
-    position: fixed;
-    top: 100px; /* 距离顶部 Header 的距离 */
-    width: 200px; /* 固定宽度 */
-    max-height: calc(100vh - 120px);
-    overflow-y: auto;
-    /* 移除旧样式的左边框和内边距 */
-    padding-left: 0;
-    border-left: none;
-    z-index: 50;
+    /* 不再需要 position 定位，由父元素 .toc-sidebar 控制 */
+    width: 100%;
   }
 
   .toc-header {
@@ -1050,15 +1027,15 @@ const formattedDate = date.toLocaleDateString("en-US", {
     font-size: 0.8rem;
   }
 
-  /* 滚动条美化 */
-  .toc-sticky::-webkit-scrollbar {
+  /* 滚动条美化 - 改为 toc-sidebar */
+  .toc-sidebar::-webkit-scrollbar {
     width: 4px;
   }
-  .toc-sticky::-webkit-scrollbar-thumb {
+  .toc-sidebar::-webkit-scrollbar-thumb {
     background-color: #eee;
     border-radius: 4px;
   }
-  .toc-sticky:hover::-webkit-scrollbar-thumb {
+  .toc-sidebar:hover::-webkit-scrollbar-thumb {
     background-color: #ccc;
   }
 
