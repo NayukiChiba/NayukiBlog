@@ -29,7 +29,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
       {tags.length > 0 && (
         <div class="post-tags">
           {tags.map((tag: string) => (
-            <span class="tag">#{tag}</span>
+            <span class="tag">{tag}</span>
           ))}
         </div>
       )}
