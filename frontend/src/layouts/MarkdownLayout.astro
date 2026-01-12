@@ -1011,23 +1011,39 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
   /* 恢复丢失的 Meta 和 Tag 样式 */
   .meta {
-    color: #666;
-    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .meta .date {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: #999;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
   }
 
   .tags {
     margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
   }
 
   .tag {
-    margin-right: 1rem;
-    color: #999;
-    font-style: italic;
-    font-weight: 300;
-    font-family: "Georgia", serif;
-    background: none;
-    padding: 0;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
+    color: #555;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    transition: background 0.2s;
+    font-style: normal;
+    font-weight: normal;
+    font-family: inherit;
+  }
+
+  .tag:hover {
+    background: rgba(0, 0, 0, 0.08);
   }
 
   /* Markdown Content Styles */
