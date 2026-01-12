@@ -756,13 +756,14 @@ const formattedDate = date.toLocaleDateString('en-US', {
   #mobile-toc .level-4 a { padding-left: 4rem; font-size: 0.85rem; }
 
   .toc-sticky {
-    position: sticky;
+    position: fixed;
     top: 100px; /* 距离顶部 Header 的距离 */
     max-height: calc(100vh - 120px);
     overflow-y: auto;
     /* 移除旧样式的左边框和内边距 */
     padding-left: 0;
     border-left: none;
+    z-index: 50;
   }
 
   .toc-header {
