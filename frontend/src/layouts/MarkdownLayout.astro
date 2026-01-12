@@ -1,12 +1,12 @@
 ---
-import Header from '../components/Header.astro';
-import FloatingButton from '../components/FloatingButton.astro';
+import Header from "../components/Header.astro";
+import FloatingButton from "../components/FloatingButton.astro";
 const { frontmatter } = Astro.props;
 const date = new Date(frontmatter.date);
-const formattedDate = date.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric',
+const formattedDate = date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
 });
 ---
 
@@ -26,7 +26,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
   </head>
   <body>
     <Header />
-    <main class="markdown-container">
+    <main class="markdown-container page-enter">
       <div class="layout-grid">
         <article class="content">
           <header class="post-header">
@@ -34,31 +34,53 @@ const formattedDate = date.toLocaleDateString('en-US', {
               <span class="date">{formattedDate}</span>
             </div>
             <h1>{frontmatter.title}</h1>
-            {frontmatter.description && (
-              <div class="description-card">
-                <span class="description-label">简介</span>
-                <div class="description-content" data-text={frontmatter.description}></div>
-              </div>
-            )}
-            {frontmatter.tags && (
-              <div class="tags">
-                {frontmatter.tags.map((tag: any) => {
-                  const cleanTag = String(tag).replace(/[\[\]"']/g, '');
-                  return <span class="tag">{cleanTag}</span>;
-                })}
-              </div>
-            )}
+            {
+              frontmatter.description && (
+                <div class="description-card">
+                  <span class="description-label">简介</span>
+                  <div
+                    class="description-content"
+                    data-text={frontmatter.description}
+                  />
+                </div>
+              )
+            }
+            {
+              frontmatter.tags && (
+                <div class="tags">
+                  {frontmatter.tags.map((tag: any) => {
+                    const cleanTag = String(tag).replace(/[\[\]"']/g, "");
+                    return <span class="tag">{cleanTag}</span>;
+                  })}
+                </div>
+              )
+            }
           </header>
           <hr />
           <slot />
         </article>
-        
+
         <aside class="toc-sidebar desktop-only">
           <div class="toc-sticky">
             <div class="toc-header" id="toc-header-clickable">
               <span>文章目录</span>
-              <button id="toc-toggle" class="toc-toggle" aria-label="Toggle Table of Contents">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <button
+                id="toc-toggle"
+                class="toc-toggle"
+                aria-label="Toggle Table of Contents"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><polyline points="6 9 12 15 18 9"></polyline></svg
+                >
               </button>
             </div>
             <nav id="article-toc"></nav>
@@ -67,8 +89,22 @@ const formattedDate = date.toLocaleDateString('en-US', {
       </div>
 
       <!-- 移动端目录悬浮按钮 -->
-      <button class="mobile-toc-btn mobile-only" id="toc-float-btn" aria-label="文章目录">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button
+        class="mobile-toc-btn mobile-only"
+        id="toc-float-btn"
+        aria-label="文章目录"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <line x1="8" y1="6" x2="21" y2="6"></line>
           <line x1="8" y1="12" x2="21" y2="12"></line>
           <line x1="8" y1="18" x2="21" y2="18"></line>
@@ -84,7 +120,17 @@ const formattedDate = date.toLocaleDateString('en-US', {
         <div class="drawer-header">
           <span class="drawer-title">文章目录</span>
           <button class="drawer-close" id="toc-drawer-close" aria-label="关闭">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
@@ -106,150 +152,162 @@ const formattedDate = date.toLocaleDateString('en-US', {
       declare const mermaid: any;
 
       // 初始化 Mermaid
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
         // KaTeX 自动渲染 - 处理遗漏的 LaTeX 公式
-        if (typeof renderMathInElement !== 'undefined') {
+        if (typeof renderMathInElement !== "undefined") {
           renderMathInElement(document.body, {
             delimiters: [
-              {left: '$$', right: '$$', display: true},
-              {left: '$', right: '$', display: false},
-              {left: '\\(', right: '\\)', display: false},
-              {left: '\\[', right: '\\]', display: true}
+              { left: "$$", right: "$$", display: true },
+              { left: "$", right: "$", display: false },
+              { left: "\\(", right: "\\)", display: false },
+              { left: "\\[", right: "\\]", display: true },
             ],
             throwOnError: false,
-            ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            ignoredClasses: ['katex', 'katex-display'], // 跳过已经渲染的公式
+            ignoredTags: [
+              "script",
+              "noscript",
+              "style",
+              "textarea",
+              "pre",
+              "code",
+            ],
+            ignoredClasses: ["katex", "katex-display"], // 跳过已经渲染的公式
             displayMode: true, // 块级公式使用 display 模式
-            trust: true
+            trust: true,
           });
         }
 
         // Mermaid 初始化配置
-        if (typeof mermaid !== 'undefined') {
+        if (typeof mermaid !== "undefined") {
           mermaid.initialize({
             startOnLoad: false,
-            theme: 'default',
-            securityLevel: 'loose',
-            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+            theme: "default",
+            securityLevel: "loose",
+            fontFamily:
+              '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
           });
-          
+
           // 查找所有 mermaid 代码块并渲染
           // Shiki 可能生成: pre.astro-code.language-mermaid 或其他格式
           const mermaidSelectors = [
-            'pre > code.language-mermaid',
-            'pre.language-mermaid code',
-            'pre.astro-code.language-mermaid code',
+            "pre > code.language-mermaid",
+            "pre.language-mermaid code",
+            "pre.astro-code.language-mermaid code",
             'pre[data-language="mermaid"] code',
-            '.astro-code code.language-mermaid'
+            ".astro-code code.language-mermaid",
           ];
-          
-          const mermaidBlocks = document.querySelectorAll(mermaidSelectors.join(', '));
-          
+
+          const mermaidBlocks = document.querySelectorAll(
+            mermaidSelectors.join(", ")
+          );
+
           // 如果没找到，尝试通过 pre 的 class 包含 mermaid 来查找
           let blocks = Array.from(mermaidBlocks);
           if (blocks.length === 0) {
-            const allPres = document.querySelectorAll('pre.astro-code');
-            allPres.forEach(pre => {
-              if (pre.className.includes('mermaid')) {
-                const code = pre.querySelector('code');
+            const allPres = document.querySelectorAll("pre.astro-code");
+            allPres.forEach((pre) => {
+              if (pre.className.includes("mermaid")) {
+                const code = pre.querySelector("code");
                 if (code) blocks.push(code);
               }
             });
           }
-          
+
           blocks.forEach((block, index) => {
             const pre = block.parentElement;
-            const code = block.textContent || '';
-            
+            const code = block.textContent || "";
+
             // 创建 mermaid 容器
-            const container = document.createElement('div');
-            container.className = 'mermaid';
+            const container = document.createElement("div");
+            container.className = "mermaid";
             container.id = `mermaid-${index}`;
             container.textContent = code;
-            
+
             // 替换 pre 元素
             pre?.parentNode?.replaceChild(container, pre);
           });
-          
+
           // 运行 mermaid 渲染
           mermaid.run();
         }
 
         // TOC Toggle Logic
-        const tocHeader = document.getElementById('toc-header-clickable');
-        const tocToggle = document.getElementById('toc-toggle');
-        const tocNav = document.getElementById('article-toc');
-        
+        const tocHeader = document.getElementById("toc-header-clickable");
+        const tocToggle = document.getElementById("toc-toggle");
+        const tocNav = document.getElementById("article-toc");
+
         if (tocHeader && tocToggle && tocNav) {
           const toggleToc = () => {
-            tocNav.classList.toggle('collapsed');
-            tocToggle.classList.toggle('collapsed');
+            tocNav.classList.toggle("collapsed");
+            tocToggle.classList.toggle("collapsed");
           };
-          
-          tocHeader.addEventListener('click', toggleToc);
+
+          tocHeader.addEventListener("click", toggleToc);
         }
 
-        const toast = document.getElementById('copy-toast');
+        const toast = document.getElementById("copy-toast");
         let timeout: any;
 
         function showToast() {
           if (!toast) return;
-          toast.classList.add('show');
+          toast.classList.add("show");
           if (timeout) clearTimeout(timeout);
           timeout = setTimeout(() => {
-            toast.classList.remove('show');
+            toast.classList.remove("show");
           }, 2000);
         }
 
         // 处理 Shiki 代码块：添加包装器、语言标签和复制按钮
-        const codeBlocks = document.querySelectorAll('pre.astro-code');
-        codeBlocks.forEach(pre => {
+        const codeBlocks = document.querySelectorAll("pre.astro-code");
+        codeBlocks.forEach((pre) => {
           // 1. 创建 Wrapper
-          const wrapper = document.createElement('div');
-          wrapper.className = 'code-wrapper';
+          const wrapper = document.createElement("div");
+          wrapper.className = "code-wrapper";
           pre.parentNode?.insertBefore(wrapper, pre);
           wrapper.appendChild(pre);
 
           // 2. 获取语言
           // Astro Shiki 通常在 pre 上添加 class="astro-code github-light language-js"
           // 或者在 code 上
-          let lang = '';
-          const classes = pre.className.split(' ');
-          const langClass = classes.find(c => c.startsWith('language-'));
+          let lang = "";
+          const classes = pre.className.split(" ");
+          const langClass = classes.find((c) => c.startsWith("language-"));
           if (langClass) {
-            lang = langClass.replace('language-', '');
+            lang = langClass.replace("language-", "");
           } else {
             // 尝试从 code 标签获取
-            const code = pre.querySelector('code');
+            const code = pre.querySelector("code");
             if (code) {
               const codeClasses = Array.from(code.classList);
-              const codeLangClass = codeClasses.find(c => c.startsWith('language-'));
-              if (codeLangClass) lang = codeLangClass.replace('language-', '');
+              const codeLangClass = codeClasses.find((c) =>
+                c.startsWith("language-")
+              );
+              if (codeLangClass) lang = codeLangClass.replace("language-", "");
             }
           }
 
           // 3. 添加语言标签
           if (lang) {
-            const langLabel = document.createElement('span');
-            langLabel.className = 'code-lang';
+            const langLabel = document.createElement("span");
+            langLabel.className = "code-lang";
             langLabel.textContent = lang;
             wrapper.appendChild(langLabel);
           }
 
           // 4. 添加复制按钮
-          const copyBtn = document.createElement('button');
-          copyBtn.className = 'copy-btn';
+          const copyBtn = document.createElement("button");
+          copyBtn.className = "copy-btn";
           // 使用 SVG 图标
           copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
-          
-          copyBtn.addEventListener('click', async () => {
-            const code = pre.querySelector('code');
+
+          copyBtn.addEventListener("click", async () => {
+            const code = pre.querySelector("code");
             if (code) {
               try {
                 await navigator.clipboard.writeText(code.innerText);
                 showToast();
               } catch (err) {
-                console.error('Failed to copy:', err);
+                console.error("Failed to copy:", err);
               }
             }
           });
@@ -257,24 +315,24 @@ const formattedDate = date.toLocaleDateString('en-US', {
         });
 
         // 处理表格：添加包装器以支持横向滚动
-        const tables = document.querySelectorAll('.content table');
-        tables.forEach(table => {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'table-wrapper';
+        const tables = document.querySelectorAll(".content table");
+        tables.forEach((table) => {
+          const wrapper = document.createElement("div");
+          wrapper.className = "table-wrapper";
           table.parentNode?.insertBefore(wrapper, table);
           wrapper.appendChild(table);
         });
 
         // 3. 简介打字机效果
-        const card = document.querySelector('.description-card');
+        const card = document.querySelector(".description-card");
         if (card) {
-          const content = card.querySelector('.description-content');
+          const content = card.querySelector(".description-content");
           if (content) {
-            const text = content.getAttribute('data-text') || '';
-            
+            const text = content.getAttribute("data-text") || "";
+
             // 清空内容准备打字
-            (content as HTMLElement).innerText = '';
-            
+            (content as HTMLElement).innerText = "";
+
             let i = 0;
             function typeWriter() {
               if (i < text.length) {
@@ -287,122 +345,128 @@ const formattedDate = date.toLocaleDateString('en-US', {
             setTimeout(typeWriter, 300);
           }
         }
-          
 
         // 4. 自动生成目录 (TOC) 与 滚动监听
-        const tocContainer = document.getElementById('article-toc');
-        const mobileTocContainer = document.getElementById('mobile-toc');
-        const contentEl = document.querySelector('.content');
-        
+        const tocContainer = document.getElementById("article-toc");
+        const mobileTocContainer = document.getElementById("mobile-toc");
+        const contentEl = document.querySelector(".content");
+
         // 移动端目录抽屉逻辑
-        const tocFloatBtn = document.getElementById('toc-float-btn');
-        const tocDrawer = document.getElementById('toc-drawer');
-        const tocOverlay = document.getElementById('toc-overlay');
-        const tocDrawerClose = document.getElementById('toc-drawer-close');
+        const tocFloatBtn = document.getElementById("toc-float-btn");
+        const tocDrawer = document.getElementById("toc-drawer");
+        const tocOverlay = document.getElementById("toc-overlay");
+        const tocDrawerClose = document.getElementById("toc-drawer-close");
 
         // 确保初始状态关闭
-        tocDrawer?.classList.remove('open');
-        tocOverlay?.classList.remove('visible');
+        tocDrawer?.classList.remove("open");
+        tocOverlay?.classList.remove("visible");
 
         function openTocDrawer() {
-          tocDrawer?.classList.add('open');
-          tocOverlay?.classList.add('visible');
-          document.body.style.overflow = 'hidden';
+          tocDrawer?.classList.add("open");
+          tocOverlay?.classList.add("visible");
+          document.body.style.overflow = "hidden";
         }
 
         function closeTocDrawer() {
-          tocDrawer?.classList.remove('open');
-          tocOverlay?.classList.remove('visible');
-          document.body.style.overflow = '';
+          tocDrawer?.classList.remove("open");
+          tocOverlay?.classList.remove("visible");
+          document.body.style.overflow = "";
         }
 
-        tocFloatBtn?.addEventListener('click', openTocDrawer);
-        tocDrawerClose?.addEventListener('click', closeTocDrawer);
-        tocOverlay?.addEventListener('click', closeTocDrawer);
-        
+        tocFloatBtn?.addEventListener("click", openTocDrawer);
+        tocDrawerClose?.addEventListener("click", closeTocDrawer);
+        tocOverlay?.addEventListener("click", closeTocDrawer);
+
         if ((tocContainer || mobileTocContainer) && contentEl) {
           // 获取所有标题
-          const headings = contentEl.querySelectorAll('h1, h2, h3, h4');
-          
+          const headings = contentEl.querySelectorAll("h1, h2, h3, h4");
+
           if (headings.length > 0) {
             // 为桌面端和移动端都生成目录
             const createTocList = (forMobile = false) => {
-              const ul = document.createElement('ul');
-              
+              const ul = document.createElement("ul");
+
               headings.forEach((heading, index) => {
                 // 确保标题有 ID
                 if (!heading.id) {
-                  heading.id = 'heading-' + index;
+                  heading.id = "heading-" + index;
                 }
-                
-                const li = document.createElement('li');
+
+                const li = document.createElement("li");
                 const level = parseInt(heading.tagName.substring(1));
                 li.className = `toc-item level-${level}`;
                 li.dataset.level = level.toString();
-                
-                const div = document.createElement('div');
-                div.className = 'toc-item-container';
 
-                const a = document.createElement('a');
-                a.href = '#' + heading.id;
+                const div = document.createElement("div");
+                div.className = "toc-item-container";
+
+                const a = document.createElement("a");
+                a.href = "#" + heading.id;
                 a.textContent = heading.textContent;
-                
-                a.addEventListener('click', (e) => {
+
+                a.addEventListener("click", (e) => {
                   e.preventDefault();
-                  heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  history.pushState(null, '', '#' + heading.id);
+                  heading.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                  history.pushState(null, "", "#" + heading.id);
                   // 如果是移动端，关闭抽屉
                   if (forMobile) {
                     closeTocDrawer();
                   }
                 });
-                
+
                 div.appendChild(a);
                 li.appendChild(div);
                 ul.appendChild(li);
               });
-              
+
               return ul;
             };
 
             // 桌面端目录
             if (tocContainer) {
               tocContainer.appendChild(createTocList(false));
-              
+
               // 添加折叠功能（仅桌面端）
-              const tocItems = tocContainer.querySelectorAll('.toc-item');
+              const tocItems = tocContainer.querySelectorAll(".toc-item");
               tocItems.forEach((item, index) => {
-                const currentLevel = parseInt((item as HTMLElement).dataset.level || '0');
+                const currentLevel = parseInt(
+                  (item as HTMLElement).dataset.level || "0"
+                );
                 const nextItem = tocItems[index + 1] as HTMLElement;
-                
+
                 if (nextItem) {
-                  const nextLevel = parseInt(nextItem.dataset.level || '0');
+                  const nextLevel = parseInt(nextItem.dataset.level || "0");
                   if (nextLevel > currentLevel) {
-                    const btn = document.createElement('span');
-                    btn.className = 'toc-collapse-btn';
+                    const btn = document.createElement("span");
+                    btn.className = "toc-collapse-btn";
                     btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
-                    
-                    const container = item.querySelector('.toc-item-container');
+
+                    const container = item.querySelector(".toc-item-container");
                     if (container) {
                       container.appendChild(btn);
-                      item.classList.add('has-children');
+                      item.classList.add("has-children");
                     }
 
-                    btn.addEventListener('click', (e) => {
+                    btn.addEventListener("click", (e) => {
                       e.stopPropagation();
-                      btn.classList.toggle('collapsed');
-                      const isCollapsed = btn.classList.contains('collapsed');
-                      
+                      btn.classList.toggle("collapsed");
+                      const isCollapsed = btn.classList.contains("collapsed");
+
                       for (let i = index + 1; i < tocItems.length; i++) {
                         const sibling = tocItems[i] as HTMLElement;
-                        const siblingLevel = parseInt(sibling.dataset.level || '0');
-                        
+                        const siblingLevel = parseInt(
+                          sibling.dataset.level || "0"
+                        );
+
                         if (siblingLevel <= currentLevel) break;
-                        
+
                         if (isCollapsed) {
-                          sibling.classList.add('hidden-by-parent');
+                          sibling.classList.add("hidden-by-parent");
                         } else {
-                          sibling.classList.remove('hidden-by-parent');
+                          sibling.classList.remove("hidden-by-parent");
                         }
                       }
                     });
@@ -410,40 +474,44 @@ const formattedDate = date.toLocaleDateString('en-US', {
                 }
               });
             }
-            
+
             // 移动端目录
             if (mobileTocContainer) {
               mobileTocContainer.appendChild(createTocList(true));
             }
-            
+
             // 滚动监听 (Intersection Observer)
             const observerOptions = {
               root: null,
-              rootMargin: '-100px 0px -70% 0px',
-              threshold: 0
+              rootMargin: "-100px 0px -70% 0px",
+              threshold: 0,
             };
-            
+
             const observer = new IntersectionObserver((entries) => {
-              entries.forEach(entry => {
+              entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                  document.querySelectorAll('.toc-item a').forEach(link => link.classList.remove('active'));
-                  
+                  document
+                    .querySelectorAll(".toc-item a")
+                    .forEach((link) => link.classList.remove("active"));
+
                   const id = entry.target.id;
-                  const activeLinks = document.querySelectorAll(`.toc-item a[href="#${id}"]`);
-                  activeLinks.forEach(activeLink => {
-                    activeLink.classList.add('active');
+                  const activeLinks = document.querySelectorAll(
+                    `.toc-item a[href="#${id}"]`
+                  );
+                  activeLinks.forEach((activeLink) => {
+                    activeLink.classList.add("active");
                   });
                 }
               });
             }, observerOptions);
-            
-            headings.forEach(h => observer.observe(h));
+
+            headings.forEach((h) => observer.observe(h));
           } else {
             // 如果没有标题，隐藏目录栏和移动端按钮
-            const sidebar = document.querySelector('.toc-sidebar');
-            const mobileBtn = document.querySelector('.mobile-toc-btn');
-            if (sidebar) (sidebar as HTMLElement).style.display = 'none';
-            if (mobileBtn) (mobileBtn as HTMLElement).style.display = 'none';
+            const sidebar = document.querySelector(".toc-sidebar");
+            const mobileBtn = document.querySelector(".mobile-toc-btn");
+            if (sidebar) (sidebar as HTMLElement).style.display = "none";
+            if (mobileBtn) (mobileBtn as HTMLElement).style.display = "none";
           }
         }
       });
@@ -482,13 +550,14 @@ const formattedDate = date.toLocaleDateString('en-US', {
     border: none; /* 无边框 */
     box-shadow: none; /* 无阴影 */
   }
-  
+
   pre.astro-code code {
     background-color: transparent;
     padding: 0;
     font-size: 0.9rem;
     color: inherit;
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-family:
+      "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   }
 
   /* 语言标签 */
@@ -518,12 +587,14 @@ const formattedDate = date.toLocaleDateString('en-US', {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s, background-color 0.2s;
+    transition:
+      color 0.2s,
+      background-color 0.2s;
   }
 
   .copy-btn:hover {
     color: #333;
-    background-color: rgba(0,0,0,0.05);
+    background-color: rgba(0, 0, 0, 0.05);
   }
 
   /* 代码语言标识样式 - 旧的移除，使用上面的 .code-lang */
@@ -533,7 +604,9 @@ const formattedDate = date.toLocaleDateString('en-US', {
     overflow-x: hidden;
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+      sans-serif;
     line-height: 1.7;
   }
 
@@ -552,6 +625,37 @@ const formattedDate = date.toLocaleDateString('en-US', {
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 2rem 1rem;
+  }
+
+  /* 页面进入动画 */
+  @keyframes pageEnter {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .page-enter {
+    animation: pageEnter 0.6s ease-out forwards;
+  }
+
+  .page-enter .post-header {
+    animation: pageEnter 0.6s ease-out 0.1s forwards;
+    opacity: 0;
+  }
+
+  .page-enter .content {
+    animation: pageEnter 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+
+  .page-enter .toc-sidebar {
+    animation: pageEnter 0.6s ease-out 0.3s forwards;
+    opacity: 0;
   }
 
   /* 布局网格 */
@@ -665,7 +769,9 @@ const formattedDate = date.toLocaleDateString('en-US', {
     background: white;
     z-index: 201;
     transform: translateX(100%);
-    transition: transform 0.3s ease, visibility 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      visibility 0.3s ease;
     display: flex;
     flex-direction: column;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
@@ -755,10 +861,20 @@ const formattedDate = date.toLocaleDateString('en-US', {
   }
 
   /* 移动端目录层级缩进 */
-  #mobile-toc .level-1 a { padding-left: 1rem; }
-  #mobile-toc .level-2 a { padding-left: 2rem; }
-  #mobile-toc .level-3 a { padding-left: 3rem; font-size: 0.85rem; }
-  #mobile-toc .level-4 a { padding-left: 4rem; font-size: 0.85rem; }
+  #mobile-toc .level-1 a {
+    padding-left: 1rem;
+  }
+  #mobile-toc .level-2 a {
+    padding-left: 2rem;
+  }
+  #mobile-toc .level-3 a {
+    padding-left: 3rem;
+    font-size: 0.85rem;
+  }
+  #mobile-toc .level-4 a {
+    padding-left: 4rem;
+    font-size: 0.85rem;
+  }
 
   .toc-sticky {
     position: fixed;
@@ -804,7 +920,9 @@ const formattedDate = date.toLocaleDateString('en-US', {
   }
 
   #article-toc {
-    transition: max-height 0.3s ease, opacity 0.3s ease;
+    transition:
+      max-height 0.3s ease,
+      opacity 0.3s ease;
     max-height: calc(100vh - 180px); /* 限制最大高度，留出 header 和标题空间 */
     opacity: 1;
     overflow-y: auto; /* 允许垂直滚动 */
@@ -911,16 +1029,26 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
   /* 目录层级缩进：恢复纯粹的缩进，不再为左侧按钮留空 */
   /* Level 1 */
-  .toc-item.level-1 a { padding-left: 1rem; }
-  
+  .toc-item.level-1 a {
+    padding-left: 1rem;
+  }
+
   /* Level 2 */
-  .toc-item.level-2 a { padding-left: 2rem; }
+  .toc-item.level-2 a {
+    padding-left: 2rem;
+  }
 
   /* Level 3 */
-  .toc-item.level-3 a { padding-left: 3rem; font-size: 0.8rem; }
+  .toc-item.level-3 a {
+    padding-left: 3rem;
+    font-size: 0.8rem;
+  }
 
   /* Level 4 */
-  .toc-item.level-4 a { padding-left: 4rem; font-size: 0.8rem; }
+  .toc-item.level-4 a {
+    padding-left: 4rem;
+    font-size: 0.8rem;
+  }
 
   /* 滚动条美化 */
   .toc-sticky::-webkit-scrollbar {
@@ -943,7 +1071,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
     background: white;
     padding: 0.8rem 1.5rem;
     border-radius: 50px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     display: flex;
     align-items: center;
     gap: 0.8rem;
@@ -976,7 +1104,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
     background-color: #f8f9fa;
     border-radius: 16px;
     padding: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     overflow: hidden;
     position: relative;
   }
@@ -1050,16 +1178,24 @@ const formattedDate = date.toLocaleDateString('en-US', {
   }
 
   /* Markdown Content Styles */
-  .content h1, .content h2, .content h3, .content h4 {
+  .content h1,
+  .content h2,
+  .content h3,
+  .content h4 {
     margin-top: 2rem;
     margin-bottom: 1rem;
     color: #000000;
     font-weight: 600;
   }
 
-  .content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; }
-  
-  .content p { margin-bottom: 1.2rem; }
+  .content h2 {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.3rem;
+  }
+
+  .content p {
+    margin-bottom: 1.2rem;
+  }
 
   /* 图片样式 - 限制最大宽度防止溢出 */
   .content img {
@@ -1071,21 +1207,23 @@ const formattedDate = date.toLocaleDateString('en-US', {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
-  .content strong, .content b {
+  .content strong,
+  .content b {
     color: #000000;
   }
-  .content strong, .content b {
+  .content strong,
+  .content b {
     color: #000000;
   }
   /* 2. 链接样式优化 */
-  .content a { 
-    color: #000000; 
-    text-decoration: none; 
+  .content a {
+    color: #000000;
+    text-decoration: none;
     font-weight: 500;
     border-bottom: 1px solid transparent;
     transition: border-color 0.2s;
   }
-  .content a:hover { 
+  .content a:hover {
     border-bottom-color: #000;
   }
   .content a strong {
@@ -1094,12 +1232,13 @@ const formattedDate = date.toLocaleDateString('en-US', {
   }
 
   /* 3. 列表样式优化 */
-  .content ul, .content ol {
+  .content ul,
+  .content ol {
     padding-left: 1.5rem;
     margin: 1rem 0;
     color: #444;
   }
-  
+
   .content li {
     margin-bottom: 0.5rem;
     line-height: 1.6;
@@ -1109,7 +1248,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
   .content ul li::marker {
     color: #888;
   }
-  
+
   .content ol li::marker {
     color: #888;
     font-weight: 500;
@@ -1119,7 +1258,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
   .content ul li input[type="checkbox"] {
     margin-right: 0.5rem;
   }
-  
+
   .content ul li:has(input[type="checkbox"]) {
     list-style: none;
     margin-left: -1.5rem; /* 抵消 ul 的 padding */
@@ -1132,54 +1271,46 @@ const formattedDate = date.toLocaleDateString('en-US', {
     border: none;
     background-color: #f8f9fa;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* 突出外层阴影 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* 突出外层阴影 */
     color: #000000;
-    font-style: italic;
-    font-weight: 600;
+    font-style: normal; /* 不使用斜体 */
+    font-weight: 500;
     position: relative;
     overflow: hidden;
   }
-  
+
   .content blockquote p {
     margin: 0;
     position: relative;
     z-index: 1;
   }
-  
+
   .content blockquote p:not(:last-child) {
     margin-bottom: 1rem;
   }
 
-  /* 内容加上小引号 */
-  .content blockquote p:first-child::before {
-    content: "“";
-    margin-right: 4px;
-  }
-  
-  .content blockquote p:last-child::after {
-    content: "”";
-    margin-left: 4px;
-  }
-
-  /* 引号图标装饰放在卡片右侧 */
-  .content blockquote::after {
-    content: "”";
-    font-family: serif;
-    font-size: 10rem;
-    color: var(--primary-color);
-    opacity: 0.1;
+  /* 左侧装饰条 */
+  .content blockquote::before {
+    content: "";
     position: absolute;
-    bottom: -3rem;
-    right: -1rem;
-    line-height: 1;
-    pointer-events: none;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(
+      180deg,
+      var(--primary-color) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    border-radius: 4px 0 0 4px;
   }
 
   .content code {
-    background-color: rgba(27,31,35,0.05);
+    background-color: rgba(27, 31, 35, 0.05);
     padding: 0.2em 0.4em;
     border-radius: 3px;
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-family:
+      "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
     font-size: 85%;
   }
 
@@ -1218,7 +1349,8 @@ const formattedDate = date.toLocaleDateString('en-US', {
     }
   }
 
-  .content th, .content td {
+  .content th,
+  .content td {
     padding: 0.8rem 1rem;
     border: none;
     border-bottom: 1px solid var(--border-color);
@@ -1226,24 +1358,29 @@ const formattedDate = date.toLocaleDateString('en-US', {
   }
 
   /* 去掉最后一列的右边框 */
-  .content th:last-child, .content td:last-child {
+  .content th:last-child,
+  .content td:last-child {
     border-right: none;
   }
-  
+
   /* 去掉最后一行的下边框 */
   .content tr:last-child td {
     border-bottom: none;
   }
 
-  .content th { 
-    background-color: #f6f8fa; 
-    font-weight: 600; 
+  .content th {
+    background-color: #f6f8fa;
+    font-weight: 600;
     text-align: left;
   }
-  
+
   /* 保持表头圆角 */
-  .content tr:first-child th:first-child { border-top-left-radius: 16px; }
-  .content tr:first-child th:last-child { border-top-right-radius: 16px; }
+  .content tr:first-child th:first-child {
+    border-top-left-radius: 16px;
+  }
+  .content tr:first-child th:last-child {
+    border-top-right-radius: 16px;
+  }
 
   /* 文章底部边距 */
   .content {
@@ -1273,7 +1410,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
     display: block;
     text-align: center;
   }
-  
+
   /* 让行内公式稍微大一点，更清晰 */
   .katex {
     font-size: 1.1em;
@@ -1283,7 +1420,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
   .katex-display .katex {
     font-size: 1.21em;
   }
-  
+
   /* 修复 KaTeX 在某些情况下的字体显示问题 */
   .katex .base {
     margin-top: 2px;
