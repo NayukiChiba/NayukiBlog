@@ -28,65 +28,65 @@ const formattedDate = date.toLocaleDateString("en-US", {
     <Header />
     <main class="markdown-container page-enter">
       <article class="content">
-          <header class="post-header">
-            <div class="meta">
-              <span class="date">{formattedDate}</span>
-            </div>
-            <h1>{frontmatter.title}</h1>
-            {
-              frontmatter.description && (
-                <div class="description-card">
-                  <span class="description-label">简介</span>
-                  <div
-                    class="description-content"
-                    data-text={frontmatter.description}
-                  />
-                </div>
-              )
-            }
-            {
-              frontmatter.tags && (
-                <div class="tags">
-                  {frontmatter.tags.map((tag: any) => {
-                    const cleanTag = String(tag).replace(/[\[\]"']/g, "");
-                    return <span class="tag">{cleanTag}</span>;
-                  })}
-                </div>
-              )
-            }
-          </header>
-          <hr />
-          <slot />
-        </article>
-      </main>
-
-      <!-- 桌面端固定目录 -->
-      <aside class="toc-sidebar desktop-only">
-        <div class="toc-sticky">
-          <div class="toc-header" id="toc-header-clickable">
-            <span>文章目录</span>
-            <button
-              id="toc-toggle"
-              class="toc-toggle"
-              aria-label="Toggle Table of Contents"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                ><polyline points="6 9 12 15 18 9"></polyline></svg
-              >
-            </button>
+        <header class="post-header">
+          <div class="meta">
+            <span class="date">{formattedDate}</span>
           </div>
-          <nav id="article-toc"></nav>
+          <h1>{frontmatter.title}</h1>
+          {
+            frontmatter.description && (
+              <div class="description-card">
+                <span class="description-label">简介</span>
+                <div
+                  class="description-content"
+                  data-text={frontmatter.description}
+                />
+              </div>
+            )
+          }
+          {
+            frontmatter.tags && (
+              <div class="tags">
+                {frontmatter.tags.map((tag: any) => {
+                  const cleanTag = String(tag).replace(/[\[\]"']/g, "");
+                  return <span class="tag">{cleanTag}</span>;
+                })}
+              </div>
+            )
+          }
+        </header>
+        <hr />
+        <slot />
+      </article>
+    </main>
+
+    <!-- 桌面端固定目录 -->
+    <aside class="toc-sidebar desktop-only">
+      <div class="toc-sticky">
+        <div class="toc-header" id="toc-header-clickable">
+          <span>文章目录</span>
+          <button
+            id="toc-toggle"
+            class="toc-toggle"
+            aria-label="Toggle Table of Contents"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><polyline points="6 9 12 15 18 9"></polyline></svg
+            >
+          </button>
         </div>
-      </aside>
+        <nav id="article-toc"></nav>
+      </div>
+    </aside>
 
     <!-- 移动端目录悬浮按钮 -->
     <button
@@ -116,33 +116,57 @@ const formattedDate = date.toLocaleDateString("en-US", {
 
     <!-- 移动端目录抽屉 -->
     <div class="mobile-toc-overlay" id="toc-overlay"></div>
-      <div class="mobile-toc-drawer" id="toc-drawer">
-        <div class="drawer-header">
-          <span class="drawer-title">文章目录</span>
-          <button class="drawer-close" id="toc-drawer-close" aria-label="关闭">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-        </div>
-        <nav class="drawer-content" id="mobile-toc"></nav>
+    <div class="mobile-toc-drawer" id="toc-drawer">
+      <div class="drawer-header">
+        <span class="drawer-title">文章目录</span>
+        <button class="drawer-close" id="toc-drawer-close" aria-label="关闭">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
       </div>
+      <nav class="drawer-content" id="mobile-toc"></nav>
+    </div>
 
     <!-- Copy Toast Notification -->
     <div id="copy-toast" class="toast">
       <span class="dot"></span>
       <span class="message">已复制到剪贴板</span>
+    </div>
+
+    <!-- 图片预览灯箱 -->
+    <div id="image-lightbox" class="lightbox">
+      <div class="lightbox-overlay"></div>
+      <div class="lightbox-content">
+        <button class="lightbox-close" aria-label="关闭">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <img id="lightbox-image" src="" alt="" />
+      </div>
     </div>
 
     <script>
@@ -320,6 +344,47 @@ const formattedDate = date.toLocaleDateString("en-US", {
           wrapper.className = "table-wrapper";
           table.parentNode?.insertBefore(wrapper, table);
           wrapper.appendChild(table);
+        });
+
+        // 图片点击预览功能
+        const lightbox = document.getElementById("image-lightbox");
+        const lightboxImg = document.getElementById(
+          "lightbox-image"
+        ) as HTMLImageElement;
+        const lightboxClose = document.querySelector(".lightbox-close");
+        const lightboxOverlay = document.querySelector(".lightbox-overlay");
+        const contentImages = document.querySelectorAll(".content img");
+
+        contentImages.forEach((img) => {
+          const imgElement = img as HTMLImageElement;
+          // 添加点击事件
+          imgElement.style.cursor = "pointer";
+          imgElement.addEventListener("click", () => {
+            if (lightbox && lightboxImg) {
+              lightboxImg.src = imgElement.src;
+              lightboxImg.alt = imgElement.alt;
+              lightbox.classList.add("active");
+              document.body.style.overflow = "hidden";
+            }
+          });
+        });
+
+        // 关闭灯箱
+        const closeLightbox = () => {
+          if (lightbox) {
+            lightbox.classList.remove("active");
+            document.body.style.overflow = "";
+          }
+        };
+
+        lightboxClose?.addEventListener("click", closeLightbox);
+        lightboxOverlay?.addEventListener("click", closeLightbox);
+
+        // ESC键关闭
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && lightbox?.classList.contains("active")) {
+            closeLightbox();
+          }
         });
 
         // 3. 简介打字机效果
@@ -526,8 +591,8 @@ const formattedDate = date.toLocaleDateString("en-US", {
     --primary-color: #3498db;
     --code-bg: #f6f8fa;
     --border-color: #eaecef;
-    /* 减小文章宽度，让布局更协调 */
-    --max-width: 750px;
+    /* 增大文章宽度，让布局更宽阔 */
+    --max-width: 950px;
     --content-padding: 1rem;
   }
 
@@ -614,7 +679,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
     overflow-x: hidden;
   }
 
-  @media (max-width: 1023px) {
+  @media (max-width: 1399px) {
     html {
       scrollbar-gutter: auto;
     }
@@ -634,7 +699,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
   }
 
   /* 桌面端：去掉偏移，让文章居中 */
-  @media (min-width: 1024px) {
+  @media (min-width: 1400px) {
     .markdown-container {
       margin-right: auto;
     }
@@ -649,13 +714,13 @@ const formattedDate = date.toLocaleDateString("en-US", {
     display: none;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1400px) {
     .desktop-only {
       display: block;
     }
   }
 
-  @media (max-width: 1023px) {
+  @media (max-width: 1399px) {
     .mobile-only {
       display: flex;
     }
@@ -672,21 +737,14 @@ const formattedDate = date.toLocaleDateString("en-US", {
   }
 
   /* 大屏幕：目录在内容右侧，距离内容有间距 */
-  @media (min-width: 1200px) {
+  @media (min-width: 1400px) {
     .toc-sidebar {
-      left: calc(50% + var(--max-width) / 2 + 2rem);
-    }
-  }
-
-  /* 中等屏幕：目录靠右 */
-  @media (min-width: 1024px) and (max-width: 1199px) {
-    .toc-sidebar {
-      right: 1rem;
+      left: calc(50% + var(--max-width) / 2 + 1.5rem);
     }
   }
 
   /* ====== 移动端目录悬浮按钮和抽屉样式 ====== */
-  @media (max-width: 1023px) {
+  @media (max-width: 1399px) {
     .mobile-toc-btn {
       position: fixed;
       top: 5rem;
@@ -731,7 +789,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
   }
 
   /* 桌面端隐藏移动端目录组件 */
-  @media (min-width: 1024px) {
+  @media (min-width: 1400px) {
     .mobile-toc-overlay,
     .mobile-toc-drawer {
       display: none !important;
@@ -1428,5 +1486,88 @@ const formattedDate = date.toLocaleDateString("en-US", {
   .mermaid svg {
     max-width: 100%;
     height: auto;
+  }
+
+  /* 图片灯箱样式 */
+  .lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .lightbox.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .lightbox-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    cursor: pointer;
+  }
+
+  .lightbox-content {
+    position: relative;
+    z-index: 10000;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: -3rem;
+    right: 0;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10001;
+  }
+
+  .lightbox-close:hover {
+    background: white;
+    transform: scale(1.1);
+  }
+
+  .lightbox-close svg {
+    color: #333;
+  }
+
+  /* 移动端调整 */
+  @media (max-width: 768px) {
+    .lightbox-close {
+      top: 1rem;
+      right: 1rem;
+    }
   }
 </style>
