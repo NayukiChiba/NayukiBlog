@@ -1366,19 +1366,31 @@ const formattedDate = date.toLocaleDateString("en-US", {
   }
 
   .content table {
+    display: table !important; /* 明确指定为表格布局 */
     border-collapse: separate;
     border-spacing: 0;
     width: 100%;
     margin: 0; /* 由 table-wrapper 统一管理 margin */
     border: none;
     box-shadow: none;
-    min-width: 500px; /* 移动端最小宽度，防止内容过挤 */
+    table-layout: auto; /* 允许表格自动调整列宽 */
+  }
+
+  /* 确保表格内部元素使用正确的display */
+  .content thead,
+  .content tbody {
+    display: table-header-group !important;
+  }
+
+  .content tbody {
+    display: table-row-group !important;
+  }
+
+  .content tr {
+    display: table-row !important;
   }
 
   @media (min-width: 1024px) {
-    .content table {
-      min-width: 100%; /* 桌面端恢复 100% 宽度 */
-    }
     .table-wrapper {
       box-shadow: none; /* 桌面端不需要阴影 */
     }
@@ -1386,21 +1398,20 @@ const formattedDate = date.toLocaleDateString("en-US", {
 
   .content th,
   .content td {
+    display: table-cell !important; /* 明确指定为表格单元格 */
     padding: 0.8rem 1rem;
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
+    border: 1px solid var(--border-color);
   }
 
-  /* 去掉最后一列的右边框 */
-  .content th:last-child,
-  .content td:last-child {
-    border-right: none;
+  /* 避免双重边框 */
+  .content th:not(:first-child),
+  .content td:not(:first-child) {
+    border-left: none;
   }
 
-  /* 去掉最后一行的下边框 */
-  .content tr:last-child td {
-    border-bottom: none;
+  .content tr:not(:first-child) th,
+  .content tr:not(:first-child) td {
+    border-top: none;
   }
 
   .content th {
@@ -1469,6 +1480,26 @@ const formattedDate = date.toLocaleDateString("en-US", {
   /* 段落中的块级公式居中 */
   p > .katex-display,
   .content > .katex-display {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* HTML 居中元素支持 */
+  .content center,
+  .content [align="center"],
+  .content [style*="text-align: center"],
+  .content [style*="text-align:center"] {
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 确保居中元素内的图片也居中 */
+  .content center img,
+  .content [align="center"] img,
+  .content [style*="text-align: center"] img,
+  .content [style*="text-align:center"] img {
     margin-left: auto;
     margin-right: auto;
   }
