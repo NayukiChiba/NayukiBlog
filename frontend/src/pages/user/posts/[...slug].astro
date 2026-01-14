@@ -1,117 +1,144 @@
 ---
-export const prerender = false;
+// 🚀 静态预渲染：构建时生成所有文章页面
+export const prerender = true;
 
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import matter from 'gray-matter';
-import { marked } from 'marked';
-import markedKatex from 'marked-katex-extension';
-import { getShikiHighlighter } from '../../../lib/shiki';
-import MarkdownLayout from '../../../layouts/MarkdownLayout.astro';
+import fs from "node:fs/promises";
+import path from "node:path";
+import matter from "gray-matter";
+import { marked } from "marked";
+import MarkdownLayout from "../../../layouts/MarkdownLayout.astro";
 
+// 构建时获取所有文章路径
+export async function getStaticPaths() {
+    // 确定内容目录
+    let contentDir = path.join(process.cwd(), "blog");
+    try {
+        await fs.access(contentDir);
+    } catch {
+        contentDir = path.join(process.cwd(), "frontend/blog");
+    }
+
+    // 递归获取所有 .md 和 .mdx 文件
+    async function getAllMarkdownFiles(
+        dir: string,
+        baseDir: string = dir,
+    ): Promise<string[]> {
+        const entries = await fs.readdir(dir, { withFileTypes: true });
+        const files: string[] = [];
+
+        for (const entry of entries) {
+            const fullPath = path.join(dir, entry.name);
+            if (entry.isDirectory()) {
+                files.push(...(await getAllMarkdownFiles(fullPath, baseDir)));
+            } else if (
+                entry.name.endsWith(".md") ||
+                entry.name.endsWith(".mdx")
+            ) {
+                // 获取相对于 baseDir 的路径，并移除扩展名
+                const relativePath = path.relative(baseDir, fullPath);
+                const slug = relativePath
+                    .replace(/\.(md|mdx)$/, "")
+                    .replace(/\\/g, "/");
+                files.push(slug);
+            }
+        }
+
+        return files;
+    }
+
+    let slugs: string[] = [];
+    try {
+        slugs = await getAllMarkdownFiles(contentDir);
+    } catch (e) {
+        console.error("Failed to read blog directory:", e);
+    }
+
+    return slugs.map((slug) => ({
+        params: { slug },
+    }));
+}
+
+// 获取当前文章的 slug
 const { slug } = Astro.params;
-const decodedSlug = decodeURIComponent(slug || '');
+const decodedSlug = decodeURIComponent(slug || "");
 
-if (!slug) {
-  return Astro.redirect('/404');
-}
-
-// Define the content directory
-// Handle running from root or frontend directory
-let contentDir = path.join(process.cwd(), 'blog');
+// 确定内容目录
+let contentDir = path.join(process.cwd(), "blog");
 try {
-  await fs.access(contentDir);
+    await fs.access(contentDir);
 } catch {
-  contentDir = path.join(process.cwd(), 'frontend/blog');
+    contentDir = path.join(process.cwd(), "frontend/blog");
 }
 
-// Try to find the file with .md or .mdx extension
+// 尝试读取 .md 或 .mdx 文件
 let filePath = path.join(contentDir, `${decodedSlug}.md`);
-let fileContent = '';
+let fileContent = "";
 
 try {
-  try {
-    fileContent = await fs.readFile(filePath, 'utf-8');
-  } catch (e) {
-    // Try .mdx if .md fails
-    filePath = path.join(contentDir, `${decodedSlug}.mdx`);
-    fileContent = await fs.readFile(filePath, 'utf-8');
-  }
+    try {
+        fileContent = await fs.readFile(filePath, "utf-8");
+    } catch (e) {
+        // 尝试 .mdx 扩展名
+        filePath = path.join(contentDir, `${decodedSlug}.mdx`);
+        fileContent = await fs.readFile(filePath, "utf-8");
+    }
 } catch (e) {
-  console.error(`Post not found: ${decodedSlug}`, e);
-  return Astro.redirect('/404');
+    console.error(`Post not found: ${decodedSlug}`, e);
+    // 静态模式下无法使用 redirect，返回空内容
+    fileContent =
+        "---\ntitle: 404\ndate: 2024-01-01\n---\n\n# 文章未找到\n\n请检查链接是否正确。";
 }
 
-// Parse frontmatter and content
+// 解析 frontmatter 和内容
 const { data: frontmatter, content } = matter(fileContent);
 
-// Configure marked to match Astro's output structure for CSS compatibility
+// 配置 marked 渲染器
 const renderer = new marked.Renderer();
 
-// 使用缓存的 highlighter 实例
-const highlighter = await getShikiHighlighter();
-
-// Custom code block renderer to add 'astro-code' class and syntax highlighting
+// 简单代码块渲染（客户端高亮由 Prism/highlight.js CDN 处理）
 renderer.code = ({ text, lang }) => {
-  const language = lang || 'plaintext';
-  try {
-    const html = highlighter.codeToHtml(text, {
-      lang: language,
-      theme: 'github-light'
-    });
-    // Shiki returns a <pre>...</pre> block. We need to ensure it has the classes our CSS expects.
-    // Our CSS expects: pre.astro-code
-    // Shiki output usually looks like: <pre class="shiki github-light" ...>
-    // Or in newer versions: <pre class="shiki shiki-themes github-light" ...>
-    // We use a regex to replace the class attribute safely
-    return html.replace(/class="shiki[^"]*"/, `class="astro-code github-light language-${language}"`);
-  } catch (e) {
-    // Fallback if language not found
-    return `<pre class="astro-code language-${language}"><code>${text}</code></pre>`;
-  }
+    const language = lang || "plaintext";
+    const escaped = text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    return `<pre class="astro-code language-${language}"><code class="language-${language}">${escaped}</code></pre>`;
 };
 
-// Configure marked options
-marked.use(markedKatex({
-  throwOnError: false,
-  displayMode: true, // Support block-level math with $$...$$
-  output: 'html'
-}));
-
-marked.use({ 
-  renderer, 
-  gfm: true, // GitHub Flavored Markdown
-  breaks: false // Disable breaks to prevent <br> inside math blocks
+// 配置 marked 选项
+// KaTeX 和代码高亮都改为客户端 CDN 渲染
+marked.use({
+    renderer,
+    gfm: true,
+    breaks: false,
 });
 
-// Preprocess content to ensure $$ blocks are properly formatted
-// marked-katex-extension requires empty lines before and after $$ blocks
+// 预处理数学公式块
 function preprocessMathBlocks(text: string): string {
-  // Normalize line endings to \n (handle Windows CRLF)
-  let result = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-  
-  // Fix inline math followed by ( without space (e.g., $D^1$(...) should be $D^1$ (...))
-  // In JS replace: $$ outputs literal $, so $$$$1$$ means $[group1]$
-  result = result.replace(/\$([^$\n]+)\$\(/g, '$$$$1$$ (');
-  
-  // Process $$ blocks: ensure empty lines before and after
-  // Match: newline, $$, newline, content, newline, $$, end
-  result = result.replace(/(\n)(\$\$)\n([\s\S]*?)\n(\$\$)(\n|$)/g, (match, before, open, content, close, after) => {
-    // Ensure opening $$ has empty line before it
-    const prefix = '\n\n';
-    // Ensure closing $$ has empty line after it (if there's more content)
-    const suffix = after === '\n' ? '\n\n' : '\n';
-    return `${prefix}${open}\n${content.trim()}\n${close}${suffix}`;
-  });
-  
-  return result;
+    // 规范化换行符
+    let result = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+
+    // 修复内联数学公式后紧跟括号的情况
+    result = result.replace(/\$([^$\n]+)\$\(/g, "$$$$1$$ (");
+
+    // 处理 $$ 块：确保前后有空行
+    result = result.replace(
+        /(\n)(\$\$)\n([\s\S]*?)\n(\$\$)(\n|$)/g,
+        (match, before, open, content, close, after) => {
+            const prefix = "\n\n";
+            const suffix = after === "\n" ? "\n\n" : "\n";
+            return `${prefix}${open}\n${content.trim()}\n${close}${suffix}`;
+        },
+    );
+
+    return result;
 }
 
-// Render Markdown to HTML
+// 渲染 Markdown 为 HTML
 const processedContent = preprocessMathBlocks(content);
 const contentHtml = await marked.parse(processedContent);
 ---
 
 <MarkdownLayout frontmatter={frontmatter}>
-  <div set:html={contentHtml} />
+    <div set:html={contentHtml} />
 </MarkdownLayout>
