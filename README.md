@@ -80,15 +80,12 @@ NayukiBlog/
 │   │   │   └── api.ts        # API 封装
 │   │   └── styles/           # 全局样式
 │   ├── public/               # 静态资源
-│   │   └── lib/              # 本地依赖 (KaTeX, Mermaid)
 │   └── astro.config.mjs      # Astro 配置
 │
 ├── .env                      # 一些私人配置
 ├── .gitignore                
 ├── .python-version           # uv自动生成
 ├── blog.db                   # sqlite3数据库文件
-├── init.ps1                  # Windows 初始化脚本
-├── init.sh                   # Linux/macOS 初始化脚本
 ├── pyproject.toml            # uv自动生成Python 项目配置
 ├── uv.lock                   # uv自动生成
 └── README.md
@@ -109,26 +106,7 @@ git clone https://github.com/NayukiChiba/NayukiBlog.git
 cd NayukiBlog
 ```
 
-
-
-### 2. 初始化前端依赖
-
-下载 KaTeX 和 Mermaid 本地资源（避免 CDN 连接问题）：
-
-**Windows (PowerShell):**
-```powershell
-.\init.ps1
-```
-
-**Linux / macOS:**
-```bash
-chmod +x init.sh
-./init.sh
-```
-
-
-
-### 3. 配置环境变量
+### 2. 配置环境变量
 
 在项目根目录创建 `.env` 文件：
 
@@ -147,7 +125,7 @@ ADMIN_PASSWORD=
 
 
 
-### 4. 启动后端
+### 3. 启动后端
 
 ```bash
 python -m venv venv
@@ -163,7 +141,7 @@ uv run -m app.db_init
 uv run uvicorn app.main:app --reload
 ```
 
-### 5. 启动前端
+### 4. 启动前端
 
 ```bash
 cd frontend
