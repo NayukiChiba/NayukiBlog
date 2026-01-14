@@ -1,0 +1,437 @@
+---
+// MarkdownScripts.astro - Markdown 页面的所有初始化脚本
+---
+
+<script is:inline>
+    // 初始化
+    document.addEventListener("DOMContentLoaded", () => {
+        // Prism.js 代码高亮
+        if (typeof Prism !== "undefined") {
+            Prism.highlightAll();
+        }
+
+        // KaTeX 自动渲染 - 所有 LaTeX 公式由客户端渲染
+        if (typeof renderMathInElement !== "undefined") {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: "$$", right: "$$", display: true },
+                    { left: "$", right: "$", display: false },
+                    { left: "\\(", right: "\\)", display: false },
+                    { left: "\\[", right: "\\]", display: true },
+                ],
+                throwOnError: false,
+                ignoredTags: [
+                    "script",
+                    "noscript",
+                    "style",
+                    "textarea",
+                    "pre",
+                    "code",
+                ],
+                trust: true,
+            });
+        }
+
+        // Mermaid 初始化配置
+        if (typeof mermaid !== "undefined") {
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: "default",
+                securityLevel: "loose",
+                fontFamily:
+                    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+                gantt: {
+                    useWidth: 1200,
+                    barHeight: 30,
+                    barGap: 8,
+                    topPadding: 50,
+                    leftPadding: 120,
+                    gridLineStartPadding: 50,
+                    fontSize: 14,
+                    sectionFontSize: 16,
+                    numberSectionStyles: 4,
+                    axisFormat: "%m-%d",
+                },
+            });
+
+            // 查找所有 mermaid 代码块并渲染
+            const mermaidSelectors = [
+                "pre > code.language-mermaid",
+                "pre.language-mermaid code",
+                "pre.astro-code.language-mermaid code",
+                'pre[data-language="mermaid"] code',
+                ".astro-code code.language-mermaid",
+            ];
+
+            const mermaidBlocks = document.querySelectorAll(
+                mermaidSelectors.join(", "),
+            );
+
+            // 如果没找到，尝试通过 pre 的 class 包含 mermaid 来查找
+            let blocks = Array.from(mermaidBlocks);
+            if (blocks.length === 0) {
+                const allPres = document.querySelectorAll("pre.astro-code");
+                allPres.forEach((pre) => {
+                    if (pre.className.includes("mermaid")) {
+                        const code = pre.querySelector("code");
+                        if (code) blocks.push(code);
+                    }
+                });
+            }
+
+            blocks.forEach((block, index) => {
+                const pre = block.parentElement;
+                if (!pre) return;
+
+                const code = block.textContent || "";
+
+                // 创建 mermaid 容器（包裹在可滚动的 wrapper 中）
+                const wrapper = document.createElement("div");
+                wrapper.className = "mermaid-wrapper";
+
+                const container = document.createElement("div");
+                container.className = "mermaid";
+                container.id = `mermaid-${index}`;
+                container.textContent = code;
+
+                wrapper.appendChild(container);
+
+                // 替换 pre 元素
+                pre.parentNode?.replaceChild(wrapper, pre);
+            });
+
+            // 运行 mermaid 渲染
+            mermaid.run();
+        }
+
+        // TOC Toggle Logic
+        const tocHeader = document.getElementById("toc-header-clickable");
+        const tocToggle = document.getElementById("toc-toggle");
+        const tocNav = document.getElementById("article-toc");
+
+        if (tocHeader && tocToggle && tocNav) {
+            const toggleToc = () => {
+                tocNav.classList.toggle("collapsed");
+                tocToggle.classList.toggle("collapsed");
+            };
+
+            tocHeader.addEventListener("click", toggleToc);
+        }
+
+        // 处理 Shiki 代码块：添加包装器、语言标签、复制按钮和展开功能
+        var codeBlocks = document.querySelectorAll("pre.astro-code");
+        var CODE_MAX_HEIGHT = 400; // 代码块最大高度（像素）
+
+        codeBlocks.forEach(function (pre) {
+            // 1. 创建 Wrapper
+            var wrapper = document.createElement("div");
+            wrapper.className = "code-wrapper";
+            pre.parentNode.insertBefore(wrapper, pre);
+
+            // 2. 创建代码容器（用于控制高度和滚动）
+            var codeContainer = document.createElement("div");
+            codeContainer.className = "code-container";
+            codeContainer.appendChild(pre);
+            wrapper.appendChild(codeContainer);
+
+            // 3. 获取语言
+            var lang = "";
+            var classes = pre.className.split(" ");
+            var langClass = classes.find(function (c) {
+                return c.startsWith("language-");
+            });
+            if (langClass) {
+                lang = langClass.replace("language-", "");
+            } else {
+                // 尝试从 code 标签获取
+                var code = pre.querySelector("code");
+                if (code) {
+                    var codeClasses = Array.from(code.classList);
+                    var codeLangClass = codeClasses.find(function (c) {
+                        return c.startsWith("language-");
+                    });
+                    if (codeLangClass)
+                        lang = codeLangClass.replace("language-", "");
+                }
+            }
+
+            // 4. 添加语言标签
+            if (lang) {
+                var langLabel = document.createElement("span");
+                langLabel.className = "code-lang";
+                langLabel.textContent = lang;
+                wrapper.appendChild(langLabel);
+            }
+
+            // 5. 添加复制按钮
+            var copyBtn = document.createElement("button");
+            copyBtn.className = "copy-btn";
+            copyBtn.innerHTML =
+                '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+
+            copyBtn.addEventListener("click", function () {
+                var code = pre.querySelector("code");
+                if (code) {
+                    navigator.clipboard
+                        .writeText(code.innerText)
+                        .then(function () {
+                            if (typeof window.showCopyToast === "function") {
+                                window.showCopyToast();
+                            }
+                        })
+                        .catch(function (err) {
+                            console.error("Failed to copy:", err);
+                        });
+                }
+            });
+            wrapper.appendChild(copyBtn);
+
+            // 6. 添加展开/收起按钮
+            var expandBtn = document.createElement("button");
+            expandBtn.className = "code-expand-btn";
+            expandBtn.innerHTML =
+                '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg><span>展开代码</span>';
+            wrapper.appendChild(expandBtn);
+
+            // 7. 检测代码块高度，决定是否需要展开功能
+            setTimeout(function () {
+                var preHeight = pre.scrollHeight;
+                if (preHeight <= CODE_MAX_HEIGHT) {
+                    // 不需要展开功能
+                    wrapper.classList.add("no-expand");
+                    codeContainer.style.maxHeight = "none";
+                }
+            }, 100);
+
+            // 8. 展开/收起点击事件
+            expandBtn.addEventListener("click", function () {
+                var isExpanded = wrapper.classList.contains("expanded");
+                if (isExpanded) {
+                    wrapper.classList.remove("expanded");
+                    expandBtn.innerHTML =
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg><span>展开代码</span>';
+                } else {
+                    wrapper.classList.add("expanded");
+                    expandBtn.innerHTML =
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg><span>收起代码</span>';
+                }
+            });
+        });
+
+        // 处理表格：添加包装器以支持横向滚动
+        const tables = document.querySelectorAll(".content table");
+        tables.forEach((table) => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "table-wrapper";
+            table.parentNode?.insertBefore(wrapper, table);
+            wrapper.appendChild(table);
+        });
+
+        // 简介打字机效果
+        const card = document.querySelector(".description-card");
+        if (card) {
+            const content = card.querySelector(".description-content");
+            if (content) {
+                const text = content.getAttribute("data-text") || "";
+
+                // 清空内容准备打字
+                content.innerText = "";
+
+                let i = 0;
+                function typeWriter() {
+                    if (i < text.length) {
+                        content.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 20); // 打字速度
+                    }
+                }
+                // 稍微延迟一点开始，让页面先渲染出来
+                setTimeout(typeWriter, 300);
+            }
+        }
+
+        // 自动生成目录 (TOC) 与 滚动监听
+        const tocContainer = document.getElementById("article-toc");
+        const mobileTocContainer = document.getElementById("mobile-toc");
+        const contentEl = document.querySelector(".content");
+
+        // 移动端目录抽屉逻辑
+        const tocFloatBtn = document.getElementById("toc-float-btn");
+        const tocDrawer = document.getElementById("toc-drawer");
+        const tocOverlay = document.getElementById("toc-overlay");
+        const tocDrawerClose = document.getElementById("toc-drawer-close");
+
+        // 确保初始状态关闭
+        tocDrawer?.classList.remove("open");
+        tocOverlay?.classList.remove("visible");
+
+        function openTocDrawer() {
+            tocDrawer?.classList.add("open");
+            tocOverlay?.classList.add("visible");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeTocDrawer() {
+            tocDrawer?.classList.remove("open");
+            tocOverlay?.classList.remove("visible");
+            document.body.style.overflow = "";
+        }
+
+        tocFloatBtn?.addEventListener("click", openTocDrawer);
+        tocDrawerClose?.addEventListener("click", closeTocDrawer);
+        tocOverlay?.addEventListener("click", closeTocDrawer);
+
+        if ((tocContainer || mobileTocContainer) && contentEl) {
+            // 获取所有标题
+            const headings = contentEl.querySelectorAll("h1, h2, h3, h4");
+
+            if (headings.length > 0) {
+                // 为桌面端和移动端都生成目录
+                const createTocList = (forMobile = false) => {
+                    const ul = document.createElement("ul");
+
+                    headings.forEach((heading, index) => {
+                        // 确保标题有 ID
+                        if (!heading.id) {
+                            heading.id = "heading-" + index;
+                        }
+
+                        const li = document.createElement("li");
+                        const level = parseInt(heading.tagName.substring(1));
+                        li.className = `toc-item level-${level}`;
+                        li.dataset.level = level.toString();
+
+                        const div = document.createElement("div");
+                        div.className = "toc-item-container";
+
+                        const a = document.createElement("a");
+                        a.href = "#" + heading.id;
+                        a.textContent = heading.textContent;
+
+                        a.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            heading.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                            });
+                            history.pushState(null, "", "#" + heading.id);
+                            // 如果是移动端，关闭抽屉
+                            if (forMobile) {
+                                closeTocDrawer();
+                            }
+                        });
+
+                        div.appendChild(a);
+                        li.appendChild(div);
+                        ul.appendChild(li);
+                    });
+
+                    return ul;
+                };
+
+                // 桌面端目录
+                if (tocContainer) {
+                    tocContainer.appendChild(createTocList(false));
+
+                    // 添加折叠功能（仅桌面端）
+                    const tocItems = tocContainer.querySelectorAll(".toc-item");
+                    tocItems.forEach((item, index) => {
+                        const currentLevel = parseInt(
+                            item.dataset.level || "0",
+                        );
+                        const nextItem = tocItems[index + 1];
+
+                        if (nextItem) {
+                            const nextLevel = parseInt(
+                                nextItem.dataset.level || "0",
+                            );
+                            if (nextLevel > currentLevel) {
+                                const btn = document.createElement("span");
+                                btn.className = "toc-collapse-btn";
+                                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+
+                                const container = item.querySelector(
+                                    ".toc-item-container",
+                                );
+                                if (container) {
+                                    container.appendChild(btn);
+                                    item.classList.add("has-children");
+                                }
+
+                                btn.addEventListener("click", (e) => {
+                                    e.stopPropagation();
+                                    btn.classList.toggle("collapsed");
+                                    const isCollapsed =
+                                        btn.classList.contains("collapsed");
+
+                                    for (
+                                        let i = index + 1;
+                                        i < tocItems.length;
+                                        i++
+                                    ) {
+                                        const sibling = tocItems[i];
+                                        const siblingLevel = parseInt(
+                                            sibling.dataset.level || "0",
+                                        );
+
+                                        if (siblingLevel <= currentLevel) break;
+
+                                        if (isCollapsed) {
+                                            sibling.classList.add(
+                                                "hidden-by-parent",
+                                            );
+                                        } else {
+                                            sibling.classList.remove(
+                                                "hidden-by-parent",
+                                            );
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+
+                // 移动端目录
+                if (mobileTocContainer) {
+                    mobileTocContainer.appendChild(createTocList(true));
+                }
+
+                // 滚动监听 (Intersection Observer)
+                const observerOptions = {
+                    root: null,
+                    rootMargin: "-100px 0px -70% 0px",
+                    threshold: 0,
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            document
+                                .querySelectorAll(".toc-item a")
+                                .forEach((link) =>
+                                    link.classList.remove("active"),
+                                );
+
+                            const id = entry.target.id;
+                            const activeLinks = document.querySelectorAll(
+                                `.toc-item a[href="#${id}"]`,
+                            );
+                            activeLinks.forEach((activeLink) => {
+                                activeLink.classList.add("active");
+                            });
+                        }
+                    });
+                }, observerOptions);
+
+                headings.forEach((h) => observer.observe(h));
+            } else {
+                // 如果没有标题，隐藏目录栏和移动端按钮
+                const sidebar = document.querySelector(".toc-sidebar");
+                const mobileBtn = document.querySelector(".mobile-toc-btn");
+                if (sidebar) sidebar.style.display = "none";
+                if (mobileBtn) mobileBtn.style.display = "none";
+            }
+        }
+    });
+</script>
