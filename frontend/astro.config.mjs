@@ -1,40 +1,38 @@
-import { defineConfig, envField } from 'astro/config';
-import remarkMath from 'remark-math';
-import remarkGfm from 'remark-gfm';
-import rehypeKatex from 'rehype-katex';
-import node from '@astrojs/node';
-import compress from '@playform/compress';
+import { defineConfig, envField } from "astro/config";
+import remarkGfm from "remark-gfm";
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
   // 从根目录读取 .env 文件
   vite: {
-    envDir: '..',
+    envDir: "..",
     build: {
       // 启用 CSS 代码分割
       cssCodeSplit: true,
       // 压缩配置
-      minify: 'esbuild',
+      minify: "esbuild",
       // 分块策略，提升缓存效率
       rollupOptions: {
         output: {
           manualChunks: {
             // 将第三方库分离成独立 chunk
-            vendor: ['react', 'react-dom'],
+            vendor: ["react", "react-dom"],
           },
         },
       },
     },
   },
-  output: 'server',
+  // 🚀 Static 模式：用户端静态化，管理端通过 prerender = false 保持 SSR
+  output: "static",
   adapter: node({
-    mode: 'standalone',
+    mode: "standalone",
   }),
 
   // 预取链接，加速页面导航
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: 'viewport', // 当链接进入视口时预取
+    defaultStrategy: "viewport", // 当链接进入视口时预取
   },
 
   // === 添加这一段 ===
@@ -42,28 +40,19 @@ export default defineConfig({
   security: {
     checkOrigin: false,
   },
-  // 集成插件
-  integrations: [
-    compress({
-      CSS: true,
-      HTML: true,
-      Image: true,
-      JavaScript: true,
-      SVG: true,
-    }),
-  ],
+  // 集成插件（移除 compress 加速构建，生产环境可通过 nginx gzip 压缩）
+  integrations: [],
   markdown: {
-    // 3. & 4. remark-gfm 支持表格、HTML 元素 (kbd, b, i 等)
-    remarkPlugins: [remarkMath, remarkGfm],
-    rehypePlugins: [rehypeKatex],
-    // 禁用内置语法高亮，由 [slug].astro 中的 Shiki 单例处理
+    // remark-gfm 支持表格、HTML 元素 (kbd, b, i 等)
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [],
+    // 禁用构建时语法高亮，改用客户端 Prism.js CDN
     syntaxHighlight: false,
-    extendDefaultPlugins: true,
   },
   server: {
     proxy: {
-      '/api': {
-        target: 'http://127.0.0.1:8000',
+      "/api": {
+        target: "http://127.0.0.1:8000",
         changeOrigin: true,
       },
     },
