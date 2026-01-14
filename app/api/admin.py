@@ -205,6 +205,10 @@ async def upload_book(
         rating=rating,
         tags=tags
     )
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Book created successfully"}
 
 @router.put("/books/{book_id}")
@@ -232,11 +236,17 @@ async def update_book(
         rating=rating,
         tags=tags
     )
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Book updated successfully"}
 
 @router.delete("/books/{book_id}")
 def delete_book(book_id: int, db: Session = Depends(get_db)):
     if crud.delete_book(db, book_id):
+        # 🚀 触发静态页面重建
+        trigger_rebuild_async()
         return {"status": "success", "message": "Book deleted successfully"}
     else:
         raise HTTPException(status_code=404, detail="Book not found")
@@ -282,6 +292,10 @@ async def upload_project(
         status=status,
         visibility=visibility
     )
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Project created successfully"}
 
 @router.put("/projects/{project_id}")
@@ -309,11 +323,17 @@ async def update_project(
         status=status,
         visibility=visibility
     )
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Project updated successfully"}
 
 @router.delete("/projects/{project_id}")
 def delete_project(project_id: int, db: Session = Depends(get_db)):
     if crud.delete_project(db, project_id):
+        # 🚀 触发静态页面重建
+        trigger_rebuild_async()
         return {"status": "success", "message": "Project deleted successfully"}
     else:
         raise HTTPException(status_code=404, detail="Project not found")
@@ -347,6 +367,10 @@ async def upload_diary(
         weather=weather,
         images=images
     )
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Diary created successfully"}
 
 @router.put("/diaries/{diary_id}")
@@ -372,11 +396,17 @@ async def update_diary(
         weather=weather,
         images=images
     )
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Diary updated successfully"}
 
 @router.delete("/diaries/{diary_id}")
 def delete_diary(diary_id: int, db: Session = Depends(get_db)):
     if crud.delete_diary(db, diary_id):
+        # 🚀 触发静态页面重建
+        trigger_rebuild_async()
         return {"status": "success", "message": "Diary deleted successfully"}
     else:
         raise HTTPException(status_code=404, detail="Diary not found")
@@ -415,6 +445,10 @@ async def upload_gallery(
         tags=tags,
         status=status
     )
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Image created successfully"}
 
 @router.put("/gallery/{gallery_id}")
@@ -440,11 +474,17 @@ async def update_gallery(
         tags=tags,
         status=status
     )
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Image updated successfully"}
 
 @router.delete("/gallery/{gallery_id}")
 def delete_gallery(gallery_id: int, db: Session = Depends(get_db)):
     if crud.delete_gallery(db, gallery_id):
+        # 🚀 触发静态页面重建
+        trigger_rebuild_async()
         return {"status": "success", "message": "Image deleted successfully"}
     else:
         raise HTTPException(status_code=404, detail="Image not found")
@@ -486,6 +526,10 @@ async def upload_todo(
         status=status,
         completed=completed
     )
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Task created successfully"}
 
 @router.put("/todos/{todo_id}")
@@ -515,11 +559,17 @@ async def update_todo(
         status=status,
         completed=completed
     )
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Task updated successfully"}
 
 @router.delete("/todos/{todo_id}")
 def delete_todo(todo_id: int, db: Session = Depends(get_db)):
     if crud.delete_todo(db, todo_id):
+        # 🚀 触发静态页面重建
+        trigger_rebuild_async()
         return {"status": "success", "message": "Task deleted successfully"}
     else:
         raise HTTPException(status_code=404, detail="Task not found")
@@ -566,6 +616,10 @@ async def upload_tool(
         category=category,
         status=status
     )
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Tool created successfully"}
 
 @router.put("/tools/{tool_id}")
@@ -593,11 +647,17 @@ async def update_tool(
         category=category,
         status=status
     )
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Tool updated successfully"}
 
 @router.delete("/tools/{tool_id}")
 def delete_tool(tool_id: int, db: Session = Depends(get_db)):
     if crud.delete_tool(db, tool_id):
+        # 🚀 触发静态页面重建
+        trigger_rebuild_async()
         return {"status": "success", "message": "Tool deleted successfully"}
     else:
         raise HTTPException(status_code=404, detail="Tool not found")
