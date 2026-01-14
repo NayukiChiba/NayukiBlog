@@ -1,11 +1,14 @@
 """
 静态页面重建工具
 用于在内容更新后自动重建 Astro 静态页面
+支持零停机构建（原子替换）
 """
 import os
+import shutil
 import subprocess
 import threading
 import time
+import platform
 from typing import Optional
 
 # 重建状态
@@ -20,6 +23,11 @@ _cached_frontend_dir: Optional[str] = None
 # 防抖动时间（秒）- 短时间内多次触发只执行一次
 DEBOUNCE_SECONDS = 2.0
 
+# 目录名称
+DIST_DIR = "dist"
+DIST_NEW_DIR = "dist_new"
+DIST_OLD_DIR = "dist_old"
+
 
 def _get_frontend_dir() -> str:
     """获取并缓存 frontend 目录路径"""
@@ -28,6 +36,69 @@ def _get_frontend_dir() -> str:
         fd = os.path.join(os.getcwd(), "frontend")
         _cached_frontend_dir = fd if os.path.exists(fd) else "frontend"
     return _cached_frontend_dir
+
+
+def _atomic_swap_dirs(frontend_dir: str) -> bool:
+    """
+    原子替换目录：dist_new -> dist
+
+    步骤：
+    1. 如果存在 dist_old，删除它
+    2. 如果存在 dist，重命名为 dist_old
+    3. 将 dist_new 重命名为 dist
+    4. 删除 dist_old
+
+    Returns:
+        True 如果替换成功，False 如果失败
+    """
+    dist_path = os.path.join(frontend_dir, DIST_DIR)
+    dist_new_path = os.path.join(frontend_dir, DIST_NEW_DIR)
+    dist_old_path = os.path.join(frontend_dir, DIST_OLD_DIR)
+
+    try:
+        # 检查 dist_new 是否存在
+        if not os.path.exists(dist_new_path):
+            print(f"[Rebuild] ❌ 新构建目录不存在: {dist_new_path}")
+            return False
+
+        # 1. 删除旧的 dist_old（如果存在）
+        if os.path.exists(dist_old_path):
+            shutil.rmtree(dist_old_path)
+            print("[Rebuild] 🗑️ 已删除旧的 dist_old")
+
+        # 2. 将当前 dist 重命名为 dist_old
+        if os.path.exists(dist_path):
+            os.rename(dist_path, dist_old_path)
+            print("[Rebuild] 📦 dist -> dist_old")
+
+        # 3. 将 dist_new 重命名为 dist（原子操作）
+        os.rename(dist_new_path, dist_path)
+        print("[Rebuild] 🔄 dist_new -> dist (原子替换完成)")
+
+        # 4. 异步删除 dist_old（不阻塞）
+        if os.path.exists(dist_old_path):
+            def cleanup():
+                try:
+                    shutil.rmtree(dist_old_path)
+                    print("[Rebuild] 🗑️ 已清理 dist_old")
+                except Exception as e:
+                    print(f"[Rebuild] ⚠️ 清理 dist_old 失败: {e}")
+
+            cleanup_thread = threading.Thread(target=cleanup, daemon=True)
+            cleanup_thread.start()
+
+        return True
+
+    except Exception as e:
+        print(f"[Rebuild] ❌ 目录替换失败: {e}")
+        # 尝试恢复
+        try:
+            if not os.path.exists(dist_path) and os.path.exists(dist_old_path):
+                os.rename(dist_old_path, dist_path)
+                print("[Rebuild] 🔙 已恢复原 dist 目录")
+        except Exception as restore_error:
+            print(f"[Rebuild] ❌ 恢复失败: {restore_error}")
+        return False
 
 
 def trigger_rebuild_async(timeout: int = 300):
@@ -57,7 +128,7 @@ def trigger_rebuild_async(timeout: int = 300):
 
 
 def _run_build(timeout: int = 300):
-    """实际执行构建的函数"""
+    """实际执行构建的函数（零停机版本）"""
     global _is_rebuilding, _pending_rebuild, _last_trigger_time
 
     with _rebuild_lock:
@@ -68,13 +139,22 @@ def _run_build(timeout: int = 300):
 
     try:
         fd = _get_frontend_dir()
-        print(f"[Rebuild] 🚀 开始构建静态页面... ({fd})")
+        dist_new_path = os.path.join(fd, DIST_NEW_DIR)
 
-        # 使用 Popen 启动构建进程
-        # Linux 上 shell=True 时用字符串命令，Windows 上用列表
-        import platform
+        # 清理可能存在的旧 dist_new 目录
+        if os.path.exists(dist_new_path):
+            shutil.rmtree(dist_new_path)
+
+        print(f"[Rebuild] 🚀 开始构建静态页面... ({fd})")
+        print(f"[Rebuild] 📁 构建输出目录: {DIST_NEW_DIR}")
+
+        # 构建命令：输出到 dist_new 目录
         is_windows = platform.system() == "Windows"
-        cmd = ["npm", "run", "build"] if is_windows else "npm run build"
+        # Astro 使用 --outDir 参数指定输出目录
+        if is_windows:
+            cmd = ["npm", "run", "build", "--", "--outDir", DIST_NEW_DIR]
+        else:
+            cmd = f"npm run build -- --outDir {DIST_NEW_DIR}"
 
         process = subprocess.Popen(
             cmd,
@@ -90,16 +170,31 @@ def _run_build(timeout: int = 300):
         try:
             stdout, stderr = process.communicate(timeout=timeout)
             if process.returncode == 0:
-                print("[Rebuild] ✅ 静态页面构建成功")
+                print("[Rebuild] ✅ 构建完成，开始原子替换...")
+
+                # 执行原子替换
+                if _atomic_swap_dirs(fd):
+                    print("[Rebuild] ✅ 静态页面更新成功（零停机）")
+                else:
+                    print("[Rebuild] ❌ 目录替换失败")
             else:
                 # 优先显示 stderr，如果为空则显示 stdout
                 error_msg = stderr.strip() if stderr and stderr.strip() else stdout.strip() if stdout else 'Unknown error'
                 print(f"[Rebuild] ❌ 构建失败 (code={process.returncode}):")
                 print(f"[Rebuild] 错误信息: {error_msg[:1000]}")
+
+                # 清理失败的构建目录
+                if os.path.exists(dist_new_path):
+                    shutil.rmtree(dist_new_path)
+
         except subprocess.TimeoutExpired:
             process.kill()
             process.communicate()
             print("[Rebuild] ⚠️ 构建超时")
+
+            # 清理超时的构建目录
+            if os.path.exists(dist_new_path):
+                shutil.rmtree(dist_new_path)
 
     except Exception as e:
         print(f"[Rebuild] ❌ 构建错误: {e}")
@@ -132,7 +227,7 @@ def get_rebuild_status() -> dict:
         包含构建状态信息的字典
     """
     fd = _get_frontend_dir()
-    dist_dir = os.path.join(fd, "dist")
+    dist_dir = os.path.join(fd, DIST_DIR)
 
     if os.path.exists(dist_dir):
         mtime = os.path.getmtime(dist_dir)
@@ -153,7 +248,7 @@ def get_rebuild_status() -> dict:
 
 def run_rebuild_sync(timeout: int = 300) -> dict:
     """
-    同步执行重建（阻塞式）
+    同步执行重建（阻塞式，零停机版本）
 
     Args:
         timeout: 构建超时时间（秒）
@@ -163,12 +258,20 @@ def run_rebuild_sync(timeout: int = 300) -> dict:
     """
     try:
         fd = _get_frontend_dir()
+        dist_new_path = os.path.join(fd, DIST_NEW_DIR)
+
+        # 清理可能存在的旧 dist_new 目录
+        if os.path.exists(dist_new_path):
+            shutil.rmtree(dist_new_path)
+
         print(f"[Rebuild] 🚀 开始同步构建静态页面... ({fd})")
 
-        # Linux 上 shell=True 时用字符串命令，Windows 上用列表
-        import platform
+        # 构建命令：输出到 dist_new 目录
         is_windows = platform.system() == "Windows"
-        cmd = ["npm", "run", "build"] if is_windows else "npm run build"
+        if is_windows:
+            cmd = ["npm", "run", "build", "--", "--outDir", DIST_NEW_DIR]
+        else:
+            cmd = f"npm run build -- --outDir {DIST_NEW_DIR}"
 
         result = subprocess.run(
             cmd,
@@ -182,16 +285,30 @@ def run_rebuild_sync(timeout: int = 300) -> dict:
         )
 
         if result.returncode == 0:
-            print("[Rebuild] ✅ 静态页面构建成功")
-            return {
-                "status": "success",
-                "message": "构建成功"
-            }
+            print("[Rebuild] ✅ 构建完成，开始原子替换...")
+
+            if _atomic_swap_dirs(fd):
+                print("[Rebuild] ✅ 静态页面更新成功（零停机）")
+                return {
+                    "status": "success",
+                    "message": "构建成功（零停机更新）"
+                }
+            else:
+                return {
+                    "status": "failed",
+                    "message": "构建成功但目录替换失败"
+                }
         else:
-            print(f"[Rebuild] ❌ 构建失败: {result.stderr[:300]}")
+            error_msg = result.stderr.strip() if result.stderr else result.stdout.strip() if result.stdout else 'Unknown error'
+            print(f"[Rebuild] ❌ 构建失败: {error_msg[:300]}")
+
+            # 清理失败的构建目录
+            if os.path.exists(dist_new_path):
+                shutil.rmtree(dist_new_path)
+
             return {
                 "status": "failed",
-                "message": f"构建失败: {result.stderr[:300]}"
+                "message": f"构建失败: {error_msg[:300]}"
             }
 
     except subprocess.TimeoutExpired:
