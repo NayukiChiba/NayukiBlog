@@ -1,94 +1,111 @@
 ---
-import PageLayout from '../../layouts/PageLayout.astro';
-import ToolCard from '../../components/User/ToolCard.astro';
-import { apiUrl } from '../../lib/api';
+// 🚀 静态预渲染
+export const prerender = true;
+
+import PageLayout from "../../layouts/PageLayout.astro";
+import ToolCard from "../../components/User/ToolCard.astro";
+import { apiUrl } from "../../lib/api";
 
 interface Tool {
-  name: string;
-  description: string;
-  url: string;
-  icon: string;
-  category: string;
+    name: string;
+    description: string;
+    url: string;
+    icon: string;
+    category: string;
 }
 
 let tools: Tool[] = [];
 try {
-  const response = await fetch(apiUrl('/api/user/tools'));
-  if (response.ok) {
-    tools = await response.json() as Tool[];
-  } else {
-    console.error(`Failed to fetch tools: ${response.status} ${response.statusText}`);
-  }
+    const response = await fetch(apiUrl("/api/user/tools"));
+    if (response.ok) {
+        tools = (await response.json()) as Tool[];
+    } else {
+        console.error(
+            `Failed to fetch tools: ${response.status} ${response.statusText}`,
+        );
+    }
 } catch (error) {
-  console.error('Failed to fetch tools:', error);
+    console.error("Failed to fetch tools:", error);
 }
 
 // Group tools by category
 const groupedTools = tools.reduce((acc: Record<string, Tool[]>, tool) => {
-  const category = tool.category || 'Other';
-  if (!acc[category]) {
-    acc[category] = [];
-  }
-  acc[category].push(tool);
-  return acc;
+    const category = tool.category || "Other";
+    if (!acc[category]) {
+        acc[category] = [];
+    }
+    acc[category].push(tool);
+    return acc;
 }, {});
 
 const categories = Object.keys(groupedTools).sort();
 ---
 
 <PageLayout title="Toolbox | Nayuki Blog">
-  <div class="container">
-    <h1 class="page-title">工具箱</h1>
-    <p class="page-desc">常用书签、在线工具与资源导航。</p>
-    
-    <div class="tools-container">
-      {categories.map(category => (
-        <section class="category-section">
-          <h2 class="category-title">{category}</h2>
-          <div class="tools-grid">
-            {groupedTools[category].map((tools: any) => (
-              <ToolCard {...tools} />
-            ))}
-          </div>
-        </section>
-      ))}
+    <div class="container">
+        <h1 class="page-title">工具箱</h1>
+        <p class="page-desc">常用书签、在线工具与资源导航。</p>
+
+        <div class="tools-container">
+            {
+                categories.map((category) => (
+                    <section class="category-section">
+                        <h2 class="category-title">{category}</h2>
+                        <div class="tools-grid">
+                            {groupedTools[category].map((tools: any) => (
+                                <ToolCard {...tools} />
+                            ))}
+                        </div>
+                    </section>
+                ))
+            }
+        </div>
     </div>
-  </div>
 </PageLayout>
 
 <style>
-  .container { max-width: 960px; margin: 0 auto; }
-  .page-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .page-desc { color: #666; margin-bottom: 3rem; }
-
-  .category-section {
-    margin-bottom: 3rem;
-  }
-
-  .category-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #eee;
-  }
-
-  .tools-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  @media (min-width: 640px) {
-    .tools-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
     }
-  }
-
-  @media (min-width: 1024px) {
-    .tools-grid {
-      grid-template-columns: repeat(3, 1fr);
+    .page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
     }
-  }
+    .page-desc {
+        color: #666;
+        margin-bottom: 3rem;
+    }
+
+    .category-section {
+        margin-bottom: 3rem;
+    }
+
+    .category-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .tools-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+        .tools-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .tools-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
 </style>
