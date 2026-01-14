@@ -70,9 +70,14 @@ def _run_build(timeout: int = 300):
         fd = _get_frontend_dir()
         print(f"[Rebuild] 🚀 开始构建静态页面... ({fd})")
 
-        # 使用 Popen 启动构建进程（指定 UTF-8 编码避免 Windows GBK 问题）
+        # 使用 Popen 启动构建进程
+        # Linux 上 shell=True 时用字符串命令，Windows 上用列表
+        import platform
+        is_windows = platform.system() == "Windows"
+        cmd = ["npm", "run", "build"] if is_windows else "npm run build"
+
         process = subprocess.Popen(
-            ["npm", "run", "build"],
+            cmd,
             cwd=fd,
             shell=True,
             stdout=subprocess.PIPE,
@@ -87,7 +92,10 @@ def _run_build(timeout: int = 300):
             if process.returncode == 0:
                 print("[Rebuild] ✅ 静态页面构建成功")
             else:
-                print(f"[Rebuild] ❌ 构建失败: {stderr[:300] if stderr else 'Unknown error'}")
+                # 优先显示 stderr，如果为空则显示 stdout
+                error_msg = stderr.strip() if stderr and stderr.strip() else stdout.strip() if stdout else 'Unknown error'
+                print(f"[Rebuild] ❌ 构建失败 (code={process.returncode}):")
+                print(f"[Rebuild] 错误信息: {error_msg[:1000]}")
         except subprocess.TimeoutExpired:
             process.kill()
             process.communicate()
@@ -157,8 +165,13 @@ def run_rebuild_sync(timeout: int = 300) -> dict:
         fd = _get_frontend_dir()
         print(f"[Rebuild] 🚀 开始同步构建静态页面... ({fd})")
 
+        # Linux 上 shell=True 时用字符串命令，Windows 上用列表
+        import platform
+        is_windows = platform.system() == "Windows"
+        cmd = ["npm", "run", "build"] if is_windows else "npm run build"
+
         result = subprocess.run(
-            ["npm", "run", "build"],
+            cmd,
             cwd=fd,
             shell=True,
             capture_output=True,
