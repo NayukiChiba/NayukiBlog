@@ -1,5 +1,7 @@
 import { defineConfig, envField } from "astro/config";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import node from "@astrojs/node";
 
 // https://astro.build/config
@@ -43,9 +45,10 @@ export default defineConfig({
   // 集成插件（移除 compress 加速构建，生产环境可通过 nginx gzip 压缩）
   integrations: [],
   markdown: {
-    // remark-gfm 支持表格、HTML 元素 (kbd, b, i 等)
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [],
+    // remark-math 解析数学公式，remark-gfm 支持表格等
+    remarkPlugins: [remarkMath, remarkGfm],
+    // rehype-katex 在构建时渲染数学公式为HTML
+    rehypePlugins: [rehypeKatex],
     // 禁用构建时语法高亮，改用客户端 Prism.js CDN
     syntaxHighlight: false,
   },
