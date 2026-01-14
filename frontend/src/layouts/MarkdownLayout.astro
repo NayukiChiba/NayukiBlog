@@ -30,17 +30,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
             href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
             crossorigin="anonymous"
         />
-        <!-- KaTeX 自动渲染扩展 - 处理遗漏的 LaTeX 公式 -->
-        <script
-            is:inline
-            defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
-            crossorigin="anonymous"></script>
-        <script
-            is:inline
-            defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-            crossorigin="anonymous"></script>
+        <!-- KaTeX 公式已在构建时通过 rehype-katex 渲染，无需客户端JS -->
         <!-- Mermaid 支持 - 使用 CDN -->
         <script
             is:inline
