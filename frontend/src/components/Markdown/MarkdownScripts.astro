@@ -10,27 +10,7 @@
             Prism.highlightAll();
         }
 
-        // KaTeX 自动渲染 - 所有 LaTeX 公式由客户端渲染
-        if (typeof renderMathInElement !== "undefined") {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    { left: "$$", right: "$$", display: true },
-                    { left: "$", right: "$", display: false },
-                    { left: "\\(", right: "\\)", display: false },
-                    { left: "\\[", right: "\\]", display: true },
-                ],
-                throwOnError: false,
-                ignoredTags: [
-                    "script",
-                    "noscript",
-                    "style",
-                    "textarea",
-                    "pre",
-                    "code",
-                ],
-                trust: true,
-            });
-        }
+        // KaTeX 已在 MarkdownLayout.astro 的 head 中初始化
 
         // Mermaid 初始化配置
         if (typeof mermaid !== "undefined") {
