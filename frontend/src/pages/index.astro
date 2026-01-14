@@ -1,3 +1,16 @@
 ---
-return Astro.redirect('/user');
+// 🚀 静态预渲染
+export const prerender = true;
 ---
+
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="refresh" content="0; url=/user" />
+        <title>Redirecting...</title>
+    </head>
+    <body>
+        <p>正在跳转到 <a href="/user">首页</a>...</p>
+    </body>
+</html>
