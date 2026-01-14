@@ -6,6 +6,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
+import katex from "katex";
 import MarkdownLayout from "../../../layouts/MarkdownLayout.astro";
 
 // 构建时获取所有文章路径
@@ -106,37 +107,78 @@ renderer.code = ({ text, lang }) => {
 };
 
 // 配置 marked 选项
-// KaTeX 和代码高亮都改为客户端 CDN 渲染
 marked.use({
     renderer,
     gfm: true,
     breaks: false,
 });
 
-// 预处理数学公式块
-function preprocessMathBlocks(text: string): string {
+// 使用 KaTeX 渲染数学公式
+function renderMath(latex: string, displayMode: boolean): string {
+    try {
+        return katex.renderToString(latex, {
+            displayMode,
+            throwOnError: false,
+            trust: true,
+            strict: false,
+        });
+    } catch (e) {
+        console.error("KaTeX render error:", e);
+        return displayMode
+            ? `<div class="katex-error">$$${latex}$$</div>`
+            : `<span class="katex-error">$${latex}$</span>`;
+    }
+}
+
+// 预处理：提取并渲染数学公式，用占位符替换
+function processMathFormulas(text: string): string {
     // 规范化换行符
     let result = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 
-    // 修复内联数学公式后紧跟括号的情况
-    result = result.replace(/\$([^$\n]+)\$\(/g, "$$$$1$$ (");
+    const mathBlocks: { placeholder: string; html: string }[] = [];
+    let counter = 0;
 
-    // 处理 $$ 块：确保前后有空行
-    result = result.replace(
-        /(\n)(\$\$)\n([\s\S]*?)\n(\$\$)(\n|$)/g,
-        (match, before, open, content, close, after) => {
-            const prefix = "\n\n";
-            const suffix = after === "\n" ? "\n\n" : "\n";
-            return `${prefix}${open}\n${content.trim()}\n${close}${suffix}`;
-        },
-    );
+    // 先处理块级公式 $$ ... $$（多行）
+    result = result.replace(/\$\$([\s\S]*?)\$\$/g, (match, latex) => {
+        const placeholder = `%%MATH_BLOCK_${counter}%%`;
+        const html = renderMath(latex.trim(), true);
+        mathBlocks.push({ placeholder, html });
+        counter++;
+        return placeholder;
+    });
 
+    // 再处理行内公式 $ ... $（单行，不包含换行）
+    result = result.replace(/\$([^\$\n]+?)\$/g, (match, latex) => {
+        const placeholder = `%%MATH_INLINE_${counter}%%`;
+        const html = renderMath(latex.trim(), false);
+        mathBlocks.push({ placeholder, html });
+        counter++;
+        return placeholder;
+    });
+
+    // 返回处理后的文本和占位符映射
+    return JSON.stringify({ text: result, mathBlocks });
+}
+
+// 还原数学公式占位符
+function restoreMathFormulas(
+    html: string,
+    mathBlocks: { placeholder: string; html: string }[],
+): string {
+    let result = html;
+    for (const block of mathBlocks) {
+        result = result.replace(block.placeholder, block.html);
+    }
     return result;
 }
 
 // 渲染 Markdown 为 HTML
-const processedContent = preprocessMathBlocks(content);
-const contentHtml = await marked.parse(processedContent);
+const mathResult = JSON.parse(processMathFormulas(content));
+const processedContent = mathResult.text;
+const mathBlocks = mathResult.mathBlocks;
+
+const rawHtml = await marked.parse(processedContent);
+const contentHtml = restoreMathFormulas(rawHtml, mathBlocks);
 ---
 
 <MarkdownLayout frontmatter={frontmatter}>
