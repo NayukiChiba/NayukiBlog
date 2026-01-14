@@ -9,6 +9,7 @@ from app.core.database import get_db
 from app.services.article_service import save_article_file, delete_article_file
 from app.utils.tag_utils import extract_unique_tags
 from app.utils.security import verify_password
+from app.utils.rebuild import trigger_rebuild_async, get_rebuild_status as get_rebuild_status_util
 
 router = APIRouter()
 
@@ -21,7 +22,7 @@ def login(login_data: schemas.LoginRequest, db: Session = Depends(get_db)):
 
     # Verify password (supports both hashed and legacy plain text)
     is_valid = False
-    
+
     # 1. Try verifying as hashed password
     if verify_password(login_data.password, admin.password):
         is_valid = True
@@ -36,9 +37,9 @@ def login(login_data: schemas.LoginRequest, db: Session = Depends(get_db)):
 
 @router.get("/articles", response_model=List[schemas.Post])
 def read_admin_articles(
-    skip: int = 0, 
-    limit: int = 10, 
-    category: str = None, 
+    skip: int = 0,
+    limit: int = 10,
+    category: str = None,
     tags: List[str] = Query(None),
     sort: str = "desc",
     status: str = None,
@@ -83,7 +84,10 @@ async def upload_article(
         url=url_path,
         image=image
     )
-    
+
+    # 🚀 触发静态页面重建
+    trigger_rebuild_async()
+
     return {"status": "success", "message": "Article uploaded successfully"}
 
 @router.put("/articles/{post_id}")
@@ -109,7 +113,7 @@ async def update_article(
         use_title = title if title else post.title
         use_date = date if date else post.date
         use_desc = desc if desc else (post.desc if post.desc else "")
-        
+
         # Save new file using service
         url_path = await save_article_file(
             file=file,
@@ -118,7 +122,7 @@ async def update_article(
             tags=tags,
             desc=use_desc
         )
-        
+
         # Delete old file if filename is different
         if post.url and "/user/posts/" in post.url:
             old_filename_no_ext = post.url.split("/user/posts/")[-1]
@@ -142,8 +146,10 @@ async def update_article(
         url=url_path,
         image=image
     )
-    
+
     if updated_post:
+        # 🚀 触发静态页面重建
+        trigger_rebuild_async()
         return {"status": "success", "message": "Article updated successfully"}
     else:
         raise HTTPException(status_code=500, detail="Failed to update article")
@@ -153,11 +159,13 @@ def delete_article(post_id: int, db: Session = Depends(get_db)):
     post = crud.get_post(db, post_id)
     if not post:
         raise HTTPException(status_code=404, detail="Article not found")
-    
+
     # Delete file
     delete_article_file(post.url)
 
     if crud.delete_post(db, post_id):
+        # 🚀 触发静态页面重建
+        trigger_rebuild_async()
         return {"status": "success", "message": "Article deleted successfully"}
     else:
         raise HTTPException(status_code=500, detail="Failed to delete article from database")
@@ -169,8 +177,8 @@ def read_admin_article_tags(db: Session = Depends(get_db)):
 
 @router.get("/books", response_model=List[schemas.Book])
 def read_admin_books(
-    skip: int = 0, 
-    limit: int = 100, 
+    skip: int = 0,
+    limit: int = 100,
     tags: List[str] = Query(None),
     status: str = None,
     db: Session = Depends(get_db)
@@ -240,8 +248,8 @@ def read_admin_book_tags(db: Session = Depends(get_db)):
 
 @router.get("/projects", response_model=List[schemas.Project])
 def read_admin_projects(
-    skip: int = 0, 
-    limit: int = 10, 
+    skip: int = 0,
+    limit: int = 10,
     tech_stack: List[str] = Query(None),
     status: str = None,
     visibility: str = None,
@@ -312,8 +320,8 @@ def delete_project(project_id: int, db: Session = Depends(get_db)):
 
 @router.get("/diaries", response_model=schemas.DiaryPagination)
 def read_admin_diaries(
-    skip: int = 0, 
-    limit: int = 100, 
+    skip: int = 0,
+    limit: int = 100,
     year: str = Query(None),
     month: str = Query(None),
     db: Session = Depends(get_db)
@@ -380,8 +388,8 @@ def read_admin_gallery_tags(db: Session = Depends(get_db)):
 
 @router.get("/gallery", response_model=List[schemas.Gallery])
 def read_admin_gallery(
-    skip: int = 0, 
-    limit: int = 100, 
+    skip: int = 0,
+    limit: int = 100,
     tags: List[str] = Query(None),
     sort: str = "desc",
     status: str = None,
@@ -443,8 +451,8 @@ def delete_gallery(gallery_id: int, db: Session = Depends(get_db)):
 
 @router.get("/todos", response_model=List[schemas.Todo])
 def read_admin_todos(
-    skip: int = 0, 
-    limit: int = 100, 
+    skip: int = 0,
+    limit: int = 100,
     priority: str = None,
     type: str = None,
     status: str = None,
@@ -524,8 +532,8 @@ def read_admin_todo_types(db: Session = Depends(get_db)):
 
 @router.get("/tools", response_model=List[schemas.Tool])
 def read_admin_tools(
-    skip: int = 0, 
-    limit: int = 100, 
+    skip: int = 0,
+    limit: int = 100,
     category: str = None,
     status: str = None,
     db: Session = Depends(get_db)
@@ -593,3 +601,29 @@ def delete_tool(tool_id: int, db: Session = Depends(get_db)):
         return {"status": "success", "message": "Tool deleted successfully"}
     else:
         raise HTTPException(status_code=404, detail="Tool not found")
+
+
+# ============================================
+# 🚀 静态页面重建 API
+# ============================================
+
+@router.post("/rebuild")
+async def rebuild_static_pages():
+    """
+    触发前端静态页面重新构建。
+    在后台运行 npm run build，不阻塞请求。
+    """
+    trigger_rebuild_async()
+    return {
+        "status": "pending",
+        "message": "构建任务已启动，请稍后刷新页面查看更新"
+    }
+
+
+@router.get("/rebuild/status")
+def get_rebuild_status():
+    """
+    检查最近一次构建的状态。
+    通过检查 dist 目录的修改时间来判断。
+    """
+    return get_rebuild_status_util()
