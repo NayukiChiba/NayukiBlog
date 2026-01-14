@@ -11,13 +11,17 @@ const { date, content, mood, weather, images = [] } = Astro.props;
 const validImages = Array.isArray(images) ? images : [];
 
 const d = new Date(date);
-const displayDate = isNaN(d.getTime()) ? date : (
-  d.getFullYear() + '-' + 
-  String(d.getMonth() + 1).padStart(2, '0') + '-' + 
-  String(d.getDate()).padStart(2, '0') + ' ' + 
-  String(d.getHours()).padStart(2, '0') + ':' + 
-  String(d.getMinutes()).padStart(2, '0')
-);
+const displayDate = isNaN(d.getTime())
+  ? date
+  : d.getFullYear() +
+    "-" +
+    String(d.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(d.getDate()).padStart(2, "0") +
+    " " +
+    String(d.getHours()).padStart(2, "0") +
+    ":" +
+    String(d.getMinutes()).padStart(2, "0");
 
 const moodMap: Record<string, string> = {
   happy: "😊",
@@ -26,7 +30,7 @@ const moodMap: Record<string, string> = {
   angry: "😠",
   neutral: "😐",
   excited: "🤩",
-  tired: "😫"
+  tired: "😫",
 };
 
 const weatherMap: Record<string, string> = {
@@ -34,7 +38,7 @@ const weatherMap: Record<string, string> = {
   cloudy: "☁️",
   rainy: "🌧️",
   snowy: "❄️",
-  windy: "💨"
+  windy: "💨",
 };
 ---
 
@@ -46,37 +50,126 @@ const weatherMap: Record<string, string> = {
         <span class="diary-date">{displayDate}</span>
         <span class="diary-mood-preview">{moodMap[mood] || "😐"}</span>
       </summary>
-      
+
       <div class="diary-card-inner">
         <div class="diary-header">
           <div class="meta-group">
             <span class="meta-item" title="Date">📅 {displayDate}</span>
-            {weather && (
-              <span class="meta-item" title="Weather">
-                {weatherMap[weather] || "🌤️"} 
-                <span class="meta-text">{weather}</span>
-              </span>
-            )}
+            {
+              weather && (
+                <span class="meta-item" title="Weather">
+                  {weatherMap[weather] || "🌤️"}
+                  <span class="meta-text">{weather}</span>
+                </span>
+              )
+            }
             <span class="meta-item" title="Mood">
-              {moodMap[mood] || "😐"} 
+              {moodMap[mood] || "😐"}
               <span class="meta-text">{mood}</span>
             </span>
           </div>
         </div>
         <div class="diary-body">
           <p>{content}</p>
-          {validImages.length > 0 && (
-            <div class="diary-images">
-              {validImages.map((img) => (
-                <img src={img} alt="Diary attachment" loading="lazy" />
-              ))}
-            </div>
-          )}
+          {
+            validImages.length > 0 && (
+              <div class="diary-images">
+                {validImages.map((img) => (
+                  <img src={img} alt="Diary attachment" loading="lazy" />
+                ))}
+              </div>
+            )
+          }
         </div>
       </div>
     </details>
   </div>
 </div>
+
+<!-- Image Lightbox -->
+<div id="diary-image-lightbox" class="diary-lightbox">
+  <div class="diary-lightbox-overlay"></div>
+  <div class="diary-lightbox-content">
+    <button class="diary-lightbox-close" aria-label="关闭">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <img id="diary-lightbox-image" src="" alt="" />
+  </div>
+</div>
+
+<script>
+  // Image lightbox functionality
+  const setupDiaryImageLightbox = () => {
+    const lightbox = document.getElementById("diary-image-lightbox");
+    const lightboxImg = document.getElementById(
+      "diary-lightbox-image"
+    ) as HTMLImageElement;
+    const lightboxClose = document.querySelector(".diary-lightbox-close");
+    const lightboxOverlay = document.querySelector(".diary-lightbox-overlay");
+
+    // Get all diary images
+    const diaryImages = document.querySelectorAll(".diary-images img");
+
+    // Open lightbox function
+    const openLightbox = (imgElement: HTMLImageElement) => {
+      if (lightbox && lightboxImg) {
+        lightboxImg.src = imgElement.src;
+        lightboxImg.alt = imgElement.alt;
+        lightbox.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+    };
+
+    // Close lightbox function
+    const closeLightbox = () => {
+      if (lightbox) {
+        lightbox.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+    };
+
+    // Add click handlers to all diary images
+    diaryImages.forEach((img) => {
+      const imgElement = img as HTMLImageElement;
+      imgElement.style.cursor = "zoom-in";
+      imgElement.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openLightbox(imgElement);
+      });
+    });
+
+    // Close handlers
+    lightboxClose?.addEventListener("click", closeLightbox);
+    lightboxOverlay?.addEventListener("click", closeLightbox);
+
+    // ESC key handler
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox?.classList.contains("active")) {
+        closeLightbox();
+      }
+    });
+  };
+
+  // Initialize on DOM ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupDiaryImageLightbox);
+  } else {
+    setupDiaryImageLightbox();
+  }
+</script>
 
 <style>
   .timeline-item {
@@ -94,7 +187,9 @@ const weatherMap: Record<string, string> = {
     border: 3px solid #333;
     border-radius: 50%;
     z-index: 1;
-    transition: background 0.3s, border-color 0.3s;
+    transition:
+      background 0.3s,
+      border-color 0.3s;
   }
 
   .timeline-item:hover .timeline-marker {
@@ -140,13 +235,19 @@ const weatherMap: Record<string, string> = {
     border: 1px solid #eaeaea;
     border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     animation: slideDown 0.3s ease-out;
   }
 
   @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .diary-header {
@@ -199,5 +300,93 @@ const weatherMap: Record<string, string> = {
 
   .diary-images img:hover {
     transform: scale(1.05);
+  }
+
+  /* Diary Image Lightbox Styles */
+  .diary-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .diary-lightbox.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .diary-lightbox-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    cursor: pointer;
+  }
+
+  .diary-lightbox-content {
+    position: relative;
+    z-index: 10000;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .diary-lightbox-content img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  }
+
+  .diary-lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10001;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  .diary-lightbox-close:hover {
+    background: rgba(220, 38, 38, 0.9);
+    transform: scale(1.1);
+  }
+
+  .diary-lightbox-close svg {
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    .diary-lightbox-close {
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .diary-lightbox-content img {
+      max-height: 75vh;
+    }
   }
 </style>
