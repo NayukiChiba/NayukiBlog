@@ -34,8 +34,16 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <!-- KaTeX CSS - 仅在需要数学公式时加载，使用本地资源 -->
-    {needsMath && <link rel="stylesheet" href="/lib/katex/katex.min.css" />}
+    <!-- KaTeX CSS - 仅在需要数学公式时加载，使用 CDN -->
+    {
+      needsMath && (
+        <link
+          rel="stylesheet"
+          href="https://cdn.staticfile.net/KaTeX/0.16.9/katex.min.css"
+          crossorigin="anonymous"
+        />
+      )
+    }
 
     <style is:global>
       :root {
