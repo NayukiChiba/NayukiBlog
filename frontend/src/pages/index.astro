@@ -67,11 +67,41 @@ export const prerender = true;
   <body>
     <canvas id="canvas"></canvas>
     <div class="content">
-      <h1>NAYUKI BLOG</h1>
-      <p>正在前往新世界...</p>
+      <h1 id="site-title">NAYUKI BLOG</h1>
+      <p id="site-subtitle">正在前往新世界...</p>
     </div>
 
     <script is:inline>
+      // Domain-based text configuration
+      // Add your domains and corresponding text here
+      var domainConfig = {
+        "blog.yumeko.icu": {
+          title: "NAYUKI BLOG",
+          subtitle: "正在前往新世界...",
+        },
+        "xn--3ett0qhpmrzy.xn--6qq986bm4cjwp.com": {
+          title: "你爹来咯",
+          subtitle: "Astrbot启动！！！",
+        },
+        localhost: { title: "DEV MODE", subtitle: "本地开发环境..." },
+        // Add more domains as needed
+      };
+
+      // Default text for unknown domains
+      var defaultConfig = {
+        title: "NAYUKI BLOG",
+        subtitle: "正在前往新世界...",
+      };
+
+      // Set text based on current domain
+      (function () {
+        var hostname = window.location.hostname;
+        console.log("Current hostname:", hostname); // Debug: check actual hostname
+        var config = domainConfig[hostname] || defaultConfig;
+        document.getElementById("site-title").textContent = config.title;
+        document.getElementById("site-subtitle").textContent = config.subtitle;
+      })();
+
       // Simple Particle Animation
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
