@@ -8,84 +8,86 @@ import CopyToast from "../components/Markdown/CopyToast.astro";
 import ImageLightbox from "../components/Markdown/ImageLightbox.astro";
 import MarkdownStyles from "../components/Markdown/MarkdownStyles.astro";
 import MarkdownScripts from "../components/Markdown/MarkdownScripts.astro";
+import ParticleBackground from "../components/ParticleBackground.astro";
 
 const { frontmatter } = Astro.props;
 const date = new Date(frontmatter.date);
 const formattedDate = date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
+  year: "numeric",
+  month: "short",
+  day: "numeric",
 });
 ---
 
 <html lang="zh-CN">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <title>{frontmatter.title}</title>
-        <!-- KaTeX CSS - 使用 CDN -->
-        <link
-            rel="stylesheet"
-            href="https://cdn.staticfile.net/KaTeX/0.16.9/katex.min.css"
-            crossorigin="anonymous"
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{frontmatter.title}</title>
+    <!-- KaTeX CSS - 使用 CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.net/KaTeX/0.16.9/katex.min.css"
+      crossorigin="anonymous"
+    />
+    <!-- KaTeX 公式已在构建时通过 KaTeX 渲染，无需客户端JS -->
+    <!-- Mermaid 支持 - 使用 CDN -->
+    <script
+      is:inline
+      defer
+      src="https://cdn.staticfile.net/mermaid/10.6.1/mermaid.min.js"></script>
+    <!-- Prism.js 代码高亮 - 使用 CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.net/prism/1.29.0/themes/prism.min.css"
+      crossorigin="anonymous"
+    />
+    <script
+      is:inline
+      defer
+      src="https://cdn.staticfile.net/prism/1.29.0/prism.min.js"
+      crossorigin="anonymous"></script>
+    <script
+      is:inline
+      defer
+      src="https://cdn.staticfile.net/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"
+      crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <Header />
+    <main class="markdown-container page-enter">
+      <article class="content">
+        <PostHeader
+          title={frontmatter.title}
+          formattedDate={formattedDate}
+          description={frontmatter.description}
+          tags={frontmatter.tags}
         />
-        <!-- KaTeX 公式已在构建时通过 KaTeX 渲染，无需客户端JS -->
-        <!-- Mermaid 支持 - 使用 CDN -->
-        <script
-            is:inline
-            defer
-            src="https://cdn.staticfile.net/mermaid/10.6.1/mermaid.min.js"
-        ></script>
-        <!-- Prism.js 代码高亮 - 使用 CDN -->
-        <link
-            rel="stylesheet"
-            href="https://cdn.staticfile.net/prism/1.29.0/themes/prism.min.css"
-            crossorigin="anonymous"
-        />
-        <script
-            is:inline
-            defer
-            src="https://cdn.staticfile.net/prism/1.29.0/prism.min.js"
-            crossorigin="anonymous"></script>
-        <script
-            is:inline
-            defer
-            src="https://cdn.staticfile.net/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"
-            crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <Header />
-        <main class="markdown-container page-enter">
-            <article class="content">
-                <PostHeader
-                    title={frontmatter.title}
-                    formattedDate={formattedDate}
-                    description={frontmatter.description}
-                    tags={frontmatter.tags}
-                />
-                <hr />
-                <slot />
-            </article>
-        </main>
+        <hr />
+        <slot />
+      </article>
+    </main>
 
-        <!-- 桌面端固定目录 -->
-        <TocSidebar />
+    <!-- 桌面端固定目录 -->
+    <TocSidebar />
 
-        <!-- 移动端目录悬浮按钮和抽屉 -->
-        <TocMobile />
+    <!-- 移动端目录悬浮按钮和抽屉 -->
+    <TocMobile />
 
-        <!-- Copy Toast Notification -->
-        <CopyToast />
+    <!-- Copy Toast Notification -->
+    <CopyToast />
 
-        <!-- 图片预览灯箱 -->
-        <ImageLightbox />
+    <!-- 图片预览灯箱 -->
+    <ImageLightbox />
 
-        <!-- 初始化脚本 -->
-        <MarkdownScripts />
+    <!-- 初始化脚本 -->
+    <MarkdownScripts />
 
-        <FloatingButton />
-    </body>
+    <FloatingButton />
+
+    <ParticleBackground />
+  </body>
 </html>
 
 <!-- 全局样式 -->
