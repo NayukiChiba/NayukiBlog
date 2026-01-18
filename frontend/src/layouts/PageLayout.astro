@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro";
 import FloatingButton from "../components/FloatingButton.astro";
 import CdnPreloader from "../components/CdnPreloader.astro";
+import ParticleBackground from "../components/ParticleBackground.astro";
 import "../styles/global.css"; // Import global styles
 
 interface Props {
@@ -104,6 +105,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
     </footer>
     <FloatingButton />
     <CdnPreloader />
+    <ParticleBackground />
   </body>
 </html>
 
