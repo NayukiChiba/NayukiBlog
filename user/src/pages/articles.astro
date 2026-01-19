@@ -242,6 +242,23 @@ const folderList = [...folderSet].sort().map((path) => {
         if (prevBtn) prevBtn.disabled = currentPage === 1;
         if (nextBtn) nextBtn.disabled = currentPage === totalPages;
         if (lastBtn) lastBtn.disabled = currentPage === totalPages;
+
+        // 预加载当前页面的文章
+        const prefetchVisiblePosts = () => {
+            visiblePosts.slice(start, end).forEach((wrapper) => {
+                const link = wrapper.querySelector('a.post-card') as HTMLAnchorElement;
+                if (link && link.href) {
+                    if (!document.querySelector(`link[rel="prefetch"][href="${link.href}"]`)) {
+                        const prefetchLink = document.createElement('link');
+                        prefetchLink.rel = 'prefetch';
+                        prefetchLink.href = link.href;
+                        prefetchLink.as = 'document';
+                        document.head.appendChild(prefetchLink);
+                    }
+                }
+            });
+        };
+        setTimeout(prefetchVisiblePosts, 100);
     };
 
     const filterPosts = () => {

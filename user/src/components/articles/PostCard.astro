@@ -18,7 +18,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 });
 ---
 
-<a href={url} class="post-card group">
+<a href={url} class="post-card group" data-astro-prefetch="load">
   <div class="post-content">
     <div class="post-text">
       <div class="post-header">

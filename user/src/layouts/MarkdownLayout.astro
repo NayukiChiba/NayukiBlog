@@ -32,11 +32,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
       crossorigin="anonymous"
     />
     <!-- KaTeX 公式已在构建时通过 KaTeX 渲染，无需客户端JS -->
-    <!-- Mermaid 支持 - 使用 CDN -->
-    <script
-      is:inline
-      defer
-      src="https://cdn.staticfile.net/mermaid/10.6.1/mermaid.min.js"></script>
+    <!-- Mermaid 支持 - 按需动态加载，见 MarkdownScripts.astro -->
     <!-- Prism.js 代码高亮 - 使用 CDN -->
     <link
       rel="stylesheet"
