@@ -12,76 +12,80 @@
 
         // KaTeX 已在 MarkdownLayout.astro 的 head 中初始化
 
-        // Mermaid 初始化配置
-        if (typeof mermaid !== "undefined") {
-            mermaid.initialize({
-                startOnLoad: false,
-                theme: "default",
-                securityLevel: "loose",
-                fontFamily:
-                    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-                gantt: {
-                    useWidth: 1200,
-                    barHeight: 30,
-                    barGap: 8,
-                    topPadding: 50,
-                    leftPadding: 120,
-                    gridLineStartPadding: 50,
-                    fontSize: 14,
-                    sectionFontSize: 16,
-                    numberSectionStyles: 4,
-                    axisFormat: "%m-%d",
-                },
+        // Mermaid 按需加载 - 只在检测到 mermaid 代码块时才加载
+        const mermaidSelectors = [
+            "pre > code.language-mermaid",
+            "pre.language-mermaid code",
+            "pre.astro-code.language-mermaid code",
+            'pre[data-language="mermaid"] code',
+            ".astro-code code.language-mermaid",
+        ];
+
+        let mermaidBlocks = Array.from(document.querySelectorAll(mermaidSelectors.join(", ")));
+
+        // 如果没找到，尝试通过 pre 的 class 包含 mermaid 来查找
+        if (mermaidBlocks.length === 0) {
+            const allPres = document.querySelectorAll("pre.astro-code");
+            allPres.forEach((pre) => {
+                if (pre.className.includes("mermaid")) {
+                    const code = pre.querySelector("code");
+                    if (code) mermaidBlocks.push(code);
+                }
             });
+        }
 
-            // 查找所有 mermaid 代码块并渲染
-            const mermaidSelectors = [
-                "pre > code.language-mermaid",
-                "pre.language-mermaid code",
-                "pre.astro-code.language-mermaid code",
-                'pre[data-language="mermaid"] code',
-                ".astro-code code.language-mermaid",
-            ];
-
-            const mermaidBlocks = document.querySelectorAll(
-                mermaidSelectors.join(", "),
-            );
-
-            // 如果没找到，尝试通过 pre 的 class 包含 mermaid 来查找
-            let blocks = Array.from(mermaidBlocks);
-            if (blocks.length === 0) {
-                const allPres = document.querySelectorAll("pre.astro-code");
-                allPres.forEach((pre) => {
-                    if (pre.className.includes("mermaid")) {
-                        const code = pre.querySelector("code");
-                        if (code) blocks.push(code);
-                    }
+        // 只有检测到 mermaid 代码块时才动态加载 mermaid.js
+        if (mermaidBlocks.length > 0) {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.staticfile.net/mermaid/10.6.1/mermaid.min.js';
+            script.onload = () => {
+                // 加载完成后初始化
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: "default",
+                    securityLevel: "loose",
+                    fontFamily:
+                        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+                    gantt: {
+                        useWidth: 1200,
+                        barHeight: 30,
+                        barGap: 8,
+                        topPadding: 50,
+                        leftPadding: 120,
+                        gridLineStartPadding: 50,
+                        fontSize: 14,
+                        sectionFontSize: 16,
+                        numberSectionStyles: 4,
+                        axisFormat: "%m-%d",
+                    },
                 });
-            }
 
-            blocks.forEach((block, index) => {
-                const pre = block.parentElement;
-                if (!pre) return;
+                // 渲染所有 mermaid 代码块
+                mermaidBlocks.forEach((block, index) => {
+                    const pre = block.parentElement;
+                    if (!pre) return;
 
-                const code = block.textContent || "";
+                    const code = block.textContent || "";
 
-                // 创建 mermaid 容器（包裹在可滚动的 wrapper 中）
-                const wrapper = document.createElement("div");
-                wrapper.className = "mermaid-wrapper";
+                    // 创建 mermaid 容器（包裹在可滚动的 wrapper 中）
+                    const wrapper = document.createElement("div");
+                    wrapper.className = "mermaid-wrapper";
 
-                const container = document.createElement("div");
-                container.className = "mermaid";
-                container.id = `mermaid-${index}`;
-                container.textContent = code;
+                    const container = document.createElement("div");
+                    container.className = "mermaid";
+                    container.id = `mermaid-${index}`;
+                    container.textContent = code;
 
-                wrapper.appendChild(container);
+                    wrapper.appendChild(container);
 
-                // 替换 pre 元素
-                pre.parentNode?.replaceChild(wrapper, pre);
-            });
+                    // 替换 pre 元素
+                    pre.parentNode?.replaceChild(wrapper, pre);
+                });
 
-            // 运行 mermaid 渲染
-            mermaid.run();
+                // 运行 mermaid 渲染
+                mermaid.run();
+            };
+            document.head.appendChild(script);
         }
 
         // TOC Toggle Logic
