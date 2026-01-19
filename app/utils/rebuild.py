@@ -17,7 +17,7 @@ _is_rebuilding = False
 _last_trigger_time: float = 0
 _pending_rebuild = False
 
-# 缓存的 frontend 路径
+# 缓存的 user 路径
 _cached_frontend_dir: Optional[str] = None
 
 # 防抖动时间（秒）- 短时间内多次触发只执行一次
@@ -30,11 +30,11 @@ DIST_OLD_DIR = "dist_old"
 
 
 def _get_frontend_dir() -> str:
-    """获取并缓存 frontend 目录路径"""
+    """获取并缓存 user 目录路径"""
     global _cached_frontend_dir
     if _cached_frontend_dir is None:
-        fd = os.path.join(os.getcwd(), "frontend")
-        _cached_frontend_dir = fd if os.path.exists(fd) else "frontend"
+        fd = os.path.join(os.getcwd(), "user")
+        _cached_frontend_dir = fd if os.path.exists(fd) else "user"
     return _cached_frontend_dir
 
 

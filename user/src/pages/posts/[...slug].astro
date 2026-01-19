@@ -1,0 +1,176 @@
+---
+// 🚀 静态预渲染：构建时生成所有文章页面
+export const prerender = true;
+
+import fs from "node:fs/promises";
+import path from "node:path";
+import matter from "gray-matter";
+import { marked } from "marked";
+import katex from "katex";
+import MarkdownLayout from "../../layouts/MarkdownLayout.astro";
+
+// 构建时获取所有文章路径
+export async function getStaticPaths() {
+    // 博客目录在 user/blog 下，构建时 cwd 是 user 目录
+    const contentDir = path.join(process.cwd(), "blog");
+
+    // 递归获取所有 .md 和 .mdx 文件
+    async function getAllMarkdownFiles(
+        dir: string,
+        baseDir: string = dir,
+    ): Promise<string[]> {
+        const entries = await fs.readdir(dir, { withFileTypes: true });
+        const files: string[] = [];
+
+        for (const entry of entries) {
+            const fullPath = path.join(dir, entry.name);
+            if (entry.isDirectory()) {
+                files.push(...(await getAllMarkdownFiles(fullPath, baseDir)));
+            } else if (
+                entry.name.endsWith(".md") ||
+                entry.name.endsWith(".mdx")
+            ) {
+                // 获取相对于 baseDir 的路径，并移除扩展名
+                const relativePath = path.relative(baseDir, fullPath);
+                const slug = relativePath
+                    .replace(/\.(md|mdx)$/, "")
+                    .replace(/\\/g, "/");
+                files.push(slug);
+            }
+        }
+
+        return files;
+    }
+
+    let slugs: string[] = [];
+    try {
+        slugs = await getAllMarkdownFiles(contentDir);
+    } catch (e) {
+        console.error("Failed to read blog directory:", e);
+    }
+
+    return slugs.map((slug) => ({
+        params: { slug },
+    }));
+}
+
+// 获取当前文章的 slug
+const { slug } = Astro.params;
+const decodedSlug = decodeURIComponent(slug || "");
+
+// 博客目录在 user/blog 下，构建时 cwd 是 user 目录
+const contentDir = path.join(process.cwd(), "blog");
+
+// 尝试读取 .md 或 .mdx 文件
+let filePath = path.join(contentDir, `${decodedSlug}.md`);
+let fileContent = "";
+
+try {
+    try {
+        fileContent = await fs.readFile(filePath, "utf-8");
+    } catch (e) {
+        // 尝试 .mdx 扩展名
+        filePath = path.join(contentDir, `${decodedSlug}.mdx`);
+        fileContent = await fs.readFile(filePath, "utf-8");
+    }
+} catch (e) {
+    console.error(`Post not found: ${decodedSlug}`, e);
+    // 静态模式下无法使用 redirect，返回空内容
+    fileContent =
+        "---\ntitle: 404\ndate: 2024-01-01\n---\n\n# 文章未找到\n\n请检查链接是否正确。";
+}
+
+// 解析 frontmatter 和内容
+const { data: frontmatter, content } = matter(fileContent);
+
+// 配置 marked 渲染器
+const renderer = new marked.Renderer();
+
+// 简单代码块渲染（客户端高亮由 Prism/highlight.js CDN 处理）
+renderer.code = ({ text, lang }) => {
+    const language = lang || "plaintext";
+    const escaped = text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    return `<pre class="astro-code language-${language}"><code class="language-${language}">${escaped}</code></pre>`;
+};
+
+// 配置 marked 选项
+marked.use({
+    renderer,
+    gfm: true,
+    breaks: false,
+});
+
+// 使用 KaTeX 渲染数学公式
+function renderMath(latex: string, displayMode: boolean): string {
+    try {
+        return katex.renderToString(latex, {
+            displayMode,
+            throwOnError: false,
+            trust: true,
+            strict: false,
+        });
+    } catch (e) {
+        console.error("KaTeX render error:", e);
+        return displayMode
+            ? `<div class="katex-error">$$${latex}$$</div>`
+            : `<span class="katex-error">$${latex}$</span>`;
+    }
+}
+
+// 预处理：提取并渲染数学公式，用占位符替换
+function processMathFormulas(text: string): string {
+    // 规范化换行符
+    let result = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+
+    const mathBlocks: { placeholder: string; html: string }[] = [];
+    let counter = 0;
+
+    // 先处理块级公式 $$ ... $$（多行）
+    result = result.replace(/\$\$([\s\S]*?)\$\$/g, (match, latex) => {
+        const placeholder = `%%MATH_BLOCK_${counter}%%`;
+        const html = renderMath(latex.trim(), true);
+        mathBlocks.push({ placeholder, html });
+        counter++;
+        return placeholder;
+    });
+
+    // 再处理行内公式 $ ... $（单行，不包含换行）
+    result = result.replace(/\$([^\$\n]+?)\$/g, (match, latex) => {
+        const placeholder = `%%MATH_INLINE_${counter}%%`;
+        const html = renderMath(latex.trim(), false);
+        mathBlocks.push({ placeholder, html });
+        counter++;
+        return placeholder;
+    });
+
+    // 返回处理后的文本和占位符映射
+    return JSON.stringify({ text: result, mathBlocks });
+}
+
+// 还原数学公式占位符
+function restoreMathFormulas(
+    html: string,
+    mathBlocks: { placeholder: string; html: string }[],
+): string {
+    let result = html;
+    for (const block of mathBlocks) {
+        result = result.replace(block.placeholder, block.html);
+    }
+    return result;
+}
+
+// 渲染 Markdown 为 HTML
+const mathResult = JSON.parse(processMathFormulas(content));
+const processedContent = mathResult.text;
+const mathBlocks = mathResult.mathBlocks;
+
+const rawHtml = await marked.parse(processedContent);
+const contentHtml = restoreMathFormulas(rawHtml, mathBlocks);
+---
+
+<MarkdownLayout frontmatter={frontmatter}>
+    <div set:html={contentHtml} />
+</MarkdownLayout>

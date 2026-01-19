@@ -1,0 +1,118 @@
+---
+// Admin 专用 Header
+---
+
+<header class="site-header">
+  <div class="header-container admin-layout">
+    <button class="admin-sidebar-btn" id="admin-sidebar-btn" aria-label="打开侧边栏">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <a href="/admin" class="site-title">Nayuki Admin</a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #eaeaea;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 1rem 0;
+    transition: transform 0.3s ease;
+  }
+
+  .site-header.hidden {
+    transform: translateY(-100%);
+  }
+
+  .header-container {
+    max-width: var(--max-width, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--content-padding, 2rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-container.admin-layout {
+    justify-content: space-between;
+  }
+
+  @media (min-width: 1024px) {
+    .header-container.admin-layout {
+      justify-content: center;
+    }
+    .admin-sidebar-btn {
+      display: none;
+    }
+  }
+
+  .admin-sidebar-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: color 0.2s;
+  }
+
+  .admin-sidebar-btn:hover {
+    color: #000;
+  }
+
+  .site-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .site-title:hover {
+    color: #000;
+  }
+
+  /* 小屏幕下调整 header padding */
+  @media (max-width: 1023px) {
+    .header-container {
+      padding: 0 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Header scroll behavior
+  let lastScrollY = window.scrollY;
+  const header = document.querySelector('.site-header');
+
+  if (header) {
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 20) {
+        header.classList.add('hidden');
+      } else {
+        header.classList.remove('hidden');
+      }
+
+      lastScrollY = currentScrollY;
+    });
+  }
+
+  // Admin sidebar button
+  const adminSidebarBtn = document.getElementById('admin-sidebar-btn');
+  if (adminSidebarBtn) {
+    adminSidebarBtn.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('open-admin-sidebar'));
+    });
+  }
+</script>
