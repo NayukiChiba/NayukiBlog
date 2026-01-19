@@ -64,26 +64,32 @@ NayukiBlog/
 │   ├── db_init.py            # 数据库初始化脚本
 │   └── main.py               # 应用入口
 │
-├── frontend/                 # Astro 前端
+├── admin/                    # Astro 管理端前端
 │   ├── src/
-│   │   ├── components/       # 组件
-│   │   │   ├── admin/        # 管理端组件
-│   │   │   └── User/         # 用户端组件
+│   │   ├── components/       # 管理端组件
+│   │   ├── layouts/          # 布局模板
+│   │   ├── pages/            # 管理后台页面
+│   │   └── lib/              # 工具库
+│   ├── public/               # 静态资源
+│   └── astro.config.mjs      # Astro 配置
+│
+├── user/                     # Astro 用户端前端
+│   ├── src/
+│   │   ├── components/       # 用户端组件
 │   │   ├── layouts/          # 布局模板
 │   │   │   ├── Layout.astro
 │   │   │   ├── PageLayout.astro
 │   │   │   └── MarkdownLayout.astro
-│   │   ├── pages/            # 页面路由
-│   │   │   ├── admin/        # 管理后台
-│   │   │   └── user/         # 用户前台
+│   │   ├── pages/            # 用户前台页面
 │   │   ├── lib/              # 工具库
 │   │   │   └── api.ts        # API 封装
 │   │   └── styles/           # 全局样式
+│   ├── blog/                 # Markdown 文章目录
 │   ├── public/               # 静态资源
 │   └── astro.config.mjs      # Astro 配置
 │
 ├── .env                      # 一些私人配置
-├── .gitignore                
+├── .gitignore
 ├── .python-version           # uv自动生成
 ├── blog.db                   # sqlite3数据库文件
 ├── pyproject.toml            # uv自动生成Python 项目配置
@@ -144,16 +150,18 @@ uv run uvicorn app.main:app --reload
 ### 4. 启动前端
 
 ```bash
-cd frontend
-
-# 安装依赖
+# 用户端
+cd user
 npm install
-
-# 开发模式
 npm run dev
-```
+# 访问：http://localhost:4321
 
-前端访问：http://localhost:4321
+# 管理端（新开终端）
+cd admin
+npm install
+npm run dev
+# 访问：http://localhost:4322
+```
 
 ## 🏗️ 系统架构
 
@@ -212,7 +220,13 @@ uv run uvicorn app.main:app
 3. 前端启动
 
 ```bash
-cd frontend
+# 用户端
+cd user
+npm run build
+node dist/server/entry.mjs
+
+# 管理端
+cd admin
 npm run build
 node dist/server/entry.mjs
 ```

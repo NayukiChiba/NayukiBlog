@@ -54,3 +54,5 @@ blog.db
 dist
 
 frontend/public/lib/
+.claude/
+claude.md

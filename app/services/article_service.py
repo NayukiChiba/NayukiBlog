@@ -7,7 +7,7 @@ async def save_article_file(
     date: str,
     tags: str,
     desc: str,
-    base_path: str = "frontend/blog"
+    base_path: str = "user/blog"
 ) -> str:
     """
     Saves an uploaded article file with frontmatter and normalized line endings.
@@ -46,14 +46,14 @@ description: {use_desc}
         f.write(content_str)
         
     filename_no_ext = os.path.splitext(file.filename)[0]
-    return f"/user/posts/{filename_no_ext}"
+    return f"/posts/{filename_no_ext}"
 
-def delete_article_file(url: str, base_path: str = "frontend/blog") -> bool:
+def delete_article_file(url: str, base_path: str = "user/blog") -> bool:
     """
     Deletes the physical file associated with an article URL.
     """
-    if url and "/user/posts/" in url:
-        filename_no_ext = url.split("/user/posts/")[-1]
+    if url and "/posts/" in url:
+        filename_no_ext = url.split("/posts/")[-1]
         possible_extensions = [".md", ".mdx"]
         for ext in possible_extensions:
             file_path = os.path.join(base_path, filename_no_ext + ext)

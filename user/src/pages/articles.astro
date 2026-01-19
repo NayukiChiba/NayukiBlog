@@ -1,0 +1,487 @@
+---
+// 🚀 静态预渲染
+export const prerender = true;
+
+import PageLayout from "../layouts/PageLayout.astro";
+import PostCard from "../components/articles/PostCard.astro";
+import CategorySidebar from "../components/articles/CategorySidebar.astro";
+import TagSidebar from "../components/articles/TagSidebar.astro";
+import { apiUrl } from "../lib/api";
+// import postsData from '../data/posts.json';
+
+interface Post {
+    title: string;
+    date: string;
+    desc: string;
+    url: string;
+    tags: string[];
+    image: string;
+    folder: string;
+}
+
+let posts: Post[] = [];
+try {
+    const response = await fetch(apiUrl("/api/user/posts?limit=1000"));
+    if (response.ok) {
+        posts = (await response.json()) as Post[];
+    } else {
+        console.error(
+            `Failed to fetch posts: ${response.status} ${response.statusText}`,
+        );
+    }
+} catch (error) {
+    console.error("Failed to fetch posts:", error);
+}
+
+posts = posts.sort(
+    (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf(),
+);
+
+const tagCounts = posts
+    .flatMap((post) => post.tags || [])
+    .reduce<Record<string, number>>((acc, tag) => {
+        acc[tag] = (acc[tag] || 0) + 1;
+        return acc;
+    }, {});
+
+const tagsWithCount = Object.entries(tagCounts)
+    .map(([tag, count]) => ({ tag, count: count as number }))
+    .sort((a, b) => a.tag.localeCompare(b.tag));
+
+// Folder Logic
+const folderSet = new Set<string>();
+posts.forEach((post) => {
+    if (post.folder) {
+        const parts = post.folder.split("/");
+        let current = "";
+        parts.forEach((part) => {
+            current = current ? `${current}/${part}` : part;
+            folderSet.add(current);
+        });
+    }
+});
+
+const folderList = [...folderSet].sort().map((path) => {
+    const level = path.split("/").length - 1;
+    const name = path.split("/").pop();
+    const hasChildren = [...folderSet].some(
+        (p) => p.startsWith(path + "/") && p !== path,
+    );
+    return { path, name: name || "", level, hasChildren };
+});
+---
+
+<PageLayout title="Articles | Nayuki Blog">
+    <div class="layout-grid">
+        <CategorySidebar folders={folderList} />
+
+        <main class="page-container">
+            <h1 class="page-title">文章与笔记</h1>
+            <p class="page-desc">技术教程、学习笔记与思考。</p>
+
+            <div class="post-list">
+                {
+                    posts.map((post: any) => (
+                        <div
+                            class="post-wrapper"
+                            data-tags={post.tags ? post.tags.join(",") : ""}
+                            data-folder={post.folder || ""}
+                        >
+                            <PostCard {...post} />
+                        </div>
+                    ))
+                }
+            </div>
+
+            <div class="pagination">
+                <button
+                    id="first-btn"
+                    class="page-btn"
+                    title="First Page"
+                    disabled
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><polyline points="11 17 6 12 11 7"></polyline><polyline
+                            points="18 17 13 12 18 7"></polyline></svg
+                    >
+                </button>
+                <button
+                    id="prev-btn"
+                    class="page-btn"
+                    title="Previous Page"
+                    disabled
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><polyline points="15 18 9 12 15 6"></polyline></svg
+                    >
+                </button>
+
+                <div class="page-input-container">
+                    <input
+                        type="number"
+                        id="page-input"
+                        class="page-input"
+                        min="1"
+                        value="1"
+                    />
+                    <span class="page-separator">/</span>
+                    <span id="total-pages">1</span>
+                </div>
+
+                <button
+                    id="next-btn"
+                    class="page-btn"
+                    title="Next Page"
+                    disabled
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><polyline points="9 18 15 12 9 6"></polyline></svg
+                    >
+                </button>
+                <button
+                    id="last-btn"
+                    class="page-btn"
+                    title="Last Page"
+                    disabled
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><polyline points="13 17 18 12 13 7"
+                        ></polyline><polyline points="6 17 11 12 6 7"
+                        ></polyline></svg
+                    >
+                </button>
+            </div>
+        </main>
+
+        <TagSidebar tags={tagsWithCount} />
+    </div>
+</PageLayout>
+
+<script>
+    const tagBtns = document.querySelectorAll(".tag-btn");
+    const folderBtns = document.querySelectorAll(".folder-btn");
+    const allPostWrappers = Array.from(
+        document.querySelectorAll(".post-wrapper"),
+    ) as HTMLElement[];
+
+    const firstBtn = document.getElementById("first-btn") as HTMLButtonElement;
+    const prevBtn = document.getElementById("prev-btn") as HTMLButtonElement;
+    const nextBtn = document.getElementById("next-btn") as HTMLButtonElement;
+    const lastBtn = document.getElementById("last-btn") as HTMLButtonElement;
+    const pageInput = document.getElementById("page-input") as HTMLInputElement;
+    const totalPagesSpan = document.getElementById("total-pages");
+
+    const ITEMS_PER_PAGE = 6;
+    let currentPage = 1;
+    let currentTag = "";
+    let currentFolder = "";
+    let visiblePosts: HTMLElement[] = [];
+
+    const updatePagination = () => {
+        const totalPages = Math.ceil(visiblePosts.length / ITEMS_PER_PAGE) || 1;
+
+        // Ensure current page is valid
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+
+        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        const end = start + ITEMS_PER_PAGE;
+
+        // Hide all posts first
+        allPostWrappers.forEach((el) => (el.style.display = "none"));
+
+        // Show only current page slice of visible posts
+        visiblePosts
+            .slice(start, end)
+            .forEach((el) => (el.style.display = "block"));
+
+        // Update controls
+        if (pageInput) {
+            pageInput.value = currentPage.toString();
+            pageInput.max = totalPages.toString();
+        }
+        if (totalPagesSpan) totalPagesSpan.textContent = totalPages.toString();
+
+        if (firstBtn) firstBtn.disabled = currentPage === 1;
+        if (prevBtn) prevBtn.disabled = currentPage === 1;
+        if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+        if (lastBtn) lastBtn.disabled = currentPage === totalPages;
+    };
+
+    const filterPosts = () => {
+        // 1. Filter posts based on criteria
+        visiblePosts = allPostWrappers.filter((el) => {
+            const tags = el.dataset.tags?.split(",") || [];
+            const folder = el.dataset.folder || "";
+
+            const matchTag = !currentTag || tags.includes(currentTag);
+            // Match folder exactly or as a parent folder (e.g. "Tech" matches "Tech/Web")
+            const matchFolder =
+                !currentFolder ||
+                folder === currentFolder ||
+                folder.startsWith(currentFolder + "/");
+
+            return matchTag && matchFolder;
+        });
+
+        // 2. Reset to first page when filter changes
+        currentPage = 1;
+
+        // 3. Update UI
+        updatePagination();
+    };
+
+    const goToPage = (page: number) => {
+        const totalPages = Math.ceil(visiblePosts.length / ITEMS_PER_PAGE) || 1;
+        if (page >= 1 && page <= totalPages) {
+            currentPage = page;
+            updatePagination();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    };
+
+    // Pagination Event Listeners
+    firstBtn?.addEventListener("click", () => goToPage(1));
+    lastBtn?.addEventListener("click", () => {
+        const totalPages = Math.ceil(visiblePosts.length / ITEMS_PER_PAGE) || 1;
+        goToPage(totalPages);
+    });
+    prevBtn?.addEventListener("click", () => goToPage(currentPage - 1));
+    nextBtn?.addEventListener("click", () => goToPage(currentPage + 1));
+
+    pageInput?.addEventListener("change", () => {
+        let page = parseInt(pageInput.value);
+        if (isNaN(page)) page = 1;
+        goToPage(page);
+        // Reset input value if it was invalid/corrected by goToPage logic
+        pageInput.value = currentPage.toString();
+    });
+
+    pageInput?.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            pageInput.blur(); // Trigger change event
+        }
+    });
+
+    tagBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            tagBtns.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentTag = (btn as HTMLElement).dataset.tag || "";
+            filterPosts();
+        });
+    });
+
+    folderBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            folderBtns.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentFolder = (btn as HTMLElement).dataset.folder || "";
+            filterPosts();
+        });
+    });
+
+    // Initial load
+    filterPosts();
+</script>
+
+<style is:global>
+    /* Override global layout constraint for this page only */
+    main {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+</style>
+
+<style>
+    /* Layout Grid */
+    .layout-grid {
+        width: 90%;
+        max-width: 1920px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 260px 1fr 260px;
+        gap: 2rem;
+        position: relative;
+        align-items: start;
+        padding-top: 1rem;
+    }
+
+    .page-container {
+        width: 100%;
+        min-width: 0; /* Prevent grid blowout */
+    }
+
+    .page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    .page-desc {
+        color: #666;
+        margin-bottom: 2rem;
+    }
+
+    /* Sidebars */
+    /* Styles moved to components */
+
+    /* Responsive adjustments */
+    @media (max-width: 1200px) {
+        .layout-grid {
+            width: 95%;
+            gap: 1.5rem;
+            grid-template-columns: 240px 1fr 240px;
+        }
+    }
+
+    @media (max-width: 1023px) {
+        .layout-grid {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 1rem;
+            padding: 0 1rem;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+        }
+
+        .page-desc {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+    }
+
+    /* Folder Styles - Moved to CategorySidebar.astro */
+    /* Tag Styles - Moved to TagSidebar.astro */
+
+    .post-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /* Pagination */
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid #eee;
+    }
+    .page-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #eee;
+        background: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #666;
+        transition: all 0.2s ease;
+    }
+    .page-btn:hover:not(:disabled) {
+        background: #f5f5f5;
+        color: #000;
+        border-color: #ddd;
+    }
+    .page-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .page-input-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: #666;
+        font-weight: 500;
+    }
+
+    .page-input {
+        width: 40px;
+        height: 32px;
+        text-align: center;
+        border: 1px solid #eee;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 0.9rem;
+        color: #333;
+        outline: none;
+        transition: border-color 0.2s;
+        -moz-appearance: textfield;
+    }
+    .page-input::-webkit-outer-spin-button,
+    .page-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .page-input:focus {
+        border-color: #000;
+    }
+
+    /* 移动端分页优化 */
+    @media (max-width: 480px) {
+        .pagination {
+            gap: 0.5rem;
+        }
+        .page-btn {
+            width: 36px;
+            height: 36px;
+        }
+        .page-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+        .page-input {
+            width: 36px;
+            height: 28px;
+            font-size: 0.85rem;
+        }
+        .page-input-container {
+            font-size: 0.85rem;
+        }
+    }
+</style>
