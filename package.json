@@ -1,0 +1,33 @@
+{
+  "name": "nayuki-blog",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Nayuki's personal blog - Built with Astro + Decap CMS",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "clean": "node -e \"require('fs').rmSync('dist', {recursive: true, force: true})\"",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/node": "^9.5.1",
+    "@playform/compress": "^0.2.0",
+    "astro": "^5.0.0",
+    "astro-expressive-code": "^0.41.5",
+    "gray-matter": "^4.0.3",
+    "katex": "^0.16.27",
+    "marked": "^17.0.1",
+    "marked-katex-extension": "^5.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rehype-katex": "^7.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
+  }
+}
