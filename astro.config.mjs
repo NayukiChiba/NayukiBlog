@@ -1,0 +1,34 @@
+import { defineConfig } from "astro/config";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+
+// https://astro.build/config
+export default defineConfig({
+  // 纯静态输出
+  output: "static",
+
+  // 预取链接，加速页面导航
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "viewport",
+  },
+
+  // 集成插件
+  integrations: [],
+  
+  // Markdown 配置
+  markdown: {
+    remarkPlugins: [remarkMath, remarkGfm],
+    rehypePlugins: [rehypeKatex],
+    syntaxHighlight: false,
+  },
+
+  // Vite 配置
+  vite: {
+    build: {
+      cssCodeSplit: true,
+      minify: "esbuild",
+    },
+  },
+});
