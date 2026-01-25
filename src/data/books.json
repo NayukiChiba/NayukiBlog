@@ -1,0 +1,15 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "asdf",
+      "cover": "https://img.yumeko.site/file/Failed.jpeg",
+      "url": "asdf",
+      "status": "published",
+      "rating": 1,
+      "tags": [
+        "asdf"
+      ]
+    }
+  ]
+}

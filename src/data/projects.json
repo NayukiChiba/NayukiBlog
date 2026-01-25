@@ -1,0 +1,15 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "asdfs",
+      "description": "fasdfas",
+      "link": "asdfasd",
+      "techStack": [
+        "asdfasd"
+      ],
+      "status": "in-progress",
+      "visibility": "published"
+    }
+  ]
+}
