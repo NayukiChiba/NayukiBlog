@@ -1,0 +1,228 @@
+---
+// TocSidebar.astro - 桌面端目录侧边栏组件
+---
+
+<aside class="toc-sidebar desktop-only">
+    <div class="toc-sticky">
+        <div class="toc-header" id="toc-header-clickable">
+            <span>文章目录</span>
+            <button
+                id="toc-toggle"
+                class="toc-toggle"
+                aria-label="Toggle Table of Contents"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><polyline points="6 9 12 15 18 9"></polyline></svg
+                >
+            </button>
+        </div>
+        <nav id="article-toc"></nav>
+    </div>
+</aside>
+
+<style is:global>
+    /* 桌面端/移动端显示控制 */
+    .desktop-only {
+        display: none;
+    }
+
+    @media (min-width: 1400px) {
+        .desktop-only {
+            display: block;
+        }
+    }
+
+    /* 侧边栏样式 - Fixed 定位在屏幕右侧 */
+    .toc-sidebar {
+        position: fixed;
+        top: 100px;
+        width: 200px;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+        z-index: 50;
+    }
+
+    /* 大屏幕：目录在内容右侧，距离内容有间距 */
+    @media (min-width: 1400px) {
+        .toc-sidebar {
+            left: calc(50% + var(--max-width) / 2 + 1.5rem);
+        }
+    }
+
+    .toc-sidebar::-webkit-scrollbar {
+        width: 4px;
+    }
+    .toc-sidebar::-webkit-scrollbar-thumb {
+        background-color: #eee;
+        border-radius: 4px;
+    }
+    .toc-sidebar:hover::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+    }
+
+    .toc-sticky {
+        width: 100%;
+    }
+
+    .toc-header {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding-left: 1rem;
+        padding-right: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .toc-toggle {
+        background: none;
+        border: none;
+        color: #999;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s ease;
+    }
+
+    .toc-toggle.collapsed {
+        transform: rotate(-90deg);
+    }
+
+    #article-toc {
+        transition:
+            max-height 0.3s ease,
+            opacity 0.3s ease;
+        max-height: calc(100vh - 180px);
+        opacity: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #article-toc.collapsed {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+    }
+
+    /* 目录滚动条美化 */
+    #article-toc::-webkit-scrollbar {
+        width: 4px;
+    }
+    #article-toc::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        border-radius: 4px;
+    }
+    #article-toc:hover::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+    }
+
+    #article-toc ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #article-toc li {
+        margin: 0;
+        line-height: 1;
+    }
+
+    /* 仿照 Astro Pure 风格：左侧线条 + 缩进 */
+    #article-toc a {
+        text-decoration: none;
+        color: #888;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+        display: block;
+        border-left: 2px solid var(--border-color);
+        padding: 0.5rem 0 0.5rem 1rem;
+        line-height: 1.4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex: 1;
+        min-width: 0;
+    }
+
+    #article-toc a:hover {
+        color: #000;
+        border-left-color: #000;
+    }
+
+    #article-toc a.active {
+        color: #000;
+        font-weight: 600;
+        border-left-color: #000;
+        background: none;
+    }
+
+    /* TOC 容器布局 */
+    .toc-item-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    /* 折叠按钮样式 */
+    .toc-collapse-btn {
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #999;
+        transition: transform 0.2s ease;
+        z-index: 2;
+        margin-left: auto;
+        padding-right: 0.5rem;
+    }
+
+    .toc-collapse-btn:hover {
+        color: #333;
+    }
+
+    .toc-collapse-btn.collapsed {
+        transform: rotate(-90deg);
+    }
+
+    /* 隐藏状态 */
+    .toc-item.hidden-by-parent {
+        display: none;
+    }
+
+    /* 目录层级缩进 */
+    .toc-item.level-1 a {
+        padding-left: 1rem;
+    }
+
+    .toc-item.level-2 a {
+        padding-left: 2rem;
+    }
+
+    .toc-item.level-3 a {
+        padding-left: 3rem;
+        font-size: 0.8rem;
+    }
+
+    .toc-item.level-4 a {
+        padding-left: 4rem;
+        font-size: 0.8rem;
+    }
+</style>

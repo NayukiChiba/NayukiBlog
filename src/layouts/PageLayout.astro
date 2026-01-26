@@ -1,0 +1,129 @@
+---
+import Header from "../components/Header.astro";
+import FloatingButton from "../components/FloatingButton.astro";
+import CdnPreloader from "../components/CdnPreloader.astro";
+import ParticleBackground from "../components/ParticleBackground.astro";
+import "../styles/global.css"; // Import global styles
+
+interface Props {
+  title: string;
+  description?: string;
+  needsMath?: boolean; // 是否需要加载 KaTeX
+}
+
+const {
+  title,
+  description = "A personal website",
+  needsMath = false,
+} = Astro.props;
+const apiBase = import.meta.env.PUBLIC_API_BASE || "";
+---
+
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <!-- 字体预连接 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- KaTeX CSS - 仅在需要数学公式时加载，使用 CDN -->
+    {
+      needsMath && (
+        <link
+          rel="stylesheet"
+          href="https://cdn.staticfile.net/KaTeX/0.16.9/katex.min.css"
+          crossorigin="anonymous"
+        />
+      )
+    }
+
+    <style is:global>
+      :root {
+        --max-width: 1000px;
+        --content-padding: 1.5rem;
+      }
+
+      html {
+        scrollbar-gutter: stable;
+        overflow-x: hidden;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      main {
+        flex: 1;
+        width: 100%;
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 2rem var(--content-padding);
+      }
+
+      /* 移动端响应式 */
+      @media (max-width: 1023px) {
+        :root {
+          --content-padding: 1rem;
+        }
+
+        html {
+          scrollbar-gutter: auto;
+        }
+
+        main {
+          padding: 1.5rem var(--content-padding);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script define:vars={{ apiBase }}>
+      window.API_BASE = apiBase;
+    </script>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <p>
+        &copy; {new Date().getFullYear()} Nayuki. All rights reserved.
+      </p>
+    </footer>
+    <FloatingButton />
+    <CdnPreloader />
+    <ParticleBackground />
+  </body>
+</html>
+
+<style>
+  /* Footer styles specific to layout */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: #888;
+    font-size: 0.875rem;
+    border-top: 1px solid #eaeaea;
+    margin-top: auto;
+  }
+
+  @media (max-width: 767px) {
+    footer {
+      padding: 1.5rem 1rem;
+      font-size: 0.8rem;
+    }
+  }
+</style>
