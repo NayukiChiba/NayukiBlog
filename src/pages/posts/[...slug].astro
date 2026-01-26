@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import MarkdownLayout from "../../layouts/MarkdownLayout.astro";
+
+// 构建时获取所有文章路径
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+// 获取当前文章
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<MarkdownLayout frontmatter={entry.data}>
+  <Content />
+</MarkdownLayout>

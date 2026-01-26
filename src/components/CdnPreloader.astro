@@ -1,0 +1,141 @@
+---
+/**
+ * CDN 资源预加载组件
+ * 在页面加载完成后，后台预加载 Markdown 文章所需的 CDN 资源
+ * 这样用户导航到文章页面时可以直接使用缓存
+ */
+---
+
+<script is:inline>
+  // 页面完全加载后执行预加载
+  window.addEventListener("load", function () {
+    // 延迟 100ms 确保不影响主要内容渲染
+    setTimeout(function () {
+      // 需要预加载的 CDN 资源列表
+      var cdnResources = [
+        // KaTeX 数学公式样式
+        {
+          type: "style",
+          url: "https://cdn.staticfile.net/KaTeX/0.16.9/katex.min.css",
+        },
+        // Prism 代码高亮样式
+        {
+          type: "style",
+          url: "https://cdn.staticfile.net/prism/1.29.0/themes/prism.min.css",
+        },
+        // Mermaid 图表库
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/mermaid/10.6.1/mermaid.min.js",
+        },
+        // Prism 核心脚本
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/prism.min.js",
+        },
+        // Prism 自动加载器
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js",
+        },
+        // Prism 常用语言组件
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-bash.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-javascript.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-typescript.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-python.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-css.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-json.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-markdown.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-yaml.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-java.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-c.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-cpp.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-sql.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-go.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-rust.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-docker.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-nginx.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-jsx.min.js",
+        },
+        {
+          type: "script",
+          url: "https://cdn.staticfile.net/prism/1.29.0/components/prism-tsx.min.js",
+        },
+      ];
+
+      // 遍历资源列表并创建 prefetch 链接
+      cdnResources.forEach(function (resource) {
+        var link = document.createElement("link");
+        link.rel = "prefetch";
+        link.href = resource.url;
+        link.crossOrigin = "anonymous";
+
+        // 根据资源类型设置 as 属性
+        if (resource.type === "style") {
+          link.as = "style";
+        } else if (resource.type === "script") {
+          link.as = "script";
+        }
+
+        document.head.appendChild(link);
+      });
+
+      // 调试日志（生产环境可移除）
+      if (typeof console !== "undefined" && console.log) {
+        console.log(
+          "[CdnPreloader] 已预加载 " + cdnResources.length + " 个 CDN 资源",
+        );
+      }
+    }, 100);
+  });
+</script>

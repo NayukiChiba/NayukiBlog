@@ -1,0 +1,270 @@
+---
+// 静态预渲染
+export const prerender = true;
+
+import PageLayout from "../layouts/PageLayout.astro";
+import PostCard from "../components/articles/PostCard.astro";
+import ProjectCard from "../components/projects/ProjectCard.astro";
+import ProfileCard from "../components/index/ProfileCard.astro";
+import GithubActivity from "../components/index/GithubActivity.astro";
+import TodoCard from "../components/index/TodoCard.astro";
+import DiaryCard from "../components/DiaryCard.astro";
+import { getCollection } from "astro:content";
+import { getProjects, getDiaries, getTodos } from "../lib/data";
+
+// 获取文章列表（最新3篇）
+const allPosts = await getCollection("blog");
+const posts = allPosts
+    .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
+    .slice(0, 3)
+    .map(post => ({
+        title: post.data.title,
+        date: post.data.date,
+        desc: post.data.description,
+        url: `/posts/${post.slug}`,
+        category: post.data.category,
+        tags: post.data.tags,
+        image: post.data.image,
+    }));
+
+// 获取项目列表（优先显示进行中的项目，最多2个）
+const allProjects = getProjects();
+const inProgressProjects = allProjects.filter(
+    p => p.status === "In Progress" || p.status === "in-progress"
+);
+const displayProjects = inProgressProjects.length > 0 ? inProgressProjects : allProjects;
+const projects = displayProjects.slice(0, 2).map(project => ({
+    title: project.name,
+    desc: project.description,
+    url: project.link,
+    tech: project.techStack,
+}));
+
+// 获取最新日记
+const allDiaries = getDiaries();
+const latestDiary = allDiaries.length > 0 ? allDiaries[0] : null;
+
+// 获取待办事项
+const todos = getTodos();
+---
+
+<PageLayout title="Nayuki Blog">
+    <div class="home-container">
+        <!-- Profile Section (Top) -->
+        <section class="profile-section">
+            <div class="profile-wrapper">
+                <ProfileCard />
+
+                <div class="profile-divider"></div>
+
+                <GithubActivity />
+
+                <div class="profile-divider"></div>
+
+                <TodoCard todos={todos} />
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Latest Diary (Conditional) -->
+        {
+            latestDiary && (
+                <section class="section-block">
+                    <div class="section-header">
+                        <h2 class="section-title">Latest Diary</h2>
+                        <a href="/diary" class="view-all">
+                            View all →
+                        </a>
+                    </div>
+                    <div class="diary-preview">
+                        <DiaryCard {...latestDiary} />
+                    </div>
+                </section>
+            )
+        }
+
+        <!-- Latest Posts -->
+        <section class="section-block">
+            <div class="section-header">
+                <h2 class="section-title">Latest Posts</h2>
+                <a href="/articles" class="view-all">View all →</a>
+            </div>
+            <div class="post-list">
+                {posts.map((post: any) => <PostCard {...post} />)}
+            </div>
+        </section>
+
+        <!-- Featured Projects -->
+        <section class="section-block">
+            <div class="section-header">
+                <h2 class="section-title">Featured Projects</h2>
+                <a href="/projects" class="view-all">View all →</a>
+            </div>
+            <div class="project-grid">
+                {projects.map((project: any) => <ProjectCard {...project} />)}
+            </div>
+        </section>
+    </div>
+</PageLayout>
+
+<style>
+    .home-container {
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    /* Staggered Animation for Sections */
+    .home-container > section,
+    .home-container > .divider {
+        opacity: 0;
+        animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    .home-container > *:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+    .home-container > *:nth-child(2) {
+        animation-delay: 0.15s;
+    }
+    .home-container > *:nth-child(3) {
+        animation-delay: 0.2s;
+    }
+    .home-container > *:nth-child(4) {
+        animation-delay: 0.25s;
+    }
+    .home-container > *:nth-child(5) {
+        animation-delay: 0.3s;
+    }
+    .home-container > *:nth-child(6) {
+        animation-delay: 0.35s;
+    }
+
+    /* Profile Section */
+    .profile-section {
+        margin-bottom: 2.5rem;
+    }
+
+    .profile-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .profile-divider {
+        display: none;
+        width: 1px;
+        height: 60px;
+        background: #eaeaea;
+        margin: 0 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .profile-wrapper {
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .profile-divider {
+            display: block;
+        }
+    }
+
+    .divider {
+        height: 1px;
+        background: #eaeaea;
+        margin: 2rem 0 3rem 0;
+    }
+
+    /* Section Styles */
+    .section-block {
+        margin-bottom: 4rem;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin: 0;
+        color: #111;
+    }
+
+    .view-all {
+        font-size: 0.9rem;
+        color: #666;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .view-all:hover {
+        color: #000;
+    }
+
+    .post-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /* Diary Preview Styles */
+    .diary-preview {
+        position: relative;
+        padding-left: 2rem;
+        border-left: 2px solid #eee;
+        margin-left: 1rem;
+    }
+
+    .project-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+        .project-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* 移动端响应式优化 */
+    @media (max-width: 767px) {
+        .profile-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .divider {
+            margin: 1.5rem 0 2rem 0;
+        }
+
+        .section-block {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header {
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+        }
+
+        .view-all {
+            font-size: 0.85rem;
+        }
+
+        .diary-preview {
+            padding-left: 1rem;
+            margin-left: 0.5rem;
+        }
+
+        .post-list {
+            gap: 0.75rem;
+        }
+    }
+</style>

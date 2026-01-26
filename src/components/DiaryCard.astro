@@ -1,0 +1,392 @@
+---
+interface Props {
+  date: string;
+  content: string;
+  mood: string;
+  weather?: string;
+  images?: string[];
+}
+
+const { date, content, mood, weather, images = [] } = Astro.props;
+const validImages = Array.isArray(images) ? images : [];
+
+const d = new Date(date);
+const displayDate = isNaN(d.getTime())
+  ? date
+  : d.getFullYear() +
+    "-" +
+    String(d.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(d.getDate()).padStart(2, "0") +
+    " " +
+    String(d.getHours()).padStart(2, "0") +
+    ":" +
+    String(d.getMinutes()).padStart(2, "0");
+
+const moodMap: Record<string, string> = {
+  happy: "😊",
+  relieved: "😌",
+  sad: "😢",
+  angry: "😠",
+  neutral: "😐",
+  excited: "🤩",
+  tired: "😫",
+};
+
+const weatherMap: Record<string, string> = {
+  sunny: "☀️",
+  cloudy: "☁️",
+  rainy: "🌧️",
+  snowy: "❄️",
+  windy: "💨",
+};
+---
+
+<div class="timeline-item">
+  <div class="timeline-marker"></div>
+  <div class="timeline-content">
+    <details class="diary-details">
+      <summary class="diary-summary">
+        <span class="diary-date">{displayDate}</span>
+        <span class="diary-mood-preview">{moodMap[mood] || "😐"}</span>
+      </summary>
+
+      <div class="diary-card-inner">
+        <div class="diary-header">
+          <div class="meta-group">
+            <span class="meta-item" title="Date">📅 {displayDate}</span>
+            {
+              weather && (
+                <span class="meta-item" title="Weather">
+                  {weatherMap[weather] || "🌤️"}
+                  <span class="meta-text">{weather}</span>
+                </span>
+              )
+            }
+            <span class="meta-item" title="Mood">
+              {moodMap[mood] || "😐"}
+              <span class="meta-text">{mood}</span>
+            </span>
+          </div>
+        </div>
+        <div class="diary-body">
+          <p>{content}</p>
+          {
+            validImages.length > 0 && (
+              <div class="diary-images">
+                {validImages.map((img) => (
+                  <img src={img} alt="Diary attachment" loading="lazy" />
+                ))}
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- Image Lightbox -->
+<div id="diary-image-lightbox" class="diary-lightbox">
+  <div class="diary-lightbox-overlay"></div>
+  <div class="diary-lightbox-content">
+    <button class="diary-lightbox-close" aria-label="关闭">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <img id="diary-lightbox-image" src="" alt="" />
+  </div>
+</div>
+
+<script>
+  // Image lightbox functionality
+  const setupDiaryImageLightbox = () => {
+    const lightbox = document.getElementById("diary-image-lightbox");
+    const lightboxImg = document.getElementById(
+      "diary-lightbox-image"
+    ) as HTMLImageElement;
+    const lightboxClose = document.querySelector(".diary-lightbox-close");
+    const lightboxOverlay = document.querySelector(".diary-lightbox-overlay");
+
+    // Get all diary images
+    const diaryImages = document.querySelectorAll(".diary-images img");
+
+    // Open lightbox function
+    const openLightbox = (imgElement: HTMLImageElement) => {
+      if (lightbox && lightboxImg) {
+        lightboxImg.src = imgElement.src;
+        lightboxImg.alt = imgElement.alt;
+        lightbox.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+    };
+
+    // Close lightbox function
+    const closeLightbox = () => {
+      if (lightbox) {
+        lightbox.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+    };
+
+    // Add click handlers to all diary images
+    diaryImages.forEach((img) => {
+      const imgElement = img as HTMLImageElement;
+      imgElement.style.cursor = "zoom-in";
+      imgElement.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openLightbox(imgElement);
+      });
+    });
+
+    // Close handlers
+    lightboxClose?.addEventListener("click", closeLightbox);
+    lightboxOverlay?.addEventListener("click", closeLightbox);
+
+    // ESC key handler
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox?.classList.contains("active")) {
+        closeLightbox();
+      }
+    });
+  };
+
+  // Initialize on DOM ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupDiaryImageLightbox);
+  } else {
+    setupDiaryImageLightbox();
+  }
+</script>
+
+<style>
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: -2.6rem;
+    top: 0.4rem;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border: 3px solid #333;
+    border-radius: 50%;
+    z-index: 1;
+    transition:
+      background 0.3s,
+      border-color 0.3s;
+  }
+
+  .timeline-item:hover .timeline-marker {
+    background: #333;
+  }
+
+  .diary-details {
+    width: 100%;
+  }
+
+  .diary-summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.2rem 0;
+    font-weight: 600;
+    color: #333;
+    transition: color 0.2s;
+  }
+
+  .diary-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .diary-summary:hover {
+    color: #000;
+  }
+
+  .diary-date {
+    font-size: 1.1rem;
+  }
+
+  .diary-mood-preview {
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+
+  .diary-card-inner {
+    margin-top: 1rem;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .diary-header {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .meta-group {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    color: #666;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .meta-text {
+    text-transform: capitalize;
+  }
+
+  .diary-body p {
+    margin: 0;
+    line-height: 1.7;
+    color: #444;
+    font-size: 1rem;
+    white-space: pre-wrap;
+  }
+
+  .diary-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
+
+  .diary-images img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    transition: transform 0.2s;
+  }
+
+  .diary-images img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Diary Image Lightbox Styles */
+  .diary-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .diary-lightbox.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .diary-lightbox-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    cursor: pointer;
+  }
+
+  .diary-lightbox-content {
+    position: relative;
+    z-index: 10000;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .diary-lightbox-content img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  }
+
+  .diary-lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10001;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  .diary-lightbox-close:hover {
+    background: rgba(220, 38, 38, 0.9);
+    transform: scale(1.1);
+  }
+
+  .diary-lightbox-close svg {
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    .diary-lightbox-close {
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .diary-lightbox-content img {
+      max-height: 75vh;
+    }
+  }
+</style>
