@@ -1,17 +1,17 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
 import ProjectCard from "../components/projects/ProjectCard.astro";
-import { getProjects } from "../lib/data";
+import { getProjects, type Project } from "../lib/data";
 
 // 从本地 JSON 读取项目数据
-const projects = getProjects({ visibility: 'published' });
+const projects = getProjects({ visibility: "published" });
 
 // Helper to map data format
 const mapProject = (p: Project) => ({
     title: p.name,
-    desc: p.description,
-    url: p.link,
-    tech: p.techStack,
+    desc: p.description || "",
+    url: p.link || "",
+    tech: p.techStack || [],
 });
 
 const inProgressProjects = projects
