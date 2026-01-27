@@ -6,7 +6,6 @@
       "cover": "https://img.yumeko.site/file/wife/早坂爱.jpg",
       "url": "https://book.douban.com/subject/26912767/",
       "status": "published",
-      "rating": 5,
       "tags": ["计算机", "系统", "经典"]
     },
     {
@@ -15,7 +14,6 @@
       "cover": "https://img.yumeko.site/file/wife/早坂爱.jpg",
       "url": "https://book.douban.com/subject/35175321/",
       "status": "published",
-      "rating": 5,
       "tags": ["JavaScript", "前端", "编程"]
     },
     {
@@ -24,7 +22,6 @@
       "cover": "https://img.yumeko.site/file/wife/早坂爱.jpg",
       "url": "https://book.douban.com/subject/35768338/",
       "status": "published",
-      "rating": 5,
       "tags": ["Vue", "前端", "源码"]
     },
     {
@@ -33,7 +30,6 @@
       "cover": "https://img.yumeko.site/file/wife/早坂爱.jpg",
       "url": "https://book.douban.com/subject/33437381/",
       "status": "published",
-      "rating": 4,
       "tags": ["机器学习", "统计", "数学"]
     },
     {
@@ -42,7 +38,6 @@
       "cover": "https://img.yumeko.site/file/wife/早坂爱.jpg",
       "url": "https://book.douban.com/subject/26886299/",
       "status": "published",
-      "rating": 5,
       "tags": ["数学", "线性代数", "教材"]
     },
     {
@@ -51,7 +46,6 @@
       "cover": "https://img.yumeko.site/file/wife/早坂爱.jpg",
       "url": "https://book.douban.com/subject/4199741/",
       "status": "published",
-      "rating": 4,
       "tags": ["编程", "代码质量", "最佳实践"]
     },
     {
@@ -60,7 +54,6 @@
       "cover": "https://img.yumeko.site/file/wife/早坂爱.jpg",
       "url": "https://book.douban.com/subject/6021440/",
       "status": "published",
-      "rating": 5,
       "tags": ["编程", "思想", "创业"]
     },
     {
@@ -69,7 +62,6 @@
       "cover": "https://img.yumeko.site/file/wife/早坂爱.jpg",
       "url": "https://book.douban.com/subject/1102259/",
       "status": "published",
-      "rating": 4,
       "tags": ["软件工程", "项目管理", "经典"]
     }
   ]
