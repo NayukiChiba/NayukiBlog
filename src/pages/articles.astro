@@ -1,25 +1,27 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 import PageLayout from "../layouts/PageLayout.astro";
 import PostCard from "../components/articles/PostCard.astro";
 import CategorySidebar from "../components/articles/CategorySidebar.astro";
 import TagSidebar from "../components/articles/TagSidebar.astro";
 
 // 从 Content Collections 读取文章
-const allPosts = await getCollection('blog', ({ data }) => {
-  return data.status === 'public';
+const allPosts = await getCollection("blog", ({ data }) => {
+    return data.status === "public";
 });
 
 // 转换为页面需要的格式
-const posts = allPosts.map(post => ({
-  title: post.data.title,
-  date: post.data.date,
-  desc: post.data.description || '',
-  url: `/posts/${post.slug}`,
-  tags: post.data.tags || [],
-  image: post.data.image || '',
-  folder: post.data.category || '',
-})).sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+const posts = allPosts
+    .map((post) => ({
+        title: post.data.title,
+        date: post.data.date,
+        desc: post.data.description || "",
+        url: `/posts/${post.slug}`,
+        tags: post.data.tags || [],
+        image: post.data.image || "",
+        folder: post.data.category || "",
+    }))
+    .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
 
 const tagCounts = posts
     .flatMap((post) => post.tags || [])
@@ -230,13 +232,19 @@ const folderList = [...folderSet].sort().map((path) => {
         // 预加载当前页面的文章
         const prefetchVisiblePosts = () => {
             visiblePosts.slice(start, end).forEach((wrapper) => {
-                const link = wrapper.querySelector('a.post-card') as HTMLAnchorElement;
+                const link = wrapper.querySelector(
+                    "a.post-card",
+                ) as HTMLAnchorElement;
                 if (link && link.href) {
-                    if (!document.querySelector(`link[rel="prefetch"][href="${link.href}"]`)) {
-                        const prefetchLink = document.createElement('link');
-                        prefetchLink.rel = 'prefetch';
+                    if (
+                        !document.querySelector(
+                            `link[rel="prefetch"][href="${link.href}"]`,
+                        )
+                    ) {
+                        const prefetchLink = document.createElement("link");
+                        prefetchLink.rel = "prefetch";
                         prefetchLink.href = link.href;
-                        prefetchLink.as = 'document';
+                        prefetchLink.as = "document";
                         document.head.appendChild(prefetchLink);
                     }
                 }
@@ -452,11 +460,14 @@ const folderList = [...folderSet].sort().map((path) => {
         color: #333;
         outline: none;
         transition: border-color 0.2s;
+        -webkit-appearance: textfield;
         -moz-appearance: textfield;
+        appearance: textfield;
     }
     .page-input::-webkit-outer-spin-button,
     .page-input::-webkit-inner-spin-button {
         -webkit-appearance: none;
+        appearance: none;
         margin: 0;
     }
     .page-input:focus {

@@ -29,6 +29,8 @@ export default defineConfig({
     build: {
       cssCodeSplit: true,
       minify: "esbuild",
+      // 确保输出文件使用 UTF-8 编码
+      charset: "utf8",
     },
   },
 });

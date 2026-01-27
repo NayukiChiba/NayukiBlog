@@ -1,158 +1,173 @@
 ---
 interface Props {
-  title: string;
-  date: string;
-  desc: string;
-  url: string;
-  tags?: string[];
-  image?: string;
+    title: string;
+    date: string;
+    desc: string;
+    url: string;
+    tags?: string[];
+    image?: string;
 }
 
 // Note: This component does not use Astro.glob. The warning likely comes from the parent page fetching posts.
-const { title, date, desc, url, tags = [], image = "/profile.jpg" } = Astro.props;
+const {
+    title,
+    date,
+    desc,
+    url,
+    tags = [],
+    image = "/profile.jpg",
+} = Astro.props;
 
-const formattedDate = new Date(date).toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric',
+const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
 });
 ---
 
 <a href={url} class="post-card group" data-astro-prefetch="load">
-  <div class="post-content">
-    <div class="post-text">
-      <div class="post-header">
-        <span class="post-date">{formattedDate}</span>
-        <h3 class="post-title">{title}</h3>
-      </div>
-      <p class="post-desc">{desc}</p>
-      {tags.length > 0 && (
-        <div class="post-tags">
-          {tags.map((tag: string) => (
-            <span class="tag">{tag}</span>
-          ))}
+    <div class="post-content">
+        <div class="post-text">
+            <div class="post-header">
+                <span class="post-date">{formattedDate}</span>
+                <h3 class="post-title">{title}</h3>
+            </div>
+            <p class="post-desc">{desc}</p>
+            {
+                tags.length > 0 && (
+                    <div class="post-tags">
+                        {tags.map((tag: string) => (
+                            <span class="tag">{tag}</span>
+                        ))}
+                    </div>
+                )
+            }
         </div>
-      )}
+        {
+            image && (
+                <div class="post-cover">
+                    <img src={image} alt={title} />
+                </div>
+            )
+        }
     </div>
-    {image && (
-      <div class="post-cover">
-        <img src={image} alt={title} />
-      </div>
-    )}
-  </div>
 </a>
 
 <style>
-  .post-card {
-    position: relative;
-    display: block;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    border-radius: 16px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    margin-bottom: 1rem;
-    overflow: hidden;
-    isolation: isolate;
-  }
-
-  .post-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-    border-color: transparent;
-  }
-
-  /* Content Styles */
-  .post-content {
-    padding: 1.5rem;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
-  }
-
-  .post-text {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .post-cover {
-    flex-shrink: 0;
-    width: 130px;
-    height: 130px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    display: none;
-  }
-
-  @media (min-width: 640px) {
-    .post-cover {
-      display: block;
+    .post-card {
+        position: relative;
+        display: block;
+        background: #fff;
+        border: 1px solid #eaeaea;
+        border-radius: 16px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        isolation: isolate;
     }
-  }
 
-  .post-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
+    .post-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        border-color: transparent;
+    }
 
-  .post-card:hover .post-cover img {
-    transform: scale(1.15);
-  }
+    /* Content Styles */
+    .post-content {
+        padding: 1.5rem;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        gap: 1.5rem;
+        align-items: flex-start;
+    }
 
-  .post-header {
-    margin-bottom: 0.8rem;
-  }
+    .post-text {
+        flex: 1;
+        min-width: 0;
+    }
 
-  .post-date {
-    display: block;
-    font-size: 0.8rem;
-    color: #999;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
+    .post-cover {
+        flex-shrink: 0;
+        width: 130px;
+        height: 130px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        display: none;
+    }
 
-  .post-title {
-    margin: 0;
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: #111;
-    line-height: 1.3;
-  }
+    @media (min-width: 640px) {
+        .post-cover {
+            display: block;
+        }
+    }
 
-  .post-desc {
-    margin: 0 0 1.2rem 0;
-    color: #444;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+    .post-desc {
+        margin: 0 0 1.2rem 0;
+        color: #444;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 
-  .post-tags {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
+    .post-card:hover .post-cover img {
+        transform: scale(1.15);
+    }
 
-  .tag {
-    font-size: 0.75rem;
-    color: #555;
-    background: rgba(0, 0, 0, 0.05);
-    padding: 0.2rem 0.6rem;
-    border-radius: 99px;
-    transition: background 0.2s;
-  }
+    .post-header {
+        margin-bottom: 0.8rem;
+    }
 
-  .post-card:hover .tag {
-    background: rgba(0, 0, 0, 0.08);
-  }
+    .post-date {
+        display: block;
+        font-size: 0.8rem;
+        color: #999;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+    }
+
+    .post-title {
+        margin: 0;
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #111;
+        line-height: 1.3;
+    }
+
+    .post-desc {
+        margin: 0 0 1.2rem 0;
+        color: #444;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .post-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .tag {
+        font-size: 0.75rem;
+        color: #555;
+        background: rgba(0, 0, 0, 0.05);
+        padding: 0.2rem 0.6rem;
+        border-radius: 99px;
+        transition: background 0.2s;
+    }
+
+    .post-card:hover .tag {
+        background: rgba(0, 0, 0, 0.08);
+    }
 </style>
