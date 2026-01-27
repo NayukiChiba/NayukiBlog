@@ -1,227 +1,268 @@
 ---
 interface Props {
-  id: string | number;
-  task: string;
-  completed: boolean;
-  priority: string;
-  progress: number;
-  icon: string;
+    id: string | number;
+    task: string;
+    completed: boolean;
+    priority: string;
+    progress: number;
+    icon: string;
 }
 
 const { id, task, completed, priority, progress, icon } = Astro.props;
 
 const priorityColors: Record<string, { bg: string; text: string }> = {
-  high: { bg: "#fff1f0", text: "#ff4d4f" },
-  medium: { bg: "#fffbe6", text: "#faad14" },
-  low: { bg: "#f6ffed", text: "#52c41a" }
+    high: { bg: "#fff1f0", text: "#ff4d4f" },
+    medium: { bg: "#fffbe6", text: "#faad14" },
+    low: { bg: "#f6ffed", text: "#52c41a" },
 };
 
-const colors = priorityColors[priority.toLowerCase()] || { bg: "#f5f5f5", text: "#888" };
+const colors = priorityColors[priority.toLowerCase()] || {
+    bg: "#f5f5f5",
+    text: "#888",
+};
 ---
 
-<div class="task-card" data-id={id} data-completed={completed.toString()} data-progress={progress}>
-  <div class="card-top">
-    <span class="icon">
-      {icon.startsWith('<svg') ? (
-        <Fragment set:html={icon} />
-      ) : icon.startsWith('http') || icon.startsWith('/') ? (
-        <img src={icon} alt="icon" class="task-icon-img" />
-      ) : (
-        <i class={`${icon}`}></i>
-      )}
-    </span>
-    <span class="priority-text" style={`background-color: ${colors.bg}; color: ${colors.text}; border-color: ${colors.bg}`}>
-      {priority}
-    </span>
-  </div>
-  
-  <div class="card-content">
-    <h3 class="task-title">{task}</h3>
-  </div>
-
-  <div class="card-bottom">
-    <div class="progress-wrapper">
-      <div class="progress-track">
-        <div class="progress-fill" style={`width: ${progress}%`}></div>
-      </div>
-      <span class="progress-text">{progress}%</span>
+<div
+    class="task-card"
+    data-id={id}
+    data-completed={completed.toString()}
+    data-progress={progress}
+>
+    <div class="card-top">
+        <span class="icon">
+            {
+                icon.startsWith("<svg") ? (
+                    <Fragment set:html={icon} />
+                ) : icon.startsWith("http") || icon.startsWith("/") ? (
+                    <img src={icon} alt="icon" class="task-icon-img" />
+                ) : (
+                    <i class={`${icon}`} />
+                )
+            }
+        </span>
+        <span
+            class="priority-text"
+            style={`background-color: ${colors.bg}; color: ${colors.text}; border-color: ${colors.bg}`}
+        >
+            {priority}
+        </span>
     </div>
-    
-    <button class="action-btn complete-btn" aria-label="Complete task">✓</button>
-  </div>
+
+    <div class="card-content">
+        <h3 class="task-title">{task}</h3>
+    </div>
+
+    <div class="card-bottom">
+        <div class="progress-wrapper">
+            <div class="progress-track">
+                <div class="progress-fill" style={`width: ${progress}%`}></div>
+            </div>
+            <span class="progress-text">{progress}%</span>
+        </div>
+
+        <button class="action-btn complete-btn" aria-label="Complete task"
+            >✓</button
+        >
+    </div>
 </div>
 
 <style>
-  .task-card {
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 12px;
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    transition: all 0.2s ease;
-    position: relative;
-    overflow: hidden;
-  }
+    .task-card {
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
 
-  .task-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border-color: #e0e0e0;
-  }
+    .task-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border-color: #e0e0e0;
+    }
 
-  .task-card[data-completed="true"] {
-    opacity: 0.6;
-    background: #fafafa;
-  }
+    .task-card[data-completed="true"] {
+        opacity: 0.6;
+        background: #fafafa;
+    }
 
-  .task-card[data-completed="true"] .task-title {
-    text-decoration: line-through;
-    color: #999;
-  }
+    .task-card[data-completed="true"] .task-title {
+        text-decoration: line-through;
+        color: #999;
+    }
 
-  .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
+    .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
 
-  .icon {
-    font-size: 1.5rem;
-  }
+    .icon {
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-  .priority-text {
-    font-size: 0.75rem;
-    color: #888;
-    font-weight: 500;
-    text-transform: capitalize;
-    border: 1px solid #eee;
-    padding: 0.1rem 0.4rem;
-    border-radius: 4px;
-    background: #f9f9f9;
-  }
+    .icon :global(svg) {
+        width: 24px;
+        height: 24px;
+        stroke: #333;
+        fill: none;
+    }
 
-  .task-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0;
-    line-height: 1.4;
-    color: #333;
-  }
+    .task-card:hover .icon :global(svg) {
+        stroke: #000;
+    }
 
-  .card-bottom {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: auto;
-  }
+    .task-icon-img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+    }
 
-  .progress-wrapper {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
+    .priority-text {
+        font-size: 0.75rem;
+        color: #888;
+        font-weight: 500;
+        text-transform: capitalize;
+        border: 1px solid #eee;
+        padding: 0.1rem 0.4rem;
+        border-radius: 4px;
+        background: #f9f9f9;
+    }
 
-  .progress-track {
-    flex: 1;
-    height: 6px;
-    background: #f0f0f0;
-    border-radius: 3px;
-    overflow: hidden;
-  }
+    .task-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0;
+        line-height: 1.4;
+        color: #333;
+    }
 
-  .progress-fill {
-    height: 100%;
-    background: #333;
-    border-radius: 3px;
-    transition: width 0.3s ease;
-  }
+    .card-bottom {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: auto;
+    }
 
-  .progress-text {
-    font-size: 0.75rem;
-    color: #666;
-    font-variant-numeric: tabular-nums;
-    width: 2.5em;
-    text-align: right;
-  }
+    .progress-wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
 
-  .action-btn {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    border: 1px solid #eee;
-    background: #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    color: #666;
-    transition: all 0.2s;
-    padding: 0;
-  }
+    .progress-track {
+        flex: 1;
+        height: 6px;
+        background: #f0f0f0;
+        border-radius: 3px;
+        overflow: hidden;
+    }
 
-  .action-btn:hover {
-    background: #f5f5f5;
-    color: #000;
-    border-color: #ddd;
-  }
+    .progress-fill {
+        height: 100%;
+        background: #333;
+        border-radius: 3px;
+        transition: width 0.3s ease;
+    }
 
-  .complete-btn {
-    background: #000;
-    color: #fff;
-    border-color: #000;
-    display: none;
-    font-size: 0.9rem;
-  }
+    .progress-text {
+        font-size: 0.75rem;
+        color: #666;
+        font-variant-numeric: tabular-nums;
+        width: 2.5em;
+        text-align: right;
+    }
 
-  .complete-btn:hover {
-    background: #333;
-    color: #fff;
-  }
+    .action-btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        border: 1px solid #eee;
+        background: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        color: #666;
+        transition: all 0.2s;
+        padding: 0;
+    }
+
+    .action-btn:hover {
+        background: #f5f5f5;
+        color: #000;
+        border-color: #ddd;
+    }
+
+    .complete-btn {
+        background: #000;
+        color: #fff;
+        border-color: #000;
+        display: none;
+        font-size: 0.9rem;
+    }
+
+    .complete-btn:hover {
+        background: #333;
+        color: #fff;
+    }
 </style>
 
 <script>
-  function initTaskCards() {
-    const cards = document.querySelectorAll('.task-card');
-    
-    cards.forEach(card => {
-      const completeBtn = card.querySelector('.complete-btn') as HTMLElement;
-      const progressBar = card.querySelector('.progress-fill') as HTMLElement;
-      const progressText = card.querySelector('.progress-text') as HTMLElement;
-      
-      let progress = parseInt(card.getAttribute('data-progress') || '0');
-      let isCompleted = card.getAttribute('data-completed') === 'true';
+    function initTaskCards() {
+        const cards = document.querySelectorAll(".task-card");
 
-      const updateUI = () => {
-        progressBar.style.width = `${progress}%`;
-        progressText.textContent = `${progress}%`;
-        
-        if (progress >= 100 && !isCompleted) {
-          completeBtn.style.display = 'flex';
-        } else if (isCompleted) {
-          completeBtn.style.display = 'none';
-        } else {
-          completeBtn.style.display = 'none';
-        }
-      };
+        cards.forEach((card) => {
+            const completeBtn = card.querySelector(
+                ".complete-btn",
+            ) as HTMLElement;
+            const progressBar = card.querySelector(
+                ".progress-fill",
+            ) as HTMLElement;
+            const progressText = card.querySelector(
+                ".progress-text",
+            ) as HTMLElement;
 
-      // Initial state
-      updateUI();
+            let progress = parseInt(card.getAttribute("data-progress") || "0");
+            let isCompleted = card.getAttribute("data-completed") === "true";
 
-      completeBtn?.addEventListener('click', () => {
-        isCompleted = true;
-        card.setAttribute('data-completed', 'true');
-        updateUI();
-      });
-    });
-  }
+            const updateUI = () => {
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${progress}%`;
 
-  // Run on load
-  initTaskCards();
-  
-  // Re-run on view transitions if enabled
-  document.addEventListener('astro:page-load', initTaskCards);
+                if (progress >= 100 && !isCompleted) {
+                    completeBtn.style.display = "flex";
+                } else if (isCompleted) {
+                    completeBtn.style.display = "none";
+                } else {
+                    completeBtn.style.display = "none";
+                }
+            };
+
+            // Initial state
+            updateUI();
+
+            completeBtn?.addEventListener("click", () => {
+                isCompleted = true;
+                card.setAttribute("data-completed", "true");
+                updateUI();
+            });
+        });
+    }
+
+    // Run on load
+    initTaskCards();
+
+    // Re-run on view transitions if enabled
+    document.addEventListener("astro:page-load", initTaskCards);
 </script>

@@ -14,7 +14,10 @@
       "content": "研究了一下午 Cloudflare Workers，这东西真的太强了！零冷启动，全球边缘部署，免费额度还高。写了一个简单的 OAuth 代理，大概 50 行代码就搞定了。准备用它来做博客管理后台的认证服务。",
       "mood": "happy",
       "weather": "sunny",
-      "images": []
+      "images": [
+        "https://img.yumeko.site/file/wife/早坂爱.jpg",
+        "https://img.yumeko.site/file/wife/辉夜.jpg"
+      ]
     },
     {
       "id": 3,
@@ -30,7 +33,10 @@
       "content": "决定把博客重构成静态的了。动态博客虽然功能强大，但对于个人博客来说有点大材小用。静态博客的优势太明显了：访问速度快、不需要服务器、部署简单、安全性高。选择 Astro 作为框架，听说它的性能非常好，默认零 JS。",
       "mood": "neutral",
       "weather": "rainy",
-      "images": []
+      "images": [
+        "https://img.yumeko.site/file/wife/早坂爱.jpg",
+        "https://img.yumeko.site/file/wife/辉夜.jpg"
+      ]
     },
     {
       "id": 5,
@@ -46,7 +52,10 @@
       "content": "研究生录取通知终于下来了，武大人工智能学院！激动得一晚上没睡好。从数学系跨到 AI，这条路走得不容易，但总算是成功了。接下来要好好准备一下，争取研究生阶段能做出一些成果。",
       "mood": "excited",
       "weather": "sunny",
-      "images": []
+      "images": [
+        "https://img.yumeko.site/file/wife/早坂爱.jpg",
+        "https://img.yumeko.site/file/wife/辉夜.jpg"
+      ]
     },
     {
       "id": 7,
@@ -54,7 +63,10 @@
       "content": "期末考试终于结束了！最后一门高等代数考得还行，应该能拿个不错的分数。这学期真的太累了，专业课加上考研准备，感觉每天都在学习。不过一切都值得，现在可以好好休息一下了。",
       "mood": "happy",
       "weather": "cloudy",
-      "images": []
+      "images": [
+        "https://img.yumeko.site/file/wife/早坂爱.jpg",
+        "https://img.yumeko.site/file/wife/辉夜.jpg"
+      ]
     },
     {
       "id": 8,
@@ -62,7 +74,10 @@
       "content": "今天尝试用 Vue3 的组合式 API 重写了一个小项目，感觉比 Options API 舒服多了。逻辑复用变得特别简单，写一个 composable 函数就搞定了。TypeScript 支持也很好，类型推断很准确。",
       "mood": "happy",
       "weather": "sunny",
-      "images": []
+      "images": [
+        "https://img.yumeko.site/file/wife/早坂爱.jpg",
+        "https://img.yumeko.site/file/wife/辉夜.jpg"
+      ]
     },
     {
       "id": 9,
