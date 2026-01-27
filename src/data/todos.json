@@ -2,12 +2,102 @@
   "todos": [
     {
       "id": 1,
-      "task": "asdfasdf",
+      "task": "完成博客管理后台开发",
+      "completed": false,
+      "priority": "high",
+      "type": "short-term",
+      "progress": 20,
+      "icon": "🚀",
+      "status": "published"
+    },
+    {
+      "id": 2,
+      "task": "搭建 Cloudflare Workers OAuth 服务",
+      "completed": false,
+      "priority": "high",
+      "type": "short-term",
+      "progress": 0,
+      "icon": "🔐",
+      "status": "published"
+    },
+    {
+      "id": 3,
+      "task": "学习 PyTorch 深度学习框架",
+      "completed": false,
+      "priority": "medium",
+      "type": "long-term",
+      "progress": 35,
+      "icon": "🧠",
+      "status": "published"
+    },
+    {
+      "id": 4,
+      "task": "完成机器学习笔记整理",
       "completed": false,
       "priority": "medium",
       "type": "short-term",
-      "progress": 40,
-      "icon": "asdfasd",
+      "progress": 60,
+      "icon": "📝",
+      "status": "published"
+    },
+    {
+      "id": 5,
+      "task": "研究生入学前准备",
+      "completed": false,
+      "priority": "high",
+      "type": "long-term",
+      "progress": 10,
+      "icon": "🎓",
+      "status": "published"
+    },
+    {
+      "id": 6,
+      "task": "阅读《统计学习方法》",
+      "completed": false,
+      "priority": "medium",
+      "type": "long-term",
+      "progress": 45,
+      "icon": "📖",
+      "status": "published"
+    },
+    {
+      "id": 7,
+      "task": "给博客添加 RSS 订阅功能",
+      "completed": false,
+      "priority": "low",
+      "type": "short-term",
+      "progress": 0,
+      "icon": "📡",
+      "status": "published"
+    },
+    {
+      "id": 8,
+      "task": "学习 Rust 语言基础",
+      "completed": false,
+      "priority": "low",
+      "type": "long-term",
+      "progress": 15,
+      "icon": "🦀",
+      "status": "published"
+    },
+    {
+      "id": 9,
+      "task": "整理 GitHub 仓库和 README",
+      "completed": true,
+      "priority": "medium",
+      "type": "short-term",
+      "progress": 100,
+      "icon": "📁",
+      "status": "published"
+    },
+    {
+      "id": 10,
+      "task": "完成博客静态化重构",
+      "completed": true,
+      "priority": "high",
+      "type": "short-term",
+      "progress": 100,
+      "icon": "✅",
       "status": "published"
     }
   ]

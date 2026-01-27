@@ -2,14 +2,83 @@
   "diaries": [
     {
       "id": 1,
-      "date": "2025-12-29T21:42",
-      "content": "asdfasd",
+      "date": "2026-01-27T22:30",
+      "content": "今天终于把博客从动态架构迁移到了静态架构！用 Astro 重构了整个项目，感觉清爽了很多。之前用 FastAPI + SQLite 的方案虽然灵活，但维护起来太麻烦了。现在纯静态，部署到 EdgeOne 和 Netlify 双线，国内国外访问都很快。接下来准备自己写一个管理后台，用 Cloudflare Workers 做 OAuth，彻底摆脱 Netlify 那个丑陋的 CMS 界面。",
+      "mood": "excited",
+      "weather": "cloudy",
+      "images": ["https://img.yumeko.site/file/wife/早坂爱.jpg"]
+    },
+    {
+      "id": 2,
+      "date": "2026-01-26T18:45",
+      "content": "研究了一下午 Cloudflare Workers，这东西真的太强了！零冷启动，全球边缘部署，免费额度还高。写了一个简单的 OAuth 代理，大概 50 行代码就搞定了。准备用它来做博客管理后台的认证服务。",
       "mood": "happy",
       "weather": "sunny",
-      "images": [
-        "asdf",
-        "asdf"
-      ]
+      "images": []
+    },
+    {
+      "id": 3,
+      "date": "2026-01-25T21:15",
+      "content": "今天开始学习 Astro 的 Content Collections，类型安全的内容管理确实很香。定义好 schema 之后，写文章的时候 IDE 会自动提示 frontmatter 字段，再也不用担心写错了。顺便把之前的文章都迁移过来了，Markdown 渲染效果很不错。",
+      "mood": "happy",
+      "weather": "sunny",
+      "images": ["https://img.yumeko.site/file/wife/早坂爱.jpg"]
+    },
+    {
+      "id": 4,
+      "date": "2026-01-24T16:20",
+      "content": "决定把博客重构成静态的了。动态博客虽然功能强大，但对于个人博客来说有点大材小用。静态博客的优势太明显了：访问速度快、不需要服务器、部署简单、安全性高。选择 Astro 作为框架，听说它的性能非常好，默认零 JS。",
+      "mood": "neutral",
+      "weather": "rainy",
+      "images": []
+    },
+    {
+      "id": 5,
+      "date": "2026-01-23T20:00",
+      "content": "今天武汉下雪了！虽然不大，但还是很开心。窝在宿舍里看了一下午番，《辉夜大小姐想让我告白》真的太好看了，早坂爱赛高！顺便把她设成了博客的封面图。",
+      "mood": "happy",
+      "weather": "snowy",
+      "images": ["https://img.yumeko.site/file/wife/早坂爱.jpg"]
+    },
+    {
+      "id": 6,
+      "date": "2026-01-22T14:30",
+      "content": "研究生录取通知终于下来了，武大人工智能学院！激动得一晚上没睡好。从数学系跨到 AI，这条路走得不容易，但总算是成功了。接下来要好好准备一下，争取研究生阶段能做出一些成果。",
+      "mood": "excited",
+      "weather": "sunny",
+      "images": []
+    },
+    {
+      "id": 7,
+      "date": "2026-01-20T19:45",
+      "content": "期末考试终于结束了！最后一门高等代数考得还行，应该能拿个不错的分数。这学期真的太累了，专业课加上考研准备，感觉每天都在学习。不过一切都值得，现在可以好好休息一下了。",
+      "mood": "happy",
+      "weather": "cloudy",
+      "images": []
+    },
+    {
+      "id": 8,
+      "date": "2026-01-18T22:10",
+      "content": "今天尝试用 Vue3 的组合式 API 重写了一个小项目，感觉比 Options API 舒服多了。逻辑复用变得特别简单，写一个 composable 函数就搞定了。TypeScript 支持也很好，类型推断很准确。",
+      "mood": "happy",
+      "weather": "sunny",
+      "images": []
+    },
+    {
+      "id": 9,
+      "date": "2026-01-15T17:30",
+      "content": "和室友一起去吃了顿火锅，庆祝考研初试结束。虽然不知道结果如何，但至少这段时间的努力没有白费。火锅真的太香了，好久没有这么放纵地吃过东西了。",
+      "mood": "happy",
+      "weather": "cloudy",
+      "images": ["https://img.yumeko.site/file/wife/早坂爱.jpg"]
+    },
+    {
+      "id": 10,
+      "date": "2026-01-10T21:00",
+      "content": "最近在研究机器学习，决策树和逻辑回归的数学原理终于搞懂了。写了两篇笔记记录一下，以后复习的时候可以看。数学系的背景在学 ML 的时候还是很有优势的，很多公式推导都能看懂。",
+      "mood": "neutral",
+      "weather": "sunny",
+      "images": []
     }
   ]
 }

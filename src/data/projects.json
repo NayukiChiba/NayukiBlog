@@ -2,13 +2,56 @@
   "projects": [
     {
       "id": 1,
-      "name": "asdfs",
-      "description": "fasdfas",
-      "link": "asdfasd",
-      "techStack": [
-        "asdfasd"
-      ],
+      "name": "NayukiBlog",
+      "description": "基于 Astro 构建的个人静态博客，支持 Markdown 文章、代码高亮、数学公式、Mermaid 图表等功能。采用 EdgeOne + Netlify 双线部署，国内外访问都很快。",
+      "link": "https://github.com/NayukiChiba/NayukiBlog",
+      "techStack": ["Astro", "TypeScript", "Tailwind CSS", "Markdown"],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
+      "id": 2,
+      "name": "Blog Admin",
+      "description": "自建的博客管理后台，使用 Cloudflare Workers 实现 GitHub OAuth 认证，通过 GitHub API 直接管理博客内容。告别丑陋的 Decap CMS！",
+      "link": "https://github.com/NayukiChiba/blog-admin",
+      "techStack": ["Vue3", "TypeScript", "Cloudflare Workers", "GitHub API"],
       "status": "in-progress",
+      "visibility": "published"
+    },
+    {
+      "id": 3,
+      "name": "ML-Notes",
+      "description": "机器学习学习笔记，包含决策树、逻辑回归、SVM、神经网络等算法的数学推导和 Python 实现。",
+      "link": "https://github.com/NayukiChiba/ML-Notes",
+      "techStack": ["Python", "NumPy", "Scikit-learn", "Jupyter"],
+      "status": "in-progress",
+      "visibility": "published"
+    },
+    {
+      "id": 4,
+      "name": "Vue3 Composables",
+      "description": "常用的 Vue3 组合函数集合，包括 useFetch、useLocalStorage、useMouse、useDebounce 等，支持 TypeScript。",
+      "link": "https://github.com/NayukiChiba/vue3-composables",
+      "techStack": ["Vue3", "TypeScript", "Vite"],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
+      "id": 5,
+      "name": "CF-OAuth-Proxy",
+      "description": "基于 Cloudflare Workers 的轻量级 OAuth 代理服务，支持 GitHub、Google 等第三方登录，零冷启动，全球边缘部署。",
+      "link": "https://github.com/NayukiChiba/cf-oauth-proxy",
+      "techStack": ["Cloudflare Workers", "TypeScript", "OAuth2"],
+      "status": "planned",
+      "visibility": "published"
+    },
+    {
+      "id": 6,
+      "name": "数据结构可视化",
+      "description": "用 Canvas 实现的数据结构可视化工具，支持链表、二叉树、图等结构的动态演示，帮助理解算法执行过程。",
+      "link": "https://github.com/NayukiChiba/ds-visualizer",
+      "techStack": ["JavaScript", "Canvas", "HTML5"],
+      "status": "completed",
       "visibility": "published"
     }
   ]

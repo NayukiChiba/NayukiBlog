@@ -2,11 +2,137 @@
   "tools": [
     {
       "id": 1,
-      "name": "Astrbot-Image",
-      "description": "wfasdf",
-      "url": "sadfsad",
-      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-aarrow-down-icon lucide-a-arrow-down\"><path d=\"m14 12 4 4 4-4\"/><path d=\"M18 16V7\"/><path d=\"m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16\"/><path d=\"M3.304 13h6.392\"/></svg>",
-      "category": "asdfa",
+      "name": "GitHub",
+      "description": "全球最大的代码托管平台，开源项目的家园",
+      "url": "https://github.com",
+      "icon": "🐙",
+      "category": "开发工具",
+      "status": "published"
+    },
+    {
+      "id": 2,
+      "name": "Cloudflare",
+      "description": "CDN、DNS、安全防护一站式服务，Workers 无服务器计算平台",
+      "url": "https://cloudflare.com",
+      "icon": "☁️",
+      "category": "云服务",
+      "status": "published"
+    },
+    {
+      "id": 3,
+      "name": "VS Code",
+      "description": "微软出品的轻量级代码编辑器，插件生态丰富",
+      "url": "https://code.visualstudio.com",
+      "icon": "💻",
+      "category": "开发工具",
+      "status": "published"
+    },
+    {
+      "id": 4,
+      "name": "Vercel",
+      "description": "前端项目部署平台，支持 Next.js、Astro 等框架一键部署",
+      "url": "https://vercel.com",
+      "icon": "▲",
+      "category": "云服务",
+      "status": "published"
+    },
+    {
+      "id": 5,
+      "name": "Figma",
+      "description": "在线协作设计工具，UI/UX 设计师必备",
+      "url": "https://figma.com",
+      "icon": "🎨",
+      "category": "设计工具",
+      "status": "published"
+    },
+    {
+      "id": 6,
+      "name": "Notion",
+      "description": "All-in-one 笔记和协作工具，支持数据库、看板等功能",
+      "url": "https://notion.so",
+      "icon": "📝",
+      "category": "效率工具",
+      "status": "published"
+    },
+    {
+      "id": 7,
+      "name": "ChatGPT",
+      "description": "OpenAI 的 AI 对话助手，编程、写作、学习的好帮手",
+      "url": "https://chat.openai.com",
+      "icon": "🤖",
+      "category": "AI 工具",
+      "status": "published"
+    },
+    {
+      "id": 8,
+      "name": "Claude",
+      "description": "Anthropic 的 AI 助手，擅长长文本处理和代码分析",
+      "url": "https://claude.ai",
+      "icon": "🧠",
+      "category": "AI 工具",
+      "status": "published"
+    },
+    {
+      "id": 9,
+      "name": "Excalidraw",
+      "description": "手绘风格的在线白板工具，画流程图、架构图超好用",
+      "url": "https://excalidraw.com",
+      "icon": "✏️",
+      "category": "设计工具",
+      "status": "published"
+    },
+    {
+      "id": 10,
+      "name": "Ray.so",
+      "description": "生成漂亮的代码截图，支持多种主题和语言",
+      "url": "https://ray.so",
+      "icon": "📸",
+      "category": "开发工具",
+      "status": "published"
+    },
+    {
+      "id": 11,
+      "name": "TinyPNG",
+      "description": "在线图片压缩工具，支持 PNG 和 JPEG 格式",
+      "url": "https://tinypng.com",
+      "icon": "🐼",
+      "category": "效率工具",
+      "status": "published"
+    },
+    {
+      "id": 12,
+      "name": "Can I Use",
+      "description": "查询 CSS、JS 特性的浏览器兼容性",
+      "url": "https://caniuse.com",
+      "icon": "🔍",
+      "category": "开发工具",
+      "status": "published"
+    },
+    {
+      "id": 13,
+      "name": "DevDocs",
+      "description": "聚合各种编程语言和框架的 API 文档，支持离线使用",
+      "url": "https://devdocs.io",
+      "icon": "📚",
+      "category": "开发工具",
+      "status": "published"
+    },
+    {
+      "id": 14,
+      "name": "Regex101",
+      "description": "在线正则表达式测试工具，带详细解释和调试功能",
+      "url": "https://regex101.com",
+      "icon": "🔤",
+      "category": "开发工具",
+      "status": "published"
+    },
+    {
+      "id": 15,
+      "name": "JSON Formatter",
+      "description": "在线 JSON 格式化和验证工具",
+      "url": "https://jsonformatter.org",
+      "icon": "{ }",
+      "category": "开发工具",
       "status": "published"
     }
   ]
