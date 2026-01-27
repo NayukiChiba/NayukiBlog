@@ -1,8 +1,11 @@
 ---
 title: Markdown样式完整测试文档
 date: 2026-01-13
+category: 技术
+tags: [测试, Markdown, 样式, 前端]
 description: 这是一个用于测试所有Markdown样式的综合测试文档，包含标题、列表、表格、代码块、数学公式、图片等所有常用元素。
-tags: [测试, Markdown, 样式]
+image: https://img.yumeko.site/file/wife/早坂爱.jpg
+status: public
 ---
 
 # 一级标题 - Markdown 样式完整测试

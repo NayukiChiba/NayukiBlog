@@ -1,82 +1,48 @@
-[
-  {
-    "id": 1,
-    "title": "DecisionTree",
-    "date": "2025-12-29",
-    "description": "asdfasd",
-    "url": "/user/posts/DecisionTree",
-    "tags": [
-      "asdfad"
-    ],
-    "image": "https://img.yumeko.site/file/Failed.jpeg",
-    "category": "test",
-    "status": "public"
-  },
-  {
-    "id": 2,
-    "title": "LogisticRegression",
-    "date": "2025-12-29",
-    "description": "asdfasd",
-    "url": "/user/posts/LogisticRegression",
-    "tags": [
-      "asdfad"
-    ],
-    "image": "https://img.yumeko.site/file/Failed.jpeg",
-    "category": "test",
-    "status": "public"
-  },
-  {
-    "id": 3,
-    "title": "fghjkfghjfghj",
-    "date": "2025-12-29",
-    "description": "dfghjfghjfghj",
-    "url": "/user/posts/README",
-    "tags": [
-      "fghjfghj"
-    ],
-    "image": "https://img.yumeko.site/file/Failed.jpeg",
-    "category": "test",
-    "status": "public"
-  },
-  {
-    "id": 4,
-    "title": "UbuntuBeautification",
-    "date": "2026-01-07",
-    "description": "sfasdf",
-    "url": "/user/posts/UbuntuBeautification",
-    "tags": [
-      "fghjfghj",
-      "asdfad"
-    ],
-    "image": "https://img.yumeko.site/file/Failed.jpeg",
-    "category": "test",
-    "status": "public"
-  },
-  {
-    "id": 5,
-    "title": "Markdown样式测试",
-    "date": "2026-01-13",
-    "description": "asdfasdf",
-    "url": "/user/posts/Markdown样式测试",
-    "tags": [
-      "fghjfghj"
-    ],
-    "image": "https://nyeimg.asia/img/wife/时崎狂三.jpg",
-    "category": "test",
-    "status": "public"
-  },
-  {
-    "id": 6,
-    "title": "GitUsage",
-    "date": "2026-01-14",
-    "description": "asdfgasdgasd",
-    "url": "/user/posts/GitUsage",
-    "tags": [
-      "fghjfghj",
-      "asdfad"
-    ],
-    "image": "https://img.yumeko.site/file/Failed.jpeg",
-    "category": "test",
-    "status": "public"
-  }
-]
+{
+  "articles": [
+    {
+      "id": 1,
+      "slug": "astro静态博客搭建",
+      "title": "Astro 静态博客搭建完全指南",
+      "date": "2026-01-26",
+      "category": "技术",
+      "tags": ["Astro", "博客", "前端", "SSG"],
+      "description": "手把手教你用 Astro 搭建一个高性能的静态博客，从零到部署",
+      "image": "https://img.yumeko.site/file/wife/早坂爱.jpg",
+      "status": "public"
+    },
+    {
+      "id": 2,
+      "slug": "cloudflareworkers入门",
+      "title": "Cloudflare Workers 入门指南",
+      "date": "2026-01-25",
+      "category": "技术",
+      "tags": ["Cloudflare", "Serverless", "JavaScript"],
+      "description": "从零开始学习 Cloudflare Workers，打造属于自己的边缘计算应用",
+      "image": "https://img.yumeko.site/file/wife/早坂爱.jpg",
+      "status": "public"
+    },
+    {
+      "id": 3,
+      "slug": "vue3组合式api",
+      "title": "Vue3 组合式 API 完全指南",
+      "date": "2026-01-24",
+      "category": "技术",
+      "tags": ["Vue3", "前端", "JavaScript", "TypeScript"],
+      "description": "深入理解 Vue3 组合式 API，从 Options API 到 Composition API 的优雅迁移",
+      "image": "https://img.yumeko.site/file/wife/早坂爱.jpg",
+      "status": "public"
+    },
+    {
+      "id": 4,
+      "slug": "markdown样式测试",
+      "title": "Markdown样式完整测试文档",
+      "date": "2026-01-13",
+      "category": "技术",
+      "tags": ["测试", "Markdown", "样式", "前端"],
+      "description": "这是一个用于测试所有Markdown样式的综合测试文档，包含标题、列表、表格、代码块、数学公式、图片等所有常用元素。",
+      "image": "https://img.yumeko.site/file/wife/早坂爱.jpg",
+      "status": "public"
+    }
+  ]
+}
