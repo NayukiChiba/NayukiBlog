@@ -1,0 +1,48 @@
+name: Deploy to EdgeOne
+
+on:
+  push:
+    branches:
+      - static-blog  # 监听 static-blog 分支的推送
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build static site
+        run: npm run build
+        env:
+          NODE_ENV: production
+      
+      - name: Deploy to EdgeOne
+        uses: TencentCloud/edgeone-pages-action@v1
+        with:
+          # EdgeOne 配置（需要在 GitHub Secrets 中配置）
+          secret-id: ${{ secrets.TENCENT_SECRET_ID }}
+          secret-key: ${{ secrets.TENCENT_SECRET_KEY }}
+          zone-id: ${{ secrets.EDGEONE_ZONE_ID }}
+          project-name: ${{ secrets.EDGEONE_PROJECT_NAME }}
+          # 构建输出目录
+          directory: dist
+          # 分支名称
+          branch: static-blog
+      
+      - name: Deployment Summary
+        run: |
+          echo "✅ 部署完成！"
+          echo "📦 构建目录: dist"
+          echo "🌐 分支: static-blog"

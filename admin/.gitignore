@@ -1,1 +1,0 @@
-# Dependencies\nnode_modules/\n\n# Build output\ndist/\n.astro/\n\n# Environment\n.env.local\n.env.*.local\n\n# IDE\n.vscode/\n.idea/

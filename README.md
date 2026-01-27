@@ -1,233 +1,138 @@
-# 🌸 NayukiBlog
+# Nayuki Blog - 静态博客
 
-一个现代化的个人博客与内容管理系统，基于 **Astro + FastAPI + SQLite** 构建。
+> 基于 Astro + Decap CMS 的现代化静态博客系统
 
-![Astro](https://img.shields.io/badge/Astro-5.0-BC52EE?logo=astro&logoColor=white)![FastAPI](https://img.shields.io/badge/FastAPI-0.124-009688?logo=fastapi&logoColor=white)![SQLite](https://img.shields.io/badge/SQLite-3-003B57?logo=sqlite&logoColor=white)![Python](https://img.shields.io/badge/Python-3.13+-3776AB?logo=python&logoColor=white)
+## ✨ 特性
 
-## ✨ 功能特性
+- 🚀 **极速访问** - 纯静态网站，CDN 加速
+- 📝 **Markdown 写作** - 支持 GFM 和 LaTeX 数学公式
+- 🎨 **可视化管理** - Decap CMS 提供友好的管理界面
+- 🔄 **自动部署** - Push 到 GitHub 自动构建部署
+- 📦 **版本控制** - 所有内容都在 Git 中，可随时回滚
+- 🌐 **EdgeOne CDN** - 腾讯云 EdgeOne 全球加速
 
-### 📝 内容管理
-- **文章系统** - 支持 Markdown/MDX 撰写，KaTeX 数学公式，Mermaid 流程图，代码高亮
-- **日记本** - 记录日常，支持心情和天气标签
-- **图库** - 图片管理与展示
-- **书架** - 阅读记录与书籍管理
-- **项目展示** - 个人项目与作品集
-- **待办事项** - 任务管理与进度追踪
-- **工具箱** - 常用工具收藏
+## 🏗️ 技术栈
 
-### 🔐 双端系统
+- **前端框架**: [Astro](https://astro.build/)
+- **内容管理**: [Decap CMS](https://decapcms.org/)
+- **部署平台**: [腾讯云 EdgeOne](https://cloud.tencent.com/product/eo)
+- **CI/CD**: GitHub Actions
+- **样式**: CSS + Astro Components
 
-- **用户端** (`/user/*`) - 内容展示，响应式设计
-- **管理端** (`/admin/*`) - 后台管理，CRUD 操作，登录认证
-
-### 🚀 技术亮点
-- ⚡️ **极速加载** - Astro Islands 架构，按需 hydration
-- 📊 **数学公式** - KaTeX 渲染 LaTeX 语法
-- 📈 **流程图表** - Mermaid 支持
-- 🎨 **代码高亮** - Expressive Code 主题
-- 🗜️ **自动压缩** - CSS/JS/HTML 压缩优化
-- 🔄 **SSR 渲染** - Node.js 服务端渲染
-
-## 🛠️ 技术栈
-
-| 层级 | 技术 | 说明 |
-|------|------|------|
-| **前端框架** | [Astro 5](https://astro.build/) | 静态站点生成 + 服务端渲染 |
-| **UI 组件** | Astro Components | 原生组件系统 |
-| **样式** | CSS Modules | 模块化样式 |
-| **Markdown** | MDX + remark/rehype | 增强 Markdown 支持 |
-| **后端框架** | [FastAPI](https://fastapi.tiangolo.com/) | 高性能 Python API |
-| **数据库** | SQLite + SQLAlchemy | 轻量级 ORM |
-| **部署** | Node.js (SSR) | 服务端渲染模式 |
-
-## 📂 项目结构
+## 📁 项目结构
 
 ```
 NayukiBlog/
-├── app/                      # FastAPI 后端
-│   ├── api/                  # API 路由
-│   │   ├── admin.py          # 管理端接口
-│   │   └── user.py           # 用户端接口
-│   ├── core/                 # 核心配置
-│   │   └── database.py       # 数据库连接
-│   ├── crud/                 # 数据操作
-│   │   └── blog.py           # CRUD 封装
-│   ├── models/               # ORM 模型
-│   │   └── blog.py           # 数据表定义
-│   ├── schemas/              # Pydantic 模型
-│   │   └── blog.py           # 请求/响应模型
-│   ├── services/             # 业务逻辑
-│   │   └── article_service.py
-│   ├── utils/                # 工具函数
-│   │   ├── security.py       # 安全认证
-│   │   └── tag_utils.py      # 标签处理
-│   ├── db_init.py            # 数据库初始化脚本
-│   └── main.py               # 应用入口
-│
-├── admin/                    # Astro 管理端前端
-│   ├── src/
-│   │   ├── components/       # 管理端组件
-│   │   ├── layouts/          # 布局模板
-│   │   ├── pages/            # 管理后台页面
-│   │   └── lib/              # 工具库
-│   ├── public/               # 静态资源
-│   └── astro.config.mjs      # Astro 配置
-│
-├── user/                     # Astro 用户端前端
-│   ├── src/
-│   │   ├── components/       # 用户端组件
-│   │   ├── layouts/          # 布局模板
-│   │   │   ├── Layout.astro
-│   │   │   ├── PageLayout.astro
-│   │   │   └── MarkdownLayout.astro
-│   │   ├── pages/            # 用户前台页面
-│   │   ├── lib/              # 工具库
-│   │   │   └── api.ts        # API 封装
-│   │   └── styles/           # 全局样式
-│   ├── blog/                 # Markdown 文章目录
-│   ├── public/               # 静态资源
-│   └── astro.config.mjs      # Astro 配置
-│
-├── .env                      # 一些私人配置
-├── .gitignore
-├── .python-version           # uv自动生成
-├── blog.db                   # sqlite3数据库文件
-├── pyproject.toml            # uv自动生成Python 项目配置
-├── uv.lock                   # uv自动生成
-└── README.md
+├── public/
+│   ├── admin/              # Decap CMS 管理后台
+│   └── images/             # 图片资源
+├── src/
+│   ├── content/
+│   │   └── blog/           # 📝 文章 Markdown
+│   ├── data/               # 📊 JSON 数据
+│   ├── pages/              # 页面
+│   ├── components/         # 组件
+│   ├── layouts/            # 布局
+│   └── lib/                # 工具函数
+├── .github/
+│   └── workflows/          # GitHub Actions
+└── dist/                   # 构建输出
 ```
 
 ## 🚀 快速开始
 
-### 环境要求
-
-- **Python** >= 3.13
-- **Node.js** >= 18
-- **npm** >= 11
-
-### 1. 克隆项目
+### 1. 克隆仓库
 
 ```bash
 git clone https://github.com/NayukiChiba/NayukiBlog.git
 cd NayukiBlog
+git checkout static-blog
 ```
 
-### 2. 配置环境变量
-
-在项目根目录创建 `.env` 文件：
+### 2. 安装依赖
 
 ```bash
-# 前端配置
-# 开发环境使用本地地址
-PUBLIC_API_BASE=http://127.0.0.1:8000
-
-# 生产环境, 等号后面不填写内容
-# PUBLIC_API_BASE=
-# ----------------------------------------
-# 后端admin配置
-ADMIN_NAME=
-ADMIN_PASSWORD=
-```
-
-
-
-### 3. 启动后端
-
-```bash
-python -m venv venv
-source ./venv/bin/activate
-pip install uv
-
-# 或使用 uv (推荐)
-uv sync
-
-# 初始化数据库
-uv run -m app.db_init
-# 启动 FastAPI 服务, 默认使用8000端口
-uv run uvicorn app.main:app --reload
-```
-
-### 4. 启动前端
-
-```bash
-# 用户端
-cd user
 npm install
-npm run dev
-# 访问：http://localhost:4321
-
-# 管理端（新开终端）
-cd admin
-npm install
-npm run dev
-# 访问：http://localhost:4322
 ```
 
-## 🏗️ 系统架构
-
-### 请求流程
-
-```mermaid
-graph LR
-    A[客户端] --> B[Astro SSR]
-    B --> C[FastAPI]
-    C --> D[SQLite]
-    D --> C
-    C --> B
-    B --> A
-```
-
-### 后端分层架构
-
-```mermaid
-graph TD
-    Req["客户端请求"] --> API["api/<br>路由层"]
-    
-    API -.-> Core["core/<br>配置/安全"]
-    API -- 校验/格式化 --> Schemas["schemas/<br>数据模型"]
-    
-    API -- 调用业务逻辑 --> Services["services/<br>业务逻辑层"]
-    Services -- 数据库操作 --> CRUD["crud/<br>数据操作"]
-    CRUD -- ORM映射 --> Models["models/<br>数据库表"]
-    Models -.-> DB[("SQLite")]
-    
-    API --> Res["返回响应"]
-```
-
-### 分层说明
-
-| 层级 | 目录 | 职责 |
-|------|------|------|
-| **路由层** | `api/` | 定义 API 端点，处理 HTTP 请求/响应 |
-| **模型层** | `schemas/` | Pydantic 模型，请求验证与响应序列化 |
-| **业务层** | `services/` | 核心业务逻辑，组合多个 CRUD 操作 |
-| **数据层** | `crud/` | 封装数据库 CRUD 操作 |
-| **ORM层** | `models/` | SQLAlchemy 表定义 |
-| **配置层** | `core/` | 数据库连接、安全认证、全局配置 |
-
-## 📦 构建部署
-
-### 生产环境启动
-
-1. 更改env
-
-2. 后端启动， 在根目录启动
+### 3. 启动开发服务器
 
 ```bash
-uv run uvicorn app.main:app
+npm run dev
 ```
 
-3. 前端启动
+访问 `http://localhost:4321` 查看网站。
+
+### 4. 构建生产版本
 
 ```bash
-# 用户端
-cd user
 npm run build
-node dist/server/entry.mjs
-
-# 管理端
-cd admin
-npm run build
-node dist/server/entry.mjs
 ```
 
+详细说明请查看 [QUICKSTART.md](./QUICKSTART.md)
+
+## 📝 内容管理
+
+### 方式 1：本地编辑（推荐）
+
+直接编辑 `src/content/blog/*.md` 和 `src/data/*.json` 文件，然后 Git commit & push。
+
+### 方式 2：管理后台
+
+访问 `你的域名.com/admin` 使用可视化界面管理内容（需要配置 OAuth）。
+
+## 🌐 部署
+
+### 自动部署
+
+推送到 `static-blog` 分支会自动触发 GitHub Actions 构建并部署到 EdgeOne：
+
+```bash
+git add .
+git commit -m "Update content"
+git push origin static-blog
+```
+
+### 手动部署
+
+```bash
+npm run build
+# 将 dist/ 目录上传到你的服务器
+```
+
+## 📚 文档
+
+- [快速开始指南](./QUICKSTART.md)
+- [迁移指南](./MIGRATION_GUIDE.md)
+- [Astro 文档](https://docs.astro.build/)
+- [Decap CMS 文档](https://decapcms.org/docs/)
+
+## 🛠️ 开发命令
+
+```bash
+npm run dev          # 启动开发服务器
+npm run build        # 构建静态网站
+npm run preview      # 预览构建结果
+npm run clean        # 清理构建输出
+npm run check        # 检查配置和类型
+```
+
+## 📄 许可证
+
+MIT License
+
+## 👤 作者
+
+Nayuki Chiba
+
+- GitHub: [@NayukiChiba](https://github.com/NayukiChiba)
+
+## 🙏 致谢
+
+- [Astro](https://astro.build/) - 现代化的静态网站生成器
+- [Decap CMS](https://decapcms.org/) - 开源的内容管理系统
+- [腾讯云 EdgeOne](https://cloud.tencent.com/product/eo) - 全球加速服务
+
+---
+
+⭐ 如果这个项目对你有帮助，欢迎 Star！
