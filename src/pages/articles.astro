@@ -58,10 +58,8 @@ const folderList = [...folderSet].sort().map((path) => {
 ---
 
 <PageLayout title="Articles | Nayuki Blog">
-    <div class="layout-grid">
-        <CategorySidebar folders={folderList} />
-
-        <main class="page-container">
+    <div class="articles-container">
+        <main class="page-main">
             <h1 class="page-title">文章与笔记</h1>
             <p class="page-desc">技术教程、学习笔记与思考。</p>
 
@@ -80,331 +78,270 @@ const folderList = [...folderSet].sort().map((path) => {
             </div>
 
             <div class="pagination">
-                <button
-                    id="first-btn"
-                    class="page-btn"
-                    title="First Page"
-                    disabled
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        ><polyline points="11 17 6 12 11 7"></polyline><polyline
-                            points="18 17 13 12 18 7"></polyline></svg
-                    >
+                <button id="first-btn" class="page-btn" title="First Page" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
                 </button>
-                <button
-                    id="prev-btn"
-                    class="page-btn"
-                    title="Previous Page"
-                    disabled
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        ><polyline points="15 18 9 12 15 6"></polyline></svg
-                    >
+                <button id="prev-btn" class="page-btn" title="Previous Page" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </button>
 
                 <div class="page-input-container">
-                    <input
-                        type="number"
-                        id="page-input"
-                        class="page-input"
-                        min="1"
-                        value="1"
-                    />
+                    <input type="number" id="page-input" class="page-input" min="1" value="1" />
                     <span class="page-separator">/</span>
                     <span id="total-pages">1</span>
                 </div>
 
-                <button
-                    id="next-btn"
-                    class="page-btn"
-                    title="Next Page"
-                    disabled
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        ><polyline points="9 18 15 12 9 6"></polyline></svg
-                    >
+                <button id="next-btn" class="page-btn" title="Next Page" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
-                <button
-                    id="last-btn"
-                    class="page-btn"
-                    title="Last Page"
-                    disabled
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        ><polyline points="13 17 18 12 13 7"
-                        ></polyline><polyline points="6 17 11 12 6 7"
-                        ></polyline></svg
-                    >
+                <button id="last-btn" class="page-btn" title="Last Page" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
                 </button>
             </div>
         </main>
 
-        <TagSidebar tags={tagsWithCount} />
+        <!-- Desktop Sidebar -->
+        <aside class="filters-sidebar desktop-only">
+            <CategorySidebar folders={folderList} />
+            <div class="sidebar-divider"></div>
+            <TagSidebar tags={tagsWithCount} />
+        </aside>
+    </div>
+
+    <!-- Mobile Filter Button -->
+    <button class="mobile-filter-btn mobile-only" id="mobile-filter-toggle" aria-label="筛选">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+    </button>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer-overlay mobile-only" id="mobile-drawer-overlay"></div>
+    <div class="mobile-drawer mobile-only" id="mobile-drawer">
+        <div class="drawer-header">
+            <span class="drawer-title">筛选文章</span>
+            <button class="drawer-close" id="mobile-drawer-close" aria-label="关闭">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        <div class="drawer-content">
+            <CategorySidebar folders={folderList} />
+            <div class="sidebar-divider"></div>
+            <TagSidebar tags={tagsWithCount} />
+        </div>
     </div>
 </PageLayout>
 
 <script>
-    const tagBtns = document.querySelectorAll(".tag-btn");
-    const folderBtns = document.querySelectorAll(".folder-btn");
-    const allPostWrappers = Array.from(
-        document.querySelectorAll(".post-wrapper"),
-    ) as HTMLElement[];
+    function initArticlesPage() {
+        const tagBtns = document.querySelectorAll(".tag-btn");
+        const folderBtns = document.querySelectorAll(".folder-btn");
+        const allPostWrappers = Array.from(document.querySelectorAll(".post-wrapper")) as HTMLElement[];
 
-    const firstBtn = document.getElementById("first-btn") as HTMLButtonElement;
-    const prevBtn = document.getElementById("prev-btn") as HTMLButtonElement;
-    const nextBtn = document.getElementById("next-btn") as HTMLButtonElement;
-    const lastBtn = document.getElementById("last-btn") as HTMLButtonElement;
-    const pageInput = document.getElementById("page-input") as HTMLInputElement;
-    const totalPagesSpan = document.getElementById("total-pages");
+        const firstBtn = document.getElementById("first-btn") as HTMLButtonElement;
+        const prevBtn = document.getElementById("prev-btn") as HTMLButtonElement;
+        const nextBtn = document.getElementById("next-btn") as HTMLButtonElement;
+        const lastBtn = document.getElementById("last-btn") as HTMLButtonElement;
+        const pageInput = document.getElementById("page-input") as HTMLInputElement;
+        const totalPagesSpan = document.getElementById("total-pages");
 
-    const ITEMS_PER_PAGE = 6;
-    let currentPage = 1;
-    let currentTag = "";
-    let currentFolder = "";
-    let visiblePosts: HTMLElement[] = [];
+        const ITEMS_PER_PAGE = 6;
+        let currentPage = 1;
+        let currentTag = "";
+        let currentFolder = "";
+        let visiblePosts: HTMLElement[] = [];
 
-    const updatePagination = () => {
-        const totalPages = Math.ceil(visiblePosts.length / ITEMS_PER_PAGE) || 1;
+        // ... Pagination logic (keep as is) ...
+        const updatePagination = () => {
+            const totalPages = Math.ceil(visiblePosts.length / ITEMS_PER_PAGE) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            allPostWrappers.forEach((el) => (el.style.display = "none"));
+            visiblePosts.slice(start, end).forEach((el) => (el.style.display = "block"));
 
-        // Ensure current page is valid
-        if (currentPage > totalPages) currentPage = totalPages;
-        if (currentPage < 1) currentPage = 1;
+            if (pageInput) {
+                pageInput.value = currentPage.toString();
+                pageInput.max = totalPages.toString();
+            }
+            if (totalPagesSpan) totalPagesSpan.textContent = totalPages.toString();
+            if (firstBtn) firstBtn.disabled = currentPage === 1;
+            if (prevBtn) prevBtn.disabled = currentPage === 1;
+            if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+            if (lastBtn) lastBtn.disabled = currentPage === totalPages;
+        };
 
-        const start = (currentPage - 1) * ITEMS_PER_PAGE;
-        const end = start + ITEMS_PER_PAGE;
+        const filterPosts = () => {
+            visiblePosts = allPostWrappers.filter((el) => {
+                const tags = el.dataset.tags?.split(",") || [];
+                const folder = el.dataset.folder || "";
+                const matchTag = !currentTag || tags.includes(currentTag);
+                const matchFolder = !currentFolder || folder === currentFolder || folder.startsWith(currentFolder + "/");
+                return matchTag && matchFolder;
+            });
+            currentPage = 1;
+            updatePagination();
+        };
 
-        // Hide all posts first
-        allPostWrappers.forEach((el) => (el.style.display = "none"));
+        // ... Pagination event listeners (keep as is) ...
+        const goToPage = (page: number) => {
+            const totalPages = Math.ceil(visiblePosts.length / ITEMS_PER_PAGE) || 1;
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                updatePagination();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+        };
 
-        // Show only current page slice of visible posts
-        visiblePosts
-            .slice(start, end)
-            .forEach((el) => (el.style.display = "block"));
-
-        // Update controls
-        if (pageInput) {
+        firstBtn?.addEventListener("click", () => goToPage(1));
+        lastBtn?.addEventListener("click", () => {
+            const totalPages = Math.ceil(visiblePosts.length / ITEMS_PER_PAGE) || 1;
+            goToPage(totalPages);
+        });
+        prevBtn?.addEventListener("click", () => goToPage(currentPage - 1));
+        nextBtn?.addEventListener("click", () => goToPage(currentPage + 1));
+        pageInput?.addEventListener("change", () => {
+            let page = parseInt(pageInput.value);
+            if (isNaN(page)) page = 1;
+            goToPage(page);
             pageInput.value = currentPage.toString();
-            pageInput.max = totalPages.toString();
-        }
-        if (totalPagesSpan) totalPagesSpan.textContent = totalPages.toString();
+        });
+        pageInput?.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") pageInput.blur();
+        });
 
-        if (firstBtn) firstBtn.disabled = currentPage === 1;
-        if (prevBtn) prevBtn.disabled = currentPage === 1;
-        if (nextBtn) nextBtn.disabled = currentPage === totalPages;
-        if (lastBtn) lastBtn.disabled = currentPage === totalPages;
-
-        // 预加载当前页面的文章
-        const prefetchVisiblePosts = () => {
-            visiblePosts.slice(start, end).forEach((wrapper) => {
-                const link = wrapper.querySelector(
-                    "a.post-card",
-                ) as HTMLAnchorElement;
-                if (link && link.href) {
-                    if (
-                        !document.querySelector(
-                            `link[rel="prefetch"][href="${link.href}"]`,
-                        )
-                    ) {
-                        const prefetchLink = document.createElement("link");
-                        prefetchLink.rel = "prefetch";
-                        prefetchLink.href = link.href;
-                        prefetchLink.as = "document";
-                        document.head.appendChild(prefetchLink);
-                    }
+        // Sync Active State Helper
+        const updateActiveState = (selector: string, dataAttr: string, value: string) => {
+            const btns = document.querySelectorAll(selector);
+            btns.forEach(btn => {
+                const btnValue = (btn as HTMLElement).dataset[dataAttr] || "";
+                if (btnValue === value) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
                 }
             });
         };
-        setTimeout(prefetchVisiblePosts, 100);
-    };
 
-    const filterPosts = () => {
-        // 1. Filter posts based on criteria
-        visiblePosts = allPostWrappers.filter((el) => {
-            const tags = el.dataset.tags?.split(",") || [];
-            const folder = el.dataset.folder || "";
-
-            const matchTag = !currentTag || tags.includes(currentTag);
-            // Match folder exactly or as a parent folder (e.g. "Tech" matches "Tech/Web")
-            const matchFolder =
-                !currentFolder ||
-                folder === currentFolder ||
-                folder.startsWith(currentFolder + "/");
-
-            return matchTag && matchFolder;
+        // Filter Logic
+        tagBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const tag = (btn as HTMLElement).dataset.tag || "";
+                currentTag = tag;
+                updateActiveState('.tag-btn', 'tag', tag);
+                filterPosts();
+                if (window.innerWidth <= 1024) closeMobileDrawer();
+            });
         });
 
-        // 2. Reset to first page when filter changes
-        currentPage = 1;
-
-        // 3. Update UI
-        updatePagination();
-    };
-
-    const goToPage = (page: number) => {
-        const totalPages = Math.ceil(visiblePosts.length / ITEMS_PER_PAGE) || 1;
-        if (page >= 1 && page <= totalPages) {
-            currentPage = page;
-            updatePagination();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        }
-    };
-
-    // Pagination Event Listeners
-    firstBtn?.addEventListener("click", () => goToPage(1));
-    lastBtn?.addEventListener("click", () => {
-        const totalPages = Math.ceil(visiblePosts.length / ITEMS_PER_PAGE) || 1;
-        goToPage(totalPages);
-    });
-    prevBtn?.addEventListener("click", () => goToPage(currentPage - 1));
-    nextBtn?.addEventListener("click", () => goToPage(currentPage + 1));
-
-    pageInput?.addEventListener("change", () => {
-        let page = parseInt(pageInput.value);
-        if (isNaN(page)) page = 1;
-        goToPage(page);
-        // Reset input value if it was invalid/corrected by goToPage logic
-        pageInput.value = currentPage.toString();
-    });
-
-    pageInput?.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-            pageInput.blur(); // Trigger change event
-        }
-    });
-
-    tagBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            tagBtns.forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
-            currentTag = (btn as HTMLElement).dataset.tag || "";
-            filterPosts();
+        folderBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const folder = (btn as HTMLElement).dataset.folder || "";
+                currentFolder = folder;
+                updateActiveState('.folder-btn', 'folder', folder);
+                filterPosts();
+                if (window.innerWidth <= 1024) closeMobileDrawer();
+            });
         });
-    });
 
-    folderBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            folderBtns.forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
-            currentFolder = (btn as HTMLElement).dataset.folder || "";
-            filterPosts();
-        });
-    });
+        // Initial load
+        filterPosts();
+    }
 
-    // Initial load
-    filterPosts();
+    // Mobile Drawer Logic
+    const drawer = document.getElementById('mobile-drawer');
+    const overlay = document.getElementById('mobile-drawer-overlay');
+    const toggleBtn = document.getElementById('mobile-filter-toggle');
+    const closeBtn = document.getElementById('mobile-drawer-close');
+
+    function openMobileDrawer() {
+        drawer?.classList.add('active');
+        overlay?.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileDrawer() {
+        drawer?.classList.remove('active');
+        overlay?.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    toggleBtn?.addEventListener('click', openMobileDrawer);
+    closeBtn?.addEventListener('click', closeMobileDrawer);
+    overlay?.addEventListener('click', closeMobileDrawer);
+
+    // Initialize
+    initArticlesPage();
+    document.addEventListener('astro:page-load', initArticlesPage);
 </script>
 
 <style is:global>
-    /* Override global layout constraint for this page only */
+    /* Global override for width - 75% */
     main {
-        max-width: 100% !important;
-        padding: 0 !important;
+        max-width: 75% !important;
+        width: 75% !important;
+        margin: 0 auto !important;
+        padding: 2rem 0 !important; 
+    }
+    
+    @media (max-width: 1400px) {
+        main {
+            max-width: 90% !important;
+            width: 90% !important;
+        }
+    }
+
+    @media (max-width: 1023px) {
+        main {
+            max-width: 100% !important;
+            width: 100% !important;
+            padding: 1rem !important;
+        }
     }
 </style>
 
 <style>
-    /* Layout Grid */
-    .layout-grid {
-        width: 90%;
-        max-width: 1920px;
-        margin: 0 auto;
+    .articles-container {
         display: grid;
-        grid-template-columns: 260px 1fr 260px;
-        gap: 2rem;
-        position: relative;
+        grid-template-columns: 1fr 300px;
+        gap: 3rem;
         align-items: start;
-        padding-top: 1rem;
     }
 
-    .page-container {
-        width: 100%;
-        min-width: 0; /* Prevent grid blowout */
+    .page-main {
+        min-width: 0;
     }
 
     .page-title {
         font-size: 2rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
+        color: var(--color-text);
     }
     .page-desc {
-        color: #666;
+        color: var(--color-text-light);
         margin-bottom: 2rem;
     }
 
-    /* Sidebars */
-    /* Styles moved to components */
-
-    /* Responsive adjustments */
-    @media (max-width: 1200px) {
-        .layout-grid {
-            width: 95%;
-            gap: 1.5rem;
-            grid-template-columns: 240px 1fr 240px;
-        }
+    /* Sidebar */
+    .filters-sidebar {
+        position: sticky;
+        top: 2rem;
+        background: var(--color-card-bg); /* Ensure contrast if needed */
+        padding: 1rem;
+        border-radius: 12px;
+        /* border: 1px solid #eee; Optional */
     }
 
-    @media (max-width: 1023px) {
-        .layout-grid {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            gap: 1rem;
-            padding: 0 1rem;
-        }
-
-        .page-title {
-            font-size: 1.5rem;
-        }
-
-        .page-desc {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
+    .sidebar-divider {
+        height: 1px;
+        background: var(--color-border);
+        margin: 1.5rem 0;
     }
-
-    /* Folder Styles - Moved to CategorySidebar.astro */
-    /* Tag Styles - Moved to TagSidebar.astro */
 
     .post-list {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
     }
 
     /* Pagination */
@@ -413,9 +350,9 @@ const folderList = [...folderSet].sort().map((path) => {
         align-items: center;
         justify-content: center;
         gap: 1rem;
-        margin-top: 2rem;
-        padding-top: 1rem;
-        border-top: 1px solid #eee;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--color-border);
     }
     .page-btn {
         display: flex;
@@ -423,77 +360,138 @@ const folderList = [...folderSet].sort().map((path) => {
         justify-content: center;
         width: 40px;
         height: 40px;
-        border: 1px solid #eee;
-        background: #fff;
-        border-radius: 8px;
+        border: 1px solid var(--color-border);
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-md);
         cursor: pointer;
-        color: #666;
+        color: var(--color-text-light);
         transition: all 0.2s ease;
     }
     .page-btn:hover:not(:disabled) {
-        background: #f5f5f5;
-        color: #000;
-        border-color: #ddd;
+        background: var(--color-primary-subtle);
+        color: var(--color-primary-dark);
+        border-color: var(--color-primary-light);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
     }
     .page-btn:disabled {
         opacity: 0.5;
         cursor: not-allowed;
+        background: var(--color-bg);
     }
-
     .page-input-container {
         display: flex;
         align-items: center;
         gap: 0.5rem;
         font-size: 0.9rem;
-        color: #666;
-        font-weight: 500;
+        color: var(--color-text-light);
     }
-
     .page-input {
-        width: 40px;
-        height: 32px;
+        width: 48px;
+        height: 40px;
         text-align: center;
-        border: 1px solid #eee;
-        border-radius: 6px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-bg-secondary);
+        color: var(--color-text);
         font-family: inherit;
-        font-size: 0.9rem;
-        color: #333;
-        outline: none;
-        transition: border-color 0.2s;
-        -webkit-appearance: textfield;
-        -moz-appearance: textfield;
-        appearance: textfield;
-    }
-    .page-input::-webkit-outer-spin-button,
-    .page-input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        appearance: none;
-        margin: 0;
+        transition: all 0.2s ease;
     }
     .page-input:focus {
-        border-color: #000;
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px var(--color-primary-subtle);
     }
 
-    /* 移动端分页优化 */
-    @media (max-width: 480px) {
-        .pagination {
-            gap: 0.5rem;
+    /* Mobile Drawer */
+    .mobile-filter-btn {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--color-primary);
+        color: white;
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 998;
+        cursor: pointer;
+        transition: transform 0.2s;
+        border: none;
+    }
+    .mobile-filter-btn:active {
+        transform: scale(0.95);
+    }
+
+    .mobile-drawer-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+    }
+    .mobile-drawer-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .mobile-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 320px;
+        background: var(--color-bg-secondary);
+        z-index: 1000;
+        transform: translateX(100%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        flex-direction: column;
+        box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+    }
+    .mobile-drawer.active {
+        transform: translateX(0);
+    }
+
+    .drawer-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--color-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .drawer-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-text);
+    }
+    .drawer-close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        color: var(--color-text-light);
+    }
+    .drawer-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1.5rem;
+    }
+
+    /* Responsive */
+    .desktop-only { display: block; }
+    .mobile-only { display: none; }
+
+    @media (max-width: 1023px) {
+        .articles-container {
+            display: block;
         }
-        .page-btn {
-            width: 36px;
-            height: 36px;
-        }
-        .page-btn svg {
-            width: 16px;
-            height: 16px;
-        }
-        .page-input {
-            width: 36px;
-            height: 28px;
-            font-size: 0.85rem;
-        }
-        .page-input-container {
-            font-size: 0.85rem;
-        }
+        .desktop-only { display: none; }
+        .mobile-only { display: flex; }
     }
 </style>
