@@ -48,16 +48,23 @@ const { tags } = Astro.props;
   }
 
   .tag-btn {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.5rem;
     border: 1px solid var(--color-border);
     border-radius: 2rem;
     background-color: var(--color-bg-secondary);
     color: var(--color-text-light);
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     line-height: 1;
     font-size: 0.85rem;
     font-family: inherit;
+    
+    /* Fixed width behavior: 2 per line */
+    width: calc(50% - 0.25rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
   }
   .tag-btn:hover {
     background-color: var(--color-primary-subtle);
@@ -65,6 +72,12 @@ const { tags } = Astro.props;
     border-color: var(--color-primary-light);
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
+    
+    /* Expand on hover */
+    width: auto;
+    min-width: calc(50% - 0.25rem);
+    max-width: 100%;
+    z-index: 2;
   }
   .tag-btn.active {
     background-color: var(--color-primary);

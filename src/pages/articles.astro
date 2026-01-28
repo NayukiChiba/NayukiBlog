@@ -358,6 +358,25 @@ const folderList = [...folderSet].sort().map((path) => {
         padding: 1.5rem;
         border-radius: 12px;
         margin-top: 0;
+        
+        /* Scrollable if content exceeds viewport height */
+        max-height: calc(100vh - 4rem);
+        overflow-y: auto;
+        
+        /* Custom Scrollbar for Sidebar */
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-border) transparent;
+    }
+    
+    .filters-sidebar::-webkit-scrollbar {
+        width: 6px;
+    }
+    .filters-sidebar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .filters-sidebar::-webkit-scrollbar-thumb {
+        background-color: var(--color-border);
+        border-radius: 20px;
     }
 
     .sidebar-divider {
