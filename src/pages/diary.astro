@@ -177,19 +177,21 @@ const monthNames = [
     .page-title {
         font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
+        color: var(--color-text);
     }
 
     .page-desc {
-        color: #666;
-        margin-bottom: 3rem;
+        color: var(--color-text-light);
+        margin-bottom: 3.5rem;
+        font-size: 1rem;
     }
 
     /* Timeline Styles */
     .timeline {
         position: relative;
         padding-left: 2rem;
-        border-left: 2px solid #eee;
+        border-left: 2px solid var(--color-primary-light);
         margin-left: 1rem;
     }
 
@@ -205,12 +207,12 @@ const monthNames = [
     .year-summary {
         font-size: 1.4rem;
         font-weight: 700;
-        color: #222;
+        color: var(--color-text);
         padding: 0.5rem 0;
     }
 
     .year-summary:hover {
-        color: #000;
+        color: var(--color-primary);
     }
 
     .year-text {
@@ -220,20 +222,20 @@ const monthNames = [
     .entry-count {
         font-size: 0.9rem;
         font-weight: 500;
-        color: #888;
+        color: var(--color-text-muted);
     }
 
     .year-content {
         margin-top: 1.5rem;
         position: relative;
         padding-left: 2rem;
-        border-left: 2px solid #f0f0f0;
+        border-left: 2px solid var(--color-border-light);
         margin-left: 0.5rem;
     }
 
     /* Month Section Styles */
     .month-section {
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
     }
 
     .month-accordion {
@@ -243,12 +245,12 @@ const monthNames = [
     .month-summary {
         font-size: 1.15rem;
         font-weight: 600;
-        color: #444;
+        color: var(--color-text-light);
         padding: 0.3rem 0;
     }
 
     .month-summary:hover {
-        color: #222;
+        color: var(--color-primary);
     }
 
     .month-text {
@@ -281,7 +283,7 @@ const monthNames = [
         margin-right: 0.5rem;
         font-size: 0.7em;
         transition: transform 0.2s;
-        color: #999;
+        color: var(--color-primary);
     }
 
     details[open] > .year-summary::before,

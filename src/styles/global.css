@@ -1,10 +1,45 @@
 :root {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --color-bg: #ffffff;
-  --color-text: #333333;
-  --color-text-light: #666666;
-  --color-primary: #000000;
-  /* --max-width & --content-padding moved to PageLayout.astro to prevent FOUC */
+  
+  /* 优雅的配色方案 - 淡粉色点缀 */
+  --color-bg: #fafafa;
+  --color-bg-secondary: #ffffff;
+  --color-text: #2d2d2d;
+  --color-text-light: #6b6b6b;
+  --color-text-muted: #9a9a9a;
+  
+  /* 主色 - 淡粉色 */
+  --color-primary: #ff9eb5;
+  --color-primary-light: #ffb8ca;
+  --color-primary-dark: #ff85a0;
+  --color-primary-subtle: rgba(255, 158, 181, 0.08);
+  
+  /* 辅助色 */
+  --color-accent-red: #ff6b6b;
+  --color-accent-green: #51cf66;
+  --color-accent-blue: #4dabf7;
+  
+  /* 边框和分隔线 */
+  --color-border: #e8e8e8;
+  --color-border-light: #f5f5f5;
+  
+  /* 卡片和表面 */
+  --color-card-bg: #ffffff;
+  --color-card-hover: #fefefe;
+  
+  /* 阴影 - 更柔和 */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.1);
+  
+  /* 圆角 - 更柔和 */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-full: 9999px;
 }
 
 /* Global styles */
@@ -44,11 +79,17 @@ main {
 a {
   color: inherit;
   text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--color-primary);
+  color: var(--color-text);
   line-height: 1.2;
+  font-weight: 700;
 }
 
 p {

@@ -64,6 +64,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
         flex-direction: column;
         min-height: 100vh;
         overflow-x: hidden;
+        background: var(--color-bg);
       }
 
       main {
@@ -71,7 +72,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
         width: 100%;
         max-width: var(--max-width);
         margin: 0 auto;
-        padding: 2rem var(--content-padding);
+        padding: 2.5rem var(--content-padding);
       }
 
       /* 移动端响应式 */
@@ -85,7 +86,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
         }
 
         main {
-          padding: 1.5rem var(--content-padding);
+          padding: 2rem var(--content-padding);
         }
       }
     </style>
@@ -113,17 +114,18 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
   /* Footer styles specific to layout */
   footer {
     text-align: center;
-    padding: 2rem;
-    color: #888;
+    padding: 3rem 2rem;
+    color: var(--color-text-muted);
     font-size: 0.875rem;
-    border-top: 1px solid #eaeaea;
+    border-top: 1px solid var(--color-border);
     margin-top: auto;
+    background: var(--color-bg-secondary);
   }
 
   @media (max-width: 767px) {
     footer {
-      padding: 1.5rem 1rem;
-      font-size: 0.8rem;
+      padding: 2rem 1rem;
+      font-size: 0.8125rem;
     }
   }
 </style>

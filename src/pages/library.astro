@@ -35,17 +35,19 @@ const books = getBooks({ status: 'published' });
     .page-title {
         font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
+        color: var(--color-text);
     }
     .page-desc {
-        color: #666;
-        margin-bottom: 3rem;
+        color: var(--color-text-light);
+        margin-bottom: 3.5rem;
+        font-size: 1rem;
     }
 
     .books-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+        gap: 2rem;
     }
 
     @media (min-width: 640px) {
