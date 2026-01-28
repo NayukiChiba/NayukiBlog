@@ -126,6 +126,48 @@ p {
   .prose th, .prose td { padding: 0.5rem; font-size: 0.9rem; }
 }
 
+/* Global Page Title - Black/Gold/Pink Gradient with Interactive Effect */
+.page-title {
+  text-align: center !important;
+  background-image: linear-gradient(
+    var(--bg-angle, 120deg),
+    #000000 0%,     /* 纯黑深邃边缘 */
+    #ffb8ca 25%,    /* 柔和粉 */
+    #ff85a0 45%,    /* 主色深粉 */
+    #ffffff 50%,    /* 纯白高光 - 极致亮度 */
+    #ff85a0 55%,    /* 主色深粉 */
+    #ffb8ca 75%,    /* 柔和粉 */
+    #000000 100%    /* 纯黑深邃边缘 */
+  ) !important;
+  background-size: 200% auto !important;
+  background-position: var(--bg-pos-x, 50%) center !important; /* 随鼠标移动位置 */
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  
+  /* 增强立体感：粉色光晕 + 黑色投影 */
+  filter: 
+    drop-shadow(0 1px 0px rgba(255, 133, 160, 0.5)) 
+    drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+    
+  font-weight: 800 !important;
+  letter-spacing: -0.02em;
+  padding-bottom: 0.2em; /* 防止阴影被切 */
+  transition: background-position 0.1s ease-out;
+}
+
+/* Fallback for browsers */
+@property --bg-angle {
+  syntax: '<angle>';
+  initial-value: 120deg;
+  inherits: false;
+}
+@property --bg-pos-x {
+  syntax: '<percentage>';
+  initial-value: 50%;
+  inherits: false;
+}
+
 /* Animations */
 @keyframes fadeInUp {
   from {

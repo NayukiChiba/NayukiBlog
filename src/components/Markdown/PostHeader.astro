@@ -13,7 +13,7 @@ const { title, formattedDate, description, tags } = Astro.props;
     <div class="meta">
         <span class="date">{formattedDate}</span>
     </div>
-    <h1>{title}</h1>
+    <h1 class="page-title">{title}</h1>
     {
         description && (
             <div class="description-card">
