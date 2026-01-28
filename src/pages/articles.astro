@@ -63,54 +63,62 @@ const folderList = [...folderSet].sort().map((path) => {
             <h1 class="page-title">文章与笔记</h1>
             <p class="page-desc">技术教程、学习笔记与思考。</p>
 
-            <div class="post-list">
-                {
-                    posts.map((post: any) => (
-                        <div
-                            class="post-wrapper"
-                            data-tags={post.tags ? post.tags.join(",") : ""}
-                            data-folder={post.folder || ""}
-                        >
-                            <PostCard {...post} />
+            <div class="content-divider"></div>
+
+            <div class="main-layout">
+                <div class="post-list-section">
+                    <div class="post-list">
+                        {
+                            posts.map((post: any) => (
+                                <div
+                                    class="post-wrapper"
+                                    data-tags={post.tags ? post.tags.join(",") : ""}
+                                    data-folder={post.folder || ""}
+                                >
+                                    <PostCard {...post} />
+                                </div>
+                            ))
+                        }
+                    </div>
+
+                    <div class="pagination">
+                        <!-- ... pagination buttons ... -->
+                        <button id="first-btn" class="page-btn" title="First Page" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
+                        </button>
+                        <button id="prev-btn" class="page-btn" title="Previous Page" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+
+                        <div class="page-input-container">
+                            <input type="number" id="page-input" class="page-input" min="1" value="1" />
+                            <span class="page-separator">/</span>
+                            <span id="total-pages">1</span>
                         </div>
-                    ))
-                }
-            </div>
 
-            <div class="pagination">
-                <button id="first-btn" class="page-btn" title="First Page" disabled>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
-                </button>
-                <button id="prev-btn" class="page-btn" title="Previous Page" disabled>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-
-                <div class="page-input-container">
-                    <input type="number" id="page-input" class="page-input" min="1" value="1" />
-                    <span class="page-separator">/</span>
-                    <span id="total-pages">1</span>
+                        <button id="next-btn" class="page-btn" title="Next Page" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                        <button id="last-btn" class="page-btn" title="Last Page" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
+                        </button>
+                    </div>
                 </div>
 
-                <button id="next-btn" class="page-btn" title="Next Page" disabled>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </button>
-                <button id="last-btn" class="page-btn" title="Last Page" disabled>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
-                </button>
+                <!-- Desktop Sidebar -->
+                <aside class="filters-sidebar desktop-only">
+                    <CategorySidebar folders={folderList} />
+                    <div class="sidebar-divider"></div>
+                    <TagSidebar tags={tagsWithCount} />
+                </aside>
             </div>
         </main>
-
-        <!-- Desktop Sidebar -->
-        <aside class="filters-sidebar desktop-only">
-            <CategorySidebar folders={folderList} />
-            <div class="sidebar-divider"></div>
-            <TagSidebar tags={tagsWithCount} />
-        </aside>
     </div>
 
     <!-- Mobile Filter Button -->
     <button class="mobile-filter-btn mobile-only" id="mobile-filter-toggle" aria-label="筛选">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        <span>筛选</span>
     </button>
 
     <!-- Mobile Drawer -->
@@ -275,10 +283,10 @@ const folderList = [...folderSet].sort().map((path) => {
 </script>
 
 <style is:global>
-    /* Global override for width - 75% */
+    /* Global override for width - 80% */
     main {
-        max-width: 75% !important;
-        width: 75% !important;
+        max-width: 80% !important;
+        width: 80% !important;
         margin: 0 auto !important;
         padding: 2rem 0 !important; 
     }
@@ -301,14 +309,13 @@ const folderList = [...folderSet].sort().map((path) => {
 
 <style>
     .articles-container {
-        display: grid;
-        grid-template-columns: 1fr 300px;
-        gap: 3rem;
-        align-items: start;
+        /* Remove grid styles as we moved to flex inside main-layout */
+        display: block;
     }
 
     .page-main {
         min-width: 0;
+        width: 100%;
     }
 
     .page-title {
@@ -320,14 +327,37 @@ const folderList = [...folderSet].sort().map((path) => {
         margin-bottom: 2rem;
     }
 
+    .content-divider {
+        height: 1px;
+        background: var(--color-border);
+        margin: 2rem 0;
+        width: 100%;
+    }
+
+    .main-layout {
+        display: flex;
+        gap: 3rem; /* Increased gap for better separation */
+        align-items: flex-start;
+        max-width: 100%; /* Ensure it fills the container */
+    }
+
+    .post-list-section {
+        flex: 3; /* 60% relative to sidebar's 1 (approx) */
+        min-width: 0;
+    }
+
     /* Sidebar */
     .filters-sidebar {
+        flex: 1; /* 20% relative to list's 3 (approx) */
+        min-width: 250px;
+        max-width: 320px;
+        flex-shrink: 0;
         position: sticky;
         top: 2rem;
-        background: var(--color-card-bg); /* Ensure contrast if needed */
-        padding: 1rem;
+        background: var(--color-card-bg);
+        padding: 1.5rem;
         border-radius: 12px;
-        /* border: 1px solid #eee; Optional */
+        margin-top: 0;
     }
 
     .sidebar-divider {
@@ -401,27 +431,42 @@ const folderList = [...folderSet].sort().map((path) => {
         box-shadow: 0 0 0 3px var(--color-primary-subtle);
     }
 
-    /* Mobile Drawer */
+    /* Mobile Filter Button - Vertical Tab Style */
     .mobile-filter-btn {
         position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        width: auto;
+        height: auto;
+        padding: 1rem 0.5rem;
+        border-radius: 8px 0 0 8px;
         background: var(--color-primary);
         color: white;
-        box-shadow: var(--shadow-lg);
+        box-shadow: -2px 0 8px rgba(0,0,0,0.1);
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         z-index: 998;
         cursor: pointer;
-        transition: transform 0.2s;
+        transition: transform 0.2s, background-color 0.2s;
         border: none;
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        font-size: 0.9rem;
+        font-weight: 500;
+        letter-spacing: 2px;
     }
     .mobile-filter-btn:active {
-        transform: scale(0.95);
+        transform: translateY(-50%) scale(0.95);
+    }
+    .mobile-filter-btn span {
+        margin-bottom: 0.5rem;
+    }
+    .mobile-filter-btn svg {
+        transform: rotate(180deg); /* Point left */
+        margin-bottom: 0.5rem;
     }
 
     .mobile-drawer-overlay {
