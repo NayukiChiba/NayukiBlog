@@ -113,9 +113,13 @@ p {
 .prose pre code { background: transparent; padding: 0; }
 .prose blockquote { border-left: 4px solid #eaeaea; padding-left: 1rem; margin-left: 0; color: #666; font-style: italic; }
 .prose img { max-width: 100%; border-radius: 8px; margin: 1.5rem 0; }
-.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
-.prose th, .prose td { border: 1px solid #eaeaea; padding: 0.75rem; text-align: left; }
-.prose th { background: #f9f9f9; font-weight: 600; }
+.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+.prose th, .prose td { border: 1px solid var(--color-border); padding: 0.75rem 1rem; text-align: center; }
+.prose th { background: linear-gradient(135deg, var(--color-primary-subtle), rgba(255, 184, 202, 0.12)); font-weight: 600; color: var(--color-text); border-bottom: 2px solid var(--color-primary-light); }
+.prose td { border-right: 1px solid var(--color-border-light); }
+.prose td:last-child { border-right: 1px solid var(--color-border); }
+.prose tbody tr:nth-child(even) { background-color: rgba(255, 158, 181, 0.03); }
+.prose tbody tr:hover { background-color: rgba(255, 158, 181, 0.08); }
 
 /* Mobile responsive for prose */
 @media (max-width: 767px) {
