@@ -209,22 +209,46 @@
         display: none;
     }
 
-    /* 目录层级缩进 */
-    .toc-item.level-1 a {
+    /* 目录层级缩进与视觉区分 */
+    .toc-item.level-1 {
+        margin-top: 0.25rem;
+    }
+    #article-toc .toc-item.level-1 a {
         padding-left: 1rem;
+        font-size: 0.9rem;
+        font-weight: 500;
     }
 
-    .toc-item.level-2 a {
-        padding-left: 2rem;
+    .toc-item.level-2 {
+        margin-top: 0.15rem;
+    }
+    #article-toc .toc-item.level-2 a {
+        padding-left: 1.75rem;
+        font-size: 0.82rem;
     }
 
-    .toc-item.level-3 a {
-        padding-left: 3rem;
-        font-size: 0.8rem;
+    .toc-item.level-3 {
+        margin-top: 0.1rem;
+    }
+    #article-toc .toc-item.level-3 a {
+        padding-left: 2.5rem;
+        font-size: 0.78rem;
+        color: #888;
     }
 
-    .toc-item.level-4 a {
-        padding-left: 4rem;
-        font-size: 0.8rem;
+    .toc-item.level-4 {
+        margin-top: 0.05rem;
+    }
+    #article-toc .toc-item.level-4 a {
+        padding-left: 3.25rem;
+        font-size: 0.75rem;
+        color: #999;
+    }
+
+    /* 层级分隔线效果 */
+    .toc-item.level-1 + .toc-item.level-1 {
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.04);
     }
 </style>

@@ -387,6 +387,21 @@
               );
               activeLinks.forEach((activeLink) => {
                 activeLink.classList.add("active");
+                
+                // 自动滚动目录，使当前高亮项保持可见
+                const tocNav = activeLink.closest("#article-toc");
+                if (tocNav) {
+                  const linkRect = activeLink.getBoundingClientRect();
+                  const tocRect = tocNav.getBoundingClientRect();
+                  
+                  // 如果高亮项在目录可视区域外，滚动到中间位置
+                  if (linkRect.top < tocRect.top || linkRect.bottom > tocRect.bottom) {
+                    activeLink.scrollIntoView({
+                      behavior: "smooth",
+                      block: "center",
+                    });
+                  }
+                }
               });
             }
           });
