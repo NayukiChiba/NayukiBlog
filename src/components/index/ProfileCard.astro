@@ -2,19 +2,32 @@
 ---
 <div class="profile-content">
   <div class="avatar-container">
+    <!-- 光晕粒子效果 -->
+    <div class="avatar-glow-particles">
+      <span class="glow-particle"></span>
+      <span class="glow-particle"></span>
+      <span class="glow-particle"></span>
+      <span class="glow-particle"></span>
+      <span class="glow-particle"></span>
+      <span class="glow-particle"></span>
+    </div>
+    <div class="avatar-ring"></div>
     <img src="/profile.jpg" alt="Nayuki" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Nayuki&background=0D8ABC&color=fff'"/>
   </div>
   <div class="profile-info">
     <h1 class="profile-name">卟瓿钚</h1>
-    <p class="profile-bio">一名普通大学生</p>
+    <p class="profile-bio">
+      <span class="bio-text" id="typewriter-text"></span>
+      <span class="bio-cursor">|</span>
+    </p>
     <div class="profile-links">
-      <a href="https://github.com/NayukiChiba" target="_blank" aria-label="GitHub">
+      <a href="https://github.com/NayukiChiba" target="_blank" aria-label="GitHub" style="--link-index: 0">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
       </a>
-      <a href="https://x.com/NayeyYeX" target="_blank" aria-label="Twitter">
+      <a href="https://x.com/NayeyYeX" target="_blank" aria-label="Twitter" style="--link-index: 1">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
       </a>
-      <a href="mailto:MekoNayuki@gmail.com" aria-label="Email">
+      <a href="mailto:MekoNayuki@gmail.com" aria-label="Email" style="--link-index: 2">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
       </a>
     </div>
@@ -32,57 +45,170 @@
     width: 88px;
     height: 88px;
     border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid var(--color-card-bg);
-    box-shadow: var(--shadow-md);
+    overflow: visible;
     flex-shrink: 0;
-    background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    cursor: pointer;
   }
 
-  .avatar-container::before {
-    content: '';
+  /* 旋转的外圈光环 */
+  .avatar-ring {
     position: absolute;
-    inset: -3px;
+    inset: -6px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    background: conic-gradient(
+      from 0deg,
+      transparent,
+      var(--color-primary-light),
+      var(--color-primary),
+      var(--color-primary-light),
+      transparent
+    );
     opacity: 0;
     transition: opacity 0.4s ease;
-    z-index: -1;
+    animation: ringRotate 3s linear infinite paused;
   }
 
-  .avatar-container:hover::before {
+  .avatar-container:hover .avatar-ring {
     opacity: 1;
+    animation-play-state: running;
   }
 
-  .avatar-container:hover {
-    transform: scale(1.08) rotate(3deg);
-    box-shadow: var(--shadow-lg);
+  @keyframes ringRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
+  /* 头像图片 */
   .avatar {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--color-card-bg);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    z-index: 2;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .avatar-container:hover .avatar {
+    animation: avatarSpin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    box-shadow: 
+      var(--shadow-lg),
+      0 0 20px rgba(255, 158, 181, 0.4),
+      0 0 40px rgba(255, 158, 181, 0.2);
+  }
+
+  @keyframes avatarSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(90deg) scale(1.05); }
+    50% { transform: rotate(180deg) scale(1); }
+    75% { transform: rotate(270deg) scale(1.05); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+
+  /* 光晕粒子效果 */
+  .avatar-glow-particles {
+    position: absolute;
+    inset: -20px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .glow-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    opacity: 0;
+    filter: blur(1px);
+  }
+
+  .glow-particle:nth-child(1) { top: 10%; left: 50%; }
+  .glow-particle:nth-child(2) { top: 25%; left: 90%; }
+  .glow-particle:nth-child(3) { top: 75%; left: 90%; }
+  .glow-particle:nth-child(4) { top: 90%; left: 50%; }
+  .glow-particle:nth-child(5) { top: 75%; left: 10%; }
+  .glow-particle:nth-child(6) { top: 25%; left: 10%; }
+
+  .avatar-container:hover .glow-particle {
+    animation: particleFloat 2s ease-in-out infinite;
+  }
+
+  .glow-particle:nth-child(1) { animation-delay: 0s; }
+  .glow-particle:nth-child(2) { animation-delay: 0.33s; }
+  .glow-particle:nth-child(3) { animation-delay: 0.66s; }
+  .glow-particle:nth-child(4) { animation-delay: 1s; }
+  .glow-particle:nth-child(5) { animation-delay: 1.33s; }
+  .glow-particle:nth-child(6) { animation-delay: 1.66s; }
+
+  @keyframes particleFloat {
+    0%, 100% { 
+      opacity: 0; 
+      transform: scale(0) translateY(0);
+    }
+    50% { 
+      opacity: 1; 
+      transform: scale(1.5) translateY(-10px);
+    }
   }
 
   .profile-info {
     flex: 1;
   }
 
+  /* 名字字符动画 */
   .profile-name {
     font-size: 1.75rem;
     font-weight: 700;
     margin: 0 0 0.5rem 0;
     color: var(--color-text);
     letter-spacing: -0.02em;
+    display: flex;
   }
 
+  .name-char {
+    display: inline-block;
+    animation: nameWave 3s ease-in-out infinite;
+    animation-delay: calc(var(--char-index) * 0.15s);
+  }
+
+  @keyframes nameWave {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+
+  .name-char:hover {
+    color: var(--color-primary);
+    animation: charBounce 0.5s ease;
+  }
+
+  @keyframes charBounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.2); }
+  }
+
+  /* Bio 打字机光标效果 */
   .profile-bio {
     font-size: 1rem;
     color: var(--color-text-light);
     margin: 0 0 1.125rem 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .bio-cursor {
+    display: inline-block;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+    color: var(--color-primary);
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
   }
 
   .profile-links {
@@ -101,6 +227,19 @@
     border-radius: var(--radius-full);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1.5px solid transparent;
+    animation: linkPop 0.5s ease backwards;
+    animation-delay: calc(0.8s + var(--link-index) * 0.1s);
+  }
+
+  @keyframes linkPop {
+    0% { 
+      opacity: 0;
+      transform: scale(0) rotate(-180deg);
+    }
+    100% { 
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
   }
 
   .profile-links a:nth-child(1):hover {
@@ -108,6 +247,7 @@
     background: #f5f5f5;
     border-color: var(--color-text-muted);
     transform: translateY(-3px) rotate(-5deg);
+    animation: iconJiggle 0.5s ease;
   }
 
   .profile-links a:nth-child(2):hover {
@@ -115,6 +255,7 @@
     background: rgba(77, 171, 247, 0.1);
     border-color: var(--color-accent-blue);
     transform: translateY(-3px) rotate(5deg);
+    animation: iconJiggle 0.5s ease;
   }
 
   .profile-links a:nth-child(3):hover {
@@ -122,6 +263,28 @@
     background: var(--color-primary-subtle);
     border-color: var(--color-primary-light);
     transform: translateY(-3px) rotate(-5deg);
+    animation: iconJiggle 0.5s ease;
+  }
+
+  @keyframes iconJiggle {
+    0%, 100% { transform: translateY(-3px) rotate(0deg); }
+    25% { transform: translateY(-5px) rotate(-10deg); }
+    75% { transform: translateY(-5px) rotate(10deg); }
+  }
+
+  /* 减少动画偏好 */
+  @media (prefers-reduced-motion: reduce) {
+    .avatar-container:hover .avatar,
+    .avatar-ring,
+    .glow-particle,
+    .name-char,
+    .bio-cursor,
+    .profile-links a {
+      animation: none !important;
+    }
+    .avatar-container:hover .avatar {
+      transform: scale(1.05);
+    }
   }
 
   @media (min-width: 640px) {
@@ -138,3 +301,65 @@
     }
   }
 </style>
+
+<script>
+  // 打字机效果
+  const phrases = [
+    "一名普通大学生",
+    "随便写写",
+    "热爱生活",
+    "正在学习AI",
+    "偶尔打打游戏",
+  ];
+
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let isPaused = false;
+
+  const typewriterElement = document.getElementById('typewriter-text');
+
+  function typeWriter() {
+    if (!typewriterElement) return;
+
+    const currentPhrase = phrases[phraseIndex];
+    
+    if (isPaused) {
+      setTimeout(typeWriter, 100);
+      return;
+    }
+
+    if (!isDeleting) {
+      // 打字
+      typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
+      charIndex++;
+
+      if (charIndex === currentPhrase.length) {
+        // 打完一句话，暂停后开始删除
+        isPaused = true;
+        setTimeout(() => {
+          isPaused = false;
+          isDeleting = true;
+        }, 2000);
+      }
+    } else {
+      // 删除
+      typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
+      charIndex--;
+
+      if (charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+      }
+    }
+
+    // 打字速度：打字慢一点，删除快一点
+    const typingSpeed = isDeleting ? 50 : 100;
+    setTimeout(typeWriter, typingSpeed);
+  }
+
+  // 页面加载后启动打字机
+  if (typewriterElement) {
+    setTimeout(typeWriter, 500);
+  }
+</script>

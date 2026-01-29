@@ -26,6 +26,15 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
 ---
 
 <a href={url} class="post-card group" data-astro-prefetch="load">
+    <!-- 背景图片层 -->
+    {image && (
+        <div class="post-bg-image">
+            <img src={image} alt="" aria-hidden="true" />
+        </div>
+    )}
+    <!-- 渐变遮罩层 -->
+    <div class="post-gradient-overlay"></div>
+    
     <div class="post-content">
         <div class="post-text">
             <div class="post-header">
@@ -43,13 +52,6 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
                 )
             }
         </div>
-        {
-            image && (
-                <div class="post-cover">
-                    <img src={image} alt={title} />
-                </div>
-            )
-        }
     </div>
 </a>
 
@@ -66,19 +68,98 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
         overflow: hidden;
         isolation: isolate;
         box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.04));
+        cursor: pointer;
+        min-height: 160px;
+    }
+
+    /* 流动边框光效 */
+    .post-card::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+        transition: left 0.5s ease;
+        z-index: 10;
+    }
+
+    .post-card:hover::before {
+        left: 100%;
     }
 
     .post-card:hover {
         transform: translateY(-4px);
-        box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.06));
+        box-shadow: 
+            var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.06)),
+            0 0 20px rgba(255, 158, 181, 0.15);
         border-color: var(--color-primary-light, #ffb8ca);
+    }
+
+    /* 背景图片 - 贴在右侧 */
+    .post-bg-image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 45%;
+        height: 100%;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .post-bg-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.5s ease, filter 0.3s ease;
+    }
+
+    .post-card:hover .post-bg-image img {
+        transform: scale(1.05);
+    }
+
+    /* 渐变遮罩 - 从左到右逐渐透明，同时左侧模糊 */
+    .post-gradient-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        background: linear-gradient(
+            to right,
+            var(--color-card-bg, #fff) 0%,
+            var(--color-card-bg, #fff) 40%,
+            rgba(255, 255, 255, 0.95) 50%,
+            rgba(255, 255, 255, 0.7) 65%,
+            rgba(255, 255, 255, 0.3) 80%,
+            transparent 100%
+        );
+        pointer-events: none;
+    }
+
+    /* 给图片添加模糊渐变效果 */
+    .post-bg-image::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 60%;
+        height: 100%;
+        z-index: 1;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        mask-image: linear-gradient(to right, black 0%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, black 0%, transparent 100%);
     }
 
     /* Content Styles */
     .post-content {
         padding: 1.5rem;
         position: relative;
-        z-index: 1;
+        z-index: 2;
         display: flex;
         gap: 1.5rem;
         align-items: flex-start;
@@ -87,34 +168,7 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
     .post-text {
         flex: 1;
         min-width: 0;
-    }
-
-    .post-cover {
-        flex-shrink: 0;
-        width: 130px;
-        height: 130px;
-        border-radius: var(--radius-md, 0.75rem);
-        overflow: hidden;
-        box-shadow: var(--shadow-sm);
-        display: none;
-        background-color: var(--color-bg);
-    }
-
-    .post-cover img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-
-    @media (min-width: 640px) {
-        .post-cover {
-            display: block;
-        }
-    }
-
-    .post-card:hover .post-cover img {
-        transform: scale(1.1);
+        max-width: 65%;
     }
 
     .post-header {
@@ -150,7 +204,7 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
         font-size: 0.95rem;
         line-height: 1.6;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
@@ -164,16 +218,45 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
     .tag {
         font-size: 0.75rem;
         color: var(--color-text-light, #6b6b6b);
-        background: var(--color-bg, #fafafa);
+        background: rgba(255, 255, 255, 0.9);
         padding: 0.2rem 0.6rem;
         border-radius: 99px;
         transition: all 0.2s;
         border: 1px solid var(--color-border, #e8e8e8);
+        backdrop-filter: blur(4px);
     }
 
     .post-card:hover .tag {
         background: var(--color-primary-subtle, rgba(255, 158, 181, 0.08));
         color: var(--color-primary-dark, #ff85a0);
         border-color: var(--color-primary-light, #ffb8ca);
+    }
+
+    /* 移动端适配 - 图片隐藏 */
+    @media (max-width: 639px) {
+        .post-bg-image {
+            display: none;
+        }
+        
+        .post-gradient-overlay {
+            display: none;
+        }
+        
+        .post-text {
+            max-width: 100%;
+        }
+        
+        .post-card {
+            min-height: auto;
+        }
+    }
+
+    /* 减少动画偏好 */
+    @media (prefers-reduced-motion: reduce) {
+        .post-card,
+        .post-bg-image img,
+        .post-card::before {
+            transition: none;
+        }
     }
 </style>

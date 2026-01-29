@@ -130,46 +130,49 @@ p {
   .prose th, .prose td { padding: 0.5rem; font-size: 0.9rem; }
 }
 
-/* Global Page Title - Black/Gold/Pink Gradient with Interactive Effect */
+/* Global Page Title - Elegant Cute Style */
 .page-title {
   text-align: center !important;
-  background-image: linear-gradient(
-    var(--bg-angle, 120deg),
-    #000000 0%,     /* 纯黑深邃边缘 */
-    #ffb8ca 25%,    /* 柔和粉 */
-    #ff85a0 45%,    /* 主色深粉 */
-    #ffffff 50%,    /* 纯白高光 - 极致亮度 */
-    #ff85a0 55%,    /* 主色深粉 */
-    #ffb8ca 75%,    /* 柔和粉 */
-    #000000 100%    /* 纯黑深邃边缘 */
-  ) !important;
-  background-size: 200% auto !important;
-  background-position: var(--bg-pos-x, 50%) center !important; /* 随鼠标移动位置 */
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-  
-  /* 增强立体感：粉色光晕 + 黑色投影 */
-  filter: 
-    drop-shadow(0 1px 0px rgba(255, 133, 160, 0.5)) 
-    drop-shadow(0 3px 6px rgba(0,0,0,0.3));
-    
-  font-weight: 800 !important;
+  color: var(--color-text, #2d2d2d) !important;
+  font-weight: 700 !important;
   letter-spacing: -0.02em;
-  padding-bottom: 0.2em; /* 防止阴影被切 */
-  transition: background-position 0.1s ease-out;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  
+  /* 立体文字效果 - 柔和的多层阴影 */
+  text-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.8),
+    0 2px 2px rgba(0, 0, 0, 0.05),
+    0 3px 3px rgba(0, 0, 0, 0.03),
+    0 1px 8px rgba(255, 158, 181, 0.15);
 }
 
-/* Fallback for browsers */
-@property --bg-angle {
-  syntax: '<angle>';
-  initial-value: 120deg;
-  inherits: false;
+/* 底部装饰线 - 可爱的粉色波浪效果 */
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-primary-light, #ffb8ca) 20%,
+    var(--color-primary, #ff9eb5) 50%,
+    var(--color-primary-light, #ffb8ca) 80%,
+    transparent 100%
+  );
+  border-radius: 2px;
 }
-@property --bg-pos-x {
-  syntax: '<percentage>';
-  initial-value: 50%;
-  inherits: false;
+
+/* 标题容器居中 */
+.page-title-wrapper,
+h1.page-title {
+  width: 100%;
+  text-align: center;
 }
 
 /* Animations */
@@ -181,6 +184,97 @@ p {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+
+@keyframes rainbow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+/* 可复用动画类 */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-wiggle:hover {
+  animation: wiggle 0.5s ease-in-out;
+}
+
+/* 彩虹边框效果 - 用于特殊元素 */
+.rainbow-border {
+  position: relative;
+}
+
+.rainbow-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, 
+    #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd, #ff6b6b);
+  background-size: 400% 400%;
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: rainbowMove 3s linear infinite paused;
+}
+
+.rainbow-border:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+@keyframes rainbowMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 闪光效果 */
+.shimmer-effect {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-pulse,
+  .animate-wiggle:hover,
+  .rainbow-border::before {
+    animation: none !important;
   }
 }
 

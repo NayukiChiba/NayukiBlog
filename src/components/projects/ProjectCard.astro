@@ -44,14 +44,14 @@ const { title, desc, url, tech = [] } = Astro.props;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     height: 100%;
     box-sizing: border-box;
-    overflow: visible;
+    overflow: hidden;
     z-index: 1;
   }
 
   .project-card::before {
     content: '';
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
     height: 3px;
@@ -59,7 +59,7 @@ const { title, desc, url, tech = [] } = Astro.props;
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 2;
+    z-index: 10;
   }
 
   .project-card:hover::before {
