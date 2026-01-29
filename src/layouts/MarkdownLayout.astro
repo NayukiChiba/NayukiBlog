@@ -33,23 +33,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
       crossorigin="anonymous"
     />
     <!-- KaTeX 公式已在构建时通过 KaTeX 渲染，无需客户端JS -->
-
-    <!-- Prism.js 代码高亮 - 使用 CDN -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.staticfile.net/prism/1.29.0/themes/prism.min.css"
-      crossorigin="anonymous"
-    />
-    <script
-      is:inline
-      defer
-      src="https://cdn.staticfile.net/prism/1.29.0/prism.min.js"
-      crossorigin="anonymous"></script>
-    <script
-      is:inline
-      defer
-      src="https://cdn.staticfile.net/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"
-      crossorigin="anonymous"></script>
+    <!-- 代码高亮由 Astro 内置 Shiki 在构建时处理 -->
   </head>
   <body>
     <Header />

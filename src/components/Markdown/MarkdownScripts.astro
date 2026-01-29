@@ -86,10 +86,7 @@
       }
     });
 
-    // Prism.js 代码高亮
-    if (typeof Prism !== "undefined") {
-      Prism.highlightAll();
-    }
+    // 代码高亮由 Astro 内置 Shiki 在构建时处理，无需客户端 JS
 
     // KaTeX 已在 MarkdownLayout.astro 的 head 中初始化
 
@@ -116,21 +113,29 @@
 
       // 0. 尝试获取语言
       let lang = "TEXT";
-      // Check pre class (Prism usually adds 'language-xxx' or 'language-none')
-      let classes = Array.from(pre.classList);
-      let langClass = classes.find((c) => c.startsWith("language-"));
       
-      if (!langClass) {
-          const code = pre.querySelector("code");
-          if (code) {
-              classes = Array.from(code.classList);
-              langClass = classes.find((c) => c.startsWith("language-"));
+      // Shiki 使用 data-language 属性
+      const dataLang = pre.getAttribute("data-language");
+      if (dataLang) {
+          lang = dataLang.toUpperCase();
+          if (lang === "PLAINTEXT" || lang === "NONE" || lang === "TEXT") lang = "TEXT";
+      } else {
+          // Fallback: Check pre class (Prism 格式: 'language-xxx')
+          let classes = Array.from(pre.classList);
+          let langClass = classes.find((c) => c.startsWith("language-"));
+          
+          if (!langClass) {
+              const code = pre.querySelector("code");
+              if (code) {
+                  classes = Array.from(code.classList);
+                  langClass = classes.find((c) => c.startsWith("language-"));
+              }
           }
-      }
 
-      if (langClass) {
-          lang = langClass.replace("language-", "").toUpperCase();
-          if (lang === "PLAINTEXT" || lang === "NONE") lang = "TEXT";
+          if (langClass) {
+              lang = langClass.replace("language-", "").toUpperCase();
+              if (lang === "PLAINTEXT" || lang === "NONE") lang = "TEXT";
+          }
       }
 
       // 1. 创建包裹结构

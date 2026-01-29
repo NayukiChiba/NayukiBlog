@@ -11,9 +11,9 @@
     --primary-light: var(--color-primary-light, #ffb8ca);
     --primary-subtle: var(--color-primary-subtle, rgba(255, 158, 181, 0.1));
 
-    /* Code Block Colors */
-    --code-bg: #f8f9fa; /* Lighter background for cleaner look */
-    --code-header-bg: #f1f3f5;
+    /* Code Block Colors - Prism 原版风格 */
+    --code-bg: #f5f2f0; /* Prism 原版背景色 */
+    --code-header-bg: #ebe8e4;
     --border-color: var(--color-border, #eaecef);
 
     /* Code Block Dimensions */
@@ -549,30 +549,66 @@
     max-height: none;
   }
 
-  /* Pre/Code Styling */
-  pre.astro-code {
+  /* Pre/Code Styling - 使用 Prism 原版样式 */
+  pre.astro-code,
+  .content pre {
     margin: 0 !important;
-    padding: 1.5rem !important; /* Generous padding */
-    background: transparent !important; /* Wrapper sets bg */
+    padding: 1em !important;
+    background: #f5f2f0 !important; /* Prism 原版背景色 */
+    color: #000 !important;
+    text-shadow: 0 1px #fff;
     overflow-x: auto;
-    font-family:
-      "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    font-size: 0.95em;
-    line-height: 1.6;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
+    font-size: 1em !important;
+    line-height: 1.5 !important; /* Prism 原版行高 */
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    tab-size: 4;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
   }
-  pre.astro-code code {
+  
+  /* Shiki 代码行样式 - 空行不需要额外高度 */
+  pre.astro-code .line {
+    display: inline;
+  }
+  
+  /* 确保空行正常显示 */
+  pre.astro-code .line:empty::before {
+    content: " ";
+  }
+  
+  pre.astro-code code,
+  .content pre code {
     background: transparent !important;
     padding: 0;
+    font-family: inherit !important;
+    font-size: inherit !important;
     color: inherit;
+    text-shadow: inherit;
+  }
+  
+  /* 代码选中样式 - Prism 风格 */
+  pre.astro-code ::selection,
+  pre.astro-code code ::selection {
+    text-shadow: none;
+    background: #b3d4fc;
   }
 
   /* Expand Button (Bottom Bar) */
   .code-expand-btn {
     width: 100%;
     padding: 10px;
-    background: #f8f9fa;
+    background: #ebe8e4; /* 匹配 Prism header 背景色 */
     border: none;
-    border-top: 1px solid #e1e4e8;
+    border-top: 1px solid #ddd8d0;
     color: #666;
     font-size: 0.9rem;
     cursor: pointer;
@@ -583,7 +619,7 @@
     transition: background 0.2s;
   }
   .code-expand-btn:hover {
-    background: #e9ecef;
+    background: #ddd8d0;
     color: var(--primary-color);
   }
 

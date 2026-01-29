@@ -21,7 +21,12 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkMath, remarkGfm],
     rehypePlugins: [rehypeKatex],
-    syntaxHighlight: false,
+    syntaxHighlight: 'shiki',
+    shikiConfig: {
+      theme: 'github-light',
+      langs: [],
+      wrap: true,
+    },
   },
 
   // Vite 配置
