@@ -197,24 +197,24 @@
     #mobile-toc a {
         text-decoration: none;
         color: #666;
-        font-size: 0.9rem;
+        font-size: 0.95rem; /* Larger touch targets */
         display: block;
-        padding: 0.75rem 1rem;
-        border-left: 2px solid var(--border-color);
+        padding: 0.8rem 1rem;
+        border-left: 3px solid transparent;
         transition: all 0.2s;
     }
 
     #mobile-toc a:hover {
-        color: #000;
-        border-left-color: #000;
-        background: #f5f5f5;
+        color: var(--primary-color, #ff9eb5);
+        border-left-color: var(--primary-color, #ff9eb5);
+        background: var(--primary-subtle, rgba(255, 158, 181, 0.1));
     }
 
     #mobile-toc a.active {
-        color: #000;
+        color: var(--primary-color, #ff9eb5);
         font-weight: 600;
-        border-left-color: #000;
-        background: #f0f0f0;
+        border-left-color: var(--primary-color, #ff9eb5);
+        background: var(--primary-subtle, rgba(255, 158, 181, 0.1));
     }
 
     /* 移动端目录层级缩进 */

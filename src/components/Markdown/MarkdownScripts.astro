@@ -3,419 +3,406 @@
 ---
 
 <script is:inline>
-    // 初始化
-    document.addEventListener("DOMContentLoaded", () => {
-        // Prism.js 代码高亮
-        if (typeof Prism !== "undefined") {
-            Prism.highlightAll();
+  // 初始化
+  document.addEventListener("DOMContentLoaded", () => {
+    // 0. Obsidian Callout 支持 (Info, Tip, Warning, Danger)
+    const blockquotes = document.querySelectorAll(".content blockquote");
+    blockquotes.forEach((bq) => {
+      const firstP = bq.querySelector("p");
+      if (!firstP) return;
+
+      const text = firstP.innerHTML;
+      const match = text.match(
+        /^\[!(NOTE|TIP|WARNING|DANGER|INFO|ERROR)\](.*?)(<br>|\n|$)/i,
+      );
+
+      if (match) {
+        const type = match[1].toLowerCase(); // note, tip, warning, danger
+        const titleText = match[2].trim() || type.toUpperCase();
+
+        // 创建 Callout 容器
+        const callout = document.createElement("div");
+        callout.className = `callout callout-${type}`;
+
+        // 创建标题
+        const title = document.createElement("div");
+        title.className = "callout-title";
+        // 添加图标 (根据类型)
+        let iconSvg = "";
+        switch (type) {
+          case "note":
+          case "info":
+            iconSvg =
+              '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
+            break;
+          case "tip":
+            iconSvg =
+              '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-5 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.1.2-2.2.5-3.3a7 7 0 0 0 14 0"></path><path d="M11 19h2"></path></svg>';
+            break;
+          case "warning":
+            iconSvg =
+              '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>';
+            break;
+          case "danger":
+          case "error":
+            iconSvg =
+              '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>';
+            break;
+          default:
+            iconSvg =
+              '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
         }
 
-        // KaTeX 已在 MarkdownLayout.astro 的 head 中初始化
+        title.innerHTML = `<span class="callout-icon">${iconSvg}</span><span class="callout-text">${titleText}</span>`;
+        callout.appendChild(title);
 
-        // Mermaid 按需加载 - 只在检测到 mermaid 代码块时才加载
-        const mermaidSelectors = [
-            "pre > code.language-mermaid",
-            "pre.language-mermaid code",
-            "pre.astro-code.language-mermaid code",
-            'pre[data-language="mermaid"] code',
-            ".astro-code code.language-mermaid",
-        ];
+        // 创建内容区
+        const content = document.createElement("div");
+        content.className = "callout-content";
 
-        let mermaidBlocks = Array.from(document.querySelectorAll(mermaidSelectors.join(", ")));
-
-        // 如果没找到，尝试通过 pre 的 class 包含 mermaid 来查找
-        if (mermaidBlocks.length === 0) {
-            const allPres = document.querySelectorAll("pre.astro-code");
-            allPres.forEach((pre) => {
-                if (pre.className.includes("mermaid")) {
-                    const code = pre.querySelector("code");
-                    if (code) mermaidBlocks.push(code);
-                }
-            });
+        // 将原 Blockquote 的所有子节点移入新的 Content 容器
+        while (bq.firstChild) {
+          content.appendChild(bq.firstChild);
         }
 
-        // 只有检测到 mermaid 代码块时才动态加载 mermaid.js
-        if (mermaidBlocks.length > 0) {
-            const script = document.createElement('script');
-            script.src = 'https://cdn.staticfile.net/mermaid/10.6.1/mermaid.min.js';
-            script.onload = () => {
-                // 加载完成后初始化
-                mermaid.initialize({
-                    startOnLoad: false,
-                    theme: "default",
-                    securityLevel: "loose",
-                    fontFamily:
-                        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-                    gantt: {
-                        useWidth: 1200,
-                        barHeight: 30,
-                        barGap: 8,
-                        topPadding: 50,
-                        leftPadding: 120,
-                        gridLineStartPadding: 50,
-                        fontSize: 14,
-                        sectionFontSize: 16,
-                        numberSectionStyles: 4,
-                        axisFormat: "%m-%d",
-                    },
-                });
-
-                // 渲染所有 mermaid 代码块
-                mermaidBlocks.forEach((block, index) => {
-                    const pre = block.parentElement;
-                    if (!pre) return;
-
-                    const code = block.textContent || "";
-
-                    // 创建 mermaid 容器（包裹在可滚动的 wrapper 中）
-                    const wrapper = document.createElement("div");
-                    wrapper.className = "mermaid-wrapper";
-
-                    const container = document.createElement("div");
-                    container.className = "mermaid";
-                    container.id = `mermaid-${index}`;
-                    container.textContent = code;
-
-                    wrapper.appendChild(container);
-
-                    // 替换 pre 元素
-                    pre.parentNode?.replaceChild(wrapper, pre);
-                });
-
-                // 运行 mermaid 渲染
-                mermaid.run();
-            };
-            document.head.appendChild(script);
+        // 在新容器里找到那个 P (原第一个P)
+        const newFirstP = content.querySelector("p");
+        if (newFirstP) {
+          // 去除标记文本
+          newFirstP.innerHTML = text.replace(
+            /^\[!(NOTE|TIP|WARNING|DANGER|INFO|ERROR)\](.*?)(\n|<br>|$)/i,
+            "",
+          );
+          // 如果剩下的全是空字符，移除该 P
+          if (newFirstP.innerText.trim() === "") {
+            newFirstP.remove();
+          }
         }
 
-        // TOC Toggle Logic
-        const tocHeader = document.getElementById("toc-header-clickable");
-        const tocToggle = document.getElementById("toc-toggle");
-        const tocNav = document.getElementById("article-toc");
+        callout.appendChild(content);
 
-        if (tocHeader && tocToggle && tocNav) {
-            const toggleToc = () => {
-                tocNav.classList.toggle("collapsed");
-                tocToggle.classList.toggle("collapsed");
-            };
-
-            tocHeader.addEventListener("click", toggleToc);
-        }
-
-        // 处理 Shiki 代码块：添加包装器、语言标签、复制按钮和展开功能
-        var codeBlocks = document.querySelectorAll("pre.astro-code");
-        var CODE_MAX_HEIGHT = 400; // 代码块最大高度（像素）
-
-        codeBlocks.forEach(function (pre) {
-            // 1. 创建 Wrapper
-            var wrapper = document.createElement("div");
-            wrapper.className = "code-wrapper";
-            pre.parentNode.insertBefore(wrapper, pre);
-
-            // 2. 创建代码容器（用于控制高度和滚动）
-            var codeContainer = document.createElement("div");
-            codeContainer.className = "code-container";
-            codeContainer.appendChild(pre);
-            wrapper.appendChild(codeContainer);
-
-            // 3. 获取语言
-            var lang = "";
-            var classes = pre.className.split(" ");
-            var langClass = classes.find(function (c) {
-                return c.startsWith("language-");
-            });
-            if (langClass) {
-                lang = langClass.replace("language-", "");
-            } else {
-                // 尝试从 code 标签获取
-                var code = pre.querySelector("code");
-                if (code) {
-                    var codeClasses = Array.from(code.classList);
-                    var codeLangClass = codeClasses.find(function (c) {
-                        return c.startsWith("language-");
-                    });
-                    if (codeLangClass)
-                        lang = codeLangClass.replace("language-", "");
-                }
-            }
-
-            // 4. 添加语言标签
-            if (lang) {
-                var langLabel = document.createElement("span");
-                langLabel.className = "code-lang";
-                langLabel.textContent = lang;
-                wrapper.appendChild(langLabel);
-            }
-
-            // 5. 添加复制按钮
-            var copyBtn = document.createElement("button");
-            copyBtn.className = "copy-btn";
-            copyBtn.innerHTML =
-                '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-
-            copyBtn.addEventListener("click", function () {
-                var code = pre.querySelector("code");
-                if (code) {
-                    navigator.clipboard
-                        .writeText(code.innerText)
-                        .then(function () {
-                            if (typeof window.showCopyToast === "function") {
-                                window.showCopyToast();
-                            }
-                        })
-                        .catch(function (err) {
-                            console.error("Failed to copy:", err);
-                        });
-                }
-            });
-            wrapper.appendChild(copyBtn);
-
-            // 6. 添加展开/收起按钮
-            var expandBtn = document.createElement("button");
-            expandBtn.className = "code-expand-btn";
-            expandBtn.innerHTML =
-                '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg><span>展开代码</span>';
-            wrapper.appendChild(expandBtn);
-
-            // 7. 检测代码块高度，决定是否需要展开功能
-            setTimeout(function () {
-                var preHeight = pre.scrollHeight;
-                if (preHeight <= CODE_MAX_HEIGHT) {
-                    // 不需要展开功能
-                    wrapper.classList.add("no-expand");
-                    codeContainer.style.maxHeight = "none";
-                }
-            }, 100);
-
-            // 8. 展开/收起点击事件
-            expandBtn.addEventListener("click", function () {
-                var isExpanded = wrapper.classList.contains("expanded");
-                if (isExpanded) {
-                    wrapper.classList.remove("expanded");
-                    expandBtn.innerHTML =
-                        '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg><span>展开代码</span>';
-                } else {
-                    wrapper.classList.add("expanded");
-                    expandBtn.innerHTML =
-                        '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg><span>收起代码</span>';
-                }
-            });
-        });
-
-        // 处理表格：添加包装器以支持横向滚动
-        const tables = document.querySelectorAll(".content table");
-        tables.forEach((table) => {
-            const wrapper = document.createElement("div");
-            wrapper.className = "table-wrapper";
-            table.parentNode?.insertBefore(wrapper, table);
-            wrapper.appendChild(table);
-        });
-
-        // 简介打字机效果
-        const card = document.querySelector(".description-card");
-        if (card) {
-            const content = card.querySelector(".description-content");
-            if (content) {
-                const text = content.getAttribute("data-text") || "";
-
-                // 清空内容准备打字
-                content.innerText = "";
-
-                let i = 0;
-                function typeWriter() {
-                    if (i < text.length) {
-                        content.innerHTML += text.charAt(i);
-                        i++;
-                        setTimeout(typeWriter, 20); // 打字速度
-                    }
-                }
-                // 稍微延迟一点开始，让页面先渲染出来
-                setTimeout(typeWriter, 300);
-            }
-        }
-
-        // 自动生成目录 (TOC) 与 滚动监听
-        const tocContainer = document.getElementById("article-toc");
-        const mobileTocContainer = document.getElementById("mobile-toc");
-        const contentEl = document.querySelector(".content");
-
-        // 移动端目录抽屉逻辑
-        const tocFloatBtn = document.getElementById("toc-float-btn");
-        const tocDrawer = document.getElementById("toc-drawer");
-        const tocOverlay = document.getElementById("toc-overlay");
-        const tocDrawerClose = document.getElementById("toc-drawer-close");
-
-        // 确保初始状态关闭
-        tocDrawer?.classList.remove("open");
-        tocOverlay?.classList.remove("visible");
-
-        function openTocDrawer() {
-            tocDrawer?.classList.add("open");
-            tocOverlay?.classList.add("visible");
-            document.body.style.overflow = "hidden";
-        }
-
-        function closeTocDrawer() {
-            tocDrawer?.classList.remove("open");
-            tocOverlay?.classList.remove("visible");
-            document.body.style.overflow = "";
-        }
-
-        tocFloatBtn?.addEventListener("click", openTocDrawer);
-        tocDrawerClose?.addEventListener("click", closeTocDrawer);
-        tocOverlay?.addEventListener("click", closeTocDrawer);
-
-        if ((tocContainer || mobileTocContainer) && contentEl) {
-            // 获取所有标题
-            const headings = contentEl.querySelectorAll("h1, h2, h3, h4");
-
-            if (headings.length > 0) {
-                // 为桌面端和移动端都生成目录
-                const createTocList = (forMobile = false) => {
-                    const ul = document.createElement("ul");
-
-                    headings.forEach((heading, index) => {
-                        // 确保标题有 ID
-                        if (!heading.id) {
-                            heading.id = "heading-" + index;
-                        }
-
-                        const li = document.createElement("li");
-                        const level = parseInt(heading.tagName.substring(1));
-                        li.className = `toc-item level-${level}`;
-                        li.dataset.level = level.toString();
-
-                        const div = document.createElement("div");
-                        div.className = "toc-item-container";
-
-                        const a = document.createElement("a");
-                        a.href = "#" + heading.id;
-                        a.textContent = heading.textContent;
-
-                        a.addEventListener("click", (e) => {
-                            e.preventDefault();
-                            heading.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start",
-                            });
-                            history.pushState(null, "", "#" + heading.id);
-                            // 如果是移动端，关闭抽屉
-                            if (forMobile) {
-                                closeTocDrawer();
-                            }
-                        });
-
-                        div.appendChild(a);
-                        li.appendChild(div);
-                        ul.appendChild(li);
-                    });
-
-                    return ul;
-                };
-
-                // 桌面端目录
-                if (tocContainer) {
-                    tocContainer.appendChild(createTocList(false));
-
-                    // 添加折叠功能（仅桌面端）
-                    const tocItems = tocContainer.querySelectorAll(".toc-item");
-                    tocItems.forEach((item, index) => {
-                        const currentLevel = parseInt(
-                            item.dataset.level || "0",
-                        );
-                        const nextItem = tocItems[index + 1];
-
-                        if (nextItem) {
-                            const nextLevel = parseInt(
-                                nextItem.dataset.level || "0",
-                            );
-                            if (nextLevel > currentLevel) {
-                                const btn = document.createElement("span");
-                                btn.className = "toc-collapse-btn";
-                                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
-
-                                const container = item.querySelector(
-                                    ".toc-item-container",
-                                );
-                                if (container) {
-                                    container.appendChild(btn);
-                                    item.classList.add("has-children");
-                                }
-
-                                btn.addEventListener("click", (e) => {
-                                    e.stopPropagation();
-                                    btn.classList.toggle("collapsed");
-                                    const isCollapsed =
-                                        btn.classList.contains("collapsed");
-
-                                    for (
-                                        let i = index + 1;
-                                        i < tocItems.length;
-                                        i++
-                                    ) {
-                                        const sibling = tocItems[i];
-                                        const siblingLevel = parseInt(
-                                            sibling.dataset.level || "0",
-                                        );
-
-                                        if (siblingLevel <= currentLevel) break;
-
-                                        if (isCollapsed) {
-                                            sibling.classList.add(
-                                                "hidden-by-parent",
-                                            );
-                                        } else {
-                                            sibling.classList.remove(
-                                                "hidden-by-parent",
-                                            );
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    });
-                }
-
-                // 移动端目录
-                if (mobileTocContainer) {
-                    mobileTocContainer.appendChild(createTocList(true));
-                }
-
-                // 滚动监听 (Intersection Observer)
-                const observerOptions = {
-                    root: null,
-                    rootMargin: "-100px 0px -70% 0px",
-                    threshold: 0,
-                };
-
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            document
-                                .querySelectorAll(".toc-item a")
-                                .forEach((link) =>
-                                    link.classList.remove("active"),
-                                );
-
-                            const id = entry.target.id;
-                            const activeLinks = document.querySelectorAll(
-                                `.toc-item a[href="#${id}"]`,
-                            );
-                            activeLinks.forEach((activeLink) => {
-                                activeLink.classList.add("active");
-                            });
-                        }
-                    });
-                }, observerOptions);
-
-                headings.forEach((h) => observer.observe(h));
-            } else {
-                // 如果没有标题，隐藏目录栏和移动端按钮
-                const sidebar = document.querySelector(".toc-sidebar");
-                const mobileBtn = document.querySelector(".mobile-toc-btn");
-                if (sidebar) sidebar.style.display = "none";
-                if (mobileBtn) mobileBtn.style.display = "none";
-            }
-        }
+        // 替换原 Blockquote
+        bq.parentNode?.replaceChild(callout, bq);
+      }
     });
+
+    // Prism.js 代码高亮
+    if (typeof Prism !== "undefined") {
+      Prism.highlightAll();
+    }
+
+    // KaTeX 已在 MarkdownLayout.astro 的 head 中初始化
+
+    // TOC Toggle Logic
+    const tocHeader = document.getElementById("toc-header-clickable");
+    const tocToggle = document.getElementById("toc-toggle");
+    const tocNav = document.getElementById("article-toc");
+
+    if (tocHeader && tocToggle && tocNav) {
+      const toggleToc = () => {
+        tocNav.classList.toggle("collapsed");
+        tocToggle.classList.toggle("collapsed");
+      };
+
+      tocHeader.addEventListener("click", toggleToc);
+    }
+
+    // 处理代码块：添加 Header、Language、Copy、Collapse
+    const codeBlocks = document.querySelectorAll("pre.astro-code");
+    const CODE_MAX_HEIGHT = 480; // Must match CSS
+
+    codeBlocks.forEach((pre) => {
+      // 避免重复处理
+      if (pre.closest(".code-wrapper")) return;
+
+      // 1. 获取语言
+      let lang = "TEXT";
+      const classes = pre.className.split(" ");
+      const langClass = classes.find((c) => c.startsWith("language-"));
+      if (langClass) {
+        lang = langClass.replace("language-", "").toUpperCase();
+      } else {
+        // Fallback: Check inner code element
+        const codeEl = pre.querySelector("code");
+        if (codeEl) {
+          const codeClasses = Array.from(codeEl.classList);
+          const codeLang = codeClasses.find((c) => c.startsWith("language-"));
+          if (codeLang) lang = codeLang.replace("language-", "").toUpperCase();
+        }
+      }
+
+      // 2. 创建包裹结构
+      // <div class="code-wrapper collapsed?">
+      //   <div class="code-header">...</div>
+      //   <div class="code-container"> <pre>...</pre> </div>
+      //   <button class="code-expand-btn">...</button>
+      // </div>
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "code-wrapper"; // Default state
+
+      // Insert wrapper before pre
+      pre.parentNode.insertBefore(wrapper, pre);
+
+      // Header
+      const header = document.createElement("div");
+      header.className = "code-header";
+      header.innerHTML = `
+        <span class="code-lang">${lang}</span>
+        <button class="copy-btn" title="Copy code">
+           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+           <span>Copy</span>
+        </button>
+      `;
+      wrapper.appendChild(header);
+
+      // Container
+      const container = document.createElement("div");
+      container.className = "code-container";
+      container.appendChild(pre); // Move pre inside
+      wrapper.appendChild(container);
+
+      // Expand Button
+      const expandBtn = document.createElement("button");
+      expandBtn.className = "code-expand-btn";
+      expandBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <span>Expand Code</span>
+      `;
+      wrapper.appendChild(expandBtn);
+
+      // 3. 逻辑绑定 - Copy
+      const copyBtn = header.querySelector(".copy-btn");
+      copyBtn.addEventListener("click", () => {
+        const codeText = pre.innerText;
+        navigator.clipboard.writeText(codeText).then(() => {
+          copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Copied!</span>`;
+          setTimeout(() => {
+            copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span>`;
+          }, 2000);
+        });
+      });
+
+      // 4. 逻辑绑定 - Collapse
+      // Check height after a tick to allow layout
+      setTimeout(() => {
+        if (pre.scrollHeight > CODE_MAX_HEIGHT) {
+          wrapper.classList.add("collapsed");
+          wrapper.classList.add("has-collapse");
+        }
+      }, 50);
+
+      expandBtn.addEventListener("click", () => {
+        const isCollapsed = wrapper.classList.contains("collapsed");
+        if (isCollapsed) {
+          wrapper.classList.remove("collapsed");
+          wrapper.classList.add("expanded");
+          expandBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg><span>Collapse Code</span>`;
+        } else {
+          wrapper.classList.add("collapsed");
+          wrapper.classList.remove("expanded");
+          expandBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg><span>Expand Code</span>`;
+          // Optional: Scroll back to top of code block
+          // wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      });
+    });
+
+    // 处理表格：添加包装器以支持横向滚动
+    const tables = document.querySelectorAll(".content table");
+    tables.forEach((table) => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "table-wrapper";
+      table.parentNode?.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+    });
+
+    // 简介打字机效果
+    const card = document.querySelector(".description-card");
+    if (card) {
+      const content = card.querySelector(".description-content");
+      if (content) {
+        const text = content.getAttribute("data-text") || "";
+
+        // 清空内容准备打字
+        content.innerText = "";
+
+        let i = 0;
+        function typeWriter() {
+          if (i < text.length) {
+            content.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 20); // 打字速度
+          }
+        }
+        // 稍微延迟一点开始，让页面先渲染出来
+        setTimeout(typeWriter, 300);
+      }
+    }
+
+    // 自动生成目录 (TOC) 与 滚动监听
+    const tocContainer = document.getElementById("article-toc");
+    const mobileTocContainer = document.getElementById("mobile-toc");
+    const contentEl = document.querySelector(".content");
+
+    // 移动端目录抽屉逻辑
+    const tocFloatBtn = document.getElementById("toc-float-btn");
+    const tocDrawer = document.getElementById("toc-drawer");
+    const tocOverlay = document.getElementById("toc-overlay");
+    const tocDrawerClose = document.getElementById("toc-drawer-close");
+
+    // 确保初始状态关闭
+    tocDrawer?.classList.remove("open");
+    tocOverlay?.classList.remove("visible");
+
+    function openTocDrawer() {
+      tocDrawer?.classList.add("open");
+      tocOverlay?.classList.add("visible");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeTocDrawer() {
+      tocDrawer?.classList.remove("open");
+      tocOverlay?.classList.remove("visible");
+      document.body.style.overflow = "";
+    }
+
+    tocFloatBtn?.addEventListener("click", openTocDrawer);
+    tocDrawerClose?.addEventListener("click", closeTocDrawer);
+    tocOverlay?.addEventListener("click", closeTocDrawer);
+
+    if ((tocContainer || mobileTocContainer) && contentEl) {
+      // 获取所有标题
+      const headings = contentEl.querySelectorAll("h1, h2, h3, h4");
+
+      if (headings.length > 0) {
+        // 为桌面端和移动端都生成目录
+        const createTocList = (forMobile = false) => {
+          const ul = document.createElement("ul");
+
+          headings.forEach((heading, index) => {
+            // 确保标题有 ID
+            if (!heading.id) {
+              heading.id = "heading-" + index;
+            }
+
+            const li = document.createElement("li");
+            const level = parseInt(heading.tagName.substring(1));
+            li.className = `toc-item level-${level}`;
+            li.dataset.level = level.toString();
+
+            const div = document.createElement("div");
+            div.className = "toc-item-container";
+
+            const a = document.createElement("a");
+            a.href = "#" + heading.id;
+            a.textContent = heading.textContent;
+
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              heading.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+              history.pushState(null, "", "#" + heading.id);
+              // 如果是移动端，关闭抽屉
+              if (forMobile) {
+                closeTocDrawer();
+              }
+            });
+
+            div.appendChild(a);
+            li.appendChild(div);
+            ul.appendChild(li);
+          });
+
+          return ul;
+        };
+
+        // 桌面端目录
+        if (tocContainer) {
+          tocContainer.appendChild(createTocList(false));
+
+          // 添加折叠功能（仅桌面端）
+          const tocItems = tocContainer.querySelectorAll(".toc-item");
+          tocItems.forEach((item, index) => {
+            const currentLevel = parseInt(item.dataset.level || "0");
+            const nextItem = tocItems[index + 1];
+
+            if (nextItem) {
+              const nextLevel = parseInt(nextItem.dataset.level || "0");
+              if (nextLevel > currentLevel) {
+                const btn = document.createElement("span");
+                btn.className = "toc-collapse-btn";
+                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+
+                const container = item.querySelector(".toc-item-container");
+                if (container) {
+                  container.appendChild(btn);
+                  item.classList.add("has-children");
+                }
+
+                btn.addEventListener("click", (e) => {
+                  e.stopPropagation();
+                  btn.classList.toggle("collapsed");
+                  const isCollapsed = btn.classList.contains("collapsed");
+
+                  for (let i = index + 1; i < tocItems.length; i++) {
+                    const sibling = tocItems[i];
+                    const siblingLevel = parseInt(sibling.dataset.level || "0");
+
+                    if (siblingLevel <= currentLevel) break;
+
+                    if (isCollapsed) {
+                      sibling.classList.add("hidden-by-parent");
+                    } else {
+                      sibling.classList.remove("hidden-by-parent");
+                    }
+                  }
+                });
+              }
+            }
+          });
+        }
+
+        // 移动端目录
+        if (mobileTocContainer) {
+          mobileTocContainer.appendChild(createTocList(true));
+        }
+
+        // 滚动监听 (Intersection Observer)
+        const observerOptions = {
+          root: null,
+          rootMargin: "-100px 0px -70% 0px",
+          threshold: 0,
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              document
+                .querySelectorAll(".toc-item a")
+                .forEach((link) => link.classList.remove("active"));
+
+              const id = entry.target.id;
+              const activeLinks = document.querySelectorAll(
+                `.toc-item a[href="#${id}"]`,
+              );
+              activeLinks.forEach((activeLink) => {
+                activeLink.classList.add("active");
+              });
+            }
+          });
+        }, observerOptions);
+
+        headings.forEach((h) => observer.observe(h));
+      } else {
+        // 如果没有标题，隐藏目录栏和移动端按钮
+        const sidebar = document.querySelector(".toc-sidebar");
+        const mobileBtn = document.querySelector(".mobile-toc-btn");
+        if (sidebar) sidebar.style.display = "none";
+        if (mobileBtn) mobileBtn.style.display = "none";
+      }
+    }
+  });
 </script>

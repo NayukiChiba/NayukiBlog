@@ -26,6 +26,12 @@ export default defineConfig({
 
   // Vite 配置
   vite: {
+    // 忽略 Obsidian 配置文件，避免热更新报错
+    server: {
+      watch: {
+        ignored: ['**/.obsidian/**'],
+      },
+    },
     build: {
       cssCodeSplit: true,
       minify: "esbuild",

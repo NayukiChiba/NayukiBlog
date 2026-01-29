@@ -146,30 +146,32 @@
     /* 仿照 Astro Pure 风格：左侧线条 + 缩进 */
     #article-toc a {
         text-decoration: none;
-        color: #888;
-        font-size: 0.85rem;
+        color: #666;
+        font-size: 0.9rem;
         transition: all 0.2s;
         display: block;
-        border-left: 2px solid var(--border-color);
-        padding: 0.5rem 0 0.5rem 1rem;
-        line-height: 1.4;
+        border-left: 3px solid transparent; /* Cleaner default */
+        padding: 0.6rem 0.8rem 0.6rem 1rem;
+        line-height: 1.5;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         flex: 1;
         min-width: 0;
+        border-radius: 0 6px 6px 0; /* Modern touch */
     }
 
     #article-toc a:hover {
-        color: #000;
-        border-left-color: #000;
+        color: var(--primary-color, #ff9eb5);
+        border-left-color: var(--primary-color, #ff9eb5);
+        background-color: var(--primary-subtle, rgba(255, 158, 181, 0.1));
     }
 
     #article-toc a.active {
-        color: #000;
+        color: var(--primary-color, #ff9eb5);
         font-weight: 600;
-        border-left-color: #000;
-        background: none;
+        border-left-color: var(--primary-color, #ff9eb5);
+        background-color: var(--primary-subtle, rgba(255, 158, 181, 0.1));
     }
 
     /* TOC 容器布局 */
