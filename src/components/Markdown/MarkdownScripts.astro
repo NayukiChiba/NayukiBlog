@@ -108,103 +108,95 @@
     }
 
     // 处理代码块：添加 Header、Language、Copy、Collapse
-    const codeBlocks = document.querySelectorAll("pre.astro-code");
-    const CODE_MAX_HEIGHT = 480; // Must match CSS
+    const codeBlocks = document.querySelectorAll(".content pre"); 
 
     codeBlocks.forEach((pre) => {
       // 避免重复处理
-      if (pre.closest(".code-wrapper")) return;
+      if (pre.closest(".code-block-wrapper")) return;
 
-      // 1. 获取语言
+      // 0. 尝试获取语言
       let lang = "TEXT";
-      const classes = pre.className.split(" ");
-      const langClass = classes.find((c) => c.startsWith("language-"));
-      if (langClass) {
-        lang = langClass.replace("language-", "").toUpperCase();
-      } else {
-        // Fallback: Check inner code element
-        const codeEl = pre.querySelector("code");
-        if (codeEl) {
-          const codeClasses = Array.from(codeEl.classList);
-          const codeLang = codeClasses.find((c) => c.startsWith("language-"));
-          if (codeLang) lang = codeLang.replace("language-", "").toUpperCase();
-        }
+      // Check pre class (Prism usually adds 'language-xxx' or 'language-none')
+      let classes = Array.from(pre.classList);
+      let langClass = classes.find((c) => c.startsWith("language-"));
+      
+      if (!langClass) {
+          const code = pre.querySelector("code");
+          if (code) {
+              classes = Array.from(code.classList);
+              langClass = classes.find((c) => c.startsWith("language-"));
+          }
       }
 
-      // 2. 创建包裹结构
-      // <div class="code-wrapper collapsed?">
-      //   <div class="code-header">...</div>
-      //   <div class="code-container"> <pre>...</pre> </div>
-      //   <button class="code-expand-btn">...</button>
-      // </div>
+      if (langClass) {
+          lang = langClass.replace("language-", "").toUpperCase();
+          if (lang === "PLAINTEXT" || lang === "NONE") lang = "TEXT";
+      }
 
+      // 1. 创建包裹结构
       const wrapper = document.createElement("div");
-      wrapper.className = "code-wrapper"; // Default state
+      wrapper.className = "code-block-wrapper"; 
 
       // Insert wrapper before pre
-      pre.parentNode.insertBefore(wrapper, pre);
-
-      // Header
+      pre.parentNode?.insertBefore(wrapper, pre);
+      
+      // 2. Head Construction
       const header = document.createElement("div");
       header.className = "code-header";
       header.innerHTML = `
-        <span class="code-lang">${lang}</span>
-        <button class="copy-btn" title="Copy code">
-           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-           <span>Copy</span>
-        </button>
+        <span class="code-language">${lang}</span>
+        <div class="code-actions">
+            <button class="code-btn copy-btn" title="Copy">
+                <svg viewBox="0 0 24 24" fill="none" class="icon-copy" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <svg viewBox="0 0 24 24" fill="none" class="icon-check" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </button>
+            <button class="code-btn code-collapse-btn" title="Toggle Reference">
+                <svg viewBox="0 0 24 24" fill="none" class="icon-chevron" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+        </div>
       `;
       wrapper.appendChild(header);
 
-      // Container
-      const container = document.createElement("div");
-      container.className = "code-container";
-      container.appendChild(pre); // Move pre inside
-      wrapper.appendChild(container);
+      // 3. Content Container
+      const content = document.createElement("div");
+      content.className = "code-content expanded";
+      content.appendChild(pre);
+      wrapper.appendChild(content);
 
-      // Expand Button
-      const expandBtn = document.createElement("button");
-      expandBtn.className = "code-expand-btn";
-      expandBtn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        <span>Expand Code</span>
-      `;
-      wrapper.appendChild(expandBtn);
-
-      // 3. 逻辑绑定 - Copy
+      // 4. Logic - Copy
       const copyBtn = header.querySelector(".copy-btn");
       copyBtn.addEventListener("click", () => {
-        const codeText = pre.innerText;
-        navigator.clipboard.writeText(codeText).then(() => {
-          copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Copied!</span>`;
-          setTimeout(() => {
-            copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span>`;
-          }, 2000);
+        const text = pre.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            copyBtn.classList.add("copied");
+            
+            // Show toast if available
+            const toast = document.getElementById("copy-toast");
+            if (toast) {
+                toast.style.opacity = "1";
+                toast.style.transform = "translateX(-50%) translateY(0)";
+                setTimeout(() => {
+                    toast.style.opacity = "0";
+                    toast.style.transform = "translateX(-50%) translateY(20px)";
+                }, 2000);
+            }
+
+            setTimeout(() => {
+                copyBtn.classList.remove("copied");
+            }, 2000);
         });
       });
 
-      // 4. 逻辑绑定 - Collapse
-      // Check height after a tick to allow layout
-      setTimeout(() => {
-        if (pre.scrollHeight > CODE_MAX_HEIGHT) {
-          wrapper.classList.add("collapsed");
-          wrapper.classList.add("has-collapse");
-        }
-      }, 50);
-
-      expandBtn.addEventListener("click", () => {
-        const isCollapsed = wrapper.classList.contains("collapsed");
-        if (isCollapsed) {
-          wrapper.classList.remove("collapsed");
-          wrapper.classList.add("expanded");
-          expandBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg><span>Collapse Code</span>`;
-        } else {
-          wrapper.classList.add("collapsed");
-          wrapper.classList.remove("expanded");
-          expandBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg><span>Expand Code</span>`;
-          // Optional: Scroll back to top of code block
-          // wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
+      // 5. Logic - Collapse
+      const collapseBtn = header.querySelector(".code-collapse-btn");
+      collapseBtn.addEventListener("click", () => {
+          wrapper.classList.toggle("collapsed");
       });
     });
 

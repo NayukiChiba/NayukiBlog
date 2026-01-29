@@ -51,7 +51,7 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
                     <section class="project-section" data-section="in-progress">
                         <div class="section-header">
                             <h2 class="section-title">
-                                🚧 正在进行 (In Progress)
+                                正在进行
                             </h2>
                             {inProgressPages.length > 1 && (
                                 <div class="pagination-controls">
@@ -125,7 +125,7 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
                     <section class="project-section" data-section="planning">
                         <div class="section-header">
                             <h2 class="section-title">
-                                💡 正在新建仓库 (Planning)
+                                正在新建仓库
                             </h2>
                             {planningPages.length > 1 && (
                                 <div class="pagination-controls">
@@ -198,7 +198,7 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
                 completedProjects.length > 0 && (
                     <section class="project-section" data-section="completed">
                         <div class="section-header">
-                            <h2 class="section-title">✅ 已完成 (Completed)</h2>
+                            <h2 class="section-title">已完成</h2>
                             {completedPages.length > 1 && (
                                 <div class="pagination-controls">
                                     <button
