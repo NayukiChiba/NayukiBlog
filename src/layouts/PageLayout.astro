@@ -93,11 +93,17 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
   </head>
   <body>
     <script>
+      declare global {
+        interface Window {
+          _titleEffectHandler?: (e: MouseEvent) => void;
+        }
+      }
+
       function initTitleEffect() {
-        const titles = document.querySelectorAll('.page-title');
+        const titles = document.querySelectorAll<HTMLElement>('.page-title');
         if (titles.length === 0) return;
 
-        const handleMouseMove = (e) => {
+        const handleMouseMove = (e: MouseEvent) => {
           const windowWidth = window.innerWidth;
           const mouseXPercentage = (e.clientX / windowWidth) * 100;
           
