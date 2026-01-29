@@ -163,9 +163,12 @@
 
   .markdown-container {
     max-width: var(--max-width);
+    width: 100%; /* Explicitly take full width */
+    box-sizing: border-box; /* Padding included in width */
     margin: 0 auto;
     padding: 2rem 1rem;
     animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    overflow-wrap: break-word; /* Ensure long words break */
   }
 
   @keyframes fadeInUp {
