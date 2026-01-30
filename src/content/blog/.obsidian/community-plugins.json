@@ -1,4 +1,5 @@
 [
   "obsidian-linter",
-  "templater-obsidian"
+  "templater-obsidian",
+  "obsidian-git"
 ]
