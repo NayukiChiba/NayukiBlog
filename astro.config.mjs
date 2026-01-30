@@ -16,14 +16,14 @@ export default defineConfig({
 
   // 集成插件
   integrations: [],
-  
+
   // Markdown 配置
   markdown: {
     remarkPlugins: [remarkMath, remarkGfm],
     rehypePlugins: [rehypeKatex],
-    syntaxHighlight: 'shiki',
+    syntaxHighlight: "shiki",
     shikiConfig: {
-      theme: 'github-light',
+      theme: "github-light",
       langs: [],
       wrap: true,
     },
@@ -31,10 +31,10 @@ export default defineConfig({
 
   // Vite 配置
   vite: {
-    // 忽略 Obsidian 配置文件，避免热更新报错
+    // 忽略 Obsidian 配置文件和模板文件夹，避免热更新报错
     server: {
       watch: {
-        ignored: ['**/.obsidian/**'],
+        ignored: ["**/.obsidian/**", "**/templates/**"],
       },
     },
     build: {
