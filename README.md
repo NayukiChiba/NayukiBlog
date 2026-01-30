@@ -1,30 +1,29 @@
 # Nayuki Blog - 静态博客
 
-> 基于 Astro + Decap CMS 的现代化静态博客系统
+> 基于 Astro 的现代化静态博客系统，配套独立的 Vue 管理后台
 
 ## ✨ 特性
 
 - 🚀 **极速访问** - 纯静态网站，CDN 加速
 - 📝 **Markdown 写作** - 支持 GFM 和 LaTeX 数学公式
-- 🎨 **可视化管理** - Decap CMS 提供友好的管理界面
+- 🎨 **独立管理后台** - Vue 3 构建的现代化管理界面
 - 🔄 **自动部署** - Push 到 GitHub 自动构建部署
 - 📦 **版本控制** - 所有内容都在 Git 中，可随时回滚
 - 🌐 **EdgeOne CDN** - 腾讯云 EdgeOne 全球加速
 
 ## 🏗️ 技术栈
 
-- **前端框架**: [Astro](https://astro.build/)
-- **内容管理**: [Decap CMS](https://decapcms.org/)
+- **博客前端**: [Astro](https://astro.build/)
+- **管理后台**: [Vue 3](https://vuejs.org/) + [Vite](https://vitejs.dev/) (独立仓库 [NayukiBlog-Admin](https://github.com/NayukiChiba/NayukiBlog-Admin))
 - **部署平台**: [腾讯云 EdgeOne](https://cloud.tencent.com/product/eo)
 - **CI/CD**: GitHub Actions
-- **样式**: CSS + Astro Components
+- **样式**: CSS + Tailwind CSS
 
 ## 📁 项目结构
 
 ```
-NayukiBlog/
+NayukiBlog/                 # 博客前端
 ├── public/
-│   ├── admin/              # Decap CMS 管理后台
 │   └── images/             # 图片资源
 ├── src/
 │   ├── content/
@@ -37,6 +36,14 @@ NayukiBlog/
 ├── .github/
 │   └── workflows/          # GitHub Actions
 └── dist/                   # 构建输出
+
+NayukiBlog-Admin/           # 管理后台 (独立仓库)
+├── src/
+│   ├── views/              # 页面视图
+│   ├── components/         # Vue 组件
+│   ├── api/                # API 调用
+│   └── stores/             # Pinia 状态管理
+└── workers/                # Cloudflare Workers (OAuth)
 ```
 
 ## 🚀 快速开始
@@ -46,7 +53,6 @@ NayukiBlog/
 ```bash
 git clone https://github.com/NayukiChiba/NayukiBlog.git
 cd NayukiBlog
-git checkout static-blog
 ```
 
 ### 2. 安装依赖
@@ -55,7 +61,18 @@ git checkout static-blog
 npm install
 ```
 
-### 3. 启动开发服务器
+### 3. 配置环境变量
+
+项目根目录的 `.env` 文件用于配置 Admin 管理面板跳转地址：
+
+```env
+# Admin 管理面板 URL
+# 本地开发: http://localhost:5173
+# 生产环境: https://admin.yourdomain.com
+PUBLIC_ADMIN_URL=http://localhost:5173
+```
+
+### 4. 启动开发服务器
 
 ```bash
 npm run dev
@@ -63,49 +80,79 @@ npm run dev
 
 访问 `http://localhost:4321` 查看网站。
 
-### 4. 构建生产版本
+### 5. 本地完整开发（博客 + 管理后台）
+
+如需同时开发博客和管理后台，需要启动两个项目：
+
+```bash
+# 终端 1: 启动博客 (端口 4321)
+cd NayukiBlog
+npm run dev
+
+# 终端 2: 启动管理后台 (端口 5173)
+cd NayukiBlog-Admin
+npm run dev
+```
+
+然后在博客页面点击右下角浮动按钮 → 管理面板，即可跳转到管理后台。
+
+### 6. 构建生产版本
 
 ```bash
 npm run build
 ```
 
-详细说明请查看 [QUICKSTART.md](./QUICKSTART.md)
-
 ## 📝 内容管理
 
-### 方式 1：本地编辑（推荐）
+### 方式 1：本地编辑
 
 直接编辑 `src/content/blog/*.md` 和 `src/data/*.json` 文件，然后 Git commit & push。
 
 ### 方式 2：管理后台
 
-访问 `你的域名.com/admin` 使用可视化界面管理内容（需要配置 OAuth）。
+访问 `admin.yourdomain.com` 使用可视化界面管理内容。
+
+管理后台是独立项目，详见 [NayukiBlog-Admin](https://github.com/NayukiChiba/NayukiBlog-Admin)。
 
 ## 🌐 部署
 
-### 自动部署
+本项目采用**双站点部署**架构，博客和管理后台分别独立部署：
 
-推送到 `static-blog` 分支会自动触发 GitHub Actions 构建并部署到 EdgeOne：
+| 站点     | 域名                   | 仓库             |
+| -------- | ---------------------- | ---------------- |
+| 博客前端 | `blog.yourdomain.com`  | NayukiBlog       |
+| 管理后台 | `admin.yourdomain.com` | NayukiBlog-Admin |
+
+### EdgeOne 部署步骤
+
+1. **创建博客站点**
+   - 在 EdgeOne 创建新站点，关联 `NayukiBlog` 仓库
+   - 绑定域名 `blog.yourdomain.com`
+   - 设置环境变量 `PUBLIC_ADMIN_URL=https://admin.yourdomain.com`
+
+2. **创建管理后台站点**
+   - 在 EdgeOne 创建新站点，关联 `NayukiBlog-Admin` 仓库
+   - 绑定域名 `admin.yourdomain.com`
+
+3. **自动部署**
+   - 推送到对应仓库会自动触发构建部署
+   - 两个项目独立管理，互不影响
 
 ```bash
-git add .
-git commit -m "Update content"
-git push origin static-blog
-```
+# 更新博客
+cd NayukiBlog
+git add . && git commit -m "Update blog" && git push
 
-### 手动部署
-
-```bash
-npm run build
-# 将 dist/ 目录上传到你的服务器
+# 更新管理后台
+cd NayukiBlog-Admin
+git add . && git commit -m "Update admin" && git push
 ```
 
 ## 📚 文档
 
-- [快速开始指南](./QUICKSTART.md)
-- [迁移指南](./MIGRATION_GUIDE.md)
 - [Astro 文档](https://docs.astro.build/)
-- [Decap CMS 文档](https://decapcms.org/docs/)
+- [Vue 3 文档](https://vuejs.org/)
+- [EdgeOne 文档](https://cloud.tencent.com/document/product/1552)
 
 ## 🛠️ 开发命令
 
@@ -130,7 +177,7 @@ Nayuki Chiba
 ## 🙏 致谢
 
 - [Astro](https://astro.build/) - 现代化的静态网站生成器
-- [Decap CMS](https://decapcms.org/) - 开源的内容管理系统
+- [Vue 3](https://vuejs.org/) - 渐进式 JavaScript 框架
 - [腾讯云 EdgeOne](https://cloud.tencent.com/product/eo) - 全球加速服务
 
 ---
