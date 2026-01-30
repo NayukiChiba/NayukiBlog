@@ -15,372 +15,487 @@ import { getProjects, getDiaries, getTodos } from "../lib/data";
 // 获取文章列表（最新3篇）
 const allPosts = await getCollection("blog");
 const posts = allPosts
-    .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
-    .slice(0, 3)
-    .map(post => ({
-        title: post.data.title,
-        date: post.data.date,
-        desc: post.data.description,
-        url: `/posts/${post.slug}`,
-        category: post.data.category,
-        tags: post.data.tags,
-        image: post.data.image,
-    }));
+  .sort(
+    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
+  )
+  .slice(0, 3)
+  .map((post) => ({
+    title: post.data.title,
+    date: post.data.date,
+    desc: post.data.description,
+    url: `/posts/${post.slug}`,
+    category: post.data.category,
+    tags: post.data.tags,
+    image: post.data.image,
+  }));
 
 // 获取项目列表（优先显示进行中的项目，最多2个）
 const allProjects = getProjects();
 const inProgressProjects = allProjects.filter(
-    p => p.status === "In Progress" || p.status === "in-progress"
+  (p) => p.status === "In Progress" || p.status === "in-progress",
 );
-const displayProjects = inProgressProjects.length > 0 ? inProgressProjects : allProjects;
-const projects = displayProjects.slice(0, 2).map(project => ({
-    title: project.name,
-    desc: project.description,
-    url: project.link,
-    tech: project.techStack,
+const displayProjects =
+  inProgressProjects.length > 0 ? inProgressProjects : allProjects;
+const projects = displayProjects.slice(0, 2).map((project) => ({
+  title: project.name,
+  desc: project.description,
+  url: project.link,
+  tech: project.techStack,
 }));
 
 // 获取最新日记
 const allDiaries = getDiaries();
 const latestDiary = allDiaries.length > 0 ? allDiaries[0] : null;
 
+// 格式化日记日期（和 DiaryCard 保持一致）
+let formattedDiaryDate = "";
+if (latestDiary) {
+  const d = new Date(latestDiary.date);
+  formattedDiaryDate = isNaN(d.getTime())
+    ? latestDiary.date
+    : d.getFullYear() +
+      "-" +
+      String(d.getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(d.getDate()).padStart(2, "0") +
+      " " +
+      String(d.getHours()).padStart(2, "0") +
+      ":" +
+      String(d.getMinutes()).padStart(2, "0");
+}
+
 // 获取待办事项
 const todos = getTodos();
 ---
 
 <PageLayout title="Nayuki Blog">
-    <div class="home-container">
-        <!-- Profile Section (Top) -->
-        <section class="profile-section">
-            <div class="profile-wrapper">
-                <ProfileCard />
+  <div class="home-container">
+    <!-- Profile Section (Top) -->
+    <section class="profile-section">
+      <div class="profile-wrapper">
+        <ProfileCard />
 
-                <div class="profile-divider"></div>
+        <div class="profile-divider"></div>
 
-                <GithubActivity />
+        <GithubActivity />
 
-                <div class="profile-divider"></div>
+        <div class="profile-divider"></div>
 
-                <TodoCard todos={todos} />
-            </div>
-        </section>
+        <TodoCard todos={todos} />
+      </div>
+    </section>
 
-        <div class="divider"></div>
+    <div class="divider"></div>
 
-        <!-- Latest Diary (Conditional) -->
-        {
-            latestDiary && (
-                <section class="section-block">
-                    <div class="section-header">
-                        <h2 class="section-title">Latest Diary</h2>
-                        <a href="/diary" class="view-all">
-                            View all →
-                        </a>
-                    </div>
-                    <div class="diary-preview">
-                        <div class="diary-expanded">
-                            <div class="diary-header-info">
-                                <span class="diary-date">{latestDiary.date}</span>
-                                <span class="diary-mood">{latestDiary.mood === 'happy' ? '😊' : latestDiary.mood === 'excited' ? '🤩' : latestDiary.mood === 'sad' ? '😢' : latestDiary.mood === 'angry' ? '😠' : latestDiary.mood === 'tired' ? '😫' : '😐'}</span>
-                            </div>
-                            <div class="diary-content">
-                                <p>{latestDiary.content}</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            )
-        }
-
-        <!-- Latest Posts -->
+    <!-- Latest Diary (Conditional) -->
+    {
+      latestDiary && (
         <section class="section-block">
-            <div class="section-header">
-                <h2 class="section-title">Latest Posts</h2>
-                <a href="/articles" class="view-all">View all →</a>
+          <div class="section-header">
+            <h2 class="section-title">Latest Diary</h2>
+            <a href="/diary" class="view-all">
+              View all →
+            </a>
+          </div>
+          <div class="diary-preview">
+            <div class="diary-expanded">
+              <div class="diary-header">
+                <div class="meta-group">
+                  <span class="meta-item" title="Date">
+                    📅 {formattedDiaryDate}
+                  </span>
+                  {latestDiary.weather && (
+                    <span class="meta-item" title="Weather">
+                      {latestDiary.weather === "sunny"
+                        ? "☀️"
+                        : latestDiary.weather === "cloudy"
+                          ? "☁️"
+                          : latestDiary.weather === "rainy"
+                            ? "🌧️"
+                            : latestDiary.weather === "snowy"
+                              ? "❄️"
+                              : latestDiary.weather === "windy"
+                                ? "💨"
+                                : "🌤️"}
+                      <span class="meta-text">{latestDiary.weather}</span>
+                    </span>
+                  )}
+                  <span class="meta-item" title="Mood">
+                    {latestDiary.mood === "happy"
+                      ? "😊"
+                      : latestDiary.mood === "excited"
+                        ? "🤩"
+                        : latestDiary.mood === "sad"
+                          ? "😢"
+                          : latestDiary.mood === "angry"
+                            ? "😠"
+                            : latestDiary.mood === "tired"
+                              ? "😫"
+                              : latestDiary.mood === "relieved"
+                                ? "😌"
+                                : "😐"}
+                    <span class="meta-text">{latestDiary.mood}</span>
+                  </span>
+                </div>
+              </div>
+              <div class="diary-body">
+                <p>{latestDiary.content}</p>
+                {latestDiary.images && latestDiary.images.length > 0 && (
+                  <div class="diary-images">
+                    {latestDiary.images.map((img: string) => (
+                      <img src={img} alt="Diary attachment" loading="lazy" />
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-            <div class="post-list">
-                {posts.map((post: any) => <PostCard {...post} />)}
-            </div>
+          </div>
         </section>
+      )
+    }
 
-        <!-- Featured Projects -->
-        <section class="section-block">
-            <div class="section-header">
-                <h2 class="section-title">Featured Projects</h2>
-                <a href="/projects" class="view-all">View all →</a>
-            </div>
-            <div class="project-grid">
-                {projects.map((project: any) => <ProjectCard {...project} />)}
-            </div>
-        </section>
-    </div>
+    <!-- Latest Posts -->
+    <section class="section-block">
+      <div class="section-header">
+        <h2 class="section-title">Latest Posts</h2>
+        <a href="/articles" class="view-all">View all →</a>
+      </div>
+      <div class="post-list">
+        {posts.map((post: any) => <PostCard {...post} />)}
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="section-block">
+      <div class="section-header">
+        <h2 class="section-title">Featured Projects</h2>
+        <a href="/projects" class="view-all">View all →</a>
+      </div>
+      <div class="project-grid">
+        {projects.map((project: any) => <ProjectCard {...project} />)}
+      </div>
+    </section>
+  </div>
 </PageLayout>
 
 <style>
-    .home-container {
-        max-width: 960px;
-        margin: 0 auto;
-    }
+  .home-container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
 
-    /* Staggered Animation for Sections */
-    .home-container > section,
-    .home-container > .divider {
-        opacity: 0;
-        animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    }
+  /* Staggered Animation for Sections */
+  .home-container > section,
+  .home-container > .divider {
+    opacity: 0;
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
 
-    .home-container > *:nth-child(1) {
-        animation-delay: 0.1s;
-    }
-    .home-container > *:nth-child(2) {
-        animation-delay: 0.15s;
-    }
-    .home-container > *:nth-child(3) {
-        animation-delay: 0.2s;
-    }
-    .home-container > *:nth-child(4) {
-        animation-delay: 0.25s;
-    }
-    .home-container > *:nth-child(5) {
-        animation-delay: 0.3s;
-    }
-    .home-container > *:nth-child(6) {
-        animation-delay: 0.35s;
-    }
+  .home-container > *:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .home-container > *:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .home-container > *:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  .home-container > *:nth-child(4) {
+    animation-delay: 0.25s;
+  }
+  .home-container > *:nth-child(5) {
+    animation-delay: 0.3s;
+  }
+  .home-container > *:nth-child(6) {
+    animation-delay: 0.35s;
+  }
 
-    /* Profile Section */
-    .profile-section {
-        margin-bottom: 4rem;
-    }
+  /* Profile Section */
+  .profile-section {
+    margin-bottom: 4rem;
+  }
 
+  .profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .profile-divider {
+    display: none;
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      var(--color-border),
+      transparent
+    );
+    margin: 0 2rem;
+  }
+
+  @media (min-width: 768px) {
     .profile-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
+      flex-direction: row;
+      align-items: center;
     }
 
     .profile-divider {
-        display: none;
-        width: 1px;
-        height: 60px;
-        background: linear-gradient(180deg, transparent, var(--color-border), transparent);
-        margin: 0 2rem;
+      display: block;
     }
+  }
 
-    @media (min-width: 768px) {
-        .profile-wrapper {
-            flex-direction: row;
-            align-items: center;
-        }
+  .divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-border) 20%,
+      var(--color-border) 80%,
+      transparent
+    );
+    margin: 3rem 0 4rem 0;
+    position: relative;
+  }
 
-        .profile-divider {
-            display: block;
-        }
+  .divider::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--color-bg);
+  }
+
+  /* Section Styles */
+  .section-block {
+    margin-bottom: 5rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.625rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-text);
+    position: relative;
+    padding-left: 1.125rem;
+    letter-spacing: -0.02em;
+  }
+
+  .section-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 1.4em;
+    background: linear-gradient(
+      180deg,
+      var(--color-primary),
+      var(--color-primary-light)
+    );
+    border-radius: 2px;
+  }
+
+  .view-all {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--radius-full);
+    position: relative;
+  }
+
+  .view-all::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width 0.3s ease;
+  }
+
+  .view-all:hover {
+    color: var(--color-primary);
+    background: var(--color-primary-subtle);
+  }
+
+  .view-all:hover::after {
+    width: 60%;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* Diary Preview Styles */
+  .diary-preview {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 2px solid var(--color-primary-light);
+    margin-left: 1rem;
+  }
+
+  .diary-preview::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--color-bg);
+  }
+
+  .diary-expanded {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .diary-expanded::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      var(--color-primary-light)
+    );
+  }
+
+  .diary-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .meta-group {
+    display: flex;
+    gap: 1.75rem;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s ease;
+  }
+
+  .meta-item:hover {
+    color: var(--color-primary);
+  }
+
+  .meta-text {
+    text-transform: capitalize;
+  }
+
+  .diary-body p {
+    margin: 0;
+    line-height: 1.8;
+    color: var(--color-text-light);
+    font-size: 1rem;
+    white-space: pre-wrap;
+  }
+
+  .diary-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .diary-images img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .diary-images img:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary-light);
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .project-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* 移动端响应式优化 */
+  @media (max-width: 767px) {
+    .profile-section {
+      margin-bottom: 2.5rem;
     }
 
     .divider {
-        height: 1px;
-        background: linear-gradient(90deg, transparent, var(--color-border) 20%, var(--color-border) 80%, transparent);
-        margin: 3rem 0 4rem 0;
-        position: relative;
+      margin: 2rem 0 3rem 0;
     }
 
-    .divider::before {
-        content: '';
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 6px;
-        height: 6px;
-        background: var(--color-primary);
-        border-radius: 50%;
-        box-shadow: 0 0 0 4px var(--color-bg);
-    }
-
-    /* Section Styles */
     .section-block {
-        margin-bottom: 5rem;
+      margin-bottom: 3.5rem;
     }
 
     .section-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .section-title {
-        font-size: 1.625rem;
-        font-weight: 700;
-        margin: 0;
-        color: var(--color-text);
-        position: relative;
-        padding-left: 1.125rem;
-        letter-spacing: -0.02em;
-    }
-
-    .section-title::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 4px;
-        height: 1.4em;
-        background: linear-gradient(180deg, var(--color-primary), var(--color-primary-light));
-        border-radius: 2px;
+      font-size: 1.375rem;
     }
 
     .view-all {
-        font-size: 0.9375rem;
-        color: var(--color-text-muted);
-        text-decoration: none;
-        transition: all 0.2s ease;
-        font-weight: 500;
-        padding: 0.375rem 0.75rem;
-        border-radius: var(--radius-full);
-        position: relative;
+      font-size: 0.875rem;
     }
 
-    .view-all::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0;
-        height: 2px;
-        background: var(--color-primary);
-        transition: width 0.3s ease;
-    }
-
-    .view-all:hover {
-        color: var(--color-primary);
-        background: var(--color-primary-subtle);
-    }
-
-    .view-all:hover::after {
-        width: 60%;
+    .diary-preview {
+      padding-left: 1.25rem;
+      margin-left: 0.5rem;
     }
 
     .post-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1.25rem;
+      gap: 1rem;
     }
-
-    /* Diary Preview Styles */
-    .diary-preview {
-        position: relative;
-        padding-left: 2rem;
-        border-left: 2px solid var(--color-primary-light);
-        margin-left: 1rem;
-    }
-
-    .diary-preview::before {
-        content: '';
-        position: absolute;
-        left: -6px;
-        top: 0;
-        width: 10px;
-        height: 10px;
-        background: var(--color-primary);
-        border-radius: 50%;
-        box-shadow: 0 0 0 4px var(--color-bg);
-    }
-
-    .diary-expanded {
-        background: var(--color-card-bg);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-xl);
-        padding: 2rem;
-        box-shadow: var(--shadow-sm);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .diary-expanded::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
-    }
-
-    .diary-header-info {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid var(--color-border-light);
-    }
-
-    .diary-date {
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: var(--color-text);
-    }
-
-    .diary-mood {
-        font-size: 1.3rem;
-    }
-
-    .diary-content p {
-        margin: 0;
-        line-height: 1.8;
-        color: var(--color-text-light);
-        white-space: pre-wrap;
-    }
-
-    .project-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
-    }
-
-    @media (min-width: 640px) {
-        .project-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    /* 移动端响应式优化 */
-    @media (max-width: 767px) {
-        .profile-section {
-            margin-bottom: 2.5rem;
-        }
-
-        .divider {
-            margin: 2rem 0 3rem 0;
-        }
-
-        .section-block {
-            margin-bottom: 3.5rem;
-        }
-
-        .section-header {
-            margin-bottom: 1.5rem;
-        }
-
-        .section-title {
-            font-size: 1.375rem;
-        }
-
-        .view-all {
-            font-size: 0.875rem;
-        }
-
-        .diary-preview {
-            padding-left: 1.25rem;
-            margin-left: 0.5rem;
-        }
-
-        .post-list {
-            gap: 1rem;
-        }
-    }
+  }
 </style>

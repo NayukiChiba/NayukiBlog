@@ -3,6 +3,7 @@ import Header from "../components/Header.astro";
 import FloatingButton from "../components/FloatingButton.astro";
 import CdnPreloader from "../components/CdnPreloader.astro";
 import ParticleBackground from "../components/ParticleBackground.astro";
+import ProgressBar from "../components/ProgressBar.astro";
 import "../styles/global.css"; // Import global styles
 
 interface Props {
@@ -73,6 +74,8 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
         max-width: var(--max-width);
         margin: 0 auto;
         padding: 2.5rem var(--content-padding);
+        position: relative;
+        z-index: 1;
       }
 
       /* 移动端响应式 */
@@ -100,45 +103,47 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
       }
 
       function initTitleEffect() {
-        const titles = document.querySelectorAll<HTMLElement>('.page-title');
+        const titles = document.querySelectorAll<HTMLElement>(".page-title");
         if (titles.length === 0) return;
 
         const handleMouseMove = (e: MouseEvent) => {
           const windowWidth = window.innerWidth;
           const mouseXPercentage = (e.clientX / windowWidth) * 100;
-          
-          titles.forEach(title => {
+
+          titles.forEach((title) => {
             const rect = title.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
-            
+
             // 角度计算：保持原来的逻辑，用于微调渐变方向
-            const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX) * 180 / Math.PI;
-            
+            const angle =
+              (Math.atan2(e.clientY - centerY, e.clientX - centerX) * 180) /
+              Math.PI;
+
             // 位置计算：反向移动背景以模拟光源移动效果 (Parallax)
-            // 鼠标在左(0%) -> 背景位置向右移(更小%) 
+            // 鼠标在左(0%) -> 背景位置向右移(更小%)
             // 实际上 background-position 百分比对应图片和容器的对齐点。
             // 想要高光跟随鼠标，当鼠标在左边，高光应该在左边。
             // 渐变中心是 50%。
             // 简单的映射：鼠标位置 0-100% -> bg-pos 0-100%
             const bgPosX = mouseXPercentage;
 
-            title.style.setProperty('--bg-angle', `${angle + 90}deg`);
-            title.style.setProperty('--bg-pos-x', `${bgPosX}%`);
+            title.style.setProperty("--bg-angle", `${angle + 90}deg`);
+            title.style.setProperty("--bg-pos-x", `${bgPosX}%`);
           });
         };
 
         // 移除旧的监听器以防重复
         if (window._titleEffectHandler) {
-          document.removeEventListener('mousemove', window._titleEffectHandler);
+          document.removeEventListener("mousemove", window._titleEffectHandler);
         }
         window._titleEffectHandler = handleMouseMove;
-        document.addEventListener('mousemove', window._titleEffectHandler);
+        document.addEventListener("mousemove", window._titleEffectHandler);
       }
 
       // 支持普通加载和 Astro View Transitions
-      document.addEventListener('DOMContentLoaded', initTitleEffect);
-      document.addEventListener('astro:page-load', initTitleEffect);
+      document.addEventListener("DOMContentLoaded", initTitleEffect);
+      document.addEventListener("astro:page-load", initTitleEffect);
     </script>
     <script define:vars={{ apiBase }}>
       window.API_BASE = apiBase;
@@ -155,6 +160,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
     <FloatingButton />
     <CdnPreloader />
     <ParticleBackground />
+    <ProgressBar />
   </body>
 </html>
 
@@ -168,6 +174,8 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
     border-top: 1px solid var(--color-border);
     margin-top: auto;
     background: var(--color-bg-secondary);
+    position: relative;
+    z-index: 1;
   }
 
   @media (max-width: 767px) {

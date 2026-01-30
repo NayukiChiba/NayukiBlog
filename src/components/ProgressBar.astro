@@ -1,0 +1,44 @@
+---
+
+---
+
+<div id="progress-bar"></div>
+
+<script>
+  // Simple progress bar simulation
+  const progressBar = document.getElementById("progress-bar");
+
+  if (progressBar) {
+    let width = 0;
+    const interval = setInterval(() => {
+      if (width >= 100) {
+        clearInterval(interval);
+        progressBar.style.opacity = "0";
+        setTimeout(() => {
+          progressBar.style.display = "none";
+        }, 500); // Wait for fade out
+      } else {
+        // Random increment for realistic feel
+        width += Math.random() * 10;
+        if (width > 100) width = 100;
+        progressBar.style.width = width + "%";
+      }
+    }, 100); // Update every 100ms
+  }
+</script>
+
+<style>
+  #progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ffb6c1, #ff69b4); /* Pink gradient */
+    width: 0%;
+    z-index: 9999;
+    transition:
+      width 0.2s ease,
+      opacity 0.5s ease;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+  }
+</style>

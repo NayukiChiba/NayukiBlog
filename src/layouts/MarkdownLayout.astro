@@ -10,6 +10,7 @@ import ImageLightbox from "../components/Markdown/ImageLightbox.astro";
 import MarkdownStyles from "../components/Markdown/MarkdownStyles.astro";
 import MarkdownScripts from "../components/Markdown/MarkdownScripts.astro";
 import ParticleBackground from "../components/ParticleBackground.astro";
+import ProgressBar from "../components/ProgressBar.astro";
 
 const { frontmatter } = Astro.props;
 const date = new Date(frontmatter.date);
@@ -68,6 +69,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
     <FloatingButton />
 
     <ParticleBackground />
+    <ProgressBar />
   </body>
 </html>
 
@@ -98,5 +100,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
     width: 100%;
     min-width: 0; /* CRITICAL: allows flex item to shrink smaller than content (e.g. wide tables) */
     box-sizing: border-box; /* Ensure padding doesn't add to width */
+    position: relative;
+    z-index: 1;
   }
 </style>

@@ -11,8 +11,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    pointer-events: none; /* Allow clicking through */
+    z-index: 0;
+    pointer-events: none;
+    background: var(--color-bg, #fafafa);
   }
 </style>
 
@@ -25,10 +26,16 @@
   let particles: Particle[] = [];
 
   // Configuration
-  // Using a subtle dark gray for particles to be visible on light background but not distracting
-  const baseColor = "0, 0, 0"; // Black RGB
-  const particleCountMobile = 40;
-  const particleCountDesktop = 60; // Reduced from 90 for "subtle" feel
+  // Balanced Cute: Dusty Pink, Soft Lilac, Pale Blue - Visible but soft
+  const colors = [
+    "235, 180, 195", // Dusty Pink (Visible against white)
+    "220, 190, 240", // Soft Lilac
+    "200, 220, 255", // Pale Blue
+    "255, 200, 210", // Rose
+  ];
+
+  const particleCountMobile = 30;
+  const particleCountDesktop = 50;
 
   function resize() {
     width = window.innerWidth;
@@ -43,6 +50,7 @@
     vx: number;
     vy: number;
     size: number;
+    color: string;
     opacity: number;
     fadingIn: boolean;
     fadeSpeed: number;
@@ -50,19 +58,20 @@
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.5;
-      this.vy = (Math.random() - 0.5) * 0.5;
-      this.size = Math.random() * 2; // 0 to 2px, matching index
-      this.opacity = Math.random() * 0.5;
-      this.fadeSpeed = Math.random() * 0.01 + 0.002;
-      this.fadingIn = true;
+      this.vx = (Math.random() - 0.5) * 0.4; // Gentle movement
+      this.vy = (Math.random() - 0.5) * 0.4;
+      this.size = Math.random() * 3 + 2; // 2 to 5px - Visible but not huge
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.opacity = Math.random() * 0.4 + 0.3; // 0.3 to 0.7 - Clearly visible but transparent
+      this.fadeSpeed = Math.random() * 0.005 + 0.002;
+      this.fadingIn = Math.random() > 0.5;
     }
 
     update() {
       this.x += this.vx;
       this.y += this.vy;
 
-      // Wrap around screen (matching index behavior instead of bounce)
+      // Wrap around screen
       if (this.x < 0) this.x = width;
       if (this.x > width) this.x = 0;
       if (this.y < 0) this.y = height;
@@ -71,19 +80,23 @@
       // Pulse opacity
       if (this.fadingIn) {
         this.opacity += this.fadeSpeed;
-        if (this.opacity >= 0.5) this.fadingIn = false;
+        if (this.opacity >= 0.8) this.fadingIn = false;
       } else {
         this.opacity -= this.fadeSpeed;
-        if (this.opacity <= 0.1) this.fadingIn = true;
+        if (this.opacity <= 0.2) this.fadingIn = true;
       }
     }
 
     draw() {
       if (!ctx) return;
-      ctx.fillStyle = `rgba(${baseColor}, ${this.opacity})`;
+      ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fill();
+
+      // Optional: Add a subtle glow
+      // ctx.shadowBlur = 5;
+      // ctx.shadowColor = `rgba(${this.color}, 0.5)`;
     }
   }
 
