@@ -2,7 +2,10 @@
 title: Cloudflare Workers 入门指南
 date: 2026-01-25
 category: 技术
-tags: [Cloudflare, Serverless, JavaScript]
+tags:
+  - Cloudflare
+  - Serverless
+  - JavaScript
 description: 从零开始学习 Cloudflare Workers，打造属于自己的边缘计算应用
 image: https://img.yumeko.site/file/wife/早坂爱.jpg
 status: public

@@ -2,7 +2,11 @@
 title: Astro 静态博客搭建完全指南
 date: 2026-01-26
 category: 技术
-tags: [Astro, 博客, 前端, SSG]
+tags:
+  - Astro
+  - 博客
+  - 前端
+  - SSG
 description: 手把手教你用 Astro 搭建一个高性能的静态博客，从零到部署
 image: https://img.yumeko.site/file/wife/早坂爱.jpg
 status: public

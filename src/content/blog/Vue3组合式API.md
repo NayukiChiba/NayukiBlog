@@ -2,7 +2,11 @@
 title: Vue3 组合式 API 完全指南
 date: 2026-01-24
 category: 技术
-tags: [Vue3, 前端, JavaScript, TypeScript]
+tags:
+  - Vue3
+  - 前端
+  - JavaScript
+  - TypeScript
 description: 深入理解 Vue3 组合式 API，从 Options API 到 Composition API 的优雅迁移
 image: https://img.yumeko.site/file/wife/早坂爱.jpg
 status: public
