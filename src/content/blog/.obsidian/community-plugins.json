@@ -1,5 +1,7 @@
 [
   "obsidian-linter",
   "templater-obsidian",
-  "obsidian-git"
+  "obsidian-git",
+  "copilot",
+  "oz-image-plugin"
 ]

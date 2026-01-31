@@ -66,4 +66,6 @@ CLAUDE.md
 .agent
 
 .github/prompts
+_copilot
 copilot
+workspace.json
