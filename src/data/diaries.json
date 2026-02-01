@@ -3,7 +3,7 @@
     {
       "id": 1,
       "date": "2026-01-27T22:30",
-      "content": "今天终于把博客从动态架构迁移到了静态架构！用 Astro 重构了整个项目，感觉清爽了很多。之前用 FastAPI + SQLite 的方案虽然灵活，但维护起来太麻烦了。现在纯静态，部署到 EdgeOne 和 Netlify 双线，国内国外访问都很快。接下来准备自己写一个管理后台，用 Cloudflare Workers 做 OAuth，彻底摆脱 Netlify 那个丑陋的 CMS 界面。",
+      "content": "今天终于把博客从动态架构迁移到了静态架构！用 Astro 重构了整个项目，感觉清爽了很多。之前用 FastAPI + SQLite 的方案虽然灵活，但维护起来太麻烦了。现在纯静态，部署到 EdgeOne ，国内国外访问都很快。接下来准备自己写一个管理后台，用 Cloudflare Workers 做 OAuth，彻底摆脱 Netlify 那个丑陋的 CMS 界面。",
       "mood": "excited",
       "weather": "cloudy",
       "images": []
