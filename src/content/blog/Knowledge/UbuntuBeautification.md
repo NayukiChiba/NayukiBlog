@@ -9,20 +9,16 @@ image: https://img.yumeko.site/file/blog/Result.png
 status: public
 ---
 
-# 设置自定义收缩比例
-在终端输入
-```
-gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
-```
-# 将文件夹变成英文
+# 如何将文件夹中文变成英文
+1. 在安装的时候，选择中文，后续不需要安装输入法了，更方便
+2. 在设置中**系统**，**区域与语言**，下载英文
+![ChangLanguage.png](https://img.yumeko.site/file/articles/UbuntuBeautification/ChangLanguage.png)
+3. 重新登录之后，选择**更改文件夹名字**
+> [!attention] 注意**不要**勾选**下此不再提醒**
+4. 重新设置回中文，重新登陆
+> [!attention] 这次要选择不更改文件夹名字
 
-```bash
-export LANG=en_US
-xdg-user-dirs-gtk-update
-```
-
-* 选择`Don't ask me this again`
-* 点击`Update Names`
+5. 这次可以选择下次不提醒了
 # 安装Chrome
 
 ```bash
@@ -42,7 +38,10 @@ sudo dpkg -i Clash.Verge_2.4.2_amd64.deb
 安装JetbrainMono字体 [Jetbrains Mono下载](https://www.jetbrains.com/lp/mono/)
 
 ```bash
-sudo cp /path/to/downloaded/font.ttf /usr/local/share/fonts/
+mkdir fonts && cd fonts
+wget https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip
+unzip JetBrainsMono-2.304.zip 
+sudo cp -r fonts/ttf /usr/local/share/fonts/
 sudo fc-cache -fv
 ```
 # 安装Gnome
@@ -52,42 +51,32 @@ sudo apt install gnome-tweaks
 sudo apt install gnome-shell-extensions
 ```
 ## 安装插件
-
-[gnome插件网站](https://extensions.gnome.org/)
-
-1. AppIndicator and KstatusNotifierItem Support
-* 默认
-2. Burn My Windows
-* 设置为Focus
-3. Compiz windows effect
-* 默认
-4. Just Perfection
-* 显示
-    *  关闭飞行模式切换按钮
-    * 删除世界时钟
-    * 关闭Dash应用程序运行指示器
-5. Open Bar
-![OpenBar_1](https://nyeimg.asia/img/articles/Ubuntu美化/OpenBar_1.png)
-![OpenBar_2](https://nyeimg.asia/img/articles/Ubuntu美化/OpenBar_2.png)
-![OpenBar_3](https://nyeimg.asia/img/articles/Ubuntu美化/OpenBar_3.png)
-![OpenBar_4](https://nyeimg.asia/img/articles/Ubuntu美化/OpenBar_4.png)
-![OpenBar_5](https://nyeimg.asia/img/articles/Ubuntu美化/OpenBar_5.png)
-![OpenBar_6](https://nyeimg.asia/img/articles/Ubuntu美化/OpenBar_6.png)
-![OpenBar_7](https://nyeimg.asia/img/articles/Ubuntu美化/OpenBar_7.png)
-![OpenBar_8](https://nyeimg.asia/img/articles/Ubuntu美化/OpenBar_8.png)
-![OpenBar_9](https://nyeimg.asia/img/articles/Ubuntu美化/OpenBar_9.png)
-![OpenBar_10](https://nyeimg.asia/img/articles/Ubuntu美化/OpenBar_10.png)
-![OpenBar_11](https://nyeimg.asia/img/articles/Ubuntu美化/OpenBar_11.png)
-
-6. User Themes
-* 使用WhiteSur-Light-solid
-7. Removable Drive Menu
-8. System Monitor
-![System Monitor](https://nyeimg.asia/img/articles/Ubuntu美化/System_Monitor.png)
+在这个[插件网站](https://extensions.gnome.org/)中下载一些gnome的插件
+### JustPerfection
+![JustPerfection1.png](https://img.yumeko.site/file/articles/UbuntuBeautification/JustPerfection1.png)![JustPerfection2.png](https://img.yumeko.site/file/articles/UbuntuBeautification/JustPerfection2.png)
+![JustPerfection3.png](https://img.yumeko.site/file/articles/UbuntuBeautification/JustPerfection3.png)
+![JustPerfection4.png](https://img.yumeko.site/file/articles/UbuntuBeautification/JustPerfection4.png)
+![JustPerfection5.png](https://img.yumeko.site/file/articles/UbuntuBeautification/JustPerfection5.png)
+### Blur my shell
+不设置
+### Vitals
+设置放在面板左侧
+### removable-drive-menu
+不设置
+### Burn My Windows
+设置为**Focus**
+### Dash to Dock
+![Dock1.png](https://img.yumeko.site/file/articles/UbuntuBeautification/Dock1.png)
+![Dock2.png](https://img.yumeko.site/file/articles/UbuntuBeautification/Dock2.png)
+### UserTheme
+见下方安装主题
 ## 安装主题
 ### 进入网址找到喜欢的主题
 
-[主题网站](https://www.gnome-look.org/browse/)
+[主题网站](https://www.gnome-look.org/browse?cat=135&ord=latest)
+1. 找到一个主题![theme1.png](https://img.yumeko.site/file/articles/UbuntuBeautification/theme1.png)
+2. 然后点击他的Download，进入他的github主页![theme2.png](https://img.yumeko.site/file/articles/UbuntuBeautification/theme2.png)![theme3.png](https://img.yumeko.site/file/articles/UbuntuBeautification/theme3.png)
+3. 进入**releases**页面，下载源码![theme4.png](https://img.yumeko.site/file/articles/UbuntuBeautification/theme4.png)
 ### 解压主题
 
 ```bash
@@ -102,6 +91,7 @@ sudo mv {ThemeName}/ ~/gnome-themes
 cd ~/gnome-themes/{ThemeName}/
 sudo ./install.sh
 ```
+### 在UserThemes插件中设置主题即可
 ## 使用动态壁纸
 这是[Hidamari](https://github.com/jeffshee/hidamari)的github源码, 右侧About中有下载链接
 ![Hidamari源码](https://nyeimg.asia/img/articles/Ubuntu美化/Hidamari源码.png)
@@ -143,7 +133,7 @@ fc-cache -fv
 5. 常见的bug
 * 插件背景是黑色
 修改`own_window_argb_visual = false`即可
-![ConkyConfig](https://nyeimg.asia/img/articles/Ubuntu美化/ConkyConfig.png)
+![ConkyConfig](https://img.yumeko.site/file/articles/UbuntuBeautification/ConkyConfig.png)
 * 插件中出现了乱码(conky用的是lua语言)
 例如这是一段config中的源代码
 ```
@@ -254,4 +244,4 @@ sudo update-grub
 ```
 # 最后效果
 
-![Result](https://nyeimg.asia/img/articles/Ubuntu美化/Result.png)
+![Result](https://img.yumeko.site/file/articles/UbuntuBeautification/Result.png)
