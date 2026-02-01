@@ -1,7 +1,7 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
 import DiaryCard from "../components/DiaryCard.astro";
-import { getDiaries } from "../lib/data";
+import { getDiaries, type Diary } from "../lib/data";
 
 // 从本地 JSON 读取日记数据
 let diaries = getDiaries();

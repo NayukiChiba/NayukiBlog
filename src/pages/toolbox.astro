@@ -1,7 +1,7 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
 import ToolCard from "../components/ToolCard.astro";
-import { getTools, getCategories } from "../lib/data";
+import { getTools, getCategories, type Tool } from "../lib/data";
 
 // 从本地 JSON 读取工具数据
 const tools = getTools({ status: 'published' });

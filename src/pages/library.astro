@@ -17,7 +17,7 @@ const books = getBooks({ status: 'published' });
                 books.map((book) => (
                     <BookCard
                         title={book.title}
-                        cover={book.cover}
+                        cover={book.cover || ''}
                         tags={book.tags}
                         url={book.url}
                     />

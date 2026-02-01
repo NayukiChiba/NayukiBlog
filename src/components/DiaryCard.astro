@@ -1,13 +1,13 @@
 ---
 interface Props {
   date: string;
-  content: string;
-  mood: string;
+  content?: string;
+  mood?: string;
   weather?: string;
   images?: string[];
 }
 
-const { date, content, mood, weather, images = [] } = Astro.props;
+const { date, content = '', mood = 'happy', weather, images = [] } = Astro.props;
 const validImages = Array.isArray(images) ? images : [];
 
 const d = new Date(date);

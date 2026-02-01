@@ -1,12 +1,12 @@
 ---
 interface Props {
     name: string;
-    description: string;
-    url: string;
-    icon: string;
+    description?: string;
+    url?: string;
+    icon?: string;
 }
 
-const { name, description, url, icon } = Astro.props;
+const { name, description = '', url = '#', icon = '🔧' } = Astro.props;
 ---
 
 <a href={url} target="_blank" rel="noopener noreferrer" class="tool-card">
