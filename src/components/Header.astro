@@ -36,7 +36,6 @@ const navItems = [
     </nav>
 
     <!-- 移动端导航抽屉 -->
-    <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
     <nav class="mobile-nav" id="mobile-nav">
       <div class="mobile-nav-header">
         <span class="mobile-nav-title">导航</span>
@@ -60,6 +59,9 @@ const navItems = [
   </div>
 </header>
 
+<!-- 移动端导航遮罩层 - 放在 header 外面确保覆盖整个页面 -->
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+
 <style>
   .site-header {
     background-color: rgba(255, 255, 255, 0.92);
@@ -68,7 +70,7 @@ const navItems = [
     border-bottom: 1px solid var(--color-border);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
     padding: 1.125rem 0;
     transition: all 0.3s ease;
   }
@@ -213,23 +215,25 @@ const navItems = [
     transform: rotate(-45deg) translate(6px, -6px);
   }
 
-  /* 移动端遮罩层 */
-  .mobile-nav-overlay {
-    display: none;
+  /* 移动端遮罩层 - 使用 :global 因为元素在 header 外部 */
+  :global(.mobile-nav-overlay) {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     z-index: 998;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
   }
 
-  .mobile-nav-overlay.active {
-    display: block;
+  :global(.mobile-nav-overlay.active) {
     opacity: 1;
+    visibility: visible;
   }
 
   /* 移动端导航抽屉 */
@@ -326,8 +330,11 @@ const navItems = [
       display: none;
     }
 
-    .mobile-nav,
-    .mobile-nav-overlay {
+    .mobile-nav {
+      display: none !important;
+    }
+    
+    :global(.mobile-nav-overlay) {
       display: none !important;
     }
   }
@@ -376,14 +383,18 @@ const navItems = [
       mobileMenuBtn?.classList.add('active');
       mobileNav?.classList.add('active');
       mobileNavOverlay?.classList.add('active');
+      // 锁定页面滚动
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     }
 
     function closeMobileMenu() {
       mobileMenuBtn?.classList.remove('active');
       mobileNav?.classList.remove('active');
       mobileNavOverlay?.classList.remove('active');
+      // 恢复页面滚动
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
 
     mobileMenuBtn?.addEventListener('click', () => {
