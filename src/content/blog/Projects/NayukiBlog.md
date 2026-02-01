@@ -6,7 +6,7 @@ category: Projects
 tags:
   - Astro
   - 网站
-image: /images/projects/nayukiblog.webp
+image: https://img.yumeko.site/file/blog/NayukiBlog.png
 status: public
 link: https://github.com/NayukiChiba/NayukiBlog
 ---
