@@ -1,3 +1,15 @@
+---
+title: 决策树回归数学基础与完整实践指南
+date: 2026-01-26
+category: MachineLearning/Regression
+tags:
+  - Python
+  - 回归
+  - Scikit-learn
+description: 决策树回归的完整教程，从数学原理到代码实践，涵盖了数据探索、模型训练、评估、可视化及常见问题解答的全流程。
+image: https://img.yumeko.site/file/blog/DecisionTree.png
+status: public
+---
 # 决策树回归数学基础（CART）
 
 这一章先讲**决策树回归**的原理与核心公式，便于后续理解代码。
