@@ -14,13 +14,13 @@ status: public
 2. 在设置中**系统**，**区域与语言**，下载英文
 ![ChangLanguage.png](https://img.yumeko.site/file/articles/UbuntuBeautification/ChangLanguage.png)
 3. 重新登录之后，选择**更改文件夹名字**
-> [!ATTENTION] 注意
+> [!WARNING] 注意
 > 注意**不要**勾选**下此不再提醒**
-4. 重新设置回中文，重新登陆
-> [!ATTENTION] 注意
+* 重新设置回中文，重新登陆
+> [!WARNING] 注意
 > 这次要选择不更改文件夹名字
 
-5. 这次可以选择下次不提醒了
+* 这次可以选择下次不提醒了
 # 安装Chrome
 
 ```bash
@@ -177,10 +177,10 @@ ${alignr 327}${voffset 20}${font Comfortaa:size=20}${time %m %Y}
 **其他更详细的错误，都可以丢给ai，问问ai**
 # grub引导主题
 
-1. 下载 GRUB 主题
+## 下载 GRUB 主题
 首先，你需要从[GRUB网站](https://www.gnome-look.org/browse?cat=109&ord=latest)下载一个GRUB主题
 
-2. 解压缩主题
+## 解压缩主题
 下载的主题通常会以压缩文件格式（.zip 或 .tar.gz）提供。需要解压缩它。
 
 例如，如果你的主题文件名为 grub-theme.zip，可以使用以下命令解压：
@@ -191,7 +191,7 @@ unzip grub-theme.zip
 ```
 tar -xzvf grub-theme.tar.gz
 ```
-3. 移动主题文件
+## 移动主题文件
 * 如果你的GRUB中有`install.sh`, 那你直接启动就可以转移到下一步了
 * 将解压后的主题文件夹移动到 GRUB 主题目录。通常，GRUB 主题位于 /boot/grub/themes/ 目录下。如果没有这个目录，可以创建它。
 
@@ -201,7 +201,7 @@ sudo mv /path/to/your/theme-folder /boot/grub/themes/
 ```
 确保替换 `/path/to/your/theme-folder` 为你的实际路径。
 
-4. 配置 GRUB 主题
+## 配置 GRUB 主题
 
 * 在 GRUB 配置文件中设置新主题。编辑 `/etc/default/grub` 文件：
 ```
@@ -213,23 +213,23 @@ GRUB_THEME="/boot/grub/themes/theme-folder/theme.txt"
 ```
 替换 theme-folder 和 theme.txt 为你主题文件夹中的实际名称和文件名。
 
-5. 更新 GRUB
+## 更新 GRUB
 完成设置后，你需要更新 GRUB(很重要)，以便加载新的主题：
 ```
 sudo update-grub
 ```
-6. 重启计算机
+## 重启计算机
 最后重启计算机查看新的 GRUB 主题：
 ```
 sudo reboot
 ```
-7. 设置GRUB字体大小
+## 设置GRUB字体大小
 
 如果你觉得GRUB分辨率太小了, 可以在`/etc/default/grub`中编辑, 注意!乘法就是一个`x`字母, 不是`*`符号
 ```
 GRUB_GFXMODE=1024x768
 ```
-8. 设置启动项目顺序
+## 设置启动项目顺序
 
 在ubuntu中，所有的启动项都在/etc/grub.d/文件夹中
 例如10_linux就是我们的ubuntu系统, 启动项顺序就是文件夹的顺序, 所以10_linux(ubuntu)就在30_os-prober(windows)前面
@@ -239,7 +239,7 @@ sudo mv 30_os-prober 10_os-prober
 这样就可以把windows的启动项提前到ubuntu背后了, 同理也可以把windows提前到ubuntu前面
 
 原因: 查看`/boot/grub/grub.cfg`文件, 在文件下半部分就是grub的启动项信息(grub自动更新生成), 其他内容清自行查阅资料(如子启动项，如何删除启动项), 可以在[ArchWiki](https://wiki.archlinux.org/title/Main_page)中学习
-9. 更新GRUB 
+## 更新GRUB 
 完成设置后，你需要更新 GRUB(很重要)，以便加载新的主题：
 ```
 sudo update-grub
