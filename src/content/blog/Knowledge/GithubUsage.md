@@ -25,6 +25,22 @@ status: public
 # Github Actions
 ## 创建工作流文件
 * 在项目的根文件夹创建`./github/workflow/ruff.yml`
+## 创建项目限制文件
+
+```toml
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+```
 ## push到Github上
 * 当代码进入github的时候，会触发工作流`workflow`，在github中使用`ruff`进行代码检查
 

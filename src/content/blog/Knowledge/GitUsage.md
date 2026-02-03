@@ -466,21 +466,10 @@ git merge --abort
 
 **Fork 工作流关系图：**
 
-```mermaid
-flowchart TB
-    UPSTREAM["📦 原始仓库 (upstream)<br/>owner/repo"]
-    UPSTREAM -->|"Fork"| ORIGIN["📦 你的仓库 (origin)<br/>you/repo"]
-
-    UPSTREAM -->|"git fetch upstream<br/>git pull upstream"| REPO["📁 本地仓库<br/>(你的电脑)"]
-    ORIGIN <-->|"git push origin<br/>git pull origin"| REPO
-    ORIGIN -.->|"Pull Request"| UPSTREAM
-
-    style UPSTREAM fill:#fff3e0,stroke:#e65100
-    style ORIGIN fill:#e3f2fd,stroke:#1565c0
-    style REPO fill:#e8f5e9,stroke:#2e7d32
-```
+![Fork.png](https://img.yumeko.site/file/articles/GitUsage/Fork.png)
 
 **典型使用场景：**
+
 | 操作 | 使用哪个远程 | 说明 |
 |------|-------------|------|
 | 推送自己的修改 | origin | `git push origin main` |
@@ -614,61 +603,15 @@ git commit -m "解决合并冲突"
 
 **正向操作：**
 
-```mermaid
-flowchart LR
-    WD[("📁 工作区<br/>Working Directory")]
-    WD -->|"① git add"| SA[("📋 暂存区<br/>Staging Area")]
-    SA -->|"② git commit"| REPO[("🗄️ 本地仓库<br/>Repository")]
-
-    style WD fill:#e1f5fe,stroke:#01579b
-    style SA fill:#fff3e0,stroke:#e65100
-    style REPO fill:#e8f5e9,stroke:#1b5e20
-```
+![Forward.png](https://img.yumeko.site/file/articles/GitUsage/Forward.png)
 
 **撤销操作：**
 
-```mermaid
-flowchart RL
-    LR2[("🗄️ 本地仓库")]
-    LR2 -->|"git restore --staged<br/>git reset --soft"| SA2[("📋 暂存区")]
-    SA2 -->|"git restore"| WD2[("📁 工作区")]
-    LR2 -->|"git reset --mixed<br/>git reset --hard"| WD2
-
-    style WD2 fill:#e1f5fe,stroke:#01579b
-    style SA2 fill:#fff3e0,stroke:#e65100
-    style LR2 fill:#e8f5e9,stroke:#1b5e20
-```
+![revoked.png](https://img.yumeko.site/file/articles/GitUsage/revoked.png)
 
 ### 7.2 撤销命令全景图
 
-```mermaid
-flowchart LR
-    START{{"我想撤销什么？"}}
-
-    START -->|"工作区的修改<br/>(未 add)"| RESTORE["git restore &lt;file&gt;"]
-    START -->|"暂存区的文件<br/>(已 add 未 commit)"| RESTORE_STAGED["git restore --staged &lt;file&gt;"]
-    START -->|"最近的 commit<br/>(未 push)"| RESET_Q{{"要保留更改吗？"}}
-    START -->|"已 push 的 commit"| REVERT["git revert &lt;commit&gt;"]
-
-    RESET_Q -->|"保留在 staging"| SOFT["git reset --soft HEAD~1"]
-    RESET_Q -->|"保留在工作区"| MIXED["git reset HEAD~1"]
-    RESET_Q -->|"完全丢弃"| HARD["git reset --hard HEAD~1"]
-
-    RESTORE --> SAFE1["✅ 安全"]
-    RESTORE_STAGED --> SAFE2["✅ 安全"]
-    SOFT --> SAFE3["✅ 安全"]
-    MIXED --> SAFE4["✅ 安全"]
-    HARD --> DANGER["⚠️ 危险！"]
-    REVERT --> SAFE5["✅ 安全"]
-
-    style START fill:#fff9c4
-    style DANGER fill:#ffcdd2,stroke:#c62828
-    style SAFE1 fill:#c8e6c9,stroke:#2e7d32
-    style SAFE2 fill:#c8e6c9,stroke:#2e7d32
-    style SAFE3 fill:#c8e6c9,stroke:#2e7d32
-    style SAFE4 fill:#c8e6c9,stroke:#2e7d32
-    style SAFE5 fill:#c8e6c9,stroke:#2e7d32
-```
+![HowToRevoke.jpg](https://img.yumeko.site/file/articles/GitUsage/HowToRevoke.jpg)
 
 ### 7.3 命令对比总览
 
@@ -753,51 +696,19 @@ git restore --source=abc1234 filename
 
 **初始状态：**
 
-```mermaid
-flowchart LR
-    A1["A"] --> B1["B"] --> C1["C<br/>(HEAD)"]
-
-    style C1 fill:#bbdefb
-```
+![init.png](https://img.yumeko.site/file/articles/GitUsage/init.png)
 
 **`--soft` 模式（✅ 安全）：**
 
-```mermaid
-flowchart LR
-    A2["A"] --> B2["B<br/>(HEAD)"]
-    B2 -.-> C2_stage["📋 暂存区：保留 C 的更改"]
-    B2 -.-> C2_work["📁 工作区：保留 C 的更改"]
-
-    style B2 fill:#c8e6c9
-    style C2_stage fill:#c8e6c9
-    style C2_work fill:#c8e6c9
-```
+![soft.png](https://img.yumeko.site/file/articles/GitUsage/soft.png)
 
 **`--mixed` 模式（默认，✅ 安全）：**
 
-```mermaid
-flowchart LR
-    A3["A"] --> B3["B<br/>(HEAD)"]
-    B3 -.-> C3_stage["📋 暂存区：清空"]
-    B3 -.-> C3_work["📁 工作区：保留 C 的更改"]
-
-    style B3 fill:#fff9c4
-    style C3_stage fill:#ffecb3
-    style C3_work fill:#c8e6c9
-```
+![mixed.png](https://img.yumeko.site/file/articles/GitUsage/mixed.png)
 
 **`--hard` 模式（⚠️ 危险！）：**
 
-```mermaid
-flowchart LR
-    A4["A"] --> B4["B<br/>(HEAD)"]
-    B4 -.-> C4_stage["📋 暂存区：清空"]
-    B4 -.-> C4_work["📁 工作区：清空 (丢失！)"]
-
-    style B4 fill:#ffcdd2
-    style C4_stage fill:#ffcdd2
-    style C4_work fill:#ffcdd2
-```
+![hard.png](https://img.yumeko.site/file/articles/GitUsage/hard.png)
 
 **模式效果对比表：**
 
@@ -899,47 +810,19 @@ git reset --hard origin/main
 
 **原始状态：**
 
-```mermaid
-flowchart LR
-    O_A["A"] --> O_B["B"] --> O_C["C<br/>(HEAD)"]
-
-    style O_C fill:#bbdefb
-```
+![init.png](https://img.yumeko.site/file/articles/GitUsage/init.png)
 
 **使用 reset（❌ 改写历史）：**
 
-```mermaid
-flowchart LR
-    R_A["A"] --> R_B["B<br/>(HEAD)"]
-    R_NOTE["❌ C 消失了！历史被改写"]
-
-    style R_B fill:#ffcdd2
-    style R_NOTE fill:#ffcdd2,stroke:#c62828
-```
+![reset.png](https://img.yumeko.site/file/articles/GitUsage/reset.png)
 
 **使用 revert（✅ 保留历史）：**
 
-```mermaid
-flowchart LR
-    V_A["A"] --> V_B["B"] --> V_C["C"] --> V_C2["C'<br/>(HEAD)<br/>撤销 C"]
-    V_NOTE["✅ 历史完整，C 仍存在"]
-
-    style V_C2 fill:#c8e6c9
-    style V_NOTE fill:#c8e6c9,stroke:#2e7d32
-```
+![revert.png](https://img.yumeko.site/file/articles/GitUsage/revert.png)
 
 **选择原则：**
 
-```mermaid
-flowchart LR
-    Q{{"commit 是否已 push？"}}
-    Q -->|"❌ 未 push"| RESET["可以用 git reset<br/>重写本地历史"]
-    Q -->|"✅ 已 push"| REVERT["必须用 git revert<br/>创建新 commit 撤销"]
-
-    style Q fill:#fff9c4
-    style RESET fill:#e3f2fd
-    style REVERT fill:#e8f5e9
-```
+![chooseRevoke.png](https://img.yumeko.site/file/articles/GitUsage/chooseRevoke.png)
 
 #### revert 基本用法
 
@@ -1181,35 +1064,11 @@ git push origin --delete feature/new-feature
 
 **Stash 工作原理：**
 
-```mermaid
-flowchart LR
-    WD["📁 工作区<br/>(有未commit的修改)"]
-    WD -->|"git stash"| STASH["📦 Stash 存储栈<br/>stash@{0}<br/>stash@{1}<br/>..."]
-    STASH -->|"git stash pop"| WD2["📁 工作区<br/>(恢复修改)"]
-
-    style WD fill:#ffcdd2
-    style STASH fill:#fff9c4
-    style WD2 fill:#c8e6c9
-```
+![stash.png](https://img.yumeko.site/file/articles/GitUsage/stash.png)
 
 **Stash 操作流程：**
 
-```mermaid
-flowchart LR
-    START["开始：工作区有修改"]
-    START --> SAVE["git stash<br/>保存修改到栈"]
-    SAVE --> CLEAN["工作区变干净"]
-    CLEAN --> WORK["切换分支/处理其他事情"]
-    WORK --> BACK["切换回来"]
-    BACK --> Q{{"如何恢复？"}}
-    Q -->|"恢复并删除记录"| POP["git stash pop"]
-    Q -->|"恢复但保留记录"| APPLY["git stash apply"]
-
-    style START fill:#ffcdd2
-    style CLEAN fill:#e3f2fd
-    style POP fill:#c8e6c9
-    style APPLY fill:#c8e6c9
-```
+![HowToStash.png](https://img.yumeko.site/file/articles/GitUsage/HowToStash.png)
 
 **常用命令：**
 
