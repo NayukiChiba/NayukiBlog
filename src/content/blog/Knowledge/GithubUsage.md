@@ -1,6 +1,6 @@
 ---
 title: 关于Github的进阶用法
-date: 2026-01-26
+date: 2026-01-25
 category: 技术
 tags:
   - 高级教程
@@ -26,6 +26,7 @@ status: public
 ## 创建工作流文件
 * 在项目的根文件夹创建`./github/workflow/ruff.yml`
 ## 创建项目限制文件
+创建`pyproject.toml`
 
 ```toml
 [tool.ruff]
