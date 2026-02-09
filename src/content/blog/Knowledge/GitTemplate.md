@@ -1,6 +1,6 @@
 ---
 title: Git 提交规范完整指南
-date: 2026-02-09
+date: 2026-02-06
 category: 技术
 tags:
   - git
