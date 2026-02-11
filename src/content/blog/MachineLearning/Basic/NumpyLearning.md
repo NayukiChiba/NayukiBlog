@@ -7,7 +7,7 @@ tags:
   - NumPy
 description: 一个全面的 NumPy 学习教程，涵盖从基础到高级的所有核心概念，包括数组创建、索引切片、数学运算、线性代数、广播机制、文件操作等，包含大量代码示例和实战项目。
 image: https://img.yumeko.site/file/blog/NumpyLearning.jpg
-status: public
+status: published
 ---
 
 # NumPy 基础入门

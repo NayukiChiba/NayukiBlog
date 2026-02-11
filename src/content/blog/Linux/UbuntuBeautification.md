@@ -6,7 +6,7 @@ tags:
   - 美化
 description: 每次安装Ubuntu，把它的界面变好看一些
 image: https://img.yumeko.site/file/blog/Result.png
-status: public
+status: published
 ---
 
 # 如何将文件夹中文变成英文

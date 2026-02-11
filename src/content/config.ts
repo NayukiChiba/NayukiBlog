@@ -13,7 +13,7 @@ const blogCollection = defineCollection({
     tags: z.array(z.string()).optional(),
     description: z.string().optional(),
     image: z.string().optional(),
-    status: z.enum(['public', 'draft', 'private']).default('public'),
+    status: z.enum(['published', 'draft', 'private']).default('published'),
     layout: z.string().optional(), // 兼容旧的 layout 字段
   }),
 });

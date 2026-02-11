@@ -7,7 +7,7 @@ import TagSidebar from "../components/articles/TagSidebar.astro";
 
 // 从 Content Collections 读取文章
 const allPosts = await getCollection("blog", ({ data }) => {
-    return data.status === "public";
+    return data.status === "published";
 });
 
 // 转换为页面需要的格式

@@ -7,7 +7,7 @@ tags:
   - 工具
 description: 详细介绍Ruff代码格式化工具的常用命令，包括代码格式化、代码检查、配置管理等功能的完整命令参考
 image: https://img.yumeko.site/file/blog/Ruff.png
-status: public
+status: published
 ---
 Ruff 的常用命令主要分为两大类：**代码格式化** 和 **代码检查**。
 

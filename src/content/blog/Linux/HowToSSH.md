@@ -7,7 +7,7 @@ tags:
   - Bug
 description: 收集链接服务器时候出现的各种问题
 image: https://img.yumeko.site/file/articles/HowToSSH/HowToSSH.png
-status: public
+status: published
 ---
 # 正确的SSH连接过程
 * 在控制台中输入

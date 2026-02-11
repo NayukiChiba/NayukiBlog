@@ -7,7 +7,7 @@ tags:
   - Astro
   - 网站
 image: https://img.yumeko.site/file/blog/NayukiBlog.png
-status: public
+status: published
 link: https://github.com/NayukiChiba/NayukiBlog
 ---
 

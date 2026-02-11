@@ -7,7 +7,7 @@ tags:
   - 高级教程
 description: Python 上下文管理器的详细技术指南，涵盖其概念、协议（__enter__/__exit__）、基于类和生成器的实现模式，以及文件操作、计时器等实用案例。
 image: https://img.yumeko.site/file/blog/ContextManage.png
-status: public
+status: published
 ---
 
 ## 1. 概念与核心价值

@@ -12,8 +12,8 @@ import DiaryCard from "../components/DiaryCard.astro";
 import { getCollection } from "astro:content";
 import { getProjects, getDiaries, getTodos } from "../lib/data";
 
-// 获取文章列表（最新3篇）
-const allPosts = await getCollection("blog");
+// 获取文章列表（最新3篇，只显示已发布的）
+const allPosts = await getCollection("blog", ({ data }) => data.status === "published");
 const posts = allPosts
   .sort(
     (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
@@ -32,7 +32,7 @@ const posts = allPosts
 // 获取项目列表（优先显示进行中的项目，最多2个）
 const allProjects = getProjects();
 const inProgressProjects = allProjects.filter(
-  (p) => p.status === "In Progress" || p.status === "in-progress",
+  (p) => p.status === "in-progress",
 );
 const displayProjects =
   inProgressProjects.length > 0 ? inProgressProjects : allProjects;

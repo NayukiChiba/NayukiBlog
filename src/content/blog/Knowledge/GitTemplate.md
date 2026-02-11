@@ -7,7 +7,7 @@ tags:
   - 工具
 description: Git提交消息的完整规范和示例
 image: https://img.yumeko.site/file/blog/git.jpeg
-status: public
+status: published
 ---
 # Git 提交规范完整指南
 

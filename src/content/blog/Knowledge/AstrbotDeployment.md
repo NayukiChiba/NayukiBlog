@@ -7,7 +7,7 @@ tags:
   - 服务器
 description: 如何用服务器部署一个QQ机器人
 image: https://img.yumeko.site/file/articles/AstrbotDeployment/AstrSeio.png
-status: public
+status: published
 ---
 
 # 准备服务器

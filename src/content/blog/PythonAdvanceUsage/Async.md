@@ -7,7 +7,7 @@ tags:
   - 高级教程
 description: Python 异步编程 (Asyncio) 的实战指南，涵盖协程、Task、异步上下文管理器、异步迭代器、HTTP/文件/数据库操作、队列、锁、信号量等核心概念，并包含流程图和代码示例。
 image: https://img.yumeko.site/file/blog/Async.png
-status: public
+status: published
 ---
 # 深入理解 Python 异步编程 (Asyncio) 实战指南
 

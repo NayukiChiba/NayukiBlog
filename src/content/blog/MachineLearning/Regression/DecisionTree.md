@@ -8,7 +8,7 @@ tags:
   - Scikit-learn
 description: 决策树回归的完整教程，从数学原理到代码实践，涵盖了数据探索、模型训练、评估、可视化及常见问题解答的全流程。
 image: https://img.yumeko.site/file/blog/DecisionTree.png
-status: public
+status: published
 ---
 # 决策树回归数学基础（CART）
 

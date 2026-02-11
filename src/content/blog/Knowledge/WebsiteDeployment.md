@@ -8,7 +8,7 @@ tags:
   - 网站
 description: 一般使用Nginx，但是可以用宝塔和1Panel简化流程
 image: https://img.yumeko.site/file/blog/nginx.png
-status: public
+status: published
 ---
 
 ## 使用nginx

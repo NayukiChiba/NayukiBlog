@@ -8,7 +8,7 @@ tags:
   - 资源
 description: Cloudflare-imgbed 是一个基于 Cloudflare Workers + R2 的开源图床项目，具有 免费额度高、无需服务器、全球 CDN 加速等优点，非常适合个人博客、笔记、Markdown 图床使用
 image: https://img.yumeko.site/file/blog/CFImgBedDeployment.png
-status: public
+status: published
 ---
 
 ## 使用开源项目部署CF的图床

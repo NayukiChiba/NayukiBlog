@@ -7,7 +7,7 @@ tags:
   - 工具
 description: 本文档涵盖 Git 和 GitHub CLI (gh) 从安装到日常使用的完整流程，包含 Fork 工作流中 upstream 与 origin 的管理。
 image: https://img.yumeko.site/file/blog/git.jpeg
-status: public
+status: published
 ---
 
 ---

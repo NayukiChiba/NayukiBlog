@@ -7,7 +7,7 @@ tags:
   - 资源
 description: 除了代码托管之外，github还能做什么
 image: https://img.yumeko.site/file/blog/GitHub.png
-status: public
+status: published
 ---
 # Github Pages
 

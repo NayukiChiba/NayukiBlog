@@ -7,7 +7,7 @@ tags:
   - 高级教程
 description: Python functools 模块的详细解析，涵盖偏函数(partial)、归约计算(reduce)、装饰器元数据保留(wraps)、LRU缓存(lru_cache)、单分派泛型函数(singledispatch)、类比较补全(total_ordering)和比较键转换(cmp_to_key)等核心功能。
 image: https://img.yumeko.site/file/blog/Functools.png
-status: public
+status: published
 ---
 # 深入解析 Python functools 模块
 

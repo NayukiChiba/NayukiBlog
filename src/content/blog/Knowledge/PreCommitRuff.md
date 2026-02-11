@@ -8,7 +8,7 @@ tags:
   - git
 description: 在Commit的时候，自动进行ruff格式化代码
 image: https://img.yumeko.site/file/blog/Ruff.png
-status: public
+status: published
 ---
 # 安装pre-commit
 

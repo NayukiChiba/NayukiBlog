@@ -9,7 +9,7 @@ tags:
   - 资源
 description: 没有大米，也不想搞复杂配置怎么办，用sftp跟博客一起做图床
 image: https://img.yumeko.site/file/blog/SFTPImgbedDeployment.jpg
-status: public
+status: published
 ---
 ## 如何用服务器直接搭建图床
 ### 服务器端
