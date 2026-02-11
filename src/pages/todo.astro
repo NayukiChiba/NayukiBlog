@@ -4,13 +4,13 @@ import TaskCard from "../components/TaskCard.astro";
 import { getTodos } from "../lib/data";
 
 // 从本地 JSON 读取待办事项数据
-const todos = getTodos({ status: 'published' });
+const todos = getTodos({ status: 'active' });
 
 const completedTodos = todos.filter((t) => t.completed);
 const activeTodos = todos.filter((t) => !t.completed);
 
 const shortTerm = activeTodos.filter((t) => t.type === "short-term");
-const mediumTerm = activeTodos.filter((t) => t.type === "medium-term");
+const mediumTerm = activeTodos.filter((t) => t.type === "mid-term");
 const longTerm = activeTodos.filter((t) => t.type === "long-term");
 ---
 

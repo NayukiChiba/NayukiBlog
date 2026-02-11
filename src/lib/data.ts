@@ -10,6 +10,15 @@ import galleryData from "../data/gallery.json";
 import todosData from "../data/todos.json";
 import toolsData from "../data/tools.json";
 
+// 'published'、'active'、'public' 都表示"可见"，统一处理
+const VISIBLE_STATUSES = new Set(['published', 'active', 'public', '']);
+function matchStatus(itemStatus: string, filterStatus: string): boolean {
+  if (VISIBLE_STATUSES.has(filterStatus) && VISIBLE_STATUSES.has(itemStatus)) {
+    return true;
+  }
+  return itemStatus === filterStatus;
+}
+
 // 类型定义
 export interface Project {
   id: number;
@@ -82,7 +91,7 @@ export function getProjects(options?: {
     projects = projects.filter((p) => p.visibility === options.visibility);
   }
   if (options?.status) {
-    projects = projects.filter((p) => p.status === options.status);
+    projects = projects.filter((p) => matchStatus(p.status!, options.status!));
   }
 
   // 限制数量
@@ -103,7 +112,7 @@ export function getBooks(options?: {
 
   // 过滤
   if (options?.status) {
-    books = books.filter((b) => b.status === options.status);
+    books = books.filter((b) => matchStatus(b.status!, options.status!));
   }
   if (options?.tags && options.tags.length > 0) {
     books = books.filter(
@@ -157,7 +166,7 @@ export function getGallery(options?: {
 
   // 过滤
   if (options?.status) {
-    gallery = gallery.filter((g) => g.status === options.status);
+    gallery = gallery.filter((g) => matchStatus(g.status!, options.status!));
   }
   if (options?.tags && options.tags.length > 0) {
     gallery = gallery.filter(
@@ -196,7 +205,7 @@ export function getTodos(options?: {
 
   // 过滤
   if (options?.status) {
-    todos = todos.filter((t) => t.status === options.status);
+    todos = todos.filter((t) => matchStatus(t.status, options.status!));
   }
   if (options?.priority) {
     todos = todos.filter((t) => t.priority === options.priority);
@@ -226,7 +235,7 @@ export function getTools(options?: {
 
   // 过滤
   if (options?.status) {
-    tools = tools.filter((t) => t.status === options.status);
+    tools = tools.filter((t) => matchStatus(t.status, options.status!));
   }
   if (options?.category) {
     tools = tools.filter((t) => t.category === options.category);
