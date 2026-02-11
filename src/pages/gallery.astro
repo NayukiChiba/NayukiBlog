@@ -361,6 +361,11 @@ const allTags = getTags(gallery);
     const lightboxClose = document.querySelector(".lightbox-close");
     const lightboxOverlay = document.querySelector(".lightbox-overlay");
 
+    // 将灯箱移至 body 下，避免被 <main> 的 z-index 层叠上下文限制
+    if (lightbox) {
+        document.body.appendChild(lightbox);
+    }
+
     // 打开灯箱的函数
     const openLightbox = (imgElement: HTMLImageElement) => {
         if (lightbox && lightboxImg) {
