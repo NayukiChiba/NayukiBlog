@@ -1,11 +1,26 @@
 {
   "projects": [
     {
+      "id": 9,
+      "name": "Titanic",
+      "description": "Kaggle上的Titanic练习题",
+      "link": "https://github.com/NayukiChiba/Titanic.git",
+      "techStack": [
+        "Python",
+        "Sklearn"
+      ],
+      "status": "in-progress",
+      "visibility": "published"
+    },
+    {
       "id": 1,
       "name": "NayukiBlog",
       "description": "基于 Astro 构建的个人静态博客，支持 Markdown 文章、代码高亮、数学公式等功能。采用 EdgeOne 部署，国内外访问都很快。",
       "link": "https://github.com/NayukiChiba/NayukiBlog",
-      "techStack": ["Astro", "Markdown"],
+      "techStack": [
+        "Astro",
+        "Markdown"
+      ],
       "status": "completed",
       "visibility": "published"
     },
@@ -14,7 +29,12 @@
       "name": "Machine-Learning-Algorithms",
       "description": "基于 Python 实现的机器学习算法库，包括线性回归、逻辑回归、支持向量机、决策树、随机森林等。",
       "link": "https://github.com/NayukiChiba/Machine-Learning-Algorithms",
-      "techStack": ["Python", "NumPy", "Pandas", "Scikit-learn"],
+      "techStack": [
+        "Python",
+        "NumPy",
+        "Pandas",
+        "Scikit-learn"
+      ],
       "status": "in-progress",
       "visibility": "published"
     },
@@ -23,7 +43,11 @@
       "name": "PythonLib",
       "description": "基于 Python 实现的常用工具库，包括字符串处理、文件操作等。",
       "link": "https://github.com/NayukiChiba/PythonLib",
-      "techStack": ["Python", "System", "Typing"],
+      "techStack": [
+        "Python",
+        "System",
+        "Typing"
+      ],
       "status": "completed",
       "visibility": "published"
     },
@@ -32,7 +56,12 @@
       "name": "PythonAdvancedUsage",
       "description": "基于 Python 实现的高级用法库，包括装饰器、上下文管理器、元编程等。",
       "link": "https://github.com/NayukiChiba/PythonAdvancedUsage",
-      "techStack": ["Python", "Decorator", "ContextManager", "Metaprogramming"],
+      "techStack": [
+        "Python",
+        "Decorator",
+        "ContextManager",
+        "Metaprogramming"
+      ],
       "status": "completed",
       "visibility": "published"
     },
@@ -41,7 +70,10 @@
       "name": "MysqlFinalWork-BookManage",
       "description": "基于 Mysql和 NodeJs 实现的Mysql大作业全栈图书管理系统，所有内容都是Mysql完成",
       "link": "https://github.com/NayukiChiba/MysqlFinalWork-BookManage",
-      "techStack": ["Mysql", "NodeJs"],
+      "techStack": [
+        "Mysql",
+        "NodeJs"
+      ],
       "status": "completed",
       "visibility": "published"
     },
@@ -50,7 +82,11 @@
       "name": "ReptileBilibili",
       "description": "基于 Python 实现的爬虫库，用于爬取Bilibili视频信息。",
       "link": "https://github.com/NayukiChiba/ReptileBilibili",
-      "techStack": ["Python", "Requests", "BeautifulSoup"],
+      "techStack": [
+        "Python",
+        "Requests",
+        "BeautifulSoup"
+      ],
       "status": "completed",
       "visibility": "published"
     },
@@ -59,7 +95,11 @@
       "name": "Deep-ML",
       "description": "基于 Python 实现的深度学习库，用于实现各种深度学习模型。",
       "link": "https://github.com/NayukiChiba/Deep-ML",
-      "techStack": ["Python", "TensorFlow", "PyTorch"],
+      "techStack": [
+        "Python",
+        "TensorFlow",
+        "PyTorch"
+      ],
       "status": "planning",
       "visibility": "published"
     },
@@ -68,7 +108,11 @@
       "name": "FaceLogin",
       "description": "基于 Python 实现的面部识别登录系统，用于实现面部识别登录功能。",
       "link": "https://github.com/NayukiYe/FaceLogin",
-      "techStack": ["Python", "MTCNN", "FaceRecognition"],
+      "techStack": [
+        "Python",
+        "MTCNN",
+        "FaceRecognition"
+      ],
       "status": "completed",
       "visibility": "published"
     }
