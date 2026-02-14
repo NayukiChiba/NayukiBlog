@@ -1,6 +1,14 @@
 {
   "diaries": [
     {
+      "id": 5,
+      "date": "2026-02-14T11:34",
+      "content": "狐蒂云三年香港8c8g，才120元，如何呢，轻松拿下",
+      "mood": "happy",
+      "weather": "sunny",
+      "images": []
+    },
+    {
       "id": 4,
       "date": "2026-02-09T00:30",
       "content": "没啥事做了，搞点项目吧",
