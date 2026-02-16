@@ -1,6 +1,6 @@
 ---
 title: 如何部署qq机器人Astrbot
-date: 2026-01-20
+date: 2026-02-16
 category: 小巧思
 tags:
   - 有趣
@@ -127,9 +127,9 @@ http://{ip}:6185
 
 ![AstrbotLogin.png](https://img.yumeko.site/file/articles/AstrbotDeployment/AstrbotLogin.png)
 
-# 使用NapCatQQ实现LinuxQQ实例
+## 使用NapCatQQ实现LinuxQQ实例
 
-## 下载NapCat
+### 下载NapCat
 
 * 命令下载
 
@@ -181,7 +181,7 @@ TUI-CLI 工具用法 (napcat):
 Shell (Rootless) 安装流程完成。
 ```
 
-## 启动NapCat
+### 启动NapCat
 
 * 使用screen隔离napcat
 
@@ -197,7 +197,7 @@ sudo xvfb-run -a /root/Napcat/opt/QQ/qq --no-sandbox
 
 * 扫码登录QQ
 
-## 启动NapCatWebUI
+### 启动NapCatWebUI
 
 * 查询WebUI的token信息
 
@@ -226,7 +226,7 @@ sudo vim /root/Napcat/opt/QQ/resources/app/app_launcher/napcat/config/webui.json
 http://127.0.0.1:6099/webui?token=xxxx
 ```
 
-## WebUI设置
+### WebUI设置
 
 * 选择WebSocket客户端
 * 设置WebSocket客户端
@@ -241,7 +241,7 @@ URL：ws://{ip}:6199/ws
 
 保存之后，进入Astrbot仪表盘
 
-## Astrbot完成适配器配置
+### Astrbot完成适配器配置
 
 * 使用aiocqhttp是适配器
 
@@ -250,3 +250,110 @@ URL：ws://{ip}:6199/ws
 * 反向Websocket使用端口为6199，token跟NapCat的保持一致
 
 ![aiochttp.png](https://img.yumeko.site/file/articles/AstrbotDeployment/aiochttp.png)
+
+# 1Panel部署
+
+## 安装Astrbot
+
+* 在应用商店中搜索Astrbot
+* 安装即可
+![安装Astrbot](https://img.yumeko.site/file/articles/AstrbotDeployment/1PanelShop.png)
+
+## 设定容器规则
+
+> [!INFO] 高级设置
+> 可以把容器名字改一下，无所谓改不改
+
+> [!NOTE] 重启规则
+> 我建议选择不重启，因为出问题一直重启也会有问题
+
+> [!TIP] 勾选端口外部访问
+> 不勾选这个就无法访问webui了
+
+![容器规则](https://img.yumeko.site/file/articles/AstrbotDeployment/AstrbotRules.png)
+
+## 安装NapCat
+
+### 获取NapCat的镜像
+
+在源代码的README中，命令行安装为
+```bash
+docker run -d \
+-e NAPCAT_GID=$(id -g) \
+-e NAPCAT_UID=$(id -u) \
+-p 3000:3000 \
+-p 3001:3001 \
+-p 6099:6099 \
+--name napcat \
+--restart=always \
+mlikiowa/napcat-docker:latest
+```
+
+* 所以我们拉取`mlikiowa/napcat-docker:latest`镜像即可
+* 设置端口映射
+	* `3000:3000`
+	* `3001:3001`
+	* `6099:6099`
+![拉取Napcat镜像](https://img.yumeko.site/file/articles/AstrbotDeployment/PullNapCatImage.png)
+### 启动容器
+
+* 使用刚才拉取的镜像
+
+![创建napcat容器](https://img.yumeko.site/file/articles/AstrbotDeployment/NatCatContainer.png)
+
+> [!WARNING] napcat网络
+> 需要napcat跟astrbot处于同一个网络
+
+* 设置容器的网络
+![NapcatNetwork.png](https://img.yumeko.site/file/articles/AstrbotDeployment/NapcatNetwork.png)
+
+### 确定astrbot和napcat处于同一网络
+
+![Network.png](https://img.yumeko.site/file/articles/AstrbotDeployment/Network.png)
+
+## 启动NapCat
+
+### 查看日志，进入WebUI
+
+* 在napcat的容器右侧，有一个`日志`，点击查看webui的信息
+![NapCatLog.png](https://img.yumeko.site/file/articles/AstrbotDeployment/NapCatLog.png)
+
+* 进入网页
+```
+http://{ip}:6099
+```
+
+* 复制上图中的token进入网页中
+## 设置NapCat客户端
+
+* 新建`WebSocket`**客户端**
+
+> [!DANGER] 注意
+> 是**客户端**，不是**服务器**
+
+![NapCatSetting.png](https://img.yumeko.site/file/articles/AstrbotDeployment/NapCatSetting.png)
+
+* 设置`WebSocket`客户端
+
+![WebSocketClient.png](https://img.yumeko.site/file/articles/AstrbotDeployment/WebSocketClient.png)
+
+## 设置Astrbot
+
+### 进入WebUI
+
+* Astrbot的WebUI地址为
+```
+http://{ip}:6185
+```
+* 进入之后修改账号密码
+### 添加适配器
+
+* 使用`OneBot v11`
+* 复制上面的token到设置中，保持统一
+![QQSetting.png](https://img.yumeko.site/file/articles/AstrbotDeployment/QQSetting.png)
+
+## 验证
+
+自行加入模型提供商的llm模型之后，在qq中发送消息即可
+![Check.png](https://img.yumeko.site/file/articles/AstrbotDeployment/Check.png)
+
