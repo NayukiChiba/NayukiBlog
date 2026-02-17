@@ -7,7 +7,7 @@ tags:
   - 工具
 description: 安装一下1Panel
 image: https://img.yumeko.site/file/blog/1Panel.png
-status: public
+status: published
 ---
 # 下载1Panel
 ## 准备Linux服务器
