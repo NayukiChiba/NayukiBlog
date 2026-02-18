@@ -250,23 +250,9 @@ h1.page-title {
   100% { background-position: 30% 30%; }
 }
 
-/* body 全屏渐变覆盖层 */
+/* body 全屏渐变覆盖层（已禁用，背景由 ParticleBackground 波浪线提供）*/
 body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  /* 多层径向渐变叠加，增加层次感 */
-  background:
-    radial-gradient(ellipse 80% 60% at 30% 30%, color-mix(in srgb, var(--radial-c1) 55%, transparent), transparent 70%),
-    radial-gradient(ellipse 70% 80% at 70% 70%, color-mix(in srgb, var(--radial-c2) 45%, transparent), transparent 70%),
-    radial-gradient(ellipse 50% 50% at 50% 50%, color-mix(in srgb, var(--radial-c1) 20%, transparent), transparent 80%);
-  background-size: 200% 200%;
-  /* 颜色切换 + 中心漂移同时运行 */
-  animation:
-    radialColorShift 6s ease-in-out infinite,
-    radialCenterDrift 12s ease-in-out infinite;
+  display: none;
 }
 
 /* Animations */

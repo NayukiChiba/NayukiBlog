@@ -1,4 +1,4 @@
----
+﻿---
 
 ---
 
@@ -13,172 +13,126 @@
     height: 100%;
     z-index: 0;
     pointer-events: none;
-    background: var(--color-bg, #fafafa);
   }
 </style>
 
 <script>
-  const canvas = document.getElementById("particle-bg") as HTMLCanvasElement;
-  const ctx = canvas.getContext("2d");
+  const canvas = document.getElementById('particle-bg') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
 
-  let width: number = 0;
-  let height: number = 0;
-  let particles: Particle[] = [];
+  let width = 0;
+  let height = 0;
+  let t = 0;
 
-  // Configuration
-  // Dynamic colors based on CSS variables
-  let colors: string[] = [];
+  // ---- 颜色工具 ----
+  function hexToRgb(hex: string): [number, number, number] {
+    hex = hex.trim().replace(/^#/, '');
+    if (hex.length === 3) hex = hex.split('').map((c) => c + c).join('');
+    const n = parseInt(hex, 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
 
-  function updateColors() {
-    const style = getComputedStyle(document.documentElement);
-    const primary = style.getPropertyValue('--color-primary').trim();
-    const primaryLight = style.getPropertyValue('--color-primary-light').trim();
-    
-    // Function to parse color string to "r, g, b"
-    const parseColor = (color: string) => {
-      // Check for rgb/rgba format
-      const rgbMatch = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-      if (rgbMatch) {
-        return `${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}`;
-      }
-      
-      // Check for hex format
-      const hexMatch = color.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
-      if (hexMatch) {
-        return `${parseInt(hexMatch[1], 16)}, ${parseInt(hexMatch[2], 16)}, ${parseInt(hexMatch[3], 16)}`;
-      }
-      
-      // Shorthand hex
-      const shortHexMatch = color.match(/^#?([a-f\d])([a-f\d])([a-f\d])$/i);
-      if (shortHexMatch) {
-        const r = shortHexMatch[1] + shortHexMatch[1];
-        const g = shortHexMatch[2] + shortHexMatch[2];
-        const b = shortHexMatch[3] + shortHexMatch[3];
-        return `${parseInt(r, 16)}, ${parseInt(g, 16)}, ${parseInt(b, 16)}`;
-      }
+  function cssColorToRgb(raw: string): [number, number, number] {
+    raw = raw.trim();
+    if (raw.match(/^#?[0-9a-fA-F]{3,6}$/)) return hexToRgb(raw);
+    const m = raw.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if (m) return [+m[1], +m[2], +m[3]];
+    return [251, 198, 181];
+  }
 
-      return "200, 200, 200"; // Fallback grey
-    };
+  function lerpRgb(
+    a: [number, number, number],
+    b: [number, number, number],
+    t: number
+  ): string {
+    return [
+      Math.round(a[0] + (b[0] - a[0]) * t),
+      Math.round(a[1] + (b[1] - a[1]) * t),
+      Math.round(a[2] + (b[2] - a[2]) * t),
+    ].join(',');
+  }
 
-    const c1 = parseColor(primary);
-    const c2 = parseColor(primaryLight);
-    
-    // Use primary color variants for particles
-    colors = [
-      c1,
-      c2,
-      "240, 240, 240", // Light grey
+  function getThemeColors(): [[number,number,number],[number,number,number]] {
+    const s = getComputedStyle(document.documentElement);
+    return [
+      cssColorToRgb(s.getPropertyValue('--radial-c1') || '#FBC6B5'),
+      cssColorToRgb(s.getPropertyValue('--radial-c2') || '#F0CFE3'),
     ];
   }
 
-  // Initial update
-  updateColors();
+  // ---- 波浪线配置 ----
+  interface Wave {
+    yRatio: number;   // 垂直位置比例 0~1
+    amp: number;      // 振幅（像素）
+    freq: number;     // 水平周期数
+    speed: number;    // 横向移动速度
+    phase: number;    // 初始相位
+    colorT: number;   // 颜色插值位置 0~1
+    alpha: number;    // 透明度
+    lineWidth: number;
+  }
 
-  // Watch for theme changes (optional, but good for robust switching)
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === "attributes" && mutation.attributeName === "style") {
-        updateColors();
+  const WAVE_COUNT = 5;
+  let waves: Wave[] = [];
+
+  function buildWaves() {
+    waves = [];
+    for (let i = 0; i < WAVE_COUNT; i++) {
+      waves.push({
+        yRatio: 0.1 + (i / (WAVE_COUNT - 1)) * 0.8, // 均匀分布 10%~90%
+        amp: 18 + Math.random() * 22,
+        freq: 1.2 + Math.random() * 1.6,
+        speed: 0.12 + Math.random() * 0.18,
+        phase: Math.random() * Math.PI * 2,
+        colorT: i / (WAVE_COUNT - 1),
+        alpha: 0.12 + Math.random() * 0.1,
+        lineWidth: 0.8 + Math.random() * 0.6,
+      });
+    }
+  }
+
+  // ---- 绘制 ----
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+    const [c1, c2] = getThemeColors();
+
+    for (const w of waves) {
+      const baseY = w.yRatio * height;
+      const color = lerpRgb(c1, c2, w.colorT);
+
+      ctx.beginPath();
+      ctx.moveTo(0, baseY + Math.sin(w.phase + t * w.speed) * w.amp);
+
+      for (let x = 2; x <= width; x += 2) {
+        const y =
+          baseY +
+          Math.sin(
+            (x / width) * Math.PI * 2 * w.freq + w.phase + t * w.speed
+          ) * w.amp;
+        ctx.lineTo(x, y);
       }
-    });
-  });
-  observer.observe(document.documentElement, { attributes: true });
 
-  const particleCountMobile = 25; // Reduce count for cleaner look
-  const particleCountDesktop = 40;
+      ctx.strokeStyle = `rgba(${color},${w.alpha})`;
+      ctx.lineWidth = w.lineWidth;
+      ctx.stroke();
+    }
+  }
+
+  function animate() {
+    t += 0.012;
+    draw();
+    requestAnimationFrame(animate);
+  }
 
   function resize() {
     width = window.innerWidth;
     height = window.innerHeight;
     canvas.width = width;
     canvas.height = height;
+    buildWaves();
   }
 
-  class Particle {
-    x: number;
-    y: number;
-    vx: number;
-    vy: number;
-    size: number;
-    color: string;
-    opacity: number;
-    fadingIn: boolean;
-    fadeSpeed: number;
-
-    constructor() {
-      this.x = Math.random() * width;
-      this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.4; // Gentle movement
-      this.vy = (Math.random() - 0.5) * 0.4;
-      this.size = Math.random() * 3 + 2; // 2 to 5px - Visible but not huge
-      this.color = colors[Math.floor(Math.random() * colors.length)];
-      this.opacity = Math.random() * 0.4 + 0.3; // 0.3 to 0.7 - Clearly visible but transparent
-      this.fadeSpeed = Math.random() * 0.005 + 0.002;
-      this.fadingIn = Math.random() > 0.5;
-    }
-
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-
-      // Wrap around screen
-      if (this.x < 0) this.x = width;
-      if (this.x > width) this.x = 0;
-      if (this.y < 0) this.y = height;
-      if (this.y > height) this.y = 0;
-
-      // Pulse opacity
-      if (this.fadingIn) {
-        this.opacity += this.fadeSpeed;
-        if (this.opacity >= 0.8) this.fadingIn = false;
-      } else {
-        this.opacity -= this.fadeSpeed;
-        if (this.opacity <= 0.2) this.fadingIn = true;
-      }
-    }
-
-    draw() {
-      if (!ctx) return;
-      ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Optional: Add a subtle glow
-      // ctx.shadowBlur = 5;
-      // ctx.shadowColor = `rgba(${this.color}, 0.5)`;
-    }
-  }
-
-  function initParticles() {
-    particles = [];
-    const count = width < 768 ? particleCountMobile : particleCountDesktop;
-    for (let i = 0; i < count; i++) {
-      // @ts-ignore
-      particles.push(new Particle());
-    }
-  }
-
-  function animate() {
-    if (!ctx) return;
-    ctx.clearRect(0, 0, width, height);
-
-    // Update and draw particles
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update();
-      particles[i].draw();
-    }
-
-    requestAnimationFrame(animate);
-  }
-
-  window.addEventListener("resize", () => {
-    resize();
-    initParticles();
-  });
-
-  // Init
+  window.addEventListener('resize', resize);
   resize();
-  initParticles();
   animate();
 </script>

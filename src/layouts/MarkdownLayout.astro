@@ -50,46 +50,28 @@ const formattedDate = date.toLocaleDateString("en-US", {
     <script is:inline>
       (function() {
         try {
-          // 立即获取存储的主题
-          const storedColor = localStorage.getItem('theme-color');
-          const storedGradient = localStorage.getItem('theme-gradient');
           const root = document.documentElement;
-
-          // 辅助函数：应用极速模式
-          const applyTheme = (color, gradient) => {
-             // 强制重置旧的紫色 (#8b5cf6) 或粉色 (#ff9eb5) 到新的默认蓝色 (#3b82f6)
-             if (color === '#8b5cf6' || color === '#ff9eb5') {
-                 color = '#3b82f6';
-                 gradient = null;
-                 localStorage.removeItem('theme-color');     // 清除旧的
-                 localStorage.removeItem('theme-gradient');  // 清除旧的
-                 // 不保存新的，让它回退到 CSS 默认值，或者保存新的蓝色
-                 localStorage.setItem('theme-color', color);
-             }
-
-             root.style.setProperty('--color-primary', color);
-             if (gradient) {
-                root.style.setProperty('--gradient-primary', gradient);
-                root.style.setProperty('--gradient-text', gradient);
-             } else {
-                // 如果没有渐变，生成一个基于单色的渐变（兼容旧数据）
-                const fallback = `linear-gradient(135deg, ${color} 0%, ${color} 100%)`;
-                root.style.setProperty('--gradient-primary', fallback);
-                root.style.setProperty('--gradient-text', fallback);
-             }
-          };
-
-          if (storedColor) {
-            applyTheme(storedColor, storedGradient);
+          const c1 = localStorage.getItem('theme-color-1');
+          const c2 = localStorage.getItem('theme-color-2');
+          if (c1 && c2) {
+            root.style.setProperty('--color-primary', c1);
+            root.style.setProperty('--color-secondary', c2);
+            root.style.setProperty('--radial-c1', c1);
+            root.style.setProperty('--radial-c2', c2);
+            root.style.setProperty('--color-accent', c2);
           }
-          
-          // 监听 astro:after-swap 事件以支持 View Transitions 导航时的样式保持
+          // 监听 View Transitions 导航时的样式恢复
           document.addEventListener('astro:after-swap', () => {
-             const c = localStorage.getItem('theme-color');
-             const g = localStorage.getItem('theme-gradient');
-             if(c) applyTheme(c, g);
+            const _c1 = localStorage.getItem('theme-color-1');
+            const _c2 = localStorage.getItem('theme-color-2');
+            if (_c1 && _c2) {
+              document.documentElement.style.setProperty('--color-primary', _c1);
+              document.documentElement.style.setProperty('--color-secondary', _c2);
+              document.documentElement.style.setProperty('--radial-c1', _c1);
+              document.documentElement.style.setProperty('--radial-c2', _c2);
+              document.documentElement.style.setProperty('--color-accent', _c2);
+            }
           });
-          
         } catch (e) {
           console.error('Failed to restore theme color:', e);
         }
@@ -151,7 +133,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: var(--color-bg, #fff); /* Fallback */
+    background: transparent; /* 由 body::before 渐变层提供背景 */
   }
 
   /* Ensure footer/content fills height and handles width properly in flex */
