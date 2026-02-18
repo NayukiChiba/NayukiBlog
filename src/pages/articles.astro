@@ -390,8 +390,8 @@ const folderList = [...folderSet].sort().map((path) => {
         border-radius: 12px;
         margin-top: 0;
         
-        /* Scrollable if content exceeds viewport height */
-        max-height: calc(100vh - 4rem);
+        /* Limit height to ~1200px or viewport, whichever is smaller */
+        max-height: none;
         overflow-y: auto;
         
         /* Custom Scrollbar for Sidebar */
