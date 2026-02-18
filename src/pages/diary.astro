@@ -160,11 +160,44 @@ const monthNames = [
         ); // Use capture phase to catch events from nested elements
     };
 
+    // 自动展开最新的年份、月份以及第一条日记
+    const autoExpandLatest = () => {
+        const timeline = document.getElementById("diary-timeline");
+        if (!timeline) return;
+
+        // 展开第一个年份 accordion
+        const firstYearAccordion = timeline.querySelector<HTMLDetailsElement>(
+            ".year-accordion"
+        );
+        if (!firstYearAccordion) return;
+        firstYearAccordion.open = true;
+
+        // 展开该年份下第一个月份 accordion
+        const firstMonthAccordion =
+            firstYearAccordion.querySelector<HTMLDetailsElement>(
+                ".month-accordion"
+            );
+        if (!firstMonthAccordion) return;
+        firstMonthAccordion.open = true;
+
+        // 展开该月份下第一条日记
+        const firstDiaryDetails =
+            firstMonthAccordion.querySelector<HTMLDetailsElement>(
+                ".diary-details"
+            );
+        if (!firstDiaryDetails) return;
+        firstDiaryDetails.open = true;
+    };
+
     // Initialize on DOM ready
     if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", setupAccordionBehavior);
+        document.addEventListener("DOMContentLoaded", () => {
+            setupAccordionBehavior();
+            autoExpandLatest();
+        });
     } else {
         setupAccordionBehavior();
+        autoExpandLatest();
     }
 </script>
 

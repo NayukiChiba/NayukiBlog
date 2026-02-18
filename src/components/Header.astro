@@ -140,29 +140,12 @@ const navItems = [
     background-color: transparent;
   }
 
-  /* active: 格子背景 + 彗星流光边框 */
+  /* active: 底部下划线 + 浅色背景高亮 */
   .nav-list a.active {
     color: var(--color-text);
     font-weight: 600;
-    /* 彗星流光边框 */
-    border: 1.5px solid transparent;
-    background-color: transparent;
-    background-image:
-      linear-gradient(
-        color-mix(in srgb, var(--radial-c1) 12%, white),
-        color-mix(in srgb, var(--radial-c1) 12%, white)
-      ),
-      conic-gradient(
-        from var(--border-angle),
-        transparent 0deg,
-        var(--radial-c1) 40deg,
-        var(--radial-c2) 70deg,
-        transparent 100deg,
-        transparent 360deg
-      );
-    background-clip: padding-box, border-box;
-    background-origin: padding-box, border-box;
-    animation: borderSpin 2.5s linear infinite;
+    background-color: color-mix(in srgb, var(--radial-c1) 12%, white);
+    box-shadow: inset 0 -2px 0 var(--radial-c1);
   }
 
   /* 移动端汉堡菜单按钮 */
