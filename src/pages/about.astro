@@ -3,140 +3,112 @@
 export const prerender = true;
 
 import PageLayout from "../layouts/PageLayout.astro";
-import ProfileCard from "../components/index/ProfileCard.astro";
 ---
 
 <PageLayout title="About Me | Nayuki Blog">
-    <div class="container">
-        <h1 class="page-title">关于我</h1>
-
-        <div style="margin: 2rem 0;">
-            <ProfileCard />
+    <div class="container readme-style">
+        <div class="profile-header">
+            <div class="avatar-container">
+                <img src="/profile.jpg" alt="Nayuki" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Nayuki&background=0D8ABC&color=fff'"/>
+            </div>
+            <h1 class="profile-name">卟瓿钚</h1>
         </div>
 
-        <div class="content">
-            <!-- 1. 自我介绍 (直接平铺，无背景) -->
-            <section class="intro-section">
-                <h2>👋 你好，我是 Nayuki Chiba</h2>
-                <p>这里是我的个人博客，平常写一些自己的小巧思，日常</p>
-                <p>目前是武汉大学数学系大四在读</p>
-                <p>即将成为武汉大学人工智能学院研究生</p>
-                <p>我的邮箱是: MekoNayuki@gmail.com</p>
-            </section>
+        <p class="center-text">
+            <a href="https://github.com/NayukiChiba">
+                <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&duration=3000&pause=1000&color=6AD3F7&center=true&vCenter=true&random=false&width=500&lines=Hi+there+%F0%9F%91%8B+I'm+MekoNayuki;Welcome+to+my+GitHub+Profile!" alt="Typing SVG" />
+            </a>
+        </p>
 
-            <!-- 2. 经历 (小型可点击 Card) -->
-            <section class="section-block">
-                <h2>经历</h2>
-                <div class="experience-grid">
-                    <!-- 卡片: 武汉大学 -->
-                    <a
-                        href="https://www.whu.edu.cn/"
-                        target="_blank"
-                        class="xp-card"
+        <p class="center-text">
+            🎓 <b>学生</b> | 热爱编程与人工智能
+        </p>
+        
+        <div class="intro-text" style="text-align: center; margin: 2rem 0; color: var(--color-text-light);">
+            <p>这里是我的个人博客，平常写一些自己的小巧思，日常</p>
+            <p>目前是武汉大学数学系大四在读</p>
+            <p>即将成为武汉大学人工智能学院研究生</p>
+            <p>我的邮箱是: MekoNayuki@gmail.com</p>
+        </div>
+
+        <hr />
+        
+        <h2>经历</h2>
+        <div class="experience-grid">
+            <!-- 卡片: 武汉大学 -->
+            <a
+                href="https://www.whu.edu.cn/"
+                target="_blank"
+                class="xp-card"
+            >
+                <div class="xp-icon">
+                    <img
+                        src="https://img.yumeko.site/file/blog/WHU.png"
+                        alt="武汉大学"
+                        style="margin: 0;"
+                    />
+                </div>
+                <div class="xp-info">
+                    <span class="xp-title">武汉大学</span>
+                    <span class="xp-desc"
+                        >本科 / 数据科学与大数据技术</span
                     >
-                        <div class="xp-icon">
-                            <img
-                                src="https://img.yumeko.site/file/blog/WHU.png"
-                                alt="武汉大学"
-                            />
-                        </div>
-                        <div class="xp-info">
-                            <span class="xp-title">武汉大学</span>
-                            <span class="xp-desc"
-                                >本科 / 数据科学与大数据技术</span
-                            >
-                        </div>
-                        <div class="xp-arrow">↗</div>
-                    </a>
                 </div>
-            </section>
-
-            <!-- 3. 技术栈 (Todo Card 风格，带进度条) -->
-            <section class="section-block">
-                <h2>技术栈</h2>
-                <div class="tech-stack-list">
-                    <!-- Python -->
-                    <div class="tech-item">
-                        <div class="tech-icon-box">
-                            <img
-                                src="https://img.yumeko.site/file/blog/python.png"
-                                alt="Python"
-                            />
-                        </div>
-                        <div class="tech-details">
-                            <span class="tech-name">Python</span>
-                            <div class="progress-bg">
-                                <div
-                                    class="progress-fill"
-                                    style="width: 45%; background-color: #3776AB;"
-                                >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PyTorch -->
-                    <div class="tech-item">
-                        <div class="tech-icon-box">
-                            <img
-                                src="https://img.yumeko.site/file/blog/pytorch.png"
-                                alt="PyTorch"
-                            />
-                        </div>
-                        <div class="tech-details">
-                            <span class="tech-name">PyTorch</span>
-                            <div class="progress-bg">
-                                <div
-                                    class="progress-fill"
-                                    style="width: 30%; background-color: #EE4C2C;"
-                                >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- C++ -->
-                    <div class="tech-item">
-                        <div class="tech-icon-box">
-                            <img
-                                src="https://img.yumeko.site/file/blog/cplusplus.png"
-                                alt="C++"
-                            />
-                        </div>
-                        <div class="tech-details">
-                            <span class="tech-name">C++</span>
-                            <div class="progress-bg">
-                                <div
-                                    class="progress-fill"
-                                    style="width: 60%; background-color: #00599C;"
-                                >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Vue -->
-                    <div class="tech-item">
-                        <div class="tech-icon-box">
-                            <img
-                                src="https://img.yumeko.site/file/blog/vue-js.png"
-                                alt="Vue"
-                            />
-                        </div>
-                        <div class="tech-details">
-                            <span class="tech-name">Vue</span>
-                            <div class="progress-bg">
-                                <div
-                                    class="progress-fill"
-                                    style="width: 40%; background-color: #42B883;"
-                                >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                <div class="xp-arrow">↗</div>
+            </a>
         </div>
+
+        <hr />
+
+        <h2>技术栈</h2>
+
+        <p>
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="48" width="48" alt="Python" />
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" height="48" width="48" alt="PyTorch" />
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" height="48" width="48" alt="Vue.js" />
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" height="48" width="48" alt="C++" />
+        </p>
+
+
+        <hr />
+
+        <h2>Github Contribution</h2>
+
+        <div class="center-block">
+            <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=NayukiChiba&theme=xcode&bg_color=FF000000&hide_border=true" />
+                <source media="(prefers-color-scheme: light)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=NayukiChiba&theme=xcode&bg_color=FF000000&color=000000&hide_border=true" />
+                <img src="https://github-readme-activity-graph.vercel.app/graph?username=NayukiChiba&theme=xcode&bg_color=FF000000&hide_border=true" style="width: 100%; height: auto;" />
+            </picture>
+        </div>
+
+        <hr />
+
+        <h2>Github Stats</h2>
+
+        <div class="center-flex-wrap">
+            <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=NayukiChiba&theme=github" alt="Stats" />
+            <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=NayukiChiba&theme=github" alt="Most Commit Language" />
+        </div>
+
+        <div class="center-flex-wrap" style="margin-top: 0.5rem;">
+            <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=NayukiChiba&theme=github" alt="Repos Per Language" />
+            <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=NayukiChiba&theme=github&utcOffset=8" alt="Productive Time" />
+        </div>
+
+        <div class="center-block" style="margin-top: 0.5rem;">
+            <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=NayukiChiba&theme=github" alt="Profile Details" />
+        </div>
+
+        <hr />
+
+        <h2>Github Streak</h2>
+
+        <div class="center-block">
+            <img src="https://github-readme-streak-stats.herokuapp.com/?user=NayukiChiba" alt="GitHub Streak" />
+        </div>
+
+        <div>&nbsp;</div>
     </div>
 </PageLayout>
 
@@ -144,40 +116,93 @@ import ProfileCard from "../components/index/ProfileCard.astro";
     .container {
         max-width: 800px;
         margin: 0 auto;
-        padding: 0 2rem 4rem;
-    }
-
-    /* 标题 & 文字 */
-    h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
+        padding: 2rem 1.5rem 4rem;
         color: var(--color-text);
-        margin-bottom: 2rem;
+        line-height: 1.6;
     }
 
     h2 {
         font-size: 1.5rem;
-        margin: 3rem 0 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: var(--color-text);
         font-weight: 700;
-    }
-    
-    .intro-section {
-        margin: 2rem 0 3rem;
-    }
-    
-    .intro-section p {
-        font-size: 1.05rem;
-        line-height: 1.8;
-        color: var(--color-text-light);
-        margin-bottom: 0.8rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid var(--color-border);
+        padding-bottom: 0.5rem;
     }
 
-    .section-block {
-        margin-bottom: 3rem;
+    ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    li {
+        margin-bottom: 0.5rem;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid var(--color-border);
+        margin: 2rem 0;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* 优化 Markdown 样式 */
+    .readme-style p {
+        margin-bottom: 1rem;
+    }
+
+    .readme-style .center-text,
+    .readme-style .center-block {
+        text-align: center;
+    }
+    
+    .readme-style .center-flex-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    /* 技术栈图标间距 */
+    .readme-style p img {
+        margin: 0 4px;
+        vertical-align: middle;
+    }
+
+    /* --- Profile Header --- */
+    .profile-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 2rem 0 1.5rem;
+    }
+
+    .avatar-container {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 1rem;
+        box-shadow: var(--shadow-md);
+        border: 3px solid var(--color-card-bg);
+    }
+
+    .avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .profile-name {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-text);
+        margin: 0;
     }
 
     /* --- 经历 (Experience) 卡片 --- */
@@ -185,6 +210,7 @@ import ProfileCard from "../components/index/ProfileCard.astro";
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
+        margin-bottom: 2rem;
     }
 
     .xp-card {
@@ -199,6 +225,8 @@ import ProfileCard from "../components/index/ProfileCard.astro";
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         cursor: pointer;
         box-shadow: var(--shadow-sm);
+        width: 100%;
+        max-width: 400px;
     }
     .xp-card:hover {
         border-color: var(--color-primary-light);
@@ -249,93 +277,7 @@ import ProfileCard from "../components/index/ProfileCard.astro";
         transform: translate(2px, -2px);
     }
 
-    /* --- 技术栈 (Tech Stack) --- */
-    .tech-stack-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 1rem;
-    }
-
-    .tech-item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
-        background: var(--color-card-bg);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-lg);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: var(--shadow-sm);
-    }
-
-    .tech-item:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-md);
-        border-color: var(--color-primary-light);
-    }
-
-    .tech-icon-box {
-        width: 40px;
-        height: 40px;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--color-primary-subtle);
-        border-radius: var(--radius-md);
-        padding: 0.5rem;
-    }
-    .tech-icon-box img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-
-    .tech-details {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    .tech-name {
-        font-weight: 600;
-        font-size: 0.9rem;
-        color: var(--color-text);
-        line-height: 1;
-    }
-
-    .progress-bg {
-        width: 100%;
-        height: 6px;
-        background: var(--color-border-light);
-        border-radius: var(--radius-full);
-        overflow: hidden;
-    }
-    .progress-fill {
-        height: 100%;
-        border-radius: var(--radius-full);
-        transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* 响应式 */
     @media (max-width: 768px) {
-        .container {
-            padding: 0 1rem 3rem;
-        }
-
-        h1 {
-            font-size: 2rem;
-        }
-
-        h2 {
-            font-size: 1.25rem;
-            margin: 2rem 0 1rem;
-        }
-
-        .tech-stack-list {
-            grid-template-columns: 1fr;
-        }
-
         .xp-card {
             padding: 0.875rem 1rem;
         }
