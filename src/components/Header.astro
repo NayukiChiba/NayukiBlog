@@ -95,28 +95,15 @@ const navItems = [
     transition: color 0.2s ease;
     letter-spacing: -0.02em;
     position: relative;
-    
-    /* 3D Gradient Style matching Page Title */
-    background-image: linear-gradient(
-      var(--bg-angle, 120deg),
-      var(--color-text),
-      var(--color-text)
-    );
-    background-size: 100% auto;
-    background-position: center;
-    -webkit-background-clip: text;
-    background-clip: text;
+    /* Removed gradient background entirely */
     color: var(--color-text);
-    transition: all 0.3s ease;
   }
 
-  /* Hover effect using the requested gradient */
+  /* Hover effect using simple color change for clashing design */
   .site-title:hover {
-    background-image: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    color: var(--color-primary);
+    transform: translateY(-1px);
+    text-shadow: 2px 2px 0px var(--color-secondary);
   }
 
   /* 桌面端导航 */

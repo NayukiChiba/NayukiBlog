@@ -8,15 +8,20 @@
   --color-text-light: #525252; /* 深灰色 */
   --color-text-muted: #888888;
   
-  /* 主色 - 默认蓝色 */
-  --color-primary: #3b82f6; 
+  /* 撞色设计 - Color 1 & Color 2 */
+  --color-primary: #FBC6B5; 
+  --color-secondary: #F0CFE3;
+  
   --color-primary-light: color-mix(in srgb, var(--color-primary), white 20%);
   --color-primary-dark: color-mix(in srgb, var(--color-primary), black 10%);
   --color-primary-subtle: color-mix(in srgb, var(--color-primary), transparent 92%);
 
-  /* 渐变色变量 - 默认为蓝色的线性渐变 */
-  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  --gradient-text: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  /* 移除渐变，使用 Color 1 和 Color 2 的撞色 */
+  --gradient-primary: var(--color-primary); 
+  --gradient-text: var(--color-primary);
+  
+  /* 将辅助色配置为撞色中的 Color 2 */
+  --color-accent: var(--color-secondary);
   
   /* 辅助色 */
   --color-accent-red: #ef4444;

@@ -98,46 +98,46 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
     <script is:inline>
       (function() {
         try {
-          // 立即获取存储的主题
-          const storedColor = localStorage.getItem('theme-color');
-          const storedGradient = localStorage.getItem('theme-gradient');
+          // 立即获取存储的主题 - Clashing Colors Update
+          const c1 = localStorage.getItem('theme-color-1');
+          const c2 = localStorage.getItem('theme-color-2');
           const root = document.documentElement;
 
-          // 辅助函数：应用极速模式
-          const applyTheme = (color, gradient) => {
-             // 强制重置旧的紫色 (#8b5cf6) 或粉色 (#ff9eb5) 到新的默认蓝色 (#3b82f6)
-             if (color === '#8b5cf6' || color === '#ff9eb5') {
-                 color = '#3b82f6';
-                 gradient = null;
-                 localStorage.removeItem('theme-color');     // 清除旧的
-                 localStorage.removeItem('theme-gradient');  // 清除旧的
-                 // 不保存新的，让它回退到 CSS 默认值，或者保存新的蓝色
-                 localStorage.setItem('theme-color', color);
-             }
-
-             root.style.setProperty('--color-primary', color);
-             if (gradient) {
-                root.style.setProperty('--gradient-primary', gradient);
-                root.style.setProperty('--gradient-text', gradient);
-             } else {
-                // 如果没有渐变，生成一个基于单色的渐变（兼容旧数据）
-                const fallback = `linear-gradient(135deg, ${color} 0%, ${color} 100%)`;
-                root.style.setProperty('--gradient-primary', fallback);
-                root.style.setProperty('--gradient-text', fallback);
-             }
-          };
-
-          if (storedColor) {
-            applyTheme(storedColor, storedGradient);
+          // 核心：强制应用新的撞色变量，并覆盖旧逻辑
+          if (c1 && c2) {
+              root.style.setProperty('--color-primary', c1);
+              root.style.setProperty('--color-secondary', c2);
+              root.style.setProperty('--gradient-primary', c1); // 纯色覆盖
+              root.style.setProperty('--gradient-text', c1);    // 纯色覆盖
+              root.style.setProperty('--color-accent', c2);
+          } else {
+              // 如果没有存储，使用默认的撞色 (#FBC6B5, #F0CFE3)
+              // 这样可以避免页面加载时使用 CSS 中的默认值（如果是旧值的话）
+              root.style.setProperty('--color-primary', '#FBC6B5');
+              root.style.setProperty('--color-secondary', '#F0CFE3');
+              root.style.setProperty('--gradient-primary', '#FBC6B5');
+              root.style.setProperty('--gradient-text', '#FBC6B5');
+              root.style.setProperty('--color-accent', '#F0CFE3');
           }
-          
-          // 监听 astro:after-swap 事件以支持 View Transitions 导航时的样式保持
+
+          // 清理旧的存储以防干扰
+          localStorage.removeItem('theme-gradient'); 
+          // 不一定要清除 theme-color，但新逻辑优先检查 theme-color-1/2
+
+          // 监听 astro:after-swap 事件
           document.addEventListener('astro:after-swap', () => {
-             const c = localStorage.getItem('theme-color');
-             const g = localStorage.getItem('theme-gradient');
-             if(c) applyTheme(c, g);
+             const nc1 = localStorage.getItem('theme-color-1');
+             const nc2 = localStorage.getItem('theme-color-2');
+             if (nc1 && nc2) {
+                root.style.setProperty('--color-primary', nc1);
+                root.style.setProperty('--color-secondary', nc2);
+                root.style.setProperty('--gradient-primary', nc1);
+                root.style.setProperty('--gradient-text', nc1);
+                root.style.setProperty('--color-accent', nc2);
+             }
           });
           
+
         } catch (e) {
           console.error('Failed to restore theme color:', e);
         }
