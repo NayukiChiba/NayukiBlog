@@ -207,7 +207,8 @@ for (const category of categories) {
     }
 
     .carousel-container {
-        overflow: hidden;
+        /* 不使用 overflow:hidden，避免卡片 hover 上移时顶部被裁剪 */
+        overflow: visible;
         position: relative;
     }
 
@@ -231,6 +232,10 @@ for (const category of categories) {
         display: grid;
         grid-template-columns: 1fr;
         gap: 1rem;
+        /* 给卡片 hover 上移留出空间 */
+        padding-top: 8px;
+        margin-top: -8px;
+        overflow: visible;
     }
 
     @media (min-width: 640px) {

@@ -44,7 +44,8 @@ const { title, desc, url, tech = [] } = Astro.props;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     height: 100%;
     box-sizing: border-box;
-    overflow: hidden;
+    /* 去掉 overflow:hidden，避免 hover 上移时顶部被裁剪 */
+    overflow: visible;
     z-index: 1;
   }
 
