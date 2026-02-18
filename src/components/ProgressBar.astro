@@ -33,12 +33,12 @@
     top: 0;
     left: 0;
     height: 4px;
-    background: linear-gradient(90deg, #ffb6c1, #ff69b4); /* Pink gradient */
+    background: var(--gradient-primary); /* Use gradient variable */
     width: 0%;
     z-index: 9999;
     transition:
       width 0.2s ease,
       opacity 0.5s ease;
-    box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+    box-shadow: 0 0 10px var(--color-primary-light);
   }
 </style>

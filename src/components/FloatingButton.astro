@@ -71,16 +71,20 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     <!-- Custom Panel for Theme -->
     <div id="theme-panel-floating" class="theme-panel hidden" onclick="event.stopPropagation()">
       <div class="color-options">
-          <!-- Default Pink (As requested to change, but keep as option) -->
-          <button class="color-btn" style="--btn-color: #ff9eb5" data-color="#ff9eb5" title="Sakura"></button>
-          <!-- The requested gradient-ish color -->
-          <button class="color-btn" style="--btn-color: #fcc5ff; background: linear-gradient(135deg, #cafff9, #fcc5ff);" data-gradient="linear-gradient(135deg, #cafff9, #fcc5ff)" data-color="#bd93f9" title="Dream"></button>
-          <!-- Darker simpler options -->
-          <button class="color-btn" style="--btn-color: #6366f1" data-color="#6366f1" title="Indigo"></button>
-          <button class="color-btn" style="--btn-color: #10b981" data-color="#10b981" title="Emerald"></button>
-          <button class="color-btn" style="--btn-color: #f59e0b" data-color="#f59e0b" title="Amber"></button>
+          <!-- Blue (Default) -->
           <button class="color-btn" style="--btn-color: #3b82f6" data-color="#3b82f6" title="Blue"></button>
+          <!-- Emerald -->
+          <button class="color-btn" style="--btn-color: #10b981" data-color="#10b981" title="Emerald"></button>
+          <!-- Amber -->
+          <button class="color-btn" style="--btn-color: #f59e0b" data-color="#f59e0b" title="Amber"></button>
+          <!-- Mono -->
           <button class="color-btn" style="--btn-color: #555555" data-color="#555555" title="Mono"></button>
+          
+          <!-- Custom Color Picker -->
+          <div class="color-picker-wrapper" title="Custom">
+            <input type="color" id="custom-color-input" class="color-input" value="#3b82f6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="picker-icon"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+          </div>
       </div>
     </div>
 
@@ -170,12 +174,11 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     left: -25%;
     width: 150%;
     height: 200%;
-    /* Primary Gradient Variable */
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--color-primary), transparent 60%) 0%,
-      color-mix(in srgb, var(--color-primary), transparent 40%) 100%
-    );
+    /* Primary Gradient Variable - Enhanced to use the actual gradient */
+    background: var(--gradient-primary);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%);
+    opacity: 0.6;
     border-radius: 40%;
     animation: wave 3s ease-in-out infinite;
     transition: bottom 0.3s ease;
@@ -252,6 +255,45 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     top: -20px;
     left: -20px;
     transform: translate(0, 0);
+  }
+
+  /* Custom Color Picker Style */
+  .color-picker-wrapper {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px #e5e5e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    transition: transform 0.2s;
+  }
+  
+  .color-picker-wrapper:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 2px var(--color-text-light);
+  }
+  
+  .color-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150%;
+      height: 150%;
+      transform: translate(-25%, -25%);
+      opacity: 0;
+      cursor: pointer;
+  }
+  
+  .picker-icon {
+      color: #666;
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
   }
 
   /* hover 时只变色，不抖动 */
@@ -507,11 +549,17 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
         
         if (gradient) {
             root.style.setProperty('--gradient-primary', gradient);
+            // Also update text gradient to match
+            root.style.setProperty('--gradient-text', gradient);
             localStorage.setItem('theme-gradient', gradient);
         } else {
-            // Reset gradient to just use the color if no specific gradient provided
-            // Or create a simple gradient based on the color to maintain the look
-             root.style.setProperty('--gradient-primary', `linear-gradient(135deg, ${color} 0%, ${color} 100%)`);
+            // 用户选择的是纯色方案，我们生成一个线性渐变以确保兼容性
+             const flatGradient = `linear-gradient(135deg, ${color} 0%, ${color} 100%)`;
+            
+             root.style.setProperty('--gradient-primary', flatGradient);
+             root.style.setProperty('--gradient-text', flatGradient);
+            
+            // 移除 theme-gradient，这样下次加载时 PageLayout 会自动生成 flat gradient
             localStorage.removeItem('theme-gradient');
         }
         
@@ -547,12 +595,30 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
         }
     }
 
+    
+    const colorPickerInput = document.getElementById("custom-color-input") as HTMLInputElement;
+
     // 事件监听
     mainBtn.addEventListener("click", toggleMenu);
     scrollTopBtn?.addEventListener("click", scrollToTop);
     randomLinkBtn?.addEventListener("click", goToRandomLink);
     
     themeToggleBtn?.addEventListener("click", toggleThemePanel);
+    
+    colorPickerInput?.addEventListener("input", (e) => {
+        e.stopPropagation();
+        const color = (e.target as HTMLInputElement).value;
+        setThemeColor(color);
+        // Reset active state of preset buttons
+        colorBtns.forEach(btn => {
+           btn.style.transform = 'scale(1)';
+           btn.style.borderColor = 'transparent';
+        });
+    });
+
+    colorPickerInput?.addEventListener("click", (e) => {
+        e.stopPropagation(); // prevent menu closing
+    });
     
     colorBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
