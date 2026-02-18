@@ -257,44 +257,8 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     transform: translate(0, 0);
   }
 
-  /* Custom Color Picker Style */
-  .color-picker-wrapper {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-    box-shadow: 0 0 0 1px #e5e5e5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    transition: transform 0.2s;
-  }
-  
-  .color-picker-wrapper:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 0 2px var(--color-text-light);
-  }
-  
-  .color-input {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 150%;
-      height: 150%;
-      transform: translate(-25%, -25%);
-      opacity: 0;
-      cursor: pointer;
-  }
-  
-  .picker-icon {
-      color: #666;
-      width: 14px;
-      height: 14px;
-      pointer-events: none;
-  }
+  /* Custom Color Picker Style - handled below in main block */
+
 
   /* hover 时只变色，不抖动 */
   .menu-item:hover {
@@ -339,8 +303,8 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
   /* Theme Panel in Floating Menu */
   .theme-panel {
     position: absolute;
-    bottom: 120px; /* Aligns with Theme Button (-110px translate + offset) */
-    right: 60px; /* Position to the left */
+    bottom: 120px;
+    right: 60px;
     background: var(--color-card-bg);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -353,6 +317,8 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     pointer-events: auto;
     opacity: 1;
     display: block;
+    /* Limit width for compact grid */
+    max-width: 220px;
   }
 
   .theme-panel.hidden {
@@ -362,16 +328,18 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     display: none; 
   }
 
-  /* Color Options Grid */
+  /* Compact Grid Layout for 5 items */
   .color-options {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 8px;
+    align-items: center;
   }
 
+  /* Color Buttons */
   .color-btn {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     border: 2px solid transparent;
     background: var(--btn-color);
@@ -379,6 +347,7 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     transition: transform 0.2s, box-shadow 0.2s;
     padding: 0;
     position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
 
   .color-btn:hover {
@@ -386,8 +355,49 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     box-shadow: 0 0 0 2px var(--color-text-light);
   }
 
-  .color-btn.active {
-    box-shadow: 0 0 0 2px var(--color-text);
+  /* Custom Single Picker */
+  .color-picker-wrapper {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px #e5e5e5;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .color-picker-wrapper:hover {
+      transform: scale(1.1);
+  }
+  
+  .picker-label {
+      font-size: 8px;
+      color: #333;
+      pointer-events: none;
+      font-weight: bold;
+      z-index: 2;
+  }
+
+  .picker-icon {
+      color: #666;
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+      z-index: 1;
+  }
+
+  .color-input {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: 200%;
+      height: 200%;
+      cursor: pointer;
+      opacity: 0;
   }
 
   /* Tooltip 样式 */
@@ -441,6 +451,12 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
 
     .floating-menu.active .menu-item:nth-child(3) {
       transform: translate(0, -50px);
+    }
+
+    /* Adjust Theme Panel for Mobile */
+    .theme-panel {
+        bottom: 100px;
+        right: 50px;
     }
 
     .menu-item::before {
@@ -605,6 +621,7 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     
     themeToggleBtn?.addEventListener("click", toggleThemePanel);
     
+    // Single Custom Color (Auto Apply)
     colorPickerInput?.addEventListener("input", (e) => {
         e.stopPropagation();
         const color = (e.target as HTMLInputElement).value;
@@ -616,9 +633,7 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
         });
     });
 
-    colorPickerInput?.addEventListener("click", (e) => {
-        e.stopPropagation(); // prevent menu closing
-    });
+    colorPickerInput?.addEventListener("click", (e) => e.stopPropagation());
     
     colorBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {

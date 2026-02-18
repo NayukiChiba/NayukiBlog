@@ -27,14 +27,74 @@ const formattedDate = date.toLocaleDateString("en-US", {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{frontmatter.title}</title>
+
+    <!-- 字体预连接 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- KaTeX CSS - 使用 CDN -->
     <link
       rel="stylesheet"
       href="https://cdn.staticfile.net/KaTeX/0.16.9/katex.min.css"
       crossorigin="anonymous"
     />
+
     <!-- KaTeX 公式已在构建时通过 KaTeX 渲染，无需客户端JS -->
     <!-- 代码高亮由 Astro 内置 Shiki 在构建时处理 -->
+
+    <!-- ⬇️ 防止样式闪烁 (FOUC) 的脚本：在页面渲染前立即应用用户设置的主题色 -->
+    <script is:inline>
+      (function() {
+        try {
+          // 立即获取存储的主题
+          const storedColor = localStorage.getItem('theme-color');
+          const storedGradient = localStorage.getItem('theme-gradient');
+          const root = document.documentElement;
+
+          // 辅助函数：应用极速模式
+          const applyTheme = (color, gradient) => {
+             // 强制重置旧的紫色 (#8b5cf6) 或粉色 (#ff9eb5) 到新的默认蓝色 (#3b82f6)
+             if (color === '#8b5cf6' || color === '#ff9eb5') {
+                 color = '#3b82f6';
+                 gradient = null;
+                 localStorage.removeItem('theme-color');     // 清除旧的
+                 localStorage.removeItem('theme-gradient');  // 清除旧的
+                 // 不保存新的，让它回退到 CSS 默认值，或者保存新的蓝色
+                 localStorage.setItem('theme-color', color);
+             }
+
+             root.style.setProperty('--color-primary', color);
+             if (gradient) {
+                root.style.setProperty('--gradient-primary', gradient);
+                root.style.setProperty('--gradient-text', gradient);
+             } else {
+                // 如果没有渐变，生成一个基于单色的渐变（兼容旧数据）
+                const fallback = `linear-gradient(135deg, ${color} 0%, ${color} 100%)`;
+                root.style.setProperty('--gradient-primary', fallback);
+                root.style.setProperty('--gradient-text', fallback);
+             }
+          };
+
+          if (storedColor) {
+            applyTheme(storedColor, storedGradient);
+          }
+          
+          // 监听 astro:after-swap 事件以支持 View Transitions 导航时的样式保持
+          document.addEventListener('astro:after-swap', () => {
+             const c = localStorage.getItem('theme-color');
+             const g = localStorage.getItem('theme-gradient');
+             if(c) applyTheme(c, g);
+          });
+          
+        } catch (e) {
+          console.error('Failed to restore theme color:', e);
+        }
+      })();
+    </script>
   </head>
   <body>
     <Header />
