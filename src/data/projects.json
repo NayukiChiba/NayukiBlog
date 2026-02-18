@@ -1,6 +1,18 @@
 {
   "projects": [
     {
+      "id": 10,
+      "name": "HousePricesPrediction",
+      "description": "Kaggle上的预测房价项目",
+      "link": "https://github.com/NayukiChiba/HousePricesPrediction",
+      "techStack": [
+        "Python",
+        "Sklearn"
+      ],
+      "status": "in-progress",
+      "visibility": "published"
+    },
+    {
       "id": 9,
       "name": "Titanic",
       "description": "Kaggle上的Titanic练习题",
@@ -9,7 +21,7 @@
         "Python",
         "Sklearn"
       ],
-      "status": "in-progress",
+      "status": "completed",
       "visibility": "published"
     },
     {
