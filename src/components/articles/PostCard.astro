@@ -72,29 +72,30 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
         min-height: 160px;
     }
 
-    /* 流动边框光效 */
-    .post-card::before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: -100%;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
-        transition: left 0.5s ease;
-        z-index: 10;
-    }
-
-    .post-card:hover::before {
-        left: 100%;
-    }
-
     .post-card:hover {
         transform: translateY(-4px);
-        box-shadow: 
+        box-shadow:
             var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.06)),
             0 0 20px rgba(255, 158, 181, 0.15);
-        border-color: var(--color-primary-light, #ffb8ca);
+        /* 彗星流光边框 */
+        border: 2px solid transparent;
+        background-color: transparent;
+        background-image:
+            linear-gradient(var(--color-card-bg, #ffffff), var(--color-card-bg, #ffffff)),
+            conic-gradient(
+                from var(--border-angle),
+                transparent 0deg,
+                var(--radial-c1) 40deg,
+                var(--radial-c2) 70deg,
+                transparent 100deg,
+                transparent 360deg
+            );
+        background-clip: padding-box, border-box;
+        background-origin: padding-box, border-box;
+        animation: borderSpin 2.5s linear infinite;
+        box-shadow:
+            var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.06)),
+            0 0 16px color-mix(in srgb, var(--radial-c1) 40%, transparent);
     }
 
     /* 背景图片 - 贴在右侧 */
@@ -254,8 +255,7 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
     /* 减少动画偏好 */
     @media (prefers-reduced-motion: reduce) {
         .post-card,
-        .post-bg-image img,
-        .post-card::before {
+        .post-bg-image img {
             transition: none;
         }
     }

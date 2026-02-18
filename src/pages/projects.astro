@@ -369,7 +369,8 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
     }
 
     .carousel-container {
-        overflow: hidden;
+        /* 不使用 overflow:hidden，改为 visible，避免卡片 hover 上移时被裁剪 */
+        overflow: visible;
         position: relative;
     }
 
@@ -393,6 +394,10 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
         display: grid;
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        /* 给卡片 hover 上移留出空间，防止顶部被裁剪 */
+        padding-top: 8px;
+        margin-top: -8px;
+        overflow: visible;
     }
     @media (min-width: 640px) {
         .project-grid {

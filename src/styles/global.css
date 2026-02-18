@@ -1,24 +1,55 @@
+/* 注册可动画的径向渐变颜色变量 */
+@property --radial-c1 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #FBC6B5;
+}
+
+@property --radial-c2 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #F0CFE3;
+}
+
+/* 注册卡片旋转边框角度变量 */
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* 卡片旋转渐变边框动画 */
+@keyframes borderSpin {
+  to { --border-angle: 360deg; }
+}
+
 :root {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   
-  /* 简约配色方案 - 更干净的白色背景 */
+  /* 简约配色方案 */
   --color-bg: #ffffff;
-  --color-bg-secondary: #f8f9fa; /* 极淡的灰色用于区分区块 */
-  --color-text: #1a1a1a;  /* 更深的黑色，提高对比度 */
-  --color-text-light: #525252; /* 深灰色 */
+  --color-bg-secondary: #f8f9fa;
+  --color-text: #1a1a1a;
+  --color-text-light: #525252;
   --color-text-muted: #888888;
   
-  /* 撞色设计 - Color 1 & Color 2 */
+  /* 撞色设计 - Color 1 & Color 2（用户通过 FloatingButton 修改） */
   --color-primary: #FBC6B5; 
   --color-secondary: #F0CFE3;
+
+  /* 动态径向渐变使用的两个独立颜色变量（可被 CSS transition 插值） */
+  --radial-c1: #FBC6B5;
+  --radial-c2: #F0CFE3;
   
   --color-primary-light: color-mix(in srgb, var(--color-primary), white 20%);
   --color-primary-dark: color-mix(in srgb, var(--color-primary), black 10%);
   --color-primary-subtle: color-mix(in srgb, var(--color-primary), transparent 92%);
 
-  /* 移除渐变，使用 Color 1 和 Color 2 的撞色 */
-  --gradient-primary: var(--color-primary); 
-  --gradient-text: var(--color-primary);
+  /* 渐变变量 */
+  --gradient-primary: radial-gradient(circle at 50% 50%, var(--radial-c1), var(--radial-c2));
+  --gradient-text: linear-gradient(45deg, var(--radial-c1), var(--radial-c2));
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   
   /* 将辅助色配置为撞色中的 Color 2 */
   --color-accent: var(--color-secondary);
@@ -58,10 +89,10 @@
 
 html {
   font-family: var(--font-sans);
-  background: var(--color-bg);
+  /* 纯白底色保证可读性，body::before 的 fixed 渐变层叠在 z-index:-1 */
+  background: #fdfcfb;
   color: var(--color-text);
   scroll-behavior: smooth;
-  /* scrollbar-gutter moved to PageLayout.astro */
 }
 
 /* body layout moved to PageLayout.astro */
@@ -91,8 +122,21 @@ a {
   transition: color 0.2s ease;
 }
 
+/* 全局链接 hover：仅改变颜色，不使用 background-clip 裁剪文字
+   （background-clip: text 会导致卡片类 <a> 容器内所有子文字消失） */
 a:hover {
   color: var(--color-primary);
+}
+
+/* 文章正文内的纯文字链接：允许渐变文字效果 */
+.prose a:hover {
+  background: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  background-size: 200% auto;
+  animation: var(--animate-gradient);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -182,6 +226,33 @@ p {
 h1.page-title {
   width: 100%;
   text-align: center;
+}
+
+/* =========================================================
+   全局动态径向渐变背景
+   使用 @property 注册的 --radial-c1 / --radial-c2 实现
+   颜色之间的 CSS 原生插值动画
+   ========================================================= */
+
+/* 渐变波动：颜色在 c1/c2 之间来回循环切换 */
+@keyframes radialColorShift {
+  0%   { --radial-c1: var(--color-primary);   --radial-c2: var(--color-secondary); }
+  50%  { --radial-c1: var(--color-secondary); --radial-c2: var(--color-primary);   }
+  100% { --radial-c1: var(--color-primary);   --radial-c2: var(--color-secondary); }
+}
+
+/* 渐变中心点漂移：让光斑在页面上移动 */
+@keyframes radialCenterDrift {
+  0%   { background-position: 30% 30%; }
+  25%  { background-position: 70% 20%; }
+  50%  { background-position: 60% 70%; }
+  75%  { background-position: 20% 60%; }
+  100% { background-position: 30% 30%; }
+}
+
+/* body 全屏渐变覆盖层（已禁用，背景由 ParticleBackground 波浪线提供）*/
+body::before {
+  display: none;
 }
 
 /* Animations */
@@ -277,7 +348,25 @@ h1.page-title {
   animation: shimmer 2s infinite;
 }
 
-/* 减少动画偏好 */
+/* 应用于所有使用主要渐变的元素 */
+:root {
+  --animate-gradient: radialColorShift 6s ease-in-out infinite;
+}
+
+/* 强制为主要渐变元素添加动画 */
+.bg-gradient-primary, 
+.text-gradient {
+  background-image: var(--gradient-primary) !important;
+  background-size: 200% 200%;
+  animation: var(--animate-gradient);
+}
+
+/* 通用动态背景类 */
+.dynamic-bg {
+  background: radial-gradient(ellipse at center, var(--radial-c1), var(--radial-c2));
+  background-size: 200% 200%;
+  animation: radialColorShift 6s ease-in-out infinite;
+}
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
   .animate-pulse,

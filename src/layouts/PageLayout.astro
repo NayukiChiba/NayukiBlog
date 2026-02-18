@@ -65,7 +65,8 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
         flex-direction: column;
         min-height: 100vh;
         overflow-x: hidden;
-        background: var(--color-bg);
+        /* 背景改为透明，由 global.css body::before 提供动态径向渐变背景 */
+        background: transparent;
       }
 
       main {
@@ -107,16 +108,16 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
           if (c1 && c2) {
               root.style.setProperty('--color-primary', c1);
               root.style.setProperty('--color-secondary', c2);
-              root.style.setProperty('--gradient-primary', c1); // 纯色覆盖
-              root.style.setProperty('--gradient-text', c1);    // 纯色覆盖
+              // 移除强制纯色，恢复 CSS 渐变定义
+              // root.style.setProperty('--gradient-primary', c1); 
+              // root.style.setProperty('--gradient-text', c1);    
               root.style.setProperty('--color-accent', c2);
           } else {
               // 如果没有存储，使用默认的撞色 (#FBC6B5, #F0CFE3)
-              // 这样可以避免页面加载时使用 CSS 中的默认值（如果是旧值的话）
               root.style.setProperty('--color-primary', '#FBC6B5');
               root.style.setProperty('--color-secondary', '#F0CFE3');
-              root.style.setProperty('--gradient-primary', '#FBC6B5');
-              root.style.setProperty('--gradient-text', '#FBC6B5');
+              // root.style.setProperty('--gradient-primary', '#FBC6B5');
+              // root.style.setProperty('--gradient-text', '#FBC6B5');
               root.style.setProperty('--color-accent', '#F0CFE3');
           }
 

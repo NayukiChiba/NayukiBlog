@@ -44,33 +44,32 @@ const { title, desc, url, tech = [] } = Astro.props;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     height: 100%;
     box-sizing: border-box;
-    overflow: hidden;
+    /* 去掉 overflow:hidden，避免 hover 上移时顶部被裁剪 */
+    overflow: visible;
     z-index: 1;
-  }
-
-  .project-card::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 10;
-  }
-
-  .project-card:hover::before {
-    transform: scaleX(1);
   }
 
   .project-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-hover);
-    border-color: var(--color-primary-light);
     z-index: 10;
+    /* 彗星流光边框 */
+    border: 2px solid transparent;
+    background-color: transparent;
+    background-image:
+        linear-gradient(var(--color-card-bg, #ffffff), var(--color-card-bg, #ffffff)),
+        conic-gradient(
+            from var(--border-angle),
+            transparent 0deg,
+            var(--radial-c1) 40deg,
+            var(--radial-c2) 70deg,
+            transparent 100deg,
+            transparent 360deg
+        );
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+    animation: borderSpin 2.5s linear infinite;
+    box-shadow: var(--shadow-hover), 0 0 16px color-mix(in srgb, var(--radial-c1) 40%, transparent);
   }
 
   .project-content {

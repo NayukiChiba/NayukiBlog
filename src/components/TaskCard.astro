@@ -83,7 +83,23 @@ const colors = priorityColors[priority.toLowerCase()] || {
     .task-card:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        border-color: #e0e0e0;
+        /* 彗星流光边框 */
+        border: 2px solid transparent;
+        background-color: transparent;
+        background-image:
+            linear-gradient(#ffffff, #ffffff),
+            conic-gradient(
+                from var(--border-angle),
+                transparent 0deg,
+                var(--radial-c1) 40deg,
+                var(--radial-c2) 70deg,
+                transparent 100deg,
+                transparent 360deg
+            );
+        background-clip: padding-box, border-box;
+        background-origin: padding-box, border-box;
+        animation: borderSpin 2.5s linear infinite;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 0 16px color-mix(in srgb, var(--radial-c1) 40%, transparent);
     }
 
     .task-card[data-completed="true"] {
