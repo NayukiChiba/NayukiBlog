@@ -1,40 +1,44 @@
 :root {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   
-  /* 优雅的配色方案 - 淡粉色点缀 */
-  --color-bg: #fafafa;
-  --color-bg-secondary: #ffffff;
-  --color-text: #2d2d2d;
-  --color-text-light: #6b6b6b;
-  --color-text-muted: #9a9a9a;
+  /* 简约配色方案 - 更干净的白色背景 */
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f8f9fa; /* 极淡的灰色用于区分区块 */
+  --color-text: #1a1a1a;  /* 更深的黑色，提高对比度 */
+  --color-text-light: #525252; /* 深灰色 */
+  --color-text-muted: #888888;
   
-  /* 主色 - 淡粉色 */
-  --color-primary: #ff9eb5;
-  --color-primary-light: #ffb8ca;
-  --color-primary-dark: #ff85a0;
-  --color-primary-subtle: rgba(255, 158, 181, 0.08);
+  /* 主色 - 默认偏暗/简约，不再使用高饱和度粉色 */
+  --color-primary: #8b5cf6; /* 默认使用类似 violet 的颜色，比粉色稳重 */
+  --color-primary-light: color-mix(in srgb, var(--color-primary), white 20%);
+  --color-primary-dark: color-mix(in srgb, var(--color-primary), black 10%);
+  --color-primary-subtle: color-mix(in srgb, var(--color-primary), transparent 92%);
+
+  /* 渐变色变量 - 用户指定的 #cafff9 -> #fcc5ff */
+  --gradient-primary: linear-gradient(135deg, #cafff9 0%, #fcc5ff 100%);
+  --gradient-text: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%); /* 用于文字的深色渐变 */
   
   /* 辅助色 */
-  --color-accent-red: #ff6b6b;
-  --color-accent-green: #51cf66;
-  --color-accent-blue: #4dabf7;
+  --color-accent-red: #ef4444;
+  --color-accent-green: #10b981;
+  --color-accent-blue: #3b82f6;
   
-  /* 边框和分隔线 */
-  --color-border: #e8e8e8;
-  --color-border-light: #f5f5f5;
+  /* 边框和分隔线 - 稍微加深 */
+  --color-border: #e5e5e5;
+  --color-border-light: #f4f4f5;
   
   /* 卡片和表面 */
   --color-card-bg: #ffffff;
-  --color-card-hover: #fefefe;
+  --color-card-hover: #ffffff;
   
-  /* 阴影 - 更柔和 */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
-  --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.1);
+  /* 阴影 - 保持柔和但更清晰 */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   
-  /* 圆角 - 更柔和 */
+  /* 圆角 - 保持 */
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;

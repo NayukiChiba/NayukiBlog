@@ -99,47 +99,24 @@ const navItems = [
     /* 3D Gradient Style matching Page Title */
     background-image: linear-gradient(
       var(--bg-angle, 120deg),
-      #000000 0%,
-      #ffb8ca 25%,
-      #ff85a0 45%,
-      #ffffff 50%,
-      #ff85a0 55%,
-      #ffb8ca 75%,
-      #000000 100%
+      var(--color-text),
+      var(--color-text)
     );
-    background-size: 200% auto;
+    background-size: 100% auto;
     background-position: center;
     -webkit-background-clip: text;
     background-clip: text;
+    color: var(--color-text);
+    transition: all 0.3s ease;
+  }
+
+  /* Hover effect using the requested gradient */
+  .site-title:hover {
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
     color: transparent;
-    filter: 
-      drop-shadow(0 1px 0px rgba(255, 133, 160, 0.5)) 
-      drop-shadow(0 2px 4px rgba(0,0,0,0.15));
-  }
-
-  /* Hover effect for the title itself (optional, can be subtle) */
-  .site-title:hover {
-    background-position: right center;
-    transition: background-position 0.5s ease;
-  }
-
-  .site-title::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
-    transition: width 0.3s ease;
-  }
-
-  .site-title:hover::after {
-    width: 100%;
-  }
-
-  .site-title:hover {
-    color: var(--color-primary);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
   }
 
   /* 桌面端导航 */

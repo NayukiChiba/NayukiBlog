@@ -93,6 +93,38 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
         }
       }
     </style>
+    
+    <!-- ⬇️ 防止样式闪烁 (FOUC) 的脚本：在页面渲染前立即应用用户设置的主题色 -->
+    <script is:inline>
+      (function() {
+        try {
+          const storedColor = localStorage.getItem('theme-color');
+          const storedGradient = localStorage.getItem('theme-gradient');
+          
+          if (storedColor) {
+            const root = document.documentElement;
+            root.style.setProperty('--color-primary', storedColor);
+            
+            // 计算辅助色 (light/subtle) 以确保立即生效，避免使用 CSS 里的默认紫色计算
+            // 注意：简单的 color-mix 在 JS 中不能直接计算为 hex，但可以直接写入变量让浏览器 CSS 引擎处理
+            // 这里为了更稳健，我们不仅设置 primary，还可能需要设置派生变量，
+            // 但如果派生变量在 CSS 中是用 `color-mix(in srgb, var(--color-primary), ...)` 定义的，
+            // 只要 --color-primary 变了，它们会自动重新计算，无需 JS 干预。
+            // 唯一的问题是 CSS 加载时机。如果 CSS 先加载，定义了默认值，然后 JS 执行覆盖，通常很快，用户不可见。
+            
+            if (storedGradient) {
+              root.style.setProperty('--gradient-primary', storedGradient);
+              root.style.setProperty('--gradient-text', storedGradient);
+            } else {
+              // 模拟 FloatingButton 中的默认逻辑
+              root.style.setProperty('--gradient-primary', `linear-gradient(135deg, ${storedColor} 0%, ${storedColor} 100%)`);
+            }
+          }
+        } catch (e) {
+          console.error('Failed to restore theme color:', e);
+        }
+      })();
+    </script>
   </head>
   <body>
     <script>

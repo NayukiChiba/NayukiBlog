@@ -96,8 +96,8 @@
     animation: avatarSpin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     box-shadow: 
       var(--shadow-lg),
-      0 0 20px rgba(255, 158, 181, 0.4),
-      0 0 40px rgba(255, 158, 181, 0.2);
+      0 0 20px color-mix(in srgb, var(--color-primary), transparent 60%),
+      0 0 40px color-mix(in srgb, var(--color-primary), transparent 80%);
   }
 
   @keyframes avatarSpin {

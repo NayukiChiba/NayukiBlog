@@ -26,16 +26,66 @@
   let particles: Particle[] = [];
 
   // Configuration
-  // Balanced Cute: Dusty Pink, Soft Lilac, Pale Blue - Visible but soft
-  const colors = [
-    "235, 180, 195", // Dusty Pink (Visible against white)
-    "220, 190, 240", // Soft Lilac
-    "200, 220, 255", // Pale Blue
-    "255, 200, 210", // Rose
-  ];
+  // Dynamic colors based on CSS variables
+  let colors: string[] = [];
 
-  const particleCountMobile = 30;
-  const particleCountDesktop = 50;
+  function updateColors() {
+    const style = getComputedStyle(document.documentElement);
+    const primary = style.getPropertyValue('--color-primary').trim();
+    const primaryLight = style.getPropertyValue('--color-primary-light').trim();
+    
+    // Function to parse color string to "r, g, b"
+    const parseColor = (color: string) => {
+      // Check for rgb/rgba format
+      const rgbMatch = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+      if (rgbMatch) {
+        return `${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}`;
+      }
+      
+      // Check for hex format
+      const hexMatch = color.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
+      if (hexMatch) {
+        return `${parseInt(hexMatch[1], 16)}, ${parseInt(hexMatch[2], 16)}, ${parseInt(hexMatch[3], 16)}`;
+      }
+      
+      // Shorthand hex
+      const shortHexMatch = color.match(/^#?([a-f\d])([a-f\d])([a-f\d])$/i);
+      if (shortHexMatch) {
+        const r = shortHexMatch[1] + shortHexMatch[1];
+        const g = shortHexMatch[2] + shortHexMatch[2];
+        const b = shortHexMatch[3] + shortHexMatch[3];
+        return `${parseInt(r, 16)}, ${parseInt(g, 16)}, ${parseInt(b, 16)}`;
+      }
+
+      return "200, 200, 200"; // Fallback grey
+    };
+
+    const c1 = parseColor(primary);
+    const c2 = parseColor(primaryLight);
+    
+    // Use primary color variants for particles
+    colors = [
+      c1,
+      c2,
+      "240, 240, 240", // Light grey
+    ];
+  }
+
+  // Initial update
+  updateColors();
+
+  // Watch for theme changes (optional, but good for robust switching)
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === "attributes" && mutation.attributeName === "style") {
+        updateColors();
+      }
+    });
+  });
+  observer.observe(document.documentElement, { attributes: true });
+
+  const particleCountMobile = 25; // Reduce count for cleaner look
+  const particleCountDesktop = 40;
 
   function resize() {
     width = window.innerWidth;
