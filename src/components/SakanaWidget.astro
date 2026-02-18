@@ -1,0 +1,16 @@
+<div id="sakana-widget" style="position: fixed; left: 50px; bottom: 16px; z-index: 999;"></div>
+<script>
+  import SakanaWidget from 'sakana-widget';
+  import 'sakana-widget/lib/index.css';
+
+  // 直接覆盖内置角色，替换为自定义图片
+  const elysiaChar = SakanaWidget.getCharacter('chisato')!;
+  elysiaChar.image = '/elysia.png';
+  SakanaWidget.registerCharacter('chisato', elysiaChar);
+
+  const teriteChar = SakanaWidget.getCharacter('takina')!;
+  teriteChar.image = '/teriteri.png';
+  SakanaWidget.registerCharacter('takina', teriteChar);
+
+  new SakanaWidget({ character: 'takina', size: 160 }).mount('#sakana-widget');
+</script>

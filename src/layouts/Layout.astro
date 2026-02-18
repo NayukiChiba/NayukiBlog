@@ -1,5 +1,6 @@
 ---
 import FloatingButton from '../components/FloatingButton.astro';
+import SakanaWidgetComponent from '../components/SakanaWidget.astro';
 import "../styles/global.css";
 
 interface Props {
@@ -22,6 +23,7 @@ const { title } = Astro.props;
 	<body>
 		<slot />
 		<FloatingButton />
+		<SakanaWidgetComponent />
 	</body>
 </html>
 <style is:global>

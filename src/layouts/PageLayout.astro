@@ -1,7 +1,6 @@
 ---
 import Header from "../components/Header.astro";
-import FloatingButton from "../components/FloatingButton.astro";
-import CdnPreloader from "../components/CdnPreloader.astro";
+import FloatingButton from "../components/FloatingButton.astro";import SakanaWidgetComponent from '../components/SakanaWidget.astro';import CdnPreloader from "../components/CdnPreloader.astro";
 import ParticleBackground from "../components/ParticleBackground.astro";
 import ProgressBar from "../components/ProgressBar.astro";
 import "../styles/global.css"; // Import global styles
@@ -212,6 +211,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
     <CdnPreloader />
     <ParticleBackground />
     <ProgressBar />
+    <SakanaWidgetComponent />
   </body>
 </html>
 

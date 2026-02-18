@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import FloatingButton from "../components/FloatingButton.astro";
+import SakanaWidgetComponent from "../components/SakanaWidget.astro";
 import PostHeader from "../components/Markdown/PostHeader.astro";
 import TocSidebar from "../components/Markdown/TocSidebar.astro";
 import TocMobile from "../components/Markdown/TocMobile.astro";
@@ -112,6 +113,8 @@ const formattedDate = date.toLocaleDateString("en-US", {
 
     <ParticleBackground />
     <ProgressBar />
+
+    <SakanaWidgetComponent />
   </body>
 </html>
 
