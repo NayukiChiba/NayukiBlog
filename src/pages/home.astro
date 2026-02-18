@@ -85,6 +85,16 @@ const todos = getTodos();
       </div>
     </section>
 
+    <!-- GitHub Activity Graph -->
+    <section class="section-block github-graph-section">
+      <img
+        src="https://github-readme-activity-graph.vercel.app/graph?username=NayukiChiba&theme=xcode&bg_color=FF000000&color=000000&hide_border=true"
+        alt="GitHub Activity Graph"
+        class="github-graph-img"
+        loading="lazy"
+      />
+    </section>
+
     <div class="divider"></div>
 
     <!-- Latest Diary (Conditional) -->
@@ -208,6 +218,17 @@ const todos = getTodos();
   }
   .home-container > *:nth-child(6) {
     animation-delay: 0.35s;
+  }
+
+  /* GitHub Activity Graph */
+  .github-graph-section {
+    margin-bottom: 2rem;
+  }
+
+  .github-graph-img {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
   }
 
   /* Profile Section */
