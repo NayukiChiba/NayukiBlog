@@ -1,4 +1,4 @@
-<div id="sakana-widget" style="position: fixed; left: 50px; bottom: 16px; z-index: 999;"></div>
+<div id="sakana-widget" style="position: fixed; left: 50px; bottom: 0px; z-index: 999;"></div>
 <script>
   import SakanaWidget from 'sakana-widget';
   import 'sakana-widget/lib/index.css';
@@ -14,7 +14,7 @@
 
   // 恢复上次保存的角色，controls: false 隐藏所有内置按钮
   const savedChar = (localStorage.getItem('sakana-character') as 'chisato' | 'takina') || 'takina';
-  const widget = new SakanaWidget({ character: savedChar, size: 160, controls: false }).mount('#sakana-widget');
+  const widget = new SakanaWidget({ character: savedChar, size: 160, controls: false, rod: false }).mount('#sakana-widget');
 
   // 将实例挂到 window 供 FloatingButton 调用
   (window as any).__sakanaWidget = widget;
