@@ -2,13 +2,13 @@
 @property --radial-c1 {
   syntax: '<color>';
   inherits: true;
-  initial-value: #FBC6B5;
+  initial-value: #55b0e2;
 }
 
 @property --radial-c2 {
   syntax: '<color>';
   inherits: true;
-  initial-value: #F0CFE3;
+  initial-value: #ffe1e1;
 }
 
 /* 注册卡片旋转边框角度变量 */
@@ -34,12 +34,12 @@
   --color-text-muted: #888888;
   
   /* 撞色设计 - Color 1 & Color 2（用户通过 FloatingButton 修改） */
-  --color-primary: #FBC6B5; 
-  --color-secondary: #F0CFE3;
+  --color-primary: #55b0e2;
+  --color-secondary: #ffe1e1;
 
   /* 动态径向渐变使用的两个独立颜色变量（可被 CSS transition 插值） */
-  --radial-c1: #FBC6B5;
-  --radial-c2: #F0CFE3;
+  --radial-c1: #55b0e2;
+  --radial-c2: #ffe1e1;
   
   --color-primary-light: color-mix(in srgb, var(--color-primary), white 20%);
   --color-primary-dark: color-mix(in srgb, var(--color-primary), black 10%);

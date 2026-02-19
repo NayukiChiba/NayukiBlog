@@ -86,7 +86,7 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
           <div class="color-picker-group">
               <label for="color-1-input" class="picker-label-text">色调 1</label>
               <div class="color-picker-wrapper">
-                <input type="color" id="color-1-input" class="color-input" value="#FBC6B5">
+                <input type="color" id="color-1-input" class="color-input" value="#55b0e2">
                 <div class="picker-swatch" id="swatch-1"></div>
               </div>
           </div>
@@ -94,7 +94,7 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
           <div class="color-picker-group">
               <label for="color-2-input" class="picker-label-text">色调 2</label>
               <div class="color-picker-wrapper">
-                <input type="color" id="color-2-input" class="color-input" value="#F0CFE3">
+                <input type="color" id="color-2-input" class="color-input" value="#ffe1e1">
                 <div class="picker-swatch" id="swatch-2"></div>
               </div>
           </div>
@@ -339,7 +339,7 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     border-radius: 6px;
     margin-bottom: 10px;
     /* 由 JS 动态更新 background */
-    background: radial-gradient(circle at 30% 50%, #FBC6B5, #F0CFE3);
+    background: radial-gradient(circle at 30% 50%, #55b0e2, #ffe1e1);
     animation: previewShift 3s ease-in-out infinite;
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   }
@@ -592,8 +592,8 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
 
     // Initialize Theme
     function initTheme() {
-        const c1 = localStorage.getItem('theme-color-1') || '#FBC6B5';
-        const c2 = localStorage.getItem('theme-color-2') || '#F0CFE3';
+        const c1 = localStorage.getItem('theme-color-1') || '#55b0e2';
+        const c2 = localStorage.getItem('theme-color-2') || '#ffe1e1';
         
         setThemeColor(c1, c2);
         
@@ -620,8 +620,8 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     
     // Custom Color Inputs
     function handleColorChange() {
-        const c1 = input1?.value || '#FBC6B5';
-        const c2 = input2?.value || '#F0CFE3';
+        const c1 = input1?.value || '#55b0e2';
+        const c2 = input2?.value || '#ffe1e1';
         setThemeColor(c1, c2);
         // 同步更新色板显示
         const swatch1 = document.getElementById('swatch-1') as HTMLElement;

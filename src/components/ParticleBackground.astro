@@ -37,7 +37,7 @@
     if (raw.match(/^#?[0-9a-fA-F]{3,6}$/)) return hexToRgb(raw);
     const m = raw.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
     if (m) return [+m[1], +m[2], +m[3]];
-    return [251, 198, 181];
+    return [85, 176, 226];
   }
 
   function lerpRgb(
@@ -55,8 +55,8 @@
   function getThemeColors(): [[number,number,number],[number,number,number]] {
     const s = getComputedStyle(document.documentElement);
     return [
-      cssColorToRgb(s.getPropertyValue('--radial-c1') || '#FBC6B5'),
-      cssColorToRgb(s.getPropertyValue('--radial-c2') || '#F0CFE3'),
+      cssColorToRgb(s.getPropertyValue('--radial-c1') || '#55b0e2'),
+      cssColorToRgb(s.getPropertyValue('--radial-c2') || '#ffe1e1'),
     ];
   }
 
