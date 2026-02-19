@@ -13,4 +13,10 @@
   SakanaWidget.registerCharacter('takina', teriteChar);
 
   new SakanaWidget({ character: 'takina', size: 160 }).mount('#sakana-widget');
+
+  // 读取 localStorage 应用初始显示状态
+  const sakanaWidget = document.getElementById('sakana-widget');
+  if (sakanaWidget && localStorage.getItem('sakana-hidden') === 'true') {
+    sakanaWidget.style.display = 'none';
+  }
 </script>
