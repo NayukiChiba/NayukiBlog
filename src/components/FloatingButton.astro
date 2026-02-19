@@ -696,11 +696,11 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
 
     // 切换看板娘人物
     // 注册角色列表：与 SakanaWidget.astro 中 registerCharacter 保持一致
-    const sakanaChars: Array<'chisato' | 'takina'> = ['chisato', 'takina'];
+    const sakanaChars: Array<'chisato' | 'takina' | 'wululu' | 'kobe'> = ['chisato', 'takina', 'wululu', 'kobe'];
 
     function getSakanaCharIdx(): number {
       const saved = localStorage.getItem('sakana-character') || 'takina';
-      const idx = sakanaChars.indexOf(saved as 'chisato' | 'takina');
+      const idx = sakanaChars.indexOf(saved as 'chisato' | 'takina' | 'wululu' | 'kobe');
       return idx >= 0 ? idx : 1;
     }
 

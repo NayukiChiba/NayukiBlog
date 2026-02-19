@@ -12,8 +12,15 @@
   teriteChar.image = '/teriteri.png';
   SakanaWidget.registerCharacter('takina', teriteChar);
 
+  // 额外新增自定义角色
+  const wululuChar = { ...SakanaWidget.getCharacter('chisato')!, image: '/Wululu.png' };
+  SakanaWidget.registerCharacter('wululu', wululuChar);
+
+  const kobeChar = { ...SakanaWidget.getCharacter('takina')!, image: '/Kobe.png' };
+  SakanaWidget.registerCharacter('kobe', kobeChar);
+
   // 恢复上次保存的角色，controls: false 隐藏所有内置按钮
-  const savedChar = (localStorage.getItem('sakana-character') as 'chisato' | 'takina') || 'takina';
+  const savedChar = (localStorage.getItem('sakana-character') as 'chisato' | 'takina' | 'wululu' | 'kobe') || 'takina';
   const widget = new SakanaWidget({ character: savedChar, size: 160, controls: false, rod: false }).mount('#sakana-widget');
 
   // 将实例挂到 window 供 FloatingButton 调用
