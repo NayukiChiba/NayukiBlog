@@ -359,19 +359,11 @@
     box-shadow: 0 0 0 2px var(--primary-light);
   }
 
-  /* Custom OL Numbers */
+  /* Custom OL Numbers - 使用原生 ::marker 以尊重 start 属性 */
   .content ol {
-    counter-reset: li;
-    list-style: none;
+    list-style: decimal; /* 使用原生编号，保留 start 属性支持 */
   }
-  /* 只对直接子 li 计数，避免嵌套 ul > li 干扰计数器 */
-  .content ol > li {
-    counter-increment: li;
-  }
-  .content ol > li::before {
-    content: counter(li);
-    position: absolute;
-    left: -1.5rem;
+  .content ol > li::marker {
     color: var(--primary-color);
     font-weight: 700;
     font-family: "SFMono-Regular", monospace;
