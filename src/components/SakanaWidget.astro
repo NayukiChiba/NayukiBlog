@@ -12,11 +12,20 @@
   teriteChar.image = '/teriteri.png';
   SakanaWidget.registerCharacter('takina', teriteChar);
 
-  new SakanaWidget({ character: 'takina', size: 160 }).mount('#sakana-widget');
+  // 恢复上次保存的角色，controls: false 隐藏所有内置按钮
+  const savedChar = (localStorage.getItem('sakana-character') as 'chisato' | 'takina') || 'takina';
+  const widget = new SakanaWidget({ character: savedChar, size: 160, controls: false }).mount('#sakana-widget');
+
+  // 将实例挂到 window 供 FloatingButton 调用
+  (window as any).__sakanaWidget = widget;
 
   // 读取 localStorage 应用初始显示状态
-  const sakanaWidget = document.getElementById('sakana-widget');
-  if (sakanaWidget && localStorage.getItem('sakana-hidden') === 'true') {
-    sakanaWidget.style.display = 'none';
+  // 未设置过时：移动端默认隐藏，桌面端默认显示
+  const sakanaEl = document.getElementById('sakana-widget');
+  if (sakanaEl) {
+    const saved = localStorage.getItem('sakana-hidden');
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const isHidden = saved !== null ? saved === 'true' : isMobile;
+    sakanaEl.style.display = isHidden ? 'none' : '';
   }
 </script>

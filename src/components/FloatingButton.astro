@@ -148,6 +148,31 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
         <path d="M20 21a8 8 0 0 0-16 0"></path>
       </svg>
     </button>
+
+    <!-- 看板娘切换人物 -->
+    <button
+      class="menu-item"
+      id="sakana-next-btn"
+      aria-label="切换看板娘人物"
+      data-tooltip="切换人物"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M17 1l4 4-4 4"></path>
+        <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+        <path d="M7 23l-4-4 4-4"></path>
+        <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+      </svg>
+    </button>
   </div>
 </div>
 
@@ -301,14 +326,14 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
 
   /* 第一个按钮 - 最上方 (Scroll Top) */
   .floating-menu.active .menu-item:nth-child(1) {
-    transform: translate(0, -260px);
-    transition-delay: 0.25s;
+    transform: translate(0, -210px);
+    transition-delay: 0.3s;
   }
 
   /* 第二个按钮 - (Admin) */
   .floating-menu.active .menu-item:nth-child(2) {
-    transform: translate(0, -210px);
-    transition-delay: 0.2s;
+    transform: translate(0, -160px);
+    transition-delay: 0.25s;
   }
 
   /* Theme Panel (Hidden by default, shown when toggled) */
@@ -316,21 +341,37 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
 
   /* 第三个按钮 - (Theme Toggle) */
   .floating-menu.active .menu-item:nth-child(3) {
-    transform: translate(0, -160px);
-    transition-delay: 0.15s;
+    transform: translate(0, -110px);
+    transition-delay: 0.2s;
   }
 
   /* 第四个元素是 Theme Panel (not menu item), 第五个是 Random Link */
   /* 第五个按钮 - (Random Link) */
   .floating-menu.active .menu-item:nth-child(5) {
-    transform: translate(0, -110px);
-    transition-delay: 0.1s;
+    transform: translate(0, -60px);
+    transition-delay: 0.15s;
   }
 
-  /* 第六个按钮 - 看板娘开关 */
+  /* 第六个按钮 - 看板娘开关（向左水平） */
   .floating-menu.active .menu-item:nth-child(6) {
-    transform: translate(0, -60px);
+    transform: translate(-60px, 0);
     transition-delay: 0.05s;
+  }
+
+  /* 第七个按钮 - 切换人物（向左水平） */
+  .floating-menu.active .menu-item:nth-child(7) {
+    transform: translate(-110px, 0);
+    transition-delay: 0.0s;
+  }
+
+  /* 水平按钮的 tooltip 改为向上弹出 */
+  #sakana-toggle-btn::before,
+  #sakana-next-btn::before {
+    right: unset;
+    left: 50%;
+    top: unset;
+    bottom: calc(100% + 8px);
+    transform: translateX(-50%);
   }
 
   /* 看板娘关闭状态样式 */
@@ -498,23 +539,27 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     }
 
     .floating-menu.active .menu-item:nth-child(1) {
-      transform: translate(0, -210px);
-    }
-
-    .floating-menu.active .menu-item:nth-child(2) {
       transform: translate(0, -170px);
     }
 
-    .floating-menu.active .menu-item:nth-child(3) {
+    .floating-menu.active .menu-item:nth-child(2) {
       transform: translate(0, -130px);
     }
 
-    .floating-menu.active .menu-item:nth-child(5) {
+    .floating-menu.active .menu-item:nth-child(3) {
       transform: translate(0, -90px);
     }
 
-    .floating-menu.active .menu-item:nth-child(6) {
+    .floating-menu.active .menu-item:nth-child(5) {
       transform: translate(0, -50px);
+    }
+
+    .floating-menu.active .menu-item:nth-child(6) {
+      transform: translate(-50px, 0);
+    }
+
+    .floating-menu.active .menu-item:nth-child(7) {
+      transform: translate(-90px, 0);
     }
 
     /* Adjust Theme Panel for Mobile */
@@ -545,6 +590,7 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     const themePanel = document.getElementById("theme-panel-floating");
     const colorBtns = document.querySelectorAll<HTMLElement>(".color-btn");
     const sakanaToggleBtn = document.getElementById("sakana-toggle-btn");
+    const sakanaNextBtn = document.getElementById("sakana-next-btn");
 
     // 如果元素不存在，等待 DOM 加载完成后重试
     if (!mainBtn) {
@@ -614,8 +660,11 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     }
 
     // 初始化看板娘状态
+    // 未设置过时：移动端默认隐藏，桌面端默认显示
     function initSakana() {
-      const isHidden = localStorage.getItem("sakana-hidden") === "true";
+      const saved = localStorage.getItem("sakana-hidden");
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      const isHidden = saved !== null ? saved === "true" : isMobile;
       const sakanaWidget = document.getElementById("sakana-widget");
       if (sakanaWidget) {
         sakanaWidget.style.display = isHidden ? "none" : "";
@@ -629,7 +678,9 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     // 切换看板娘显示/隐藏
     function toggleSakana(e: Event) {
       e.stopPropagation();
-      const isCurrentlyHidden = localStorage.getItem("sakana-hidden") === "true";
+      const saved = localStorage.getItem("sakana-hidden");
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      const isCurrentlyHidden = saved !== null ? saved === "true" : isMobile;
       const newHidden = !isCurrentlyHidden;
       localStorage.setItem("sakana-hidden", String(newHidden));
       const sakanaWidget = document.getElementById("sakana-widget");
@@ -640,6 +691,34 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
       if (sakanaToggleBtn) {
         sakanaToggleBtn.setAttribute("data-tooltip", newHidden ? "看板娘（已关闭）" : "看板娘");
       }
+      closeMenu();
+    }
+
+    // 切换看板娘人物
+    // 注册角色列表：与 SakanaWidget.astro 中 registerCharacter 保持一致
+    const sakanaChars: Array<'chisato' | 'takina'> = ['chisato', 'takina'];
+
+    function getSakanaCharIdx(): number {
+      const saved = localStorage.getItem('sakana-character') || 'takina';
+      const idx = sakanaChars.indexOf(saved as 'chisato' | 'takina');
+      return idx >= 0 ? idx : 1;
+    }
+
+    function updateSakanaNextTooltip(_currentIdx: number) {
+      // tooltip 固定为"切换人物"，无需更新
+    }
+
+    function switchSakanaChar(e: Event) {
+      e.stopPropagation();
+      const widget = (window as any).__sakanaWidget;
+      if (!widget) { closeMenu(); return; }
+      const currentIdx = getSakanaCharIdx();
+      const nextIdx = (currentIdx + 1) % sakanaChars.length;
+      const nextChar = sakanaChars[nextIdx];
+      // 使用 setCharacter 明确切换并持久化
+      widget.setCharacter(nextChar);
+      localStorage.setItem('sakana-character', nextChar);
+      updateSakanaNextTooltip(nextIdx);
       closeMenu();
     }
 
@@ -697,6 +776,7 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     scrollTopBtn?.addEventListener("click", scrollToTop);
     randomLinkBtn?.addEventListener("click", goToRandomLink);
     sakanaToggleBtn?.addEventListener("click", toggleSakana);
+    sakanaNextBtn?.addEventListener("click", switchSakanaChar);
     
     themeToggleBtn?.addEventListener("click", toggleThemePanel);
     
@@ -738,5 +818,7 @@ const adminUrl = import.meta.env.PUBLIC_ADMIN_URL || "/admin";
     initTheme();
     // 初始化看板娘状态
     initSakana();
+    // 初始化切换人物按钮 tooltip
+    updateSakanaNextTooltip(getSakanaCharIdx());
   })();
 </script>
