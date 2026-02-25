@@ -42,7 +42,7 @@ git clone https://github.com/AstrBotDevs/AstrBot.git
 ### 使用Anaconda
 * 下载Anaconda
 ```bash
-wget https://repo.anaconda.com/archive/Anaconda3-latest-Linux-x86_64.sh
+wget https://repo.anaconda.com/archive/Anaconda3-2025.12-2-Linux-x86_64.sh
 ```
 * 自行安装Anaconda
 
