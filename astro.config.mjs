@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import remarkWikiLink from "remark-wiki-link";
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,7 +20,21 @@ export default defineConfig({
 
   // Markdown 配置
   markdown: {
-    remarkPlugins: [remarkMath, remarkGfm],
+    remarkPlugins: [
+      remarkMath,
+      remarkGfm,
+      // 将 Obsidian 双链 [[文章名]] 转换为 /posts/文章名 的 HTML 链接
+      // 支持别名写法：[[文章名|显示文字]]
+      [
+        remarkWikiLink,
+        {
+          pageResolver: (name) => [name.replace(/\s+/g, "-").toLowerCase()],
+          hrefTemplate: (permalink) => `/posts/${permalink}`,
+          wikiLinkClassName: "wiki-link",
+          aliasDivider: "|",
+        },
+      ],
+    ],
     rehypePlugins: [rehypeKatex],
     syntaxHighlight: "shiki",
     shikiConfig: {
