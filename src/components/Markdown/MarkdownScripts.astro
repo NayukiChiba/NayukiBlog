@@ -301,7 +301,7 @@
                 behavior: "smooth",
                 block: "start",
               });
-              history.pushState(null, "", "#" + heading.id);
+              history.replaceState(null, "", "#" + heading.id);
               // 如果是移动端，关闭抽屉
               if (forMobile) {
                 closeTocDrawer();
