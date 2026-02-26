@@ -6,7 +6,7 @@ tags:
   - Markdown
 description: 这是一个用于测试所有Markdown样式的综合测试文档，包含标题、列表、表格、代码块、数学公式、图片等所有常用元素。
 image: https://img.yumeko.site/file/wife/早坂爱.jpg
-status: private
+status: draft
 ---
 
 # 一级标题 - Markdown 样式完整测试
@@ -210,8 +210,14 @@ $$
 > [!NOTE] 这是一个 Note 提示
 > 这里是提示的内容。可以包含 **加粗** 和 _斜体_。
 
+> [!INFO] 这是一个 Info 信息
+> 这是一个默认的信息块。
+
 > [!TIP] 这是一个 Tip 技巧
 > 这是一个非常有用的技巧提示。
+
+> [!SUCCESS] 这是一个 Success 成功
+> 操作已成功完成！
 
 > [!WARNING] 这是一个 Warning 警告
 > 请注意，这是一个警告信息。
@@ -219,8 +225,25 @@ $$
 > [!DANGER] 这是一个 Danger 危险
 > 这是一个危险操作，请小心！
 
-> [!INFO] 没有标题的 Info
-> 这是一个默认的信息块。
+> [!BUG] 这是一个 Bug
+> 已知存在问题，正在修复中。
+
+> [!QUESTION] 这是一个 Question 问题
+> 这是一个常见问题解答。
+
+> [!ABSTRACT] 这是一个 Abstract 摘要
+> 本文主要介绍了 Callout 的各种类型和使用方法。
+
+> [!EXAMPLE] 这是一个 Example 示例
+> 以下是一个具体的代码示例，展示如何使用该功能。
+
+> [!QUOTE] 这是一个 Quote 引用
+> 纸上得来终觉浅，绝知此事要躬行。—— 陆游
+
+> [!TODO] 这是一个 Todo 待办
+> - [ ] 完成文档编写
+> - [ ] 添加单元测试
+> - [x] 实现核心功能
 
 ## 表格样式测试
 
@@ -316,6 +339,16 @@ function potentiallyLongFunction() {
 
 ± × ÷ ≠ ≈ ≤ ≥ ∞ ∫ ∑ ∏ √ ∛ ∜
 
+## Obsidian 双链测试
+
+普通双链跳转：[[MarkdownTest]]
+
+带别名的双链：[[MarkdownTest|点击查看 Markdown 测试文档]]
+
+多个双链：[[MarkdownTest]] 和 [[Interest/AstrbotDeployment|AstrbotDeployment]]
+
+双链与普通链接对比：这是[[MarkdownTest|双链]]，这是[普通链接](https://nayuki.blog)。
+
 ## 总结
 
 这个测试文档涵盖了：
@@ -333,5 +366,6 @@ function potentiallyLongFunction() {
 - ✅ 嵌套内容
 - ✅ HTML 标签
 - ✅ 特殊字符和 Emoji
+- ✅ Obsidian 双链（`[[文章名]]` / `[[文章名|别名]]`）
 
 如果所有样式都能正确渲染，说明博客系统的 Markdown 渲染功能完整可用！

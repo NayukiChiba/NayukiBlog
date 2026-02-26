@@ -4,6 +4,7 @@ date: 2026-02-20
 category: 技术
 tags:
   - git
+  - 资源
 description: 详细解释GitHub中各种开源许可证的区别，包括MIT、Apache、GPL、LGPL、BSD、AGPL等，并提供对比表格和选择建议。
 image: https://img.yumeko.site/file/blog/License.png
 status: published

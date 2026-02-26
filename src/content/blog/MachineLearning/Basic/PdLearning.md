@@ -4,7 +4,7 @@ date: 2026-01-13
 category: MachineLearning/Basic
 tags:
   - Python
-  - Pandas
+  - 基础
 description: Pandas中文教程，有Series/DataFrame基础、数据I/O、选择过滤、清洗处理、分组聚合、合并连接、时间序列、可视化及高级性能优化等核心主题，附带可运行的代码练习。
 image: https://img.yumeko.site/file/blog/PandasLearning.jpg
 status: published

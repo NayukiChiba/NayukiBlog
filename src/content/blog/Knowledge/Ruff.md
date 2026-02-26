@@ -5,6 +5,7 @@ category: 技术
 tags:
   - Python
   - 工具
+  - 高级教程
 description: 详细介绍Ruff代码格式化工具的常用命令，包括代码格式化、代码检查、配置管理等功能的完整命令参考
 image: https://img.yumeko.site/file/blog/Ruff.png
 status: published

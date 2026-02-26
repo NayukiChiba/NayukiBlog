@@ -4,9 +4,8 @@ date: 2026-01-24
 category: MachineLearning/Basic
 tags:
   - Python
-  - Matplotlib
   - 可视化
-  - Seaborn
+  - 基础
 description: Python 数据可视化全指南，系统讲解 Matplotlib、Seaborn、Pandas 及 Plotly 的核心用法。内容涵盖基础图表、探索性数据分析（EDA）、数据预处理可视化、机器学习模型决策与评估可视化，以及制作专业报告与交互式图表的最佳实践。
 image: https://img.yumeko.site/file/blog/VisualizationLearning.jpg
 status: published

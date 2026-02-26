@@ -4,6 +4,7 @@ date: 2026-02-09
 category: 技术
 tags:
   - 工具
+  - 高级教程
 description: pipreqs 工具的完整使用指南，包括安装、基本用法、高级参数、最佳实践和常见问题解决方案
 image: https://img.yumeko.site/file/blog/PipReqs.jpg
 status: published

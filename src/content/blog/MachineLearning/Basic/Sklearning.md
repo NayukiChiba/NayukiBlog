@@ -4,7 +4,7 @@ date: 2026-01-20
 category: MachineLearning/Basic
 tags:
   - Python
-  - Scikit-learn
+  - 基础
 description: Scikit-learn (sklearn) 库实践指南，涵盖数据预处理、特征工程、Pipeline构建、模型选择、交叉验证、超参数调优、评估指标及常用模型（线性模型、树模型、SVM等）的详细应用与可视化。
 image: https://img.yumeko.site/file/blog/Sklearning.jpg
 status: published

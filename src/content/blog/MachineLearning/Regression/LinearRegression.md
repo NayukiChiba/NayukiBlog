@@ -6,7 +6,6 @@ tags:
   - Python
   - Scikit-learn
   - 回归
-  - 分类
 description: 从数学原理、损失函数、正规方程推导，到使用Python和scikit-learn实现数据生成、探索、可视化、预处理、训练、评估及结果可视化的完整线性回归项目指南。
 image: https://img.yumeko.site/file/blog/LinearRegression.png
 status: published
