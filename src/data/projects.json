@@ -1,6 +1,52 @@
 {
   "projects": [
     {
+      "id": 15,
+      "name": "ReptileDouban",
+      "description": "爬虫豆瓣Top250电影",
+      "link": "https://github.com/NayukiChiba/ReptileDouban",
+      "techStack": [
+        "Python"
+      ],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
+      "id": 14,
+      "name": "GreedySnake",
+      "description": "Pygame的贪吃蛇",
+      "link": "https://github.com/NayukiChiba/GreedySnake",
+      "techStack": [
+        "Python"
+      ],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
+      "id": 13,
+      "name": "WeatherSearch",
+      "description": "使用Python查询当前天气和天气预报",
+      "link": "https://github.com/NayukiChiba/WeatherSearch",
+      "techStack": [
+        "Python"
+      ],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
+      "id": 12,
+      "name": "GitTimeRewrite",
+      "description": "git历史时间重写工具",
+      "link": "https://github.com/NayukiChiba/GitTimeRewrite",
+      "techStack": [
+        "Rust",
+        "Vue",
+        "Tauri"
+      ],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
       "id": 11,
       "name": "Math-Rag",
       "description": "毕业设计",
