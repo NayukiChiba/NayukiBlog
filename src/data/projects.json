@@ -1,6 +1,19 @@
 {
   "projects": [
     {
+      "id": 11,
+      "name": "Math-Rag",
+      "description": "毕业设计",
+      "link": "https://github.com/NayukiChiba/Math-Rag",
+      "techStack": [
+        "Python",
+        "PyTorch",
+        "LLM"
+      ],
+      "status": "in-progress",
+      "visibility": "published"
+    },
+    {
       "id": 10,
       "name": "HousePricesPrediction",
       "description": "Kaggle上的预测房价项目",
@@ -9,7 +22,7 @@
         "Python",
         "Sklearn"
       ],
-      "status": "in-progress",
+      "status": "completed",
       "visibility": "published"
     },
     {
