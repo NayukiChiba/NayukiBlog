@@ -1,6 +1,18 @@
 {
   "projects": [
     {
+      "id": 16,
+      "name": "Arxiv推送Astrbot插件",
+      "description": "Astrbot可以获取arXiv中的论文，每日定时推送，选择不同领域",
+      "link": "https://github.com/NayukiChiba/astrbot_plugin_arxiv",
+      "techStack": [
+        "Python",
+        "Astrbot"
+      ],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
       "id": 15,
       "name": "ReptileDouban",
       "description": "爬虫豆瓣Top250电影",
