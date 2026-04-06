@@ -132,6 +132,18 @@ This reverts commit abc123def456.
 
 ## AI提示词
 ```
+git提交格式:
+<type>(<scope>): <subject>
+<body>
+<footer>
+
+1. type, scope使用英文, 说明功能改变方向
+2. subject使用中文message, 简洁说明改动内容
+3. body使用中文, 要写3条及以上, 可以选择"-m"或者"-"进行分隔不同行的内容
+4. footer没有必要就不写, 但是关联issue, pr等就必须要写
+```
+
+```
 你是一个Git提交消息生成助手。请根据以下规范为我生成标准的Git提交消息：
 
 ## 提交格式
@@ -140,19 +152,6 @@ This reverts commit abc123def456.
 <body>
 
 <footer>
-
-## Type类型规范
-- feat: 新功能
-- fix: 修复bug
-- docs: 文档变更
-- style: 代码格式(不影响代码运行)
-- refactor: 重构(既非新增功能，也非修复bug)
-- perf: 性能优化
-- test: 测试相关
-- build: 构建系统或外部依赖变更
-- ci: CI配置变更
-- chore: 其他不修改src或test的变更
-- revert: 回退之前的提交
 
 ## 编写要求
 1. **Header**:
