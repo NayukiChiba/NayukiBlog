@@ -244,6 +244,77 @@ sudo mv 30_os-prober 10_os-prober
 ```
 sudo update-grub
 ```
+## 如何删除没有必要的grub启动项
+当前的启动项为：
+* `Ubuntu, with Linux 6.17.0-19-generic`
+* `Ubuntu, with Linux 6.17.0-14-generic`
+* `Memory test`
+* `UEFI Firmware Settings`
+* `Windows`
+### 删除Memory test
+这两个内存测试条目来自 `/etc/grub.d/20_memtest86+` 这个脚本。
+**方法：直接禁用该脚本的执行权限**
+```bash
+sudo chmod -x /etc/grub.d/20_memtest86+
+```
+然后更新 GRUB：
+```bash
+sudo update-grub
+```
+Memory test 条目就会消失。  
+（如果以后想恢复，执行 `sudo chmod +x /etc/grub.d/20_memtest86+` 即可）
+### 删除UEFI Firmware Settings
+这个条目允许你直接从 GRUB 进入主板 UEFI 设置界面。如果你想保留它，它并不影响菜单的整洁；如果你想彻底隐藏，也可以禁用。
+对应的脚本通常是 `/etc/grub.d/30_uefi-firmware`。
+**禁用方法**：
+```bash
+sudo chmod -x /etc/grub.d/30_uefi-firmware
+sudo update-grub
+```
+之后该条目就会消失。
+### 清理旧内核
+先确认当前正在使用的内核版本（**千万不要删正在用的**）：
+```bash
+uname -r
+```
+如果输出是 `6.17.0-19-generic`（或类似），那么 `6.17.0-14-generic` 就是旧内核。
+**删除旧内核的命令**（一次性删除所有相关包）：
+
+```bash
+sudo apt purge linux-image-6.17.0-14 linux-headers-6.17.0-14
+```
+如果提示依赖问题，也可以使用：
+```bash
+sudo apt autoremove --purge
+```
+它会自动清理掉不再需要的旧内核。完成后：
+```bash
+sudo update-grub
+```
+
+> [!NOTE] 遇到modules非空无法删除
+> 1. `dpkg -l | grep linux-image | grep 6.17.0-14`查看目标版本是否被移除
+> 2. 如果已经被移除了，就可以直接删除了`sudo rm -rf /lib/modules/6.17.0-14-generic`
+
+此时 GRUB 里应该只剩一个 `Ubuntu, with Linux 6.17.0-19`和`Windows` 了。
+### 修改启动项里面的名字
+1. **编辑 `/boot/grub/grub.cfg`**（用 `nano` 或 `vim`）
+```
+sudo vim /boot/grub/grub.cfg
+```
+2. 搜索`Ubuntu, with Linux`
+```text
+menuentry 'Ubuntu, with Linux 6.17.0-19-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option ...
+```
+将单引号内的显示名称改为 `'Ubuntu'`：
+
+```text
+menuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option ...
+```
+
+3. 保存文件即可
+> [!WARNING] 注意
+> 这里不要update-grub，会重置你的启动名字
 # 最后效果
 
 ![Result](https://img.yumeko.site/file/articles/UbuntuBeautification/Result.png)
