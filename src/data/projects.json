@@ -68,7 +68,7 @@
         "PyTorch",
         "LLM"
       ],
-      "status": "in-progress",
+      "status": "completed",
       "visibility": "published"
     },
     {
@@ -118,7 +118,7 @@
         "Pandas",
         "Scikit-learn"
       ],
-      "status": "in-progress",
+      "status": "completed",
       "visibility": "published"
     },
     {
