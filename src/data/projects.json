@@ -1,6 +1,29 @@
 {
   "projects": [
     {
+      "id": 17,
+      "name": "Simple-Neural-Network",
+      "description": "用最基础的Numpy实现一个简单的神经网络",
+      "link": "https://github.com/NayukiChiba/Simple-Neural-Network",
+      "techStack": [
+        "Python"
+      ],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
+      "id": 1,
+      "name": "MNIST-CNN",
+      "description": "使用CNN完成一个基础的MNIST手写数字识别",
+      "link": "https://github.com/NayukiChiba/MNIST-CNN",
+      "techStack": [
+        "Python",
+        "PyTorch"
+      ],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
       "id": 16,
       "name": "Arxiv推送Astrbot插件",
       "description": "Astrbot可以获取arXiv中的论文，每日定时推送，选择不同领域",
@@ -171,19 +194,6 @@
         "BeautifulSoup"
       ],
       "status": "completed",
-      "visibility": "published"
-    },
-    {
-      "id": 7,
-      "name": "Deep-ML",
-      "description": "基于 Python 实现的深度学习库，用于实现各种深度学习模型。",
-      "link": "https://github.com/NayukiChiba/Deep-ML",
-      "techStack": [
-        "Python",
-        "TensorFlow",
-        "PyTorch"
-      ],
-      "status": "planning",
       "visibility": "published"
     },
     {

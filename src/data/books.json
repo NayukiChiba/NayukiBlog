@@ -1,12 +1,24 @@
 {
   "books": [
     {
+      "id": 3,
+      "title": "LeCun-LeNet-5",
+      "cover": "https://img.yumeko.site/file/bookcover/LeCun-LeNet-5.png",
+      "url": "https://wwazm.lanzouu.com/iyfMU3omaavg",
+      "status": "published",
+      "tags": [
+        "NeuralNetwork"
+      ]
+    },
+    {
       "id": 1,
       "title": "Foundations of LLM",
       "cover": "https://img.yumeko.site/file/bookcover/Foundations_of_LLM.png",
       "url": "https://wwazm.lanzouu.com/iQ0fr3f58zvi",
       "status": "published",
-      "tags": ["LLM"]
+      "tags": [
+        "LLM"
+      ]
     },
     {
       "id": 2,
@@ -14,7 +26,9 @@
       "cover": "https://img.yumeko.site/file/bookcover/ltfp_book.png",
       "url": "https://wwazm.lanzouu.com/i8sIq3f590oh",
       "status": "published",
-      "tags": ["LLM"]
+      "tags": [
+        "LLM"
+      ]
     }
   ]
 }
