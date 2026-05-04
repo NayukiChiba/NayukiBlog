@@ -1,6 +1,16 @@
 {
   "books": [
     {
+      "id": 1,
+      "title": "d2l-PyTorch",
+      "cover": "https://img.yumeko.site/file/bookcover/d2l-PyTorch.png",
+      "url": "https://wwazm.lanzouu.com/i5bvI3opko3a",
+      "status": "published",
+      "tags": [
+        "PyTorch"
+      ]
+    },
+    {
       "id": 3,
       "title": "LeCun-LeNet-5",
       "cover": "https://img.yumeko.site/file/bookcover/LeCun-LeNet-5.png",
