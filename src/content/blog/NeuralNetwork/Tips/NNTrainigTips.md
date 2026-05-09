@@ -1,11 +1,14 @@
 ---
-title: 文章的标题
-date: 2026-01-26
-category: 填文件夹，例如：技术/文章/Linux
+title: 神经网络训练技巧
+date: 2026-05-09
+category: NeuralNetwork/Tips
 tags:
-description: 描述
-image: 这里输入图片的url：https://img.yumeko.site/file/wife/早坂爱.jpg
-status: draft
+  - PyTorch
+  - 深度学习
+  - 高级教程
+description: 神经网络训练时候遇到各种问题如何解决？
+image: https://img.yumeko.site/file/blog/NNTrainingTips.png
+status: published
 ---
 ## 技巧一：权重初始化——Xavier 与 Kaiming
 
@@ -211,7 +214,7 @@ model.eval()    # Dropout 不生效：所有神经元参与，但输出乘以 (1
 
 所以只要正确调用 `model.eval()`，两者都能自动正常工作。不需要分别处理。
 
-> **建议插图**：【图3】Dropout 的可视化。展示训练时（部分神经元变灰/失活）和测试时（全亮）的同一网络对比。
+![Dropout.png](https://img.yumeko.site/file/articles/NNTrainingTips/Dropout.png)
 
 ---
 
@@ -332,7 +335,7 @@ Warmup 阶段：lr 从 0 线性增加到 target_lr
 
 *MNIST-CNN 和 LeNet-5 项目因为任务简单，都没有使用 warmup，但对于复杂任务（大模型、大批量），warmup 很关键。*
 
-> **建议插图**：【图5】四种学习率调度策略的 lr 变化曲线对比图。X 轴为 epoch，Y 轴为 lr，四条曲线分别标注 StepLR、ReduceLROnPlateau、CosineAnnealing、Cosine+Warmup。
+![SchedulingStrategy.png](https://img.yumeko.site/file/articles/NNTrainingTips/SchedulingStrategy.png)
 
 ---
 
@@ -394,7 +397,7 @@ if valLoss < bestValLoss - self.minDelta:   # 改善了至少 minDelta
 
 `minDelta=1e-4` 意味着验证损失必须下降至少 0.0001 才算"有效改善"。这避免了因为随机波动而误判为改善。
 
-> **建议插图**：【图6】Early Stopping 示意图。训练和验证损失曲线，标注"最佳停止点"（验证损失最低处）和"过拟合开始"（两条线分叉处）。
+![EarlyStop.png](https://img.yumeko.site/file/articles/NNTrainingTips/EarlyStop.png)
 
 ---
 
@@ -478,7 +481,7 @@ MNIST-CNN 实现了更完整的保存/恢复流程：
 - **loadCheckpoint()**：恢复模型权重、优化器状态、epoch 数
 - **训练中断恢复**：通过 `--resume` 参数从断点继续训练
 
-> **建议插图**：【图7】检查点保存策略流程图。展示训练循环中 best_model 和 last_model 的保存时机。
+![Checkpoint.png](https://img.yumeko.site/file/articles/NNTrainingTips/Checkpoint.png)
 
 ---
 
@@ -589,5 +592,3 @@ trainSet, valSet = random_split(
 ```
 
 确保每次划分的训练集/验证集完全一致，否则比较不同实验的结果时会有偏差。
-
-> **建议插图**：【图8】固定随机种子的效果对比。左图：不固定种子时三次训练的验证曲线各不同；右图：固定种子后三次训练曲线完全重合。
