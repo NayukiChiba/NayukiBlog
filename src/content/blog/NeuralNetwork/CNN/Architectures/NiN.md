@@ -7,7 +7,7 @@ tags:
   - 经典架构
 description: Network in Network 提出了 mlpconv 和 Global Average Pooling 两项关键创新，深刻影响了后续的 GoogLeNet 和 ResNet。
 image: https://img.yumeko.site/file/blog/NiN.png
-status: draft
+status: published
 ---
 
 ## 1. 核心思想
@@ -70,14 +70,14 @@ mlpconv → AdaptiveAvgPool2d(1) → Flatten              # 几乎零参数
 
 ## 4. 完整架构
 
-| Stage | 操作 | 输入形状 | 输出形状 |
-| --- | --- | --- | --- |
-| — | Input | — | $(3, 32, 32)$ |
-| Stage 1 | nin_block(3→192, k=5) + MaxPool(3×3) | $(3, 32, 32)$ | $(192, 15, 15)$ |
-| Stage 2 | nin_block(192→160, k=5) + MaxPool(3×3) | $(192, 15, 15)$ | $(160, 6, 6)$ |
-| Stage 3 | nin_block(160→96, k=3) + MaxPool(3×3) | $(160, 6, 6)$ | $(96, 2, 2)$ |
-| Classifier | nin_block(96→num_classes, k=3) + GAP | $(96, 2, 2)$ | $(num_classes,)$ |
-
+| Stage      | 操作                                     | 输入形状            | 输出形状            |
+| ---------- | -------------------------------------- | --------------- | --------------- |
+| —          | Input                                  | —               | $(3, 32, 32)$   |
+| Stage 1    | nin_block(3→192, k=5) + MaxPool(3×3)   | $(3, 32, 32)$   | $(192, 15, 15)$ |
+| Stage 2    | nin_block(192→160, k=5) + MaxPool(3×3) | $(192, 15, 15)$ | $(160, 6, 6)$   |
+| Stage 3    | nin_block(160→96, k=3) + MaxPool(3×3)  | $(160, 6, 6)$   | $(96, 2, 2)$    |
+| Classifier | nin_block(96→num_classes, k=3) + GAP   | $(96, 2, 2)$    | (num_classes,)  |
+![FullStage.png](https://img.yumeko.site/file/articles/NiN/FullStage.png)
 ## 5. PyTorch 实现
 
 ```python
