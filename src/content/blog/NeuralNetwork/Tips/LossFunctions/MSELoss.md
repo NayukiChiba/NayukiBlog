@@ -7,8 +7,8 @@ tags:
   - MSE
   - 回归
 description: 深入理解均方误差损失的数学性质、梯度行为、与 MAE 的选择逻辑，以及 Huber Loss 的折中方案。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/MSELoss.png
+status: published
 ---
 
 ## 1. 公式与直觉

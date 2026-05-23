@@ -7,8 +7,8 @@ tags:
   - 交叉熵
   - Softmax
 description: 深入理解交叉熵损失的数学原理、参数细节和常见陷阱——不只是 import torch.nn as nn。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/CrossEntropyLoss.png
+status: published
 ---
 
 ## 1. 为什么叫"交叉熵"？
