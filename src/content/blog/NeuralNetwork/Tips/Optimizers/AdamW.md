@@ -14,17 +14,27 @@ status: published
 
 在 [[NeuralNetwork/Tips/Optimizers/Adam|Adam]] 中，`weight_decay` 参数是这样应用的：
 
-```python
-# Adam 的做法（错误）
-g_t = ∇L(w_t) + λ * w_t    # 在梯度中加入 L2 正则化
-m_t = β1 * m_{t-1} + (1-β1) * g_t
-# 后续自适应学习率会影响正则化项...
+- `Adam`的做法：在梯度中加入 L2 正则化，后续自适应学习率会影响正则化项...
 
-# 正确做法（AdamW）
-g_t = ∇L(w_t)               # 梯度不含正则化
-m_t = β1 * m_{t-1} + (1-β1) * g_t
-w_t = w_{t-1} - η * (m̂_t / (√v̂_t + ε) + λ * w_{t-1})  # 权重衰减独立
-```
+$$
+g_t = \nabla L(w_t) + \lambda w_t
+$$
+$$
+m_t = \beta_1 m_{t-1} + (1 - \beta_1)g_t
+$$
+- `AdamW`的做法：梯度不含正则化，权重衰减独立
+
+$$
+g_t = \nabla L(w_t)
+$$
+
+$$
+m_t = \beta_1 m_{t-1} + (1 - \beta_1)g_t
+$$
+
+$$
+w_t = w_{t-1} - n\frac{\hat{m_t}}{\sqrt{\hat{v_t} + \epsilon} + \lambda w_{t-1}}
+$$
 
 **核心差异**：Adam 将 L2 正则化与自适应学习率耦合，导致正则化强度被学习率缩放。AdamW 将权重衰减解耦，直接对权重施加衰减。
 

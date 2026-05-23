@@ -47,7 +47,7 @@ $$
 
 **偏差校正为什么必要？** 在最初的几步（$t$ 很小时），$m_t$ 和 $v_t$ 由于初始化为 0，会偏小。除以 $(1-\beta^t)$ 校正这个偏差。
 
-![TODO: SGD vs Adam在相同损失曲面上的优化路径对比图，Adam收敛路径更直接快速]
+![SGDvsAdam.png](https://img.yumeko.site/file/articles/Adam/SGDvsAdam.png)
 
 ## 3. 参数含义
 
