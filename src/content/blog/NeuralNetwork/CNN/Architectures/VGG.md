@@ -51,7 +51,7 @@ Input (3, 224, 224)
 **空间尺寸变化**：$224 \to 112 \to 56 \to 28 \to 14 \to 7$（每次 MaxPool 尺寸减半）
 
 **通道数变化**：$3 \to 64 \to 128 \to 256 \to 512 \to 512$（每次池化后通道翻倍，保持"总信息量"相对稳定）
-
+![VGG11-19.png](https://img.yumeko.site/file/articles/VGG/VGG11-19.png)
 ## 3. VGG 家族：四款变体
 
 | 变体 | Stage 1 | Stage 2 | Stage 3 | Stage 4 | Stage 5 | 总卷积层 |
@@ -73,8 +73,6 @@ Input (3, 224, 224)
 | VGG-13 | ~133M |
 | VGG-16 | ~138M |
 | VGG-19 | ~144M |
-
-![VGG11-19.png](https://img.yumeko.site/file/articles/VGG/VGG11-19.png)
 
 注意 VGG-11 和 VGG-13 参数量几乎相同——因为参数主要集中在全连接层（约占 90%），而非卷积层。
 
