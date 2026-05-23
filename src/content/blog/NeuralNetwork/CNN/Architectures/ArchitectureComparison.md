@@ -6,13 +6,13 @@ tags:
   - 对比
   - 总结
 description: 一张表纵览 LeNet 到 ResNet 的所有经典 CNN 架构，理解每一代的核心创新与演进脉络。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/CNNArchitectureComparison.png
+status: published
 ---
 
 ## 1. 演进脉络总览
 
-![TODO: CNN架构演进时间线，从LeNet-5(1998)→AlexNet(2012)→VGG(2014)→GoogLeNet(2014)→ResNet(2015)，每个节点下方标注核心创新]
+![CNNArchitectureComparison.png](https://img.yumeko.site/file/articles/ArchitectureComparison/CNNArchitectureComparison.png)
 
 ## 2. 完整对比表
 
@@ -66,7 +66,7 @@ AvgPool (LeNet-5) → MaxPool (AlexNet, VGG, ResNet) → GAP (NiN, GoogLeNet, Re
 
 ## 4. 参数量 vs 深度
 
-![TODO: 以深度为X轴、参数量为Y轴的散点图，标注LeNet-5/AlexNet/VGG/GoogLeNet/ResNet各变体的位置]
+![ParamsComparison.png](https://img.yumeko.site/file/articles/ArchitectureComparison/ParamsComparison.png)
 
 注意 GoogLeNet 和 ResNet 在参数量远小于 VGG 的情况下达到了更深的深度和更好的效果——这是架构设计（GAP、Bottleneck、多分支）带来的效率提升。
 
