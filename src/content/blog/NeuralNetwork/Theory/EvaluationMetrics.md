@@ -7,7 +7,7 @@ tags:
   - 评估
 description: 从 Accuracy 到混淆矩阵到 F1 分数，理解分类模型的完整评估体系。正确挑选loss函数是做好评估的前提。
 image: https://img.yumeko.site/file/blog/EvaluationMetrics.png
-status: draft
+status: published
 ---
 
 ## 1. 准确率（Accuracy）
@@ -79,6 +79,7 @@ $$
 $$
 
 "所有 A 类样本中，模型找出了多少"——衡量"不漏报"
+![PrecisionRecall.png](https://img.yumeko.site/file/articles/EvaluationMetrics/PrecisionRecall.png)
 
 ### F1 分数
 

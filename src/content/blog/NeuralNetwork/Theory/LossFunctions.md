@@ -7,7 +7,7 @@ tags:
   - 损失函数
 description: 从 Softmax 到 CrossEntropyLoss，用数值例子理解损失函数如何驱动模型学习。
 image: https://img.yumeko.site/file/blog/LossFunctions.png
-status: draft
+status: published
 ---
 
 ## 1. 损失函数是什么？

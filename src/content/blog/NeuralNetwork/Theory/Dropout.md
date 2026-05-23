@@ -8,7 +8,7 @@ tags:
   - 正则化
 description: 理解 Dropout 的集成学习视角、概率设置策略，以及 train/eval 模式切换的关键细节。
 image: https://img.yumeko.site/file/blog/Dropout.png
-status: draft
+status: published
 ---
 
 ## 1. 过拟合是什么？
@@ -30,7 +30,7 @@ Dropout 是 2014 年由 Srivastava 等人提出的正则化技术，核心思想
 
 直观理解：Dropout 就像考试复习时不让你依赖同桌的笔记——你必须自己把每个知识点都学好。
 
-![TODO: Dropout效果对比图，左侧标准全连接网络，右侧训练时随机丢弃50%神经元后的稀疏网络]
+![Result.png](https://img.yumeko.site/file/articles/Dropout/Result.png)
 
 ## 3. 概率设置建议
 
