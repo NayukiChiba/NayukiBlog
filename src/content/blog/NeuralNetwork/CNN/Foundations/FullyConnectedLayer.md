@@ -6,8 +6,8 @@ tags:
   - 基础
   - 全连接
 description: 理解全连接层在 CNN 中的角色、参数占比问题，以及现代架构中 GAP 和 1×1 卷积的替代方案。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/FullyConnectedLayer.png
+status: published
 ---
 
 ## 1. 为什么 CNN 需要全连接层？
@@ -19,6 +19,7 @@ status: draft
 ## 2. Flatten：从三维到一维
 
 在全连接层之前，需要把三维的特征图（通道 $\times$ 高 $\times$ 宽）拉平成一维向量。
+![Flatten.png](https://img.yumeko.site/file/articles/FullyConnectedLayer/Flatten.png)
 
 ```
 特征图：(Batch, 64, 7, 7)    →    Flatten    →    向量：(Batch, 3136)
@@ -79,9 +80,10 @@ x = nn.Linear(512, 1024)(x)    # 参数：512×1024 ≈ 0.5M
 
 参数量减少约 50 倍，且不再受输入尺寸限制。
 
-![TODO: Flatten→FC与GAP→FC两种方案的对比图，标注GAP参数量为0而FC参数量巨大]
+![GAP.png](https://img.yumeko.site/file/articles/FullyConnectedLayer/GAP.png)
 
 ## 7. 替代方案二：1×1 卷积替代 FC
+
 
 如果不想丢失空间信息，可以用 $1 \times 1$ 卷积实现与 FC 等价的功能：
 
@@ -94,6 +96,7 @@ nn.Conv2d(512, 10, kernel_size=1)  # 输入可以是 (B, 512, H, W)
 ```
 
 $1 \times 1$ 卷积只在通道维度上做变换，不改变空间尺寸。它等价于对每个空间位置的通道向量做一次全连接操作。全卷积网络（FCN）正是利用了这一点，完全抛弃了 FC 层。
+![1x1Conv.png](https://img.yumeko.site/file/articles/FullyConnectedLayer/1x1Conv.png)
 
 ## 8. 现代架构的 FC 使用趋势
 
