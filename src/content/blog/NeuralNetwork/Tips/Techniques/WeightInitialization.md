@@ -8,7 +8,7 @@ tags:
   - 深度学习
 description: 为什么初始化方式决定训练成败？从数学原理到代码实现，彻底理解 Xavier 和 Kaiming 初始化。
 image: https://img.yumeko.site/file/articles/NNTrainingTips/ActivationInit.png
-status: draft
+status: published
 ---
 
 ## 1. 为什么初始化很重要？
@@ -82,7 +82,7 @@ nn.init.kaiming_uniform_(module.weight, nonlinearity='relu')
 
 **PyTorch 的默认行为**：如果没显式指定初始化，PyTorch 对 `nn.Linear` 和 `nn.Conv2d` 默认使用 Kaiming Uniform。这就是为什么很多教程不写初始化也能正常运行——但对于 Tanh 类激活函数，默认的 Kaiming 不是最优的，需要手动改为 Xavier。
 
-![TODO: Xavier vs Kaiming初始化后各层输出分布对比图，不同激活函数下输入输出方差保持一致的对比]
+![Comparison.png](https://img.yumeko.site/file/articles/WeightInitialization/Comparison.png)
 
 ## 4. 选择对照表
 

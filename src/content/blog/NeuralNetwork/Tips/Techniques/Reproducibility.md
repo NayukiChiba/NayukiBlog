@@ -6,9 +6,9 @@ tags:
   - 工程实践
   - PyTorch
 description: 为什么你的实验结果每次都不一样？完整固定随机种子的方案及性能代价分析。
-image: TODO
-status: draft
-
+image: https://img.yumeko.site/file/blog/Reproducibility.png
+status: published
+---
 ## 1. 为什么不可复现是噩梦？
 
 假设你在[[NeuralNetwork/Tips/Techniques/TrainingPipeline|训练流程]]中跑了一个实验，准确率 95%。第二天改了一行不相关的代码，准确率变成了 93%。是改出 Bug 了，还是随机性导致？

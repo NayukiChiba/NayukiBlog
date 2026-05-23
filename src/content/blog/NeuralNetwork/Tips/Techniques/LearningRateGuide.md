@@ -7,7 +7,7 @@ tags:
   - 训练技巧
 description: 学习率是最重要的超参数。详解 ReduceLROnPlateau、StepLR、CosineAnnealing、Warmup 及选择原则。
 image: https://img.yumeko.site/file/articles/NNTrainingTips/SchedulingStrategy.png
-status: draft
+status: published
 ---
 
 ## 1. 学习率是最重要的超参数

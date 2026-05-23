@@ -8,7 +8,7 @@ tags:
   - 训练技巧
 description: Dropout 概率怎么设？哪些层需要？与 BN 共用时注意什么？
 image: https://img.yumeko.site/file/articles/NNTrainingTips/Dropout.png
-status: draft
+status: published
 ---
 
 ## 1. 概率设置建议

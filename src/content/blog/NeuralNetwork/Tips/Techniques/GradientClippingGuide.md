@@ -6,8 +6,8 @@ tags:
   - 梯度
   - 训练技巧
 description: 梯度裁剪是防止梯度爆炸的最简单有效手段。详解其原理、实现和阈值选择。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/GradientClippingGuide.png
+status: published
 ---
 
 ## 1. 什么是梯度爆炸？

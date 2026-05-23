@@ -8,7 +8,7 @@ tags:
   - 深度学习
 description: BatchNorm 放哪里？训练和测试有何不同？小 batch 怎么处理？一份实用的 BN 避坑指南。
 image: https://img.yumeko.site/file/articles/NNTrainingTips/BatchNorm.png
-status: draft
+status: published
 ---
 
 ## 1. BN 应该放在哪里？

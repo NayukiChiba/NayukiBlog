@@ -6,8 +6,8 @@ tags:
   - 数据增强
   - 训练技巧
 description: 不同任务应该用哪些数据增强？哪些增强会适得其反？一份实用的策略选择指南。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/DataAugmentationGuide.png
+status: published
 ---
 
 ## 1. 核心原则
@@ -68,7 +68,7 @@ transforms.RandomGrayscale(p=0.1)
 transforms.RandomErasing(p=0.5, scale=(0.02, 0.33))
 ```
 
-![TODO: 数据增强效果展示图，同一张原图经过随机裁剪/水平翻转/颜色抖动/RandAugment后的多张变换结果]
+![DataAugment.png](https://img.yumeko.site/file/articles/DataAugmentationGuide/DataAugment.png)
 
 ## 3. 增强的"金科玉律"
 

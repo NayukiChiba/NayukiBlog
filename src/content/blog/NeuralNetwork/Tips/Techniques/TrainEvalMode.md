@@ -6,16 +6,16 @@ tags:
   - PyTorch
   - 训练技巧
 description: model.train() 和 model.eval() 到底改变了什么？为什么这是 Bug 高发区？
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/TrainEvalMode.png
+status: published
 ---
 
 ## 1. 两种模式的行为差异
 
 | 层 | `model.train()` | `model.eval()` |
 | --- | :---: | :---: |
-| [[NeuralNetwork/Tips/Techniques/DropoutGuide|Dropout]] | 随机丢弃神经元 | 不丢弃 |
-| [[NeuralNetwork/Tips/Techniques/BatchNormGuide|BatchNorm]] | 使用当前 batch 统计量 | 使用全局移动平均 |
+| Dropout | 随机丢弃神经元 | 不丢弃 |
+| BatchNorm | 使用当前 batch 统计量 | 使用全局移动平均 |
 | BatchNorm running stats | **更新** | 冻结 |
 
 ## 2. 最佳实践

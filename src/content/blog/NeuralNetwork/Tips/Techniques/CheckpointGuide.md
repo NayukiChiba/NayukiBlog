@@ -7,7 +7,7 @@ tags:
   - 工程实践
 description: 训练中断了怎么办？怎样安全地保存和恢复模型？详解检查点管理的最佳实践。
 image: https://img.yumeko.site/file/articles/NNTrainingTips/Checkpoint.png
-status: draft
+status: published
 ---
 
 ## 1. 应该保存什么？
@@ -44,7 +44,7 @@ torch.save(checkpoint, 'checkpoint.pth')
 
 | 类型 | 文件名 | 更新时机 | 用途 |
 | --- | --- | --- | --- |
-| 最佳模型 | `best_model.pth` | 验证指标创新高/新低时（与[[NeuralNetwork/Tips/Techniques/EarlyStoppingGuide|早停]]配合） | 最终部署、评估 |
+| 最佳模型 | `best_model.pth` | 验证指标创新高/新低时（与早停配合） | 最终部署、评估 |
 | 最近模型 | `last_model.pth` | 每个 epoch 结束时 | 恢复中断的训练 |
 
 ```python
@@ -109,11 +109,7 @@ for epoch in range(startEpoch, epochs + 1):
     # ... 正常训练
 ```
 
-## 5. 检查点目录组织
-
-![TODO: 推荐输出目录结构树状图，outputs/模型名/数据集名/下含checkpoints/logs/tensorboard子目录]
-
-## 6. 版本兼容性注意事项
+## 5. 版本兼容性注意事项
 
 如果模型代码发生了变化（比如改了层的名称），旧的 checkpoint 可能无法加载。建议：
 

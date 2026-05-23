@@ -8,7 +8,7 @@ tags:
   - 训练技巧
 description: 如何准确检测过拟合并自动停止训练？详解 Early Stopping 的实现设计与参数调优。
 image: https://img.yumeko.site/file/articles/NNTrainingTips/EarlyStop.png
-status: draft
+status: published
 ---
 
 ## 1. 过拟合的信号
@@ -20,7 +20,7 @@ status: draft
 
 这就是经典的[[NeuralNetwork/Tips/Troubleshooting/Overfitting|过拟合]]信号——模型开始"背诵"训练数据而非学习通用模式。
 
-![TODO: 训练集和验证集Loss随epoch变化曲线，训练Loss持续下降，验证Loss先降后升，箭头标注最佳停止点]
+![LossCurve.png](https://img.yumeko.site/file/articles/EarlyStoppingGuide/LossCurve.png)
 
 ## 2. 基本 Early Stopping
 
