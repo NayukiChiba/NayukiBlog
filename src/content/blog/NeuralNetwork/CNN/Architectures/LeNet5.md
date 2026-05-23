@@ -7,7 +7,7 @@ tags:
   - 经典架构
 description: LeNet-5（1998）奠定了 CNN 的基础模式，本文逐层拆解其设计并对比现代改进。
 image: https://img.yumeko.site/file/blog/LeNet5.png
-status: draft
+status: published
 ---
 
 ## 1. 历史背景
@@ -32,7 +32,7 @@ LeNet-5 由 Yann LeCun 等人在 1998 年发表（论文《Gradient-Based Learni
 | F6 | Linear + Tanh | in=120, out=84 | $(120,)$ | $(84,)$ |
 | Output | Linear | in=84, out=10 | $(84,)$ | $(10,)$ |
 
-![TODO: LeNet-5完整架构图，输入32x32→C5→S2→C5→S2→C5→FC84→Gaussian Connections→10类输出]
+![LeNet5.png](https://img.yumeko.site/file/articles/LeNet5/LeNet5.png)
 
 ### 参数计算
 
@@ -63,10 +63,10 @@ for m in self.modules():
 ```
 
 Xavier 确保信号在 Tanh 的活跃区间（$x$ 接近 0 时导数较大），而非饱和区间（$|x|$ 大时导数趋近 0）。
-
+权重初始化内容请查看[[NeuralNetwork/Tips/Techniques/WeightInitialization|WeightInitialization]]
 ### Average Pooling 而非 Max Pooling
 
-LeNet-5 使用平均池化。这在当时是自然选择——取局部平均值能平滑特征。但后来的实践证明 Max Pooling 保留最强信号通常效果更好，因此现代 CNN 几乎全部使用 Max Pooling。
+LeNet-5 使用平均[[NeuralNetwork/CNN/Foundations/PoolingLayer|池化]]。这在当时是自然选择——取局部平均值能平滑特征。但后来的实践证明 Max Pooling 保留最强信号通常效果更好，因此现代 CNN 几乎全部使用 Max Pooling。
 
 ### 无 Padding（Valid 卷积）
 
