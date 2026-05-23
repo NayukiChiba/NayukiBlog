@@ -7,8 +7,8 @@ tags:
   - 卷积
   - 数学
 description: 从逐像素计算到多通道卷积，深入理解卷积层的每一个参数和每一步运算。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/ConvolutionLayer.png
+status: published
 ---
 
 ## 1. 什么是卷积操作？
@@ -110,8 +110,6 @@ $$
 注意输出中，第三列的值（$1$）明显大于其他列，这说明在输入图像的第三列附近存在**垂直边缘**——从亮（$1$）到暗（$0$）的过渡。这个简单的 $3 \times 3$ 卷积核就是一个垂直边缘检测器！
 
 ![ConvolutionOperation.png](https://img.yumeko.site/file/articles/CNN/ConvolutionOperation.png)
-
-![TODO: 3x3卷积核在5x5输入上滑动的逐步分解图，每次点乘求和产生输出特征图一个元素]
 
 ## 3. 多通道卷积
 
