@@ -7,8 +7,8 @@ tags:
   - Inception
   - 经典架构
 description: GoogLeNet 通过 Inception 模块实现多尺度特征并行提取，仅 7M 参数即获得 2014 年 ImageNet 冠军。本文详解其设计智慧。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/GoogleNet.png
+status: published
 ---
 
 ## 1. 名字的由来
