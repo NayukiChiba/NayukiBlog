@@ -8,7 +8,7 @@ tags:
   - 正则化
 description: 从 Internal Covariate Shift 到训练/测试行为差异，深入理解 BatchNorm 的原理与最佳实践。
 image: https://img.yumeko.site/file/blog/BatchNormalization.png
-status: draft
+status: published
 ---
 
 ## 1. 问题：内部协变量偏移（Internal Covariate Shift）
@@ -51,7 +51,7 @@ $$
 
 其中 $\gamma$（缩放因子）和 $\beta$（平移因子）是**可学习的参数**。这一步至关重要——如果归一化后分布不适合后续的激活函数，网络可以自己学出 $\gamma$ 和 $\beta$ 来恢复对表达有利的分布。
 
-![TODO: BatchNorm计算流程示意图，输入mini-batch→减均值→除标准差→乘γ加β→输出，标注训练/测试差异]
+![BatchNorm.png](https://img.yumeko.site/file/articles/BatchNormalization/BatchNorm.png)
 
 ## 3. BatchNorm 的好处
 

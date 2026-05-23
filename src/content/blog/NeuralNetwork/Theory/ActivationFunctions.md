@@ -7,7 +7,7 @@ tags:
   - 激活函数
 description: 从 ReLU 到 Swish，理解各激活函数的公式、优缺点、以及如何配合权重初始化使用。
 image: https://img.yumeko.site/file/blog/ActivationFunctions.png
-status: draft
+status: published
 ---
 
 ## 1. 为什么必须有激活函数？
