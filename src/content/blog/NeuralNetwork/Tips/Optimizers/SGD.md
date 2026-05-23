@@ -6,8 +6,8 @@ tags:
   - SGD
   - 优化器
 description: 从朴素 SGD 到 Momentum 到 Nesterov，理解随机梯度下降的演进与最佳实践。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/Optimizer.png
+status: published
 ---
 
 ## 1. 朴素 SGD

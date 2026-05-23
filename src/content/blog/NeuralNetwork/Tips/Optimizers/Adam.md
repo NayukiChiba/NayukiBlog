@@ -6,8 +6,8 @@ tags:
   - Adam
   - 优化器
 description: 拆解 Adam 的公式、参数含义、优点和常见陷阱，理解为什么它是现代默认优化器。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/Optimizer.png
+status: published
 ---
 
 ## 1. Adam 的核心思想

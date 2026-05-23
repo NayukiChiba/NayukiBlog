@@ -6,9 +6,9 @@ tags:
   - RMSprop
   - 优化器
 description: 理解 RMSprop 的指数加权移动平均设计，及它在 RNN 和强化学习中的独特价值。
-image: TODO
-status: draft
-
+image: https://img.yumeko.site/file/blog/Optimizer.png
+status: published
+---
 ## 1. RMSprop 的设计动机
 
 AdaGrad 给每个参数分配学习率 $\eta / \sqrt{G_t}$，其中 $G_t$ 是从训练开始以来所有梯度平方的累加和。问题是 $G_t$ 只增不减，学习率最终会降到 0。

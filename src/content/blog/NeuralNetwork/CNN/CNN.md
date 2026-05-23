@@ -8,7 +8,7 @@ tags:
   - 深度学习
 description: 本文以 MNIST 手写数字识别和 FashionMNIST 服装分类为实战案例，逐层拆解卷积神经网络（CNN）的每一个组件、每一个计算步骤。
 image: https://img.yumeko.site/file/blog/CNN.png
-status: published
+status: draft
 ---
 
 ## 1. 为什么要用 CNN？

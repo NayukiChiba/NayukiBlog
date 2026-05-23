@@ -6,8 +6,8 @@ tags:
   - 优化器
   - 基础
 description: 理解优化器的作用、梯度下降的三种变体，以及 PyTorch 中 optimizer 的使用模式。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/Optimizer.png
+status: published
 ---
 
 ## 1. 优化器是什么？

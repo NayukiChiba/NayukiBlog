@@ -6,8 +6,8 @@ tags:
   - AdamW
   - 优化器
 description: AdamW 修复了 Adam 中权重衰减实现错误，是目前图像分类和 Transformer 训练的最佳选择。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/Optimizer.png
+status: published
 ---
 
 ## 1. Adam 的 Weight Decay 问题
