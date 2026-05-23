@@ -6,8 +6,8 @@ tags:
   - 基础
   - 池化
 description: 从 Max Pooling 的手算例子到 Global Average Pooling，理解池化层的三种核心作用及选型原则。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/PoolingLayer.png
+status: published
 ---
 
 ## 1. 为什么需要池化？
@@ -51,9 +51,6 @@ $$
 $$
 
 **"Max" 的含义**：只保留最强的激活信号，忽略较弱的响应。直观理解："这个区域有没有检测到目标特征？——有，而且强度是 X。"
-
-![TODO: 2x2 MaxPooling在4x4特征图上滑动取最大值的分解图，右侧对比AveragePooling的结果差异]
-
 ## 3. 平均池化（Average Pooling）
 
 选取每个窗口中所有值的平均值。使用相同输入：
@@ -91,6 +88,7 @@ $$
 
 ## 5. Global Average Pooling（GAP）
 
+![GAP.png](https://img.yumeko.site/file/articles/PoolingLayer/GAP.png)
 GAP 是 [[NeuralNetwork/CNN/Architectures/NiN|NiN]]（Network in Network）在 2014 年提出的技术，对**整个特征图**取平均，每个通道输出一个值。
 
 ```
@@ -134,6 +132,7 @@ nn.AdaptiveAvgPool2d((4, 4)) # 输出 4×4
 ```
 
 这对于处理变尺寸输入非常有用——不需要提前知道特征图的具体大小。
+![AdaptivePooling.png](https://img.yumeko.site/file/articles/PoolingLayer/AdaptivePooling.png)
 
 ## 7. 现代趋势：用 Stride 卷积替代池化
 
@@ -149,6 +148,7 @@ nn.Conv2d(64, 128, 3, stride=2, padding=1)
 ```
 
 但池化层仍然广泛使用，尤其是在资源受限的场景下（无参数、计算量小）。
+![StrideConv.png](https://img.yumeko.site/file/articles/PoolingLayer/StrideConv.png)
 
 ## 8. 输出尺寸公式
 
