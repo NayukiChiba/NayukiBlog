@@ -7,7 +7,7 @@ tags:
   - 经典架构
 description: VGG 证明了"全部使用 3×3 小卷积核"的简洁设计哲学，本文详解 VGG-11/13/16/19 的结构和设计智慧。
 image: https://img.yumeko.site/file/blog/VGG.png
-status: draft
+status: published
 ---
 
 ## 1. 设计哲学
@@ -63,7 +63,7 @@ Input (3, 224, 224)
 
 加上 3 个全连接层，总权重层数 = 卷积层数 + 3。
 
-![TODO: VGG架构图，多个3x3卷积堆叠后接MaxPool的重复模式，展示VGG-11到VGG-19的深度递增]
+![VGG.png](https://img.yumeko.site/file/articles/VGG/VGG.png)
 
 ## 4. 各变体参数量
 
@@ -73,6 +73,8 @@ Input (3, 224, 224)
 | VGG-13 | ~133M |
 | VGG-16 | ~138M |
 | VGG-19 | ~144M |
+
+![VGG11-19.png](https://img.yumeko.site/file/articles/VGG/VGG11-19.png)
 
 注意 VGG-11 和 VGG-13 参数量几乎相同——因为参数主要集中在全连接层（约占 90%），而非卷积层。
 
