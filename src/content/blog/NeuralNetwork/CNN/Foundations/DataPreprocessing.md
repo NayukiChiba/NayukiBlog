@@ -7,8 +7,8 @@ tags:
   - 数据处理
   - 数据增强
 description: 从 Resize 到 Normalize 再到数据增强，理解 CNN 输入预处理流水线的每一步。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/DataPreprocessing.png
+status: published
 ---
 
 ## 1. 为什么需要预处理？
