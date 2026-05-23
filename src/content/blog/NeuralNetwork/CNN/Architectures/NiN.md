@@ -6,7 +6,7 @@ tags:
   - NiN
   - 经典架构
 description: Network in Network 提出了 mlpconv 和 Global Average Pooling 两项关键创新，深刻影响了后续的 GoogLeNet 和 ResNet。
-image: TODO
+image: https://img.yumeko.site/file/blog/NiN.png
 status: draft
 ---
 

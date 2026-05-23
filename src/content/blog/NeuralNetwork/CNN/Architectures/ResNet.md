@@ -7,7 +7,7 @@ tags:
   - 残差网络
   - 经典架构
 description: ResNet 用残差连接解决了深层网络的退化问题，使得 152 层的网络训练成为可能。本文详解其核心思想和各类变体。
-image: TODO
+image: https://img.yumeko.site/file/blog/ResNet.png
 status: draft
 ---
 

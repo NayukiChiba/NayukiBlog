@@ -6,7 +6,7 @@ tags:
   - LeNet
   - 经典架构
 description: LeNet-5（1998）奠定了 CNN 的基础模式，本文逐层拆解其设计并对比现代改进。
-image: https://img.yumeko.site/file/articles/CNN/LeNet(1).png
+image: https://img.yumeko.site/file/blog/LeNet5.png
 status: draft
 ---
 
