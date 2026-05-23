@@ -5,8 +5,8 @@ category: NeuralNetwork/Theory
 tags:
   - 基础
   - 评估
-description: 从 Accuracy 到混淆矩阵到 F1 分数，理解分类模型的完整评估体系。正确挑选 [[NeuralNetwork/Theory/LossFunctions|损失函数]] 是做好评估的前提。
-image: TODO
+description: 从 Accuracy 到混淆矩阵到 F1 分数，理解分类模型的完整评估体系。正确挑选loss函数是做好评估的前提。
+image: https://img.yumeko.site/file/blog/EvaluationMetrics.png
 status: draft
 ---
 

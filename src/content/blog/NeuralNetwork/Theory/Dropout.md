@@ -7,7 +7,7 @@ tags:
   - Dropout
   - 正则化
 description: 理解 Dropout 的集成学习视角、概率设置策略，以及 train/eval 模式切换的关键细节。
-image: TODO
+image: https://img.yumeko.site/file/blog/Dropout.png
 status: draft
 ---
 
