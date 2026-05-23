@@ -21,7 +21,7 @@ NiN（Network in Network）由林敏等人在 2014 年 ICLR 上发表。虽然 N
 
 传统卷积层只能做**线性变换**——卷积核在输入上滑动，每次计算一个加权和。NiN 的 mlpconv 将这个简单的加权和替换为一个微型 MLP：
 
-![TODO: NiN架构图，3个mlpconv块(Conv+1x1+1x1)堆叠，末端GAP替代全连接层直接输出类别]
+![NiN.png](https://img.yumeko.site/file/articles/NiN/NiN.png)
 
 ```
 传统卷积：    Conv(k×k) → ReLU
@@ -50,6 +50,7 @@ nin_block(192, kernel=5) 的参数量：
 ## 3. 全局平均池化（GAP）：革命性的替代方案
 
 在 NiN 之前，所有 CNN 都使用 [[NeuralNetwork/CNN/Foundations/FullyConnectedLayer|全连接层]] 做最终分类。NiN 首次提出用 GAP 完全替代 FC 层：
+![GAP.png](https://img.yumeko.site/file/articles/NiN/GAP.png)
 
 ```python
 # 传统分类器（如 AlexNet/VGG）
@@ -130,11 +131,11 @@ class NiN(nn.Module):
 
 NiN 的两项创新被后来的架构广泛采纳：
 
-| 创新 | 采纳架构 |
-| --- | --- |
-| $1 \times 1$ 卷积降维 | [[NeuralNetwork/CNN/Architectures/GoogLeNet|GoogLeNet]], ResNet, DenseNet |
-| $1 \times 1$ 卷积增加非线性 | GoogLeNet, ResNet Bottleneck |
-| GAP 替代 FC | **几乎所有现代架构**（GoogLeNet, ResNet, DenseNet, MobileNet...） |
+| 创新                   | 采纳架构                                                    |
+| -------------------- | ------------------------------------------------------- |
+| $1 \times 1$ 卷积降维    | [[GoogLeNet]], [[ResNet]], DenseNet                     |
+| $1 \times 1$ 卷积增加非线性 | [[GoogLeNet]], [[ResNet]], Bottleneck                   |
+| GAP 替代 FC            | **几乎所有现代架构**（GoogLeNet, ResNet, DenseNet, MobileNet...） |
 
 可以说不夸张地说：**如果用一个词概括 NiN 对 CNN 发展史的影响，那就是——GAP。** 完整的架构演进脉络见 [[NeuralNetwork/CNN/Architectures/ArchitectureComparison|架构对比]]。
 
