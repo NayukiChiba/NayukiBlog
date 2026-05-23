@@ -6,8 +6,8 @@ tags:
   - AlexNet
   - 经典架构
 description: AlexNet 在 2012 年以大幅优势赢得 ImageNet 竞赛，标志着深度学习时代的开始。本文详解其架构设计和多项关键创新。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/AlexNet.png
+status: published
 ---
 
 ## 1. 历史意义
@@ -37,7 +37,7 @@ status: draft
 | FC3 | Linear | $(1000,)$ | 4,097,000 |
 | **总计** | | | **~62.4M** |
 
-![TODO: AlexNet架构图，224x224x3输入，5卷积+3全连接，标注双GPU上下分组和交叉通信位置]
+![AlexNet.jpg](https://img.yumeko.site/file/articles/AlexNet/AlexNet.jpg)
 
 
 ## 3. 关键创新
