@@ -6,8 +6,8 @@ tags:
   - 学习率
   - 调度器
 description: 最简单的预设衰减策略——每 N 个 epoch 学习率乘以一个固定因子。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/StepLR.png
+status: published
 ---
 
 ## 1. 工作原理
@@ -30,7 +30,7 @@ $$
 \text{Epoch 61-90: } lr = 0.001
 $$
 
-![TODO: StepLR学习率阶梯曲线，step_size=30,gamma=0.1，每30个epoch学习率骤降到原来的1/10]
+![StepLR.png](https://img.yumeko.site/file/articles/StepLR/StepLR.png)
 
 ## 2. MultiStepLR：自定义衰减点
 
@@ -67,7 +67,7 @@ scheduler = torch.optim.lr_scheduler.MultiStepLR(
 
 ## 5. 与其他调度器对比
 
-| | StepLR | ReduceLROnPlateau | [[NeuralNetwork/Tips/Schedulers/CosineAnnealing|CosineAnnealing]] |
+| | StepLR | ReduceLROnPlateau | CosineAnnealing |
 | --- | :---: | :---: | :---: |
 | 衰减方式 | 固定时间点 | 触发式 | 连续平滑 |
 | 可预测性 | 高 | 低 | 高 |

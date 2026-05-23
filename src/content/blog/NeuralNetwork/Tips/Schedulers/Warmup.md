@@ -6,8 +6,8 @@ tags:
   - 学习率
   - Warmup
 description: 为什么训练最初几步可能毁掉整个训练？理解 Warmup 的原理、类型和步数选择。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/Warmup.png
+status: published
 ---
 
 ## 1. 为什么需要 Warmup？
@@ -19,7 +19,7 @@ status: draft
 
 Warmup 的解决方案：前 N 步用较小的学习率，逐渐增加到目标学习率，让模型先"站稳脚跟"。
 
-![TODO: Warmup+CosineDecay完整学习率曲线，前N步线性上升(Warmup阶段)，之后余弦曲线衰减至eta_min]
+![WarmupVSCos.png](https://img.yumeko.site/file/articles/Warmup/WarmupVSCos.png)
 
 ## 2. Linear Warmup
 

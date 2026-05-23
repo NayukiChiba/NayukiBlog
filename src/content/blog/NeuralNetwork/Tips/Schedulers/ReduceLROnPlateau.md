@@ -6,8 +6,8 @@ tags:
   - 学习率
   - 调度器
 description: 当验证指标不再改善时自动降低学习率——最省心的调度策略。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/ReduceLROnPlateau.png
+status: published
 ---
 
 ## 1. 工作原理
@@ -61,7 +61,7 @@ Epoch 20-24: lr = 0.00025 (第17-19 epoch 没改善 → 再减半)
 ...
 ```
 
-![TODO: ReduceLROnPlateau学习率变化曲线图，每次验证Loss进入平台期(patience=3)后学习率垂直减半]
+![ReduceLROnPlateau.png](https://img.yumeko.site/file/articles/ReduceLROnPlateau/ReduceLROnPlateau.png)
 
 ## 5. 使用示例
 

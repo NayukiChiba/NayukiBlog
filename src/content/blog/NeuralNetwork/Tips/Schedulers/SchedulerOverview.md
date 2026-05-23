@@ -6,14 +6,15 @@ tags:
   - 学习率
   - 调度器
 description: 理解为什么要调整学习率，PyTorch 中调度器使用模式，以及如何选择最适合的调度策略。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/SchedulerOverview.png
+status: published
 ---
 
 ## 1. 为什么要调整学习率？
 
 训练初期离最优解远 → 需要大步快走（大 LR）。训练后期接近最优解 → 需要小步微调（小 LR）。如果一直用大学习率，会在最优解附近来回震荡无法收敛。
 
+![Comparision.png](https://img.yumeko.site/file/articles/SchedulerOverview/Comparision.png)
 ## 2. PyTorch 调度器使用模式
 
 ```python
@@ -37,9 +38,9 @@ for epoch in range(epochs):
 
 | 调度器 | 曲线形态 | 核心参数 |
 | --- | --- | --- |
-| [[NeuralNetwork/Tips/Schedulers/ReduceLROnPlateau|ReduceLROnPlateau]] | 阶梯下降（触发式） | factor=0.5, patience=3 |
+| ReduceLROnPlateau | 阶梯下降（触发式） | factor=0.5, patience=3 |
 | StepLR | 阶梯下降（固定间隔） | step_size=30, gamma=0.1 |
-| [[NeuralNetwork/Tips/Schedulers/CosineAnnealing|CosineAnnealing]] | 平滑余弦下降 | T_max=50 |
+| CosineAnnealing | 平滑余弦下降 | T_max=50 |
 | CosineWarmRestarts | 余弦周期 + 重启 | T_0=10, T_mult=2 |
 | OneCycleLR | 先升后降 | max_lr=0.01, pct_start=0.3 |
 

@@ -6,8 +6,8 @@ tags:
   - 学习率
   - 调度器
 description: 余弦退火以平滑曲线衰减学习率，是现代大模型训练的首选调度策略。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/CosineAnnealing.png
+status: published
 ---
 
 ## 1. 为什么用余弦曲线？
@@ -49,8 +49,7 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
 
 ## 4. 学习率曲线对比
 
-![TODO: 三条学习率曲线对比图，StepLR阶梯状/Cosine平滑衰减/CosineWarmRestarts周期重启，X轴epoch Y轴学习率]
-
+![Comparision.png](https://img.yumeko.site/file/articles/CosineAnnealing/Comparision.png)
 ## 5. 为什么大模型训练常用？
 
 现代 ViT、CLIP、GPT 等模型几乎全部使用 Cosine + [[NeuralNetwork/Tips/Schedulers/Warmup|Warmup]]：
