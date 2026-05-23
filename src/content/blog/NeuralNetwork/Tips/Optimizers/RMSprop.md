@@ -3,8 +3,8 @@ title: RMSprop：非平稳目标的利器
 date: 2026-05-23
 category: NeuralNetwork/Tips/Optimizers
 tags:
-  - RMSprop
-  - 优化器
+  - 高级教程
+  - 深度学习
 description: 理解 RMSprop 的指数加权移动平均设计，及它在 RNN 和强化学习中的独特价值。
 image: https://img.yumeko.site/file/blog/Optimizer.png
 status: published

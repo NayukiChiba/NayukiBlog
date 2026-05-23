@@ -3,8 +3,7 @@ title: BatchNorm 实用指南
 date: 2026-05-09
 category: NeuralNetwork/Tips/Techniques
 tags:
-  - BN
-  - 训练技巧
+  - 高级教程
   - 深度学习
 description: BatchNorm 放哪里？训练和测试有何不同？小 batch 怎么处理？一份实用的 BN 避坑指南。
 image: https://img.yumeko.site/file/articles/NNTrainingTips/BatchNorm.png

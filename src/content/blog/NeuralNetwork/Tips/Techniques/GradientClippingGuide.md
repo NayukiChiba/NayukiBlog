@@ -3,8 +3,8 @@ title: 梯度裁剪详解
 date: 2026-05-09
 category: NeuralNetwork/Tips/Techniques
 tags:
-  - 梯度
-  - 训练技巧
+  - 高级教程
+  - 深度学习
 description: 梯度裁剪是防止梯度爆炸的最简单有效手段。详解其原理、实现和阈值选择。
 image: https://img.yumeko.site/file/blog/GradientClippingGuide.png
 status: published

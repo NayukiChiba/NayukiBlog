@@ -3,8 +3,8 @@ title: StepLR：阶梯式学习率衰减
 date: 2026-05-23
 category: NeuralNetwork/Tips/Schedulers
 tags:
-  - 学习率
-  - 调度器
+  - 高级教程
+  - 深度学习
 description: 最简单的预设衰减策略——每 N 个 epoch 学习率乘以一个固定因子。
 image: https://img.yumeko.site/file/blog/StepLR.png
 status: published

@@ -3,8 +3,8 @@ title: CNN 概述：为什么需要卷积神经网络
 date: 2026-05-07
 category: NeuralNetwork/CNN/Foundations
 tags:
-  - 基础
   - 深度学习
+  - 基础
 description: 从全连接网络的局限出发，理解 CNN 的核心思想——局部连接、权重共享、层次化特征学习。
 image: https://img.yumeko.site/file/blog/CNN.png
 status: published

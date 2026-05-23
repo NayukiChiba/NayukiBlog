@@ -3,8 +3,8 @@ title: 学习率调度策略完全指南
 date: 2026-05-09
 category: NeuralNetwork/Tips/Techniques
 tags:
-  - 学习率
-  - 训练技巧
+  - 高级教程
+  - 深度学习
 description: 学习率是最重要的超参数。详解 ReduceLROnPlateau、StepLR、CosineAnnealing、Warmup 及选择原则。
 image: https://img.yumeko.site/file/articles/NNTrainingTips/SchedulingStrategy.png
 status: published

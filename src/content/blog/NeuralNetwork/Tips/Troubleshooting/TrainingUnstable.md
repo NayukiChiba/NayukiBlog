@@ -3,7 +3,7 @@ title: 训练不稳定（Loss 剧烈震荡）怎么办？
 date: 2026-05-23
 category: NeuralNetwork/Tips/Troubleshooting
 tags:
-  - 训练问题
+  - 高级教程
 description: Loss 曲线像过山车一样上下翻飞？系统排查训练不稳定的原因与稳定方案。
 image: https://img.yumeko.site/file/blog/TrainingUnstable.png
 status: published

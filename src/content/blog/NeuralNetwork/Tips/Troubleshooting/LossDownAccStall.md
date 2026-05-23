@@ -3,8 +3,7 @@ title: Loss 下降但 Acc 不上升怎么办？
 date: 2026-05-23
 category: NeuralNetwork/Tips/Troubleshooting
 tags:
-  - 训练问题
-  - 故障排查
+  - 高级教程
 description: Loss 一直在降但准确率纹丝不动？诊断并解决这个常见的训练异常。
 image: https://img.yumeko.site/file/blog/LossDownAccStall.png
 status: published

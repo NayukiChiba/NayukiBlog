@@ -3,7 +3,6 @@ title: NiN：用微型网络替代简单卷积
 date: 2026-05-23
 category: NeuralNetwork/CNN/Architectures
 tags:
-  - NiN
   - 经典架构
 description: Network in Network 提出了 mlpconv 和 Global Average Pooling 两项关键创新，深刻影响了后续的 GoogLeNet 和 ResNet。
 image: https://img.yumeko.site/file/blog/NiN.png

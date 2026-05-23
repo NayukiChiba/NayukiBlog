@@ -3,8 +3,7 @@ title: 随机种子与实验可复现性
 date: 2026-05-09
 category: NeuralNetwork/Tips/Techniques
 tags:
-  - 工程实践
-  - PyTorch
+  - 基础
 description: 为什么你的实验结果每次都不一样？完整固定随机种子的方案及性能代价分析。
 image: https://img.yumeko.site/file/blog/Reproducibility.png
 status: published

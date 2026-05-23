@@ -3,8 +3,8 @@ title: Adam：自适应时刻估计
 date: 2026-05-23
 category: NeuralNetwork/Tips/Optimizers
 tags:
-  - Adam
-  - 优化器
+  - 基础
+  - 深度学习
 description: 拆解 Adam 的公式、参数含义、优点和常见陷阱，理解为什么它是现代默认优化器。
 image: https://img.yumeko.site/file/blog/Optimizer.png
 status: published

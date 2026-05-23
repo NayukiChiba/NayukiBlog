@@ -4,8 +4,7 @@ date: 2026-05-07
 category: NeuralNetwork/Theory
 tags:
   - 基础
-  - BN
-  - 正则化
+  - 深度学习
 description: 从 Internal Covariate Shift 到训练/测试行为差异，深入理解 BatchNorm 的原理与最佳实践。
 image: https://img.yumeko.site/file/blog/BatchNormalization.png
 status: published

@@ -3,8 +3,8 @@ title: 学习率调度器概述
 date: 2026-05-23
 category: NeuralNetwork/Tips/Schedulers
 tags:
-  - 学习率
-  - 调度器
+  - 高级教程
+  - 深度学习
 description: 理解为什么要调整学习率，PyTorch 中调度器使用模式，以及如何选择最适合的调度策略。
 image: https://img.yumeko.site/file/blog/SchedulerOverview.png
 status: published

@@ -3,7 +3,7 @@ title: 欠拟合怎么办？训练集和验证集 Acc 都低
 date: 2026-05-23
 category: NeuralNetwork/Tips/Troubleshooting
 tags:
-  - 训练问题
+  - 高级教程
 description: 训练集准确率上不去，验证集也差？诊断欠拟合的原因并找到对应的改进方向。
 image: https://img.yumeko.site/file/blog/Underfitting.png
 status: published

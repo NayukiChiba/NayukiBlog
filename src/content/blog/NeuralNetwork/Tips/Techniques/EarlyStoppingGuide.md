@@ -3,9 +3,8 @@ title: Early Stopping 详解
 date: 2026-05-09
 category: NeuralNetwork/Tips/Techniques
 tags:
-  - 早停
-  - 正则化
-  - 训练技巧
+  - 基础
+  - 深度学习
 description: 如何准确检测过拟合并自动停止训练？详解 Early Stopping 的实现设计与参数调优。
 image: https://img.yumeko.site/file/articles/NNTrainingTips/EarlyStop.png
 status: published

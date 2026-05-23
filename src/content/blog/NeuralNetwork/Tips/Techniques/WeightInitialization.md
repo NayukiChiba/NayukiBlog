@@ -3,8 +3,7 @@ title: 权重初始化：Xavier 与 Kaiming 详解
 date: 2026-05-09
 category: NeuralNetwork/Tips/Techniques
 tags:
-  - PyTorch
-  - 初始化
+  - 高级教程
   - 深度学习
 description: 为什么初始化方式决定训练成败？从数学原理到代码实现，彻底理解 Xavier 和 Kaiming 初始化。
 image: https://img.yumeko.site/file/articles/NNTrainingTips/ActivationInit.png

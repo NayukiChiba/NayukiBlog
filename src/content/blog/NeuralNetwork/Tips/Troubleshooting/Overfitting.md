@@ -3,8 +3,7 @@ title: 过拟合怎么办？训练集 Acc 高验证集 Acc 低
 date: 2026-05-23
 category: NeuralNetwork/Tips/Troubleshooting
 tags:
-  - 训练问题
-  - 正则化
+  - 高级教程
 description: 训练集准确率 95%+，验证集却只有 70%？诊断并解决过拟合的完整方案。
 image: https://img.yumeko.site/file/blog/Overfitting.png
 status: published

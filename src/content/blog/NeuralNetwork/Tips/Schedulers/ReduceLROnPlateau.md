@@ -3,8 +3,8 @@ title: ReduceLROnPlateau：自适应学习率衰减
 date: 2026-05-23
 category: NeuralNetwork/Tips/Schedulers
 tags:
-  - 学习率
-  - 调度器
+  - 高级教程
+  - 深度学习
 description: 当验证指标不再改善时自动降低学习率——最省心的调度策略。
 image: https://img.yumeko.site/file/blog/ReduceLROnPlateau.png
 status: published

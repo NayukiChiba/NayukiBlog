@@ -3,8 +3,8 @@ title: 数据增强策略选择指南
 date: 2026-05-09
 category: NeuralNetwork/Tips/Techniques
 tags:
-  - 数据增强
-  - 训练技巧
+  - 数据处理
+  - 高级教程
 description: 不同任务应该用哪些数据增强？哪些增强会适得其反？一份实用的策略选择指南。
 image: https://img.yumeko.site/file/blog/DataAugmentationGuide.png
 status: published

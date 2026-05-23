@@ -3,8 +3,8 @@ title: 检查点管理最佳实践
 date: 2026-05-09
 category: NeuralNetwork/Tips/Techniques
 tags:
-  - 检查点
-  - 工程实践
+  - 基础
+  - 深度学习
 description: 训练中断了怎么办？怎样安全地保存和恢复模型？详解检查点管理的最佳实践。
 image: https://img.yumeko.site/file/articles/NNTrainingTips/Checkpoint.png
 status: published

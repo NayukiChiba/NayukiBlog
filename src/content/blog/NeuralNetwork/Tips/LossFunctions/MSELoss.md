@@ -3,9 +3,8 @@ title: MSELoss：回归任务的损失函数详解
 date: 2026-05-23
 category: NeuralNetwork/Tips/LossFunctions
 tags:
-  - 损失函数
-  - MSE
-  - 回归
+  - 深度学习
+  - 基础
 description: 深入理解均方误差损失的数学性质、梯度行为、与 MAE 的选择逻辑，以及 Huber Loss 的折中方案。
 image: https://img.yumeko.site/file/blog/MSELoss.png
 status: published

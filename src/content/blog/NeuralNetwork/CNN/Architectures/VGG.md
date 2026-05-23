@@ -3,7 +3,6 @@ title: VGG：小卷积核的胜利
 date: 2026-05-23
 category: NeuralNetwork/CNN/Architectures
 tags:
-  - VGG
   - 经典架构
 description: VGG 证明了"全部使用 3×3 小卷积核"的简洁设计哲学，本文详解 VGG-11/13/16/19 的结构和设计智慧。
 image: https://img.yumeko.site/file/blog/VGG.png

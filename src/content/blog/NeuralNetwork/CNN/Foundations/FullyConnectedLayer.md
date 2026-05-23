@@ -3,8 +3,8 @@ title: 全连接层详解：从特征到分类
 date: 2026-05-07
 category: NeuralNetwork/CNN/Foundations
 tags:
+  - 深度学习
   - 基础
-  - 全连接
 description: 理解全连接层在 CNN 中的角色、参数占比问题，以及现代架构中 GAP 和 1×1 卷积的替代方案。
 image: https://img.yumeko.site/file/blog/FullyConnectedLayer.png
 status: published

@@ -3,8 +3,8 @@ title: SGD + Momentum：经典的优化选择
 date: 2026-05-23
 category: NeuralNetwork/Tips/Optimizers
 tags:
-  - SGD
-  - 优化器
+  - 基础
+  - 深度学习
 description: 从朴素 SGD 到 Momentum 到 Nesterov，理解随机梯度下降的演进与最佳实践。
 image: https://img.yumeko.site/file/blog/Optimizer.png
 status: published

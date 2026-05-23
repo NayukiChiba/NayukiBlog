@@ -3,8 +3,8 @@ title: 池化层详解：缩小图像，保留特征
 date: 2026-05-07
 category: NeuralNetwork/CNN/Foundations
 tags:
+  - 深度学习
   - 基础
-  - 池化
 description: 从 Max Pooling 的手算例子到 Global Average Pooling，理解池化层的三种核心作用及选型原则。
 image: https://img.yumeko.site/file/blog/PoolingLayer.png
 status: published

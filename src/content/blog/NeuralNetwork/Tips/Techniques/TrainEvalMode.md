@@ -3,8 +3,8 @@ title: 训练/评估模式切换的正确姿势
 date: 2026-05-09
 category: NeuralNetwork/Tips/Techniques
 tags:
-  - PyTorch
-  - 训练技巧
+  - 基础
+  - 深度学习
 description: model.train() 和 model.eval() 到底改变了什么？为什么这是 Bug 高发区？
 image: https://img.yumeko.site/file/blog/TrainEvalMode.png
 status: published

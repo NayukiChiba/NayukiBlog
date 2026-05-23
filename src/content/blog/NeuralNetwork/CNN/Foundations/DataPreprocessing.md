@@ -3,9 +3,9 @@ title: 数据预处理与增强详解
 date: 2026-05-07
 category: NeuralNetwork/CNN/Foundations
 tags:
+  - 深度学习
   - 基础
   - 数据处理
-  - 数据增强
 description: 从 Resize 到 Normalize 再到数据增强，理解 CNN 输入预处理流水线的每一步。
 image: https://img.yumeko.site/file/blog/DataPreprocessing.png
 status: published

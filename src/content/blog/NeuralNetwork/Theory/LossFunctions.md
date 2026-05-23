@@ -4,7 +4,7 @@ date: 2026-05-07
 category: NeuralNetwork/Theory
 tags:
   - 基础
-  - 损失函数
+  - 深度学习
 description: 从 Softmax 到 CrossEntropyLoss，用数值例子理解损失函数如何驱动模型学习。
 image: https://img.yumeko.site/file/blog/LossFunctions.png
 status: published

@@ -3,9 +3,8 @@ title: 卷积层详解：CNN 的核心运算
 date: 2026-05-07
 category: NeuralNetwork/CNN/Foundations
 tags:
+  - 深度学习
   - 基础
-  - 卷积
-  - 数学
 description: 从逐像素计算到多通道卷积，深入理解卷积层的每一个参数和每一步运算。
 image: https://img.yumeko.site/file/blog/ConvolutionLayer.png
 status: published

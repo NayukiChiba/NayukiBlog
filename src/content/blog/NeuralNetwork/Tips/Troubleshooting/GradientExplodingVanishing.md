@@ -3,8 +3,7 @@ title: 梯度爆炸/消失怎么办？
 date: 2026-05-23
 category: NeuralNetwork/Tips/Troubleshooting
 tags:
-  - 训练问题
-  - 梯度
+  - 高级教程
 description: Loss 突然 NaN（爆炸）或完全不下降（消失）？诊断并修复梯度异常。
 image: https://img.yumeko.site/file/blog/GradientExplodingVanishing.png
 status: published

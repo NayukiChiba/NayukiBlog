@@ -3,8 +3,8 @@ title: 优化器概述：从梯度下降到 Adam
 date: 2026-05-23
 category: NeuralNetwork/Tips/Optimizers
 tags:
-  - 优化器
-  - 基础
+  - 总结
+  - 深度学习
 description: 理解优化器的作用、梯度下降的三种变体，以及 PyTorch 中 optimizer 的使用模式。
 image: https://img.yumeko.site/file/blog/Optimizer.png
 status: published

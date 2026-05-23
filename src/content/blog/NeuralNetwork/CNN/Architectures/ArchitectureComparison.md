@@ -3,7 +3,6 @@ title: CNN 架构对比总结
 date: 2026-05-23
 category: NeuralNetwork/CNN/Architectures
 tags:
-  - 对比
   - 总结
 description: 一张表纵览 LeNet 到 ResNet 的所有经典 CNN 架构，理解每一代的核心创新与演进脉络。
 image: https://img.yumeko.site/file/blog/CNNArchitectureComparison.png

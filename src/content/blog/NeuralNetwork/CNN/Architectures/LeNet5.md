@@ -3,7 +3,6 @@ title: LeNet-5：CNN 的起点
 date: 2026-05-23
 category: NeuralNetwork/CNN/Architectures
 tags:
-  - LeNet
   - 经典架构
 description: LeNet-5（1998）奠定了 CNN 的基础模式，本文逐层拆解其设计并对比现代改进。
 image: https://img.yumeko.site/file/blog/LeNet5.png

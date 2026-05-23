@@ -3,8 +3,8 @@ title: 深度学习项目训练流程总览
 date: 2026-05-07
 category: NeuralNetwork/Tips/Techniques
 tags:
-  - 工程实践
-  - 训练流程
+  - 基础
+  - 深度学习
 description: 从数据准备到模型部署，一篇理清深度学习项目的完整六阶段工程流程。
 image: https://img.yumeko.site/file/blog/NNTraingingFixedProcedure.png
 status: published

@@ -3,9 +3,8 @@ title: CrossEntropyLoss：从信息论到代码实现
 date: 2026-05-23
 category: NeuralNetwork/Tips/LossFunctions
 tags:
-  - 损失函数
-  - 交叉熵
-  - Softmax
+  - 基础
+  - 深度学习
 description: 深入理解交叉熵损失的数学原理、参数细节和常见陷阱——不只是 import torch.nn as nn。
 image: https://img.yumeko.site/file/blog/CrossEntropyLoss.png
 status: published

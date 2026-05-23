@@ -3,8 +3,8 @@ title: CosineAnnealing：余弦退火详解
 date: 2026-05-23
 category: NeuralNetwork/Tips/Schedulers
 tags:
-  - 学习率
-  - 调度器
+  - 高级教程
+  - 深度学习
 description: 余弦退火以平滑曲线衰减学习率，是现代大模型训练的首选调度策略。
 image: https://img.yumeko.site/file/blog/CosineAnnealing.png
 status: published

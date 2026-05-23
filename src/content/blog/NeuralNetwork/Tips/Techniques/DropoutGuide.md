@@ -3,9 +3,8 @@ title: Dropout 使用指南
 date: 2026-05-09
 category: NeuralNetwork/Tips/Techniques
 tags:
-  - Dropout
-  - 正则化
-  - 训练技巧
+  - 高级教程
+  - 深度学习
 description: Dropout 概率怎么设？哪些层需要？与 BN 共用时注意什么？
 image: https://img.yumeko.site/file/articles/NNTrainingTips/Dropout.png
 status: published

@@ -4,8 +4,7 @@ date: 2026-05-07
 category: NeuralNetwork/Theory
 tags:
   - 基础
-  - Dropout
-  - 正则化
+  - 深度学习
 description: 理解 Dropout 的集成学习视角、概率设置策略，以及 train/eval 模式切换的关键细节。
 image: https://img.yumeko.site/file/blog/Dropout.png
 status: published

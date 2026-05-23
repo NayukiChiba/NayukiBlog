@@ -3,8 +3,8 @@ title: Warmup：平稳起步的艺术
 date: 2026-05-23
 category: NeuralNetwork/Tips/Schedulers
 tags:
-  - 学习率
-  - Warmup
+  - 高级教程
+  - 深度学习
 description: 为什么训练最初几步可能毁掉整个训练？理解 Warmup 的原理、类型和步数选择。
 image: https://img.yumeko.site/file/blog/Warmup.png
 status: published
