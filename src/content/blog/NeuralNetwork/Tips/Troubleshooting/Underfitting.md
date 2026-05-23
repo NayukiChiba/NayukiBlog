@@ -5,8 +5,8 @@ category: NeuralNetwork/Tips/Troubleshooting
 tags:
   - 训练问题
 description: 训练集准确率上不去，验证集也差？诊断欠拟合的原因并找到对应的改进方向。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/Underfitting.png
+status: published
 ---
 
 ## 现象描述
@@ -132,3 +132,4 @@ transform = transforms.Resize((32, 32))  # 更好的选择
 5. 换更复杂的架构
 6. 检查数据预处理是否丢失信息
 ```
+![Underfitting.png](https://img.yumeko.site/file/articles/Underfitting/Underfitting.png)

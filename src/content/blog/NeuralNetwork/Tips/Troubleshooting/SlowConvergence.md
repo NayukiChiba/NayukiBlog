@@ -5,8 +5,8 @@ category: NeuralNetwork/Tips/Troubleshooting
 tags:
   - 训练问题
 description: Loss 在降但速度太慢？从优化器到数据归一化，加速模型收敛的完整方案。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/SlowConvergence.png
+status: published
 ---
 
 ## 现象描述
@@ -184,3 +184,5 @@ scaler.update()
 6. 减小 Batch Size             → 增加更新频率
 7. 混合精度训练                → 加速但不改善收敛
 ```
+
+![SlowConvergence.png](https://img.yumeko.site/file/articles/SlowConvergence/SlowConvergence.png)

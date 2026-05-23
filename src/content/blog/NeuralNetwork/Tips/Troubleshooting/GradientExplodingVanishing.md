@@ -6,8 +6,8 @@ tags:
   - 训练问题
   - 梯度
 description: Loss 突然 NaN（爆炸）或完全不下降（消失）？诊断并修复梯度异常。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/GradientExplodingVanishing.png
+status: published
 ---
 
 ## 现象描述

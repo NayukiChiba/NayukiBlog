@@ -6,8 +6,8 @@ tags:
   - 训练问题
   - 故障排查
 description: 训练了几个 epoch，Loss 纹丝不动？系统排查 Loss 不下降的 7 大常见原因及解决方案。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/LossNotDown.png
+status: published
 ---
 
 ## 现象描述
@@ -21,8 +21,6 @@ Epoch 3: Train Loss 2.30, Train Acc 10.0%
 ```
 
 Acc 也不变（如果是 10 分类问题，10% 约等于随机猜测）。
-
-[//]: # (TODO: Loss 不下降的训练曲线截图)
 
 ## 原因一：学习率太大
 
@@ -180,4 +178,5 @@ for name, param in model.named_parameters():
 5. 输出范围正常吗？        → logits 应在 [-2, 2]
 6. 梯度值正常吗？          → 梯度范数应在 [1e-6, 1e2]
 ```
+![LossNotDown.png](https://img.yumeko.site/file/articles/LossNotDown/LossNotDown.png)
 

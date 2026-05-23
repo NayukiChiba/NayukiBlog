@@ -5,8 +5,8 @@ category: NeuralNetwork/Tips/Troubleshooting
 tags:
   - 训练问题
 description: 训练到一半 Loss 突然变成 NaN？排查 5 大常见原因及对应的修复方法。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/NanLoss.png
+status: published
 ---
 
 ## 现象描述
@@ -20,8 +20,6 @@ Epoch 10: Train Loss   NaN, Val Loss   NaN    ← 突然变成 NaN
 ```
 
 之后所有 Loss 都是 NaN，模型参数也变成了 NaN——[[NeuralNetwork/Tips/Troubleshooting/TrainingUnstable|训练不稳]]的极端表现。
-
-[//]: # (TODO: Loss NaN 问题截图)
 
 ## 原因分析
 
@@ -204,3 +202,4 @@ def safeTrainingStep(model, images, labels, criterion, optimizer, gradClip=1.0):
 4. 模型有 BN 层且 eps 合理吗？ → eps=1e-5 一般是安全的
 5. 自定义 Loss 有除零保护吗？  → 分母 + 1e-8
 ```
+![NanLoss.png](https://img.yumeko.site/file/articles/NanLoss/NanLoss.png)

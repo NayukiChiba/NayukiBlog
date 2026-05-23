@@ -5,8 +5,8 @@ category: NeuralNetwork/Tips/Troubleshooting
 tags:
   - 训练问题
 description: Loss 曲线像过山车一样上下翻飞？系统排查训练不稳定的原因与稳定方案。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/TrainingUnstable.png
+status: published
 ---
 
 ## 现象描述
@@ -19,8 +19,6 @@ Epoch 2: Train Loss 1.23, Val Loss 0.78   ← 反向？！
 Epoch 3: Train Loss 0.56, Val Loss 1.15
 Epoch 4: Train Loss 0.91, Val Loss 0.65
 ```
-
-[//]: # (TODO: Loss 剧烈震荡的训练曲线截图)
 
 ## 原因分析
 
@@ -163,3 +161,4 @@ if std / abs(mean) > 0.3:  # 标准差超过均值的 30%
 5. 换 SGD+Momentum             → Adam 不总是最优
 6. 检查数据异常值              → 排除数据问题
 ```
+![TrainingUnstable.png](https://img.yumeko.site/file/articles/TrainingUnstable/TrainingUnstable.png)

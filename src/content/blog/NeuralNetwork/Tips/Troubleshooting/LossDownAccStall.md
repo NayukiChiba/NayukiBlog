@@ -6,8 +6,8 @@ tags:
   - 训练问题
   - 故障排查
 description: Loss 一直在降但准确率纹丝不动？诊断并解决这个常见的训练异常。
-image: TODO
-status: draft
+image: https://img.yumeko.site/file/blog/LossDownAccStall.png
+status: published
 ---
 
 ## 现象描述
@@ -143,5 +143,5 @@ print(f"类别分布: {labelCounts}")
 
 ## 诊断流程
 
-![TODO: Loss下降但Acc不涨的诊断决策树流程图，5条分支：增大LR/LabelSmoothing/FocalLoss/数据增强/增大模型容量]
+![Decision.png](https://img.yumeko.site/file/articles/LossDownAccStall/Decision.png)
 

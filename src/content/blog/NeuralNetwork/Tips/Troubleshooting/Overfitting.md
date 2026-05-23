@@ -6,9 +6,9 @@ tags:
   - 训练问题
   - 正则化
 description: 训练集准确率 95%+，验证集却只有 70%？诊断并解决过拟合的完整方案。
-image: TODO
-status: draft
-
+image: https://img.yumeko.site/file/blog/Overfitting.png
+status: published
+---
 ## 现象描述
 
 训练曲线呈现经典的"喇叭口"形态：
@@ -20,8 +20,6 @@ Epoch 15: Train Loss 0.03, Val Loss 0.85 | Train Acc 99%, Val Acc 76%
 ```
 
 训练集指标持续改善，验证集指标先改善后恶化。
-
-[//]: # (TODO: 过拟合训练曲线图 — 训练/验证 Loss 分叉的经典喇叭口)
 
 ## 原因分析
 
@@ -159,3 +157,4 @@ else:
 6. 减小模型容量            → 可能影响最佳性能
 7. 收集更多数据            → 最根本但成本高
 ```
+![Overfitting.png](https://img.yumeko.site/file/articles/Overfitting/Overfitting.png)
