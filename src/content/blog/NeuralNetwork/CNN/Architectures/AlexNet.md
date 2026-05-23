@@ -32,12 +32,13 @@ status: draft
 | Conv5 | Conv(3×3) + ReLU | $(256, 13, 13)$ | 884,992 |
 | Pool5 | MaxPool(3×3, s=2) | $(256, 6, 6)$ | 0 |
 | — | Flatten | $(9216,)$ | 0 |
-
-![TODO: AlexNet架构图，224x224x3输入，5卷积+3全连接，标注双GPU上下分组和交叉通信位置]
 | FC1 | Linear + ReLU + Dropout | $(4096,)$ | 37,752,832 |
 | FC2 | Linear + ReLU + Dropout | $(4096,)$ | 16,781,312 |
 | FC3 | Linear | $(1000,)$ | 4,097,000 |
 | **总计** | | | **~62.4M** |
+
+![TODO: AlexNet架构图，224x224x3输入，5卷积+3全连接，标注双GPU上下分组和交叉通信位置]
+
 
 ## 3. 关键创新
 
@@ -66,7 +67,7 @@ AlexNet 在前两个全连接层（各有 4096 个神经元）使用了 [[Neural
 在 Conv1 和 Conv2 的 ReLU 之后应用了 LRN——模仿生物神经元的"侧抑制"机制：强激活的神经元会抑制相邻神经元。
 
 $$
-b_{x,y}^{i} = \frac{a_{x,y}^{i}}{\left(k + \alpha \sum_{j=\max(0,i-n/2)}^{\min(N-1,i+n/2)} (a_{x,y}^{j})^2 \right)^\beta}
+b_{x,y}^{i} = \frac{a_{x,y}^{i}}{\left(k + \alpha \displaystyle\sum_{j=\max(0,i-n/2)}^{\min(N-1,i+n/2)} (a_{x,y}^{j})^2 \right)^\beta}
 $$
 
 LRN 后来被 BatchNorm 取代（BN 更有效），在现代架构中已很少使用。
