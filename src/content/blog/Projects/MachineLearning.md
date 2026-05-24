@@ -1,11 +1,14 @@
 ---
-title: 文章的标题
-date: 2026-01-26
-category: 填文件夹，例如：技术/文章/Linux
+title: 机器学习全汇总项目
+date: 2026-05-24
+category: Projects
 tags:
-description: 描述
-image: 这里输入图片的url：https://img.yumeko.site/file/wife/早坂爱.jpg
-status: draft
+  - 高级教程
+  - Scikit-learn
+  - 总结
+description: 机器学习全汇总项目架构文档——目录结构、核心抽象与模块分层。
+image: https://img.yumeko.site/file/blog/MachineLearning.png
+status: published
 ---
 
 
