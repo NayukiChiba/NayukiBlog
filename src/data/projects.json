@@ -1,6 +1,115 @@
 {
   "projects": [
     {
+      "id": 25,
+      "name": "Attention",
+      "description": "从零实现一个自注意力和多头注意力",
+      "link": "https://github.com/NayukiChiba/Attention",
+      "techStack": [
+        "PyTorch",
+        "Attention",
+        "Transformer"
+      ],
+      "status": "planning",
+      "visibility": "published"
+    },
+    {
+      "id": 24,
+      "name": "DateConversion",
+      "description": "对比有无Bahdanau注意力下，Seq2Seq序列对长格式数据的处理",
+      "link": "https://github.com/NayukiChiba/DateConversion",
+      "techStack": [
+        "PyTorch",
+        "Seq2Seq",
+        "Attention"
+      ],
+      "status": "planning",
+      "visibility": "published"
+    },
+    {
+      "id": 23,
+      "name": "lftp",
+      "description": "Learning Theory from First Principles",
+      "link": "https://github.com/NayukiChiba/lftp",
+      "techStack": [
+        "LLM",
+        "Theory"
+      ],
+      "status": "in-progress",
+      "visibility": "published"
+    },
+    {
+      "id": 22,
+      "name": "CNN",
+      "description": "经典 CNN 架构学习项目，支持多模型、多数据集自由组合训练。",
+      "link": "https://github.com/NayukiChiba/CNN",
+      "techStack": [
+        "PyTorch",
+        "CNN",
+        "LeNet",
+        "VGG",
+        "GoogleNet",
+        "NiN"
+      ],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
+      "id": 21,
+      "name": "ResNet",
+      "description": "基于 PyTorch 的图像分类训练框架，支持 ResNet-18 和 DenseNet-BC-100，面向 CIFAR-10/100。",
+      "link": "https://github.com/NayukiChiba/ResNet",
+      "techStack": [
+        "PyTorch",
+        "ResNet",
+        "CNN"
+      ],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
+      "id": 20,
+      "name": "EmotionClassification",
+      "description": "使用RNN对JDfull数据集情感二分类",
+      "link": "https://github.com/NayukiChiba/EmotionClassification",
+      "techStack": [
+        "PyTorch",
+        "RNN",
+        "GRU",
+        "LSTM",
+        "Attention"
+      ],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
+      "id": 19,
+      "name": "Char-RNN",
+      "description": "严肃学习古人的循环神经网络",
+      "link": "https://github.com/NayukiChiba/Char-RNN",
+      "techStack": [
+        "PyTorch",
+        "RNN",
+        "LSTM",
+        "GRU"
+      ],
+      "status": "completed",
+      "visibility": "published"
+    },
+    {
+      "id": 18,
+      "name": "DigitalAddition",
+      "description": "使用无注意力Seq2Seq实现简单的100以内的加减法",
+      "link": "https://github.com/NayukiChiba/DigitalAddition",
+      "techStack": [
+        "PyTorch",
+        "Seq2Seq",
+        "RNN"
+      ],
+      "status": "in-progress",
+      "visibility": "published"
+    },
+    {
       "id": 17,
       "name": "Simple-Neural-Network",
       "description": "用最基础的Numpy实现一个简单的神经网络",
