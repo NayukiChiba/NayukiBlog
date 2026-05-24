@@ -22,11 +22,17 @@ const { folders } = Astro.props;
         全部文章
       </button>
     </div>
-    {folders.map(folder => (
-      <div class="folder-item" data-path={folder.path} style={`padding-left: ${folder.level * 1}rem`}>
+    {folders.map(folder => {
+      // 检查父文件夹是否有子项，用于初始折叠
+      const parentPath = folder.path.includes('/') ? folder.path.substring(0, folder.path.lastIndexOf('/')) : '';
+      const parentFolder = parentPath ? folders.find(f => f.path === parentPath) : null;
+      const isHidden = parentFolder?.hasChildren ?? false;
+
+      return (
+      <div class="folder-item" data-path={folder.path} style={`padding-left: ${folder.level * 1}rem; ${isHidden ? 'display: none' : ''}`}>
         {folder.hasChildren && (
           <button class="folder-toggle" data-target={folder.path}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon" style="transform: rotate(-90deg)"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
         )}
         {!folder.hasChildren && <span class="folder-spacer"></span>}
@@ -38,7 +44,8 @@ const { folders } = Astro.props;
           {folder.name}
         </button>
       </div>
-    ))}
+      );
+    })}
   </div>
 </div>
 
