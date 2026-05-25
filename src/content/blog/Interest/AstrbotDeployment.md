@@ -357,3 +357,269 @@ http://{ip}:6185
 自行加入模型提供商的llm模型之后，在qq中发送消息即可
 ![Check.png](https://img.yumeko.site/file/articles/AstrbotDeployment/Check.png)
 
+# 使用更加简单的同时编排
+## 放开 `ptrace` 限制
+
+> [!DANGER] 注意
+> **这一步必须先做，否则容器起来后 hook 注入会失败。**
+
+SnowLuma 的 native addon 通过 `ptrace` 把 hook 注入到容器内的 QQ 进程。现代 Linux 发行版（Ubuntu / Debian / Arch 等）默认把 `kernel.yama.ptrace_scope` 设为 `1` 或更高，**即使容器启动加了 `--cap-add=SYS_PTRACE`，注入也会被宿主内核拦掉**。
+
+在宿主机上**只需要执行一次**：
+
+```
+echo 'kernel.yama.ptrace_scope=0' | sudo tee /etc/sysctl.d/99-snowluma-ptrace.conf
+```
+
+验证是否生效：
+
+```
+sysctl kernel.yama.ptrace_scope
+
+```
+- 期望输出：kernel.yama.ptrace_scope = 0
+写到 `/etc/sysctl.d/99-snowluma-ptrace.conf` 是为了让设置在重启后自动恢复。如果你的环境对宿主机安全有更严格要求（比如多租户、面向公网），请考虑使用受信任的隔离机制（独立物理机 / VM）替代这一步。
+
+## 获取`compose.yml`
+### Astrbot的`compose.yml`
+
+```dockerfile
+version: '3.8'
+
+# When connecting to OneBot v11 Napcat, please use this compose file for one-click deployment: https://github.com/NapNeko/NapCat-Docker/blob/main/compose/astrbot.yml
+
+services:
+  astrbot:
+    image: soulter/astrbot:latest
+    container_name: astrbot
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "6185:6185" # AstrBot WebUI
+      - "6199:6199" # Optional. OneBot v11 Napcat Websocket Port
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./data:/AstrBot/data
+      # - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+```
+
+### Snowluma的`compose.yml`
+
+```
+
+services:
+  snowluma:
+    image: ${SNOWLUMA_IMAGE:-motricseven7/snowluma:latest}
+    container_name: ${SNOWLUMA_CONTAINER:-snowluma}
+    restart: unless-stopped
+    shm_size: 1gb
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp=unconfined
+    environment:
+      VNC_PASSWD: ${VNC_PASSWD:-vncpasswd}
+      SNOWLUMA_UID: ${SNOWLUMA_UID:-1000}
+      SNOWLUMA_GID: ${SNOWLUMA_GID:-1000}
+      SNOWLUMA_WEBUI_PORT: ${SNOWLUMA_WEBUI_PORT:-5099}
+      SNOWLUMA_LOG_LEVEL: ${SNOWLUMA_LOG_LEVEL:-info}
+      SNOWLUMA_SCREEN: ${SNOWLUMA_SCREEN:-1920x1080x16}
+      SNOWLUMA_HOOK_AUTOLOAD: ${SNOWLUMA_HOOK_AUTOLOAD:-1}
+    ports:
+      - "${VNC_PORT:-5900}:5900"
+      - "${NOVNC_PORT:-6081}:6081"
+      - "${SNOWLUMA_WEBUI_HOST_PORT:-5099}:${SNOWLUMA_WEBUI_PORT:-5099}"
+      - "${ONEBOT_HTTP_PORT:-3000}:3000"
+      - "${ONEBOT_WS_PORT:-3001}:3001"
+    volumes:
+      - snowluma-data:/app/snowluma-data
+      - snowluma-qq-config:/app/.config
+      - snowluma-qq-data:/app/.local/share
+
+volumes:
+  snowluma-data:
+  snowluma-qq-config:
+  snowluma-qq-data:
+```
+
+### 把他们合并一下
+
+```
+version: '3.8'
+
+# When connecting to OneBot v11 Napcat, please use this compose file for one-click deployment: https://github.com/NapNeko/NapCat-Docker/blob/main/compose/astrbot.yml
+
+services:
+
+  astrbot:
+
+    image: soulter/astrbot:latest
+
+    container_name: astrbot
+
+    restart: always
+
+    security_opt:
+
+      - "no-new-privileges:true"
+
+    ports:
+
+      - "6185:6185" # AstrBot WebUI
+
+      - "6199:6199" # Optional. OneBot v11 Napcat Websocket Port
+
+    environment:
+
+      - TZ=Asia/Shanghai
+
+    volumes:
+
+      - ./data:/AstrBot/data
+
+      # - /etc/timezone:/etc/timezone:ro
+
+      - /etc/localtime:/etc/localtime:ro
+
+    networks:
+
+      - astrbot-net
+
+  
+
+  snowluma:
+
+    image: ${SNOWLUMA_IMAGE:-motricseven7/snowluma:latest}
+
+    container_name: ${SNOWLUMA_CONTAINER:-snowluma}
+
+    restart: unless-stopped
+
+    shm_size: 1gb
+
+    cap_add:
+
+      - SYS_PTRACE
+
+    security_opt:
+
+      - seccomp=unconfined
+
+    environment:
+
+      VNC_PASSWD: ${VNC_PASSWD:-vncpasswd}
+
+      SNOWLUMA_UID: ${SNOWLUMA_UID:-1000}
+
+      SNOWLUMA_GID: ${SNOWLUMA_GID:-1000}
+
+      SNOWLUMA_WEBUI_PORT: ${SNOWLUMA_WEBUI_PORT:-5099}
+
+      SNOWLUMA_LOG_LEVEL: ${SNOWLUMA_LOG_LEVEL:-info}
+
+      SNOWLUMA_SCREEN: ${SNOWLUMA_SCREEN:-1920x1080x16}
+
+      SNOWLUMA_HOOK_AUTOLOAD: ${SNOWLUMA_HOOK_AUTOLOAD:-1}
+
+    ports:
+
+      - "${VNC_PORT:-5900}:5900"
+
+      - "${NOVNC_PORT:-6081}:6081"
+
+      - "${SNOWLUMA_WEBUI_HOST_PORT:-5099}:${SNOWLUMA_WEBUI_PORT:-5099}"
+
+      - "${ONEBOT_HTTP_PORT:-3000}:3000"
+
+      - "${ONEBOT_WS_PORT:-3001}:3001"
+
+    volumes:
+
+      - snowluma-data:/app/snowluma-data
+
+      - snowluma-qq-config:/app/.config
+
+      - snowluma-qq-data:/app/.local/share
+
+    networks:
+
+      - astrbot-net
+
+  
+
+networks:
+
+  astrbot-net:
+
+    driver: bridge
+
+  
+
+volumes:
+
+  snowluma-data:
+
+  snowluma-qq-config:
+
+  snowluma-qq-data:
+```
+
+> [!INFO] 使用教程
+> 直接把上面的合并`compose.yml`复制到 1Panel 的**编排**部分中
+
+## 使用 `compose.yml`
+在 1Panel 的**容器** -> **编排**中粘贴上面的合并compose即可，然后设置一下环境变量
+
+![ComposeStep.png](https://img.yumeko.site/file/articles/AstrbotDeployment/ComposeStep.png)
+
+## 环境变量
+
+![SnowlumaEnv.png](https://img.yumeko.site/file/articles/AstrbotDeployment/SnowlumaEnv.png)
+
+> [!WARNING] 注意
+> 要设置环境变量`VNC_PASSWD={密码}`，不然别人可以直接登录你的界面
+
+## 打开防火墙
+
+![Firewall.png](https://img.yumeko.site/file/articles/AstrbotDeployment/Firewall.png)
+
+- 打开 `6185`访问Astrbot的WebUI
+- 打开`6081`是用来可视化登录qq的
+- 打开`5099`是用来查看qq状态的
+
+## 登录qq
+访问 `http://{ip}:6081`进入VNC界面，这是一个可视化的虚拟机，可以直接扫码登录qq
+![VNC.png](https://img.yumeko.site/file/articles/AstrbotDeployment/VNC.png)
+凭证就是设置的**环境变量**`VNC_PASSWD`，然后登录进去扫码qq即可
+
+## 设置OneBot的Websocket客户端
+
+访问`http://{ip}:5099`进入Snowluma的Onebot控制台，如果qq正常登录，那么就是成功了，如果出现错误，请再来一遍
+> [!TIP] 注意
+> 优先排查是否放开`ptrace`限制
+> 然后看登录状态是否正确
+
+![SnowlumaControl.png](https://img.yumeko.site/file/articles/AstrbotDeployment/SnowlumaControl.png)
+
+开始设置**WebSocket客户端**
+
+> [!WARNING] 注意
+> 注意是客户端，不是服务端
+
+![WSClient.png](https://img.yumeko.site/file/articles/AstrbotDeployment/WSClient.png)
+
+token就是密码，注意设置
+![WSSettting.png](https://img.yumeko.site/file/articles/AstrbotDeployment/WSSettting.png)
+
+> [!TIP] 设置完成之后
+> 记得保存，不保存没有用
+
+## 设置Astrbot的Onebot服务端
+
+
+![Onebot.png](https://img.yumeko.site/file/articles/AstrbotDeployment/Onebot.png)
+
+注意输入Token，这样就可以设置成功了
