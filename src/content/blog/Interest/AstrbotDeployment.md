@@ -543,6 +543,8 @@ services:
       - snowluma-qq-config:/app/.config
 
       - snowluma-qq-data:/app/.local/share
+      
+      - ./data:/AstrBot/data # 共享卷
 
     networks:
 
