@@ -453,120 +453,63 @@ version: '3.8'
 # When connecting to OneBot v11 Napcat, please use this compose file for one-click deployment: https://github.com/NapNeko/NapCat-Docker/blob/main/compose/astrbot.yml
 
 services:
+  astrbot:
+    image: soulter/astrbot:latest
+    container_name: astrbot
+    restart: always
+    security_opt:
+      - "no-new-privileges:true"
+    ports:
+      - "6185:6185" # AstrBot WebUI
+      - "6199:6199" # Optional. OneBot v11 Napcat Websocket Port
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./data:/AstrBot/data
+      # - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - astrbot-net
 
-  astrbot:
-
-    image: soulter/astrbot:latest
-
-    container_name: astrbot
-
-    restart: always
-
-    security_opt:
-
-      - "no-new-privileges:true"
-
-    ports:
-
-      - "6185:6185" # AstrBot WebUI
-
-      - "6199:6199" # Optional. OneBot v11 Napcat Websocket Port
-
-    environment:
-
-      - TZ=Asia/Shanghai
-
-    volumes:
-
-      - ./data:/AstrBot/data
-
-      # - /etc/timezone:/etc/timezone:ro
-
-      - /etc/localtime:/etc/localtime:ro
-
-    networks:
-
-      - astrbot-net
-
-  
-
-  snowluma:
-
-    image: ${SNOWLUMA_IMAGE:-motricseven7/snowluma:latest}
-
-    container_name: ${SNOWLUMA_CONTAINER:-snowluma}
-
-    restart: unless-stopped
-
-    shm_size: 1gb
-
-    cap_add:
-
-      - SYS_PTRACE
-
-    security_opt:
-
-      - seccomp=unconfined
-
-    environment:
-
-      VNC_PASSWD: ${VNC_PASSWD:-vncpasswd}
-
-      SNOWLUMA_UID: ${SNOWLUMA_UID:-1000}
-
-      SNOWLUMA_GID: ${SNOWLUMA_GID:-1000}
-
-      SNOWLUMA_WEBUI_PORT: ${SNOWLUMA_WEBUI_PORT:-5099}
-
-      SNOWLUMA_LOG_LEVEL: ${SNOWLUMA_LOG_LEVEL:-info}
-
-      SNOWLUMA_SCREEN: ${SNOWLUMA_SCREEN:-1920x1080x16}
-
-      SNOWLUMA_HOOK_AUTOLOAD: ${SNOWLUMA_HOOK_AUTOLOAD:-1}
-
-    ports:
-
-      - "${VNC_PORT:-5900}:5900"
-
-      - "${NOVNC_PORT:-6081}:6081"
-
-      - "${SNOWLUMA_WEBUI_HOST_PORT:-5099}:${SNOWLUMA_WEBUI_PORT:-5099}"
-
-      - "${ONEBOT_HTTP_PORT:-3000}:3000"
-
-      - "${ONEBOT_WS_PORT:-3001}:3001"
-
-    volumes:
-
-      - snowluma-data:/app/snowluma-data
-
-      - snowluma-qq-config:/app/.config
-
-      - snowluma-qq-data:/app/.local/share
-      
-      - ./data:/AstrBot/data # 共享卷
-
-    networks:
-
-      - astrbot-net
-
-  
+  snowluma:
+    image: ${SNOWLUMA_IMAGE:-motricseven7/snowluma:latest}
+    container_name: ${SNOWLUMA_CONTAINER:-snowluma}
+    restart: unless-stopped
+    shm_size: 1gb
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp=unconfined
+    environment:
+      VNC_PASSWD: ${VNC_PASSWD:-vncpasswd}
+      SNOWLUMA_UID: ${SNOWLUMA_UID:-1000}
+      SNOWLUMA_GID: ${SNOWLUMA_GID:-1000}
+      SNOWLUMA_WEBUI_PORT: ${SNOWLUMA_WEBUI_PORT:-5099}
+      SNOWLUMA_LOG_LEVEL: ${SNOWLUMA_LOG_LEVEL:-info}
+      SNOWLUMA_SCREEN: ${SNOWLUMA_SCREEN:-1920x1080x16}
+      SNOWLUMA_HOOK_AUTOLOAD: ${SNOWLUMA_HOOK_AUTOLOAD:-1}
+    ports:
+      - "${VNC_PORT:-5900}:5900"
+      - "${NOVNC_PORT:-6081}:6081"
+      - "${SNOWLUMA_WEBUI_HOST_PORT:-5099}:${SNOWLUMA_WEBUI_PORT:-5099}"
+      - "${ONEBOT_HTTP_PORT:-3000}:3000"
+      - "${ONEBOT_WS_PORT:-3001}:3001"
+    volumes:
+      - snowluma-data:/app/snowluma-data
+      - snowluma-qq-config:/app/.config
+      - snowluma-qq-data:/app/.local/share
+      - ./data:/AstrBot/data
+    networks:
+      - astrbot-net
 
 networks:
-
-  astrbot-net:
-
-    driver: bridge
-
-  
+  astrbot-net:
+    driver: bridge
 
 volumes:
-
-  snowluma-data:
-
-  snowluma-qq-config:
-
-  snowluma-qq-data:
+  snowluma-data:
+  snowluma-qq-config:
+  snowluma-qq-data:
 ```
 
 > [!INFO] 使用教程
