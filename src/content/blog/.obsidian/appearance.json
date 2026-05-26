@@ -1,7 +1,7 @@
 {
-  "cssTheme": "Things",
+  "cssTheme": "Minimal",
   "monospaceFontFamily": "JetBrains Mono",
-  "accentColor": "",
+  "accentColor": "#44adee",
   "baseFontSize": 17,
   "nativeMenus": false,
   "theme": "moonstone"
