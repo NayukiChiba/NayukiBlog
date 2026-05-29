@@ -1,6 +1,47 @@
 {
   "projects": [
     {
+      "id": 28,
+      "name": "NER",
+      "description": "使用BERT对文本进行命名实体识别（Named Entity Recognition）",
+      "link": "https://github.com/NayukiChiba/NER",
+      "techStack": [
+        "PyTorch",
+        "Transformer",
+        "LLM",
+        "BERT"
+      ],
+      "status": "planning",
+      "visibility": "published"
+    },
+    {
+      "id": 27,
+      "name": "TextGeneration",
+      "description": "参考GPT，写一个decoder-only的文本生成器",
+      "link": "https://github.com/NayukiChiba/TextGeneration",
+      "techStack": [
+        "PyTorch",
+        "LLM",
+        "Transformer",
+        "GPT"
+      ],
+      "status": "planning",
+      "visibility": "published"
+    },
+    {
+      "id": 26,
+      "name": "MachineTranslation",
+      "description": "使用Transformer写一个机器翻译模型",
+      "link": "https://github.com/NayukiChiba/MachineTranslation",
+      "techStack": [
+        "PyTorch",
+        "LLM",
+        "Transformer"
+      ],
+      "status": "planning",
+      "visibility": "published"
+    },
+    {
       "id": 25,
       "name": "Attention",
       "description": "从零实现一个自注意力和多头注意力",
@@ -10,7 +51,7 @@
         "Attention",
         "Transformer"
       ],
-      "status": "planning",
+      "status": "in-progress",
       "visibility": "published"
     },
     {
@@ -23,7 +64,7 @@
         "Seq2Seq",
         "Attention"
       ],
-      "status": "planning",
+      "status": "completed",
       "visibility": "published"
     },
     {
@@ -106,7 +147,7 @@
         "Seq2Seq",
         "RNN"
       ],
-      "status": "in-progress",
+      "status": "completed",
       "visibility": "published"
     },
     {
