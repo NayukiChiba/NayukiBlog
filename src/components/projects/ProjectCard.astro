@@ -38,7 +38,7 @@ const { title, desc, url, tech = [] } = Astro.props;
     display: flex;
     flex-direction: column;
     background: var(--color-card-bg);
-    border: 1px solid var(--color-border);
+    border: 2px solid var(--color-border);
     border-radius: var(--radius-xl);
     padding: 2rem;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -50,7 +50,6 @@ const { title, desc, url, tech = [] } = Astro.props;
   }
 
   .project-card:hover {
-    transform: translateY(-4px);
     box-shadow: var(--shadow-hover);
     z-index: 10;
     /* 彗星流光边框 */

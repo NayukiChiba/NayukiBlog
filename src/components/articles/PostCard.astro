@@ -60,7 +60,7 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
         position: relative;
         display: block;
         background: var(--color-card-bg, #fff);
-        border: 1px solid var(--color-border, #e8e8e8);
+        border: 2px solid var(--color-border, #e8e8e8);
         border-radius: var(--radius-lg, 1rem);
         text-decoration: none;
         transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -73,7 +73,6 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
     }
 
     .post-card:hover {
-        transform: translateY(-4px);
         box-shadow:
             var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.06)),
             0 0 20px rgba(255, 158, 181, 0.15);

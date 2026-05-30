@@ -39,7 +39,7 @@ const displayTodos = todos.filter(t => !t.completed && t.type === 'short-term');
   /* Todo Card Styles */
   .todo-card {
     background: var(--color-card-bg);
-    border: 1px solid var(--color-border);
+    border: 2px solid var(--color-border);
     border-radius: var(--radius-xl);
     padding: 1.5rem;
     height: 160px;
@@ -54,7 +54,6 @@ const displayTodos = todos.filter(t => !t.completed && t.type === 'short-term');
   }
 
   .todo-card:hover {
-    transform: translateY(-4px);
     /* 彗星流光边框 */
     border: 2px solid transparent;
     background-color: transparent;

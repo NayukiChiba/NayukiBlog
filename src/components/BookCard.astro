@@ -58,7 +58,7 @@ const { title, cover, url, tags = [] } = Astro.props;
         display: flex;
         flex-direction: column;
         background: var(--color-card-bg);
-        border: 1px solid var(--color-border);
+        border: 2px solid var(--color-border);
         border-radius: var(--radius-lg);
         overflow: hidden;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -67,7 +67,6 @@ const { title, cover, url, tags = [] } = Astro.props;
     }
 
     .book-card:hover {
-        transform: translateY(-6px);
         box-shadow: var(--shadow-lg);
         /* 彗星流光边框 */
         border: 2px solid transparent;
