@@ -3,5 +3,6 @@
   "spellcheck": false,
   "newFileLocation": "current",
   "promptDelete": false,
-  "newLinkFormat": "relative"
+  "newLinkFormat": "relative",
+  "alwaysUpdateLinks": true
 }
