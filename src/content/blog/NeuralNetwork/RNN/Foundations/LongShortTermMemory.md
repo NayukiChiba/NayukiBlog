@@ -1,13 +1,13 @@
 ---
 title: LSTM 详解：门控机制如何实现长短期记忆
-date: 2026-05-29
+date: 2026-05-25
 category: NeuralNetwork/RNN/Foundations
 tags:
   - 深度学习
   - 基础
 description: 从遗忘门、输入门、输出门到细胞状态，逐公式拆解 LSTM 的每一个门控机制，配合完整手算例子、形状追踪和 PyTorch 代码。
 image: https://img.yumeko.site/file/blog/LongShortTermMemory.webp
-status: draft
+status: published
 ---
 
 ## 1. 从 Vanilla RNN 到 LSTM：为什么需要门控？

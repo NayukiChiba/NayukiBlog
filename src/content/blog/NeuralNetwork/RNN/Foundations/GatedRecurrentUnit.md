@@ -1,13 +1,13 @@
 ---
 title: GRU 详解：LSTM 的高效替代方案
-date: 2026-05-29
+date: 2026-05-27
 category: NeuralNetwork/RNN/Foundations
 tags:
   - 深度学习
   - 基础
 description: 详细拆解 GRU 的重置门和更新门机制，理解 GRU 如何用更少的参数实现与 LSTM 接近的效果，并对比两者优劣和适用场景。
 image: https://img.yumeko.site/file/blog/GatedRecurrentUnit.webp
-status: draft
+status: published
 ---
 
 ## 1. GRU 的诞生背景

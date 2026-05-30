@@ -1,13 +1,13 @@
 ---
 title: 双向 RNN：同时看到过去和未来
-date: 2026-05-29
+date: 2026-05-22
 category: NeuralNetwork/RNN/Architectures
 tags:
   - 经典架构
   - 深度学习
 description: Schuster 和 Paliwal 在 1997 年提出的双向 RNN 架构，理解它如何通过正反向两个 RNN 利用序列的双向上下文信息，完整的数学推导，从零 PyTorch 实现，以及为什么不能用于自回归文本生成。
 image: https://img.yumeko.site/file/blog/BidirectionalRNN.webp
-status: draft
+status: published
 ---
 
 ## 1. 动机：单向 RNN 的盲区

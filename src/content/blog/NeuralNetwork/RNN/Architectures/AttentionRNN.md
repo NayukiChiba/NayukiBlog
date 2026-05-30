@@ -1,6 +1,6 @@
 ---
 title: 注意力 RNN：打破信息瓶颈
-date: 2026-05-29
+date: 2026-05-26
 category: NeuralNetwork/RNN/Architectures
 tags:
   - 经典架构
@@ -8,7 +8,7 @@ tags:
   - 注意力
 description: 2015 年 Bahdanau 等人将注意力机制引入 Seq2Seq，解决了上下文向量的信息瓶颈。逐公式拆解加性注意力的评分、归一化、加权求和过程，配合完整 PyTorch 从零实现。
 image: https://img.yumeko.site/file/blog/AttentionRNN.webp
-status: draft
+status: published
 ---
 
 ## 1. Seq2Seq 的结构性缺陷

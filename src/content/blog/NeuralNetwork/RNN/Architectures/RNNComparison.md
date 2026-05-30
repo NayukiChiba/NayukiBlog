@@ -1,13 +1,13 @@
 ---
 title: RNN 架构对比总结
-date: 2026-05-29
+date: 2026-05-28
 category: NeuralNetwork/RNN/Architectures
 tags:
   - 总结
   - 深度学习
 description: 一张表纵览从 Elman RNN 到 Attention RNN 的所有经典架构，理解每一代的核心创新与演进脉络，以及如何根据不同任务选择合适的 RNN 变体。
 image: https://img.yumeko.site/file/blog/RNNComparison.png
-status: draft
+status: published
 ---
 
 ## 1. 演进脉络总览

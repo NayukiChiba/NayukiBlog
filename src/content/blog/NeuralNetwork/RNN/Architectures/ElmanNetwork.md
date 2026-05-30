@@ -1,13 +1,13 @@
 ---
 title: Elman Network：循环神经网络的开端
-date: 2026-05-29
+date: 2026-05-21
 category: NeuralNetwork/RNN/Architectures
 tags:
   - 经典架构
   - 深度学习
 description: 1990年 Jeff Elman 提出的 Simple Recurrent Network，奠定了所有 RNN 变体的基础范式。完整推导其数学原理、手算前向传播、从零 PyTorch 实现、BPTT 梯度分析及根本局限。
 image: https://img.yumeko.site/file/blog/ElmanNetwork.webp
-status: draft
+status: published
 ---
 
 ## 1. 历史背景

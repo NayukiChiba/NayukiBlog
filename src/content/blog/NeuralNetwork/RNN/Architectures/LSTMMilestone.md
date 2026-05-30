@@ -1,13 +1,13 @@
 ---
 title: LSTM 里程碑：1997 年改变序列学习的发明
-date: 2026-05-29
+date: 2026-05-24
 category: NeuralNetwork/RNN/Architectures
 tags:
   - 经典架构
   - 深度学习
 description: Hochreiter 和 Schmidhuber 在 1997 年提出 LSTM，通过门控机制和细胞状态解决了 Vanilla RNN 的梯度消失问题。完整推导其数学原理、手算前向传播、从零 PyTorch 实现及梯度分析。
 image: https://img.yumeko.site/file/blog/LSTMMilestone.webp
-status: draft
+status: published
 ---
 
 ## 1. 诞生背景：梯度消失的理论分析

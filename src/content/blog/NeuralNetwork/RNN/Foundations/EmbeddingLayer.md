@@ -1,6 +1,6 @@
 ---
 title: 嵌入层详解：从离散符号到稠密向量
-date: 2026-05-29
+date: 2026-05-28
 category: NeuralNetwork/RNN/Foundations
 tags:
   - 深度学习
@@ -8,7 +8,7 @@ tags:
   - NLP
 description: 深入理解词嵌入和字符嵌入的数学本质、训练过程、padding_idx 的特殊处理以及嵌入维度选择的经验法则。
 image: https://img.yumeko.site/file/blog/EmbeddingLayer.webp
-status: draft
+status: published
 ---
 
 ## 1. 从离散到连续：为什么需要 Embedding？

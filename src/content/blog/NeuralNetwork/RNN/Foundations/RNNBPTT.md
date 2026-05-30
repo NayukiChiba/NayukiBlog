@@ -8,7 +8,7 @@ tags:
   - 优化
 description: 从计算图展开到梯度连乘，深入理解 Through-Time Backpropagation 的数学原理、截断策略和梯度裁剪的有效性边界。
 image: https://img.yumeko.site/file/blog/BackpropagationThroughTime.webp
-status: draft
+status: published
 ---
 
 ## 1. BPTT 的核心问题

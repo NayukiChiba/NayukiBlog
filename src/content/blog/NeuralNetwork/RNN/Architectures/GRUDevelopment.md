@@ -1,13 +1,13 @@
 ---
 title: GRU 的诞生：LSTM 的精简进化
-date: 2026-05-29
+date: 2026-05-23
 category: NeuralNetwork/RNN/Architectures
 tags:
   - 经典架构
   - 深度学习
 description: 2014 年 Cho 等人提出 GRU 的背景、动机（为 Seq2Seq 机器翻译简化 LSTM），完整数学推导，从零 PyTorch 实现，门控机制对比分析及工程权衡。
 image: https://img.yumeko.site/file/blog/GRUDevelopment.webp
-status: draft
+status: published
 ---
 
 ## 1. 诞生的工程动机

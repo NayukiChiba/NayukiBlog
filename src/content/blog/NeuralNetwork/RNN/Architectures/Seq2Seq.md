@@ -1,13 +1,13 @@
 ---
 title: Seq2Seq：编码器-解码器架构
-date: 2026-05-29
+date: 2026-05-25
 category: NeuralNetwork/RNN/Architectures
 tags:
   - 经典架构
   - 深度学习
 description: 2014 年 Sutskever 等人提出的 Sequence-to-Sequence 学习框架。完整数学推导、从零 PyTorch 实现、Teacher Forcing 策略分析、信息瓶颈讨论及解码策略对比。
 image: https://img.yumeko.site/file/blog/Seq2Seq.webp
-status: draft
+status: published
 ---
 
 ## 1. 问题定义：变长序列到变长序列的映射

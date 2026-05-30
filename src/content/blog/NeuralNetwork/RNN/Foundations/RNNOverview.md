@@ -7,7 +7,7 @@ tags:
   - 基础
 description: 从全连接网络和 CNN 的局限出发，系统理解 RNN 处理序列数据的核心思想——隐藏状态、时序依赖、参数共享，以及 RNN 适合解决的五类序列问题。
 image: https://img.yumeko.site/file/blog/RNNOverview.webp
-status: draft
+status: published
 ---
 
 ## 1. 序列数据的本质特征

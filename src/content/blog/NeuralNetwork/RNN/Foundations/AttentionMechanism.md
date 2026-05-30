@@ -1,6 +1,6 @@
 ---
 title: 注意力机制详解：让 RNN 学会"看哪里"
-date: 2026-05-29
+date: 2026-05-26
 category: NeuralNetwork/RNN/Foundations
 tags:
   - 深度学习
@@ -8,7 +8,7 @@ tags:
   - 注意力
 description: 从信息瓶颈问题出发，深入拆解 Bahdanau 加性注意力的评分计算、Softmax 归一化、加权求和和 Mask 处理的完整数学流程，并展示 Attention 权重的可解释性价值。
 image: https://img.yumeko.site/file/blog/AttentionMechanism.webp
-status: draft
+status: published
 ---
 
 ## 1. RNN 的"信息瓶颈"问题

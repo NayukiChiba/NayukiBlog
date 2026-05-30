@@ -7,7 +7,7 @@ tags:
   - 基础
 description: 从隐藏状态更新公式到手算例子，深入理解 Vanilla RNN 的每一步计算、参数矩阵的物理含义、输出模式、以及根本局限。
 image: https://img.yumeko.site/file/blog/RecurrentLayer.webp
-status: draft
+status: published
 ---
 
 ## 1. RNN Cell 的数学定义
