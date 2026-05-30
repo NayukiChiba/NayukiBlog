@@ -178,7 +178,7 @@ $$
 
 | 维度 | LSTM $C_2$ | GRU $h_2$ | 差异说明 |
 |------|:---:|:---:|------|
-| 0 | 0.047 | 0.273 | GRU 保留更多旧信息（更新门 z=0.40 → 保留 60%） |
+| 0 | 0.047 | 0.273 | GRU 保留更多旧信息（更新门 z=0.40，保留 60%） |
 | 1 | 0.741 | 0.460 | LSTM 累积更多（遗忘门 0.55 + 输入门 0.80 × 0.60） |
 
 GRU 的输出在两个维度之间更"均衡"，LSTM 的维度间差异更大——这反映了 LSTM 更精细的门控能力。
@@ -228,11 +228,144 @@ GRU 的输出在两个维度之间更"均衡"，LSTM 的维度间差异更大—
 
 ---
 
-## 5. PyTorch 代码
+## 5. 从零实现 GRU 与公式对照
+
+本节从零实现一个 `GRUCell`，将第 2 节中的四个公式逐行映射为 PyTorch 代码。
+
+### 5.1 单步 GRUCell：公式到代码的精确映射
+
+GRU 的四个核心公式重新列出：
+
+$$
+r_t = \sigma(W_{ir} \cdot x_t + b_{ir} + W_{hr} \cdot h_{t-1} + b_{hr})
+$$
+$$
+z_t = \sigma(W_{iz} \cdot x_t + b_{iz} + W_{hz} \cdot h_{t-1} + b_{hz})
+$$
+$$
+\tilde{h}_t = \tanh(W_{i\tilde{h}} \cdot x_t + b_{i\tilde{h}} + r_t \odot (W_{h\tilde{h}} \cdot h_{t-1} + b_{h\tilde{h}}))
+$$
+$$
+h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
+$$
+
+注意这里将 $W \cdot [h_{t-1}, x_t]$ 的拼接操作展开成了分别对 $x_t$ 和 $h_{t-1}$ 做线性变换再相加的形式——PyTorch 的 `nn.GRUCell` 内部也是这么实现的，这样做的好处是不需要在每次调用时拼接向量，计算效率更高。
+
+下面是从零实现的 `GRUCell`：
 
 ```python
+import torch
 import torch.nn as nn
 
+
+class GRUCell(nn.Module):
+    """
+    GRU 单步单元，实现单时间步的前向传播。
+
+    四个公式：
+      r_t = sigmoid(W_ir @ x_t + b_ir + W_hr @ h + b_hr)
+      z_t = sigmoid(W_iz @ x_t + b_iz + W_hz @ h + b_hz)
+      n_t = tanh(W_in @ x_t + b_in + r_t * (W_hn @ h + b_hn))
+      h_t = (1 - z_t) * h + z_t * n_t
+    """
+
+    def __init__(self, inputSize: int, hiddenSize: int):
+        super().__init__()
+
+        # 重置门 r_t: 对 x_t 和 h_{t-1} 各做一次线性变换
+        self.W_ir = nn.Linear(inputSize, hiddenSize, bias=False)
+        self.W_hr = nn.Linear(hiddenSize, hiddenSize, bias=True)
+
+        # 更新门 z_t: 同样各做一次线性变换
+        self.W_iz = nn.Linear(inputSize, hiddenSize, bias=False)
+        self.W_hz = nn.Linear(hiddenSize, hiddenSize, bias=True)
+
+        # 候选隐藏状态 n_t (即 \tilde{h}_t)
+        self.W_in = nn.Linear(inputSize, hiddenSize, bias=False)
+        self.W_hn = nn.Linear(hiddenSize, hiddenSize, bias=True)
+
+    def forward(self, x, h):
+        """
+        x: 当前时刻输入，形状 (batch, inputSize)
+        h: 上一时刻隐藏状态，形状 (batch, hiddenSize)
+
+        返回: 新的隐藏状态 h_t，形状 (batch, hiddenSize)
+        """
+        # 公式 ① 重置门: r_t = sigmoid(W_ir(x_t) + W_hr(h_{t-1}))
+        r_t = torch.sigmoid(self.W_ir(x) + self.W_hr(h))
+
+        # 公式 ② 更新门: z_t = sigmoid(W_iz(x_t) + W_hz(h_{t-1}))
+        z_t = torch.sigmoid(self.W_iz(x) + self.W_hz(h))
+
+        # 公式 ③ 候选隐藏状态: n_t = tanh(W_in(x_t) + r_t * W_hn(h_{t-1}))
+        # 注意 r_t 只作用在 h_{t-1} 的变换上，不作用在 x_t 上
+        n_t = torch.tanh(self.W_in(x) + r_t * self.W_hn(h))
+
+        # 公式 ④ 最终隐藏状态: h_t = (1 - z_t) * h_{t-1} + z_t * n_t
+        h_t = (1 - z_t) * h + z_t * n_t
+
+        return h_t
+```
+
+**代码与公式的逐行对照：**
+
+| 公式编号 | 数学公式 | 对应代码行 |
+|:---:|------|------|
+| ① | $r_t = \sigma(W_{ir} \cdot x_t + b_{ir} + W_{hr} \cdot h_{t-1} + b_{hr})$ | `self.W_ir(x)` 对应 $W_{ir} \cdot x_t + b_{ir}$，`self.W_hr(h)` 对应 $W_{hr} \cdot h_{t-1} + b_{hr}$，两者相加后过 `torch.sigmoid` |
+| ② | $z_t = \sigma(W_{iz} \cdot x_t + b_{iz} + W_{hz} \cdot h_{t-1} + b_{hz})$ | 结构与 ① 完全相同，用独立的参数 `W_iz` / `W_hz` |
+| ③ | $\tilde{h}_t = \tanh(W_{i\tilde{h}} \cdot x_t + b_{i\tilde{h}} + r_t \odot (W_{h\tilde{h}} \cdot h_{t-1} + b_{h\tilde{h}}))$ | `self.W_in(x)` 处理 $x_t$，`r_t * self.W_hn(h)` 实现 $r_t \odot (W_{h\tilde{h}} \cdot h_{t-1} + b_{h\tilde{h}})$，两者相加后过 `torch.tanh` |
+| ④ | $h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t$ | `(1 - z_t) * h + z_t * n_t`，`*` 在 PyTorch 中是逐元素乘法，对应 $\odot$ |
+
+**关于 bias 的设计说明：**
+
+在 `__init__` 中，`W_ir` 和 `W_iz` 和 `W_in` 设置了 `bias=False`，而 `W_hr`、`W_hz`、`W_hn` 设置了 `bias=True`。这是因为每个门中只需要一个 bias（加在 $h_{t-1}$ 的变换上），如果 $x_t$ 的变换也带 bias，就会出现两个 bias 相加的情况——不是错误，但会引入冗余参数。PyTorch 官方的 `nn.GRUCell` 也是同样的策略。
+
+### 5.2 手动展开多步循环
+
+`GRUCell` 只处理单步。要处理一个完整序列，需要手动写循环：
+
+```python
+def gruForward(cell, inputSequence, h0=None):
+    """
+    用 GRUCell 手动展开整个序列。
+
+    Args:
+        cell: GRUCell 实例
+        inputSequence: (batch, seqLen, inputSize)
+        h0: 初始隐藏状态，None 则使用零向量
+
+    Returns:
+        outputs: (batch, seqLen, hiddenSize)  每个时间步的输出
+        hFinal: (batch, hiddenSize)           最后一步的隐藏状态
+    """
+    batchSize, seqLen, _ = inputSequence.shape
+    hiddenSize = cell.W_hr.out_features
+
+    if h0 is None:
+        h = torch.zeros(batchSize, hiddenSize, device=inputSequence.device)
+    else:
+        h = h0
+
+    outputs = []
+    for t in range(seqLen):
+        x_t = inputSequence[:, t, :]   # 取出第 t 步的输入 (batch, inputSize)
+        h = cell(x_t, h)               # 执行一步 GRU
+        outputs.append(h)              # 保存当前步的输出
+
+    # 将 outputs 列表堆叠为张量 (batch, seqLen, hiddenSize)
+    outputs = torch.stack(outputs, dim=1)
+    return outputs, h
+```
+
+这段代码清晰地展示了 RNN 的本质——同一个 `cell` 在每一步被重复调用，隐藏状态 $h_t$ 在时间步之间传递。PyTorch 的 `nn.GRU` 内部做的就是这件事，只是用 CUDA 内核和 cuDNN 做了高度优化，不再需要手动写 Python 循环。
+
+### 5.3 使用 PyTorch 内置 nn.GRU
+
+```python
+import torch
+import torch.nn as nn
+
+# 参数与上面的 GRUCell 等价
 gru = nn.GRU(
     input_size=300,
     hidden_size=256,
@@ -242,28 +375,16 @@ gru = nn.GRU(
     batch_first=True,
 )
 
-# GRU 只需要 h_0（不需要 c_0）
-B, L = 64, 128
-h0 = torch.zeros(2 * 2, B, 256)  # 2层×2方向, B, 256
-
-output, hn = gru(x, h0)
-# output: (B, L, 512)
-# hn: (4, B, 256)
+# 前向传播
+x = torch.randn(64, 128, 300)          # (batch=64, seq=128, input=300)
+output, hFinal = gru(x)
+# output:  (64, 128, 512)  每步的输出（双向拼接: 256×2）
+# hFinal:  (4, 64, 256)    最后一层的双向最终隐藏状态（2层×2方向=4）
 ```
 
-与 LSTM 的接口几乎一样——只少了一个 `c_0` 参数和一个 `c_n` 返回值。
-
-### 5.1 Char-RNN 中切换 GRU
-
-```python
-def createModel(rnnType, vocabSize, embeddingDim, hiddenDim, numLayers, dropout):
-    if rnnType == "GRU":
-        return CharGRU(vocabSize, embeddingDim, hiddenDim, numLayers, dropout)
-    elif rnnType == "LSTM":
-        return CharLSTM(vocabSize, embeddingDim, hiddenDim, numLayers, dropout)
-    else:
-        return CharRNN(vocabSize, embeddingDim, hiddenDim, numLayers, dropout)
-```
+`nn.GRU` 与 `nn.LSTM` 的接口差异只有一个——GRU 没有细胞状态。因此：
+- 初始化时不需要 `c_0`，只传 `h_0`（或不传，默认零向量）
+- 返回值只有 `(output, h_n)`，没有 `c_n`
 
 ---
 
@@ -272,10 +393,10 @@ def createModel(rnnType, vocabSize, embeddingDim, hiddenDim, numLayers, dropout)
 GRU 是 LSTM 的简化版本——用两个门（重置+更新）+ 统一的隐藏状态，实现了接近 LSTM 的长距离依赖学习能力，同时减少了 25% 的参数量。
 
 **选择建议**：
-- 不确定时 → LSTM（更成熟的默认选择）
-- 资源/时间受限时 → GRU
-- 小数据集 → GRU（更不容易过拟合）
-- 需要精细控制输出 → LSTM（有独立的输出门）
+- 不确定时选择 LSTM（更成熟的默认选择）
+- 资源或时间受限时选择 GRU
+- 小数据集优先考虑 GRU（更不容易过拟合）
+- 需要精细控制输出时选择 LSTM（有独立的输出门）
 
 > 对比 LSTM 参见 [[NeuralNetwork/RNN/Foundations/LongShortTermMemory|LSTM 详解]]
 > 回到主文档：[[NeuralNetwork/RNN/RNN|RNN 详解主文档]]
