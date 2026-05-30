@@ -29,7 +29,7 @@ status: draft
 
 **无论输入有多长（10 词 or 500 词），最终表示都是固定 512 维。** 固定维度的向量无法完整编码长序列的全部信息，信息丢失是结构性的。这就是**信息瓶颈（Information Bottleneck）**。
 
-![todo - "信息瓶颈"漏斗示意图。左侧：100个彩色词方块（代表输入序列的100个词）排列成一个宽大的矩阵，向右经过一个极窄的漏斗口（标注"上下文向量C (512维)"），漏斗右侧只流出一个小圆点（标注"信息瓶颈"），信息从漏斗壁溢出/泄漏（用红色X标记和碎裂粒子效果表示信息丢失）。右侧（作为对比方案）：不带漏斗的Attention架构——所有100个词方块的隐藏状态h_i全部保留，通过注意力权重α_i做加权求和（∑加权求和节点），输出512维context vector c，标注"所有h_i都参与"。漏斗区用红色警告色，Attention区用绿色安全色。]()
+![InformationBottleneck.png](https://img.yumeko.site/file/articles/AttentionMechanism/InformationBottleneck.webp)
 
 ### 1.2 信息瓶颈的具体表现
 
@@ -53,16 +53,16 @@ status: draft
 
 ### 2.1 四步流程总览
 
-```
+
 编码器所有隐藏状态: h_1, h_2, h_3, ..., h_T      (T个，每个hidden_dim维)
 
-![todo - Attention机制四步流程图，从左到右水平展开，四步用不同颜色背景框区分。左侧输入：编码器所有隐藏状态h_1到h_5（蓝色向量柱），其中h_3为灰色标注PAD。步骤1 Score（蓝色背景框）：所有h_i输入Score Network（Linear→Tanh→Linear→标量得分），每个h_i输出一个得分，用柱状图高度表示相对大小。步骤2 Mask（红色背景框）：PAD位置(h_3)的得分被红色大叉覆盖并替换为"-inf"（标注-1e9），其他得分保留。步骤3 Softmax（绿色背景框）：经softmax函数后得到权重α_i，用彩色横向条形图展示分布，PAD位置权重=0%。步骤4 Weighted Sum（紫色背景框）：所有权重α_i与对应h_i相乘后求和（Σ符号+大括号），输出紫色Context Vector c。步骤连线用箭头串联。底部附实例展示：各词对应的注意力权重α用色块热力图表示（深色=高权重）。]()
+![Attention.png](https://img.yumeko.site/file/articles/AttentionMechanism/Attention.webp)
 
 第1步: 评分(Scoring)  →  score_1, score_2, ..., score_T   (T个标量)
 第2步: 遮罩(Masking)  →  将PAD位置的得分设为 -inf
 第3步: Softmax归一化  →  α_1, α_2, ..., α_T              (权重，Σα=1)
 第4步: 加权求和       →  c = Σ α_i · h_i                  (上下文向量)
-```
+
 
 下面逐步拆解。
 
@@ -70,8 +70,7 @@ status: draft
 
 对每个时间步 $i$ 的隐藏状态 $h_i$，用一个**得分网络**计算其"相关程度"：
 
-![todo - Score Network内部结构图。左侧输入：h_i向量（标注维度512），经过三步骤：(1)Linear(W:512→256)→中间向量(256维，标注"注意力空间")→(2)Tanh激活→(3)Linear(v^T:256→1, bias=False)→输出标量score。每个节点标注维度变化（512→256→1）。右上角标注参数量：512x256+256=131,328 + 256x1=256 = 131,584。底部标注：两层MLP结构，Attention模块中唯一有参数的部分。]()
-
+![ScoreNetwork.png](https://img.yumeko.site/file/articles/AttentionMechanism/ScoreNetwork.webp)
 $$
 \text{score}(h_i) = v^T \cdot \tanh(W \cdot h_i + b)
 $$
