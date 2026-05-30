@@ -132,8 +132,8 @@ NiN 的两项创新被后来的架构广泛采纳：
 
 | 创新                   | 采纳架构                                                    |
 | -------------------- | ------------------------------------------------------- |
-| $1 \times 1$ 卷积降维    | [[GoogLeNet]], [[ResNet]], DenseNet                     |
-| $1 \times 1$ 卷积增加非线性 | [[GoogLeNet]], [[ResNet]], Bottleneck                   |
+| $1 \times 1$ 卷积降维    | GoogLeNet, ResNet, DenseNet                     |
+| $1 \times 1$ 卷积增加非线性 | GoogLeNet, ResNet, Bottleneck                   |
 | GAP 替代 FC            | **几乎所有现代架构**（GoogLeNet, ResNet, DenseNet, MobileNet...） |
 
 可以说不夸张地说：**如果用一个词概括 NiN 对 CNN 发展史的影响，那就是——GAP。** 完整的架构演进脉络见 [[NeuralNetwork/CNN/Architectures/ArchitectureComparison|架构对比]]。
