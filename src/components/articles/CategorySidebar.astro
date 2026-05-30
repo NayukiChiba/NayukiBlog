@@ -59,22 +59,35 @@ const { folders } = Astro.props;
         const btn = toggle as HTMLElement;
         const targetPath = btn.dataset.target;
         const icon = btn.querySelector('.toggle-icon') as HTMLElement;
-        
-        // Toggle rotation
-        if (icon) {
-          const currentRotation = icon.style.transform;
-          icon.style.transform = currentRotation === 'rotate(-90deg)' ? 'rotate(0deg)' : 'rotate(-90deg)';
-        }
 
-        // Toggle visibility of children
+        const isCollapsed = !icon || icon.style.transform.includes('rotate(-90deg)');
         const allFolders = document.querySelectorAll('.folder-item[data-path]');
-        allFolders.forEach(f => {
-          const path = (f as HTMLElement).dataset.path || '';
-          if (path.startsWith(targetPath + '/') && path !== targetPath) {
-            const currentDisplay = (f as HTMLElement).style.display;
-            (f as HTMLElement).style.display = currentDisplay === 'none' ? 'flex' : 'none';
-          }
-        });
+
+        if (isCollapsed) {
+          // 展开：只显示直接子项
+          if (icon) icon.style.transform = 'rotate(0deg)';
+          allFolders.forEach(f => {
+            const path = (f as HTMLElement).dataset.path || '';
+            const lastSlash = path.lastIndexOf('/');
+            const directParent = lastSlash > -1 ? path.substring(0, lastSlash) : '';
+            if (directParent === targetPath) {
+              (f as HTMLElement).style.display = 'flex';
+            }
+          });
+        } else {
+          // 折叠：隐藏所有后代，重置后代箭头
+          if (icon) icon.style.transform = 'rotate(-90deg)';
+          allFolders.forEach(f => {
+            const path = (f as HTMLElement).dataset.path || '';
+            if (path.startsWith(targetPath + '/') && path !== targetPath) {
+              (f as HTMLElement).style.display = 'none';
+              const childToggle = (f as HTMLElement).querySelector('.toggle-icon') as HTMLElement;
+              if (childToggle) {
+                childToggle.style.transform = 'rotate(-90deg)';
+              }
+            }
+          });
+        }
       });
     });
   }
