@@ -75,11 +75,11 @@ CNN 不需要人工设计特征，而是让网络自己从数据中学习"什么
 
 | 组件                                                             | 作用      |  是否改变空间尺寸   |
 | -------------------------------------------------------------- | ------- | :---------: |
-| [[NeuralNetwork/CNN/Foundations/ConvolutionLayer\|卷积层]]（Conv）  | 提取特征    | 取决于 padding |
-| [[NeuralNetwork/Theory/ActivationFunctions\|激活函数]]（Activation） | 引入非线性   |      否      |
-| [[NeuralNetwork/CNN/Foundations/PoolingLayer\|池化层]]（Pooling）   | 下采样，降维  |    是（缩小）    |
-| [[../../Tips/Techniques/BatchNormGuide\|批量归一化]]（BatchNorm）     | 稳定训练    |      否      |
-| [[FullyConnectedLayer\|全连接层]]（FC）                              | 综合特征做分类 |  N/A（接收向量）  |
+| 卷积层（Conv）  | 提取特征    | 取决于 padding |
+| 激活函数（Activation） | 引入非线性   |      否      |
+| 池化层（Pooling）   | 下采样，降维  |    是（缩小）    |
+| 批量归一化（BatchNorm）     | 稳定训练    |      否      |
+| 全连接层（FC）                              | 综合特征做分类 |  N/A（接收向量）  |
 一个典型的 CNN 架构模式是：
 
 $$
@@ -99,4 +99,4 @@ $$
 
 ![CNNArchitectureComparison.png](https://img.yumeko.site/file/blog/CNNArchitectureComparison.png)
 
-有关各架构的详细对比，参见 [[NeuralNetwork/CNN/Architectures/ArchitectureComparison|架构对比]]。
+有关各架构的详细对比，参见 架构对比。

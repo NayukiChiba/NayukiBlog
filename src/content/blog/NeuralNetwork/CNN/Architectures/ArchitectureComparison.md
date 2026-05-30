@@ -17,13 +17,13 @@ status: published
 
 | 架构 | 年份 | 层数 | 参数量 | Top-5 错误率 | 核心创新 |
 | --- | :---: | :---: | ---: | :---: | --- |
-| [[NeuralNetwork/CNN/Architectures/LeNet5\|LeNet-5]] | 1998 | 5 | 61K | — | Conv→Pool→FC 基础模式 |
-| [[NeuralNetwork/CNN/Architectures/AlexNet\|AlexNet]] | 2012 | 8 | 62M | 15.3% | ReLU + Dropout + GPU 训练 |
-| [[NeuralNetwork/CNN/Architectures/VGG\|VGG-16]] | 2014 | 16 | 138M | 7.3% | 全部 3×3 小卷积核 |
+| LeNet-5 | 1998 | 5 | 61K | — | Conv→Pool→FC 基础模式 |
+| AlexNet | 2012 | 8 | 62M | 15.3% | ReLU + Dropout + GPU 训练 |
+| VGG-16 | 2014 | 16 | 138M | 7.3% | 全部 3×3 小卷积核 |
 | VGG-19 | 2014 | 19 | 144M | 7.3% | 同 VGG-16，更深 |
-| [[NeuralNetwork/CNN/Architectures/NiN\|NiN]] | 2014 | 12 | ~7.5M | — | mlpconv + **GAP 替代 FC** |
-| [[NeuralNetwork/CNN/Architectures/GoogLeNet\|GoogLeNet]] | 2014 | 22 | 7M | 6.7% | Inception 多分支 + 1×1 降维 |
-| [[NeuralNetwork/CNN/Architectures/ResNet\|ResNet]]-18 | 2015 | 18 | 11.7M | 10.7%* | 残差连接 |
+| NiN | 2014 | 12 | ~7.5M | — | mlpconv + **GAP 替代 FC** |
+| GoogLeNet | 2014 | 22 | 7M | 6.7% | Inception 多分支 + 1×1 降维 |
+| ResNet-18 | 2015 | 18 | 11.7M | 10.7%* | 残差连接 |
 | ResNet-34 | 2015 | 34 | 21.8M | 8.6%* | 残差连接 |
 | ResNet-50 | 2015 | 50 | 25.6M | 5.3%* | Bottleneck + 残差连接 |
 | ResNet-101 | 2015 | 101 | 44.5M | 4.4%* | 更深 |
