@@ -126,4 +126,5 @@ GoogLeNet 的参数效率秘诀：
 | Inception v2 | 2015 | 添加 BN，$5 \times 5$ 替换为两个 $3 \times 3$ |
 | Inception v3 | 2015 | 卷积核进一步因式分解（$7 \times 7 \to 1 \times 7 + 7 \times 1$） |
 | Inception v4 | 2016 | 结合 ResNet 的 skip connection |
+
 2015 年的 [[NeuralNetwork/CNN/Architectures/ResNet|ResNet]] 用 skip connection 进一步突破了深度瓶颈，将层数推至 152+。完整的演进历史参见 [[NeuralNetwork/CNN/Architectures/ArchitectureComparison|架构对比]]。
