@@ -13,8 +13,9 @@ import MarkdownScripts from "../components/Markdown/MarkdownScripts.astro";
 import ParticleBackground from "../components/ParticleBackground.astro";
 import ProgressBar from "../components/ProgressBar.astro";
 import WikiLinkPreview from "../components/Markdown/WikiLinkPreview.astro";
+import PrevNextNav from "../components/Markdown/PrevNextNav.astro";
 
-const { frontmatter, wikiPreviewData } = Astro.props;
+const { frontmatter, wikiPreviewData, prevPost, nextPost } = Astro.props;
 const date = new Date(frontmatter.date);
 const formattedDate = date.toLocaleDateString("en-US", {
   year: "numeric",
@@ -92,6 +93,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
         />
         <hr />
         <slot />
+        <PrevNextNav prevPost={prevPost} nextPost={nextPost} />
       </article>
     </main>
 

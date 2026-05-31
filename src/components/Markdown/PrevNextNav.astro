@@ -1,0 +1,122 @@
+---
+interface Post {
+  slug: string;
+  data: { title: string };
+}
+
+interface Props {
+  prevPost: Post | null;
+  nextPost: Post | null;
+}
+
+const { prevPost, nextPost } = Astro.props;
+---
+
+{
+  (prevPost || nextPost) && (
+    <nav class="prev-next-nav">
+      {
+        prevPost ? (
+          <a href={`/posts/${prevPost.slug}`} class="nav-card" title={prevPost.data.title}>
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="1.3em" height="1.3em"><polyline points="15 18 9 12 15 6"/></svg>
+            </span>
+            <span class="nav-text">{prevPost.data.title}</span>
+          </a>
+        ) : <span class="nav-card nav-disabled" />
+      }
+      {
+        nextPost ? (
+          <a href={`/posts/${nextPost.slug}`} class="nav-card nav-card-next" title={nextPost.data.title}>
+            <span class="nav-text">{nextPost.data.title}</span>
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="1.3em" height="1.3em"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+          </a>
+        ) : <span class="nav-card nav-disabled" />
+      }
+    </nav>
+  )
+}
+
+<style is:global>
+  .prev-next-nav {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border, #e8e8e8);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .prev-next-nav {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .nav-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: 3.75rem;
+    width: 100%;
+    padding: 0 1.25rem;
+    border-radius: 1rem;
+    border: 2px solid var(--color-border, #e8e8e8);
+    background: var(--color-card-bg, #fff);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .nav-card {
+      max-width: calc(50% - 0.375rem);
+    }
+  }
+
+  .prev-next-nav .nav-card:hover {
+    border-color: var(--color-primary);
+    border-radius: 1rem;
+    box-shadow:
+      0 0 16px color-mix(in srgb, var(--radial-c1) 30%, transparent);
+  }
+
+  .nav-card:active {
+    transform: scale(0.97);
+  }
+
+  .nav-card-next {
+    justify-content: flex-end;
+  }
+
+  .nav-disabled {
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .nav-icon {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-text {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-text, #2d2d2d);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 2.5rem);
+  }
+
+  .nav-card:hover .nav-text {
+    color: var(--color-primary);
+  }
+</style>

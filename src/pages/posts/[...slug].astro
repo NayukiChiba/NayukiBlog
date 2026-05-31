@@ -15,11 +15,19 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
+// 所有已发布文章按日期降序
+const allPosts = (await getCollection('blog'))
+  .filter(p => p.data.status === 'published')
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// 前后文章
+const idx = allPosts.findIndex(p => p.slug === entry.slug);
+const prevPost = idx > 0 ? allPosts[idx - 1] : null;
+const nextPost = idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
+
 // 双链预览元数据：slug → { title, date, description }
-const allPosts = (await getCollection('blog')).filter(p => p.data.status === 'published');
 const wikiPreviewData: Record<string, { title: string; date: string; description?: string }> = {};
 for (const p of allPosts) {
-  // remark-wiki-link pageResolver 会转为小写，key 需匹配
   wikiPreviewData[p.slug.toLowerCase()] = {
     title: p.data.title,
     date: p.data.date,
@@ -28,6 +36,6 @@ for (const p of allPosts) {
 }
 ---
 
-<MarkdownLayout frontmatter={entry.data} wikiPreviewData={wikiPreviewData}>
+<MarkdownLayout frontmatter={entry.data} wikiPreviewData={wikiPreviewData} prevPost={prevPost} nextPost={nextPost}>
   <Content />
 </MarkdownLayout>
