@@ -465,7 +465,7 @@ services:
     environment:
       - TZ=Asia/Shanghai
     volumes:
-      - ./data:/AstrBot/data
+      - astrbot-data:/AstrBot/data
       # - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     networks:
@@ -498,7 +498,7 @@ services:
       - snowluma-data:/app/snowluma-data
       - snowluma-qq-config:/app/.config
       - snowluma-qq-data:/app/.local/share
-      - ./data:/AstrBot/data
+      - astrbot-data:/AstrBot/data
     networks:
       - astrbot-net
 
@@ -510,6 +510,7 @@ volumes:
   snowluma-data:
   snowluma-qq-config:
   snowluma-qq-data:
+  astrbot-data:
 ```
 
 > [!INFO] 使用教程
