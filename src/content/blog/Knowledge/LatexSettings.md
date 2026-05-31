@@ -12,6 +12,8 @@ status: published
 # Settings.json配置Latex
 ```text
 //------------------------------LaTeX 配置----------------------------------
+  "latex-workshop.linting.chktex.enabled": false,
+  "latex-workshop.linting.lacheck.enabled": false,
   // 设置是否自动编译
   "latex-workshop.latex.autoBuild.run": "never",
   //右键菜单

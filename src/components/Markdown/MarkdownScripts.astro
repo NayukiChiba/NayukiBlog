@@ -212,7 +212,7 @@
       // 4. Logic - Copy
       const copyBtn = header.querySelector(".copy-btn");
       copyBtn.addEventListener("click", () => {
-        const text = pre.innerText;
+        const text = pre.innerText.replace(/\t/g, "    ");
         navigator.clipboard.writeText(text).then(() => {
             copyBtn.classList.add("copied");
             
