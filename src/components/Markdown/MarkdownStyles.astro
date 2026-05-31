@@ -798,6 +798,19 @@
   }
 
   /* =========================================
+     KaTeX 公式 — 移动端横向滚动
+     ========================================= */
+  .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .katex-display > .katex {
+    white-space: nowrap;
+  }
+
+  /* =========================================
      Horizontal Rules
      ========================================= */
   .content hr {
