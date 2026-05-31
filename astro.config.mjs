@@ -39,7 +39,17 @@ export default defineConfig({
     syntaxHighlight: "shiki",
     shikiConfig: {
       theme: "github-light",
-      langs: [],
+      langs: [
+        "json", "yaml", "toml", "xml", "ini",
+        "bash", "shell", "powershell",
+        "python", "javascript", "typescript", "html", "css", "scss",
+        "markdown",
+        "sql", "graphql",
+        "dockerfile", "diff", "git-commit", "git-rebase",
+        "c", "cpp", "rust", "go", "java", "kotlin",
+        "r", "matlab",
+        "latex", "tex",
+      ],
       wrap: true,
     },
   },
