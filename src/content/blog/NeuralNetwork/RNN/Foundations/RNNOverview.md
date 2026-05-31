@@ -250,7 +250,7 @@ $$
 - [[NeuralNetwork/RNN/Foundations/RecurrentLayer|循环层详解]] — Vanilla RNN 的数学本质
 - [[NeuralNetwork/RNN/Foundations/LongShortTermMemory|LSTM 详解]] — 门控机制与细胞状态
 - [[NeuralNetwork/RNN/Foundations/GatedRecurrentUnit|GRU 详解]] — LSTM 的高效替代
-- [[RNNBPTT|BPTT 详解]] — 循环网络的反向传播
+- [[NeuralNetwork/RNN/Foundations/RNNBPTT|BPTT 详解]] — 循环网络的反向传播
 - [[NeuralNetwork/RNN/Foundations/EmbeddingLayer|嵌入层详解]] — 从离散符号到连续向量
 - [[NeuralNetwork/RNN/Foundations/AttentionMechanism|注意力机制详解]] — 为 RNN 提供动态上下文聚焦能力
 
