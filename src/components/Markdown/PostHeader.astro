@@ -49,15 +49,19 @@ const { title, formattedDate, description, tags, image } = Astro.props;
 
   .cover-image-wrapper {
     margin-bottom: 1.5rem;
-    border-radius: var(--radius-lg, 1rem);
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   }
 
   .cover-image {
     display: block;
-    width: 100%;
+    max-width: 60%;
     height: auto;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 767px) {
+    .cover-image {
+      max-width: 100%;
+    }
   }
 
   .meta {

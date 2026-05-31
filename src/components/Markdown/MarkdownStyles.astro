@@ -785,16 +785,23 @@
   /* =========================================
      Images & Media
      ========================================= */
-  .content img {
+  .content img:not(.cover-image) {
     display: block;
-    max-width: 100%;
+    max-width: 75%;
     height: auto;
     margin: 2rem auto;
     border-radius: var(--radius-md);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* Floating effect */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease;
   }
-  .content img:hover {
+
+  @media (max-width: 767px) {
+    .content img:not(.cover-image) {
+      max-width: 100%;
+    }
+  }
+
+  .content img:not(.cover-image):hover {
     transform: scale(1.01);
   }
 
