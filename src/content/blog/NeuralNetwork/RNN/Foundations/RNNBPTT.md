@@ -66,27 +66,102 @@ $$
 
 ![GradSum.png](https://img.yumeko.site/file/articles/RNNBPTT/GradSum.webp)
 
-链式法则：$W_{hh}$ 在每个时间步都参与计算，所以：
+链式法则：$W_{hh}$ 在每个时间步都参与计算，所以总梯度等于它在每个时间步产生的梯度之和：
 
 $$
 \frac{\partial L}{\partial W_{hh}} = \sum_{t=1}^{T} \frac{\partial L_t}{\partial W_{hh}}
 $$
 
-对于单个时间步 $t$，$L_t$ 通过 $h_t$ 依赖于 $W_{hh}$。但 $h_t$ 又通过 $W_{hh}$ 依赖于 $h_{t-1}$，后者又通过 $W_{hh}$ 依赖于 $h_{t-2}$……最终依赖于 $h_0$。
+下面集中推导**单个时间步 $t$** 的梯度 $\frac{\partial L_t}{\partial W_{hh}}$，总梯度只需把所有 $t$ 的贡献加起来。
 
-展开时间步 $t$ 的梯度：
+#### 步骤 1：追踪依赖关系
+
+以 $t=3$ 为例，写出 $L_3$ 与 $W_{hh}$ 之间的完整依赖链：
+
+- $L_3$ 直接依赖于 $h_3$（损失函数以 $h_3$ 为输入）
+- $h_3 = \tanh(W_{hh} \cdot h_2 + W_{xh} \cdot x_3 + b_h)$——$W_{hh}$ **直接**出现在 $h_3$ 的计算中（途径 A）
+- 同时 $h_3$ 也依赖于 $h_2$，而 $h_2 = \tanh(W_{hh} \cdot h_1 + W_{xh} \cdot x_2 + b_h)$——$W_{hh}$ **间接**通过 $h_2$ 影响 $h_3$（途径 B）
+- 同理，$h_2$ 又依赖于 $h_1$，$h_1$ 的计算同样包含 $W_{hh}$（途径 C）
+
+推广到任意 $t$：$W_{hh}$ 总共出现了 $t$ 次——在 $h_1, h_2, \dots, h_t$ 的每一次计算中。梯度必须沿所有这 $t$ 条路径求和。
+
+#### 步骤 2：写出全导数展开
+
+根据多元链式法则（全导数公式），$\frac{\partial L_t}{\partial W_{hh}}$ 需要沿 $W_{hh}$ 出现的**所有位置**展开。$h_t$ 不仅直接依赖 $W_{hh}$，还通过 $h_{t-1}$ 间接依赖：
 
 $$
-\frac{\partial L_t}{\partial W_{hh}} = \frac{\partial L_t}{\partial h_t} \cdot \sum_{k=1}^{t} \left( \prod_{j=k+1}^{t} \frac{\partial h_j}{\partial h_{j-1}} \right) \cdot \frac{\partial h_k}{\partial W_{hh}}
+\frac{\partial L_t}{\partial W_{hh}} = \frac{\partial L_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial W_{hh}}
 $$
 
-其中**连乘项**是关键：
+但这个写法是不完整的——$\frac{\partial h_t}{\partial W_{hh}}$ 本身隐含了对 $h_{t-1}$ 的依赖。必须将 $h_t$ 的全微分展开：
 
 $$
-\prod_{j=k+1}^{t} \frac{\partial h_j}{\partial h_{j-1}}
+dh_t = \frac{\partial h_t}{\partial W_{hh}} dW_{hh} + \frac{\partial h_t}{\partial h_{t-1}} dh_{t-1}
 $$
 
-这一项决定了从时间步 $k$ 到时间步 $t$ 的梯度是否能有效传递。
+把 $dh_{t-1}$ 继续展开：
+
+$$
+dh_{t-1} = \frac{\partial h_{t-1}}{\partial W_{hh}} dW_{hh} + \frac{\partial h_{t-1}}{\partial h_{t-2}} dh_{t-2}
+$$
+
+一路展开到 $h_1$（$dh_1 = \frac{\partial h_1}{\partial W_{hh}} dW_{hh}$，因为 $h_1$ 之前没有更多依赖），带回 $L_t$ 得到：
+
+$$
+\begin{aligned}
+\frac{\partial L_t}{\partial W_{hh}} = \frac{\partial L_t}{\partial h_t} \cdot \Bigg(
+&\frac{\partial h_t}{\partial W_{hh}} && \text{（$W_{hh}$ 在时刻 $t$ 的直接影响）} \\
++\ &\frac{\partial h_t}{\partial h_{t-1}} \cdot \frac{\partial h_{t-1}}{\partial W_{hh}} && \text{（经 $h_{t-1}$ 的间接影响）} \\
++\ &\frac{\partial h_t}{\partial h_{t-1}} \cdot \frac{\partial h_{t-1}}{\partial h_{t-2}} \cdot \frac{\partial h_{t-2}}{\partial W_{hh}} && \text{（经 $h_{t-2}$ 的间接影响）} \\
++\ &\cdots && \\
++\ &\frac{\partial h_t}{\partial h_{t-1}} \cdot \frac{\partial h_{t-1}}{\partial h_{t-2}} \cdot \cdots \cdot \frac{\partial h_2}{\partial h_1} \cdot \frac{\partial h_1}{\partial W_{hh}} && \text{（经 $h_1$ 的间接影响）}
+\Bigg)
+\end{aligned}
+$$
+
+关键洞察：每一项的结构是 $\frac{\partial L_t}{\partial h_t}$ ×（沿时间轴的梯度连乘）×（某时刻 $W_{hh}$ 的直接梯度）。
+
+#### 步骤 3：写成紧凑求和形式
+
+将上述 $t$ 项合并为求和记号。令 $k$ 表示 $W_{hh}$ **直接**参与计算的时刻（$k=1,2,\dots,t$），从时刻 $k$ 到时刻 $t$ 需要经过 $t-k$ 步隐藏状态的传递：
+
+$$
+\boxed{\frac{\partial L_t}{\partial W_{hh}} = \frac{\partial L_t}{\partial h_t} \cdot \sum_{k=1}^{t} \left( \prod_{j=k+1}^{t} \frac{\partial h_j}{\partial h_{j-1}} \right) \cdot \frac{\partial h_k}{\partial W_{hh}}}
+$$
+
+分解每个因子的含义：
+
+| 因子 | 含义 | 形状 |
+|------|------|------|
+| $\frac{\partial L_t}{\partial h_t}$ | 损失对当前隐藏状态的梯度 | $1 \times d_h$ |
+| $\prod_{j=k+1}^{t} \frac{\partial h_j}{\partial h_{j-1}}$ | 从时刻 $k$ 到时刻 $t$ 的**梯度连乘** | $d_h \times d_h$ |
+| $\frac{\partial h_k}{\partial W_{hh}}$ | 时刻 $k$ 的隐藏状态对 $W_{hh}$ 的直接梯度 | $d_h \times (d_h \cdot d_h)$ |
+
+#### 步骤 4：以 $t=3$ 为例逐项写出
+
+设 $T=3$，$L = L_3$（只考虑最后一步的损失），将上述公式逐项展开：
+
+**$k=1$（最远路径，经 $h_1$）：**
+$$
+\frac{\partial L_3}{\partial h_3} \cdot \frac{\partial h_3}{\partial h_2} \cdot \frac{\partial h_2}{\partial h_1} \cdot \frac{\partial h_1}{\partial W_{hh}}
+$$
+梯度流：$L_3 \to h_3 \to h_2 \to h_1 \to W_{hh}$，连乘两次 Jacobian。
+
+**$k=2$（中间路径，经 $h_2$）：**
+$$
+\frac{\partial L_3}{\partial h_3} \cdot \frac{\partial h_3}{\partial h_2} \cdot \frac{\partial h_2}{\partial W_{hh}}
+$$
+梯度流：$L_3 \to h_3 \to h_2 \to W_{hh}$，连乘一次 Jacobian。
+
+**$k=3$（最短路径，经 $h_3$ 直接到 $W_{hh}$）：**
+$$
+\frac{\partial L_3}{\partial h_3} \cdot \frac{\partial h_3}{\partial W_{hh}}
+$$
+梯度流：$L_3 \to h_3 \to W_{hh}$，不经过时间轴连乘。
+
+**三项相加**得到 $\frac{\partial L_3}{\partial W_{hh}}$。其中 $k=1$ 的路径经过 2 次 Jacobian 连乘，梯度衰减最严重；$k=3$ 不经过连乘，梯度最完整。这就是为什么**靠近损失的时间步贡献大，远离损失的时间步贡献小**。
+
+> 注意：求和记号中 $\prod_{j=k+1}^{t}$ 在 $k=t$ 时为空积（没有因子），等于单位矩阵 $I$，对应的项退化为 $\frac{\partial L_t}{\partial h_t} \cdot \frac{\partial h_t}{\partial W_{hh}}$。
 
 ### 2.3 $\frac{\partial h_j}{\partial h_{j-1}}$ 的具体形式
 
