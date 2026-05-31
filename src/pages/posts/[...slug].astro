@@ -14,8 +14,20 @@ export async function getStaticPaths() {
 // 获取当前文章
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+// 双链预览元数据：slug → { title, date, description }
+const allPosts = (await getCollection('blog')).filter(p => p.data.status === 'published');
+const wikiPreviewData: Record<string, { title: string; date: string; description?: string }> = {};
+for (const p of allPosts) {
+  // remark-wiki-link pageResolver 会转为小写，key 需匹配
+  wikiPreviewData[p.slug.toLowerCase()] = {
+    title: p.data.title,
+    date: p.data.date,
+    description: p.data.description,
+  };
+}
 ---
 
-<MarkdownLayout frontmatter={entry.data}>
+<MarkdownLayout frontmatter={entry.data} wikiPreviewData={wikiPreviewData}>
   <Content />
 </MarkdownLayout>

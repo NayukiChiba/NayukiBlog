@@ -12,8 +12,9 @@ import MarkdownStyles from "../components/Markdown/MarkdownStyles.astro";
 import MarkdownScripts from "../components/Markdown/MarkdownScripts.astro";
 import ParticleBackground from "../components/ParticleBackground.astro";
 import ProgressBar from "../components/ProgressBar.astro";
+import WikiLinkPreview from "../components/Markdown/WikiLinkPreview.astro";
 
-const { frontmatter } = Astro.props;
+const { frontmatter, wikiPreviewData } = Astro.props;
 const date = new Date(frontmatter.date);
 const formattedDate = date.toLocaleDateString("en-US", {
   year: "numeric",
@@ -93,6 +94,8 @@ const formattedDate = date.toLocaleDateString("en-US", {
         <slot />
       </article>
     </main>
+
+    <WikiLinkPreview data={wikiPreviewData} />
 
     <!-- 桌面端固定目录 -->
     <TocSidebar />
