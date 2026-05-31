@@ -4,12 +4,20 @@ interface Props {
   formattedDate: string;
   description?: string;
   tags?: string[];
+  image?: string;
 }
 
-const { title, formattedDate, description, tags } = Astro.props;
+const { title, formattedDate, description, tags, image } = Astro.props;
 ---
 
 <header class="post-header">
+  {
+    image && (
+      <div class="cover-image-wrapper">
+        <img src={image} alt={title} class="cover-image" />
+      </div>
+    )
+  }
   <div class="meta">
     <span class="date">{formattedDate}</span>
   </div>
@@ -37,6 +45,19 @@ const { title, formattedDate, description, tags } = Astro.props;
 <style is:global>
   .post-header {
     margin-bottom: 1.5rem;
+  }
+
+  .cover-image-wrapper {
+    margin-bottom: 1.5rem;
+    border-radius: var(--radius-lg, 1rem);
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .cover-image {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   .meta {
