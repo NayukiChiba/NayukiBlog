@@ -408,7 +408,7 @@ services:
 
 ### Snowluma的`compose.yml`
 
-```
+```dockerfile
 
 services:
   snowluma:
@@ -447,7 +447,7 @@ volumes:
 
 ### 把他们合并一下
 
-```
+```dockerfile
 version: '3.8'
 
 # When connecting to OneBot v11 Napcat, please use this compose file for one-click deployment: https://github.com/NapNeko/NapCat-Docker/blob/main/compose/astrbot.yml

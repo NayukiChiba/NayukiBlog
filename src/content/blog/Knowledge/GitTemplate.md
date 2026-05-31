@@ -168,11 +168,31 @@ git提交格式:
    - 关闭Issue: close #123
    - 破坏性变更: BREAKING CHANGE: 说明内容
 
-## 输出格式
-请提供两个版本：
-1. 简单版本（仅Header）
-2. 完整版本（包含Body和Footer，如适用）
-
-当前文件改动：[描述你的改动]
-涉及的功能模块：[可选]
 ```
+
+## 在github copilot中配置提示词
+
+使用`Shift`+`Ctrl`+`P`,打开用户设置`Open User Settings(JSON)`
+
+然后在JSON中配置
+```json
+// 使用github copilot 生成 git message 
+    // 设置中文
+    "github.copilot.chat.localeOverride": "zh-CN",
+    // 生成 commit message 的指令
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+        { "text": "始终使用简体中文生成 git commit message。" },
+        { "text": "严格按照以下格式输出: <type>(<scope>): <subject>" },
+        { "text": "<body>" },
+        { "text": "<footer>"},
+        {"text": "type, scope使用英文, 说明功能改变方向"},
+        { "text": "根据本次暂存改动的主要目的，选择最合适的一个 type，不要罗列多个。" },
+        {"text": "type和scope为必须填写的, 只能填写以下类型: feat, fix, docs, style, refactor, perf, test, chore, build, ci, revert"},
+        {"text": "subject使用中文message, 简洁说明改动内容"},
+        {"text": "body使用中文, 要写3条及以上, 可以选择'-m'或者'-'进行分隔不同行的内容"},
+        {"text": "footer没有必要就不写, 但是关联issue, pr等就必须要写, 格式为'ref issue #123'或者'close issue #123'"},
+        { "text": "不要输出英文，不要附加解释，不要输出列表，只输出最终的 commit message。" },
+    ]
+```
+
+就可以直接使用copilot生成好的message了

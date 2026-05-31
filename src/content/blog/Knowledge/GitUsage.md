@@ -1129,7 +1129,7 @@ touch .gitignore
 
 常用 `.gitignore` 模板：
 
-```gitignore
+```
 # 操作系统文件
 .DS_Store
 Thumbs.db

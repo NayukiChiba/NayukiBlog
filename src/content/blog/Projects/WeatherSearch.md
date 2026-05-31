@@ -114,7 +114,7 @@ python main.py --city Beijing --days 3 --lang zh_cn
 
 `.env.example` 示例：
 
-```env
+```
 OPENWEATHER_API_KEY=your_api_key_here
 ```
 
