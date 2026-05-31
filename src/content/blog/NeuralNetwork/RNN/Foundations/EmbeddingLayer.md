@@ -520,4 +520,4 @@ print(f"嵌入层参数量: {totalParams}")
 这个最小示例覆盖了嵌入层的全部核心行为：查表、输出稠密向量、padding_idx 强制置零。理解这段代码中每一行的输入输出形状变化，就理解了嵌入层的全部。
 
 > 权重初始化技巧参见 [[NeuralNetwork/Tips/Techniques/WeightInitialization|权重初始化指南]]。
-> 回到主文档：[[NeuralNetwork/RNN/RNN|RNN 详解主文档]]
+> 回到主文档：[[NeuralNetwork/RNN/Foundations/RNNOverview|RNN 详解主文档]]

@@ -405,5 +405,5 @@ $$
 | 梯度裁剪 | 限制梯度范数上限，只解决爆炸，不解决消失 |
 | LSTM 的优势 | $C_t$ 更新路径是线性的逐元素操作，梯度可无损传递 |
 
-> 回到主文档：[[NeuralNetwork/RNN/RNN|RNN 详解主文档]]
+> 回到主文档：[[NeuralNetwork/RNN/Foundations/RNNOverview|RNN 详解主文档]]
 > 梯度消失/爆炸的详细分析：[[NeuralNetwork/Tips/Troubleshooting/GradientExplodingVanishing|梯度消失与爆炸]]

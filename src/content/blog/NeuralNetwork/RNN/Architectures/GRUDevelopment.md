@@ -417,5 +417,5 @@ GRU 论文发表后，社区进行了大量对比实验。总体结论：
 ---
 
 > GRU 的详细数学公式：[[NeuralNetwork/RNN/Foundations/GatedRecurrentUnit|GRU 详解]]
-> 架构对比：[[NeuralNetwork/RNN/Architectures/ArchitectureComparison|RNN 架构对比]]
-> 回到主文档：[[NeuralNetwork/RNN/RNN|RNN 详解主文档]]
+> 架构对比：[[NeuralNetwork/RNN/Architectures/RNNComparison|RNN 架构对比]]
+> 回到主文档：[[NeuralNetwork/RNN/Foundations/RNNOverview|RNN 详解主文档]]

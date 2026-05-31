@@ -391,4 +391,4 @@ $$
 LSTM 设计的核心在于将状态存储和输出解耦——$C_t$ 作为受门控保护的内部状态（遗忘门和输入门控制其读写的规模和时机），$h_t$ 作为有选择性的输出暴露（输出门控制对外可见哪些内部信息）。这种解耦是 LSTM 能够学习长距离依赖的根本原因。
 
 > 对比 GRU 参见 [[NeuralNetwork/RNN/Foundations/GatedRecurrentUnit|GRU 详解]]
-> 回到主文档：[[NeuralNetwork/RNN/RNN|RNN 详解主文档]]
+> 回到主文档：[[NeuralNetwork/RNN/Foundations/RNNOverview|RNN 详解主文档]]

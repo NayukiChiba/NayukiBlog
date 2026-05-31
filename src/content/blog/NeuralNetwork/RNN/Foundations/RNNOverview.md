@@ -254,4 +254,4 @@ $$
 - [[NeuralNetwork/RNN/Foundations/EmbeddingLayer|嵌入层详解]] — 从离散符号到连续向量
 - [[NeuralNetwork/RNN/Foundations/AttentionMechanism|注意力机制详解]] — 为 RNN 提供动态上下文聚焦能力
 
-回到主文档：[[NeuralNetwork/RNN/RNN|RNN 详解主文档]]
+回到主文档：[[NeuralNetwork/RNN/Foundations/RNNOverview|RNN 详解主文档]]

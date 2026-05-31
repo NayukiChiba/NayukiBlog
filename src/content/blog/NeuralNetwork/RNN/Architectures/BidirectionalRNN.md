@@ -310,5 +310,5 @@ last_bi = torch.cat([last_forward, last_backward], dim=-1)  # (batch, hidden_dim
 
 ---
 
-> 架构对比：[[NeuralNetwork/RNN/Architectures/ArchitectureComparison|RNN 架构对比]]
-> 回到主文档：[[NeuralNetwork/RNN/RNN|RNN 详解主文档]]
+> 架构对比：[[NeuralNetwork/RNN/Architectures/RNNComparison|RNN 架构对比]]
+> 回到主文档：[[NeuralNetwork/RNN/Foundations/RNNOverview|RNN 详解主文档]]
