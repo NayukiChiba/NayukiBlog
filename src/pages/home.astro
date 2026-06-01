@@ -6,10 +6,11 @@ import PageLayout from "../layouts/PageLayout.astro";
 import PostCard from "../components/articles/PostCard.astro";
 import ProjectCard from "../components/projects/ProjectCard.astro";
 import ProfileCard from "../components/index/ProfileCard.astro";
-import TodoCard from "../components/index/TodoCard.astro";
+
+
 import DiaryCard from "../components/DiaryCard.astro";
 import { getCollection } from "astro:content";
-import { getProjects, getDiaries, getTodos } from "../lib/data";
+import { getProjects, getDiaries } from "../lib/data";
 
 // 获取文章列表（最新3篇，只显示已发布的）
 const allPosts = await getCollection("blog", ({ data }) => data.status === "published");
@@ -63,9 +64,6 @@ if (latestDiary) {
       String(d.getMinutes()).padStart(2, "0");
 }
 
-// 获取待办事项
-const todos = getTodos();
-
 // 统计文章数、标签数、分类数
 const articleCount = allPosts.length;
 const tagSet = new Set(allPosts.flatMap((p) => p.data.tags || []));
@@ -98,7 +96,11 @@ const categorySet = new Set(allPosts.map((p) => p.data.category).filter(Boolean)
 
         <div class="profile-divider"></div>
 
-        <TodoCard todos={todos} />
+        <div class="hitokoto-area">
+          <span id="hitokoto-text"></span>
+          <span class="hitokoto-cursor">|</span>
+          <span class="hitokoto-from" id="hitokoto-from"></span>
+        </div>
       </div>
     </section>
 
@@ -247,6 +249,7 @@ const categorySet = new Set(allPosts.map((p) => p.data.category).filter(Boolean)
 
   /* GitHub Activity Graph */
   .github-graph-section {
+    margin-top: -3rem;
     margin-bottom: 2rem;
   }
 
@@ -300,6 +303,42 @@ const categorySet = new Set(allPosts.map((p) => p.data.category).filter(Boolean)
   .stat-label {
     font-size: 0.8rem;
     color: var(--color-text-muted);
+  }
+
+  /* Hitokoto */
+  .hitokoto-area {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    height: 160px;
+    flex: 1;
+    flex-wrap: wrap;
+    padding-top: 2rem;
+  }
+
+  .hitokoto-cursor {
+    animation: blink 1s step-end infinite;
+    color: var(--color-primary);
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  .hitokoto-from {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-left: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .hitokoto-area {
+      width: 220px;
+      flex-shrink: 0;
+    }
   }
 
   /* Profile Section */
@@ -597,3 +636,67 @@ const categorySet = new Set(allPosts.map((p) => p.data.category).filter(Boolean)
     }
   }
 </style>
+
+<script>
+  const textEl = document.getElementById('hitokoto-text');
+  const fromEl = document.getElementById('hitokoto-from');
+  if (textEl && fromEl) {
+    let currentText = '';
+    let charIdx = 0;
+    let isDeleting = false;
+    let typingTimer: ReturnType<typeof setTimeout>;
+
+    async function fetchHitokoto(): Promise<{ text: string; from: string }> {
+      try {
+        const res = await fetch('https://v1.hitokoto.cn/');
+        const data = await res.json();
+        return { text: data.hitokoto, from: data.from ? `—— ${data.from}` : '' };
+      } catch {
+        return { text: '生活明朗，万物可爱。', from: '—— 佚名' };
+      }
+    }
+
+    function typeWriter(text: string, from: string) {
+      clearTimeout(typingTimer);
+
+      if (!isDeleting) {
+        textEl!.textContent = text.substring(0, charIdx + 1);
+        charIdx++;
+        if (charIdx <= text.length) {
+          typingTimer = setTimeout(() => typeWriter(text, from), 80);
+        } else {
+          fromEl!.textContent = from;
+          isDeleting = true;
+          typingTimer = setTimeout(() => typeWriter(text, from), 4000);
+        }
+      } else {
+        textEl!.textContent = text.substring(0, charIdx - 1);
+        fromEl!.textContent = '';
+        charIdx--;
+        if (charIdx > 0) {
+          typingTimer = setTimeout(() => typeWriter(text, from), 30);
+        } else {
+          isDeleting = false;
+          fetchAndType();
+        }
+      }
+    }
+
+    async function fetchAndType() {
+      const { text, from } = await fetchHitokoto();
+      currentText = text;
+      charIdx = 0;
+      isDeleting = false;
+      fromEl!.textContent = '';
+      typeWriter(currentText, from);
+    }
+
+    // 每分钟换一句
+    setInterval(() => {
+      isDeleting = true;
+      typeWriter(currentText, '');
+    }, 60000);
+
+    fetchAndType();
+  }
+</script>
