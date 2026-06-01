@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import PageLayout from "../layouts/PageLayout.astro";
 import PostCard from "../components/articles/PostCard.astro";
 import CategorySidebar from "../components/articles/CategorySidebar.astro";
+import TagSidebar from "../components/articles/TagSidebar.astro";
 import ArticleSearch from "../components/articles/ArticleSearch.astro";
 
 // 从 Content Collections 读取文章
@@ -24,6 +25,17 @@ const posts = allPosts
         body: (post.body || "").replace(/[#*`\[\]()>!_|~]/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 3000),
     }))
     .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+
+const tagCounts = posts
+    .flatMap((post) => post.tags || [])
+    .reduce<Record<string, number>>((acc, tag) => {
+        acc[tag] = (acc[tag] || 0) + 1;
+        return acc;
+    }, {});
+
+const tagsWithCount = Object.entries(tagCounts)
+    .map(([tag, count]) => ({ tag, count: count as number }))
+    .sort((a, b) => a.tag.localeCompare(b.tag));
 
 // Folder Logic
 const folderSet = new Set<string>();
@@ -63,6 +75,7 @@ const folderList = [...folderSet].sort().map((path) => {
                             posts.map((post: any) => (
                                 <div
                                     class="post-wrapper"
+                                    data-tags={post.tags ? post.tags.join(",") : ""}
                                     data-folder={post.folder || ""}
                                     data-title={post.title}
                                     data-desc={post.desc}
@@ -103,6 +116,8 @@ const folderList = [...folderSet].sort().map((path) => {
                     <ArticleSearch />
                     <div class="sidebar-divider"></div>
                     <CategorySidebar folders={folderList} />
+                    <div class="sidebar-divider"></div>
+                    <TagSidebar tags={tagsWithCount} />
                 </aside>
             </div>
         </main>
@@ -131,6 +146,8 @@ const folderList = [...folderSet].sort().map((path) => {
                     <ArticleSearch />
                     <div class="sidebar-divider"></div>
                     <CategorySidebar folders={folderList} />
+                    <div class="sidebar-divider"></div>
+                    <TagSidebar tags={tagsWithCount} />
                 </div>
         </div>
     </div>
@@ -148,8 +165,10 @@ const folderList = [...folderSet].sort().map((path) => {
         const pageInput = document.getElementById("page-input") as HTMLInputElement;
         const totalPagesSpan = document.getElementById("total-pages");
 
-        const ITEMS_PER_PAGE = 6;
+        const tagBtns = document.querySelectorAll(".tag-btn");
+        const ITEMS_PER_PAGE = 10;
         let currentPage = 1;
+        let currentTag = "";
         let currentFolder = "";
         let currentSearch = "";
         let visiblePosts: HTMLElement[] = [];
@@ -178,7 +197,9 @@ const folderList = [...folderSet].sort().map((path) => {
         const filterPosts = () => {
             const query = currentSearch.toLowerCase().trim();
             visiblePosts = allPostWrappers.filter((el) => {
+                const tags = el.dataset.tags?.split(",") || [];
                 const folder = el.dataset.folder || "";
+                const matchTag = !currentTag || tags.includes(currentTag);
                 const matchFolder = !currentFolder || folder === currentFolder || folder.startsWith(currentFolder + "/");
 
                 // 模糊搜索：标题、简介、正文
@@ -190,7 +211,7 @@ const folderList = [...folderSet].sort().map((path) => {
                     matchSearch = title.includes(query) || desc.includes(query) || content.includes(query);
                 }
 
-                return matchFolder && matchSearch;
+                return matchTag && matchFolder && matchSearch;
             });
             currentPage = 1;
             updatePagination();
@@ -248,6 +269,18 @@ const folderList = [...folderSet].sort().map((path) => {
         });
 
         // Filter Logic
+        tagBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const tag = (btn as HTMLElement).dataset.tag || "";
+                currentTag = tag;
+                updateActiveState('.tag-btn', 'tag', tag);
+                filterPosts();
+                if (window.innerWidth <= 1024 && (window as any).closeMobileDrawer) {
+                    (window as any).closeMobileDrawer();
+                }
+            });
+        });
+
         folderBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
                 const folder = (btn as HTMLElement).dataset.folder || "";
