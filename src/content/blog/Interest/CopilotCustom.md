@@ -7,7 +7,7 @@ tags:
   - 资源
 description: 把Copilot中接入第三方的api
 image: https://img.yumeko.site/file/blog/github-copilot.png
-status: private
+status: draft
 ---
 
 ## Github Copilot接入第三方api
