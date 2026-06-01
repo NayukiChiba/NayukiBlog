@@ -293,6 +293,14 @@ const folderList = [...folderSet].sort().map((path) => {
             });
         });
 
+        // 读取 URL 参数，支持从文章页面点击 tag 跳转
+        const urlParams = new URLSearchParams(window.location.search);
+        const tagParam = urlParams.get('tag');
+        if (tagParam) {
+            currentTag = tagParam;
+            updateActiveState('.tag-btn', 'tag', tagParam);
+        }
+
         // Initial load
         filterPosts();
     }

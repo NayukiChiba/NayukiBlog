@@ -46,7 +46,7 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
                 tags.length > 0 && (
                     <div class="post-tags">
                         {tags.map((tag: string) => (
-                            <span class="tag">{tag}</span>
+                            <span class="tag" onclick={`event.stopPropagation();event.preventDefault();window.location='/articles?tag=${encodeURIComponent(tag)}'`}>{tag}</span>
                         ))}
                     </div>
                 )
@@ -224,9 +224,10 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
         transition: all 0.2s;
         border: 1px solid var(--color-border, #e8e8e8);
         backdrop-filter: blur(4px);
+        cursor: pointer;
     }
 
-    .post-card:hover .tag {
+    .tag:hover {
         background: var(--color-primary-subtle, rgba(59, 130, 246, 0.08));
         color: var(--color-primary-dark, #1d4ed8);
         border-color: var(--color-primary-light, #93c5fd);

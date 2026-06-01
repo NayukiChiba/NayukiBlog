@@ -35,7 +35,7 @@ const { title, formattedDate, description, tags, image } = Astro.props;
       <div class="tags">
         {tags.map((tag: string) => {
           const cleanTag = String(tag).replace(/[\[\]"']/g, "");
-          return <span class="tag">{cleanTag}</span>;
+          return <a href={`/articles?tag=${encodeURIComponent(cleanTag)}`} class="tag">{cleanTag}</a>;
         })}
       </div>
     )
@@ -84,20 +84,8 @@ const { title, formattedDate, description, tags, image } = Astro.props;
     flex-wrap: wrap;
   }
 
-  .tag {
-    font-size: 0.75rem;
-    color: #555;
-    background: rgba(0, 0, 0, 0.05);
-    padding: 0.2rem 0.6rem;
-    border-radius: 99px;
-    transition: background 0.2s;
-    font-style: normal;
-    font-weight: normal;
-    font-family: inherit;
-  }
-
   .tag:hover {
-    background: rgba(0, 0, 0, 0.08);
+    color: var(--color-primary-dark, #1d4ed8);
   }
 
   /* 简介卡片样式 - 简化版 */
