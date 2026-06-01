@@ -6,7 +6,7 @@ tags:
   - Markdown
 description: 这是一个用于测试所有Markdown样式的综合测试文档，包含标题、列表、表格、代码块、数学公式、图片等所有常用元素。
 image: https://img.yumeko.site/file/wife/早坂爱.jpg
-status: draft
+status: published
 ---
 
 # 一级标题 - Markdown 样式完整测试
@@ -349,6 +349,35 @@ function potentiallyLongFunction() {
 
 双链与普通链接对比：这是[[MarkdownTest|双链]]，这是[普通链接](https://nayuki.blog)。
 
+## GitHub 仓库卡片测试
+
+::github{repo="withastro/astro"}
+
+## 视频嵌入测试
+
+::youtube{id="dQw4w9WgXcQ"}
+
+::bilibili{id="BV1GJ411x7h7"}
+
+## 可折叠区域测试
+
+:::fold[点击展开更多内容]
+
+这里是折叠的内容，可以放任何 Markdown。
+
+- 列表项 1
+- 列表项 2
+
+```python
+print("hello")
+```
+:::
+
+
+## CodePen 嵌入测试
+
+::codepen{url="https://codepen.io/alvaromontoro/pen/BaJOKbG"}
+
 ## 总结
 
 这个测试文档涵盖了：
@@ -362,6 +391,7 @@ function potentiallyLongFunction() {
 - ✅ 数学公式（行内、块级）
 - ✅ 图片
 - ✅ 分隔线
+- ✅ GitHub 仓库卡片
 - ✅ Mermaid 图表（流程图、时序图、甘特图）
 - ✅ 嵌套内容
 - ✅ HTML 标签

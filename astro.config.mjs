@@ -3,6 +3,9 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkWikiLink from "remark-wiki-link";
+import remarkDirective from "remark-directive";
+import { remarkLeafDirectives } from "./remark-leaf-directives.mjs";
+import { remarkContainerDirectives } from "./remark-container-directives.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,6 +24,9 @@ export default defineConfig({
   // Markdown 配置
   markdown: {
     remarkPlugins: [
+      remarkDirective,
+      remarkLeafDirectives,
+      remarkContainerDirectives,
       remarkMath,
       remarkGfm,
       // 将 Obsidian 双链 [[文章名]] 转换为 /posts/文章名 的 HTML 链接

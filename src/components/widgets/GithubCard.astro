@@ -1,0 +1,108 @@
+<script>
+  class GithubCardInit {
+    static init() {
+      document.querySelectorAll('.gc-card[data-repo]').forEach((card) => {
+        const repo = (card as HTMLElement).dataset.repo!;
+        fetch(`https://api.github.com/repos/${repo}`)
+          .then((r) => r.json())
+          .then((data) => {
+            if (data.message) return;
+            const descEl = card.querySelector('[data-repo-desc]');
+            const starsEl = card.querySelector('[data-repo-stars]');
+            const forksEl = card.querySelector('[data-repo-forks]');
+            if (descEl) descEl.textContent = data.description || '';
+            if (starsEl) starsEl.textContent = data.stargazers_count ?? '--';
+            if (forksEl) forksEl.textContent = data.forks_count ?? '--';
+          })
+          .catch(() => {});
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => GithubCardInit.init());
+  } else {
+    GithubCardInit.init();
+  }
+</script>
+
+<style is:global>
+  .gc-card {
+    display: block;
+    margin: 1.5rem 0;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    background: var(--color-card-bg);
+  }
+
+  .gc-card:hover {
+    border-color: #6e7681;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .gc-title-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .gc-icon {
+    color: #333;
+    flex-shrink: 0;
+  }
+
+  .gc-repo {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gc-repo strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .gc-slash {
+    margin: 0 0.15rem;
+    color: var(--color-text-muted);
+  }
+
+  .gc-external {
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .gc-card:hover .gc-external {
+    opacity: 0.6;
+  }
+
+  .gc-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin: 0 0 0.75rem 0;
+    line-height: 1.5;
+  }
+
+  .gc-meta {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .gc-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+</style>
