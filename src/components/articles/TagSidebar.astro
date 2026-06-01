@@ -45,6 +45,21 @@ const { tags } = Astro.props;
     align-content: flex-start;
     align-items: center;
     padding-right: 0.5rem;
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  .tags-box::-webkit-scrollbar {
+    width: 4px;
+  }
+  .tags-box::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .tags-box::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+    border-radius: 20px;
   }
 
   .tag-btn {
