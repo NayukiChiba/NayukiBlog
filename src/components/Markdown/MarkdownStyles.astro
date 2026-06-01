@@ -645,18 +645,18 @@
     border-top: 1px solid var(--border-color);
   }
 
-  /* Inline Code - Blue Theme */
+  /* Inline Code */
   .content :not(pre) > code {
-    background-color: rgba(59, 130, 246, 0.1); /* Soft Blue */
-    color: #1e3a8a; /* Dark Blue for contrast */
+    background-color: var(--color-primary-subtle);
+    color: var(--color-primary-dark);
     padding: 0.2em 0.4em;
     border-radius: 4px;
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; /* 与代码块保持一致 */
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     font-size: 0.9em;
   }
 
   /* =========================================
-     Tables - Elegant Blue Theme
+     Tables
      ========================================= */
   .table-wrapper {
     width: 100%;
@@ -665,7 +665,7 @@
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     border: 1px solid var(--color-border);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 249, 255, 0.9));
+    background: var(--color-card-bg);
     backdrop-filter: blur(8px);
   }
 
@@ -677,9 +677,9 @@
     font-size: 0.95rem;
   }
 
-  /* 表头样式 - 淡蓝渐变 */
+  /* 表头样式 */
   .content thead {
-    background: linear-gradient(135deg, var(--color-primary-subtle), rgba(59, 130, 246, 0.1));
+    background: var(--color-primary-subtle);
   }
 
   .content th {
@@ -689,9 +689,8 @@
     color: var(--color-text);
     white-space: nowrap;
     position: relative;
-    border-bottom: 2px solid var(--color-primary-light);
-    /* 竖线分隔 */
-    border-right: 1px solid rgba(59, 130, 246, 0.1);
+    border-bottom: 2px solid var(--color-primary);
+    border-right: 1px solid var(--color-primary-subtle);
   }
 
   /* 最后一列不需要右边框 */
@@ -714,7 +713,6 @@
     white-space: nowrap;
     position: relative;
     transition: all 0.2s ease;
-    /* 竖线分隔 */
     border-right: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border-light);
   }
@@ -724,13 +722,13 @@
     border-right: none;
   }
 
-  /* 斑马纹 - 淡蓝调 */
+  /* 斑马纹 */
   .content tbody tr:nth-child(even) {
-    background-color: rgba(59, 130, 246, 0.03);
+    background-color: var(--color-primary-subtle);
   }
 
   .content tbody tr:nth-child(odd) {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: transparent;
   }
 
   /* 行悬停效果 */
@@ -739,7 +737,7 @@
   }
 
   .content tbody tr:hover {
-    background-color: rgba(59, 130, 246, 0.08);
+    background-color: color-mix(in srgb, var(--color-primary), transparent 92%);
   }
 
   .content tbody tr:hover td {
@@ -759,7 +757,7 @@
 
   /* 单元格内代码样式 */
   .content td code {
-    background-color: rgba(59, 130, 246, 0.1);
+    background-color: var(--color-primary-subtle);
     color: var(--color-primary-dark);
     padding: 0.15rem 0.4rem;
     border-radius: 4px;
