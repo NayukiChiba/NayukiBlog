@@ -2,16 +2,6 @@
 ---
 <div class="profile-content">
   <div class="avatar-container">
-    <!-- 光晕粒子效果 -->
-    <div class="avatar-glow-particles">
-      <span class="glow-particle"></span>
-      <span class="glow-particle"></span>
-      <span class="glow-particle"></span>
-      <span class="glow-particle"></span>
-      <span class="glow-particle"></span>
-      <span class="glow-particle"></span>
-    </div>
-    <div class="avatar-ring"></div>
     <img src="/profile.png" alt="Nayuki" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Nayuki&background=0D8ABC&color=fff'"/>
   </div>
   <div class="profile-info">
@@ -51,34 +41,6 @@
     cursor: pointer;
   }
 
-  /* 旋转的外圈光环 */
-  .avatar-ring {
-    position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    background: conic-gradient(
-      from 0deg,
-      transparent,
-      var(--color-primary-light),
-      var(--color-primary),
-      var(--color-primary-light),
-      transparent
-    );
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    animation: ringRotate 3s linear infinite paused;
-  }
-
-  .avatar-container:hover .avatar-ring {
-    opacity: 1;
-    animation-play-state: running;
-  }
-
-  @keyframes ringRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
   /* 头像图片 */
   .avatar {
     width: 100%;
@@ -93,7 +55,7 @@
   }
 
   .avatar-container:hover .avatar {
-    animation: avatarSpin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: avatarSpin 1.5s linear infinite;
     box-shadow: 
       var(--shadow-lg),
       0 0 20px color-mix(in srgb, var(--color-primary), transparent 60%),
@@ -101,58 +63,8 @@
   }
 
   @keyframes avatarSpin {
-    0% { transform: rotate(0deg) scale(1); }
-    25% { transform: rotate(90deg) scale(1.05); }
-    50% { transform: rotate(180deg) scale(1); }
-    75% { transform: rotate(270deg) scale(1.05); }
-    100% { transform: rotate(360deg) scale(1); }
-  }
-
-  /* 光晕粒子效果 */
-  .avatar-glow-particles {
-    position: absolute;
-    inset: -20px;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .glow-particle {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: var(--color-primary);
-    border-radius: 50%;
-    opacity: 0;
-    filter: blur(1px);
-  }
-
-  .glow-particle:nth-child(1) { top: 10%; left: 50%; }
-  .glow-particle:nth-child(2) { top: 25%; left: 90%; }
-  .glow-particle:nth-child(3) { top: 75%; left: 90%; }
-  .glow-particle:nth-child(4) { top: 90%; left: 50%; }
-  .glow-particle:nth-child(5) { top: 75%; left: 10%; }
-  .glow-particle:nth-child(6) { top: 25%; left: 10%; }
-
-  .avatar-container:hover .glow-particle {
-    animation: particleFloat 2s ease-in-out infinite;
-  }
-
-  .glow-particle:nth-child(1) { animation-delay: 0s; }
-  .glow-particle:nth-child(2) { animation-delay: 0.33s; }
-  .glow-particle:nth-child(3) { animation-delay: 0.66s; }
-  .glow-particle:nth-child(4) { animation-delay: 1s; }
-  .glow-particle:nth-child(5) { animation-delay: 1.33s; }
-  .glow-particle:nth-child(6) { animation-delay: 1.66s; }
-
-  @keyframes particleFloat {
-    0%, 100% { 
-      opacity: 0; 
-      transform: scale(0) translateY(0);
-    }
-    50% { 
-      opacity: 1; 
-      transform: scale(1.5) translateY(-10px);
-    }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   .profile-info {
@@ -275,8 +187,6 @@
   /* 减少动画偏好 */
   @media (prefers-reduced-motion: reduce) {
     .avatar-container:hover .avatar,
-    .avatar-ring,
-    .glow-particle,
     .name-char,
     .bio-cursor,
     .profile-links a {
