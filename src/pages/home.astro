@@ -6,7 +6,6 @@ import PageLayout from "../layouts/PageLayout.astro";
 import PostCard from "../components/articles/PostCard.astro";
 import ProjectCard from "../components/projects/ProjectCard.astro";
 import ProfileCard from "../components/index/ProfileCard.astro";
-import GithubActivity from "../components/index/GithubActivity.astro";
 import TodoCard from "../components/index/TodoCard.astro";
 import DiaryCard from "../components/DiaryCard.astro";
 import { getCollection } from "astro:content";
@@ -66,6 +65,11 @@ if (latestDiary) {
 
 // 获取待办事项
 const todos = getTodos();
+
+// 统计文章数、标签数、分类数
+const articleCount = allPosts.length;
+const tagSet = new Set(allPosts.flatMap((p) => p.data.tags || []));
+const categorySet = new Set(allPosts.map((p) => p.data.category).filter(Boolean));
 ---
 
 <PageLayout title="Nayuki Blog">
@@ -77,7 +81,20 @@ const todos = getTodos();
 
         <div class="profile-divider"></div>
 
-        <GithubActivity />
+        <div class="stats-card">
+          <div class="stat-item">
+            <span class="stat-number">{articleCount}</span>
+            <span class="stat-label">文章</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{tagSet.size}</span>
+            <span class="stat-label">标签</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{categorySet.size}</span>
+            <span class="stat-label">分类</span>
+          </div>
+        </div>
 
         <div class="profile-divider"></div>
 
@@ -87,12 +104,20 @@ const todos = getTodos();
 
     <!-- GitHub Activity Graph -->
     <section class="section-block github-graph-section">
-      <img
-        src="https://activity.yumeko.site/graph?username=NayukiChiba&theme=xcode&bg_color=FF000000&color=000000&hide_border=true"
-        alt="GitHub Activity Graph"
-        class="github-graph-img"
-        loading="lazy"
-      />
+      <div class="github-graph-wrapper">
+        <div class="github-graph-placeholder">
+          <span>Loading contributions...</span>
+        </div>
+        <img
+          src="https://activity.yumeko.site/graph?username=NayukiChiba&theme=xcode&bg_color=FF000000&color=000000&hide_border=true"
+          alt="GitHub Activity Graph"
+          class="github-graph-img"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="low"
+          onload="this.style.opacity='1';this.previousElementSibling.style.display='none'"
+        />
+      </div>
     </section>
 
     <div class="divider"></div>
@@ -225,10 +250,56 @@ const todos = getTodos();
     margin-bottom: 2rem;
   }
 
+  .github-graph-wrapper {
+    position: relative;
+  }
+
   .github-graph-img {
     width: 100%;
     border-radius: 12px;
     display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .github-graph-placeholder {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: var(--color-bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+  }
+
+  /* Stats Card */
+  .stats-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex: 1;
+    height: 160px;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
   }
 
   /* Profile Section */
