@@ -6,7 +6,7 @@ tags:
   - Markdown
 description: 这是一个用于测试所有Markdown样式的综合测试文档，包含标题、列表、表格、代码块、数学公式、图片等所有常用元素。
 image: https://img.yumeko.site/file/wife/早坂爱.jpg
-status: published
+status: draft
 ---
 
 # 一级标题 - Markdown 样式完整测试
@@ -355,7 +355,6 @@ function potentiallyLongFunction() {
 
 ## 视频嵌入测试
 
-::youtube{id="dQw4w9WgXcQ"}
 
 ::bilibili{id="BV1GJ411x7h7"}
 
@@ -376,7 +375,7 @@ print("hello")
 
 ## CodePen 嵌入测试
 
-::codepen{url="https://codepen.io/alvaromontoro/pen/BaJOKbG"}
+::codepen{url="https://codepen.io/tsuhre/pen/BYbjyg"}
 
 ## 总结
 
