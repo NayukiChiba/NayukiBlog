@@ -39,10 +39,16 @@
     background: var(--color-card-bg);
   }
 
-  .gc-card:hover {
+  .prose a.gc-card:hover,
+  a.gc-card:hover {
     border-color: #6e7681;
+    border-radius: 12px !important;
     box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    background: var(--color-card-bg) !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
+    -webkit-text-fill-color: var(--color-text) !important;
+    color: var(--color-text) !important;
   }
 
   .gc-title-bar {
