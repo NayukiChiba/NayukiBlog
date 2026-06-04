@@ -5,7 +5,7 @@ category: MachineLearning/Ensemble
 tags:
   - Scikit-learn
 description: GBDT梯度提升树的数学原理、串行降偏差机制与完整工程实现。
-image: https://img.yumeko.site/file/blog/GBDT.png
+image: https://img.yumeko.site/file/blog/cover/1780581751602.webp
 status: published
 ---
 

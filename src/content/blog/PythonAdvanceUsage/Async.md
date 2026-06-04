@@ -6,7 +6,7 @@ tags:
   - Python
   - 高级教程
 description: Python 异步编程 (Asyncio) 的实战指南，涵盖协程、Task、异步上下文管理器、异步迭代器、HTTP/文件/数据库操作、队列、锁、信号量等核心概念，并包含流程图和代码示例。
-image: https://img.yumeko.site/file/blog/Async.png
+image: https://img.yumeko.site/file/blog/cover/1780581689650.webp
 status: published
 ---
 # 深入理解 Python 异步编程 (Asyncio) 实战指南
@@ -21,7 +21,7 @@ status: published
 
 理解异步的关键在于理解“事件循环”。它就像一个不知疲倦的调度员，不断地从任务队列中取出任务执行，遇到 I/O 等待时就切换到下一个任务。
 
-![WorkFlow](https://img.yumeko.site/file/articles/PythonAdvanceUsage/Async/WorkFlow.svg)
+![WorkFlow](https://img.yumeko.site/file/blog/articles/1780581986244.svg)
 
 ---
 
@@ -53,7 +53,7 @@ async def basic_async_example():
 
 ### 视觉化对比：顺序执行 vs 并发执行
 
-![SyncVSAsync](https://img.yumeko.site/file/articles/PythonAdvanceUsage/Async/SyncVSAsync.svg)
+![SyncVSAsync](https://img.yumeko.site/file/blog/articles/1780581985534.svg)
 
 ### 示例代码
 
@@ -156,7 +156,7 @@ async with aiosqlite.connect("example.db") as db:
 
 ### 生产者-消费者交互图
 
-![ProducerAndConsumer](https://img.yumeko.site/file/articles/PythonAdvanceUsage/Async/ProducerAndConsumer.svg)
+![ProducerAndConsumer](https://img.yumeko.site/file/blog/articles/1780581990914.svg)
 
 ### 生产者-消费者模型 (asyncio.Queue)
 这是解耦数据生产与处理的最佳实践。
@@ -191,7 +191,7 @@ async with semaphore:
 
 当必须执行阻塞代码（如 `time.sleep` 或 CPU 密集型计算）时，直接运行会卡死 Event Loop。解决方案是将其扔到线程池。
 
-![MixSyncAndAsync](https://img.yumeko.site/file/articles/PythonAdvanceUsage/Async/MixSyncAndAsync.svg)
+![MixSyncAndAsync](https://img.yumeko.site/file/blog/articles/1780581981446.svg)
 
 ### 超时处理
 防止某个任务无限期卡住。

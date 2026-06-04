@@ -6,7 +6,7 @@ category: Projects
 tags:
   - Astro
   - 网站
-image: https://img.yumeko.site/file/blog/NayukiBlog.png
+image: https://img.yumeko.site/file/blog/cover/1780581820931.webp
 status: published
 link: https://github.com/NayukiChiba/NayukiBlog
 ---
@@ -79,7 +79,7 @@ link: https://github.com/NayukiChiba/NayukiBlog
 
 ### 认证流程
 
-![Certification](https://img.yumeko.site/file/articles/NayukiBlog/Certification.png)
+![Certification](https://img.yumeko.site/file/blog/articles/1780581348412.webp)
 
 使用 Cloudflare Worker 作为 OAuth 代理是因为 GitHub OAuth 流程需要 Client Secret，而这个敏感信息不能暴露在前端代码中。Worker 安全地存储 Secret 并代理 Token 交换请求。
 
@@ -95,7 +95,7 @@ link: https://github.com/NayukiChiba/NayukiBlog
 - **部署**: 腾讯云 EdgeOne
 
 ## 部署架构
-![Architecture](https://img.yumeko.site/file/articles/NayukiBlog/Architecture.png)
+![Architecture](https://img.yumeko.site/file/blog/articles/1780581349247.webp)
 ### 工作流程
 
 1. **写作**: 在管理后台使用 Markdown 编辑器撰写内容

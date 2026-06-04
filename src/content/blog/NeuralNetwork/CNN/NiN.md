@@ -5,7 +5,7 @@ category: NeuralNetwork/CNN
 tags:
   - 经典架构
 description: Network in Network 提出了 mlpconv 和 Global Average Pooling 两项关键创新，深刻影响了后续的 GoogLeNet 和 ResNet。
-image: https://img.yumeko.site/file/blog/NiN.png
+image: https://img.yumeko.site/file/blog/cover/1780581822004.webp
 status: published
 ---
 
@@ -20,7 +20,7 @@ NiN（Network in Network）由林敏等人在 2014 年 ICLR 上发表。虽然 N
 
 传统卷积层只能做**线性变换**——卷积核在输入上滑动，每次计算一个加权和。NiN 的 mlpconv 将这个简单的加权和替换为一个微型 MLP：
 
-![NiN.png](https://img.yumeko.site/file/articles/NiN/NiN.png)
+![NiN.png](https://img.yumeko.site/file/blog/articles/1780581190548.webp)
 
 ```
 传统卷积：    Conv(k×k) → ReLU
@@ -76,7 +76,7 @@ mlpconv → AdaptiveAvgPool2d(1) → Flatten              # 几乎零参数
 | Stage 2    | nin_block(192→160, k=5) + MaxPool(3×3) | $(192, 15, 15)$ | $(160, 6, 6)$   |
 | Stage 3    | nin_block(160→96, k=3) + MaxPool(3×3)  | $(160, 6, 6)$   | $(96, 2, 2)$    |
 | Classifier | nin_block(96→num_classes, k=3) + GAP   | $(96, 2, 2)$    | (num_classes,)  |
-![FullStage.png](https://img.yumeko.site/file/articles/NiN/FullStage.png)
+![FullStage.png](https://img.yumeko.site/file/blog/articles/1780581181208.webp)
 ## 5. PyTorch 实现
 
 ```python

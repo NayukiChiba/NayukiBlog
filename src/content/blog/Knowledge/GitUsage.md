@@ -6,7 +6,7 @@ tags:
   - git
   - 工具
 description: 本文档涵盖 Git 和 GitHub CLI (gh) 从安装到日常使用的完整流程，包含 Fork 工作流中 upstream 与 origin 的管理。
-image: https://img.yumeko.site/file/blog/git.jpeg
+image: https://img.yumeko.site/file/blog/cover/1780581758284.webp
 status: published
 ---
 
@@ -76,7 +76,7 @@ git config --global core.quotepath false
 winget install --id GitHub.cli
 ```
 
-![InstallGithubCLI](https://img.yumeko.site/file/articles/GitUsage/InstallGithubCLI.png)
+![InstallGithubCLI](https://img.yumeko.site/file/blog/articles/1780581321349.webp)
 
 **Linux (Ubuntu/Debian):**
 
@@ -110,7 +110,7 @@ gh auth login
 # 4. 完成浏览器授权
 ```
 
-![LoginGithub](https://img.yumeko.site/file/articles/GitUsage/LoginGithub.png)
+![LoginGithub](https://img.yumeko.site/file/blog/articles/1780581316010.webp)
 
 ### 2.3 查看github登录状态
 
@@ -125,7 +125,7 @@ gh auth logout
 gh auth switch --user NayukiChiba
 ```
 
-![GithubStatus](https://img.yumeko.site/file/articles/GitUsage/GithubStatus.png)
+![GithubStatus](https://img.yumeko.site/file/blog/articles/1780581299301.webp)
 
 ### 2.4 设置与git同步账号
 
@@ -258,7 +258,7 @@ git init
 # 输出：Initialized empty Git repository in /path/to/your/project/.git/
 ```
 
-![GitInit](https://img.yumeko.site/file/articles/GitUsage/GitInit.png)
+![GitInit](https://img.yumeko.site/file/blog/articles/1780581305968.webp)
 
 ### 3.2 克隆已有仓库
 
@@ -299,7 +299,7 @@ git status -s
 | M | 已修改 |
 | D | 已删除 |
 
-![GithubStatus](https://img.yumeko.site/file/articles/GitUsage/GitStatus.png)
+![GithubStatus](https://img.yumeko.site/file/blog/articles/1780581309058.webp)
 
 ### 4.2 添加文件到暂存区
 
@@ -438,20 +438,20 @@ git merge --abort
 
 合并就是合并了，直接把feature分支的历史全部删掉
 
-![GitMergeFF](https://img.yumeko.site/file/articles/GitUsage/GitMergeFF.jpg)
+![GitMergeFF](https://img.yumeko.site/file/blog/articles/1780581305784.webp)
 
 #### merge --no-ff
 
 虽然合并了，但是还是要保留feature分支的历史
 一般用于，两个方案选一个
 
-![GitMergeNoFF](https://img.yumeko.site/file/articles/GitUsage/GitMergeNoFF.jpg)
+![GitMergeNoFF](https://img.yumeko.site/file/blog/articles/1780581305009.webp)
 
 #### Rebase
 
 两个人同时开发不同的功能，全部完成之后可以直接rebase，互不冲突
 
-![GitRebase](https://img.yumeko.site/file/articles/GitUsage/GitRebase.jpg)
+![GitRebase](https://img.yumeko.site/file/blog/articles/1780581311203.webp)
 
 ---
 
@@ -466,7 +466,7 @@ git merge --abort
 
 **Fork 工作流关系图：**
 
-![Fork.png](https://img.yumeko.site/file/articles/GitUsage/Fork.png)
+![Fork.png](https://img.yumeko.site/file/blog/articles/1780581295021.webp)
 
 **典型使用场景：**
 
@@ -603,15 +603,15 @@ git commit -m "解决合并冲突"
 
 **正向操作：**
 
-![Forward.png](https://img.yumeko.site/file/articles/GitUsage/Forward.png)
+![Forward.png](https://img.yumeko.site/file/blog/articles/1780581302071.webp)
 
 **撤销操作：**
 
-![revoked.png](https://img.yumeko.site/file/articles/GitUsage/revoked.png)
+![revoked.png](https://img.yumeko.site/file/blog/articles/1780581327339.webp)
 
 ### 7.2 撤销命令全景图
 
-![HowToRevoke.jpg](https://img.yumeko.site/file/articles/GitUsage/HowToRevoke.jpg)
+![HowToRevoke.jpg](https://img.yumeko.site/file/blog/articles/1780581315274.webp)
 
 ### 7.3 命令对比总览
 
@@ -696,19 +696,19 @@ git restore --source=abc1234 filename
 
 **初始状态：**
 
-![init.png](https://img.yumeko.site/file/articles/GitUsage/init.png)
+![init.png](https://img.yumeko.site/file/blog/articles/1780581316928.webp)
 
 **`--soft` 模式（✅ 安全）：**
 
-![soft.png](https://img.yumeko.site/file/articles/GitUsage/soft.png)
+![soft.png](https://img.yumeko.site/file/blog/articles/1780581327762.webp)
 
 **`--mixed` 模式（默认，✅ 安全）：**
 
-![mixed.png](https://img.yumeko.site/file/articles/GitUsage/mixed.png)
+![mixed.png](https://img.yumeko.site/file/blog/articles/1780581326726.webp)
 
 **`--hard` 模式（⚠️ 危险！）：**
 
-![hard.png](https://img.yumeko.site/file/articles/GitUsage/hard.png)
+![hard.png](https://img.yumeko.site/file/blog/articles/1780581307237.webp)
 
 **模式效果对比表：**
 
@@ -810,19 +810,19 @@ git reset --hard origin/main
 
 **原始状态：**
 
-![init.png](https://img.yumeko.site/file/articles/GitUsage/init.png)
+![init.png](https://img.yumeko.site/file/blog/articles/1780581316928.webp)
 
 **使用 reset（❌ 改写历史）：**
 
-![reset.png](https://img.yumeko.site/file/articles/GitUsage/reset.png)
+![reset.png](https://img.yumeko.site/file/blog/articles/1780581324951.webp)
 
 **使用 revert（✅ 保留历史）：**
 
-![revert.png](https://img.yumeko.site/file/articles/GitUsage/revert.png)
+![revert.png](https://img.yumeko.site/file/blog/articles/1780581330012.webp)
 
 **选择原则：**
 
-![chooseRevoke.png](https://img.yumeko.site/file/articles/GitUsage/chooseRevoke.png)
+![chooseRevoke.png](https://img.yumeko.site/file/blog/articles/1780581295260.webp)
 
 #### revert 基本用法
 
@@ -970,9 +970,9 @@ git show abc1234:path/to/file
 
 ### 9.1 Fork原仓库
 
-![HowToFork](https://img.yumeko.site/file/articles/GitUsage/HowToFork.png)
+![HowToFork](https://img.yumeko.site/file/blog/articles/1780581311368.webp)
 
-1. Fork原仓库之后，在自己的repo中就有一个fork之后的仓库了![ForkedRepo](https://img.yumeko.site/file/articles/GitUsage/ForkedRepo.png)
+1. Fork原仓库之后，在自己的repo中就有一个fork之后的仓库了![ForkedRepo](https://img.yumeko.site/file/blog/articles/1780581298371.webp)
 2. 然后在本地clone自己的repo，就可以开始开发了
 
 ### 9.2 进行开发
@@ -1017,8 +1017,8 @@ git push -u origin feature/new-feature
 
 ### 9.3 提pull request
 
-1. 确认你提交到了自己的origin上![PushToOrigin](https://img.yumeko.site/file/articles/GitUsage/PushToOrigin.png)
-2. 点击 **Compare & pull request**，提交给上游![CompareBranch](https://img.yumeko.site/file/articles/GitUsage/CompareBranch.png)
+1. 确认你提交到了自己的origin上![PushToOrigin](https://img.yumeko.site/file/blog/articles/1780581322727.webp)
+2. 点击 **Compare & pull request**，提交给上游![CompareBranch](https://img.yumeko.site/file/blog/articles/1780581288978.webp)
 
 * 左侧的**base repo**指的是你想要**合并入**的repo
 * 右侧的head repo指的是你**修改后**的repo
@@ -1027,7 +1027,7 @@ git push -u origin feature/new-feature
 
 ### 9.4 上游审核一下pr
 
-![MergePR](https://img.yumeko.site/file/articles/GitUsage/MergePR.png)
+![MergePR](https://img.yumeko.site/file/blog/articles/1780581325099.webp)
 
 上游会看到这样的界面
 
@@ -1036,9 +1036,9 @@ git push -u origin feature/new-feature
 3. owner是谁：**upstream**才是真正的**owner**，决定你的修改是否可以进入**upstream**
 4. 怎么合并
 
-* Create A Merge Commit：保留**修改者**的所有commit，如果你交了3个修改，那就显示3个修改![CreateMergeCommit](https://img.yumeko.site/file/articles/GitUsage/CreateMergeCommit.jpg)
-* Squash And Merge：只有**一个修改**，你交了n个commit，最后也只显示你改了一次![SquashAndMerge](https://img.yumeko.site/file/articles/GitUsage/SquashAndMerge.jpg)
-* Rebase And Merge：修改者交了很多commit，跟rebase一样，被线性的加在当前历史的后方![RebaseAndMerge](https://img.yumeko.site/file/articles/GitUsage/RebaseAndMerge.jpg)
+* Create A Merge Commit：保留**修改者**的所有commit，如果你交了3个修改，那就显示3个修改![CreateMergeCommit](https://img.yumeko.site/file/blog/articles/1780581289272.webp)
+* Squash And Merge：只有**一个修改**，你交了n个commit，最后也只显示你改了一次![SquashAndMerge](https://img.yumeko.site/file/blog/articles/1780581331461.webp)
+* Rebase And Merge：修改者交了很多commit，跟rebase一样，被线性的加在当前历史的后方![RebaseAndMerge](https://img.yumeko.site/file/blog/articles/1780581323357.webp)
 
 ### 9.5 pr被合并之后
 
@@ -1064,11 +1064,11 @@ git push origin --delete feature/new-feature
 
 **Stash 工作原理：**
 
-![stash.png](https://img.yumeko.site/file/articles/GitUsage/stash.png)
+![stash.png](https://img.yumeko.site/file/blog/articles/1780581330103.webp)
 
 **Stash 操作流程：**
 
-![HowToStash.png](https://img.yumeko.site/file/articles/GitUsage/HowToStash.png)
+![HowToStash.png](https://img.yumeko.site/file/blog/articles/1780581313392.webp)
 
 **常用命令：**
 

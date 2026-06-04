@@ -6,7 +6,7 @@ tags:
   - Scikit-learn
   - 基础
 description: 逻辑回归分类的数学原理、参数解析与完整实现流程。
-image: https://img.yumeko.site/file/blog/LogisticRegression.png
+image: https://img.yumeko.site/file/blog/cover/1780581792953.webp
 status: published
 ---
 

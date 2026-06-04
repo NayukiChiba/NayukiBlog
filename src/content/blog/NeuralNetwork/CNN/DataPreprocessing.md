@@ -7,7 +7,7 @@ tags:
   - 基础
   - 数据处理
 description: 从 Resize 到 Normalize 再到数据增强，理解 CNN 输入预处理流水线的每一步。
-image: https://img.yumeko.site/file/blog/DataPreprocessing.png
+image: https://img.yumeko.site/file/blog/cover/1780581723302.webp
 status: published
 ---
 
@@ -132,7 +132,7 @@ transforms.RandomGrayscale(p=0.1)
 3. **从轻到重**：先从最保守的增强开始，逐步增加强度
 4. **可视化检查**：训练前先看看增强后的图像是什么样的，确保没有引入错误
 
-![RandomAffine.png](https://img.yumeko.site/file/articles/CNN/RandomAffine.png)
+![RandomAffine.png](https://img.yumeko.site/file/blog/articles/1780581190385.webp)
 
 ## 6. 通道适配
 

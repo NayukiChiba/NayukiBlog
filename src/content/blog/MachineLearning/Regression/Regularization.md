@@ -5,7 +5,7 @@ category: MachineLearning/Regression
 tags:
   - Scikit-learn
 description: 正则化回归的数学原理、L1/L2惩罚机制与多模型工程实现。
-image: https://img.yumeko.site/file/blog/Regularization.png
+image: https://img.yumeko.site/file/blog/cover/1780581862162.webp
 status: published
 ---
 

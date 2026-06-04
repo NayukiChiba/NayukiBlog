@@ -7,7 +7,7 @@ tags:
   - Cloudflare
   - 资源
 description: Cloudflare-imgbed 是一个基于 Cloudflare Workers + R2 的开源图床项目，具有 免费额度高、无需服务器、全球 CDN 加速等优点，非常适合个人博客、笔记、Markdown 图床使用
-image: https://img.yumeko.site/file/blog/CFImgBedDeployment.png
+image: https://img.yumeko.site/file/blog/cover/1780581705512.webp
 status: published
 ---
 
@@ -27,11 +27,11 @@ status: published
 
 这是他们的github项目位置[Cloudflare-ImgBed](https://github.com/MarSeventh/CloudFlare-ImgBed.git)
 
-![ImgBedProjects](https://img.yumeko.site/file/articles/CFImgBedDeployment/ImgBedProjects.png)
+![ImgBedProjects](https://img.yumeko.site/file/blog/articles/1780581071219.webp)
 
 你也可以访问他们的网站[CloudFlare ImgBed](https://cfbed.sanyue.de/)
 
-![ImgBedWebsite](https://img.yumeko.site/file/articles/CFImgBedDeployment/ImgBedWebsite.png)
+![ImgBedWebsite](https://img.yumeko.site/file/blog/articles/1780581083785.webp)
 
 利用CF的免费额度，可以创建存储桶，存放图片
 
@@ -40,11 +40,11 @@ status: published
 1. 在**腾讯云**上购买域名
 2. 直接在**Cloudflare**上解析
 
-![CFdomain](https://img.yumeko.site/file/articles/CFImgBedDeployment/CFdomain.png)
+![CFdomain](https://img.yumeko.site/file/blog/articles/1780581037905.webp)
 
 3. 选择**免费计划**就可以
 
-![CFFreePlan](https://img.yumeko.site/file/articles/CFImgBedDeployment/CFFreePlan.png)
+![CFFreePlan](https://img.yumeko.site/file/blog/articles/1780581041277.webp)
 
 4. 我们在上一步添加站点中选择了**Quick Scan for DNS records**，Cloudflare会帮我们自动扫描域名现有的DNS记录。因为我们的域名刚注册时，默认 DNS 记录一般都是指向域名注册商的服务器，这些默认记录可以全部删除。
 
@@ -53,7 +53,7 @@ status: published
 - @ 代表主域名，比如 @ 就表示 github.com。这条记录添加 A 记录，指向我们的服务器公网 IP。
 - www 代表带有 www. 前缀的域名（如 `www.github.com`）。这条记录添加 CNAME 记录，指向主域名（也就是 `github.com`）。
 
-![DNSRecords](https://img.yumeko.site/file/articles/CFImgBedDeployment/DNSRecords.png)
+![DNSRecords](https://img.yumeko.site/file/blog/articles/1780581068126.webp)
 
 5. 添加DNS记录
 
@@ -76,15 +76,15 @@ status: published
 
 > 去你买域名的地方，修改DNS服务器
 
-![CloudflareNameServers](https://img.yumeko.site/file/articles/CFImgBedDeployment/CloudflareNameServers.png)
+![CloudflareNameServers](https://img.yumeko.site/file/blog/articles/1780581054793.webp)
 
 例如：我是腾讯云购买的域名
 
-![ChangeDNS](https://img.yumeko.site/file/articles/CFImgBedDeployment/ChangeDNS.png)
+![ChangeDNS](https://img.yumeko.site/file/blog/articles/1780581045297.webp)
 
 然后等待解析即可
 
-![CFReady](https://img.yumeko.site/file/articles/CFImgBedDeployment/CFReady.png)
+![CFReady](https://img.yumeko.site/file/blog/articles/1780581044438.webp)
 
 ## 部署图床
 
@@ -94,7 +94,7 @@ status: published
 - 选择**R2 存储对象**
 - 然后填写一下支付信息（我个人建议使用**Paypal**）
 
-![R2](https://img.yumeko.site/file/articles/CFImgBedDeployment/R2.png)
+![R2](https://img.yumeko.site/file/blog/articles/1780581093194.webp)
 
 - 点击**创建存储桶**（**Create bucket**）
 - 输入存储桶名称（全局唯一，随便填）
@@ -119,7 +119,7 @@ status: published
 5. 在最下方**Looking to deploy Pages?** 选择 **Get started**
 6. 在**导入现有 Git 存储库**（**Import an existing Git repository**）处点击**开始使用**
 
-![GetStarted](https://img.yumeko.site/file/articles/CFImgBedDeployment/GetStarted.png)
+![GetStarted](https://img.yumeko.site/file/blog/articles/1780581069197.webp)
 
 #### 连接Github仓库
 
@@ -127,7 +127,7 @@ status: published
 2. 选择您 Fork 的**CloudFlare-ImgBed**仓库
 3. 点击**开始设置**
 
-![DeploymentPage](https://img.yumeko.site/file/articles/CFImgBedDeployment/DeploymentPage.png)
+![DeploymentPage](https://img.yumeko.site/file/blog/articles/1780581060466.webp)
 
 #### 配置项目设置
 
@@ -138,7 +138,7 @@ status: published
 | 构建命令     | npm install                   | **重要：v2.0 新构建命令** |
 | 构建输出目录 | /                             | 保持默认                  |
 
-![PageBuild](https://img.yumeko.site/file/articles/CFImgBedDeployment/PageBuild.png)
+![PageBuild](https://img.yumeko.site/file/blog/articles/1780581088931.webp)
 
 #### 部署项目
 
@@ -163,7 +163,7 @@ status: published
 4. 输入命名空间名称：**img_url**（建议使用此名称）
 5. 点击**创建**
 
-![CreateKV](https://img.yumeko.site/file/articles/CFImgBedDeployment/CreateKV.png)
+![CreateKV](https://img.yumeko.site/file/blog/articles/1780581050915.webp)
 
 #### 绑定 KV 到项目
 
@@ -175,9 +175,9 @@ status: published
    - **KV 命名空间**：选择刚创建的命名空间
 5. 点击 "保存"
 
-![BindingKV](https://img.yumeko.site/file/articles/CFImgBedDeployment/BindingKV.png)
+![BindingKV](https://img.yumeko.site/file/blog/articles/1780581032761.webp)
 
-![KVnamespace](https://img.yumeko.site/file/articles/CFImgBedDeployment/KVnamespace.png)
+![KVnamespace](https://img.yumeko.site/file/blog/articles/1780581079995.webp)
 
 #### 配置R2渠道
 
@@ -195,7 +195,7 @@ status: published
 
 #### 第四步：重新部署
 
-![BindingR2](https://img.yumeko.site/file/articles/CFImgBedDeployment/BindingR2.png)
+![BindingR2](https://img.yumeko.site/file/blog/articles/1780581034720.webp)
 
 绑定数据库后需要重新部署以生效：
 
@@ -205,7 +205,7 @@ status: published
 4. 选择**重试部署**（**Retry Deployment**）
 5. 等待部署完成
 
-![RetryDeployment](https://img.yumeko.site/file/articles/CFImgBedDeployment/RetryDeployment.png)
+![RetryDeployment](https://img.yumeko.site/file/blog/articles/1780581091696.webp)
 
 ### 配置自定义域名
 
@@ -216,7 +216,7 @@ status: published
 3. 输入自定义域名
 4. 应用DNS
 
-![CustomDomain](https://img.yumeko.site/file/articles/CFImgBedDeployment/CustomDomain.png)
+![CustomDomain](https://img.yumeko.site/file/blog/articles/1780581057919.webp)
 
 ## 访问图床
 
@@ -236,19 +236,19 @@ https://img.domain.com/dashboard
 4. 设置admin账号密码
 5. **重点：**要保存设置
 
-<img src="https://img.yumeko.site/file/articles/CFImgBedDeployment/SafetySetting.png" alt="SafetySetting"  />
+<img src="https://img.yumeko.site/file/blog/articles/1780581095296.webp" alt="SafetySetting"  />
 
-![SaveSettings](https://img.yumeko.site/file/articles/CFImgBedDeployment/SaveSettings.png)
+![SaveSettings](https://img.yumeko.site/file/blog/articles/1780581099628.webp)
 
 ### 默认渠道更改
 
 在网页设置中，把默认渠道类型改成R2
 
-![ChangeR2](https://img.yumeko.site/file/articles/CFImgBedDeployment/ChangeR2.png)
+![ChangeR2](https://img.yumeko.site/file/blog/articles/1780581052582.webp)
 
 ## 效果图
 
-![UploadSuccess](https://img.yumeko.site/file/articles/CFImgBedDeployment/UploadSuccess.png)
+![UploadSuccess](https://img.yumeko.site/file/blog/articles/1780581104954.webp)
 
 
 

@@ -6,7 +6,7 @@ tags:
   - 工具
   - 高级教程
 description: pipreqs 工具的完整使用指南，包括安装、基本用法、高级参数、最佳实践和常见问题解决方案
-image: https://img.yumeko.site/file/blog/PipReqs.jpg
+image: https://img.yumeko.site/file/blog/cover/1780581860210.webp
 status: published
 ---
 使用 `pipreqs` 自动生成 `requirements.txt` 的完整指南：

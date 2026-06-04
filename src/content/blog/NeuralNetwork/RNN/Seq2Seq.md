@@ -6,7 +6,7 @@ tags:
   - 经典架构
   - 深度学习
 description: 2014 年 Sutskever 等人提出的 Sequence-to-Sequence 学习框架。完整数学推导、从零 PyTorch 实现、Teacher Forcing 策略分析、信息瓶颈讨论及解码策略对比。
-image: https://img.yumeko.site/file/blog/Seq2Seq.webp
+image: https://img.yumeko.site/file/blog/cover/1780581877311.webp
 status: published
 ---
 
@@ -39,7 +39,7 @@ RNN 可以处理四种输入输出模式：One-to-One、One-to-Many、Many-to-On
 
 ### 2.1 编码器
 
-![Seq2Seq.png](https://img.yumeko.site/file/articles/Seq2Seq/Seq2Seq.webp)
+![Seq2Seq.png](https://img.yumeko.site/file/blog/articles/1780581877311.webp)
 
 编码器是一个标准的 RNN（实践中通常使用 LSTM），逐时间步读取输入序列 $X = (x_1, x_2, \dots, x_T)$。
 
@@ -389,7 +389,7 @@ def greedy_decode(model, src, src_vocab, trg_vocab, max_len=50):
 
 ## 4. Teacher Forcing：训练与推理的桥梁
 
-![TeacherForcing.png](https://img.yumeko.site/file/articles/Seq2Seq/TeacherForcing.webp)
+![TeacherForcing.png](https://img.yumeko.site/file/blog/articles/1780581452529.webp)
 
 ### 4.1 两套公式
 
@@ -435,7 +435,7 @@ def get_teacher_forcing_ratio(epoch, initial=1.0, decay=0.95, min_ratio=0.2):
 
 Seq2Seq 被提出后，研究者很快发现翻译质量随输入长度急剧下降。根本原因：固定长度为 $d_h$ 的上下文向量 $C$ 必须编码变长序列的全部信息。
 
-![BlueScore.png](https://img.yumeko.site/file/articles/Seq2Seq/BlueScore.webp)
+![BlueScore.png](https://img.yumeko.site/file/blog/articles/1780581386514.webp)
 
 以 $d_h = 512$ 为例，$C \in \mathbb{R}^{512}$ 的容量是固定的。对于 5 词的短句，512 维足够编码语义、语法和词汇信息。对于 50 词的长句，512 维需要编码 10 倍的信息量——向量空间被"挤满"，前面的信息被后来的词覆盖。
 
@@ -461,7 +461,7 @@ Seq2Seq 被提出后，研究者很快发现翻译质量随输入长度急剧下
 
 ### 6.2 Beam Search
 
-![BeamSearch.png](https://img.yumeko.site/file/articles/Seq2Seq/BeamSearch.webp)
+![BeamSearch.png](https://img.yumeko.site/file/blog/articles/1780581377218.webp)
 
 维护 $k$（beam size）条最优候选序列，每步扩展并保留累积概率最高的 $k$ 条。以 $k=2$ 为例：
 

@@ -7,13 +7,13 @@ tags:
   - 基础
   - NLP
 description: 深入理解词嵌入和字符嵌入的数学本质、训练过程、padding_idx 的特殊处理以及嵌入维度选择的经验法则。
-image: https://img.yumeko.site/file/blog/EmbeddingLayer.webp
+image: https://img.yumeko.site/file/blog/cover/1780581742758.webp
 status: published
 ---
 
 ## 1. 从离散到连续：为什么需要 Embedding？
 
-![Dense.png](https://img.yumeko.site/file/articles/EmbeddingLayer/Dense.webp)
+![Dense.png](https://img.yumeko.site/file/blog/articles/1780581387352.webp)
 
 ### 1.1 One-Hot 编码的三个死穴
 
@@ -415,7 +415,7 @@ $$
 
 ### 3.3 选择指南
 
-![Word2Vec.png](https://img.yumeko.site/file/articles/EmbeddingLayer/Word2Vec.webp)
+![Word2Vec.png](https://img.yumeko.site/file/blog/articles/1780581456365.webp)
 
 | | 字符级 | 词级 |
 |------|:---:|:---:|

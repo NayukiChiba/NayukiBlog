@@ -6,7 +6,7 @@ tags:
   - 设置
   - 网站
 description: 在vitepress中，让markdown文件中可以使用根目录中的文件，不局限于docs文件夹中
-image: https://img.yumeko.site/file/blog/MappingFolderTypeScripts.png
+image: https://img.yumeko.site/file/blog/cover/1780581804847.webp
 status: published
 ---
 ## VitePress 引用项目外部目录图片的方法

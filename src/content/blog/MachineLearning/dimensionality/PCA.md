@@ -5,7 +5,7 @@ category: MachineLearning/Dimensionality
 tags:
   - Scikit-learn
 description: PCA主成分分析的数学原理、SVD求解与双模型降维实践。
-image: https://img.yumeko.site/file/blog/pca.png
+image: https://img.yumeko.site/file/blog/cover/1780581855521.webp
 status: published
 ---
 

@@ -6,7 +6,7 @@ tags:
   - Cpp
   - 基础
 description: 如何安装C++的环境
-image: https://img.yumeko.site/file/blog/Cpp.png
+image: https://img.yumeko.site/file/blog/cover/1780581717450.webp
 status: published
 ---
 

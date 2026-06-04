@@ -7,7 +7,7 @@ tags:
   - 深度学习
   - 总结
 description: 从数据准备到模型部署，一篇理清深度学习项目的完整六阶段工程流程。
-image: https://img.yumeko.site/file/blog/NNTraingingFixedProcedure.png
+image: https://img.yumeko.site/file/blog/cover/1780581818737.webp
 status: draft
 ---
 

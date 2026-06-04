@@ -8,7 +8,7 @@ tags:
   - 有趣
   - 资源
 description: 没有大米，也不想搞复杂配置怎么办，用sftp跟博客一起做图床
-image: https://img.yumeko.site/file/blog/SFTPImgbedDeployment.jpg
+image: https://img.yumeko.site/file/blog/cover/1780581878871.webp
 status: published
 ---
 ## 如何用服务器直接搭建图床
@@ -16,7 +16,7 @@ status: published
 
 1. 创建图片文件夹img 
 
-![服务器img文件夹](https://img.yumeko.site/file/articles/SFTPImgbedDeployment/imgFolder.png)
+![服务器img文件夹](https://img.yumeko.site/file/blog/articles/1780581513029.webp)
 
 2. 设置nginx.conf
 
@@ -83,7 +83,7 @@ sudo systemctl reload nginx
 
 2. 在PicGo中下载**sftp-uploader**插件
 
-![sftp-uploader](https://img.yumeko.site/file/articles/SFTPImgbedDeployment/sftp-uploader.png)
+![sftp-uploader](https://img.yumeko.site/file/blog/articles/1780581520435.webp)
 
 3. 图床设置
 

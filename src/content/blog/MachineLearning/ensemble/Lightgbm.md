@@ -5,7 +5,7 @@ category: MachineLearning/Ensemble
 tags:
   - Scikit-learn
 description: LightGBM的数学原理、Leaf-wise生长与直方图加速及完整实现。
-image: https://img.yumeko.site/file/blog/LightGBM.png
+image: https://img.yumeko.site/file/blog/cover/1780581787373.webp
 status: published
 ---
 

@@ -5,7 +5,7 @@ category: MachineLearning/Classification
 tags:
   - Scikit-learn
 description: 支持向量分类的数学原理、RBF核技巧与完整工程实现。
-image: https://img.yumeko.site/file/blog/SVC.png
+image: https://img.yumeko.site/file/blog/cover/1780581888029.webp
 status: published
 ---
 

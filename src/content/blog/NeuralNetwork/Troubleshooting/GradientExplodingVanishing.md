@@ -5,7 +5,7 @@ category: NeuralNetwork/Troubleshooting
 tags:
   - 高级教程
 description: Loss 突然 NaN（爆炸）或完全不下降（消失）？诊断并修复梯度异常。
-image: https://img.yumeko.site/file/blog/GradientExplodingVanishing.png
+image: https://img.yumeko.site/file/blog/cover/1780581770215.webp
 status: published
 ---
 

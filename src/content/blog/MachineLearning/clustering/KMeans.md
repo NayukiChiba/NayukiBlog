@@ -5,7 +5,7 @@ category: MachineLearning/Clustering
 tags:
   - Scikit-learn
 description: KMeans聚类的数学原理、参数调优、标准化必要性及完整实现流程。
-image: https://img.yumeko.site/file/blog/KMeans.png
+image: https://img.yumeko.site/file/blog/cover/1780581783193.webp
 status: published
 ---
 

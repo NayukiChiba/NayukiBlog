@@ -6,7 +6,7 @@ tags:
   - 经典架构
   - 深度学习
 description: Schuster 和 Paliwal 在 1997 年提出的双向 RNN 架构，理解它如何通过正反向两个 RNN 利用序列的双向上下文信息，完整的数学推导，从零 PyTorch 实现，以及为什么不能用于自回归文本生成。
-image: https://img.yumeko.site/file/blog/BidirectionalRNN.webp
+image: https://img.yumeko.site/file/blog/cover/1780581698602.webp
 status: published
 ---
 
@@ -14,7 +14,7 @@ status: published
 
 ### 1.1 单向 RNN 的信息不对称
 
-![UnidirectionalRNN.png](https://img.yumeko.site/file/articles/BidirectionalRNN/UnidirectionalRNN.webp)
+![UnidirectionalRNN.png](https://img.yumeko.site/file/blog/articles/1780581454156.webp)
 
 标准（单向）RNN 在每个时间步 $t$ 只能看到 $x_1, x_2, \dots, x_t$——过去的信息。它看不到 $x_{t+1}$ 及之后的内容。这个性质称为**因果约束（Causal Constraint）**。
 
@@ -38,7 +38,7 @@ $h_t$ 对 $x_{t+1}$ 及其之后的输入完全无感知。这意味着同一个
 
 ## 2. 双向 RNN 的结构与数学
 
-![BidirectionalRNN.png](https://img.yumeko.site/file/articles/BidirectionalRNN/BidirectionalRNN.webp)
+![BidirectionalRNN.png](https://img.yumeko.site/file/blog/articles/1780581381770.webp)
 
 ### 2.1 核心思想：两个方向，独立运行
 
@@ -89,7 +89,7 @@ $$
 
 ### 2.4 多层双向 RNN 的逐层展开
 
-![MultiLayeredBidirectionalRNN.png](https://img.yumeko.site/file/articles/BidirectionalRNN/MultiLayeredBidirectionalRNN.webp)
+![MultiLayeredBidirectionalRNN.png](https://img.yumeko.site/file/blog/articles/1780581421406.webp)
 
 在多层的双向 RNN 中，第 $l$ 层的输入是第 $l-1$ 层的双向输出。以两层为例：
 

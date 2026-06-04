@@ -6,7 +6,7 @@ tags:
   - 基础
   - 深度学习
 description: 从 Accuracy 到混淆矩阵到 F1 分数，理解分类模型的完整评估体系。正确挑选loss函数是做好评估的前提。
-image: https://img.yumeko.site/file/blog/EvaluationMetrics.png
+image: https://img.yumeko.site/file/blog/cover/1780581748468.webp
 status: published
 ---
 
@@ -79,7 +79,7 @@ $$
 $$
 
 "所有 A 类样本中，模型找出了多少"——衡量"不漏报"
-![PrecisionRecall.png](https://img.yumeko.site/file/articles/EvaluationMetrics/PrecisionRecall.png)
+![PrecisionRecall.png](https://img.yumeko.site/file/blog/articles/1780581570404.webp)
 
 ### F1 分数
 

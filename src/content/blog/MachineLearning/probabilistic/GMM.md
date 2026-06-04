@@ -6,7 +6,7 @@ tags:
   - Scikit-learn
   - 高级教程
 description: 高斯混合模型的数学原理、EM算法迭代与完整实现流程。
-image: https://img.yumeko.site/file/blog/GMM.png
+image: https://img.yumeko.site/file/blog/cover/1780581764332.webp
 status: published
 ---
 

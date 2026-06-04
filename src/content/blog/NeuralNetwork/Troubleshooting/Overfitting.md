@@ -5,7 +5,7 @@ category: NeuralNetwork/Troubleshooting
 tags:
   - 高级教程
 description: 训练集准确率 95%+，验证集却只有 70%？诊断并解决过拟合的完整方案。
-image: https://img.yumeko.site/file/blog/Overfitting.png
+image: https://img.yumeko.site/file/blog/cover/1780581828761.webp
 status: published
 ---
 ## 现象描述
@@ -156,4 +156,4 @@ else:
 6. 减小模型容量            → 可能影响最佳性能
 7. 收集更多数据            → 最根本但成本高
 ```
-![Overfitting.png](https://img.yumeko.site/file/articles/Overfitting/Overfitting.png)
+![Overfitting.png](https://img.yumeko.site/file/blog/articles/1780581594913.webp)

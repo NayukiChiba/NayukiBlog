@@ -7,7 +7,7 @@ tags:
   - 深度学习
   - 高级教程
 description: 深入理解 Dropout 的原理（集成学习视角、共适应破坏）、概率设置策略、train/eval 模式切换的关键细节，以及与 BatchNorm 共用时的注意事项。
-image: https://img.yumeko.site/file/blog/Dropout.png
+image: https://img.yumeko.site/file/blog/cover/1780581735505.webp
 status: published
 ---
 
@@ -30,7 +30,7 @@ Dropout 是 2014 年由 Srivastava 等人提出的正则化技术，核心思想
 
 直观理解：Dropout 就像考试复习时不让你依赖同桌的笔记——你必须自己把每个知识点都学好。
 
-![Result.png](https://img.yumeko.site/file/articles/Dropout/Result.png)
+![Result.png](https://img.yumeko.site/file/blog/articles/1780581580067.webp)
 
 ## 3. 概率设置建议
 

@@ -5,7 +5,7 @@ category: NeuralNetwork/CNN
 tags:
   - 经典架构
 description: VGG 证明了"全部使用 3×3 小卷积核"的简洁设计哲学，本文详解 VGG-11/13/16/19 的结构和设计智慧。
-image: https://img.yumeko.site/file/blog/VGG.png
+image: https://img.yumeko.site/file/blog/cover/1780581894886.webp
 status: published
 ---
 
@@ -50,7 +50,7 @@ Input (3, 224, 224)
 **空间尺寸变化**：$224 \to 112 \to 56 \to 28 \to 14 \to 7$（每次 MaxPool 尺寸减半）
 
 **通道数变化**：$3 \to 64 \to 128 \to 256 \to 512 \to 512$（每次池化后通道翻倍，保持"总信息量"相对稳定）
-![VGG11-19.png](https://img.yumeko.site/file/articles/VGG/VGG11-19.png)
+![VGG11-19.png](https://img.yumeko.site/file/blog/articles/1780581199844.webp)
 ## 3. VGG 家族：四款变体
 
 | 变体 | Stage 1 | Stage 2 | Stage 3 | Stage 4 | Stage 5 | 总卷积层 |
@@ -62,7 +62,7 @@ Input (3, 224, 224)
 
 加上 3 个全连接层，总权重层数 = 卷积层数 + 3。
 
-![VGG.png](https://img.yumeko.site/file/articles/VGG/VGG.png)
+![VGG.png](https://img.yumeko.site/file/blog/articles/1780581203492.webp)
 
 ## 4. 各变体参数量
 

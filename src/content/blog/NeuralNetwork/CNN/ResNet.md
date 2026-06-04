@@ -5,7 +5,7 @@ category: NeuralNetwork/CNN
 tags:
   - 经典架构
 description: ResNet 用残差连接解决了深层网络的退化问题，使得 152 层的网络训练成为可能。本文详解其核心思想和各类变体。
-image: https://img.yumeko.site/file/blog/ResNet.png
+image: https://img.yumeko.site/file/blog/cover/1780581861848.webp
 status: published
 ---
 
@@ -15,7 +15,7 @@ status: published
 
 > 56 层的网络在训练集和测试集上的误差都比 20 层更高。
 
-![Degeneration.png](https://img.yumeko.site/file/articles/ResNet/Degeneration.png)
+![Degeneration.png](https://img.yumeko.site/file/blog/articles/1780581172543.webp)
 
 注意这不是过拟合（过拟合是训练误差低、测试误差高），而是**欠拟合**——更深的网络连训练集都学不好。
 
@@ -40,7 +40,7 @@ $$
 **直觉**：如果最优映射接近恒等变换（大部分信息直接传递，只需少量修改），那学习恒等映射附近的残差比从头学整个映射容易得多。在极端情况下，如果恒等变换就是最优的，只需把所有残差推为零。
 
 ## 3. 残差块（Residual Block）
-![ResBlock.png](https://img.yumeko.site/file/articles/ResNet/ResBlock.png)
+![ResBlock.png](https://img.yumeko.site/file/blog/articles/1780581201285.webp)
 
 数学表达：
 
@@ -57,7 +57,7 @@ $$
 | Identity Shortcut | 输入输出维度相同 | $y = \mathcal{F}(x) + x$（直接相加） |
 | Projection Shortcut | 输入输出维度不同（通道数变化、空间尺寸减半） | $y = \mathcal{F}(x) + W_s x$（$1 \times 1$ 卷积匹配维度） |
 
-![ResNet34.png](https://img.yumeko.site/file/articles/ResNet/ResNet34.png)
+![ResNet34.png](https://img.yumeko.site/file/blog/articles/1780581196703.webp)
 
 **维度匹配的 $1 \times 1$ 卷积 shortcut**：
 
@@ -112,7 +112,7 @@ Input (3, 224, 224)
     ↓ GAP → FC(2048→1000)
 Output
 ```
-![ResNet50.png](https://img.yumeko.site/file/articles/ResNet/ResNet50.png)
+![ResNet50.png](https://img.yumeko.site/file/blog/articles/1780581196011.webp)
 **关键设计**：每个 Stage 的第一个 Bottleneck 负责空间降维（stride=2）和通道提升，后面的 Bottleneck 在相同维度下重复。
 
 ## 6. 为什么 ResNet 能训这么深？

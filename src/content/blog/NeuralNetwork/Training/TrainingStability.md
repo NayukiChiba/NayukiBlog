@@ -118,7 +118,7 @@ torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 
 这就是经典的[[NeuralNetwork/Troubleshooting/Overfitting|过拟合]]信号——模型开始"背诵"训练数据而非学习通用模式。
 
-![LossCurve.png](https://img.yumeko.site/file/articles/EarlyStoppingGuide/LossCurve.png)
+![LossCurve.png](https://img.yumeko.site/file/blog/articles/1780581571699.webp)
 
 ### 2. 基本 Early Stopping
 

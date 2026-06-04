@@ -6,7 +6,7 @@ tags:
   - Cpp
   - 基础
 description: 使用g++和cmake编译c++项目
-image: https://img.yumeko.site/file/blog/Cmake.jpg
+image: https://img.yumeko.site/file/blog/cover/1780581711341.webp
 status: published
 ---
 

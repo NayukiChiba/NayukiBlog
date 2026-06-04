@@ -6,7 +6,7 @@ tags:
   - Scikit-learn
   - 基础
 description: 决策树分类核心数学原理、划分标准及超参数解析。
-image: https://img.yumeko.site/file/blog/DecisionTreeClassifier.png
+image: https://img.yumeko.site/file/blog/cover/1780581733465.webp
 status: published
 ---
 

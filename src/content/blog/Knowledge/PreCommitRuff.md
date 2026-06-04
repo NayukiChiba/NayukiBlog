@@ -7,7 +7,7 @@ tags:
   - 高级教程
   - git
 description: 在Commit的时候，自动进行ruff格式化代码
-image: https://img.yumeko.site/file/blog/Ruff.png
+image: https://img.yumeko.site/file/blog/cover/1780581876594.webp
 status: published
 ---
 # 安装pre-commit

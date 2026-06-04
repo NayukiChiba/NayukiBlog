@@ -6,7 +6,7 @@ tags:
   - 深度学习
   - 基础
 description: 深入解析 CNN 的三大核心组件：卷积层负责特征提取，池化层负责降维与平移不变性，全连接层负责汇总特征并输出分类结果。从手算示例到 PyTorch 代码，完整理解每个组件的工作原理与设计选择。
-image: https://img.yumeko.site/file/blog/ConvolutionLayer.png
+image: https://img.yumeko.site/file/blog/cover/1780581719035.webp
 status: published
 ---
 
@@ -116,7 +116,7 @@ $$
 
 注意输出中，第三列的值（$1$）明显大于其他列，这说明在输入图像的第三列附近存在**垂直边缘**——从亮（$1$）到暗（$0$）的过渡。这个简单的 $3 \times 3$ 卷积核就是一个垂直边缘检测器！
 
-![ConvolutionOperation.png](https://img.yumeko.site/file/articles/CNN/ConvolutionOperation.png)
+![ConvolutionOperation.png](https://img.yumeko.site/file/blog/articles/1780581171172.webp)
 
 ### 3. 多通道卷积
 
@@ -208,7 +208,7 @@ $$
 
 感受野越大，神经元能"看到"的上下文越多。深层网络的神经元拥有很大的感受野，能够捕捉全局信息。这也是为什么用小卷积核堆叠（如 [[NeuralNetwork/CNN/VGG|VGG]] 全部用 $3 \times 3$）可以替代大卷积核——两个 $3 \times 3$ 的感受野等于一个 $5 \times 5$，但参数更少、非线性更多。
 
-![ExperienceWilderness.png](https://img.yumeko.site/file/articles/CNN/ExperienceWilderness.png)
+![ExperienceWilderness.png](https://img.yumeko.site/file/blog/articles/1780581171123.webp)
 
 ### 8. PyTorch 代码示例
 
@@ -315,7 +315,7 @@ $$
 | 现代使用 | 更广泛 | 较少（被 stride=2 卷积替代） |
 | 经典案例 | MNIST-CNN, VGG, ResNet | LeNet-5 |
 
-![Pooling.png](https://img.yumeko.site/file/articles/CNN/Pooling.png)
+![Pooling.png](https://img.yumeko.site/file/blog/articles/1780581197734.webp)
 
 ### 5. Global Average Pooling（GAP）
 
@@ -365,7 +365,7 @@ nn.AdaptiveAvgPool2d((4, 4)) # 输出 4×4
 
 这对于处理变尺寸输入非常有用——不需要提前知道特征图的具体大小。
 
-![AdaptivePooling.png](https://img.yumeko.site/file/articles/PoolingLayer/AdaptivePooling.png)
+![AdaptivePooling.png](https://img.yumeko.site/file/blog/articles/1780581132299.webp)
 
 ### 7. 现代趋势：用 Stride 卷积替代池化
 
@@ -382,7 +382,7 @@ nn.Conv2d(64, 128, 3, stride=2, padding=1)
 
 但池化层仍然广泛使用，尤其是在资源受限的场景下（无参数、计算量小）。
 
-![StrideConv.png](https://img.yumeko.site/file/articles/PoolingLayer/StrideConv.png)
+![StrideConv.png](https://img.yumeko.site/file/blog/articles/1780581198317.webp)
 
 ### 8. 输出尺寸公式
 
@@ -408,7 +408,7 @@ $$
 
 在全连接层之前，需要把三维的特征图（通道 $\times$ 高 $\times$ 宽）拉平成一维向量。
 
-![Flatten.png](https://img.yumeko.site/file/articles/FullyConnectedLayer/Flatten.png)
+![Flatten.png](https://img.yumeko.site/file/blog/articles/1780581172111.webp)
 
 ```
 特征图：(Batch, 64, 7, 7)    →    Flatten    →    向量：(Batch, 3136)
@@ -485,7 +485,7 @@ nn.Conv2d(512, 10, kernel_size=1)  # 输入可以是 (B, 512, H, W)
 
 $1 \times 1$ 卷积只在通道维度上做变换，不改变空间尺寸。它等价于对每个空间位置的通道向量做一次全连接操作。全卷积网络（FCN）正是利用了这一点，完全抛弃了 FC 层。
 
-![1x1Conv.png](https://img.yumeko.site/file/articles/FullyConnectedLayer/1x1Conv.png)
+![1x1Conv.png](https://img.yumeko.site/file/blog/articles/1780581107550.webp)
 
 ### 8. 现代架构的 FC 使用趋势
 

@@ -6,7 +6,7 @@ tags:
   - 深度学习
   - 基础
 description: 从全连接网络的局限出发，理解 CNN 的核心思想——局部连接、权重共享、层次化特征学习。
-image: https://img.yumeko.site/file/blog/CNN.png
+image: https://img.yumeko.site/file/blog/cover/1780581710749.webp
 status: published
 ---
 
@@ -36,7 +36,7 @@ CNN 通过两个关键设计解决上述问题：
 
 同一个卷积核（滤波器）在整个图像上滑动，用同一组参数检测不同位置的相同特征。如果用一个 $3 \times 3$ 的卷积核检测"边缘"，无论边缘出现在图像的左上角还是右下角，都能被检测到。
 
-![CNNvsLinear.png](https://img.yumeko.site/file/articles/CNN/CNNvsLinear.png)
+![CNNvsLinear.png](https://img.yumeko.site/file/blog/articles/1780581164298.webp)
 
 ## 3. 从"特征工程"到"特征学习"
 
@@ -67,7 +67,7 @@ CNN 不需要人工设计特征，而是让网络自己从数据中学习"什么
 - 中层检测弧线、圆圈的一部分
 - 深层检测"两个圆圈叠在一起"这个整体结构
 
-![CNNHierarchicalFeatureVisualization.png](https://img.yumeko.site/file/articles/CNN/CNNHierarchicalFeatureVisualization.png)
+![CNNHierarchicalFeatureVisualization.png](https://img.yumeko.site/file/blog/articles/1780581159857.webp)
 
 ## 5. CNN 的五大基本组件
 
@@ -97,6 +97,6 @@ $$
 | 2014 | GoogLeNet | Inception 多分支结构，22 层仅 7M 参数 |
 | 2015 | ResNet | 残差学习解决退化问题，可训练 152+ 层 |
 
-![CNNArchitectureComparison.png](https://img.yumeko.site/file/blog/CNNArchitectureComparison.png)
+![CNNArchitectureComparison.png](https://img.yumeko.site/file/blog/cover/1780581716119.webp)
 
 有关各架构的详细对比，参见 架构对比。

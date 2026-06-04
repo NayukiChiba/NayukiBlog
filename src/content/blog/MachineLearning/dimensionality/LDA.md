@@ -5,7 +5,7 @@ category: MachineLearning/Dimensionality
 tags:
   - Scikit-learn
 description: LDA线性判别分析的数学原理、Fisher判别准则与完整工程实现。
-image: https://img.yumeko.site/file/blog/lda.png
+image: https://img.yumeko.site/file/blog/cover/1780581784800.webp
 status: published
 ---
 

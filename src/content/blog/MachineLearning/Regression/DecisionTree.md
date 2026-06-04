@@ -6,7 +6,7 @@ tags:
   - Python
   - 基础
 description: 决策树回归的数学原理、CART递归分裂与完整工程实现。
-image: https://img.yumeko.site/file/blog/DecisionTreeRegression.png
+image: https://img.yumeko.site/file/blog/cover/1780581737461.webp
 status: published
 ---
 

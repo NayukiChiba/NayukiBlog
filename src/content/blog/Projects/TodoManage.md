@@ -5,7 +5,7 @@ category: Projects
 tags:
   - Python
 description: Python的小项目，Todo管理器
-image: https://img.yumeko.site/file/blog/Todo.png
+image: https://img.yumeko.site/file/blog/cover/1780581892598.webp
 status: published
 ---
 # TODO 事务管理（CLI）

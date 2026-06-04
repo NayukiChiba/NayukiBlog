@@ -5,7 +5,7 @@ category: MachineLearning/Ensemble
 tags:
   - Scikit-learn
 description: Bagging集成学习的数学原理、Bootstrap采样与方差缩减及完整实现流程。
-image: https://img.yumeko.site/file/blog/Bagging.png
+image: https://img.yumeko.site/file/blog/cover/1780581699942.webp
 status: published
 ---
 

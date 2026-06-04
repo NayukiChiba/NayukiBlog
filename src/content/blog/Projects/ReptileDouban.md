@@ -5,7 +5,7 @@ category: Projects
 tags:
   - Python
 description: 使用requests获取静态网页信息，筛选出Top250电影信息
-image: https://img.yumeko.site/file/blog/Douban.webp
+image: https://img.yumeko.site/file/blog/cover/1780581734759.webp
 status: published
 ---
 # ReptileDouban（requests 抓取豆瓣 Top250）

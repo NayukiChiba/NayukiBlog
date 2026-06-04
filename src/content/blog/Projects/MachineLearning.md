@@ -7,7 +7,7 @@ tags:
   - Scikit-learn
   - 总结
 description: 机器学习全汇总项目架构文档——目录结构、核心抽象与模块分层。
-image: https://img.yumeko.site/file/blog/MachineLearning.png
+image: https://img.yumeko.site/file/blog/cover/1780581808315.webp
 status: published
 ---
 

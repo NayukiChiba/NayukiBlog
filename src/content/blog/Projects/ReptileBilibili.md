@@ -5,7 +5,7 @@ category: Projects
 tags:
   - Python
 description: 访问Bilibili的API，爬取个人信息
-image: https://img.yumeko.site/file/blog/Bilibili.webp
+image: https://img.yumeko.site/file/blog/cover/1780581707308.webp
 status: published
 ---
 # 🎬 B站数据爬虫 (ReptileBilibili)

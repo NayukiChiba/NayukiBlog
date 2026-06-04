@@ -6,7 +6,7 @@ tags:
   - Python
   - 高级教程
 description: Python functools 模块的详细解析，涵盖偏函数(partial)、归约计算(reduce)、装饰器元数据保留(wraps)、LRU缓存(lru_cache)、单分派泛型函数(singledispatch)、类比较补全(total_ordering)和比较键转换(cmp_to_key)等核心功能。
-image: https://img.yumeko.site/file/blog/Functools.png
+image: https://img.yumeko.site/file/blog/cover/1780581747127.webp
 status: published
 ---
 # 深入解析 Python functools 模块
@@ -57,7 +57,7 @@ Hi, Bob.
 **计算流图**：
 假设列表为 `[1, 2, 3, 4]`，函数为 `add`：
 
-![Example](https://img.yumeko.site/file/articles/PythonAdvanceUsage/Functools/Example.svg)
+![Example](https://img.yumeko.site/file/blog/articles/1780581989730.svg)
 
 **代码示例**：
 

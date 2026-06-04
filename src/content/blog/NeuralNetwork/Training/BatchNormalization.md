@@ -7,7 +7,7 @@ tags:
   - 深度学习
   - 高级教程
 description: 从 Internal Covariate Shift 到训练/测试行为差异，从放置策略到小 batch 处理与 Dropout 交互，一站式掌握 BatchNorm 的原理与最佳实践。
-image: https://img.yumeko.site/file/blog/BatchNormalization.png
+image: https://img.yumeko.site/file/blog/cover/1780581701550.webp
 status: published
 ---
 
@@ -51,7 +51,7 @@ $$
 
 其中 $\gamma$（缩放因子）和 $\beta$（平移因子）是**可学习的参数**。这一步至关重要——如果归一化后分布不适合后续的激活函数，网络可以自己学出 $\gamma$ 和 $\beta$ 来恢复对表达有利的分布。
 
-![BatchNorm.png](https://img.yumeko.site/file/articles/BatchNormalization/BatchNorm.png)
+![BatchNorm.png](https://img.yumeko.site/file/blog/articles/1780581356287.webp)
 
 ### 2.1 BatchNorm 带来的好处
 

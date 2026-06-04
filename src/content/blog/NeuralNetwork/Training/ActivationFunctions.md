@@ -6,7 +6,7 @@ tags:
   - 基础
   - 深度学习
 description: 从 ReLU 到 Swish，理解各激活函数的公式、优缺点、以及如何配合权重初始化使用。
-image: https://img.yumeko.site/file/blog/ActivationFunctions.png
+image: https://img.yumeko.site/file/blog/cover/1780581686682.webp
 status: published
 ---
 
@@ -121,9 +121,9 @@ nn.GELU()
 | Swish/SiLU | $x \cdot \sigma(x)$ | $(-\infty, \infty)$ | EfficientNet | Kaiming |
 | GELU | $x \cdot \Phi(x)$ | $(-\infty, \infty)$ | Transformer/ViT | Kaiming |
 
-![ActivationFunction.png](https://img.yumeko.site/file/articles/CNN/ActivationFunction.png)
+![ActivationFunction.png](https://img.yumeko.site/file/blog/articles/1780581138474.webp)
 
-![ActiFunc.png](https://img.yumeko.site/file/articles/ActivationFunctions/ActiFunc.png)
+![ActiFunc.png](https://img.yumeko.site/file/blog/articles/1780581550698.webp)
 
 ## 9. 激活函数与权重初始化的配合
 
@@ -144,7 +144,7 @@ nn.init.xavier_uniform_(conv.weight)
 ```
 
 **PyTorch 的默认行为**：如果没有显式指定初始化方式，PyTorch 对 `nn.Linear` 和 `nn.Conv2d` 默认使用 Kaiming Uniform 初始化。这就是为什么很多教程不写初始化代码也能正常运行——但对于 Tanh 这类激活函数，默认的 Kaiming 不是最优的，需要手动改为 Xavier。
-![FuncCoop.png](https://img.yumeko.site/file/articles/ActivationFunctions/FuncCoop.png)
+![FuncCoop.png](https://img.yumeko.site/file/blog/articles/1780581565454.webp)
 
 ## 10. 如何选择激活函数
 

@@ -6,7 +6,7 @@ tags:
   - Python
   - 高级教程
 description: Python 装饰器的详细技术指南，涵盖其定义、语法糖、基础包装器、带参数装饰器、元数据保持，以及权限校验、缓存、异常处理等常见应用场景。
-image: https://img.yumeko.site/file/blog/Decorator.png
+image: https://img.yumeko.site/file/blog/cover/1780581731968.webp
 status: published
 ---
 

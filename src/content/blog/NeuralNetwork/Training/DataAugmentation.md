@@ -6,7 +6,7 @@ tags:
   - 数据处理
   - 高级教程
 description: 不同任务应该用哪些数据增强？哪些增强会适得其反？一份实用的策略选择指南。
-image: https://img.yumeko.site/file/blog/DataAugmentationGuide.png
+image: https://img.yumeko.site/file/blog/cover/1780581719331.webp
 status: published
 ---
 
@@ -68,7 +68,7 @@ transforms.RandomGrayscale(p=0.1)
 transforms.RandomErasing(p=0.5, scale=(0.02, 0.33))
 ```
 
-![DataAugment.png](https://img.yumeko.site/file/articles/DataAugmentationGuide/DataAugment.png)
+![DataAugment.png](https://img.yumeko.site/file/blog/articles/1780581558072.webp)
 
 ## 3. 增强的"金科玉律"
 

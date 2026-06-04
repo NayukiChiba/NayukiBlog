@@ -6,7 +6,7 @@ tags:
   - ai
   - 资源
 description: 把Copilot中接入第三方的api
-image: https://img.yumeko.site/file/blog/github-copilot.png
+image: https://img.yumeko.site/file/blog/cover/1780581763475.webp
 status: draft
 ---
 
@@ -62,11 +62,11 @@ status: draft
 
 1. 配置key：在切换模型界面中点击管理模型
 
-![ManageModel](https://img.yumeko.site/file/articles/CopilotCustom/ManageModel.png)
+![ManageModel](https://img.yumeko.site/file/blog/articles/1780581213094.webp)
 
 2. 在正上方弹出的provider配置中选择Azure
 
-![ChooseAzure](https://img.yumeko.site/file/articles/CopilotCustom/ChooseAzure.png)
+![ChooseAzure](https://img.yumeko.site/file/blog/articles/1780581207186.webp)
 
 3. 填入你的中转key，然后重启vscode。
 

@@ -6,7 +6,7 @@ tags:
   - Scikit-learn
   - 高级教程
 description: HMM隐马尔可夫模型的数学原理、三大算法与完整实现流程。
-image: https://img.yumeko.site/file/blog/HMM.png
+image: https://img.yumeko.site/file/blog/cover/1780581779359.webp
 status: published
 ---
 

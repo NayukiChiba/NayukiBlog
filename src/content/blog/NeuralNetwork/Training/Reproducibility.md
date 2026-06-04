@@ -6,7 +6,7 @@ tags:
   - 基础
   - 深度学习
 description: 深入探讨深度学习实验可复现性的两个关键保障：随机种子固定方案（含 cuDNN 配置、DataLoader 种子、可复现性级别）与训练/评估模式切换（model.train/eval 行为差异、最佳实践与易错场景）。
-image: https://img.yumeko.site/file/blog/Reproducibility.png
+image: https://img.yumeko.site/file/blog/cover/1780581864650.webp
 status: published
 ---
 

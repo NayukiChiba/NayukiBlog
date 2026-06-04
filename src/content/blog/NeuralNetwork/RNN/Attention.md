@@ -8,7 +8,7 @@ tags:
   - 注意力
   - 经典架构
 description: 从信息瓶颈问题出发，深入拆解 Bahdanau 加性注意力的评分计算、Softmax 归一化、加权求和的完整数学流程，详细展示 Attention 在 Seq2Seq 中的集成与从零 PyTorch 实现，并探讨注意力权重的可解释性价值。
-image: https://img.yumeko.site/file/blog/AttentionMechanism.webp
+image: https://img.yumeko.site/file/blog/cover/1780581693707.webp
 status: published
 ---
 
@@ -20,7 +20,7 @@ status: published
 
 **无论输入有多长（10 词或 500 词），最终表示都是固定 $d_h$ 维。** 固定维度的向量无法完整编码长序列的全部信息，信息丢失是结构性的。这就是**信息瓶颈（Information Bottleneck）**。
 
-![InformationBottleneck.png](https://img.yumeko.site/file/articles/AttentionMechanism/InformationBottleneck.webp)
+![InformationBottleneck.png](https://img.yumeko.site/file/blog/articles/1780581414919.webp)
 
 ### 1.2 信息瓶颈的具体表现
 
@@ -53,7 +53,7 @@ status: published
 3. **Softmax 归一化**：将遮罩后的得分转化为概率分布 $\alpha_i$
 4. **加权求和**：以 $\alpha_i$ 为权重对 $h_i$ 加权求和，得到上下文向量 $c$
 
-![Attention.png](https://img.yumeko.site/file/articles/AttentionMechanism/Attention.webp)
+![Attention.png](https://img.yumeko.site/file/blog/articles/1780581379082.webp)
 
 下面逐步拆解。
 
@@ -61,7 +61,7 @@ status: published
 
 在序列分类场景中（如情感分类），没有解码器的查询状态，每个 $h_i$ 通过一个**得分网络**独立计算"相关程度"：
 
-![ScoreNetwork.png](https://img.yumeko.site/file/articles/AttentionMechanism/ScoreNetwork.webp)
+![ScoreNetwork.png](https://img.yumeko.site/file/blog/articles/1780581448523.webp)
 
 $$
 \text{score}(h_i) = v^T \cdot \tanh(W \cdot h_i + b)
@@ -78,7 +78,7 @@ $$
 
 在 Seq2Seq 场景中，解码器在每一步 $t$ 需要关注输入序列的不同部分。此时引入解码器状态 $s_{t-1}$ 作为**查询向量（Query）**，将 $s_{t-1}$ 与每个编码器隐藏状态 $h_i^{enc}$ 拼接后计算得分：
 
-![BahdanauAttention.png](https://img.yumeko.site/file/articles/AttentionRNN/BahdanauAttention.webp)
+![BahdanauAttention.png](https://img.yumeko.site/file/blog/articles/1780581380058.webp)
 
 $$
 e_{t,i} = \text{score}(s_{t-1}, h_i^{enc}) = v^T \cdot \tanh(W_a \cdot [s_{t-1}; h_i^{enc}] + b_a)
@@ -149,7 +149,7 @@ $$
 
 每个 $h_i^{enc}$ 都是第 $i$ 个输入词经过双向 RNN 后的表示，包含了该词的**上下文感知**编码。
 
-![Seq2SeqVSAttention.png](https://img.yumeko.site/file/articles/AttentionRNN/Seq2SeqVSAttention.webp)
+![Seq2SeqVSAttention.png](https://img.yumeko.site/file/blog/articles/1780581452646.webp)
 
 在解码器的第 $t$ 步，流程如下：
 

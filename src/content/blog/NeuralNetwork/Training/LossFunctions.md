@@ -6,7 +6,7 @@ tags:
   - 基础
   - 深度学习
 description: 深入理解损失函数的数学原理、参数细节和常见陷阱——从交叉熵到均方误差，涵盖分类与回归任务的完整损失函数指南。
-image: https://img.yumeko.site/file/blog/LossFunctions.png
+image: https://img.yumeko.site/file/blog/cover/1780581807243.webp
 status: published
 ---
 
@@ -113,7 +113,7 @@ Loss $= -\log(0.72) \approx 0.328$
 
 **核心洞察**：损失函数对"自信地错误"惩罚极重——概率从 0.01 降到 0.001 时，loss 从 4.6 跳到 6.9。损失函数对"自信但错误"的惩罚远大于"不自信但正确"。
 
-![CrossEntropyLoss.png](https://img.yumeko.site/file/articles/CNN/CrossEntropyLoss.png)
+![CrossEntropyLoss.png](https://img.yumeko.site/file/blog/articles/1780581168582.webp)
 
 ### 2.4 数值稳定性
 

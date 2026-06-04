@@ -6,7 +6,7 @@ tags:
   - 服务器
   - 工具
 description: 安装一下1Panel
-image: https://img.yumeko.site/file/blog/1Panel.png
+image: https://img.yumeko.site/file/blog/cover/1780581688263.webp
 status: published
 ---
 # 下载1Panel

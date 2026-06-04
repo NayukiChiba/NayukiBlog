@@ -5,7 +5,7 @@ category: Linux
 tags:
   - 美化
 description: 每次安装Ubuntu，把它的界面变好看一些
-image: https://img.yumeko.site/file/blog/Result.png
+image: https://img.yumeko.site/file/blog/cover/1780581580067.webp
 status: published
 ---
 
@@ -135,7 +135,7 @@ fc-cache -fv
 5. 常见的bug
 * 插件背景是黑色
 修改`own_window_argb_visual = false`即可
-![ConkyConfig](https://img.yumeko.site/file/articles/UbuntuBeautification/ConkyConfig.png)
+![ConkyConfig](https://img.yumeko.site/file/blog/articles/1780581606518.webp)
 * 插件中出现了乱码(conky用的是lua语言)
 例如这是一段config中的源代码
 ```
@@ -317,4 +317,4 @@ menuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menu
 > 这里不要update-grub，会重置你的启动名字
 # 最后效果
 
-![Result](https://img.yumeko.site/file/articles/UbuntuBeautification/Result.png)
+![Result](https://img.yumeko.site/file/blog/articles/1780581580067.webp)

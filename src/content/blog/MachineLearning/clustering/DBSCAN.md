@@ -5,7 +5,7 @@ category: MachineLearning/Clustering
 tags:
   - Scikit-learn
 description: DBSCAN密度聚类的数学原理、参数调优与工程实现流程。
-image: https://img.yumeko.site/file/blog/DBSCAN.png
+image: https://img.yumeko.site/file/blog/cover/1780581728739.webp
 status: published
 ---
 

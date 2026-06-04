@@ -6,7 +6,7 @@ tags:
   - Scikit-learn
   - 高级教程
 description: XGBoost的数学原理、二阶泰勒展开与显式正则化工程实现。
-image: https://img.yumeko.site/file/blog/XGBoost.png
+image: https://img.yumeko.site/file/blog/cover/1780581910420.webp
 status: published
 ---
 

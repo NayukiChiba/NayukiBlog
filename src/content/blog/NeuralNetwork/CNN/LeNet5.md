@@ -5,7 +5,7 @@ category: NeuralNetwork/CNN
 tags:
   - 经典架构
 description: LeNet-5（1998）奠定了 CNN 的基础模式，本文逐层拆解其设计并对比现代改进。
-image: https://img.yumeko.site/file/blog/LeNet5.png
+image: https://img.yumeko.site/file/blog/cover/1780581790476.webp
 status: published
 ---
 
@@ -31,7 +31,7 @@ LeNet-5 由 Yann LeCun 等人在 1998 年发表（论文《Gradient-Based Learni
 | F6 | Linear + Tanh | in=120, out=84 | $(120,)$ | $(84,)$ |
 | Output | Linear | in=84, out=10 | $(84,)$ | $(10,)$ |
 
-![LeNet5.png](https://img.yumeko.site/file/articles/LeNet5/LeNet5.png)
+![LeNet5.png](https://img.yumeko.site/file/blog/articles/1780581187268.webp)
 
 ### 参数计算
 

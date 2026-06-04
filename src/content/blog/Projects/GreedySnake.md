@@ -6,7 +6,7 @@ tags:
   - Python
   - 有趣
 description: " 使用Pygame写一个贪吃蛇小游戏"
-image: https://img.yumeko.site/file/blog/GreedySnake.webp
+image: https://img.yumeko.site/file/blog/cover/1780581769787.webp
 status: published
 ---
 # 贪吃蛇（Pygame）个人学习项目

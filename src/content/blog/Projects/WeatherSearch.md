@@ -5,7 +5,7 @@ category: Projects
 tags:
   - Python
 description: 访问OpenWeather的API，获取天气信息
-image: https://img.yumeko.site/file/blog/WeatherSearch.webp
+image: https://img.yumeko.site/file/blog/cover/1780581903503.webp
 status: published
 ---
 # 天气预报查询工具（Weather Search）

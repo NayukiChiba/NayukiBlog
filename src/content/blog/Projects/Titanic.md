@@ -6,7 +6,7 @@ tags:
   - Python
   - Scikit-learn
 description: 使用机器学习，预测Kaggle的泰坦尼克号存活率
-image: https://img.yumeko.site/file/blog/Titanic.jpg
+image: https://img.yumeko.site/file/blog/cover/1780581884490.webp
 status: published
 ---
 # Titanic 生存预测

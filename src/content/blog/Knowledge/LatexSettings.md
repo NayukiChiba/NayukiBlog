@@ -6,7 +6,7 @@ tags:
   - 工具
   - 设置
 description: 在vscode中使用latexworkshop的时候，settings.json设置Latex
-image: https://img.yumeko.site/file/blog/Latex.jpg
+image: https://img.yumeko.site/file/blog/cover/1780581785379.webp
 status: published
 ---
 # Settings.json配置Latex

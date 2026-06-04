@@ -6,7 +6,7 @@ tags:
   - Python
   - 高级教程
 description: Python 上下文管理器的详细技术指南，涵盖其概念、协议（__enter__/__exit__）、基于类和生成器的实现模式，以及文件操作、计时器等实用案例。
-image: https://img.yumeko.site/file/blog/ContextManage.png
+image: https://img.yumeko.site/file/blog/cover/1780581712905.webp
 status: published
 ---
 
@@ -39,7 +39,7 @@ status: published
 
 以下流程图展示了解释器处理 `with` 语句时的标准逻辑路径：
 
-![Workflow](https://img.yumeko.site/file/articles/PythonAdvanceUsage/ContextManage/Workflow.svg)
+![Workflow](https://img.yumeko.site/file/blog/articles/1780581986244.svg)
 
 ---
 

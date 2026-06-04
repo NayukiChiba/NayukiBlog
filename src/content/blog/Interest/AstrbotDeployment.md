@@ -6,7 +6,7 @@ tags:
   - 有趣
   - 服务器
 description: 如何用服务器部署一个QQ机器人
-image: https://img.yumeko.site/file/articles/AstrbotDeployment/AstrSeio.png
+image: https://img.yumeko.site/file/blog/articles/1780581690796.webp
 status: published
 ---
 
@@ -14,11 +14,11 @@ status: published
 
 1. 购买一个服务器
 
-![腾讯云服务器](https://img.yumeko.site/file/articles/AstrbotDeployment/Server.png)
+![腾讯云服务器](https://img.yumeko.site/file/blog/articles/1780580989264.webp)
 
 2. 开放防火墙端口
 
-![AstrbotPort](https://img.yumeko.site/file/articles/AstrbotDeployment/AstrbotPort.png)
+![AstrbotPort](https://img.yumeko.site/file/blog/articles/1780580948345.webp)
 
 3. 记住你的服务器ip和port
 
@@ -125,7 +125,7 @@ http://{ip}:6185
 
 默认账号和密码都是astrbot
 
-![AstrbotLogin.png](https://img.yumeko.site/file/articles/AstrbotDeployment/AstrbotLogin.png)
+![AstrbotLogin.png](https://img.yumeko.site/file/blog/articles/1780580946194.webp)
 
 ## 使用NapCatQQ实现LinuxQQ实例
 
@@ -218,7 +218,7 @@ sudo vim /root/Napcat/opt/QQ/resources/app/app_launcher/napcat/config/webui.json
 }
 ```
 
-![webuiJson.png](https://img.yumeko.site/file/articles/AstrbotDeployment/webuiJson.png)
+![webuiJson.png](https://img.yumeko.site/file/blog/articles/1780581026897.webp)
 
 * 访问WebUI
 
@@ -237,7 +237,7 @@ URL：ws://{ip}:6199/ws
 
 心跳间隔5000，重连间隔5000
 
-![WebSocketClientConfig.png](https://img.yumeko.site/file/articles/AstrbotDeployment/WebSocketClientConfig.png)
+![WebSocketClientConfig.png](https://img.yumeko.site/file/blog/articles/1780581024368.webp)
 
 保存之后，进入Astrbot仪表盘
 
@@ -245,11 +245,11 @@ URL：ws://{ip}:6199/ws
 
 * 使用aiocqhttp是适配器
 
-![Adapter.png](https://img.yumeko.site/file/articles/AstrbotDeployment/Adapter.png)
+![Adapter.png](https://img.yumeko.site/file/blog/articles/1780580944965.webp)
 
 * 反向Websocket使用端口为6199，token跟NapCat的保持一致
 
-![aiochttp.png](https://img.yumeko.site/file/articles/AstrbotDeployment/aiochttp.png)
+![aiochttp.png](https://img.yumeko.site/file/blog/articles/1780580948280.webp)
 
 # 1Panel部署
 
@@ -257,7 +257,7 @@ URL：ws://{ip}:6199/ws
 
 * 在应用商店中搜索Astrbot
 * 安装即可
-![安装Astrbot](https://img.yumeko.site/file/articles/AstrbotDeployment/1PanelShop.png)
+![安装Astrbot](https://img.yumeko.site/file/blog/articles/1780580931960.webp)
 
 ## 设定容器规则
 
@@ -270,7 +270,7 @@ URL：ws://{ip}:6199/ws
 > [!TIP] 勾选端口外部访问
 > 不勾选这个就无法访问webui了
 
-![容器规则](https://img.yumeko.site/file/articles/AstrbotDeployment/AstrbotRules.png)
+![容器规则](https://img.yumeko.site/file/blog/articles/1780580951988.webp)
 
 ## 安装NapCat
 
@@ -294,29 +294,29 @@ mlikiowa/napcat-docker:latest
 	* `3000:3000`
 	* `3001:3001`
 	* `6099:6099`
-![拉取Napcat镜像](https://img.yumeko.site/file/articles/AstrbotDeployment/PullNapCatImage.png)
+![拉取Napcat镜像](https://img.yumeko.site/file/blog/articles/1780580984870.webp)
 ### 启动容器
 
 * 使用刚才拉取的镜像
 
-![创建napcat容器](https://img.yumeko.site/file/articles/AstrbotDeployment/NatCatContainer.png)
+![创建napcat容器](https://img.yumeko.site/file/blog/articles/1780580973908.webp)
 
 > [!WARNING] napcat网络
 > 需要napcat跟astrbot处于同一个网络
 
 * 设置容器的网络
-![NapcatNetwork.png](https://img.yumeko.site/file/articles/AstrbotDeployment/NapcatNetwork.png)
+![NapcatNetwork.png](https://img.yumeko.site/file/blog/articles/1780580970457.webp)
 
 ### 确定astrbot和napcat处于同一网络
 
-![Network.png](https://img.yumeko.site/file/articles/AstrbotDeployment/Network.png)
+![Network.png](https://img.yumeko.site/file/blog/articles/1780580970273.webp)
 
 ## 启动NapCat
 
 ### 查看日志，进入WebUI
 
 * 在napcat的容器右侧，有一个`日志`，点击查看webui的信息
-![NapCatLog.png](https://img.yumeko.site/file/articles/AstrbotDeployment/NapCatLog.png)
+![NapCatLog.png](https://img.yumeko.site/file/blog/articles/1780580966975.webp)
 
 * 进入网页
 ```
@@ -331,11 +331,11 @@ http://{ip}:6099
 > [!DANGER] 注意
 > 是**客户端**，不是**服务器**
 
-![NapCatSetting.png](https://img.yumeko.site/file/articles/AstrbotDeployment/NapCatSetting.png)
+![NapCatSetting.png](https://img.yumeko.site/file/blog/articles/1780580967835.webp)
 
 * 设置`WebSocket`客户端
 
-![WebSocketClient.png](https://img.yumeko.site/file/articles/AstrbotDeployment/WebSocketClient.png)
+![WebSocketClient.png](https://img.yumeko.site/file/blog/articles/1780581000311.webp)
 
 ## 设置Astrbot
 
@@ -350,12 +350,12 @@ http://{ip}:6185
 
 * 使用`OneBot v11`
 * 复制上面的token到设置中，保持统一
-![QQSetting.png](https://img.yumeko.site/file/articles/AstrbotDeployment/QQSetting.png)
+![QQSetting.png](https://img.yumeko.site/file/blog/articles/1780580981811.webp)
 
 ## 验证
 
 自行加入模型提供商的llm模型之后，在qq中发送消息即可
-![Check.png](https://img.yumeko.site/file/articles/AstrbotDeployment/Check.png)
+![Check.png](https://img.yumeko.site/file/blog/articles/1780580956943.webp)
 
 # 使用更加简单的同时编排
 ## 放开 `ptrace` 限制
@@ -519,18 +519,18 @@ volumes:
 ## 使用 `compose.yml`
 在 1Panel 的**容器** -> **编排**中粘贴上面的合并compose即可，然后设置一下环境变量
 
-![ComposeStep.png](https://img.yumeko.site/file/articles/AstrbotDeployment/ComposeStep.png)
+![ComposeStep.png](https://img.yumeko.site/file/blog/articles/1780580956835.webp)
 
 ## 环境变量
 
-![SnowlumaEnv.png](https://img.yumeko.site/file/articles/AstrbotDeployment/SnowlumaEnv.png)
+![SnowlumaEnv.png](https://img.yumeko.site/file/blog/articles/1780580990985.webp)
 
 > [!WARNING] 注意
 > 要设置环境变量`VNC_PASSWD={密码}`，不然别人可以直接登录你的界面
 
 ## 打开防火墙
 
-![Firewall.png](https://img.yumeko.site/file/articles/AstrbotDeployment/Firewall.png)
+![Firewall.png](https://img.yumeko.site/file/blog/articles/1780580956580.webp)
 
 - 打开 `6185`访问Astrbot的WebUI
 - 打开`6081`是用来可视化登录qq的
@@ -538,7 +538,7 @@ volumes:
 
 ## 登录qq
 访问 `http://{ip}:6081`进入VNC界面，这是一个可视化的虚拟机，可以直接扫码登录qq
-![VNC.png](https://img.yumeko.site/file/articles/AstrbotDeployment/VNC.png)
+![VNC.png](https://img.yumeko.site/file/blog/articles/1780580996573.webp)
 凭证就是设置的**环境变量**`VNC_PASSWD`，然后登录进去扫码qq即可
 
 ## 设置OneBot的Websocket客户端
@@ -548,17 +548,17 @@ volumes:
 > 优先排查是否放开`ptrace`限制
 > 然后看登录状态是否正确
 
-![SnowlumaControl.png](https://img.yumeko.site/file/articles/AstrbotDeployment/SnowlumaControl.png)
+![SnowlumaControl.png](https://img.yumeko.site/file/blog/articles/1780580990796.webp)
 
 开始设置**WebSocket客户端**
 
 > [!WARNING] 注意
 > 注意是客户端，不是服务端
 
-![WSClient.png](https://img.yumeko.site/file/articles/AstrbotDeployment/WSClient.png)
+![WSClient.png](https://img.yumeko.site/file/blog/articles/1780581025042.webp)
 
 token就是密码，注意设置
-![WSSettting.png](https://img.yumeko.site/file/articles/AstrbotDeployment/WSSettting.png)
+![WSSettting.png](https://img.yumeko.site/file/blog/articles/1780581034519.webp)
 
 > [!TIP] 设置完成之后
 > 记得保存，不保存没有用
@@ -566,6 +566,6 @@ token就是密码，注意设置
 ## 设置Astrbot的Onebot服务端
 
 
-![Onebot.png](https://img.yumeko.site/file/articles/AstrbotDeployment/Onebot.png)
+![Onebot.png](https://img.yumeko.site/file/blog/articles/1780580981083.webp)
 
 注意输入Token，这样就可以设置成功了

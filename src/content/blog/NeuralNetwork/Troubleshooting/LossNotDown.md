@@ -5,7 +5,7 @@ category: NeuralNetwork/Troubleshooting
 tags:
   - 高级教程
 description: 训练了几个 epoch，Loss 纹丝不动？系统排查 Loss 不下降的 7 大常见原因及解决方案。
-image: https://img.yumeko.site/file/blog/LossNotDown.png
+image: https://img.yumeko.site/file/blog/cover/1780581802913.webp
 status: published
 ---
 
@@ -177,5 +177,5 @@ for name, param in model.named_parameters():
 5. 输出范围正常吗？        → logits 应在 [-2, 2]
 6. 梯度值正常吗？          → 梯度范数应在 [1e-6, 1e2]
 ```
-![LossNotDown.png](https://img.yumeko.site/file/articles/LossNotDown/LossNotDown.png)
+![LossNotDown.png](https://img.yumeko.site/file/blog/articles/1780581591091.webp)
 

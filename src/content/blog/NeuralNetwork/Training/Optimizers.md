@@ -8,7 +8,7 @@ tags:
   - 基础
   - 高级教程
 description: 从基础梯度下降到 AdamW，完整理解优化器演进、公式原理、参数调优与最佳实践。
-image: https://img.yumeko.site/file/blog/Optimizer.png
+image: https://img.yumeko.site/file/blog/cover/1780581822357.webp
 status: published
 ---
 
@@ -34,7 +34,7 @@ $$
 
 深度学习中的 "SGD" 通常指 Mini-batch SGD。
 
-![GD.png](https://img.yumeko.site/file/articles/OptimizerOverview/GD.png)
+![GD.png](https://img.yumeko.site/file/blog/articles/1780581565755.webp)
 
 ### 1.3 PyTorch 使用模式
 
@@ -250,7 +250,7 @@ $$
 
 **偏差校正为什么必要？** 在最初的几步（$t$ 很小时），$m_t$ 和 $v_t$ 由于初始化为 0，会偏小。除以 $(1-\beta^t)$ 校正这个偏差。
 
-![SGDvsAdam.png](https://img.yumeko.site/file/articles/Adam/SGDvsAdam.png)
+![SGDvsAdam.png](https://img.yumeko.site/file/blog/articles/1780581580534.webp)
 
 ### 4.3 参数含义
 

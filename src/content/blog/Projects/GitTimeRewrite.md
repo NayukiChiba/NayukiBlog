@@ -6,7 +6,7 @@ tags:
   - Rust
   - git
 description: 使用Rust+Vue3+Tauri写一个轻量修改git历史的工具
-image: https://img.yumeko.site/file/blog/git.jpeg
+image: https://img.yumeko.site/file/blog/cover/1780581758284.webp
 status: published
 ---
 # GitTimeRewrite

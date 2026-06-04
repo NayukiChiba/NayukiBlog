@@ -7,7 +7,7 @@ tags:
   - 资源
   - 网站
 description: 一般使用Nginx，但是可以用宝塔和1Panel简化流程
-image: https://img.yumeko.site/file/blog/nginx.png
+image: https://img.yumeko.site/file/blog/cover/1780581818314.webp
 status: published
 ---
 

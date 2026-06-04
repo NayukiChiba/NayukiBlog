@@ -6,7 +6,7 @@ tags:
   - Scikit-learn
   - 基础
 description: KNN分类的数学原理、距离度量、标准化必要性及完整实现流程。
-image: https://img.yumeko.site/file/blog/KNN.png
+image: https://img.yumeko.site/file/blog/cover/1780581780169.webp
 status: published
 ---
 

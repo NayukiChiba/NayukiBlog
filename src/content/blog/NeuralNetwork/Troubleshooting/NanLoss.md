@@ -5,7 +5,7 @@ category: NeuralNetwork/Troubleshooting
 tags:
   - 高级教程
 description: 训练到一半 Loss 突然变成 NaN？排查 5 大常见原因及对应的修复方法。
-image: https://img.yumeko.site/file/blog/NanLoss.png
+image: https://img.yumeko.site/file/blog/cover/1780581814812.webp
 status: published
 ---
 
@@ -202,4 +202,4 @@ def safeTrainingStep(model, images, labels, criterion, optimizer, gradClip=1.0):
 4. 模型有 BN 层且 eps 合理吗？ → eps=1e-5 一般是安全的
 5. 自定义 Loss 有除零保护吗？  → 分母 + 1e-8
 ```
-![NanLoss.png](https://img.yumeko.site/file/articles/NanLoss/NanLoss.png)
+![NanLoss.png](https://img.yumeko.site/file/blog/articles/1780581591179.webp)

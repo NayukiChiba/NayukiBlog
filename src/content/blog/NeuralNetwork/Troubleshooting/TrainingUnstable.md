@@ -5,7 +5,7 @@ category: NeuralNetwork/Troubleshooting
 tags:
   - 高级教程
 description: Loss 曲线像过山车一样上下翻飞？系统排查训练不稳定的原因与稳定方案。
-image: https://img.yumeko.site/file/blog/TrainingUnstable.png
+image: https://img.yumeko.site/file/blog/cover/1780581896280.webp
 status: published
 ---
 
@@ -161,4 +161,4 @@ if std / abs(mean) > 0.3:  # 标准差超过均值的 30%
 5. 换 SGD+Momentum             → Adam 不总是最优
 6. 检查数据异常值              → 排除数据问题
 ```
-![TrainingUnstable.png](https://img.yumeko.site/file/articles/TrainingUnstable/TrainingUnstable.png)
+![TrainingUnstable.png](https://img.yumeko.site/file/blog/articles/1780581597658.webp)

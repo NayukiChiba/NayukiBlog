@@ -6,7 +6,7 @@ tags:
   - Python
   - 基础
 description: SciPy 库完整学习指南，涵盖常数、统计、优化、插值、积分、线性代数、信号处理、稀疏矩阵和空间计算等核心模块。
-image: https://img.yumeko.site/file/blog/ScipyLearning.jpg
+image: https://img.yumeko.site/file/blog/cover/1780581871582.webp
 status: published
 ---
 

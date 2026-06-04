@@ -6,7 +6,7 @@ tags:
   - Scikit-learn
   - Python
 description: Kaggle上的房价预测项目
-image: https://img.yumeko.site/file/blog/HousePricesPrediction.jpg
+image: https://img.yumeko.site/file/blog/cover/1780581774156.webp
 status: published
 ---
 # HousePricesPrediction（学习版）

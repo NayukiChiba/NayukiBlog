@@ -7,7 +7,7 @@ tags:
   - 资源
   - git
 description: 除了代码托管之外，github还能做什么
-image: https://img.yumeko.site/file/blog/GitHub.png
+image: https://img.yumeko.site/file/blog/cover/1780581761551.webp
 status: published
 ---
 # Github Pages
@@ -16,10 +16,10 @@ status: published
 ## 在Settings中快速启动
 在Settings中选择docs为部署文件夹，然后部署就可以得到网站的url，写在右边
 
-![Projects.png](https://img.yumeko.site/file/articles/GithubUsage/Projects.png)
+![Projects.png](https://img.yumeko.site/file/blog/articles/1780581282707.webp)
 * 在Settings中设置**Source**，**分支**， **文件夹**
 
-![Deployment.png](https://img.yumeko.site/file/articles/GithubUsage/Deployment.png)
+![Deployment.png](https://img.yumeko.site/file/blog/articles/1780581272331.webp)
 * 等待一段时间就有url出现了，然后访问即可
 
 * 在Actions中可以看见部署过程
@@ -77,26 +77,26 @@ jobs:
 以`Codex`为例
 * 在Codex的界面中，打开代码审查
 
-![Codex.png](https://img.yumeko.site/file/articles/GithubUsage/Codex.png)
+![Codex.png](https://img.yumeko.site/file/blog/articles/1780581276157.webp)
 
 * 当`Pull Requests`从`draft`变成`Ready For Review`的时候，就会触发代码审查，`Codex`会回复你的`Pull Requests`，看看你的提交有什么问题
 
-![CodeReview.png](https://img.yumeko.site/file/articles/GithubUsage/CodeReview.png)
+![CodeReview.png](https://img.yumeko.site/file/blog/articles/1780581269619.webp)
 
 ### Dosu
 
 访问[Dosu](https://app.dosu.dev/)，Dosu是一个专门审查代码的第三方平台，但是要收费，我不建议
 1. 登录github，给自己随便取一个名字
 2. 每个月会免费赠送100的请求，个人项目是够用了
-![DosuPay.png](https://img.yumeko.site/file/blog/DosuPay.png)
+![DosuPay.png](https://img.yumeko.site/file/blog/cover/1780581281950.webp)
 
 3. 点击**部署**，选择标准部署
 4. 选择目标中，github下方的安装，转跳到github中安装Dosu
-![DosuInstall.png](https://img.yumeko.site/file/blog/DosuInstall.png)
+![DosuInstall.png](https://img.yumeko.site/file/blog/cover/1780581272042.webp)
 
 5. 选择自己的账户之后，选择你想要配置的仓库
 
-![DosuRepoSelect.png](https://img.yumeko.site/file/blog/DosuRepoSelect.png)
+![DosuRepoSelect.png](https://img.yumeko.site/file/blog/cover/1780581274709.webp)
 
 6. 放回`Dosu`，在已经配置的仓库中，选择要配置`Dosu`的仓库，并且开启数据源
 7. 设置仓库的配置
@@ -460,26 +460,26 @@ jobs:
 |LLM_MODEL   |  模型名字   |
 
 
-![SecretSetting.png](https://img.yumeko.site/file/blog/SecretSetting.png)
+![SecretSetting.png](https://img.yumeko.site/file/blog/cover/1780581280350.webp)
 
 
 
 # 代码静态检查CodeQL
 `CodeQL`是`github`给的免费代码检查，看看你的代码有没有什么危险
 * 打开**Security**界面，打开**Code Scanning Alerts**
-![Security.png](https://img.yumeko.site/file/articles/GithubUsage/Security.png)
+![Security.png](https://img.yumeko.site/file/blog/articles/1780581288319.webp)
 * 在Code Scanning部分点开CodeQL analysis，选择为Default就可以
-![CodeQL.png](https://img.yumeko.site/file/articles/GithubUsage/CodeQL.png)
+![CodeQL.png](https://img.yumeko.site/file/blog/articles/1780581274524.webp)
 # Github OAuth
 ## Github 凭证申请
 使用Github的账号，类似于Github登录的那种，可以授权给自己的网站登录
 * 在个人的Developer Settings中，创建一个OAuth Apps
-![OAuthApps.png](https://img.yumeko.site/file/articles/GithubUsage/OAuthApps.png)
+![OAuthApps.png](https://img.yumeko.site/file/blog/articles/1780581279817.webp)
 * 在`OAuth APP`设置中，设置选择**主界面**的url和**login**界面的url（这里以`localhost`为例）
-![Setting.png](https://img.yumeko.site/file/articles/GithubUsage/Setting.png)
+![Setting.png](https://img.yumeko.site/file/blog/articles/1780581287040.webp)
 
 > [!WARNING]
 > 在生产环境要把Homepage改成你选择**登录之后**要到达的页面，callback URL就是**登录github账号，选择github账号**的页面
 
 ## Callback验证
-![Web.png](https://img.yumeko.site/file/articles/GithubUsage/Web.png)
+![Web.png](https://img.yumeko.site/file/blog/articles/1780581288299.webp)

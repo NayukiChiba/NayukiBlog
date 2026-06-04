@@ -7,7 +7,7 @@ tags:
   - 可视化
   - 基础
 description: Python 数据可视化全指南，系统讲解 Matplotlib、Seaborn、Pandas 及 Plotly 的核心用法。内容涵盖基础图表、探索性数据分析（EDA）、数据预处理可视化、机器学习模型决策与评估可视化，以及制作专业报告与交互式图表的最佳实践。
-image: https://img.yumeko.site/file/blog/VisualizationLearning.jpg
+image: https://img.yumeko.site/file/blog/cover/1780581894335.webp
 status: published
 ---
 
@@ -83,7 +83,7 @@ ax.grid(True)
 控制台提示: 图表已保存到 outputs/visualization/01_basic.png
 ```
 
-![基础图表](https://img.yumeko.site/file/articles/ML/visualization/01_basic.png)
+![基础图表](https://img.yumeko.site/file/blog/articles/1780581633728.webp)
 
 #### 理解重点
 
@@ -137,7 +137,7 @@ plt.close()
 常用线型: - / -- / : / -.
 ```
 
-![线条样式](https://img.yumeko.site/file/articles/ML/visualization/01_line_styles.png)
+![线条样式](https://img.yumeko.site/file/blog/articles/1780581629933.webp)
 
 #### 理解重点
 
@@ -191,7 +191,7 @@ plt.close()
 控制台提示: 图表已保存到 outputs/visualization/01_markers.png
 ```
 
-![标记符号](https://img.yumeko.site/file/articles/ML/visualization/01_markers.png)
+![标记符号](https://img.yumeko.site/file/blog/articles/1780581640479.webp)
 
 #### 理解重点
 
@@ -297,7 +297,7 @@ plt.close()
 控制台提示: 图表已保存到 outputs/visualization/01_subplots.png
 ```
 
-![子图布局](https://img.yumeko.site/file/articles/ML/visualization/01_subplots.png)
+![子图布局](https://img.yumeko.site/file/blog/articles/1780581642483.webp)
 
 #### 理解重点
 
@@ -384,7 +384,7 @@ plt.close()
 左图为垂直柱状图，右图为水平柱状图
 ```
 
-![柱状图](https://img.yumeko.site/file/articles/ML/visualization/02_bar.png)
+![柱状图](https://img.yumeko.site/file/blog/articles/1780581637939.webp)
 
 #### 理解重点
 
@@ -445,7 +445,7 @@ plt.close()
 点的颜色和大小分别编码额外变量
 ```
 
-![散点图](https://img.yumeko.site/file/articles/ML/visualization/02_scatter.png)
+![散点图](https://img.yumeko.site/file/blog/articles/1780581647833.webp)
 
 #### 理解重点
 
@@ -506,7 +506,7 @@ plt.close()
 正态近似分布并标注均值和中位数位置
 ```
 
-![直方图](https://img.yumeko.site/file/articles/ML/visualization/02_histogram.png)
+![直方图](https://img.yumeko.site/file/blog/articles/1780581638751.webp)
 
 #### 理解重点
 
@@ -563,7 +563,7 @@ plt.close()
 Product A 扇区被突出显示
 ```
 
-![饼图](https://img.yumeko.site/file/articles/ML/visualization/02_pie.png)
+![饼图](https://img.yumeko.site/file/blog/articles/1780581640627.webp)
 
 #### 理解重点
 
@@ -620,7 +620,7 @@ plt.close()
 四组不同标准差分布的中位数和离散度对比
 ```
 
-![箱线图](https://img.yumeko.site/file/articles/ML/visualization/02_boxplot.png)
+![箱线图](https://img.yumeko.site/file/blog/articles/1780581643152.webp)
 
 #### 理解重点
 
@@ -710,7 +710,7 @@ plt.close()
 左图展示各天平均账单对比，右图展示分布与离散程度
 ```
 
-![分类图](https://img.yumeko.site/file/articles/ML/visualization/03_catplot.png)
+![分类图](https://img.yumeko.site/file/blog/articles/1780581652591.webp)
 
 #### 理解重点
 
@@ -768,7 +768,7 @@ plt.close()
 左图为直方图+KDE，右图为独立 KDE 曲线
 ```
 
-![分布图](https://img.yumeko.site/file/articles/ML/visualization/03_distplot.png)
+![分布图](https://img.yumeko.site/file/blog/articles/1780581652386.webp)
 
 #### 理解重点
 
@@ -820,7 +820,7 @@ plt.close()
 消费总额与小费呈正相关趋势
 ```
 
-![回归图](https://img.yumeko.site/file/articles/ML/visualization/03_regplot.png)
+![回归图](https://img.yumeko.site/file/blog/articles/1780581652304.webp)
 
 #### 理解重点
 
@@ -878,7 +878,7 @@ plt.close()
 10x10 数值矩阵被映射为颜色强度
 ```
 
-![热力图](https://img.yumeko.site/file/articles/ML/visualization/03_heatmap.png)
+![热力图](https://img.yumeko.site/file/blog/articles/1780581648286.webp)
 
 #### 理解重点
 
@@ -932,7 +932,7 @@ plt.close()
 多特征成对散点图与对角分布图
 ```
 
-![配对图](https://img.yumeko.site/file/articles/ML/visualization/03_pairplot.png)
+![配对图](https://img.yumeko.site/file/blog/articles/1780581650153.webp)
 
 #### 理解重点
 
@@ -1025,7 +1025,7 @@ plt.close()
 线图、面积图、条形图、箱线图四宫格对比
 ```
 
-![DataFrame 绘图](https://img.yumeko.site/file/articles/ML/visualization/04_df_plot.png)
+![DataFrame 绘图](https://img.yumeko.site/file/blog/articles/1780581651010.webp)
 
 #### 理解重点
 
@@ -1079,7 +1079,7 @@ plt.close()
 左图展示累计走势，右图展示取值分布
 ```
 
-![Series 绘图](https://img.yumeko.site/file/articles/ML/visualization/04_series_plot.png)
+![Series 绘图](https://img.yumeko.site/file/blog/articles/1780581658467.webp)
 
 #### 理解重点
 
@@ -1132,7 +1132,7 @@ plt.close()
 A/B/C 三个类别的均值对比柱状图
 ```
 
-![分组绘图](https://img.yumeko.site/file/articles/ML/visualization/04_groupby.png)
+![分组绘图](https://img.yumeko.site/file/blog/articles/1780581659073.webp)
 
 #### 理解重点
 
@@ -1232,7 +1232,7 @@ plt.close()
 age、income、score 三个变量的分布与均值/中位数标记
 ```
 
-![分布分析](https://img.yumeko.site/file/articles/ML/visualization/05_distribution.png)
+![分布分析](https://img.yumeko.site/file/blog/articles/1780581665009.webp)
 
 #### 理解重点
 
@@ -1297,7 +1297,7 @@ plt.close()
 x 与 y_strong 相关性最高（~0.96），x 与 y_none 接近无关
 ```
 
-![相关性分析](https://img.yumeko.site/file/articles/ML/visualization/05_correlation.png)
+![相关性分析](https://img.yumeko.site/file/blog/articles/1780581665478.webp)
 
 #### 理解重点
 
@@ -1360,7 +1360,7 @@ plt.close()
 左图展示类别频数，右图展示各类别数值分布与离群点
 ```
 
-![分类变量分析](https://img.yumeko.site/file/articles/ML/visualization/05_categorical.png)
+![分类变量分析](https://img.yumeko.site/file/blog/articles/1780581661409.webp)
 
 #### 理解重点
 
@@ -1453,7 +1453,7 @@ plt.close()
 左图展示缺失位置，右图展示各列缺失百分比
 ```
 
-![缺失值可视化](https://img.yumeko.site/file/articles/ML/visualization/06_missing.png)
+![缺失值可视化](https://img.yumeko.site/file/blog/articles/1780581663339.webp)
 
 #### 理解重点
 
@@ -1518,7 +1518,7 @@ plt.close()
 箱线图显示离群点，直方图标出 IQR 上下界
 ```
 
-![异常值可视化](https://img.yumeko.site/file/articles/ML/visualization/06_outlier.png)
+![异常值可视化](https://img.yumeko.site/file/blog/articles/1780581667313.webp)
 
 #### 理解重点
 
@@ -1572,7 +1572,7 @@ plt.close()
 四宫格对比原始偏态分布与三种变换后的分布形态
 ```
 
-![特征变换可视化](https://img.yumeko.site/file/articles/ML/visualization/06_transform.png)
+![特征变换可视化](https://img.yumeko.site/file/blog/articles/1780581667328.webp)
 
 #### 理解重点
 
@@ -1673,7 +1673,7 @@ plt.close()
 背景为模型分类区域，散点为真实样本标签
 ```
 
-![决策边界](https://img.yumeko.site/file/articles/ML/visualization/07_boundary.png)
+![决策边界](https://img.yumeko.site/file/blog/articles/1780581670806.webp)
 
 #### 理解重点
 
@@ -1734,7 +1734,7 @@ plt.close()
 每个节点展示分裂条件、样本数和类别分布
 ```
 
-![决策树可视化](https://img.yumeko.site/file/articles/ML/visualization/07_tree.png)
+![决策树可视化](https://img.yumeko.site/file/blog/articles/1780581671833.webp)
 
 #### 理解重点
 
@@ -1790,7 +1790,7 @@ plt.close()
 特征按重要性从高到低排序展示，顶部为最相关特征
 ```
 
-![特征重要性](https://img.yumeko.site/file/articles/ML/visualization/07_importance.png)
+![特征重要性](https://img.yumeko.site/file/blog/articles/1780581670463.webp)
 
 #### 理解重点
 
@@ -1885,7 +1885,7 @@ plt.close()
 2x2 混淆矩阵展示每类预测正确与错误数量
 ```
 
-![混淆矩阵](https://img.yumeko.site/file/articles/ML/visualization/08_confusion.png)
+![混淆矩阵](https://img.yumeko.site/file/blog/articles/1780581680372.webp)
 
 #### 理解重点
 
@@ -1952,7 +1952,7 @@ plt.close()
 模型 ROC 曲线位于随机基线之上并给出 AUC
 ```
 
-![ROC 曲线](https://img.yumeko.site/file/articles/ML/visualization/08_roc.png)
+![ROC 曲线](https://img.yumeko.site/file/blog/articles/1780581676386.webp)
 
 #### 理解重点
 
@@ -2022,7 +2022,7 @@ plt.close()
 训练曲线与验证曲线随样本增加逐步收敛
 ```
 
-![学习曲线](https://img.yumeko.site/file/articles/ML/visualization/08_learning.png)
+![学习曲线](https://img.yumeko.site/file/blog/articles/1780581675108.webp)
 
 #### 理解重点
 
@@ -2320,7 +2320,7 @@ plt.close()
 统一网格风格、标题层级和图例外观
 ```
 
-![专业样式](https://img.yumeko.site/file/articles/ML/visualization/10_professional.png)
+![专业样式](https://img.yumeko.site/file/blog/articles/1780581677595.webp)
 
 #### 理解重点
 
@@ -2384,7 +2384,7 @@ plt.close()
 上方主图 + 右上分布图 + 下方三图组合布局
 ```
 
-![多面板布局](https://img.yumeko.site/file/articles/ML/visualization/10_multipanel.png)
+![多面板布局](https://img.yumeko.site/file/blog/articles/1780581681161.webp)
 
 #### 理解重点
 

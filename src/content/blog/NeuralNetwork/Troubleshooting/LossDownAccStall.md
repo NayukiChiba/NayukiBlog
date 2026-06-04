@@ -5,7 +5,7 @@ category: NeuralNetwork/Troubleshooting
 tags:
   - 高级教程
 description: Loss 一直在降但准确率纹丝不动？诊断并解决这个常见的训练异常。
-image: https://img.yumeko.site/file/blog/LossDownAccStall.png
+image: https://img.yumeko.site/file/blog/cover/1780581797385.webp
 status: published
 ---
 

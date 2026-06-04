@@ -5,7 +5,7 @@ category: MachineLearning/Regression
 tags:
   - Scikit-learn
 description: SVR支持向量回归的数学原理、ε-管道损失与完整工程实现。
-image: https://img.yumeko.site/file/blog/SVR.png
+image: https://img.yumeko.site/file/blog/cover/1780581884593.webp
 status: published
 ---
 

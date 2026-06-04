@@ -6,7 +6,7 @@ tags:
   - Scikit-learn
   - 高级教程
 description: 高斯朴素贝叶斯的数学原理、条件独立假设与完整实现流程。
-image: https://img.yumeko.site/file/blog/NaiveBayes.png
+image: https://img.yumeko.site/file/blog/cover/1780581811409.webp
 status: published
 ---
 

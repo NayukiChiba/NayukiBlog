@@ -6,7 +6,7 @@ tags:
   - 高级教程
   - 深度学习
 description: 学习率是最重要的超参数。详解 StepLR、ReduceLROnPlateau、CosineAnnealing、Warmup 的原理、使用方法和选择原则，包含完整训练代码示例。
-image: https://img.yumeko.site/file/articles/NNTrainingTips/SchedulingStrategy.png
+image: https://img.yumeko.site/file/blog/articles/1780581370487.webp
 status: published
 ---
 
@@ -20,7 +20,7 @@ status: published
 
 **为什么需要动态调整？** 训练初期离最优解远，需要大步快走（大 LR）。训练后期接近最优解，如果一直用大学习率，会在最优解附近来回震荡无法收敛。大步可能跨过头，需要小步微调（小 LR）。
 
-![Comparision.png](https://img.yumeko.site/file/articles/SchedulerOverview/Comparision.png)
+![Comparision.png](https://img.yumeko.site/file/blog/articles/1780581550590.webp)
 
 ## 2. PyTorch 调度器使用模式
 
@@ -73,7 +73,7 @@ $$
 \text{Epoch 61-90: } lr = 0.001
 $$
 
-![StepLR.png](https://img.yumeko.site/file/articles/StepLR/StepLR.png)
+![StepLR.png](https://img.yumeko.site/file/blog/articles/1780581580231.webp)
 
 ### 3.2 MultiStepLR：自定义衰减点
 
@@ -169,7 +169,7 @@ Epoch 20-24: lr = 0.00025 (第17-19 epoch 没改善 → 再减半)
 ...
 ```
 
-![ReduceLROnPlateau.png](https://img.yumeko.site/file/articles/ReduceLROnPlateau/ReduceLROnPlateau.png)
+![ReduceLROnPlateau.png](https://img.yumeko.site/file/blog/articles/1780581576187.webp)
 
 ### 4.5 使用示例
 
@@ -245,7 +245,7 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
 
 ### 5.4 学习率曲线对比
 
-![Comparision.png](https://img.yumeko.site/file/articles/CosineAnnealing/Comparision.png)
+![Comparision.png](https://img.yumeko.site/file/blog/articles/1780581550590.webp)
 
 ### 5.5 为什么大模型训练常用
 
@@ -284,7 +284,7 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
 
 Warmup 的解决方案：前 N 步用较小的学习率，逐渐增加到目标学习率，让模型先"站稳脚跟"。
 
-![WarmupVSCos.png](https://img.yumeko.site/file/articles/Warmup/WarmupVSCos.png)
+![WarmupVSCos.png](https://img.yumeko.site/file/blog/articles/1780581586761.webp)
 
 ### 6.2 Linear Warmup
 

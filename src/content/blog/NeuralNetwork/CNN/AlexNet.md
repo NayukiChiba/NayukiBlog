@@ -5,7 +5,7 @@ category: NeuralNetwork/CNN
 tags:
   - 经典架构
 description: AlexNet 在 2012 年以大幅优势赢得 ImageNet 竞赛，标志着深度学习时代的开始。本文详解其架构设计和多项关键创新。
-image: https://img.yumeko.site/file/blog/AlexNet.png
+image: https://img.yumeko.site/file/blog/cover/1780581687349.webp
 status: published
 ---
 
@@ -36,7 +36,7 @@ status: published
 | FC3 | Linear | $(1000,)$ | 4,097,000 |
 | **总计** | | | **~62.4M** |
 
-![AlexNet.jpg](https://img.yumeko.site/file/articles/AlexNet/AlexNet.jpg)
+![AlexNet.jpg](https://img.yumeko.site/file/blog/articles/1780581145170.webp)
 
 
 ## 3. 关键创新

@@ -6,7 +6,7 @@ tags:
   - Python
   - 高级教程
 description: Python 函数式编程的范式指南，涵盖纯函数、不可变性、高阶函数、内置工具（map/filter/reduce）、列表推导式、惰性求值、递归和函数组合等核心概念，并与命令式编程进行对比。
-image: https://img.yumeko.site/file/blog/FunctionalProgramming.png
+image: https://img.yumeko.site/file/blog/cover/1780581746154.webp
 status: published
 ---
 
