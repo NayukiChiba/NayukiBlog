@@ -29,7 +29,7 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
     <!-- 背景图片层 -->
     {image && (
         <div class="post-bg-image">
-            <img src={image} alt="" aria-hidden="true" />
+            <img data-src={image} alt="" aria-hidden="true" />
         </div>
     )}
     <!-- 渐变遮罩层 -->
@@ -113,7 +113,13 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
         height: 100%;
         object-fit: cover;
         object-position: center;
-        transition: transform 0.5s ease, filter 0.3s ease;
+        opacity: 0;
+        transition: transform 0.5s ease, filter 0.3s ease, opacity 0.4s ease;
+    }
+
+    /* 图片加载完成后淡入 */
+    .post-bg-image img.loaded {
+        opacity: 1;
     }
 
     .post-card:hover .post-bg-image img {

@@ -181,7 +181,16 @@ const folderList = [...folderSet].sort().map((path) => {
             const start = (currentPage - 1) * ITEMS_PER_PAGE;
             const end = start + ITEMS_PER_PAGE;
             allPostWrappers.forEach((el) => (el.style.display = "none"));
-            visiblePosts.slice(start, end).forEach((el) => (el.style.display = "block"));
+            visiblePosts.slice(start, end).forEach((el) => {
+                el.style.display = "block";
+                // 懒加载封面图片：仅在文章可见时设置 src
+                const img = el.querySelector('.post-bg-image img[data-src]') as HTMLImageElement | null;
+                if (img && img.dataset.src && !img.src) {
+                    img.src = img.dataset.src;
+                    img.onload = () => img.classList.add('loaded');
+                    img.onerror = () => img.classList.add('loaded');
+                }
+            });
 
             if (pageInput) {
                 pageInput.value = currentPage.toString();
