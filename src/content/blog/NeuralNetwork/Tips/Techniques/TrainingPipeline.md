@@ -5,9 +5,10 @@ category: NeuralNetwork/Tips/Techniques
 tags:
   - 基础
   - 深度学习
+  - 总结
 description: 从数据准备到模型部署，一篇理清深度学习项目的完整六阶段工程流程。
 image: https://img.yumeko.site/file/blog/NNTraingingFixedProcedure.png
-status: published
+status: draft
 ---
 
 从零开始做一个深度学习项目，应该遵循怎样的步骤？以下是基于 CNN 项目总结的标准流程。
