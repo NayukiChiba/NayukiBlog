@@ -1,7 +1,7 @@
 ---
 title: 梯度裁剪详解
 date: 2026-05-09
-category: NeuralNetwork/Tips/Techniques
+category: NeuralNetwork/Techniques
 tags:
   - 高级教程
   - 深度学习

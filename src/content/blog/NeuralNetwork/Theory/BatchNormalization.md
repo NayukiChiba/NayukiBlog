@@ -124,7 +124,7 @@ BatchNorm 的效果依赖于 batch size。当 `batch_size` 很小（比如 2 或
 | InstanceNorm | 沿空间维度（单样本） | 风格迁移，图像生成 |
 | GroupNorm | 通道分组归一化 | batch_size 极小时替代 BN |
 
-小 batch 场景下，[[NeuralNetwork/Tips/Techniques/BatchNormGuide|BN实用指南]] 中提供了详细的替代方案和调参建议。
+小 batch 场景下，[[NeuralNetwork/Techniques/BatchNormGuide|BN实用指南]] 中提供了详细的替代方案和调参建议。
 
 ```python
 # 小 batch 场景下的替代

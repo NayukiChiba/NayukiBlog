@@ -1,7 +1,7 @@
 ---
 title: 权重初始化：Xavier 与 Kaiming 详解
 date: 2026-05-09
-category: NeuralNetwork/Tips/Techniques
+category: NeuralNetwork/Techniques
 tags:
   - 高级教程
   - 深度学习
@@ -104,7 +104,7 @@ nn.init.kaiming_uniform_(module.weight, nonlinearity='relu')
 
 ## 6. 完整的初始化函数
 
-以下函数根据激活函数和 [[NeuralNetwork/Tips/Techniques/BatchNormGuide|BN]] 层类型自动选择初始化方式：
+以下函数根据激活函数和 [[NeuralNetwork/Techniques/BatchNormGuide|BN]] 层类型自动选择初始化方式：
 
 ```python
 def initWeights(model, activation='relu'):

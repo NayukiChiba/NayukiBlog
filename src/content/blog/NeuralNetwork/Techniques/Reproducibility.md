@@ -1,7 +1,7 @@
 ---
 title: 随机种子与实验可复现性
 date: 2026-05-09
-category: NeuralNetwork/Tips/Techniques
+category: NeuralNetwork/Techniques
 tags:
   - 基础
 description: 为什么你的实验结果每次都不一样？完整固定随机种子的方案及性能代价分析。
@@ -10,9 +10,9 @@ status: published
 ---
 ## 1. 为什么不可复现是噩梦？
 
-假设你在[[NeuralNetwork/Tips/Techniques/TrainingPipeline|训练流程]]中跑了一个实验，准确率 95%。第二天改了一行不相关的代码，准确率变成了 93%。是改出 Bug 了，还是随机性导致？
+假设你在[[NeuralNetwork/Techniques/TrainingPipeline|训练流程]]中跑了一个实验，准确率 95%。第二天改了一行不相关的代码，准确率变成了 93%。是改出 Bug 了，还是随机性导致？
 
-**没有固定随机种子，你永远分不清是代码变更还是随机波动。** 连[[NeuralNetwork/Tips/Techniques/CheckpointGuide|检查点]]都无法放心地比较和复用。
+**没有固定随机种子，你永远分不清是代码变更还是随机波动。** 连[[NeuralNetwork/Techniques/CheckpointGuide|检查点]]都无法放心地比较和复用。
 
 ## 2. 完整的种子固定方案
 

@@ -1,7 +1,7 @@
 ---
 title: 深度学习项目训练流程总览
 date: 2026-05-07
-category: NeuralNetwork/Tips/Techniques
+category: NeuralNetwork/Techniques
 tags:
   - 基础
   - 深度学习
@@ -192,11 +192,11 @@ def predict(model, imagePath, transform, classNames, device):
 **训练配置**：
 - [ ] 选择损失函数和[[NeuralNetwork/Tips/Optimizers/OptimizerOverview|优化器]]
 - [ ] 配置学习率调度器
-- [ ] 固定[[NeuralNetwork/Tips/Techniques/Reproducibility|可复现]]性（全局随机种子）
+- [ ] 固定[[NeuralNetwork/Techniques/Reproducibility|可复现]]性（全局随机种子）
 
 **训练循环**：
 - [ ] 实现 `trainEpoch` + `validateEpoch`
-- [ ] 保存[[NeuralNetwork/Tips/Techniques/CheckpointGuide|检查点]]（最佳模型和最近模型）
+- [ ] 保存[[NeuralNetwork/Techniques/CheckpointGuide|检查点]]（最佳模型和最近模型）
 - [ ] 实现 Early Stopping
 
 **评估部署**：

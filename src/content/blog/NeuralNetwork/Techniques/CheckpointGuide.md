@@ -1,7 +1,7 @@
 ---
 title: 检查点管理最佳实践
 date: 2026-05-09
-category: NeuralNetwork/Tips/Techniques
+category: NeuralNetwork/Techniques
 tags:
   - 基础
   - 深度学习
@@ -81,7 +81,7 @@ os.replace(tempPath, savePath)  # 原子操作（Windows 上也支持）
 
 防止在写入过程中进程崩溃导致文件损坏。
 
-## 4. 恢复[[NeuralNetwork/Tips/Techniques/TrainingPipeline|训练流程]]
+## 4. 恢复[[NeuralNetwork/Techniques/TrainingPipeline|训练流程]]
 
 ```python
 def resumeTraining(checkpointPath, model, optimizer, scheduler=None):

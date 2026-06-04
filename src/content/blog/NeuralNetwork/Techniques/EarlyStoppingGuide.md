@@ -1,7 +1,7 @@
 ---
 title: Early Stopping 详解
 date: 2026-05-09
-category: NeuralNetwork/Tips/Techniques
+category: NeuralNetwork/Techniques
 tags:
   - 基础
   - 深度学习
@@ -87,7 +87,7 @@ def checkEarlyStop(self, trainLoss, valLoss, trainAcc, valAcc):
 
 ## 5. 最佳模型保存
 
-Early Stopping 常与[[NeuralNetwork/Tips/Techniques/CheckpointGuide|检查点]]保存配合：
+Early Stopping 常与[[NeuralNetwork/Techniques/CheckpointGuide|检查点]]保存配合：
 
 ```python
 for epoch in range(epochs):

@@ -24,7 +24,7 @@ Epoch 50: Train Loss 1.42
 
 ## 原因分析
 
-1. **[[NeuralNetwork/Tips/Techniques/LearningRateGuide|学习率]]太小** —— 参数更新步幅太小
+1. **[[NeuralNetwork/Techniques/LearningRateGuide|学习率]]太小** —— 参数更新步幅太小
 2. **[[NeuralNetwork/Tips/Optimizers/OptimizerOverview|优化器选择]]不当** —— 用 SGD 但没调好
 3. **Batch Size 太大** —— 更新频率太低
 4. **数据未归一化** —— 不同特征的尺度差异大

@@ -64,7 +64,7 @@ class Classifier(nn.Module):
 
 ## 5. 关键细节：train/eval 模式切换
 
-这是最常见的初学者陷阱（务必掌握 [[NeuralNetwork/Tips/Techniques/TrainEvalMode|模式切换]] 的正确时机）：
+这是最常见的初学者陷阱（务必掌握 [[NeuralNetwork/Techniques/TrainEvalMode|模式切换]] 的正确时机）：
 
 ```python
 model.train()   # Dropout 生效：随机丢弃神经元

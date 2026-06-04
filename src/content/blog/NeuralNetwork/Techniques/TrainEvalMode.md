@@ -1,7 +1,7 @@
 ---
 title: 训练/评估模式切换的正确姿势
 date: 2026-05-09
-category: NeuralNetwork/Tips/Techniques
+category: NeuralNetwork/Techniques
 tags:
   - 基础
   - 深度学习

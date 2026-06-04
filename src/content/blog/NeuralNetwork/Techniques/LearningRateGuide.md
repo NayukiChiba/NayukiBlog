@@ -1,7 +1,7 @@
 ---
 title: 学习率调度策略完全指南
 date: 2026-05-09
-category: NeuralNetwork/Tips/Techniques
+category: NeuralNetwork/Techniques
 tags:
   - 高级教程
   - 深度学习

@@ -71,7 +71,7 @@ $$
 - 但 Tanh 的输出有正有负，零中心化有利于下一层的学习
 - 原始 LeNet-5 使用 Tanh，现代 CNN 几乎全部使用 ReLU 或其变体
 
-配合 [[NeuralNetwork/Theory/BatchNormalization|BatchNorm]] 可以有效缓解梯度消失问题，同时建议按照 [[NeuralNetwork/Tips/Techniques/WeightInitialization|权重初始化]] 指南选择合适的初始化策略。
+配合 [[NeuralNetwork/Theory/BatchNormalization|BatchNorm]] 可以有效缓解梯度消失问题，同时建议按照 [[NeuralNetwork/Techniques/WeightInitialization|权重初始化]] 指南选择合适的初始化策略。
 
 ## 5. Sigmoid
 
@@ -155,4 +155,4 @@ nn.init.xavier_uniform_(conv.weight)
 - **二分类输出层**：直接用 BCEWithLogitsLoss，不需要手动 Sigmoid
 - **多分类输出层**：直接用 CrossEntropyLoss，不需要手动 Softmax
 
-激活函数的选择直接影响训练稳定性，具体配合方式参见 [[NeuralNetwork/Tips/Techniques/WeightInitialization|权重初始化]] 指南。
+激活函数的选择直接影响训练稳定性，具体配合方式参见 [[NeuralNetwork/Techniques/WeightInitialization|权重初始化]] 指南。

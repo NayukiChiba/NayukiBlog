@@ -56,7 +56,7 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
 
 - **平滑性**：大模型对学习率突变更敏感，余弦曲线的平滑性避免了震荡
 - **后期精细**：余弦最后阶段的极小学习率让模型精细收敛
-- **可预测**：学习率曲线完全由 `T_max` 确定，方便对比实验。关于学习率调参的完整指南，参见 [[NeuralNetwork/Tips/Techniques/LearningRateGuide|LR指南]]
+- **可预测**：学习率曲线完全由 `T_max` 确定，方便对比实验。关于学习率调参的完整指南，参见 [[NeuralNetwork/Techniques/LearningRateGuide|LR指南]]
 
 ## 6. 典型配置
 

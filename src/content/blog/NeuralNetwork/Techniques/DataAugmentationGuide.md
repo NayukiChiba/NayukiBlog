@@ -1,7 +1,7 @@
 ---
 title: 数据增强策略选择指南
 date: 2026-05-09
-category: NeuralNetwork/Tips/Techniques
+category: NeuralNetwork/Techniques
 tags:
   - 数据处理
   - 高级教程

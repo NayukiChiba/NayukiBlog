@@ -95,7 +95,7 @@ testTransform = transforms.Compose([
 
 ### 核心原则
 
-[[NeuralNetwork/Tips/Techniques/DataAugmentationGuide|数据增强]]应该模拟真实场景中可能出现的变换。
+[[NeuralNetwork/Techniques/DataAugmentationGuide|数据增强]]应该模拟真实场景中可能出现的变换。
 
 | 任务类型 | 合适的增强 | 不合适的增强 |
 | --- | --- | --- |
@@ -167,4 +167,4 @@ for images, labels in trainLoader:
     break
 ```
 
-关于各项增强策略的选择和使用场景，参见 [[NeuralNetwork/Tips/Techniques/DataAugmentationGuide|数据增强指南]]。
+关于各项增强策略的选择和使用场景，参见 [[NeuralNetwork/Techniques/DataAugmentationGuide|数据增强指南]]。

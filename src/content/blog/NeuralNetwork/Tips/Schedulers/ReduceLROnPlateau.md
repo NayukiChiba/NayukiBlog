@@ -92,6 +92,6 @@ for epoch in range(epochs):
 
 两者都监控验证指标，但目的不同：
 - **ReduceLROnPlateau**：降学习率，继续训练
-- **[[NeuralNetwork/Tips/Techniques/EarlyStoppingGuide|Early Stopping]]**：停止训练，防止过拟合
+- **[[NeuralNetwork/Techniques/EarlyStoppingGuide|Early Stopping]]**：停止训练，防止过拟合
 
 通常两者配合使用，ReduceLROnPlateau 的 patience 应该小于 Early Stopping 的 patience。

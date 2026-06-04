@@ -1,7 +1,7 @@
 ---
 title: Dropout 使用指南
 date: 2026-05-09
-category: NeuralNetwork/Tips/Techniques
+category: NeuralNetwork/Techniques
 tags:
   - 高级教程
   - 深度学习
@@ -21,7 +21,7 @@ status: published
 
 卷积层不太需要 [[NeuralNetwork/Theory/Dropout|Dropout]] 的原因：卷积层通过权重共享已经大幅减少了参数，且空间特征被随机丢弃会破坏结构。
 
-## 2. [[NeuralNetwork/Tips/Techniques/TrainEvalMode|train/eval 模式]]
+## 2. [[NeuralNetwork/Techniques/TrainEvalMode|train/eval 模式]]
 
 ```python
 model.train()   # Dropout 生效：随机丢弃神经元

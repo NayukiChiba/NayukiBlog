@@ -1,7 +1,7 @@
 ---
 title: BatchNorm 实用指南
 date: 2026-05-09
-category: NeuralNetwork/Tips/Techniques
+category: NeuralNetwork/Techniques
 tags:
   - 高级教程
   - 深度学习
@@ -27,7 +27,7 @@ Linear  → BatchNorm1d → ReLU    ← 推荐（现代标准）
 - 原始 BatchNorm 论文：$\text{Conv} \to \text{ReLU} \to \text{BN}$（在激活之后）
 - 后来发现 $\text{Conv} \to \text{BN} \to \text{ReLU}$ 效果更好，成为现代标准
 
-## 2. [[NeuralNetwork/Tips/Techniques/TrainEvalMode|训练/测试差异]]（最容易踩的坑）
+## 2. [[NeuralNetwork/Techniques/TrainEvalMode|训练/测试差异]]（最容易踩的坑）
 
 ```python
 # 训练时

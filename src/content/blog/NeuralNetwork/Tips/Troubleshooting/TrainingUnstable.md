@@ -22,7 +22,7 @@ Epoch 4: Train Loss 0.91, Val Loss 0.65
 
 ## 原因分析
 
-1. **[[NeuralNetwork/Tips/Techniques/LearningRateGuide|学习率]]太大**（最常见）——参数更新步幅过大，在最优解附近弹来弹去，严重时可能产生[[NeuralNetwork/Tips/Troubleshooting/NanLoss|NaN]]
+1. **[[NeuralNetwork/Techniques/LearningRateGuide|学习率]]太大**（最常见）——参数更新步幅过大，在最优解附近弹来弹去，严重时可能产生[[NeuralNetwork/Tips/Troubleshooting/NanLoss|NaN]]
 2. **Batch Size 太小**——每个 batch 的[[NeuralNetwork/Tips/Troubleshooting/GradientExplodingVanishing|梯度方向]]不稳定，不同 batch 之间差异大
 3. **数据未充分打乱**——batch 的顺序影响了训练
 4. **BatchNorm 在小 batch 下表现差**——统计量噪声大

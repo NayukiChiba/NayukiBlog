@@ -135,7 +135,7 @@ out += x  # shortcut：梯度可以通过这条通道直达浅层
 
 即使卷积层的梯度很小，shortcut 提供的常数 1 梯度也能保证信号到达浅层。
 
-**方案 4：正确的[[NeuralNetwork/Tips/Techniques/WeightInitialization|权重初始化]]**
+**方案 4：正确的[[NeuralNetwork/Techniques/WeightInitialization|权重初始化]]**
 
 ```python
 # ReLU + Kaiming 初始化

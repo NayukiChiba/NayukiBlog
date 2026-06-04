@@ -62,7 +62,7 @@ for m in self.modules():
 ```
 
 Xavier 确保信号在 Tanh 的活跃区间（$x$ 接近 0 时导数较大），而非饱和区间（$|x|$ 大时导数趋近 0）。
-权重初始化内容请查看[[NeuralNetwork/Tips/Techniques/WeightInitialization|WeightInitialization]]
+权重初始化内容请查看[[NeuralNetwork/Techniques/WeightInitialization|WeightInitialization]]
 ### Average Pooling 而非 Max Pooling
 
 LeNet-5 使用平均[[NeuralNetwork/CNN/Foundations/PoolingLayer|池化]]。这在当时是自然选择——取局部平均值能平滑特征。但后来的实践证明 Max Pooling 保留最强信号通常效果更好，因此现代 CNN 几乎全部使用 Max Pooling。
