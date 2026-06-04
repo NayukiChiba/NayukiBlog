@@ -12,7 +12,7 @@ status: published
 
 # 华为机试真题 AI方向（2026年3月-6月）
 
-来源：[CodeFun2000 华为校招机考题库](https://codefun2000.com/pset/673c82a4d67fed3f6531c8e1)
+来源：[CodeFun2000 华为校招机考题库](https://codefun2000.com/problemset/hw)
 
 > 每场考试包含 3 题：第1题选择题（20道）+ 第2题编程 + 第3题编程。
 
