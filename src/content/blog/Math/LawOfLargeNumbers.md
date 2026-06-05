@@ -1,15 +1,18 @@
 ---
-title: 大数定律详解：从弱大数律到强大数律
+title: 大数定律详解：从伯努利到柯尔莫哥洛夫
 date: 2026-06-04
 category: 数学
 tags:
   - 概率论
   - 数理统计
   - 收敛
-description: 系统讲解弱大数定律（WLLN）与强大数定律（SLLN）的数学定义、收敛方式差异、证明思路及经典反例，厘清"依概率收敛"与"几乎必然收敛"的本质区别。
+  - 大数定律
+description: 系统讲解六种大数定律——伯努利、辛钦、切比雪夫、马尔可夫（弱大数定律）与博雷尔、柯尔莫哥洛夫（强大数定律）——的数学定义、假设条件、证明思路及相互关系。厘清"依概率收敛"与"几乎必然收敛"的本质区别。
 image: https://img.yumeko.site/file/blog/LawOfLargeNumbers.png
 status: draft
 ---
+
+> **前置阅读**：大数定律的证明依赖多项概率不等式。建议先阅读 [[Math/ProbabilityInequalities|概率不等式完全指南]]，了解马尔可夫、切比雪夫等基础工具。
 
 ![图0: 大数定律概览——从随机波动到确定性收敛](https://img.yumeko.site/file/blog/LawOfLargeNumbers/LLNBanner.png)
 
@@ -29,7 +32,9 @@ $$
 
 但这里的"箭头"是什么意思？是指 $\bar{X}_n$ 和 $0.5$ 的差趋于 $0$？还是一定会趋于 $0$？还是"几乎一定"趋于 $0$？
 
-**大数定律**（Law of Large Numbers, LLN）就是把这种直觉精确化的数学定理。它回答：样本均值在什么意义下、以什么方式收敛到期望值。
+**大数定律**（Law of Large Numbers, LLN）就是把这种直觉精确化的数学定理。但大数定律不是**一个**定理——它是一个**定理家族**，随着对随机变量假设的逐步放松（从 Bernoulli 的"独立同分布、二阶矩存在"到辛钦的"独立同分布、仅一阶矩存在"），结论的强度也从弱收敛过渡到强收敛。
+
+本文从历史最悠久的伯努利大数定律出发，逐步放松条件，引出六种经典形式，并说明它们之间的蕴含关系。
 
 ## 2. 前置知识：随机变量的收敛模式
 
@@ -86,7 +91,7 @@ $$
 \boxed{X_n \xrightarrow{a.s.} X \;\Longrightarrow\; X_n \xrightarrow{P} X}
 $$
 
-几乎必然收敛 ⇒ 依概率收敛，但**反过来不成立**。上面的"游荡 1"就是反例：依概率收敛到 $0$，但并不几乎必然收敛。
+几乎必然收敛 ⇒ 依概率收敛，但**反过来不成立**。上面的"游荡 1"就是反例。
 
 ### 2.4 依分布收敛（Convergence in Distribution）
 
@@ -120,86 +125,122 @@ $$
 |:--|:--|:--|
 | 收敛模式 | 依概率收敛 | 几乎必然收敛 |
 
-## 3. 弱大数定律（WLLN）
+## 3. 弱大数定律（WLLN）——四种经典形式
 
-### 3.1 定理陈述（切比雪夫形式）
+弱大数定律断言 $\bar{X}_n \xrightarrow{P} \mu$（依概率收敛）。但不同形式对随机变量施加的条件不同——从历史上 Bernoulli 的最强条件逐步放松到 Khinchin 的最弱条件。
 
-设 $\{X_n\}$ 是**两两不相关**的随机变量序列，满足：
+### 3.1 伯努利大数定律（1713）——最古老的形式
 
-- $E[X_i] = \mu$（等期望，但非必须——不等期望时只需假设均值收敛）
+**定理**：设 $S_n \sim \text{Binomial}(n, p)$，即 $n$ 次独立伯努利试验的成功次数。则频率 $\frac{S_n}{n}$ 依概率收敛到 $p$：
+
+$$
+\boxed{\frac{S_n}{n} \xrightarrow{P} p}
+$$
+
+**历史意义**：Jakob Bernoulli 在遗作《推测术》（*Ars Conjectandi*, 1713）中首次证明了这个定理，这是概率论从赌博计算走向数学科学的分水岭。Bernoulli 花了 20 年才完成证明——当时没有切比雪夫不等式，证明困难得多。
+
+**现代证明**（借助切比雪夫）：$S_n$ 是 $n$ 个 i.i.d. $\text{Bernoulli}(p)$ 之和。$E[S_n/n] = p$，$\operatorname{Var}(S_n/n) = p(1-p)/n$。切比雪夫不等式直接给出：
+
+$$
+P\left(\left|\frac{S_n}{n} - p\right| \ge \varepsilon\right) \le \frac{p(1-p)}{n\varepsilon^2} \to 0
+$$
+
+这就是最早的大数定律——只针对伯努利试验，但开启了整个领域。
+
+> 关于切比雪夫不等式的详细证明和更多不等式，参见 [[Math/ProbabilityInequalities|概率不等式完全指南]]。
+
+### 3.2 切比雪夫大数定律（WLLN，方差有限形式）
+
+**定理**：设 $\{X_n\}$ 是**两两不相关**的随机变量序列，满足：
+- $E[X_i] = \mu_i$（不必相等）
 - $\operatorname{Var}(X_i) \le C < \infty$（一致有界方差）
 
-令 $\bar{X}_n = \frac{1}{n}\sum_{i=1}^{n} X_i$，则：
+令 $\bar{X}_n = \frac{1}{n}\sum_{i=1}^{n} X_i$，$\bar{\mu}_n = \frac{1}{n}\sum_{i=1}^n \mu_i$（均值序列）。则：
+
+$$
+\boxed{\bar{X}_n - \bar{\mu}_n \xrightarrow{P} 0}
+$$
+
+当 $E[X_i] \equiv \mu$（等期望）时，简化为 $\bar{X}_n \xrightarrow{P} \mu$。
+
+**证明**（仅三行）：
+
+$$
+P\left( \left| \bar{X}_n - \bar{\mu}_n \right| \ge \varepsilon \right)
+\le \frac{\operatorname{Var}(\bar{X}_n)}{\varepsilon^2}
+\le \frac{C}{n\varepsilon^2} \xrightarrow{n \to \infty} 0
+$$
+
+仅用了两两不相关（交叉协方差为零保证 $\operatorname{Var}(\bar{X}_n) = \frac{1}{n^2}\sum \operatorname{Var}(X_i)$）和切比雪夫不等式。证明虽简洁，但**假设了方差存在且一致有界**。
+
+### 3.3 辛钦大数定律（Khinchin's WLLN，仅需一阶矩）
+
+**定理**：设 $\{X_n\}$ 是**独立同分布**（i.i.d.）的随机变量序列，且 **$E|X_1| < \infty$**（期望存在）。令 $\mu = E[X_1]$，则：
 
 $$
 \boxed{\bar{X}_n \xrightarrow{P} \mu}
 $$
 
-即：对任意 $\varepsilon > 0$，
+**关键改进**：辛钦形式**不要求方差存在**——仅需一阶绝对矩有限。例如，$X_i \sim \text{Cauchy}$ 就不满足条件（$E|X| = \infty$），样本均值确实不收敛。但对于 $X_i \sim t_2$（$t$ 分布，自由度 2），$E|X|$ 存在而方差不存在——切比雪夫形式无法处理，辛钦形式却可以。
+
+**证明思路**（不同于切比雪夫）：使用**特征函数方法**（characteristic function）。由于 i.i.d.，$\bar{X}_n$ 的特征函数为：
 
 $$
-\lim_{n \to \infty} P\left( \left| \bar{X}_n - \mu \right| \ge \varepsilon \right) = 0
+\phi_{\bar{X}_n}(t) = \left[\phi_{X_1}\left(\frac{t}{n}\right)\right]^n
 $$
 
-### 3.2 证明（切比雪夫不等式）
-
-这是最简洁的概率论证明之一，仅靠两个不等式：
-
-**第一步**：样本均值的期望和方差
+由 $E|X_1| < \infty$，特征函数在 $0$ 附近可微：$\phi_{X_1}(t) = 1 + i\mu t + o(t)$。代入：
 
 $$
-E[\bar{X}_n] = \frac{1}{n}\sum_{i=1}^n E[X_i] = \mu
+\phi_{\bar{X}_n}(t) = \left[1 + \frac{i\mu t}{n} + o\left(\frac{1}{n}\right)\right]^n \to e^{i\mu t}
 $$
 
-由于两两不相关（协方差为零）：
+$e^{i\mu t}$ 是退化分布 $\delta_\mu$ 的特征函数。由 Lévy 连续性定理，$\bar{X}_n \xrightarrow{D} \mu$（依分布收敛到常数），而依分布收敛到常数等价于依概率收敛（因为极限是常数时两种收敛等价）。证毕。
+
+**对比切比雪夫**：辛钦用特征函数避开了对方差的需求，但引入了"独立同分布"条件。切比雪夫不要求独立性（仅两两不相关），但要求方差一致有界。两者各有优势。
+
+### 3.4 马尔可夫大数定律（Markov's WLLN，最弱方差条件）
+
+**定理**：设 $\{X_n\}$ 是任意随机变量序列（不要求独立、不要求同分布），满足：
 
 $$
-\operatorname{Var}(\bar{X}_n) = \frac{1}{n^2}\sum_{i=1}^n \operatorname{Var}(X_i)
-\le \frac{nC}{n^2} = \frac{C}{n}
+\frac{1}{n^2}\operatorname{Var}\left(\sum_{i=1}^n X_i\right) \to 0 \quad \text{as } n \to \infty
 $$
 
-**第二步**：应用切比雪夫不等式
+则 $\bar{X}_n - E[\bar{X}_n] \xrightarrow{P} 0$。
 
-切比雪夫不等式：$P(|Y - E[Y]| \ge \varepsilon) \le \operatorname{Var}(Y) / \varepsilon^2$
+**含义**：马尔可夫形式把切比雪夫的"一致有界方差"条件放松到了"平均方差趋于零"——这是方差条件下 WLLN 成立的最弱充分条件。
 
-对 $Y = \bar{X}_n$：
+**证明**：直接对 $\bar{X}_n$ 应用切比雪夫不等式（注意这里不要求两两不相关——$\operatorname{Var}(\sum X_i)$ 本身就包含了协方差项，条件是直接对这个量施加的）。
+
+### 3.5 四种弱大数定律对比
+
+| 形式 | 提出者 | 年份 | 条件 | 特色 |
+|:--|:--|:--|:--|:--|
+| **伯努利** | J. Bernoulli | 1713 | i.i.d. Bernoulli，二阶矩自然存在 | 最早、最具体、最强条件 |
+| **切比雪夫** | P. Chebyshev | 1867 | 两两不相关 + 方差一致有界 | 不需要独立性，不需要同分布 |
+| **辛钦** | A. Khinchin | 1929 | i.i.d. + $E\vert X_1\vert < \infty$ | 仅需一阶矩，最弱的矩条件 |
+| **马尔可夫** | A. Markov | ~1900 | $\frac{1}{n^2}\operatorname{Var}(\sum X_i) \to 0$ | 最弱的方差条件，不要求独立性和同分布 |
+
+**蕴含关系**（同分布时）：
 
 $$
-P\left( \left| \bar{X}_n - \mu \right| \ge \varepsilon \right)
-\le \frac{\operatorname{Var}(\bar{X}_n)}{\varepsilon^2}
-\le \frac{C}{n\varepsilon^2} \xrightarrow{n \to \infty} 0
+\text{伯努利} \subset \text{切比雪夫} \subset \text{马尔可夫} \qquad\text{（方差条件层层放松）}
 $$
 
-证毕。只用了一个不等式和三行推导。
+$$
+\text{切比雪夫} \;\longleftrightarrow\; \text{辛钦} \qquad\text{（方差 vs 独立性，各有取舍，互不蕴含）}
+$$
 
-![图3: 弱大数定律证明流程——切比雪夫不等式三步推导](https://img.yumeko.site/file/blog/LawOfLargeNumbers/WLLNProof.png)
+---
 
-> **🖼️ AI 生图提示词：**
->
-> ```
-> A three-step proof flowchart for the Weak Law of Large Numbers (Chebyshev form). Three rectangular boxes connected by downward arrows:
-> Box 1: "Step 1: Compute E[X̄ₙ] = μ, Var(X̄ₙ) ≤ C/n" with a small inset showing the variance calculation: Var(X̄ₙ) = (1/n²)ΣVar(Xᵢ) ≤ C/n.
-> Box 2: "Step 2: Apply Chebyshev's Inequality" with the formula: P(|X̄ₙ - μ| ≥ ε) ≤ Var(X̄ₙ)/ε².
-> Box 3: "Step 3: Take limit" with: P(|X̄ₙ - μ| ≥ ε) ≤ C/(nε²) → 0 as n → ∞.
-> Below Box 3: a checkmark "∎ QED" in green.
-> Right side: a small inset graph showing a decay curve P(|X̄ₙ - μ| ≥ ε) vs n, exponentially approaching 0.
-> Clean academic flowchart style with soft blue and white color scheme. Math formulas in LaTeX style. White background.
-> ```
+## 4. 强大数定律（SLLN）——两种经典形式
 
-### 3.3 弱大数定律的局限性
+强大数定律断言 $\bar{X}_n \xrightarrow{a.s.} \mu$（几乎必然收敛）。比 WLLN 强，证明更复杂。
 
-上面的证明假设方差存在且一致有界。但弱大数律在更弱的条件下也成立——比如**辛钦大数定律**只要求独立同分布且期望存在，不要求方差存在。
+### 4.1 柯尔莫哥洛夫强大数定律（Kolmogorov's SLLN，1933）
 
-然而，无论条件多弱，WLLN 始终只能保证**依概率收敛**——这意味着：
-
-- 对任意 $\varepsilon$，$P(|\bar{X}_n - \mu| > \varepsilon) \to 0$
-- 但**不能保证**对于某个具体的随机试验序列，样本均值一定收敛
-
-## 4. 强大数定律（SLLN）
-
-### 4.1 定理陈述（柯尔莫哥洛夫形式）
-
-设 $\{X_n\}$ 是**独立同分布**（i.i.d.）的随机变量序列，且 $E|X_1| < \infty$（期望存在）。令 $\mu = E[X_1]$，则：
+**定理**：设 $\{X_n\}$ 是**独立同分布**（i.i.d.）的随机变量序列，且 $E|X_1| < \infty$（期望存在）。令 $\mu = E[X_1]$，则：
 
 $$
 \boxed{\bar{X}_n \xrightarrow{a.s.} \mu}
@@ -211,9 +252,11 @@ $$
 P\left( \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^{n} X_i = \mu \right) = 1
 $$
 
+**注意**：柯尔莫哥洛夫 SLLN 的条件与辛钦 WLLN **完全一致**（i.i.d. + 一阶矩有限），但结论更强——从依概率收敛升级到了几乎必然收敛。这是柯尔莫哥洛夫 1933 年名著《概率论基础》的巅峰成果之一，开创了现代概率论的公理化时代。
+
 ### 4.2 证明概要
 
-SLLN 的完整证明需要柯尔莫哥洛夫不等式和 Borel-Cantelli 引理，篇幅较长。这里给出策略级概述。
+SLLN 的完整证明需要**柯尔莫哥洛夫不等式**和 **Borel-Cantelli 引理**。
 
 **关键工具——柯尔莫哥洛夫不等式**：
 
@@ -240,7 +283,7 @@ $$
 
 **证明策略**（截断法）：
 
-1. **截断**：将 $X_i$ 分解为 $X_i = X_i \mathbf{1}_{|X_i| \le n} + X_i \mathbf{1}_{|X_i| > n}$（有界部分 + 尾部）
+1. **截断**：将 $X_i$ 分解为 $X_i = X_i \mathbf{1}_{|X_i| \le i} + X_i \mathbf{1}_{|X_i| > i}$（有界部分 + 尾部）
 2. 对有界部分应用柯尔莫哥洛夫不等式，通过 Borel-Cantelli 引理证明几乎必然收敛
 3. 对尾部证明其影响随 $n \to \infty$ 而消失
 
@@ -253,11 +296,21 @@ $$
 
 这个条件是确保"足够快"收敛的关键。
 
-### 4.3 SLLN vs WLLN：一个直观例子
+### 4.3 博雷尔强大数定律（Borel's SLLN，1909）
 
-下面构造一个符合 WLLN 但**不满足** SLLN 的例子，以体会两者的本质差异。
+**定理**（柯尔莫哥洛夫 SLLN 的 Bernoulli 特例）：设 $S_n \sim \text{Binomial}(n, p)$，则：
 
-考虑独立随机变量序列：
+$$
+\boxed{\frac{S_n}{n} \xrightarrow{a.s.} p}
+$$
+
+**历史意义**：Émile Borel 在 1909 年首次证明了 SLLN（甚至早于柯尔莫哥洛夫的公理化概率论）。Borel 证明了：不仅频率收敛于概率（WLLN），而且**以概率 1**，极限就是 $p$。
+
+柯尔莫哥洛夫 1933 年的贡献是将 Borel 结果从 Bernoulli 推广到任意 i.i.d. 序列——条件相同（i.i.d. + $E|X| < \infty$），结论相同（几乎必然收敛），但适用范围扩大了无数倍。
+
+### 4.4 SLLN vs WLLN：一个直观例子
+
+考虑独立随机变量序列（注意：**不是同分布**）：
 
 $$
 X_n = \begin{cases}
@@ -269,27 +322,11 @@ $$
 - $E[X_n] = n^2 \cdot \frac{1}{n^2} = 1$
 - $\operatorname{Var}(X_n) = E[X_n^2] - 1^2 = n^4 \cdot \frac{1}{n^2} - 1 = n^2 - 1$
 
-方差无界 → 切比雪夫形式的 WLLN 不直接适用。但辛钦形式要求 i.i.d.，此例不是同分布，因此 WLLN 可能成立也可能不成立（取决于具体构造）。
+方差无界 → 切比雪夫形式不适用。辛钦形式要求 i.i.d.，此例不是同分布。**WLLN 可能成立也可能不成立**，取决于更精细的分析。
 
-关键启示：**SLLN 对条件更敏感**——它对尾部的衰减速率有实质性要求（需要 $E|X_1| < \infty$ 或更强的矩条件），而 WLLN 有时可以在更弱的条件下侥幸成立。
+关键启示：**SLLN 对条件更敏感**——它对尾部的衰减速率有实质性要求（需要 $E|X_1| < \infty$ 或更强的矩条件），有时在 WLLN 能"侥幸"成立的边缘地带，SLLN 不成立。
 
-## 5. 关键区别再辨析
-
-| 维度 | 弱大数定律（WLLN） | 强大数定律（SLLN） |
-|:--|:--|:--|
-| **收敛模式** | 依概率收敛（$X_n \xrightarrow{P} \mu$） | 几乎必然收敛（$X_n \xrightarrow{a.s.} \mu$） |
-| **含义** | 偏差超过 $\varepsilon$ 的概率趋于 $0$ | 对几乎所有样本路径，序列确定性地趋于 $\mu$ |
-| **能否预测远期？** | ✗ 不能——概率小不代表不会发生 | ✓ 能——几乎每条路径最终都稳定 |
-| **典型条件** | 方差有界 + 不相关（切比雪夫）<br> 或 i.i.d. + 期望存在（辛钦） | i.i.d. + $E|X_1| < \infty$（柯尔莫哥洛夫） |
-| **核心不等式** | 切比雪夫不等式 | 柯尔莫哥洛夫不等式 + Borel-Cantelli 引理 |
-| **证明难度** | ⭐ 简单（三行） | ⭐⭐⭐ 复杂（需要测度论工具） |
-
-### 用一句话记住
-
-- **WLLN**："样本均值偏离真值的**可能性**趋于零。"
-- **SLLN**："样本均值偏离真值的**实际发生**趋于零——而且一旦 $n$ 足够大，它就再也不会回来了。"
-
-![图5: WLLN vs SLLN——模拟对比，抛硬币 $n=10, 100, 1000, 10000$](https://img.yumeko.site/file/blog/LawOfLargeNumbers/LLNComparison.png)
+![图3: WLLN vs SLLN——模拟对比，抛硬币 $n=10, 100, 1000, 10000$](https://img.yumeko.site/file/blog/LawOfLargeNumbers/LLNComparison.png)
 
 > **🖼️ AI 生图提示词：**
 >
@@ -300,14 +337,66 @@ $$
 > Professional data visualization style, white background, clean axes. Color palette: blue distributions, warm-colored paths.
 > ```
 
-## 6. 总结
+---
+
+## 5. 六种大数定律对照总表
+
+### 5.1 弱大数定律（依概率收敛）
+
+| 形式 | 提出者 | 年份 | 条件 | 证明工具 |
+|:--|:--|:--|:--|:--|
+| **伯努利 WLLN** | J. Bernoulli | 1713 | i.i.d. Bernoulli($p$) | 初等方法 / 切比雪夫（现代） |
+| **切比雪夫 WLLN** | P. Chebyshev | 1867 | 两两不相关 + $\operatorname{Var}$ 一致有界 | 切比雪夫不等式 |
+| **辛钦 WLLN** | A. Khinchin | 1929 | i.i.d. + $E\vert X_1\vert < \infty$ | 特征函数 + Lévy 连续性定理 |
+| **马尔可夫 WLLN** | A. Markov | ~1900 | $\frac{1}{n^2}\operatorname{Var}(\sum X_i) \to 0$ | 切比雪夫不等式 |
+
+### 5.2 强大数定律（几乎必然收敛）
+
+| 形式 | 提出者 | 年份 | 条件 | 证明工具 |
+|:--|:--|:--|:--|:--|
+| **博雷尔 SLLN** | É. Borel | 1909 | i.i.d. Bernoulli($p$) | Borel-Cantelli（初等形式） |
+| **柯尔莫哥洛夫 SLLN** | A. Kolmogorov | 1933 | i.i.d. + $E\vert X_1\vert < \infty$ | 柯尔莫哥洛夫不等式 + Borel-Cantelli + 截断法 |
+
+### 5.3 关键蕴含关系
+
+**条件由具体到一般**：伯努利大数定律是 i.i.d. Bernoulli 的特例，而柯尔莫哥洛夫 SLLN 和辛钦 WLLN 将其推广到任意 i.i.d. 序列（仅需 $E|X_1| < \infty$）。
+
+**收敛模式由弱到强**：SLLN（几乎必然收敛）蕴含 WLLN（依概率收敛），但反之不成立。条件完全相同的辛钦 WLLN 和柯尔莫哥洛夫 SLLN（均为 i.i.d. + $E|X|<\infty$）体现了这种强弱关系——前者只能保证 $\bar{X}_n \xrightarrow{P} \mu$，后者保证 $\bar{X}_n \xrightarrow{a.s.} \mu$。
+
+**Bernoulli 情形下的具体对应**：伯努利 WLLN 在加强收敛模式后成为博雷尔 SLLN；辛钦 WLLN 在加强收敛模式后成为柯尔莫哥洛夫 SLLN。即——同样的随机对象（i.i.d. Bernoulli 之和），随着证明工具从切比雪夫升级到 Borel-Cantelli，结论从依概率收敛升级到几乎必然收敛。
+
+## 6. 关键区别再辨析
+
+| 维度 | 弱大数定律（WLLN） | 强大数定律（SLLN） |
+|:--|:--|:--|
+| **收敛模式** | 依概率收敛（$X_n \xrightarrow{P} \mu$） | 几乎必然收敛（$X_n \xrightarrow{a.s.} \mu$） |
+| **含义** | 偏差超过 $\varepsilon$ 的概率趋于 $0$ | 对几乎所有样本路径，序列确定性地趋于 $\mu$ |
+| **能否预测远期？** | ✗ 不能——概率小不代表不会发生 | ✓ 能——几乎每条路径最终都稳定 |
+| **最弱条件（i.i.d.）** | 辛钦：$E\vert X_1\vert < \infty$ | 柯尔莫哥洛夫：$E\vert X_1\vert < \infty$ |
+| **核心不等式** | 切比雪夫不等式 | 柯尔莫哥洛夫不等式 |
+| **证明难度** | ⭐ 简单 | ⭐⭐⭐ 复杂（需要测度论工具） |
+
+**用一句话记住**：
+
+- **WLLN**："样本均值偏离真值的**可能性**趋于零。"
+- **SLLN**："样本均值偏离真值的**实际发生**趋于零——而且一旦 $n$ 足够大，它就再也不会回来了。"
+
+---
+
+## 7. 总结
 
 | 要点 | 说明 |
 |:--|:--|
+| 大数定律是一个定理家族 | Bernoulli → Chebyshev → Khinchin → Markov（WLLN 线）；Borel → Kolmogorov（SLLN 线） |
 | WLLN 的定义 | $\bar{X}_n \xrightarrow{P} \mu$，即 $P(\vert\bar{X}_n - \mu\vert > \varepsilon) \to 0$ |
 | SLLN 的定义 | $\bar{X}_n \xrightarrow{a.s.} \mu$，即 $P(\lim \bar{X}_n = \mu) = 1$ |
-| 核心区别 | 收敛模式不同——依概率 vs 几乎必然 |
-| WLLN 的证明 | 切比雪夫不等式，三行即得 |
-| SLLN 的证明 | 需要柯尔莫哥洛夫不等式 + Borel-Cantelli 引理 |
-| SLLN ⇒ WLLN | 几乎必然收敛蕴含依概率收敛，反之不成立 |
-| "游荡 1"反例 | 依概率收敛到 0 但并非几乎必然收敛 |
+| 辛钦 WLLN vs 柯尔莫哥洛夫 SLLN | 条件**完全相同**（i.i.d. + $E\vert X\vert < \infty$），结论一弱一强——这是 SLLN 比 WLLN 强的终极证据 |
+| 核心不等式 | 切比雪夫 → WLLN；柯尔莫哥洛夫 → SLLN |
+| SLLN ⇒ WLLN | 几乎必然收敛蕴含依概率收敛，反之不成立（"游荡 1"反例） |
+| 辛钦 vs 切比雪夫 | 辛钦不要方差但要独立同分布；切比雪夫不要独立/同分布但要方差 |
+
+---
+
+> **相关文章**：
+> - [[Math/ProbabilityInequalities|概率不等式完全指南]]——马尔可夫、切比雪夫、切尔诺夫、霍夫丁等证明工具
+> - [[Math/MultivariateStatistics|多元统计分析]]——当随机变量从标量扩展到向量时，大数定律仍然成立（分量性）
