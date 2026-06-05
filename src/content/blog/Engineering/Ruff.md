@@ -1,7 +1,7 @@
 ---
 title: Ruff常用命令指南
 date: 2026-02-01
-category: 技术
+category: 工程实践
 tags:
   - Python
   - 工具

@@ -1,7 +1,7 @@
 ---
 title: AlexNet：深度学习革命的引爆者
 date: 2026-05-23
-category: NeuralNetwork/CNN
+category: 神经网络/CNN
 tags:
   - 经典架构
 description: AlexNet 在 2012 年以大幅优势赢得 ImageNet 竞赛，标志着深度学习时代的开始。本文详解其架构设计和多项关键创新。

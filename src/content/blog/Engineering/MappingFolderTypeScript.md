@@ -1,7 +1,7 @@
 ---
 title: 在vitepress中映射图片文件夹
 date: 2026-05-03
-category: 技术
+category: 工程实践
 tags:
   - 设置
   - 网站

@@ -1,7 +1,7 @@
 ---
 title: Elman Network：循环神经网络的开端
 date: 2026-05-21
-category: NeuralNetwork/RNN
+category: 神经网络/RNN
 tags:
   - 经典架构
   - 深度学习

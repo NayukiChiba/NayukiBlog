@@ -1,7 +1,7 @@
 ---
 title: Ubuntu美化一下
 date: 2026-01-03
-category: Linux
+category: 编程/Linux
 tags:
   - 美化
 description: 每次安装Ubuntu，把它的界面变好看一些

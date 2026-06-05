@@ -1,7 +1,7 @@
 ---
 title: 模型收敛太慢怎么办？
 date: 2026-05-23
-category: NeuralNetwork/Troubleshooting
+category: 神经网络/问题排查
 tags:
   - 高级教程
 description: Loss 在降但速度太慢？从优化器到数据归一化，加速模型收敛的完整方案。

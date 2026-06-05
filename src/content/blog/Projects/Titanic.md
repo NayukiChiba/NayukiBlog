@@ -1,7 +1,7 @@
 ---
 title: Kaggle的泰坦尼克号存活预测
 date: 2026-03-05
-category: Projects
+category: 项目
 tags:
   - Python
   - Scikit-learn

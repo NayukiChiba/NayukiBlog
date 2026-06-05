@@ -1,7 +1,7 @@
 ---
 title: Markdown样式完整测试文档
 date: 2023-01-01
-category: 技术
+category: 测试
 tags:
   - Markdown
 description: 这是一个用于测试所有Markdown样式的综合测试文档，包含标题、列表、表格、代码块、数学公式、图片等所有常用元素。

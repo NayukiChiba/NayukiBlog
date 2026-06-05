@@ -1,7 +1,7 @@
 ---
 title: DecisionTreeRegression
 date: 2026-02-21
-category: MachineLearning/Regression
+category: 机器学习/回归
 tags:
   - Python
   - 基础

@@ -1,7 +1,7 @@
 ---
 title: 注意力机制详解：从信息瓶颈到 Bahdanau 注意力
 date: 2026-05-26
-category: NeuralNetwork/RNN
+category: 神经网络/RNN
 tags:
   - 深度学习
   - 基础

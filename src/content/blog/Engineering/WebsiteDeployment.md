@@ -1,7 +1,7 @@
 ---
 title: 如何完整部署一个网址
 date: 2026-01-02
-category: 技术
+category: 工程实践
 tags:
   - 服务器
   - 资源

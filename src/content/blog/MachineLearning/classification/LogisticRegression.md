@@ -1,7 +1,7 @@
 ---
 title: LogisticRegression 逻辑回归分类
 date: 2026-04-13
-category: MachineLearning/Classification
+category: 机器学习/分类
 tags:
   - Scikit-learn
   - 基础

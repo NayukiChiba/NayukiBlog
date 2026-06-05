@@ -1,7 +1,7 @@
 ---
 title: RNN 架构对比总结
 date: 2026-05-28
-category: NeuralNetwork/RNN
+category: 神经网络/RNN
 tags:
   - 总结
   - 深度学习

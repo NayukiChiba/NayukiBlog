@@ -1,7 +1,7 @@
 ---
 title: Dropout：从集成学习视角到实战配置
 date: 2026-05-09
-category: NeuralNetwork/Training
+category: 神经网络/训练
 tags:
   - 基础
   - 深度学习

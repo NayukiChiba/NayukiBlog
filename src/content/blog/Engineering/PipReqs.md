@@ -1,7 +1,7 @@
 ---
 title: pipreqs 自动生成 Python 项目依赖文件完整指南
 date: 2026-02-09
-category: 技术
+category: 工程实践
 tags:
   - 工具
   - 高级教程

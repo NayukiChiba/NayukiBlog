@@ -1,7 +1,7 @@
 ---
 title: Todo管理器
 date: 2026-03-03
-category: Projects
+category: 项目
 tags:
   - Python
 description: Python的小项目，Todo管理器

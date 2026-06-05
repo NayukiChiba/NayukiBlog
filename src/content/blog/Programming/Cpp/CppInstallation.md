@@ -1,7 +1,7 @@
 ---
 title: C++安装
 date: 2026-02-25
-category: C++学习
+category: 编程/C++
 tags:
   - Cpp
   - 基础

@@ -1,7 +1,7 @@
 ---
 title: 线性回归实现
 date: 2026-03-15
-category: MachineLearning/Regression
+category: 机器学习/回归
 tags:
   - Python
   - Scikit-learn

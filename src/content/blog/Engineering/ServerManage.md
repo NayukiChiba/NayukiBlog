@@ -1,7 +1,7 @@
 ---
 title: 服务器管理
 date: 2026-02-14
-category: 小巧思
+category: 工程实践
 tags:
   - 服务器
   - 工具

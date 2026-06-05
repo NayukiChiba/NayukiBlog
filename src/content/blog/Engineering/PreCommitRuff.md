@@ -1,7 +1,7 @@
 ---
 title: 在Commit前进行代码格式化
 date: 2026-01-26
-category: 技术
+category: 工程实践
 tags:
   - 工具
   - 高级教程

@@ -1,7 +1,7 @@
 ---
 title: GBDT 梯度提升树
 date: 2026-05-19
-category: MachineLearning/Ensemble
+category: 机器学习/集成学习
 tags:
   - Scikit-learn
 description: GBDT梯度提升树的数学原理、串行降偏差机制与完整工程实现。

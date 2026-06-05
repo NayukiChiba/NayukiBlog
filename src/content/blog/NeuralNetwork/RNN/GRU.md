@@ -1,7 +1,7 @@
 ---
 title: GRU 详解：LSTM 的高效替代方案
 date: 2026-05-27
-category: NeuralNetwork/RNN
+category: 神经网络/RNN
 tags:
   - 深度学习
   - 基础

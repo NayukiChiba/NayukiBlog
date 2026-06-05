@@ -1,7 +1,7 @@
 ---
 title: 天气查询
 date: 2026-03-01
-category: Projects
+category: 项目
 tags:
   - Python
 description: 访问OpenWeather的API，获取天气信息

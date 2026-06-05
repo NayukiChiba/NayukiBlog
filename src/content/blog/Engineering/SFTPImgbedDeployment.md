@@ -1,7 +1,7 @@
 ---
 title: 如何用服务器直接搭建图床
 date: 2026-01-01
-category: 小巧思
+category: 工程实践
 tags:
   - 免费
   - 服务器

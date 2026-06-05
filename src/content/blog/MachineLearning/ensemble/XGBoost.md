@@ -1,7 +1,7 @@
 ---
 title: XGBoost
 date: 2026-05-22
-category: MachineLearning/Ensemble
+category: 机器学习/集成学习
 tags:
   - Scikit-learn
   - 高级教程

@@ -1,7 +1,7 @@
 ---
 title: 贪吃蛇
 date: 2026-03-11
-category: Projects
+category: 项目
 tags:
   - Python
   - 有趣

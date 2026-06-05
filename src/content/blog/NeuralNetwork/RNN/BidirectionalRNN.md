@@ -1,7 +1,7 @@
 ---
 title: 双向 RNN：同时看到过去和未来
 date: 2026-05-22
-category: NeuralNetwork/RNN
+category: 神经网络/RNN
 tags:
   - 经典架构
   - 深度学习

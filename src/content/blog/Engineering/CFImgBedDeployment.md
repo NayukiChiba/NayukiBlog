@@ -1,7 +1,7 @@
 ---
 title: 使用Cloudflare部署免费图床
 date: 2025-12-31
-category: 小巧思
+category: 工程实践
 tags:
   - 免费
   - Cloudflare

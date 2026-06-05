@@ -1,7 +1,7 @@
 ---
 title: LDA 线性判别分析
 date: 2026-05-06
-category: MachineLearning/Dimensionality
+category: 机器学习/降维
 tags:
   - Scikit-learn
 description: LDA线性判别分析的数学原理、Fisher判别准则与完整工程实现。

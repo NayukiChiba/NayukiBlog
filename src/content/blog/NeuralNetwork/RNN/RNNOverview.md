@@ -1,7 +1,7 @@
 ---
 title: RNN 概述：为什么需要循环神经网络
 date: 2026-05-29
-category: NeuralNetwork/RNN
+category: 神经网络/RNN
 tags:
   - 深度学习
   - 基础

@@ -1,7 +1,7 @@
 ---
 title: 华为机试真题AI方向索引（2026年3月-6月）
 date: 2026-06-04
-category: Internship/HUAWEI
+category: 实习/华为
 tags:
   - 笔试
   - 华为

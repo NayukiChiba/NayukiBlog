@@ -1,7 +1,7 @@
 ---
 title: SVC 支持向量分类
 date: 2026-04-28
-category: MachineLearning/Classification
+category: 机器学习/分类
 tags:
   - Scikit-learn
 description: 支持向量分类的数学原理、RBF核技巧与完整工程实现。

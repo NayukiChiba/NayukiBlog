@@ -1,7 +1,7 @@
 ---
 title: 如何编译Cpp
 date: 2026-02-26
-category: C++学习
+category: 编程/C++
 tags:
   - Cpp
   - 基础

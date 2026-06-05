@@ -1,7 +1,7 @@
 ---
 title: DecisionTreeClassifier 决策树分类
 date: 2026-04-09
-category: MachineLearning/Classification
+category: 机器学习/分类
 tags:
   - Scikit-learn
   - 基础

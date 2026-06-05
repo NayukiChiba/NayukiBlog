@@ -1,7 +1,7 @@
 ---
 title: Seq2Seq：编码器-解码器架构
 date: 2026-05-25
-category: NeuralNetwork/RNN
+category: 神经网络/RNN
 tags:
   - 经典架构
   - 深度学习

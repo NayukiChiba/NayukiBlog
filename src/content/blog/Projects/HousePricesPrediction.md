@@ -1,7 +1,7 @@
 ---
 title: Kaggle房价预测
 date: 2026-03-10
-category: Projects
+category: 项目
 tags:
   - Scikit-learn
   - Python

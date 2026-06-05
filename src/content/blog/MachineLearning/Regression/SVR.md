@@ -1,7 +1,7 @@
 ---
 title: SVR 支持向量回归
 date: 2026-04-14
-category: MachineLearning/Regression
+category: 机器学习/回归
 tags:
   - Scikit-learn
 description: SVR支持向量回归的数学原理、ε-管道损失与完整工程实现。

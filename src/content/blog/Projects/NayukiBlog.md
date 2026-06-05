@@ -2,7 +2,7 @@
 title: NayukiBlog - 个人博客系统
 description: 基于 Astro 的现代化静态博客，配套 Vue 3 可视化管理后台
 date: 2025-01-30
-category: Projects
+category: 项目
 tags:
   - Astro
   - 网站

@@ -1,7 +1,7 @@
 ---
 title: HMM
 date: 2026-03-14
-category: MachineLearning/Probabilistic
+category: 机器学习/概率模型
 tags:
   - Scikit-learn
   - 高级教程

@@ -1,7 +1,7 @@
 ---
 title: Loss 不下降怎么办？
 date: 2026-05-23
-category: NeuralNetwork/Troubleshooting
+category: 神经网络/问题排查
 tags:
   - 高级教程
 description: 训练了几个 epoch，Loss 纹丝不动？系统排查 Loss 不下降的 7 大常见原因及解决方案。

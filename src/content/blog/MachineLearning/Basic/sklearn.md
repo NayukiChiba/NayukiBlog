@@ -1,7 +1,7 @@
 ---
 title: Sklearn 全指南
 date: 2026-01-20
-category: MachineLearning/Basic
+category: 机器学习/基础
 tags:
   - Python
   - 基础

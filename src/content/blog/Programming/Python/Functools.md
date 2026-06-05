@@ -1,7 +1,7 @@
 ---
 title: Python的functools模块
 date: 2026-01-26
-category: PythonAdvanceUsage
+category: 编程/Python
 tags:
   - Python
   - 高级教程

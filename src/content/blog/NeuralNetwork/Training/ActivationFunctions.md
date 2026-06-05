@@ -1,7 +1,7 @@
 ---
 title: 激活函数详解：为什么 CNN 需要非线性
 date: 2026-05-07
-category: NeuralNetwork/Training
+category: 神经网络/训练
 tags:
   - 基础
   - 深度学习

@@ -1,7 +1,7 @@
 ---
 title: CNN 核心组件详解：卷积层、池化层与全连接层
 date: 2026-05-07
-category: NeuralNetwork/CNN
+category: 神经网络/CNN
 tags:
   - 深度学习
   - 基础

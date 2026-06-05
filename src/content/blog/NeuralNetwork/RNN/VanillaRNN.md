@@ -1,7 +1,7 @@
 ---
 title: Vanilla RNN 详解：前向传播与 BPTT
 date: 2026-05-29
-category: NeuralNetwork/RNN
+category: 神经网络/RNN
 tags:
   - 深度学习
   - 基础

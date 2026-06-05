@@ -1,7 +1,7 @@
 ---
 title: 自定义Copilot
 date: 2026-01-20
-category: 小巧思
+category: 工程实践
 tags:
   - ai
   - 资源

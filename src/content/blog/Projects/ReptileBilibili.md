@@ -1,7 +1,7 @@
 ---
 title: 爬虫Bilibili
 date: 2026-03-07
-category: Projects
+category: 项目
 tags:
   - Python
 description: 访问Bilibili的API，爬取个人信息

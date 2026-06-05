@@ -1,7 +1,7 @@
 ---
 title: 嵌入层详解：从离散符号到稠密向量
 date: 2026-05-28
-category: NeuralNetwork/RNN
+category: 神经网络/RNN
 tags:
   - 深度学习
   - 基础

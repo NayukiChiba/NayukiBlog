@@ -1,7 +1,7 @@
 ---
 title: 爬虫豆瓣
 date: 2026-03-07
-category: Projects
+category: 项目
 tags:
   - Python
 description: 使用requests获取静态网页信息，筛选出Top250电影信息

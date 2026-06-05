@@ -1,7 +1,7 @@
 ---
 title: Git 与 GitHub CLI 使用全流程指南
 date: 2026-01-17
-category: 技术
+category: 工程实践
 tags:
   - git
   - 工具

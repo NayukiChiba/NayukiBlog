@@ -1,7 +1,7 @@
 ---
 title: 数据预处理与增强详解
 date: 2026-05-07
-category: NeuralNetwork/CNN
+category: 神经网络/CNN
 tags:
   - 深度学习
   - 基础

@@ -1,7 +1,7 @@
 ---
 title: 如何部署qq机器人Astrbot
 date: 2026-02-16
-category: 小巧思
+category: 工程实践
 tags:
   - 有趣
   - 服务器

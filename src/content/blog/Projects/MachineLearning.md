@@ -1,7 +1,7 @@
 ---
 title: 机器学习全汇总项目
 date: 2026-05-24
-category: Projects
+category: 项目
 tags:
   - 高级教程
   - Scikit-learn

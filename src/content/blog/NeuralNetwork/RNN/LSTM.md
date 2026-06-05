@@ -1,7 +1,7 @@
 ---
 title: LSTM 详解：从梯度消失危机到门控记忆网络
 date: 2026-05-25
-category: NeuralNetwork/RNN
+category: 神经网络/RNN
 tags:
   - 深度学习
   - 基础

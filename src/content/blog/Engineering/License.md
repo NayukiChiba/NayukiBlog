@@ -1,7 +1,7 @@
 ---
 title: GitHub开源许可证详解与对比
 date: 2026-02-20
-category: 技术
+category: 工程实践
 tags:
   - git
   - 资源

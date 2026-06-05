@@ -1,7 +1,7 @@
 ---
 title: 大数定律详解：从弱大数律到强大数律
 date: 2026-06-04
-category: Math
+category: 数学
 tags:
   - 概率论
   - 数理统计

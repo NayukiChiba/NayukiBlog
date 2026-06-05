@@ -1,7 +1,7 @@
 ---
 title: KMeans K 均值聚类
 date: 2026-05-05
-category: MachineLearning/Clustering
+category: 机器学习/聚类
 tags:
   - Scikit-learn
 description: KMeans聚类的数学原理、参数调优、标准化必要性及完整实现流程。

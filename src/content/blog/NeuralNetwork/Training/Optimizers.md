@@ -1,7 +1,7 @@
 ---
 title: 优化器完全指南：从 SGD 到 AdamW
 date: 2026-05-23
-category: NeuralNetwork/Training
+category: 神经网络/训练
 tags:
   - 总结
   - 深度学习

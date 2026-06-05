@@ -1,7 +1,7 @@
 ---
 title: Vscode中的Latex设置
 date: 2026-04-21
-category: 技术
+category: 工程实践
 tags:
   - 工具
   - 设置

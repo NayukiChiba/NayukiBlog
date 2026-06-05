@@ -1,7 +1,7 @@
 ---
 title: LightGBM
 date: 2026-05-21
-category: MachineLearning/Ensemble
+category: 机器学习/集成学习
 tags:
   - Scikit-learn
 description: LightGBM的数学原理、Leaf-wise生长与直方图加速及完整实现。

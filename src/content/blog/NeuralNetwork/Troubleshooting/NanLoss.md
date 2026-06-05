@@ -1,7 +1,7 @@
 ---
 title: Loss 变成 NaN 怎么办？
 date: 2026-05-23
-category: NeuralNetwork/Troubleshooting
+category: 神经网络/问题排查
 tags:
   - 高级教程
 description: 训练到一半 Loss 突然变成 NaN？排查 5 大常见原因及对应的修复方法。

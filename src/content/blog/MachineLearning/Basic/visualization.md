@@ -1,7 +1,7 @@
 ---
 title: 数据可视化指南
 date: 2026-01-24
-category: MachineLearning/Basic
+category: 机器学习/基础
 tags:
   - Python
   - 可视化

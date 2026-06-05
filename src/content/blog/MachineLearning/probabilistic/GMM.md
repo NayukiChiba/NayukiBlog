@@ -1,7 +1,7 @@
 ---
 title: EM 与 GMM
 date: 2026-04-14
-category: MachineLearning/Probabilistic
+category: 机器学习/概率模型
 tags:
   - Scikit-learn
   - 高级教程

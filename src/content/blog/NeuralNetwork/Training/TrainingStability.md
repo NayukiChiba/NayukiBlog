@@ -1,7 +1,7 @@
 ---
 title: 训练稳定性保障：梯度裁剪、早停与检查点
 date: 2026-05-09
-category: NeuralNetwork/Training
+category: 神经网络/训练
 tags:
   - 高级教程
   - 基础

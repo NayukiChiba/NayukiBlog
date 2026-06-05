@@ -1,7 +1,7 @@
 ---
 title: 正则化回归
 date: 2026-02-21
-category: MachineLearning/Regression
+category: 机器学习/回归
 tags:
   - Scikit-learn
 description: 正则化回归的数学原理、L1/L2惩罚机制与多模型工程实现。

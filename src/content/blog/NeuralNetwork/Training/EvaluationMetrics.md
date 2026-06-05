@@ -1,7 +1,7 @@
 ---
 title: 评估指标详解：模型到底有多好
 date: 2026-05-07
-category: NeuralNetwork/Training
+category: 神经网络/训练
 tags:
   - 基础
   - 深度学习

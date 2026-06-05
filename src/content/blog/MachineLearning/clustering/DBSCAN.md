@@ -1,7 +1,7 @@
 ---
 title: DBSCAN 密度聚类
 date: 2026-05-01
-category: MachineLearning/Clustering
+category: 机器学习/聚类
 tags:
   - Scikit-learn
 description: DBSCAN密度聚类的数学原理、参数调优与工程实现流程。

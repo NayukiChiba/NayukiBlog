@@ -1,7 +1,7 @@
 ---
 title: 关于Github的进阶用法
 date: 2026-01-25
-category: 技术
+category: 工程实践
 tags:
   - 高级教程
   - 资源

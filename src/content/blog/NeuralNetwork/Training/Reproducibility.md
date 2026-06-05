@@ -1,7 +1,7 @@
 ---
 title: 实验可复现性：随机种子与模式切换
 date: 2026-05-09
-category: NeuralNetwork/Training
+category: 神经网络/训练
 tags:
   - 基础
   - 深度学习

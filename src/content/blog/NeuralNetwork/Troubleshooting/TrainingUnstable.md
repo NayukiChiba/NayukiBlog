@@ -1,7 +1,7 @@
 ---
 title: 训练不稳定（Loss 剧烈震荡）怎么办？
 date: 2026-05-23
-category: NeuralNetwork/Troubleshooting
+category: 神经网络/问题排查
 tags:
   - 高级教程
 description: Loss 曲线像过山车一样上下翻飞？系统排查训练不稳定的原因与稳定方案。

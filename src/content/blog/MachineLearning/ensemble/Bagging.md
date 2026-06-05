@@ -1,7 +1,7 @@
 ---
 title: Bagging 集成学习
 date: 2026-05-10
-category: MachineLearning/Ensemble
+category: 机器学习/集成学习
 tags:
   - Scikit-learn
 description: Bagging集成学习的数学原理、Bootstrap采样与方差缩减及完整实现流程。

@@ -1,7 +1,7 @@
 ---
 title: 对于远程控制Linux出现的一些问题
 date: 2026-01-26
-category: Linux
+category: 编程/Linux
 tags:
   - 服务器
   - Bug

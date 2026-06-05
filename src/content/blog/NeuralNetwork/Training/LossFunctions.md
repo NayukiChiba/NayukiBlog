@@ -1,7 +1,7 @@
 ---
 title: 损失函数完全指南：从交叉熵到均方误差
 date: 2026-05-23
-category: NeuralNetwork/Training
+category: 神经网络/训练
 tags:
   - 基础
   - 深度学习

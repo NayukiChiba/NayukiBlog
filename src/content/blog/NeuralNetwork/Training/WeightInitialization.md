@@ -1,7 +1,7 @@
 ---
 title: 权重初始化：Xavier 与 Kaiming 详解
 date: 2026-05-09
-category: NeuralNetwork/Training
+category: 神经网络/训练
 tags:
   - 高级教程
   - 深度学习

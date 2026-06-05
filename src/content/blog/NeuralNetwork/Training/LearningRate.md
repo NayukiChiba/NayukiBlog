@@ -1,7 +1,7 @@
 ---
 title: 学习率调度完全指南
 date: 2026-05-23
-category: NeuralNetwork/Training
+category: 神经网络/训练
 tags:
   - 高级教程
   - 深度学习
