@@ -240,7 +240,19 @@ $$
 > [!NOTE] 为什么在 RLHF 中使用 PPO 而非更简单的 RL 算法？
 > 1. PPO 的 clipping 机制天然适合语言模型——限制策略变化幅度防止语言能力退化
 > 2. PPO 在 NLP 任务上已被 TRL 等库广泛验证和实现
-> 3. PPO 只需要在线采样（on-policy），与 RLHF 的"生成-打分-更新"循环天然匹配
+> 3. PPO 是策略梯度（Policy Gradient）方法，直接对概率分布优化，天然适合大词表场景
+
+**为什么不选其他 RL 算法？**
+
+| 算法 | 类型 | 能否用于 LLM？ | 原因 |
+|:--|:--|:--:|:--|
+| DQN | 值函数（Q-Learning） | ✗ | 为**离散小动作空间**设计（如 Atari 上下左右 4 个按钮）。LLM 每步要从 50000+ 词表中选 Token，为每个动作估算 Q 值不可行 |
+| REINFORCE | 策略梯度 | 勉强 | 无 clipping，高方差，训练极不稳定。LLM 的序列长度和词表规模会放大方差 |
+| A2C/A3C | Actor-Critic | 勉强 | 需要独立的 Critic 网络，额外复杂度；无 clipping 导致策略容易崩溃 |
+| SAC | Off-policy Actor-Critic | ✗ | 连续动作空间设计，不匹配 Token 采样的离散性 |
+| **PPO** | 策略梯度 + Clipping | ✅ | 策略梯度适配大词表 + clipping 防崩溃 + GAE 降方差，三合一匹配 LLM |
+
+一个常见的笔试陷阱是把"最大化人类偏好得分"当成算法——这是 RLHF 的**目标**，不是实现方法。SFT 是 RLHF 的**前置步骤**，不是 RLHF 阶段本身。DQN 虽然也是强化学习算法，但设计场景完全不同，不能用于 LLM。
 
 ### 5.3 RLHF 中的 PPO 训练循环
 
