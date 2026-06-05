@@ -304,8 +304,9 @@
     tocOverlay?.addEventListener("click", closeTocDrawer);
 
     if ((tocContainer || mobileTocContainer) && contentEl) {
-      // 获取所有标题
-      const headings = contentEl.querySelectorAll("h1, h2, h3, h4");
+      // 获取所有标题（排除 <details> 折叠块内的标题，避免出现在 TOC 大纲中）
+      const allHeadings = contentEl.querySelectorAll("h1, h2, h3, h4");
+      const headings = Array.from(allHeadings).filter(h => !h.closest('details'));
 
       if (headings.length > 0) {
         // 为桌面端和移动端都生成目录
