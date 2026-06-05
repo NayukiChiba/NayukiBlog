@@ -19,6 +19,7 @@ status: published
 ---
 
 ## 2026年6月3日-AI方向
+> [[Internship/HUAWEI/2026-06-03|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -27,6 +28,7 @@ status: published
 | [P4998](https://codefun2000.com/p/P4998) | 第3题-回归任务反向传播机理 | 中等 |
 
 ## 2026年5月27日-AI方向
+> [[Internship/HUAWEI/2026-05-27|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -35,6 +37,7 @@ status: published
 | [P4983](https://codefun2000.com/p/P4983) | 第3题-流式日志Top-K高频统计 | 困难 |
 
 ## 2026年5月22日-AI方向
+> [[Internship/HUAWEI/2026-05-22|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -43,6 +46,7 @@ status: published
 | [P4970](https://codefun2000.com/p/P4970) | 第3题-KV Cache 感知的推理请求路由 | 困难 |
 
 ## 2026年5月20日-AI方向
+> [[Internship/HUAWEI/2026-05-20|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -51,6 +55,7 @@ status: published
 | [P4964](https://codefun2000.com/p/P4964) | 第3题-敏感实体动态遮蔽掩码 | 困难 |
 
 ## 2026年5月13日-AI方向
+> [[Internship/HUAWEI/2026-05-13|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -59,6 +64,7 @@ status: published
 | [P4939](https://codefun2000.com/p/P4939) | 第3题-2D 单通道空洞卷积底层实现 | 中等 |
 
 ## 2026年5月9日-AI方向
+> [[Internship/HUAWEI/2026-05-09|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -67,6 +73,7 @@ status: published
 | [P4906](https://codefun2000.com/p/P4906) | 第3题-多头注意力掩码计算 | 中等 |
 
 ## 2026年4月29日-AI方向
+> [[Internship/HUAWEI/2026-04-29|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -75,6 +82,7 @@ status: published
 | [P4870](https://codefun2000.com/p/P4870) | 第3题-大模型预训练语料清洗 | 中等 |
 
 ## 2026年4月23日-留学生AI方向
+> [[Internship/HUAWEI/2026-04-23|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -83,6 +91,7 @@ status: published
 | [P4831](https://codefun2000.com/p/P4831) | 第3题-决策树实现网络设备故障预测 | 困难 |
 
 ## 2026年4月22日-AI方向
+> [[Internship/HUAWEI/2026-04-22|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -91,6 +100,7 @@ status: published
 | [P4822](https://codefun2000.com/p/P4822) | 第3题-网络异常流量传播链路溯源 | 困难 |
 
 ## 2026年4月15日-AI方向
+> [[Internship/HUAWEI/2026-04-15|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -99,6 +109,7 @@ status: published
 | [P4780](https://codefun2000.com/p/P4780) | 第3题-大模型推理资源的最低成本分发 | 中等 |
 
 ## 2026年4月8日-AI方向
+> [[Internship/HUAWEI/2026-04-08|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -107,6 +118,7 @@ status: published
 | [P4730](https://codefun2000.com/p/P4730) | 第3题-快递员极速配送挑战 | 中等 |
 
 ## 2026年3月18日-AI方向
+> [[Internship/HUAWEI/2026-03-18|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -115,6 +127,7 @@ status: published
 | [P4626](https://codefun2000.com/p/P4626) | 第3题-基于KNN的语音数据分类 | 中等 |
 
 ## 2026年3月4日-AI方向
+> [[Internship/HUAWEI/2026-03-04|题目]]
 
 | PID | 题目 | 难度 |
 |---|---|---|
@@ -124,5 +137,5 @@ status: published
 
 ---
 
-> 每题详细内容可通过链接访问 CodeFun2000 查看。
+> 每题详细内容可通过链接访问 [CodeFun2000 华为校招机考题库](https://codefun2000.com/problemset/hw) 查看。
 > 其中选择题每题含 20 道 AI/ML 相关选择题（15单选+5多选）。
