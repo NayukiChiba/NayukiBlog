@@ -19,7 +19,13 @@ status: draft
 > **🖼️ AI 生图提示词：**
 >
 > ```
-> A wide banner image (2.35:1 aspect ratio) for a blog post about the Law of Large Numbers. Design concept: Left side shows a chaotic, noisy scatter of individual random variables (small translucent dots fluctuating wildly). Moving right, the dots coalesce into a running average line that gradually smooths out and converges toward a horizontal dashed line labeled "μ" (the expected value). The rightmost portion shows the sample mean tightly hugging μ. Two labels: "n = 10" (left, jittery), "n = 100" (middle, smoothing), "n = 10,000" (right, flat at μ). Color palette: deep navy to warm gold gradient, modern data-science aesthetic. Clean sans-serif labels, faint grid background. Mathematical textbook meets infographic style. Leave space at top for title overlay.
+> 一张宽幅 Banner（宽高比 2.35:1），用于大数定律详解的博客封面。
+> 设计概念：左侧为混沌、噪声般的单个随机变量散点（半透明小点剧烈波动），
+> 向右推移，散点逐渐凝聚为一条运行均值线，平滑化并收敛到标注为 μ 的水平虚线。
+> 最右侧展示样本均值紧密贴合 μ。三处标注："n = 10"（左侧，抖动）、
+> "n = 100"（中间，趋于平滑）、"n = 10,000"（右侧，紧贴 μ）。
+> 配色：深海军蓝到暖金色渐变，现代数据科学美学风格。
+> 简洁无衬线标签，淡色网格背景。数学教科书中常见的插图风格。顶部留白供标题叠加。
 > ```
 
 ## 1. 直觉：为什么需要大数定律？
@@ -67,7 +73,16 @@ $X_n \xrightarrow{P} 0$（$1$ 的区间越来越短），但对于**每一个**�
 > **🖼️ AI 生图提示词：**
 >
 > ```
-> A mathematical visualization of the "wandering 1" counterexample showing convergence in probability but not almost sure convergence. Four small panels stacked vertically, each showing a unit interval [0,1] on the x-axis. Panel 1 (top): "Step 1" — a single red bar spanning the entire [0,1] interval (X₁ = 1 everywhere). Panel 2: "Step 2-3" — two narrower red bars each of width 1/2 (X₂ on left half, X₃ on right half). Panel 3: "Step 4-7" — four even narrower red bars each of width 1/4. Panel 4: "Step 8-15" — eight very thin red bars each of width 1/8. Below the panels, show a sample path plot for a fixed ω (e.g., ω = 0.37): a timeline from n=1 to n=20 where the indicator value keeps returning to 1 infinitely often, never settling to 0. Label: "For any fixed ω, Xₙ(ω) does NOT converge to 0". Clean academic figure, white background, thin axis lines. Mathematical textbook style.
+> "游荡的 1"反例的可视化展示，说明依概率收敛但不几乎必然收敛。
+> 四个小面板纵向排列，每个面板的横轴为单位区间 [0,1]。
+> 面板 1（顶部）"步骤 1"：单一红色长条覆盖整个 [0,1] 区间（X₁ 处处为 1）。
+> 面板 2"步骤 2-3"：两条较窄红色长条，各宽 1/2（X₂ 在左半，X₃ 在右半）。
+> 面板 3"步骤 4-7"：四条更窄红色长条，各宽 1/4。
+> 面板 4"步骤 8-15"：八条极窄红色长条，各宽 1/8。
+> 面板下方为固定 ω（如 ω=0.37）的样本路径图：
+> n=1 到 n=20 的时间线，指示函数值反复回到 1，永不确定性地趋于 0。
+> 标注："对于任意固定的 ω，Xₙ(ω) 不收敛到 0"。
+> 简洁学术图，白色背景，细坐标轴线。数学教科书风格。
 > ```
 
 ### 2.2 几乎必然收敛（Almost Sure Convergence）
@@ -107,14 +122,15 @@ $$
 > **🖼️ AI 生图提示词：**
 >
 > ```
-> A clean hierarchical diagram showing the relationships between four modes of convergence in probability theory. Four labeled boxes arranged with arrows showing implication directions:
-> Top: "Almost Sure Convergence (a.s.)" — strongest, arrow pointing down to "Convergence in Probability (P)".
-> "Convergence in Probability (P)" — middle, with two outgoing arrows: one to "Convergence in Distribution (D)" (directly below), and a dashed arrow to "Lᵖ Convergence" (to the right, with condition label "dominated / uniform integrability").
-> "Convergence in Distribution (D)" — at bottom, weakest mode.
-> Color code the boxes: a.s. in dark green (strongest), P in blue, Lᵖ in orange, D in gray (weakest).
-> Add small text annotations: "WLLN uses this" under P box, "SLLN uses this" under a.s. box, "CLT uses this" under D box.
-> Also show: a.s. → P arrow labeled "always", P → D arrow labeled "always", P → a.s. arrow with red X mark labeled "counterexample: wandering 1", D → P arrow with red X mark labeled "counterexample".
-> Clean vector diagram, white background, mathematical illustration style.
+> 一张简洁的层级关系图，展示概率论中四种收敛模式的关系。
+> 四个带标签的矩形框，用箭头表示蕴含方向：
+> 顶部"几乎必然收敛 (a.s.)"——最强，深绿色。
+> 向下箭头指向中部"依概率收敛 (P)"——蓝色。
+> "依概率收敛"发出两条箭头：一条向下到"依分布收敛 (D)"（底部，灰色，最弱），
+> 一条虚线向右到"Lᵖ 收敛"（橙色，标注条件"控制收敛/一致可积"）。
+> 小字标注："WLLN 使用"在 P 框下，"SLLN 使用"在 a.s. 框下，"CLT 使用"在 D 框下。
+> 红色 X 标记反例：P 到 a.s. 标注"反例：游荡 1"，D 到 P 标注"反例"。
+> 简洁矢量图，白色背景，数学插图风格。
 > ```
 
 ---
@@ -172,6 +188,22 @@ P\left( \left| \bar{X}_n - \bar{\mu}_n \right| \ge \varepsilon \right)
 $$
 
 仅用了两两不相关（交叉协方差为零保证 $\operatorname{Var}(\bar{X}_n) = \frac{1}{n^2}\sum \operatorname{Var}(X_i)$）和切比雪夫不等式。证明虽简洁，但**假设了方差存在且一致有界**。
+
+![图3: 切比雪夫 WLLN 证明流程——从切比雪夫不等式到依概率收敛](https://img.yumeko.site/file/blog/LawOfLargeNumbers/WLLNProof.png)
+
+> **🖼️ AI 生图提示词：**
+>
+> ```
+> 一张教学流程图，展示切比雪夫弱大数定律的三步证明。
+> 三个矩形框从上到下排列，箭头连接：
+> 框 1"步骤 1：计算样本均值的期望和方差"——
+> E[X̄ₙ]=μ，Var(X̄ₙ)≤C/n（附方差计算展开）。
+> 框 2"步骤 2：应用切比雪夫不等式"——P(|X̄ₙ-μ|≥ε) ≤ Var(X̄ₙ)/ε²。
+> 框 3"步骤 3：取极限"——P(|X̄ₙ-μ|≥ε) ≤ C/(nε²) → 0（n→∞）。
+> 框 3 下方标绿色对勾"证毕"。
+> 右侧小图展示 P(|X̄ₙ-μ|≥ε) 随 n 的衰减曲线，指数式趋近 0。
+> 简洁学术流程图，柔和的蓝白配色。LaTeX 风格数学公式。白色背景。
+> ```
 
 ### 3.3 辛钦大数定律（Khinchin's WLLN，仅需一阶矩）
 
@@ -274,11 +306,16 @@ $$
 > **🖼️ AI 生图提示词：**
 >
 > ```
-> A two-panel visual comparison of Chebyshev's inequality versus Kolmogorov's inequality. Each panel shows the same random walk S₁, S₂, ..., Sₙ as a blue zigzag path over time (x-axis: step k = 1..n, y-axis: cumulative sum value).
-> Left panel: "Chebyshev: controls ONE point" — a vertical dashed line at k = n (last step only), with a red shaded horizontal band around 0 of width ±ε. The inequality bounds P(|Sₙ| ≥ ε). Most of the path is unchecked (gray).
-> Right panel: "Kolmogorov: controls the ENTIRE path" — a red shaded horizontal band of width ±ε spanning the full time range (k = 1 to n). The inequality bounds P(max₁≤ₖ≤ₙ |Sₖ| ≥ ε). Annotate: if any part of the blue path exits the band, it's detected. Label: "Stronger control → enables a.s. convergence proof".
-> The right panel's red band is visually more "protective" — it catches deviations anywhere along the path, not just at the end.
-> Clean academic figure style, white background, thin coordinate axes. Mathematical textbook illustration.
+> 切比雪夫不等式与柯尔莫哥洛夫不等式的双面板可视化对比。
+> 每个面板展示同一条随机游走 S₁, S₂, ..., Sₙ，蓝色锯齿路径随时间变化
+>（横轴：步数 k=1..n，纵轴：累积和值）。
+> 左面板"切比雪夫：控制单点"——在 k=n 处（仅最后一步）画竖直虚线，
+> 红色阴影水平带围绕 0，宽度 ±ε。不等式控制 P(|Sₙ|≥ε)。
+> 路径的大部分为灰色（未被检查）。
+> 右面板"柯尔莫哥洛夫：控制整个路径"——红色阴影水平带宽度 ±ε 贯穿全部时间范围
+>（k=1 到 n）。不等式控制 P(max|Sₖ|≥ε)。
+> 标注：蓝色路径任何部分超出红色带即被检测到。"更强的控制 → 实现 a.s. 收敛证明"。
+> 简洁学术图，白色背景，细坐标轴线。数学教科书插图。
 > ```
 
 **证明策略**（截断法）：
@@ -331,10 +368,18 @@ $$
 > **🖼️ AI 生图提示词：**
 >
 > ```
-> A two-row multi-panel figure simulating coin flips to illustrate WLLN vs SLLN.
-> Top row (4 panels): "WLLN — Probability View" — each panel shows a histogram/distribution of X̄ₙ values from 10,000 independent simulation runs at a given n. n = 10 (wide bell), n = 100 (narrower), n = 1000 (very narrow), n = 10000 (spike at μ). The distribution tightens around μ = 0.5, illustrating P(|X̄ₙ - μ| > ε) → 0.
-> Bottom row (1 wide panel spanning full width): "SLLN — Path View" — a single plot showing 5 overlaid sample paths (colored lines) of the running average X̄ₙ from n=1 to n=1000. All paths start jittery but smooth out and converge to the horizontal dashed line μ = 0.5. Shade the region beyond n ≈ 500 with light green to show "once close, stays close." Label: "P(lim X̄ₙ = μ) = 1 — almost every path converges."
-> Professional data visualization style, white background, clean axes. Color palette: blue distributions, warm-colored paths.
+> 模拟抛硬币的双行多面板图，展示 WLLN 与 SLLN 的差异。
+> 上行（4 个面板）"WLLN——概率视角"：每个面板展示在给定 n 下，
+> 10,000 次独立模拟运行中样本均值 X̄ₙ 的直方图/分布。
+> n=10（宽钟形）、n=100（变窄）、n=1000（非常窄）、n=10000（尖峰在 μ 处）。
+> 分布围绕 μ=0.5 逐渐收紧，展示 P(|X̄ₙ-μ|>ε) → 0。
+> 下行（1 个宽面板，占满宽度）"SLLN——路径视角"：
+> 展示 5 条叠加的样本路径（彩色线），为 n=1 到 n=1000 的运行均值。
+> 所有路径开始时抖动但逐渐平滑，收敛到水平虚线 μ=0.5。
+> n ≈ 500 之后的区域用浅绿色阴影标注，表示"一旦接近，便保持接近"。
+> 标注："P(lim X̄ₙ=μ)=1——几乎每条路径都收敛"。
+> 专业数据可视化风格，白色背景，清晰坐标轴。
+> 配色：蓝色分布，暖色路径。
 > ```
 
 ---
@@ -356,8 +401,6 @@ $$
 |:--|:--|:--|:--|:--|
 | **博雷尔 SLLN** | É. Borel | 1909 | i.i.d. Bernoulli($p$) | Borel-Cantelli（初等形式） |
 | **柯尔莫哥洛夫 SLLN** | A. Kolmogorov | 1933 | i.i.d. + $E\vert X_1\vert < \infty$ | 柯尔莫哥洛夫不等式 + Borel-Cantelli + 截断法 |
-
-### 5.3 关键蕴含关系
 
 **条件由具体到一般**：伯努利大数定律是 i.i.d. Bernoulli 的特例，而柯尔莫哥洛夫 SLLN 和辛钦 WLLN 将其推广到任意 i.i.d. 序列（仅需 $E|X_1| < \infty$）。
 
