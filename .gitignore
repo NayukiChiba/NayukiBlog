@@ -57,6 +57,7 @@ exported_data/
 
 .shared
 .claude
+!.claude/skills/write-blog
 CLAUDE.md
 .playwright-mcp
 
