@@ -9,24 +9,9 @@ tags:
   - DDIM
   - 推理加速
 description: 系统讲解扩散模型的数学原理：前向扩散过程的噪声调度、反向去噪过程的参数化、DDPM 完整采样算法、DDIM 确定性加速采样、Classifier-Free Guidance 条件生成技术，以及主流采样器对比。
-image: https://img.yumeko.site/file/blog/DiffusionInference.png
+image: https://img.yumeko.site/file/blog/cover/1780668233580.webp
 status: draft
 ---
-
-![图0: 扩散模型全景——从纯噪声到高清图像的逆过程](https://img.yumeko.site/file/blog/DiffusionInference.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于扩散模型推理详解的博客封面。
-> 设计概念：从左到右展示扩散模型的逆过程——左侧是完全的随机噪声（混沌的彩色像素点），
-> 经过 4-5 个中间阶段的去噪步骤（每个阶段图像逐渐清晰），右侧是最终生成的高清图像。
-> 上方用数学符号标注：左端 x_T ~ N(0,I)，右端 x_0 ~ p_data。
-> 相邻步骤之间标注去噪网络 ε_θ 的符号。
-> 配色：深紫色背景到明亮白色的渐变，配合彩色噪点，科技艺术风格。
-> 顶部留白供标题叠加。
-> ```
-
 > **前置阅读**：本文假定读者熟悉概率论基础。建议先阅读 [[Math/ProbabilityInequalities|概率不等式完全指南]]。
 
 ## 1. 问题的起点：扩散模型的直觉

@@ -7,7 +7,7 @@ tags:
   - 插值
   - 样条
 description: 从数学基础出发，系统讲解三次样条插值的定义、构造过程、三对角方程组推导、边界条件、追赶法求解及Python实现，辅以完整数值示例。
-image: https://img.yumeko.site/file/blog/CubicSplineInterpolation.png
+image: https://img.yumeko.site/file/blog/cover/1780667852039.webp
 status: draft
 ---
 

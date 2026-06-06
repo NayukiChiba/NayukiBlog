@@ -8,26 +8,11 @@ tags:
   - 假设检验
   - 分布
 description: 系统讲解多元统计分析的完整框架：四大核心分布（多元正态、Wishart、Hotelling T²、Wilks Λ）、协方差矩阵的计算与几何解释、以及基于这些分布的统计推断方法（均值检验、MANOVA、置信椭球）。从一元到多元的自然推广，配以完整数值示例。
-image: https://img.yumeko.site/file/blog/MultivariateStatistics.png
+image: https://img.yumeko.site/file/blog/cover/1780667956153.webp
 status: draft
 ---
 
 > **前置阅读**：本文假定读者熟悉协方差矩阵的基本概念。若需回顾马尔可夫不等式、切比雪夫不等式等概率工具，请参阅 [[Math/ProbabilityInequalities|概率不等式完全指南]] 和 [[Math/LawOfLargeNumbers|大数定律详解]]。
-
-![图0: 多元统计分析全景——分布、计算与推断三大支柱](https://img.yumeko.site/file/blog/MultivariateStatistics.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于多元统计分析博客封面。
-> 设计概念：从一元到多元的跃迁。
-> 左侧展示一元统计的经典符号：单变量正态分布曲线、χ² 符号、t 符号、F 符号。
-> 中间为过渡箭头，标注"维度扩展"。
-> 右侧展示多元统计的对应：多元正态的等概率密度椭球、协方差矩阵的 3D 可视化、
-> Wishart 分布的示意。三大支柱用标签标注："分布"、"计算"、"推断"。
-> 配色：深蓝到暖金渐变，现代数据科学美学风格。
-> 简洁无衬线标签。顶部留白供标题叠加。
-> ```
 
 ## 第一部分：分布
 

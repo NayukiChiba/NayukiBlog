@@ -8,22 +8,9 @@ tags:
   - 基础
   - scikit-learn
 description: 系统讲解机器学习中三大类特征选择方法：过滤式（方差、相关系数、卡方检验、互信息）、包裹式（RFE、前向/后向搜索）和嵌入式（Lasso、树模型重要性），附完整 sklearn 代码实现和方法选型决策树。
-image: https://img.yumeko.site/file/blog/FeatureSelection.png
-status: draft
+image: https://img.yumeko.site/file/blog/cover/1780668043913.webp
+status: published
 ---
-
-![图0: 特征选择方法全景——三大流派对比](https://img.yumeko.site/file/blog/FeatureSelection.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于特征选择方法的博客封面。
-> 设计概念：从左到右展示三大特征选择范式的对比——过滤式（Filter，独立于模型的统计检验）、
-> 包裹式（Wrapper，模型驱动的搜索）、嵌入式（Embedded，训练过程中内置的选择）。
-> 左侧：散点图和统计检验曲线；中间：递归搜索的循环箭头；右侧：LASSO 路径图中系数收缩到零。
-> 配色：深蓝到墨绿渐变，现代数据科学美学风格。
-> 顶部留白供标题叠加。
-> ```
 
 ## 1. 问题的起点：为什么需要特征选择？
 

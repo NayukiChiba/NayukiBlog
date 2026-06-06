@@ -9,8 +9,8 @@ tags:
   - 外币
   - 银联
 description: 详细介绍跨境通信记卡（VISA/MasterCard）的开通、设置与使用流程，涵盖购汇、手机盾、支付限额、支持的19种外币等关键注意事项，确保出国消费顺畅无忧。
-image: https://img.yumeko.site/file/blog/CrossBorderCardGuide.png
-status: draft
+image: https://img.yumeko.site/file/blog/cover/1780667646936.webp
+status: published
 ---
 
 ## 前言

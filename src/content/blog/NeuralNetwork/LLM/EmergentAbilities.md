@@ -8,23 +8,9 @@ tags:
   - Scaling Laws
   - 上下文学习
 description: 系统讲解大语言模型涌现能力的定义、关键表现（上下文学习、思维链推理、指令遵循），深入分析 Scaling Laws 的幂律规律与相变现象，探讨涌现机制的主流理论解释和实际工程意义。
-image: https://img.yumeko.site/file/blog/EmergentAbilities.png
+image: https://img.yumeko.site/file/blog/cover/1780668259815.webp
 status: draft
 ---
-
-![图0: 涌现能力全景——小模型与大模型的质变对比](https://img.yumeko.site/file/blog/EmergentAbilities.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于大模型涌现能力的博客封面。
-> 设计概念：左侧展示小模型的平直性能曲线（各项能力得分都在低位），
-> 右侧展示在某参数规模阈值附近性能骤然跃升的"相变"曲线。
-> 中间用视觉箭头强调从"无能力"到"有能力"的质变点。
-> 横轴标注"模型规模（对数尺度）"，纵轴标注"任务性能"。
-> 配色：深紫到金色的戏剧性渐变，强调从量变到质变的飞跃。
-> 顶部留白供标题叠加。
-> ```
 
 > **前置阅读**：本文假定读者熟悉 Transformer 基本架构。建议先阅读 [[NeuralNetwork/RNN/Attention|注意力机制详解]]。
 

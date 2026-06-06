@@ -8,7 +8,7 @@ tags:
   - 集中不等式
   - 机器学习理论
 description: 系统讲解概率论中最核心的六大不等式：马尔可夫、切比雪夫、切尔诺夫、霍夫丁、琴生、柯西-施瓦茨。从每条不等式的证明、直观含义、紧性分析到应用场景，以假设-结论对照表串联不等式之间的层级关系。
-image: https://img.yumeko.site/file/blog/ProbabilityInequalities.png
+image: https://img.yumeko.site/file/blog/cover/1780668202244.webp
 status: draft
 ---
 
