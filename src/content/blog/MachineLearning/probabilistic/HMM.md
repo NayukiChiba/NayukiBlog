@@ -407,9 +407,9 @@ states_pred = model.predict(X_obs, lengths)  # Viterbi 解码
 
 ## 数据可视化
 
-![数据分布图](https://img.yumeko.site/file/articles/ML/hmm/data_distribution.png)
+![数据分布图](https://img.yumeko.site/file/blog/articles/1780736135620.png)
 
-![数据序列图](https://img.yumeko.site/file/articles/ML/hmm/data_sequence.png)
+![数据序列图](https://img.yumeko.site/file/blog/articles/1780737750768.png)
 
 ## 常见坑
 

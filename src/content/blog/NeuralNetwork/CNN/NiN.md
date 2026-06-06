@@ -49,7 +49,7 @@ nin_block(192, kernel=5) 的参数量：
 ## 3. 全局平均池化（GAP）：革命性的替代方案
 
 在 NiN 之前，所有 CNN 都使用 [[NeuralNetwork/CNN/CNNCoreLayers|全连接层]] 做最终分类。NiN 首次提出用 GAP 完全替代 FC 层：
-![GAP.png](https://img.yumeko.site/file/articles/NiN/GAP.png)
+![GAP.png](https://img.yumeko.site/file/blog/articles/1780736437013.png)
 
 ```python
 # 传统分类器（如 AlexNet/VGG）

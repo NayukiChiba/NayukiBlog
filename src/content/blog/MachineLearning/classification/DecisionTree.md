@@ -329,11 +329,11 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 ## 数据可视化
 
-![数据分布散点图](https://img.yumeko.site/file/articles/ML/decision_tree/data_scatter.png)
+![数据分布散点图](https://img.yumeko.site/file/blog/articles/1780736139527.png)
 
-![类别分布](https://img.yumeko.site/file/articles/ML/decision_tree/data_class_distribution.png)
+![类别分布](https://img.yumeko.site/file/blog/articles/1780737700996.png)
 
-![特征相关性](https://img.yumeko.site/file/articles/ML/decision_tree/data_correlation.png)
+![特征相关性](https://img.yumeko.site/file/blog/articles/1780736130799.png)
 
 ## 常见坑
 
@@ -438,7 +438,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 ## 可视化
 
-![决策边界](https://img.yumeko.site/file/articles/ML/decision_tree/decision_boundary.png)
+![决策边界](https://img.yumeko.site/file/blog/articles/1780736145017.png)
 
 ## 常见坑
 
@@ -590,7 +590,7 @@ print(f"特征重要性: {model.feature_importances_}")
 
 ## 模型可视化
 
-![树结构](https://img.yumeko.site/file/articles/ML/decision_tree/tree_structure.png)
+![树结构](https://img.yumeko.site/file/blog/articles/1780736277845.png)
 
 ## 常见坑
 
@@ -830,7 +830,7 @@ plot_learning_curve(
 
 ## 训练诊断可视化
 
-![学习曲线](https://img.yumeko.site/file/articles/ML/decision_tree/learning_curve.png)
+![学习曲线](https://img.yumeko.site/file/blog/articles/1780736299374.png)
 
 ## 常见坑
 
@@ -1112,11 +1112,11 @@ plot_learning_curve(
 
 ## 评估图表
 
-![混淆矩阵](https://img.yumeko.site/file/articles/ML/decision_tree/confusion_matrix.png)
+![混淆矩阵](https://img.yumeko.site/file/blog/articles/1780736298280.png)
 
-![ROC 曲线](https://img.yumeko.site/file/articles/ML/decision_tree/roc_curve.png)
+![ROC 曲线](https://img.yumeko.site/file/blog/articles/1780736321096.png)
 
-![特征重要性](https://img.yumeko.site/file/articles/ML/decision_tree/feature_importance.png)
+![特征重要性](https://img.yumeko.site/file/blog/articles/1780736291957.png)
 
 ## 常见坑
 

@@ -319,7 +319,7 @@ $$
 
 ### 5. Global Average Pooling（GAP）
 
-![GAP.png](https://img.yumeko.site/file/articles/PoolingLayer/GAP.png)
+![GAP.png](https://img.yumeko.site/file/blog/articles/1780736405337.png)
 
 GAP 是 [[NeuralNetwork/CNN/NiN|NiN]]（Network in Network）在 2014 年提出的技术，对**整个特征图**取平均，每个通道输出一个值。
 
@@ -469,7 +469,7 @@ x = nn.Linear(512, 1024)(x)    # 参数：512×1024 ≈ 0.5M
 
 参数量减少约 50 倍，且不再受输入尺寸限制。
 
-![GAP.png](https://img.yumeko.site/file/articles/FullyConnectedLayer/GAP.png)
+![GAP.png](https://img.yumeko.site/file/blog/articles/1780736405337.png)
 
 ### 7. 替代方案二：1×1 卷积替代 FC
 

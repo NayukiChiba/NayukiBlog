@@ -345,7 +345,7 @@ function potentiallyLongFunction() {
 
 带别名的双链：[[MarkdownTest|点击查看 Markdown 测试文档]]
 
-多个双链：[[MarkdownTest]] 和 [[Interest/AstrbotDeployment|AstrbotDeployment]]
+多个双链：[[MarkdownTest]] 和 [[Engineering/AstrbotDeployment|AstrbotDeployment]]
 
 双链与普通链接对比：这是[[MarkdownTest|双链]]，这是[普通链接](https://nayuki.blog)。
 

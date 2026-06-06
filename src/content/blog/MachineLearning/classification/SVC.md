@@ -341,11 +341,11 @@ X_test_s = scaler.transform(X_test)
 
 ## 数据可视化
 
-![类别分布](https://img.yumeko.site/file/articles/ML/svc/data_class_distribution.png)
+![类别分布](https://img.yumeko.site/file/blog/articles/1780737838983.png)
 
-![相关性热力图](https://img.yumeko.site/file/articles/ML/svc/data_correlation.png)
+![相关性热力图](https://img.yumeko.site/file/blog/articles/1780736130799.png)
 
-![散点图矩阵](https://img.yumeko.site/file/articles/ML/svc/data_scatter.png)
+![散点图矩阵](https://img.yumeko.site/file/blog/articles/1780736139527.png)
 
 ## 常见坑
 
@@ -458,7 +458,7 @@ RBF 核把"两点距离的平方"转化为相似度。如果 $x_1$ 取值在 $[-
 
 ## 可视化
 
-![决策边界](https://img.yumeko.site/file/articles/ML/svc/decision_boundary.png)
+![决策边界](https://img.yumeko.site/file/blog/articles/1780736145017.png)
 
 ## 常见坑
 
@@ -793,7 +793,7 @@ plot_learning_curve(
 
 ## 训练诊断可视化
 
-![学习曲线](https://img.yumeko.site/file/articles/ML/svc/learning_curve.png)
+![学习曲线](https://img.yumeko.site/file/blog/articles/1780736299374.png)
 
 ## 常见坑
 
@@ -969,7 +969,7 @@ plot_learning_curve(
 
 ## 评估图表
 
-![混淆矩阵](https://img.yumeko.site/file/articles/ML/svc/confusion_matrix.png)
+![混淆矩阵](https://img.yumeko.site/file/blog/articles/1780736298280.png)
 
 ## 常见坑
 
@@ -1149,7 +1149,7 @@ def run():
 
 ## 运行结果
 
-![运行结果展示](https://img.yumeko.site/file/articles/ML/svc/result_display.png)
+![运行结果展示](https://img.yumeko.site/file/blog/articles/1780736366408.png)
 
 ## 常见坑
 

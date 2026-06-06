@@ -275,13 +275,13 @@ X_scaled = scaler.fit_transform(X)
 
 ## 数据可视化
 
-![类别分布图](https://img.yumeko.site/file/articles/ML/pca/data_class_distribution.png)
+![类别分布图](https://img.yumeko.site/file/blog/articles/1780737813818.png)
 
-![特征相关性热力图](https://img.yumeko.site/file/articles/ML/pca/data_correlation.png)
+![特征相关性热力图](https://img.yumeko.site/file/blog/articles/1780736130799.png)
 
-![二维特征空间](https://img.yumeko.site/file/articles/ML/pca/data_feature_space_2d.png)
+![二维特征空间](https://img.yumeko.site/file/blog/articles/1780737823597.png)
 
-![三维特征空间](https://img.yumeko.site/file/articles/ML/pca/data_feature_space_3d.png)
+![三维特征空间](https://img.yumeko.site/file/blog/articles/1780737843210.png)
 
 ## 常见坑
 
@@ -400,9 +400,9 @@ PCA 不需要标签——它的优化目标（投影方差）只涉及 $\mathbf{
 
 ## 可视化
 
-![二维降维结果](https://img.yumeko.site/file/articles/ML/pca/dimensionality_2d.png)
+![二维降维结果](https://img.yumeko.site/file/blog/articles/1780736378075.png)
 
-![三维降维结果](https://img.yumeko.site/file/articles/ML/pca/dimensionality_3d.png)
+![三维降维结果](https://img.yumeko.site/file/blog/articles/1780736378075.png)
 
 ## 常见坑
 
@@ -887,9 +887,9 @@ plot_dimensionality(X_3d, y=y, explained_variance_ratio=model_3d.explained_varia
 
 ## 评估图表
 
-![二维降维结果](https://img.yumeko.site/file/articles/ML/pca/dimensionality_2d.png)
+![二维降维结果](https://img.yumeko.site/file/blog/articles/1780736378075.png)
 
-![三维降维结果](https://img.yumeko.site/file/articles/ML/pca/dimensionality_3d.png)
+![三维降维结果](https://img.yumeko.site/file/blog/articles/1780736378075.png)
 
 ## 常见坑
 
@@ -1072,7 +1072,7 @@ def run():
 
 ## 运行结果
 
-![运行结果展示](https://img.yumeko.site/file/articles/ML/pca/dimensionality_2d.png)
+![运行结果展示](https://img.yumeko.site/file/blog/articles/1780736378075.png)
 
 ## 常见坑
 

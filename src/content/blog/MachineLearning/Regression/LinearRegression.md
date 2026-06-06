@@ -333,9 +333,9 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 ## 数据可视化
 
-![特征相关性热力图](https://img.yumeko.site/file/articles/ML/linear_regression/data_correlation.png)
+![特征相关性热力图](https://img.yumeko.site/file/blog/articles/1780736130799.png)
 
-![特征与目标变量关系](https://img.yumeko.site/file/articles/ML/linear_regression/data_feature_vs_price.png)
+![特征与目标变量关系](https://img.yumeko.site/file/blog/articles/1780737787935.png)
 
 ## 常见坑
 
@@ -765,7 +765,7 @@ ax2.axhline(y=0, color="r", linestyle="--")
 
 ### 输出
 
-![残差图](https://img.yumeko.site/file/articles/ML/linear_regression/residual_plot.png)
+![残差图](https://img.yumeko.site/file/blog/articles/1780736282426.png)
 
 ### 理解重点
 
@@ -805,7 +805,7 @@ plot_learning_curve(
 
 ### 输出
 
-![学习曲线](https://img.yumeko.site/file/articles/ML/linear_regression/learning_curve.png)
+![学习曲线](https://img.yumeko.site/file/blog/articles/1780736299374.png)
 
 ### 理解重点
 

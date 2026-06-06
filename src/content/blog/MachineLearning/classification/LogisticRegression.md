@@ -357,11 +357,11 @@ X_test_s = scaler.transform(X_test)
 
 ## 数据可视化
 
-![类别分布](https://img.yumeko.site/file/articles/ML/logistic_regression/data_class_distribution.png)
+![类别分布](https://img.yumeko.site/file/blog/articles/1780737794008.png)
 
-![相关性热力图](https://img.yumeko.site/file/articles/ML/logistic_regression/data_correlation.png)
+![相关性热力图](https://img.yumeko.site/file/blog/articles/1780736130799.png)
 
-![特征空间二维投影](https://img.yumeko.site/file/articles/ML/logistic_regression/data_feature_space_2d.png)
+![特征空间二维投影](https://img.yumeko.site/file/blog/articles/1780737802601.png)
 
 ## 常见坑
 
@@ -478,7 +478,7 @@ X_test_s = scaler.transform(X_test)
 
 ## 可视化
 
-![决策边界](https://img.yumeko.site/file/articles/ML/logistic_regression/decision_boundary.png)
+![决策边界](https://img.yumeko.site/file/blog/articles/1780736145017.png)
 
 ## 常见坑
 
@@ -855,7 +855,7 @@ plot_learning_curve(
 
 ## 训练诊断可视化
 
-![学习曲线](https://img.yumeko.site/file/articles/ML/logistic_regression/learning_curve.png)
+![学习曲线](https://img.yumeko.site/file/blog/articles/1780736299374.png)
 
 ## 常见坑
 
@@ -1068,9 +1068,9 @@ plot_learning_curve(
 
 ## 评估图表
 
-![混淆矩阵](https://img.yumeko.site/file/articles/ML/logistic_regression/confusion_matrix.png)
+![混淆矩阵](https://img.yumeko.site/file/blog/articles/1780736298280.png)
 
-![ROC 曲线](https://img.yumeko.site/file/articles/ML/logistic_regression/roc_curve.png)
+![ROC 曲线](https://img.yumeko.site/file/blog/articles/1780736321096.png)
 
 ## 常见坑
 
@@ -1255,7 +1255,7 @@ def run():
 
 ## 运行结果
 
-![运行结果展示](https://img.yumeko.site/file/articles/ML/logistic_regression/result_display.png)
+![运行结果展示](https://img.yumeko.site/file/blog/articles/1780736366408.png)
 
 ## 常见坑
 

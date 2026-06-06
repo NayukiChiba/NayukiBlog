@@ -316,7 +316,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 ## 数据可视化
 
-![特征相关性热力图](https://img.yumeko.site/file/articles/ML/xgboost/data_correlation.png)
+![特征相关性热力图](https://img.yumeko.site/file/blog/articles/1780736130799.png)
 
 ## 常见坑
 
@@ -432,9 +432,9 @@ XGBoost 的稀疏感知：自动学习——在这个特征上，缺失值应该
 
 ## 可视化
 
-![残差分析图](https://img.yumeko.site/file/articles/ML/xgboost/residual_plot.png)
+![残差分析图](https://img.yumeko.site/file/blog/articles/1780736282426.png)
 
-![特征重要性](https://img.yumeko.site/file/articles/ML/xgboost/feature_importance.png)
+![特征重要性](https://img.yumeko.site/file/blog/articles/1780736291957.png)
 
 ## 常见坑
 
@@ -810,7 +810,7 @@ plot_residuals(
 
 ### 输出
 
-![残差分析图](https://img.yumeko.site/file/articles/ML/xgboost/residual_plot.png)
+![残差分析图](https://img.yumeko.site/file/blog/articles/1780736282426.png)
 
 ### 理解重点
 
@@ -850,7 +850,7 @@ plot_feature_importance(
 
 ### 输出
 
-![特征重要性](https://img.yumeko.site/file/articles/ML/xgboost/feature_importance.png)
+![特征重要性](https://img.yumeko.site/file/blog/articles/1780736291957.png)
 
 ### 理解重点
 

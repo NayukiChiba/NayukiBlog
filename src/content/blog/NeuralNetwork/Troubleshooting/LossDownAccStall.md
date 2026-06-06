@@ -142,5 +142,5 @@ print(f"类别分布: {labelCounts}")
 
 ## 诊断流程
 
-![Decision.png](https://img.yumeko.site/file/articles/LossDownAccStall/Decision.png)
+![Decision.png](https://img.yumeko.site/file/blog/articles/1780736567310.png)
 

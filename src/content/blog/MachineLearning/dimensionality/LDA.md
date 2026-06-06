@@ -351,11 +351,11 @@ X_scaled = scaler.fit_transform(X)
 
 ## 数据可视化
 
-![类别分布图](https://img.yumeko.site/file/articles/ML/lda/data_class_distribution.png)
+![类别分布图](https://img.yumeko.site/file/blog/articles/1780737782318.png)
 
-![特征相关性热力图](https://img.yumeko.site/file/articles/ML/lda/data_correlation.png)
+![特征相关性热力图](https://img.yumeko.site/file/blog/articles/1780736130799.png)
 
-![二维特征空间](https://img.yumeko.site/file/articles/ML/lda/data_feature_space_2d.png)
+![二维特征空间](https://img.yumeko.site/file/blog/articles/1780737779880.png)
 
 ## 常见坑
 
@@ -481,7 +481,7 @@ Wine 数据有 3 个类别：
 
 ## 可视化
 
-![二维降维结果](https://img.yumeko.site/file/articles/ML/lda/dimensionality_2d.png)
+![二维降维结果](https://img.yumeko.site/file/blog/articles/1780736378075.png)
 
 ## 常见坑
 
@@ -824,7 +824,7 @@ plot_dimensionality(X_transformed, y=y, explained_variance_ratio=evr, mode="2d")
 
 ## 训练诊断可视化
 
-![学习曲线](https://img.yumeko.site/file/articles/ML/lda/learning_curve.png)
+![学习曲线](https://img.yumeko.site/file/blog/articles/1780736299374.png)
 
 ## 常见坑
 
@@ -958,7 +958,7 @@ plot_dimensionality(
 
 ## 评估图表
 
-![二维降维结果](https://img.yumeko.site/file/articles/ML/lda/dimensionality_2d.png)
+![二维降维结果](https://img.yumeko.site/file/blog/articles/1780736378075.png)
 
 ## 常见坑
 
@@ -1144,7 +1144,7 @@ def run():
 
 ## 运行结果
 
-![运行结果展示](https://img.yumeko.site/file/articles/ML/lda/result_display.png)
+![运行结果展示](https://img.yumeko.site/file/blog/articles/1780736366408.png)
 
 ## 常见坑
 

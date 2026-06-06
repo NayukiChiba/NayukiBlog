@@ -271,11 +271,11 @@ X_test_s = scaler.transform(X_test)
 
 ## 数据可视化
 
-![类别分布图](https://img.yumeko.site/file/articles/ML/bagging/data_class_distribution.png)
+![类别分布图](https://img.yumeko.site/file/blog/articles/1780737685908.png)
 
-![标注散点图](https://img.yumeko.site/file/articles/ML/bagging/data_scatter.png)
+![标注散点图](https://img.yumeko.site/file/blog/articles/1780736139527.png)
 
-![特征相关性热力图](https://img.yumeko.site/file/articles/ML/bagging/data_correlation.png)
+![特征相关性热力图](https://img.yumeko.site/file/blog/articles/1780736130799.png)
 
 ## 常见坑
 
@@ -398,7 +398,7 @@ Bagging 的工作方式可以想象成：
 
 ## 可视化
 
-![混淆矩阵](https://img.yumeko.site/file/articles/ML/bagging/confusion_matrix.png)
+![混淆矩阵](https://img.yumeko.site/file/blog/articles/1780736298280.png)
 
 ## 常见坑
 

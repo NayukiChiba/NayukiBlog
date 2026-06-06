@@ -96,7 +96,7 @@ sudo ./install.sh
 ### 在UserThemes插件中设置主题即可
 ## 使用动态壁纸
 这是[Hidamari](https://github.com/jeffshee/hidamari)的github源码, 右侧About中有下载链接
-![Hidamari源码](https://nyeimg.asia/img/articles/Ubuntu美化/Hidamari源码.png)
+![Hidamari源码](https://img.yumeko.site/file/blog/articles/1780736585248.png)
 
 1. 在[Flathub](https://flathub.org/en/apps/io.github.jeffshee.Hidamari)中下载Hidamari
 2. 如果没有安装Flathub, 请在[Flathub安装网站](https://flathub.org/en/setup)中下载Flathub, 然后回到上一步下载Hidamari
@@ -104,7 +104,7 @@ sudo ./install.sh
 4. 下载在一个文件夹，例如: wallpapaer中
 5. 在Hidamari应用中选择wallpaper为动态壁纸文件夹, 然后刷新即可
 6. 在应用右上角选择开机自动启动
-![Hidamari应用](https://nyeimg.asia/img/articles/Ubuntu美化/Hidamari应用.png)
+![Hidamari应用](https://img.yumeko.site/file/blog/articles/1780736592730.png)
 ## 使用conky
 
 1. 下载conky管理软件
@@ -113,7 +113,7 @@ sudo apt install conky-all conky-manager
 ```
 2. 安装conky插件
 在[conky插件网站](https://www.pling.com/browse?cat=124&ord=latest)中下载喜欢的conky文件, 解压之后放到~/.config/conky/文件夹下, 例如这是Maia插件的界面
-![conky文件夹](https://nyeimg.asia/img/articles/Ubuntu美化/conky文件夹.png)
+![conky文件夹](https://img.yumeko.site/file/blog/articles/1780736591021.png)
 3. 字体下载
 一般conky文件中会放fonts文件夹,
 * 将fonts的ttf都放到/usr/share/fonts中

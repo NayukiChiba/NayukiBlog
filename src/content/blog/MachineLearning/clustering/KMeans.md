@@ -279,13 +279,13 @@ X_scaled = scaler.fit_transform(X)
 
 ## 数据可视化
 
-![原始数据散点图](https://img.yumeko.site/file/articles/ML/kmeans/data_raw_scatter.png)
+![原始数据散点图](https://img.yumeko.site/file/blog/articles/1780737759347.png)
 
-![真实标签散点图](https://img.yumeko.site/file/articles/ML/kmeans/data_true_label_scatter.png)
+![真实标签散点图](https://img.yumeko.site/file/blog/articles/1780737770006.png)
 
-![聚类分布图](https://img.yumeko.site/file/articles/ML/kmeans/data_cluster_distribution.png)
+![聚类分布图](https://img.yumeko.site/file/blog/articles/1780737760634.png)
 
-![特征相关性热力图](https://img.yumeko.site/file/articles/ML/kmeans/data_correlation.png)
+![特征相关性热力图](https://img.yumeko.site/file/blog/articles/1780736130799.png)
 
 ## 常见坑
 
@@ -394,7 +394,7 @@ KMeans 的工作方式可以想象成：
 
 ## 可视化
 
-![聚类结果图](https://img.yumeko.site/file/articles/ML/kmeans/cluster_plot.png)
+![聚类结果图](https://img.yumeko.site/file/blog/articles/1780736373148.png)
 
 ## 常见坑
 
@@ -858,7 +858,7 @@ $$
 
 ## 评估图表
 
-![聚类分布图](https://img.yumeko.site/file/articles/ML/kmeans/cluster_plot.png)
+![聚类分布图](https://img.yumeko.site/file/blog/articles/1780736373148.png)
 
 ## 常见坑
 
@@ -1040,7 +1040,7 @@ def run():
 
 ## 运行结果
 
-![运行结果展示](https://img.yumeko.site/file/articles/ML/kmeans/cluster_plot.png)
+![运行结果展示](https://img.yumeko.site/file/blog/articles/1780736373148.png)
 
 ## 常见坑
 
