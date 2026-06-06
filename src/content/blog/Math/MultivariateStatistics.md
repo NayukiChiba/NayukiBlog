@@ -9,7 +9,7 @@ tags:
   - 分布
 description: 系统讲解多元统计分析的完整框架：四大核心分布（多元正态、Wishart、Hotelling T²、Wilks Λ）、协方差矩阵的计算与几何解释、以及基于这些分布的统计推断方法（均值检验、MANOVA、置信椭球）。从一元到多元的自然推广，配以完整数值示例。
 image: https://img.yumeko.site/file/blog/cover/1780667956153.webp
-status: draft
+status: published
 ---
 
 > **前置阅读**：本文假定读者熟悉协方差矩阵的基本概念。若需回顾马尔可夫不等式、切比雪夫不等式等概率工具，请参阅 [[Math/ProbabilityInequalities|概率不等式完全指南]] 和 [[Math/LawOfLargeNumbers|大数定律详解]]。
@@ -312,21 +312,7 @@ $$
 
 沿方差大的方向"放宽容忍度"，沿方差小的方向"严格要求"——异常检测和判别分析的核心工具。
 
-![图1: 协方差椭球与 PCA——几何解释](https://img.yumeko.site/file/blog/MultivariateStatistics/CovarianceEllipsoid.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张教学示意图，展示二维协方差矩阵的几何意义。
-> 中央为一个二维散点图，约 100 个数据点呈椭圆形分布（有明显正相关）。
-> 叠加两个元素：
-> （1）一个蓝色椭圆——等 Mahalanobis 距离线 {(x-μ)ᵀΣ⁻¹(x-μ)=c²}，直观展示协方差结构。
-> （2）椭圆的红色主轴（两个正交箭头），标注为特征向量 v₁ 和 v₂，
-> 箭头长度正比于 √λ₁ 和 √λ₂，v₁ 方向（长轴）为第一主成分方向。
-> 右侧小图展示原始数据经白化变换（Σ^{-1/2}）后的散点图——圆形、无相关。
-> 底部标注公式："白化：Z = Σ^{-1/2}(X-μ) ∼ N(0, I)"。
-> 简洁学术图，白色背景，清晰坐标轴。数学教科书插图。
-> ```
+![CovarianceEllipsoid.png](https://img.yumeko.site/file/blog/articles/1780733243957.webp)
 
 #### 6.5 NumPy 实现
 
@@ -457,20 +443,7 @@ $k$ 组，第 $j$ 组有 $n_j$ 个 $d$ 维观测 $\mathbf{x}_{ji} \in \mathbb{R}
 
 与一元 ANOVA 的平方和分解完全平行——每一项从标量变成矩阵：
 
-![图3: MANOVA 离差矩阵分解——T = B + W](https://img.yumeko.site/file/blog/MultivariateStatistics/MANOVADecomposition.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张教学示意图，展示 MANOVA 中离差矩阵的分解 T = B + W。
-> 上方展示三组二维数据散点图（k=3 组，每组用不同颜色）。
-> 叠加三个均值点：总均值 μ̄（黑色大圆）、各组均值 μ̄ⱼ（彩色大圆）。
-> 箭头标注：从 μ̄ 到 μ̄ⱼ = 组间变异（B）、从各数据点到 μ̄ⱼ = 组内变异（W）。
-> 下方展示三个 d×d 矩阵的示意：T（总离差）、B（组间离差）、W（组内离差），
-> 用颜色深浅表示矩阵元素值的大小。
-> T = B + W 的等式标注在底部。
-> 简洁学术图，白色背景，矢量风格。数学教科书插图。
-> ```
+![MANOVADecomposition.png](https://img.yumeko.site/file/blog/articles/1780733241636.webp)
 
 $$
 \boxed{\mathbf{T} = \mathbf{B} + \mathbf{W}}
@@ -556,19 +529,7 @@ Wilks $\Lambda$ 就是 MANOVA 的 LRT 统计量（经过合适的幂变换）—
 
 ## 第四部分：总结
 
-![图2: 从一元到多元——四大分布退化关系](https://img.yumeko.site/file/blog/MultivariateStatistics/DistributionRelations.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张教学示意图，展示从一元到多元统计分布的退化关系。
-> 左侧列为一元分布（从上到下：χ²、t、F），右侧列为多元分布（Wishart、Hotelling T²、Wilks Λ）。
-> 从右到左的虚线箭头标注退化条件"d=1"。
-> Wishart 方框到 χ² 方框标注"W/σ² ∼ χ²_m"。
-> 中间一列展示构造关系：Wishart + 正态 → Hotelling T²，Hotelling T² 的多组推广 → Wilks Λ。
-> 底部说明"所有多元分布在 d=1 时精确退化为一元对应。"
-> 简洁矢量图风格，白色背景，柔和蓝白配色。中英文混合标签。
-> ```
+![DistributionRelations.png](https://img.yumeko.site/file/blog/articles/1780733240792.webp)
 
 所有多元分布在 $d=1$ 时精确退化为一元对应分布，这是验证推导正确性的试金石：
 
