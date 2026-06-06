@@ -396,19 +396,7 @@ ROC 曲线就是这条从 $(0,0)$ 到 $(1,1)$ 的阶梯路径。
 - 曲线在**对角线下方** → 模型的排序反了（负样本分数系统性高于正样本）——取反即可修复
 - **曲线形状不依赖阈值**——ROC 的每一点对应一个 $\tau$，整条曲线覆盖了全部 $\tau$，展示的是模型**内在的排序能力**
 
-![ROC 曲线示意图](https://img.yumeko.site/file/blog/ClassificationMetrics/ROCCurve.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> A clean scientific diagram of a ROC curve. One main plot with FPR (False Positive Rate) on x-axis (0 to 1) and TPR (True Positive Rate) on y-axis (0 to 1). Three curves:
-> 1. A perfect classifier: goes straight up from (0,0) to (0,1) then right to (1,1) — L-shaped in green, labeled "完美分类器"
-> 2. A good classifier: smooth concave curve bowing toward top-left corner, in blue, labeled "实际模型 (AUC=0.85)"
-> 3. A random classifier: diagonal dashed line from (0,0) to (1,1), in gray, labeled "随机猜测 (AUC=0.5)"
-> The area under the blue curve is lightly shaded and labeled "AUC".
-> Annotate: "左上角 = 理想" with arrow pointing to (0,1) corner.
-> Clean academic style, white background, thin axis lines, LaTeX-style labels. Chinese text labels.
-> ```
+![ROCCurve.png](https://img.yumeko.site/file/blog/articles/1780733809166.webp)
 
 ## 8. AUC：一个数字总结 ROC
 

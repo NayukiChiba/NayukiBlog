@@ -10,7 +10,7 @@ tags:
   - 推理加速
 description: 系统讲解扩散模型的数学原理：前向扩散过程的噪声调度、反向去噪过程的参数化、DDPM 完整采样算法、DDIM 确定性加速采样、Classifier-Free Guidance 条件生成技术，以及主流采样器对比。
 image: https://img.yumeko.site/file/blog/cover/1780668233580.webp
-status: draft
+status: published
 ---
 > **前置阅读**：本文假定读者熟悉概率论基础。建议先阅读 [[Math/ProbabilityInequalities|概率不等式完全指南]]。
 
@@ -40,17 +40,7 @@ $$
 
 其中 $\beta_t \in (0, 1)$ 是**方差调度（Variance Schedule）**，控制每步加入的噪声量。通常 $\beta_1 < \beta_2 < \dots < \beta_T$（越往后加噪越多）。
 
-![图1: 前向扩散过程示意](https://img.yumeko.site/file/blog/DiffusionInference/ForwardProcess.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的科学示意图，展示扩散模型前向过程。
-> 从左到右排列 6 个图像方块：x_0（清晰的猫照片）→ x_t1 → x_t2 → ... → x_T（纯高斯噪声）。
-> 每个箭头标注 "q(x_t|x_{t-1})" 和噪声水平 β_t。
-> 下方展示 β_t 从接近 0 增长到接近 1 的曲线图。
-> 白色背景，柔和的蓝色调，教科书插图风格。
-> ```
+![ForwardProcess.png](https://img.yumeko.site/file/blog/articles/1780733688648.webp)
 
 ### 2.2 重参数化技巧：一步加噪
 

@@ -9,23 +9,9 @@ tags:
   - DPO
   - 大语言模型
 description: 系统讲解 RLHF（基于人类反馈的强化学习）的完整三阶段流程：监督微调、奖励模型训练、PPO 强化学习优化，并深入对比 DPO 如何绕过奖励模型直接利用偏好数据，附完整的数学推导和 Python 实现示例。
-image: https://img.yumeko.site/file/blog/RLHF.png
-status: draft
+image: https://img.yumeko.site/file/blog/articles/1780733778546.webp
+status: published
 ---
-
-![图0: RLHF 三阶段全景——从 SFT 到 PPO 的对齐之路](https://img.yumeko.site/file/blog/RLHF.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于 RLHF 算法详解的博客封面。
-> 设计概念：从左到右展示 RLHF 的三个阶段。
-> 左侧：标注的对话数据 → SFT 模型（蓝色）；
-> 中间：偏好比较数据 → 奖励模型（绿色），显示 A > B 的对比选择；
-> 右侧：PPO 循环（金色），显示模型在奖励信号下通过策略优化自我改进。
-> 三个阶段之间用箭头连接。配色：深蓝到青绿的科技感渐变。
-> 顶部留白供标题叠加。
-> ```
 
 > **前置阅读**：本文假定读者熟悉 LLM 的基本概念。建议先阅读 [[NeuralNetwork/LLM/EmergentAbilities|大模型涌现能力详解]]。
 
@@ -62,17 +48,7 @@ RLHF 的核心流程包括三个步骤：
   → 以 RM 为奖励信号，用强化学习优化语言模型
 ```
 
-![图1: RLHF 三阶段数据流与模型流转](https://img.yumeko.site/file/blog/RLHF/ThreeStageFlow.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的教学流程图，展示 RLHF 的三个阶段及数据流转。
-> 上方三个方框从左到右排列：SFT（蓝色）、Reward Model（绿色）、PPO（金色）。
-> 每个方框下方标注入输入数据（标注对话/偏好对比/提示词）和输出产物（策略模型/打分模型/对齐模型）。
-> 箭头连接展示各阶段的输入输出依赖关系。
-> 白色背景，清晰的流程箭头，教科书插图风格。
-> ```
+![ThreeStageFlow.png](https://img.yumeko.site/file/blog/articles/1780733773680.webp)
 
 ## 3. 阶段 1：监督微调（Supervised Fine-Tuning, SFT）
 

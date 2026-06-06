@@ -9,7 +9,7 @@ tags:
   - 上下文学习
 description: 系统讲解大语言模型涌现能力的定义、关键表现（上下文学习、思维链推理、指令遵循），深入分析 Scaling Laws 的幂律规律与相变现象，探讨涌现机制的主流理论解释和实际工程意义。
 image: https://img.yumeko.site/file/blog/cover/1780668259815.webp
-status: draft
+status: published
 ---
 
 > **前置阅读**：本文假定读者熟悉 Transformer 基本架构。建议先阅读 [[NeuralNetwork/RNN/Attention|注意力机制详解]]。
@@ -145,17 +145,7 @@ $$
 
 其中 $s_{\text{crit}}$ 是涌现阈值，$f$ 是一个从 0 开始快速增长的函数。这与统计力学中的**相变**现象高度相似。
 
-![图1: 涌现能力的相变曲线示意](https://img.yumeko.site/file/blog/EmergentAbilities/PhaseTransition.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的科学示意图，展示涌现能力的相变曲线。
-> 横轴是模型规模（对数尺度，从 10^7 到 10^11 参数），纵轴是任务性能（0-100%）。
-> 三条不同颜色的曲线分别代表不同的涌现任务（如算术推理、翻译、代码生成），
-> 每条曲线在各自的临界规模处从接近 0 骤然跃升。
-> 用虚线标注相变点。白色背景，细坐标轴线，蓝紫配色，学术论文风格。
-> ```
+![PhaseTransition.png](https://img.yumeko.site/file/blog/articles/1780733980533.webp)
 
 ## 4. 涌现能力的理论解释
 

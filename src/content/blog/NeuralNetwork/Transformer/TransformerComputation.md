@@ -9,22 +9,9 @@ tags:
   - FlashAttention
   - 位置编码
 description: 深入讲解 Transformer 的核心计算：Self-Attention 的时间/空间复杂度分析、KV Cache 推理加速原理、FlashAttention 的 IO 感知优化、Pre-LN vs Post-LN 的架构选择、RoPE 等主流位置编码方案对比，以及 MoE 的稀疏计算。
-image: https://img.yumeko.site/file/blog/TransformerComputation.png
-status: draft
+image: https://img.yumeko.site/file/blog/cover/1780734066880.webp
+status: published
 ---
-
-![图0: Transformer 计算全览——从 Attention 到优化技巧](https://img.yumeko.site/file/blog/TransformerComputation.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于 Transformer 计算与实现技巧的博客封面。
-> 设计概念：中心是一个展开的 Transformer Block，标注各组件（Multi-Head Attention、
-> Feed-Forward、Layer Norm）的计算复杂度。左侧展示 KV Cache 的内存优化示意
-> （逐步填充的 Key-Value 矩阵），右侧展示 FlashAttention 的分块计算示意。
-> 配色：深蓝到橙色渐变，呈现从理论到工程优化的递进感。
-> 顶部留白供标题叠加。
-> ```
 
 > **前置阅读**：本文假定读者熟悉 Transformer 和 Self-Attention 的基本概念。建议先阅读 [[NeuralNetwork/RNN/Attention|注意力机制详解]]。
 
@@ -155,18 +142,7 @@ class MultiHeadAttention(nn.Module):
   Attention(Q_new, K_cached, V_cached)
 ```
 
-![图1: KV Cache 工作原理示意](https://img.yumeko.site/file/blog/TransformerComputation/KVCache.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的教学示意图，展示 KV Cache 的工作流程。
-> 上方：展示自回归生成的 Token 序列（t0, t1, t2, t3...）。
-> 下方：两个矩阵（K Cache 和 V Cache）随着生成逐步向右扩展，
-> 新生成的 Token 的 K/V 被追加到缓存末尾。
-> 相邻步骤之间用箭头标注"仅计算新 Token 的 QKV"。
-> 白色背景，蓝色和橙色分别标注 Key 和 Value 矩阵，教科书插图风格。
-> ```
+![KVCache.png](https://img.yumeko.site/file/blog/articles/1780733951336.webp)
 
 ### 2.3 KV Cache 的内存分析
 
@@ -254,18 +230,7 @@ $$
 
 在线 Softmax 使用**修正因子**在分块处理后合并结果，只需一次扫描。
 
-![图2: FlashAttention 分块计算示意](https://img.yumeko.site/file/blog/TransformerComputation/FlashAttention.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的科学示意图，展示 FlashAttention 的分块计算策略。
-> 左侧：大矩阵 Q (n×d) 和 K^T (d×n)，用虚线划分为多个小块（tile）。
-> 右侧：放大展示单个 tile 在 SRAM 中的计算流程——
-> 加载 Q_tile 和 K_tile → 计算局部 scores → 在线 Softmax → 与 V_tile 累加。
-> 底部对比标准 Attention（HBM 往返）和 FlashAttention（SRAM 驻留）的 IO 量差异。
-> 白色背景，蓝色和橙色分别标注读写操作，教科书插图风格。
-> ```
+![FlashAttention.png](https://img.yumeko.site/file/blog/articles/1780734010500.webp)
 
 ### 3.3 使用 FlashAttention
 
