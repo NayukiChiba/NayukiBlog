@@ -90,12 +90,12 @@ Machine-Learning-Algorithms/
 └─────────────────────┬───────────────────────────────────────┘
                       │ 查找
           ┌───────────┴───────────┐
-          │   PIPELINE_REGISTRY   │  ← PipelineSpec × 20
-          │   DATASET_REGISTRY    │  ← DatasetSpec × 20
+          │   PIPELINE_REGISTRY   │  <- PipelineSpec x 20
+          │   DATASET_REGISTRY    │  <- DatasetSpec x 20
           └───────────┬───────────┘
                       │ 分发
           ┌───────────┴───────────┐
-          │     executor.py       │  ← 按 RunnerType 路由
+          │     executor.py       │  <- 按 RunnerType 路由
           └───────────┬───────────┘
                       │
      ┌──────┬──────┬──┴───┬──────┬──────────┐
@@ -105,12 +105,12 @@ Machine-Learning-Algorithms/
      └──────┴──────┴──────┴──────┴──────────┘
                       │
           ┌───────────┴───────────┐
-          │  buildRunContext()    │  ← 数据加载 + 探索
-          │  makeSplit()          │  ← 切分
-          │  applyPreprocessor()  │  ← 标准化
-          │  callTrainer()        │  ← 训练
-          │  evaluate()           │  ← 评估 + 打印
-          │  plot*()              │  ← 可视化
+          │  buildRunContext()    │  <- 数据加载 + 探索
+          │  makeSplit()          │  <- 切分
+          │  applyPreprocessor()  │  <- 标准化
+          │  callTrainer()        │  <- 训练
+          │  evaluate()           │  <- 评估 + 打印
+          │  plot*()              │  <- 可视化
           └───────────────────────┘
 ```
 
@@ -307,11 +307,11 @@ PipelineSpec(
 与 `TaskType` 值一一对应。`executor.py` 根据它分发到对应的 Runner 函数：
 
 ```
-RunnerType.CLASSIFICATION   → runClassificationPipeline()
-RunnerType.REGRESSION       → runRegressionPipeline()
-RunnerType.CLUSTERING       → runClusteringPipeline()
-RunnerType.DIMENSIONALITY   → runDimensionalityPipeline()
-RunnerType.PROBABILISTIC    → runProbabilisticPipeline()
+RunnerType.CLASSIFICATION   -> runClassificationPipeline()
+RunnerType.REGRESSION       -> runRegressionPipeline()
+RunnerType.CLUSTERING       -> runClusteringPipeline()
+RunnerType.DIMENSIONALITY   -> runDimensionalityPipeline()
+RunnerType.PROBABILISTIC    -> runProbabilisticPipeline()
 ```
 
 ### 6.3 DataKind（数据形态）
@@ -442,23 +442,23 @@ RunnerType.PROBABILISTIC    → runProbabilisticPipeline()
 ### 4.2 执行链（以回归为例）
 
 ```
-buildRunContext()              # 加载数据 → 解析特征/标签 → 创建输出目录
-  └─ runAnalysis()             #   数据探索 → 终端打印报告
-  └─ [dataPlots] 遍历          #   训练前可视化（相关性热力图等）
-  └─ makeSplit()               #   切分训练集/测试集
-  └─ applyPreprocessor()       #   标准化（如配置了 standardScaler）
-  └─ callTrainer()             #   训练 → 返回模型
-  └─ predict()                 #   预测
-  └─ evaluate()                #   评估 + 打印指标
-  └─ [resultPlots] 遍历        #   训练后可视化（特征重要性等）
-  └─ [diagnostics] 遍历        #   诊断可视化（学习曲线等）
+buildRunContext()              # 加载数据 -> 解析特征/标签 -> 创建输出目录
+- runAnalysis()             #   数据探索 -> 终端打印报告
+- [dataPlots] 遍历          #   训练前可视化（相关性热力图等）
+- makeSplit()               #   切分训练集/测试集
+- applyPreprocessor()       #   标准化（如配置了 standardScaler）
+- callTrainer()             #   训练 -> 返回模型
+- predict()                 #   预测
+- evaluate()                #   评估 + 打印指标
+- [resultPlots] 遍历        #   训练后可视化（特征重要性等）
+- [diagnostics] 遍历        #   诊断可视化（学习曲线等）
 ```
 
 ### 4.3 baseRunner 关键函数
 
 | 函数 | 作用 |
 |---|---|
-| `buildRunContext(spec, datasetSpec)` | 加载数据、解析特征/标签、创建输出目录 → 返回 `RunContext` |
+| `buildRunContext(spec, datasetSpec)` | 加载数据、解析特征/标签、创建输出目录 -> 返回 `RunContext` |
 | `runAnalysis(context)` | 按 `TaskType` / `DataKind` 构建并打印数据探索报告 |
 | `makeSplit(X, y, splitter, randomState)` | 切分数据——支持 `randomSplit`、`stratifiedSplit`、`None` |
 | `applyPreprocessor(splitData, preprocessor)` | 仅在 `standardScaler` 时执行 `fit_transform` / `transform` |
@@ -485,7 +485,7 @@ buildRunContext()              # 加载数据 → 解析特征/标签 → 创建
 | 文件 | 支持指标 |
 |---|---|
 | `classificationEvaluator.py` | Accuracy、Precision、Recall、F1、ROC-AUC |
-| `regressionEvaluator.py` | R²、MSE、RMSE、MAE、Explained Variance |
+| `regressionEvaluator.py` | R^2、MSE、RMSE、MAE、Explained Variance |
 | `clusteringEvaluator.py` | Silhouette、Davies-Bouldin、Calinski-Harabasz |
 | `dimensionalityEvaluator.py` | 累计解释方差比（PCA） |
 | `sequenceEvaluator.py` | HMM 评分 |
@@ -501,7 +501,7 @@ buildRunContext()              # 加载数据 → 解析特征/标签 → 创建
 | `data/` | 分类分布、特征空间散点图、相关性热力图 |
 | `result/` 分类 | 混淆矩阵、ROC 曲线、特征重要性、决策边界、分类结果展示 |
 | `result/` 回归 | 残差图、回归结果展示、学习曲线、特征重要性、树结构 |
-| `result/` 聚类 | 聚类结果散点图、KMeans 惯性曲线、DBSCAN k-距离图 / ε 扫描 |
+| `result/` 聚类 | 聚类结果散点图、KMeans 惯性曲线、DBSCAN k-距离图 / epsilon 扫描 |
 | `result/` 降维 | PCA 训练曲线 |
 | `result/` 序列 | HMM 状态解码图 |
 
@@ -548,21 +548,18 @@ python main.py analyze <pipelineId>
 
 ```
 main()
-  ├─ list    → _printPipelineList()
-  │             遍历 PIPELINE_REGISTRY → 按 ID 排序 → 逐条打印摘要
-  │
-  ├─ run     → _runPipeline(id)
-  │             PIPELINE_REGISTRY.get(id)  → PipelineSpec
-  │             DATASET_REGISTRY.get(datasetId) → DatasetSpec
-  │             ensureOptionalDependencies()    → 检查可选依赖
-  │             executePipeline(spec, ds)       → 分发到 Runner
-  │
-  ├─ suite   → _runSuite(group)
-  │             按 domain 前缀筛选 pipelineId 列表
-  │             逐个 _runPipeline() → 打印 [OK] / [FAIL] / [SKIP]
-  │
-  └─ analyze → _analyzePipeline(id)
-               加载数据 → 构建探索报告 → 终端打印
+- list    -> _printPipelineList()
+      - 遍历 PIPELINE_REGISTRY -> 按 ID 排序 -> 逐条打印摘要
+- run     -> _runPipeline(id)
+      - PIPELINE_REGISTRY.get(id)  -> PipelineSpec
+      - DATASET_REGISTRY.get(datasetId) -> DatasetSpec
+      - ensureOptionalDependencies()    -> 检查可选依赖
+      - executePipeline(spec, ds)       -> 分发到 Runner
+- suite   -> _runSuite(group)
+      - 按 domain 前缀筛选 pipelineId 列表
+      - 逐个 _runPipeline() -> 打印 [OK] / [FAIL] / [SKIP]
+- analyze -> _analyzePipeline(id)
+               加载数据 -> 构建探索报告 -> 终端打印
 ```
 
 ### 1.3 可选依赖处理
@@ -598,24 +595,24 @@ main()
 
 | 流水线 ID | 模型 | 预处理 | 数据特点 | 独有可视化 |
 |---|---|---|---|---|
-| `regression.linear_regression` | `LinearRegression` | `None` | 合成线性房价（200 × 3） | 学习曲线、系数对照 |
-| `regression.svr` | `SVR(rbf, C=10, ε=0.1)` | `standardScaler` | Friedman1 非线性（200 × 10） | 学习曲线、支持向量数 |
-| `regression.decision_tree` | `DecisionTreeRegressor(max_depth=6)` | `None` | California Housing（20640 × 8） | 学习曲线、树结构 |
-| `regression.regularization` | `Lasso / Ridge / ElasticNet` | `standardScaler` | diabetes + 共线 + 噪声（442 × 21） | 多模型对比、近零系数 |
+| `regression.linear_regression` | `LinearRegression` | `None` | 合成线性房价（200 x 3） | 学习曲线、系数对照 |
+| `regression.svr` | `SVR(rbf, C=10, $\varepsilon$=0.1)` | `standardScaler` | Friedman1 非线性（200 x 10） | 学习曲线、支持向量数 |
+| `regression.decision_tree` | `DecisionTreeRegressor(max_depth=6)` | `None` | California Housing（20640 x 8） | 学习曲线、树结构 |
+| `regression.regularization` | `Lasso / Ridge / ElasticNet` | `standardScaler` | diabetes + 共线 + 噪声（442 x 21） | 多模型对比、近零系数 |
 
 ### 2.3 聚类（Clustering）— 2 条
 
 | 流水线 ID | 模型 | 预处理 | 数据特点 | 独有可视化 |
 |---|---|---|---|---|
 | `clustering.kmeans` | `KMeans` | `standardScaler` | 球形多簇 | K 值扫描（惯性曲线） |
-| `clustering.dbscan` | `DBSCAN` | `standardScaler` | 双月牙非线性 | ε 扫描、k-距离图 |
+| `clustering.dbscan` | `DBSCAN` | `standardScaler` | 双月牙非线性 | epsilon 扫描、k-距离图 |
 
 ### 2.4 降维（Dimensionality）— 2 条
 
 | 流水线 ID | 模型 | 预处理 | 数据特点 | 独有可视化 |
 |---|---|---|---|---|
 | `dimensionality.pca` | `PCA` | `standardScaler` | 高维低秩合成 | 累计解释方差训练曲线 |
-| `dimensionality.lda` | `LDA` | `standardScaler` | Wine 真实数据（13 维 → 2 维） | 分类评估（混淆矩阵 + ROC） |
+| `dimensionality.lda` | `LDA` | `standardScaler` | Wine 真实数据（13 维 -> 2 维） | 分类评估（混淆矩阵 + ROC） |
 
 ### 2.5 集成学习（Ensemble）— 4 条
 
@@ -803,8 +800,8 @@ docs/regression/new_algorithm/
 
 仅正则化回归使用。训练函数返回 `dict[str, 模型]` 时：
 
-1. Runner 检测 `metadata["multiModel"] == True` → 进入多模型分支。
-2. 循环 `models.items()` → 每个模型独立预测、评估、生成独立产物文件。
+1. Runner 检测 `metadata["multiModel"] == True` -> 进入多模型分支。
+2. 循环 `models.items()` -> 每个模型独立预测、评估、生成独立产物文件。
 3. 各模型使用不同的输出子目录（`resolveOutputDir(modelName)`）。
 
 ### 3.4 学习曲线工厂

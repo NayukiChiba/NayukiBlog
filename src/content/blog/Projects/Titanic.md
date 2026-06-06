@@ -239,11 +239,11 @@ $$
 
 ### 特征工程建议
 
-1. **Name → Title**: 从姓名提取称谓 (Mr, Mrs, Miss, Master 等)
-2. **SibSp + Parch → FamilySize**: 合并为家庭规模
-3. **Cabin → CabinLetter**: 提取舱位等级 (A, B, C 等)
-4. **Age → AgeBin**: 分箱处理 (儿童、青年、中年、老年)
-5. **Fare → FareBin**: 分箱处理或 log 变换（偏度 4.79）
+1. **Name -> Title**: 从姓名提取称谓 (Mr, Mrs, Miss, Master 等)
+2. **SibSp + Parch -> FamilySize**: 合并为家庭规模
+3. **Cabin -> CabinLetter**: 提取舱位等级 (A, B, C 等)
+4. **Age -> AgeBin**: 分箱处理 (儿童、青年、中年、老年)
+5. **Fare -> FareBin**: 分箱处理或 log 变换（偏度 4.79）
 
 ## 快速开始
 
@@ -286,7 +286,7 @@ python predict.py
 ### 处理流程
 
 ```
-原始数据 → 缺失值填充 → 特征创建 → 特征编码 → 特征选择 → 输出
+原始数据 -> 缺失值填充 -> 特征创建 -> 特征编码 -> 特征选择 -> 输出
 ```
 
 ### 缺失值处理

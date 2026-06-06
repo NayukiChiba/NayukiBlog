@@ -75,7 +75,7 @@ s2 = pd.Series([10, 20, 30], index=["a", "b", "c"])
 print(f"\ns2:\n{s2}")
 print(f"访问 s2['b']: {s2['b']}")
 
-# 从字典创建（键 → 索引，值 → 数据）
+# 从字典创建（键 -> 索引，值 -> 数据）
 s3 = pd.Series({"apple": 100, "banana": 200, "orange": 150})
 print(f"\ns3:\n{s3}")
 ```
@@ -176,7 +176,7 @@ dtype: object
 
 #### 理解重点
 
-- 从字典创建：**键 → 列名**，值列表 → 列数据，所有值长度必须一致
+- 从字典创建：**键 -> 列名**，值列表 -> 列数据，所有值长度必须一致
 - 字符串列默认 `dtype=object`（底层存 Python 对象指针），内存效率不如 `category` 类型
 - `shape` 返回 `(行数, 列数)`——拿到数据后先查 shape 是最基本的健全检查
 
@@ -325,7 +325,7 @@ max       1.579   90.000   NaN   10.000
 
 #### 理解重点
 
-- **数据探索三板斧**：`head` → `info` → `describe`——拿到数据的标准流程
+- **数据探索三板斧**：`head` -> `info` -> `describe`——拿到数据的标准流程
 - `info` 最关键的信息是 **Non-Null Count**——立即暴露哪些列有缺失值
 - `describe` 默认只看数值列；`include='all'` 同时显示字符串列的 unique/top/freq
 - `info()` 不返回字符串——不要写 `s = df.info()`，需要捕获时用 `buf` 参数
@@ -338,7 +338,7 @@ max       1.579   90.000   NaN   10.000
 |---|---|---|
 | `df.shape` | `tuple[int, int]` | `(行数, 列数)` |
 | `df.ndim` | `int` | 维度数；DataFrame 恒为 `2` |
-| `df.size` | `int` | 元素总数 = 行数 × 列数 |
+| `df.size` | `int` | 元素总数 = 行数 x 列数 |
 | `df.columns` | `Index` | 列名 `Index` 对象 |
 | `df.index` | `Index` | 行索引对象 |
 | `df.dtypes` | `Series` | 各列数据类型 |
@@ -407,7 +407,7 @@ empty: False
 ## 小结
 
 - Pandas 的两大核心是 **`Series`**（一维带标签）和 **`DataFrame`**（二维表格）
-- 拿到数据的标准流程：`head` → `info` → `describe` → `shape` / `dtypes`
+- 拿到数据的标准流程：`head` -> `info` -> `describe` -> `shape` / `dtypes`
 - `Series` 和 `DataFrame` 都建立在 NumPy 之上，但多了**标签索引**和**丰富的数据处理方法**
 - 时刻关注 `shape` 和 `dtypes`——它们决定了后续操作的正确性
 
@@ -2072,7 +2072,7 @@ replace dict 形式:
 #### 理解重点
 
 - `replace` 和 `map` 的默认行为不同：`map` 对未映射值返回 NaN；`replace` 不匹配则保持原值
-- `map(dict)` 适合编码→全称映射；`replace(dict)` 适合脏数据清洗
+- `map(dict)` 适合编码->全称映射；`replace(dict)` 适合脏数据清洗
 - `replace` 的 `regex=True` 可以做正则替换——比 `.str.replace` 更灵活
 - `map` 可以传函数：`df["col"].map(lambda x: x * 2)`——等价于 `apply`
 
@@ -2088,7 +2088,7 @@ replace dict 形式:
 
 ## 小结
 
-- 缺失值处理的标准流程：`isnull().sum()` 评估 → `fillna` 或 `dropna` 处理
+- 缺失值处理的标准流程：`isnull().sum()` 评估 -> `fillna` 或 `dropna` 处理
 - 类型转换的安全选择：`pd.to_numeric(errors='coerce')` / `pd.to_datetime(errors='coerce')`
 - `.str` 访问器是 Pandas 字符串操作的统一入口——无需写循环
 - `replace` 和 `map` 功能相似但默认行为不同：`map` 未匹配变 NaN，`replace` 保持原值
@@ -3212,7 +3212,7 @@ print(f"\n2024-01 全部:\n{df['2024-01']}")
 
 #### 作用
 
-按指定频率重新聚合时间序列数据。降采样（如 日→月）做聚合，升采样（如 月→日）做插值。类似 `groupby`，返回 `Resampler` 对象，需调用聚合函数才执行。
+按指定频率重新聚合时间序列数据。降采样（如 日->月）做聚合，升采样（如 月->日）做插值。类似 `groupby`，返回 `Resampler` 对象，需调用聚合函数才执行。
 
 #### 重点方法
 
@@ -3245,11 +3245,11 @@ df = pd.DataFrame({
 
 print(f"原始数据（前 5 天）:\n{df.head()}")
 
-# 降采样：日 → 周
+# 降采样：日 -> 周
 weekly = df.resample("W").agg(["sum", "mean"])
 print(f"\n按周聚合:\n{weekly}")
 
-# 降采样：日 → 月
+# 降采样：日 -> 月
 monthly = df.resample("M").sum()
 print(f"\n按月聚合:\n{monthly}")
 ```
@@ -3752,7 +3752,7 @@ plt.close()
 
 ### 理解重点
 
-- 箱线图的箱子 = IQR（Q1 到 Q3），须线延伸到 1.5×IQR 范围——超出的是离群点
+- 箱线图的箱子 = IQR（Q1 到 Q3），须线延伸到 1.5xIQR 范围——超出的是离群点
 - 饼图只适用于 Series：`series.plot.pie()`——DataFrame 需先用 `df["col"]` 提取
 - `autopct="%1.1f%%"` 表示保留 1 位小数的百分比标注
 
@@ -3809,9 +3809,9 @@ plt.savefig("output.png", dpi=150, bbox_inches="tight")
 | `pd.crosstab(...)` | 函数 | 频数/比例交叉表 |
 | `pd.MultiIndex.from_arrays(...)` | 构造器 | 从数组列表创建多级索引 |
 | `pd.MultiIndex.from_tuples(...)` | 构造器 | 从元组列表创建多级索引 |
-| `df.stack(...)` | 方法 | 列 → 行（宽变长） |
-| `df.unstack(...)` | 方法 | 行 → 列（长变宽） |
-| `df.melt(...)` | 方法 | 宽表 → 长表（多列熔化为键值对） |
+| `df.stack(...)` | 方法 | 列 -> 行（宽变长） |
+| `df.unstack(...)` | 方法 | 行 -> 列（长变宽） |
+| `df.melt(...)` | 方法 | 宽表 -> 长表（多列熔化为键值对） |
 | `df.memory_usage(...)` | 方法 | 每列内存占用 |
 | `df.astype('category')` | 方法 | 转换为分类类型（节省内存） |
 
@@ -3873,10 +3873,10 @@ df = pd.DataFrame({
 print("原始数据:")
 print(df)
 
-# pivot_table：按 Region × Year 聚合 Sales
+# pivot_table：按 Region x Year 聚合 Sales
 pt = pd.pivot_table(df, values="Sales", index="Region",
                     columns="Year", aggfunc="sum", fill_value=0)
-print(f"\n透视表 (Region × Year, sum):\n{pt}")
+print(f"\n透视表 (Region x Year, sum):\n{pt}")
 
 # 带 margins（总计行列）
 ptm = pd.pivot_table(df, values="Sales", index="Region",
@@ -3900,7 +3900,7 @@ print(f"\npivot (无聚合):\n{piv}")
 4   West  2023       B    250
 5   West  2023       B    180
 
-透视表 (Region × Year, sum):
+透视表 (Region x Year, sum):
 Year    2022  2023
 Region
 East     300   150
@@ -4120,9 +4120,9 @@ West      268      24
 
 #### 作用
 
-- `stack()`：列 → 行（宽变长）——把列标签"压"进行索引的最后一级
-- `unstack()`：行 → 列（长变宽）——把行索引最后一级"展开"为列标签
-- `melt()`：宽表 → 长表——将多列"熔化"为两列：变量名列和值列
+- `stack()`：列 -> 行（宽变长）——把列标签"压"进行索引的最后一级
+- `unstack()`：行 -> 列（长变宽）——把行索引最后一级"展开"为列标签
+- `melt()`：宽表 -> 长表——将多列"熔化"为两列：变量名列和值列
 
 #### 重点方法
 
@@ -4157,11 +4157,11 @@ dfWide = pd.DataFrame({
 
 print(f"宽表:\n{dfWide}")
 
-# melt：宽 → 长
+# melt：宽 -> 长
 dfLong = dfWide.melt(id_vars=["Name"], var_name="Quarter", value_name="Sales")
 print(f"\nmelt 长表:\n{dfLong}")
 
-# 用 pivot_table 长 → 宽（逆操作）
+# 用 pivot_table 长 -> 宽（逆操作）
 dfBack = pd.pivot_table(dfLong, values="Sales", index="Name",
                         columns="Quarter")
 print(f"\npivot_table 回到宽表:\n{dfBack}")
@@ -4242,7 +4242,7 @@ dtype: int64
 
 - `memory_usage()`：查看 DataFrame 每列的内存占用（字节）
 - `astype('category')`：将低基数列（重复值多）转为分类类型——大幅节省内存
-- 降精度为数值列节省内存：`float64 → float32`、`int64 → int32`
+- 降精度为数值列节省内存：`float64 $\rightarrow$ float32`、`int64 $\rightarrow$ int32`
 
 #### 示例代码
 
@@ -4268,7 +4268,7 @@ print(f"总内存: {df.memory_usage().sum() / 1024:.1f} KB")
 # 查看 category 节省比例
 cityBefore = 10000 * 8  # object 列：每元素一个指针 ~8 字节
 cityAfter = df["City"].memory_usage()
-print(f"\nCity 列：转前 ~{cityBefore} bytes → 转后 {cityAfter} bytes")
+print(f"\nCity 列：转前 ~{cityBefore} bytes -> 转后 {cityAfter} bytes")
 print(f"节省: {(1 - cityAfter / cityBefore) * 100:.1f}%")
 ```
 
@@ -4291,14 +4291,14 @@ Value    80000
 dtype: int64
 总内存: 166.7 KB
 
-City 列：转前 ~80000 bytes → 转后 10548 bytes
+City 列：转前 ~80000 bytes -> 转后 10548 bytes
 节省: 86.8%
 ```
 
 #### 理解重点
 
 - `category` 类型的本质：存储整数编码 + 查找表——重复值越多，节省越多
-- 典型场景：性别、国家、城市、产品类型等**低基数**（≤ 50 类）分类变量
+- 典型场景：性别、国家、城市、产品类型等**低基数**（<= 50 类）分类变量
 - 数值降精度也有效：`df["col"].astype("float32")` 比 `float64` 省一半内存
 - `df.info(memory_usage="deep")` 查看含 object 列深层内存的实际占用
 
@@ -4316,4 +4316,4 @@ City 列：转前 ~80000 bytes → 转后 10548 bytes
 - 透视表 `pivot_table` 是分组聚合的二维呈现——比多层 `groupby` 更直观
 - `crosstab` 是频数统计的快捷方式——一行代码生成分类交叉表
 - 长表是可视化库的首选格式——`melt` 将宽表转为长表
-- 内存优化两步走：重复字符串列 → `category`；数值列 → 降精度（`float32` / `int32`）
+- 内存优化两步走：重复字符串列 -> `category`；数值列 -> 降精度（`float32` / `int32`）

@@ -41,7 +41,7 @@ $$
 \quad \text{s.t.} \quad y_i(\mathbf{w}^T \mathbf{x}_i + b) \geq 1, \quad \forall i
 $$
 
-其中 $y_i \in \{-1, +1\}$。约束 $y_i(\mathbf{w}^T \mathbf{x}_i + b) \geq 1$ 要求所有样本正确分类且到边界的函数间隔 ≥ 1。最小化 $\frac{1}{2}\|\mathbf{w}\|^2$ 等价于最大化间隔（因为间隔 = $2/\|\mathbf{w}\|$）。
+其中 $y_i \in \{-1, +1\}$。约束 $y_i(\mathbf{w}^T \mathbf{x}_i + b) \geq 1$ 要求所有样本正确分类且到边界的函数间隔 $\geq$ 1。最小化 $\frac{1}{2}\|\mathbf{w}\|^2$ 等价于最大化间隔（因为间隔 = $2/\|\mathbf{w}\|$）。
 
 ### 对偶问题（Dual）
 
@@ -188,7 +188,7 @@ $$
 | 核系数 | $\gamma = 1/(d \cdot \text{Var}(X))$（`'scale'`） | `gamma='scale'` |
 | 支持向量数量 | — | `model.n_support_` |
 | 支持向量 | $SV = \{\mathbf{x}_i \mid \alpha_i > 0\}$ | `model.support_vectors_` |
-| 对偶系数 × 标签 | $\alpha_i y_i$ | `model.dual_coef_` |
+| 对偶系数 $\times$ 标签 | $\alpha_i y_i$ | `model.dual_coef_` |
 | 决策函数偏置 | $b$ | `model.intercept_` |
 | 类别标签 | $\{-1, +1\}$（内部），$\{0, 1\}$（用户侧） | `model.classes_` |
 | 标准化 | $z_j = (x_j - \mu_j)/\sigma_j$ | `StandardScaler` |
@@ -203,7 +203,7 @@ $$
 
 ## 小结
 
-- SVC 的数学核心链：最大间隔 $\min\frac{1}{2}\|\mathbf{w}\|^2$ → 软间隔 $+C\sum\xi_i$ → 对偶形式 + 内积 → RBF 核 $K(\mathbf{x},\mathbf{z}) = \exp(-\gamma\|\mathbf{x}-\mathbf{z}\|^2)$ → 决策函数 $f(\mathbf{x}) = \sum\alpha_i y_i K(\mathbf{x}_i, \mathbf{x}) + b$。
+- SVC 的数学核心链：最大间隔 $\min\frac{1}{2}\|\mathbf{w}\|^2$ $\rightarrow$ 软间隔 $+C\sum\xi_i$ $\rightarrow$ 对偶形式 + 内积 $\rightarrow$ RBF 核 $K(\mathbf{x},\mathbf{z}) = \exp(-\gamma\|\mathbf{x}-\mathbf{z}\|^2)$ $\rightarrow$ 决策函数 $f(\mathbf{x}) = \sum\alpha_i y_i K(\mathbf{x}_i, \mathbf{x}) + b$。
 - $C$ 控制软间隔容错，$\gamma$ 控制 RBF 核局部半径——两者联合决定模型复杂度。
 - 支持向量（`n_support_`）是 SVC 独有的教学视角——理解它们就是理解 SVC 行为的关键。
 - 当前源码 `SVC(C=1.0, kernel='rbf', gamma='scale')` 是最经典的非线性 SVM 配置——直接回应同心圆数据的线性不可分特性。
@@ -296,7 +296,7 @@ y = data["label"]
 |---|---|---|---|
 | `X` | `DataFrame` | 特征矩阵，形状 $(400, 2)$ | `X` |
 | `y` | `Series` | 标签向量，取值 $\{0, 1\}$ | `y` |
-| `test_size` | `float` | 测试集占比。400 × 0.2 = 80 测试样本，320 训练样本 | `0.2` |
+| `test_size` | `float` | 测试集占比。400 x 0.2 = 80 测试样本，320 训练样本 | `0.2` |
 | `random_state` | `int` | 随机种子，保证切分可复现 | `42` |
 | `stratify` | `array_like` | 传入 `y` 使训练/测试集类别比例与原始一致 | `y` |
 
@@ -357,7 +357,7 @@ X_test_s = scaler.transform(X_test)
 ## 小结
 
 - 当前 SVC 数据来自 `make_circles(n_samples=400, noise=0.1, factor=0.5)`：2 个连续特征、环形嵌套的二分类结构。
-- 数据流为：`make_circles` → DataFrame（`x1`、`x2` + `label`）→ 切分（`stratify=y`）→ 标准化（仅在训练集 `fit`）。
+- 数据流为：`make_circles` -> DataFrame（`x1`、`x2` + `label`）-> 切分（`stratify=y`）-> 标准化（仅在训练集 `fit`）。
 - 同心圆数据与 RBF 核 SVC 的组合，是展示非线性核方法最经典的教学配置。
 
 # 思路与直觉
@@ -530,10 +530,10 @@ model = train_model(X_train_s, y_train)
 
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
-| `C` | `float` | 软间隔惩罚系数，对应目标函数 $C\sum\xi_i$。$C \uparrow$ → 间隔变窄、更关注训练精度；$C \downarrow$ → 间隔变宽、更关注泛化。默认 `1.0` | `0.1`、`1.0`、`10.0`、`100.0` |
+| `C` | `float` | 软间隔惩罚系数，对应目标函数 $C\sum\xi_i$。$C \uparrow$ -> 间隔变窄、更关注训练精度；$C \downarrow$ -> 间隔变宽、更关注泛化。默认 `1.0` | `0.1`、`1.0`、`10.0`、`100.0` |
 | `kernel` | `str` | 核函数类型。`'linear'`、`'poly'`、`'rbf'`、`'sigmoid'` 或 `'precomputed'`。默认 `'rbf'` | `'rbf'`、`'linear'`、`'poly'` |
 | `degree` | `int` | 多项式核的次数 $d$，仅当 `kernel='poly'` 时生效。默认 `3` | `2`、`3`、`4` |
-| `gamma` | `float` 或 `str` | 核系数，控制单个训练样本的影响半径。`'scale'`（默认）时 $\gamma = 1/(n\_features \cdot X.var())$；`'auto'` 时 $\gamma = 1/n\_features$；传入 `float` 直接使用。$\gamma \uparrow$ → 影响半径缩小、边界更精细弯曲 | `'scale'`、`'auto'`、`0.01`、`1.0`、`10.0` |
+| `gamma` | `float` 或 `str` | 核系数，控制单个训练样本的影响半径。`'scale'`（默认）时 $\gamma = 1/(n\_features \cdot X.var())$；`'auto'` 时 $\gamma = 1/n\_features$；传入 `float` 直接使用。$\gamma \uparrow$ -> 影响半径缩小、边界更精细弯曲 | `'scale'`、`'auto'`、`0.01`、`1.0`、`10.0` |
 | `coef0` | `float` | 核函数中的独立项 $r$，仅对 `'poly'` 和 `'sigmoid'` 核生效。默认 `0.0` | `0.0`、`1.0` |
 | `probability` | `bool` | 是否启用概率估计。`True` 时会在训练后额外做 5 折交叉验证 Platt scaling，显著增加训练耗时。默认 `False` | `False`、`True` |
 | `shrinking` | `bool` | 是否使用收缩启发式加速优化。默认 `True` | `True` |
@@ -663,7 +663,7 @@ y = data["label"]
 |---|---|---|---|
 | `X` | `DataFrame` | 特征矩阵，形状 $(400, 2)$ | `X` |
 | `y` | `Series` | 标签向量，二分类取值 $\{0, 1\}$ | `y` |
-| `test_size` | `float` | 测试集占比。400 × 0.2 = 80 测试样本，320 训练样本 | `0.2` |
+| `test_size` | `float` | 测试集占比。400 x 0.2 = 80 测试样本，320 训练样本 | `0.2` |
 | `random_state` | `int` | 随机种子，保证切分可复现 | `42` |
 | `stratify` | `array_like` | 传入 `y` 使训练/测试集内外圈比例与原始一致 | `y` |
 
@@ -710,7 +710,7 @@ X_test_s = scaler.transform(X_test)
 
 ### 参数速览
 
-适用 API：`train_model(X_train_s, y_train)` → `model.predict(X_test_s)`
+适用 API：`train_model(X_train_s, y_train)` -> `model.predict(X_test_s)`
 
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
@@ -728,7 +728,7 @@ y_pred = model.predict(X_test_s)
 
 ### 理解重点
 
-- `train_model(...)` 的 `fit()` 内部：求解对偶二次规划问题 → 确定支持向量集合 → 存储 $\alpha_i y_i$ 和 $b$。这是真正的迭代优化（SMO 算法），而非解析解。
+- `train_model(...)` 的 `fit()` 内部：求解对偶二次规划问题 -> 确定支持向量集合 -> 存储 $\alpha_i y_i$ 和 $b$。这是真正的迭代优化（SMO 算法），而非解析解。
 - `predict(...)` 内部：对每个测试样本计算 $f(\mathbf{x}) = \sum_{i\in SV} \alpha_i y_i K(\mathbf{x}_i, \mathbf{x}) + b$，取符号得到类别——仅支持向量参与计算。
 - `y_pred` 是后续混淆矩阵的直接输入。与逻辑回归不同，当前 SVC 流水线不调用 `predict_proba(...)` 也不画 ROC 曲线。
 
@@ -804,9 +804,9 @@ plot_learning_curve(
 
 ## 小结
 
-- 当前 SVC 流水线的训练过程：复制数据 → 特征/标签拆分 → 切分（`stratify=y`）→ 标准化 → 求解对偶二次规划 → 硬分类预测。
+- 当前 SVC 流水线的训练过程：复制数据 -> 特征/标签拆分 -> 切分（`stratify=y`）-> 标准化 -> 求解对偶二次规划 -> 硬分类预测。
 - 三个模型实例各司其职：`model`（原始 2 维空间主评估）、`model_2d`（PCA 空间画边界）、`SVC_Model(...)`（学习曲线克隆）。
-- SVC 的 `predict(...)` 基于 $\text{sign}(f(\mathbf{x}))$，不依赖概率阈值——这与逻辑回归的 Sigmoid → 0.5 阈值机制不同。
+- SVC 的 `predict(...)` 基于 $\text{sign}(f(\mathbf{x}))$，不依赖概率阈值——这与逻辑回归的 Sigmoid -> 0.5 阈值机制不同。
 - 当前流水线不使用 ROC 曲线——SVC 默认 `probability=False`，启用概率输出需要额外 Platt scaling 开销。
 
 # 评估与诊断
@@ -814,7 +814,7 @@ plot_learning_curve(
 ## 本章目标
 
 1. 明确当前仓库 SVC 实现的三种评估手段及其分别回答的问题。
-2. 理解 2×2 混淆矩阵和 PCA 决策边界图在同心圆二分类场景下的解读方式。
+2. 理解 2x2 混淆矩阵和 PCA 决策边界图在同心圆二分类场景下的解读方式。
 3. 理解当前 SVC 流水线为何不使用 ROC 曲线——与 `probability=False` 的默认配置直接相关。
 
 ## 重点方法与概念速览
@@ -822,7 +822,7 @@ plot_learning_curve(
 | 名称 | 类型 | 作用 |
 |---|---|---|
 | `y_pred` | 预测结果 | 测试集类别输出，由 $\text{sign}(f(\mathbf{x}))$ 硬分类产生 |
-| `plot_confusion_matrix(...)` | 函数 | 绘制 2×2 二分类混淆矩阵 |
+| `plot_confusion_matrix(...)` | 函数 | 绘制 2x2 二分类混淆矩阵 |
 | `plot_decision_boundary(...)` | 函数 | 绘制 PCA 2D 空间下的分类边界——对同心圆数据最能体现模型非线性能力 |
 | `plot_learning_curve(...)` | 函数 | 绘制训练/验证得分随样本量变化的曲线 |
 | `model.n_support_` | 属性 | 各类别支持向量数量——SVC 独有的诊断信息 |
@@ -980,7 +980,7 @@ plot_learning_curve(
 
 ## 小结
 
-- 当前仓库对 SVC 的评估：混淆矩阵看错误分布（2×2 二分类），PCA 决策边界图看 RBF 核弯曲边界的形状，学习曲线看样本量对支持向量收敛的影响。
+- 当前仓库对 SVC 的评估：混淆矩阵看错误分布（2x2 二分类），PCA 决策边界图看 RBF 核弯曲边界的形状，学习曲线看样本量对支持向量收敛的影响。
 - SVC 没有 `predict_proba` 驱动的 ROC 曲线评估——这是它与其他分类算法分册在评估体系上的关键差异。
 - 对于同心圆数据，PCA 决策边界图中的环形边界是最有说服力的评估——它直接展示了 RBF 核将线性不可分问题转化为可解问题的能力。
 
@@ -1000,7 +1000,7 @@ plot_learning_curve(
 | 数据导出 | `data_generation/__init__.py` | 向外暴露 `svc_data` |
 | 训练封装 | `model_training/classification/svc.py` | 构建并训练 `SVC(kernel='rbf')`，打印支持向量统计 |
 | 流水线入口 | `pipelines/classification/svc.py` | 组织切分、标准化、训练、预测与可视化的完整编排 |
-| 混淆矩阵可视化 | `result_visualization/confusion_matrix.py` | 绘制并保存 2×2 二分类混淆矩阵图 |
+| 混淆矩阵可视化 | `result_visualization/confusion_matrix.py` | 绘制并保存 2x2 二分类混淆矩阵图 |
 | 决策边界可视化 | `result_visualization/decision_boundary.py` | 绘制并保存 PCA 二维决策边界图 |
 | 学习曲线可视化 | `result_visualization/learning_curve.py` | 绘制并保存训练/验证得分曲线图 |
 
@@ -1015,7 +1015,7 @@ python -m pipelines.classification.svc
 ### 理解重点
 
 - 这个命令串起当前 SVC 分册中最核心的工程流程。
-- 依次完成：数据复制 → 特征/标签拆分 → 切分 → 标准化 → SVC `fit()`（求解对偶二次规划）→ 硬分类预测 → 三种可视化。
+- 依次完成：数据复制 -> 特征/标签拆分 -> 切分 -> 标准化 -> SVC `fit()`（求解对偶二次规划）-> 硬分类预测 -> 三种可视化。
 - 对大多数读者来说，`pipelines/classification/svc.py` 是理解工程实现的最佳起点。
 
 ## 2. `run()` 串起了整个流程
@@ -1052,7 +1052,7 @@ def run():
 ### 理解重点
 
 - `run()` 的职责是编排，不是算法实现——真正的优化在 `SVC.fit()`（`libsvm` 的 SMO 算法求解对偶二次规划）中。
-- 数据流是单向的：数据 → 切分 → 标准化 → 二次规划求解 → 硬分类预测 → 评估。
+- 数据流是单向的：数据 -> 切分 -> 标准化 -> 二次规划求解 -> 硬分类预测 -> 评估。
 - 与逻辑回归流水线的关键差异：无 `predict_proba` 调用、无 ROC 曲线——因为 SVC 默认 `probability=False`。
 
 ## 3. 训练模块负责什么
@@ -1089,7 +1089,7 @@ def run():
 
 | 模块 | 函数 | 输入 | 输出 |
 |---|---|---|---|
-| 混淆矩阵 | `plot_confusion_matrix(...)` | `y_test`、`y_pred` | 2×2 二分类混淆矩阵图（PNG） |
+| 混淆矩阵 | `plot_confusion_matrix(...)` | `y_test`、`y_pred` | 2x2 二分类混淆矩阵图（PNG） |
 | 决策边界 | `plot_decision_boundary(...)` | `model_2d`、`X_2d`、`y.values` | PCA 二维分类边界图（PNG） |
 | 学习曲线 | `plot_learning_curve(...)` | `SVC_Model(kernel='rbf', ...)`、`X_train_s`、`y_train` | 训练/验证得分随样本量变化曲线（PNG） |
 
@@ -1112,7 +1112,7 @@ def run():
 ### 理解重点
 
 - 数据流向单向、无循环依赖，每个模块可以独立测试和替换。
-- SVC 的流水线结构与逻辑回归、KNN 高度一致——但缺少 `predict_proba` → ROC 评估分支。
+- SVC 的流水线结构与逻辑回归、KNN 高度一致——但缺少 `predict_proba` -> ROC 评估分支。
 - `model_2d` 与主模型共享 `kernel='rbf'` 配置，确保决策边界图反映的是同类核函数的表现。
 
 ## 6. 运行后能得到什么
@@ -1137,7 +1137,7 @@ def run():
 
 1. 先看 `pipelines/classification/svc.py` — 入口，了解整体流程（注意无 ROC 分支）
 2. 再看 `model_training/classification/svc.py` — 训练封装，理解超参数和支持向量日志
-3. 再看 `result_visualization/confusion_matrix.py` — 基础分类结果评估（2×2 矩阵）
+3. 再看 `result_visualization/confusion_matrix.py` — 基础分类结果评估（2x2 矩阵）
 4. 再看 `result_visualization/decision_boundary.py` — PCA 空间 RBF 核边界可视化
 5. 再看 `result_visualization/learning_curve.py` — 训练行为诊断
 6. 最后回到 `data_generation/classification.py` — 理解同心圆数据生成参数
@@ -1145,7 +1145,7 @@ def run():
 ### 理解重点
 
 - 从入口看整体流程，再下钻到训练与可视化细节，阅读成本最低。
-- 这个顺序对应数据流方向：数据 → 标准化 → 二次规划求解 → 硬分类预测 → 评估。
+- 这个顺序对应数据流方向：数据 -> 标准化 -> 二次规划求解 -> 硬分类预测 -> 评估。
 
 ## 运行结果
 
@@ -1161,7 +1161,7 @@ def run():
 
 ## 小结
 
-- 当前 SVC 工程实现采用清晰的模块分层：数据生成 → 训练封装 → 流水线编排 → 结果可视化（三种评估）。
+- 当前 SVC 工程实现采用清晰的模块分层：数据生成 -> 训练封装 -> 流水线编排 -> 结果可视化（三种评估）。
 - `run()` 负责串联，`train_model(...)` 负责二次规划求解（SMO 迭代优化），各可视化函数负责结果展示与诊断。
 - SVC 在工程上最不同于其他分类算法的地方：标准化是硬性要求（RBF 核距离敏感）、训练日志输出 `n_support_`（稀疏性）、无 `predict_proba` / ROC 评估分支（`probability=False`）。
 
@@ -1245,7 +1245,7 @@ def run():
 - 这一章的重点不是新增概念，而是把前面章节学到的内容重新落到源码和实验现象上。
 - 如果能独立解释以下问题，说明已经掌握了当前 SVC 分册的核心内容：
   - 标准化必须在切分后执行（防止数据泄露），且对 RBF 核是硬性要求（距离计算不能被量纲绑架）
-  - 最大间隔 $\min\frac{1}{2}\|\mathbf{w}\|^2$ → 软间隔 $+C\sum\xi_i$ → 对偶 + 内积 → RBF 核 → 支持向量 → 决策函数 $f(\mathbf{x})$ 的完整数学链
+  - 最大间隔 $\min\frac{1}{2}\|\mathbf{w}\|^2$ -> 软间隔 $+C\sum\xi_i$ -> 对偶 + 内积 -> RBF 核 -> 支持向量 -> 决策函数 $f(\mathbf{x})$ 的完整数学链
   - $C$ 越大正则越弱（与逻辑回归一致），$\gamma$ 越大核窗口越窄——两者联合决定复杂度
   - 线性核对同心圆数据必然失败——这是 SVC 分册最有教学启示的实验对比
   - `n_support_` 是 SVC 独有的教学窗口——通过它可以看到模型依赖了多少关键样本

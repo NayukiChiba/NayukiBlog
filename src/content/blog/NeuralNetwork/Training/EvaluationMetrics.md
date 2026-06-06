@@ -217,8 +217,8 @@ $$
 
 $\tau$ 的变化重新分配了 $TP, FP, TN, FN$：
 
-- **$\tau \uparrow$（阈值提高）**：模型更"保守"，只有非常确信时才判正 → $\hat{P} = TP + FP$ 缩小 → **$TP \downarrow$，$FP \downarrow$** → Precision 可能 $\uparrow$，Recall $\downarrow$
-- **$\tau \downarrow$（阈值降低）**：模型更"激进"，稍有怀疑就判正 → $\hat{P}$ 膨胀 → **$TP \uparrow$，$FP \uparrow$** → Recall $\uparrow$，Precision 可能 $\downarrow$
+- **$\tau \uparrow$（阈值提高）**：模型更"保守"，只有非常确信时才判正 -> $\hat{P} = TP + FP$ 缩小 -> **$TP \downarrow$，$FP \downarrow$** -> Precision 可能 $\uparrow$，Recall $\downarrow$
+- **$\tau \downarrow$（阈值降低）**：模型更"激进"，稍有怀疑就判正 -> $\hat{P}$ 膨胀 -> **$TP \uparrow$，$FP \uparrow$** -> Recall $\uparrow$，Precision 可能 $\downarrow$
 
 极端情况的形式化：
 
@@ -373,11 +373,11 @@ $$
 
 设模型对所有 $n = P + N$ 个样本的输出分数降序排列为 $s_{(1)} \ge s_{(2)} \ge \dots \ge s_{(n)}$。令阈值从 $+\infty$ 逐步降至 $-\infty$（等价于从高分到低分扫描）：
 
-1. 初始：$\tau = +\infty$，所有样本判负 → $FP = 0,\ TP = 0$ → 坐标 $(0, 0)$
+1. 初始：$\tau = +\infty$，所有样本判负 -> $FP = 0,\ TP = 0$ -> 坐标 $(0, 0)$
 2. 依次将每个样本从"负类"挪入"正类"：
-   - 若该样本真实为正（$y=1$）→ $TP \mathrel{+}= 1$，点在 ROC 上**向上**移动 $\frac{1}{P}$
-   - 若该样本真实为负（$y=0$）→ $FP \mathrel{+}= 1$，点在 ROC 上**向右**移动 $\frac{1}{N}$
-3. 最终：$\tau = -\infty$，所有样本判正 → $TP = P,\ FP = N$ → 坐标 $(1, 1)$
+   - 若该样本真实为正（$y=1$）-> $TP \mathrel{+}= 1$，点在 ROC 上**向上**移动 $\frac{1}{P}$
+   - 若该样本真实为负（$y=0$）-> $FP \mathrel{+}= 1$，点在 ROC 上**向右**移动 $\frac{1}{N}$
+3. 最终：$\tau = -\infty$，所有样本判正 -> $TP = P,\ FP = N$ -> 坐标 $(1, 1)$
 
 ROC 曲线就是这条从 $(0,0)$ 到 $(1,1)$ 的阶梯路径。
 
@@ -391,9 +391,9 @@ ROC 曲线就是这条从 $(0,0)$ 到 $(1,1)$ 的阶梯路径。
 
 ### 7.5 ROC 的几何解读
 
-- 曲线越靠近**左上角** $(0, 1)$ → 模型越好（高 $TPR$，低 $FPR$）
-- 曲线沿**对角线** $TPR = FPR$ → 等价于随机猜测（正负样本的分数分布完全重叠）
-- 曲线在**对角线下方** → 模型的排序反了（负样本分数系统性高于正样本）——取反即可修复
+- 曲线越靠近**左上角** $(0, 1)$ -> 模型越好（高 $TPR$，低 $FPR$）
+- 曲线沿**对角线** $TPR = FPR$ -> 等价于随机猜测（正负样本的分数分布完全重叠）
+- 曲线在**对角线下方** -> 模型的排序反了（负样本分数系统性高于正样本）——取反即可修复
 - **曲线形状不依赖阈值**——ROC 的每一点对应一个 $\tau$，整条曲线覆盖了全部 $\tau$，展示的是模型**内在的排序能力**
 
 ![ROCCurve.png](https://img.yumeko.site/file/blog/articles/1780733809166.webp)
@@ -518,9 +518,9 @@ ROC 曲线在**极度不平衡**场景下可能过于乐观。
 
 ### 9.3 选择策略
 
-- $\frac{P}{P+N} \approx 0.5$（正负样本大致平衡）→ ROC + AUC 足矣
-- $\frac{P}{P+N} < 0.1$（正样本稀少）→ 追加 PR 曲线，关注 $P$ 在高 $R$ 区域的表现
-- 不确定 → 两个都画
+- $\frac{P}{P+N} \approx 0.5$（正负样本大致平衡）-> ROC + AUC 足矣
+- $\frac{P}{P+N} < 0.1$（正样本稀少）-> 追加 PR 曲线，关注 $P$ 在高 $R$ 区域的表现
+- 不确定 -> 两个都画
 
 ### 9.4 代码实现
 
@@ -713,11 +713,11 @@ $$
 
 ```
 你的数据均衡吗？
-├── 均衡 (P ≈ N)  → Accuracy + ROC/AUC 为主，Confusion Matrix 辅助
-└── 不均衡 (P ≪ N 或 P ≫ N)
-    ├── 误报代价高 → 关注 Precision + PR 曲线
-    ├── 漏报代价高 → 关注 Recall + PR 曲线
-    └── 需要综合   → F1 + AUC 双指标
+- 均衡 (P ~= N)  -> Accuracy + ROC/AUC 为主，Confusion Matrix 辅助
+- 不均衡 (P ≪ N 或 P ≫ N)
+  - 误报代价高 -> 关注 Precision + PR 曲线
+  - 漏报代价高 -> 关注 Recall + PR 曲线
+  - 需要综合   -> F1 + AUC 双指标
 ```
 
 ### 12.4 关键洞察

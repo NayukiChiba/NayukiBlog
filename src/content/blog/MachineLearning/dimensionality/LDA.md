@@ -232,7 +232,7 @@ $$
 
 ## 小结
 
-- LDA 的数学核心链：类内/类间散度矩阵 $\mathbf{S}_W, \mathbf{S}_B$ → Fisher 准则 $\max \mathbf{w}^T\mathbf{S}_B\mathbf{w} / \mathbf{w}^T\mathbf{S}_W\mathbf{w}$ → 广义特征值问题 $\mathbf{S}_B\mathbf{w} = \lambda \mathbf{S}_W\mathbf{w}$ → $\mathbf{S}_W^{-1}\mathbf{S}_B$ 特征分解 → 取最大 $q \leq K-1$ 个特征向量作为判别方向。
+- LDA 的数学核心链：类内/类间散度矩阵 $\mathbf{S}_W, \mathbf{S}_B$ $\rightarrow$ Fisher 准则 $\max \mathbf{w}^T\mathbf{S}_B\mathbf{w} / \mathbf{w}^T\mathbf{S}_W\mathbf{w}$ $\rightarrow$ 广义特征值问题 $\mathbf{S}_B\mathbf{w} = \lambda \mathbf{S}_W\mathbf{w}$ $\rightarrow$ $\mathbf{S}_W^{-1}\mathbf{S}_B$ 特征分解 $\rightarrow$ 取最大 $q \leq K-1$ 个特征向量作为判别方向。
 - $K-1$ 维上限来自 $\text{rank}(\mathbf{S}_B) \leq K-1$ 的秩论证——这是 LDA 区别于 PCA 最核心的数学约束。
 - 当前源码 `LinearDiscriminantAnalysis(n_components=2, solver='svd')` 针对 Wine 数据（$K=3$）是最经典的监督降维配置。
 
@@ -366,8 +366,8 @@ X_scaled = scaler.fit_transform(X)
 
 ## 小结
 
-- 当前 LDA 数据来自 `load_wine(as_frame=True)`：178 个样本 × 13 个连续特征 × 3 个类别。
-- 数据流为：`load_wine` → DataFrame（13 特征 + `label`）→ 全量标准化。
+- 当前 LDA 数据来自 `load_wine(as_frame=True)`：178 个样本 x 13 个连续特征 x 3 个类别。
+- 数据流为：`load_wine` -> DataFrame（13 特征 + `label`）-> 全量标准化。
 - `label` 既参与训练（定义 $\mathbf{S}_W$ 和 $\mathbf{S}_B$）也参与可视化（着色）——这是有监督降维与无监督降维在数据处理上的根本差异。
 - Wine 真实数据集类别差异明显、特征量纲丰富——是展示 LDA 判别能力的理想教学数据。
 
@@ -422,7 +422,7 @@ LDA 的工作方式可以想象成：
 
 ## 3. 为什么 Wine 数据特别适合讲 LDA
 
-当前数据来自 Wine 真实数据集（178 样本 × 13 特征 × 3 类）：
+当前数据来自 Wine 真实数据集（178 样本 x 13 特征 x 3 类）：
 
 - 三类葡萄品种的化学成分确实存在系统差异——类间散度天然较大
 - 13 个特征包含多种量纲——标准化后散度矩阵才具有几何意义
@@ -430,7 +430,7 @@ LDA 的工作方式可以想象成：
 
 ### 理解重点
 
-- 如果类别本来就高度重叠（类间散度 ≈ 类内散度），LDA 找到的投影方向也难以让图像明显分开。
+- 如果类别本来就高度重叠（类间散度 ~= 类内散度），LDA 找到的投影方向也难以让图像明显分开。
 - Wine 数据集的类别差异在化学成分上确实存在——这使得 LDA 的判别效果直观可感。
 - 使用真实数据集（而非 `make_classification` 合成数据）增加了教学的真实感——读者可以看到 LDA 在真实化学测量上的表现。
 
@@ -438,9 +438,9 @@ LDA 的工作方式可以想象成：
 
 LDA 的优化目标（类间散度 / 类内散度）天然依赖类别标签：
 
-- 没有标签 → 无法定义"哪是类内、哪是类间"
-- 没有类结构和类结构 → Fisher 准则无从计算
-- 没有 Fisher 准则 → LDA 退化成无目标的降维
+- 没有标签 -> 无法定义"哪是类内、哪是类间"
+- 没有类结构和类结构 -> Fisher 准则无从计算
+- 没有 Fisher 准则 -> LDA 退化成无目标的降维
 
 ### 理解重点
 
@@ -492,7 +492,7 @@ Wine 数据有 3 个类别：
 
 ## 小结
 
-- LDA 的直觉核心是有监督判别式降维：用标签定义类间/类内散度 → 找最大化两者之比的方向 → 投影后类别更可分。
+- LDA 的直觉核心是有监督判别式降维：用标签定义类间/类内散度 -> 找最大化两者之比的方向 -> 投影后类别更可分。
 - Wine 真实数据集（3 类 13 特征）类别差异明显——是展示 LDA 判别能力的最佳教学数据。
 - LDA 与 PCA 在直觉上截然不同：一个以类别为核心找"最可分"方向，一个以数据为核心找"最大方差"方向——选哪个取决于任务目标，而非算法优劣。
 
@@ -720,7 +720,7 @@ X_scaled = scaler.fit_transform(X)
 
 ### 参数速览
 
-适用 API：`train_model(X_scaled, y, n_components=2)` → `model.fit(X_scaled, y)`
+适用 API：`train_model(X_scaled, y, n_components=2)` -> `model.fit(X_scaled, y)`
 
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
@@ -736,7 +736,7 @@ model = train_model(X_scaled, y, n_components=2)
 
 ### 理解重点
 
-- `LinearDiscriminantAnalysis.fit(X_scaled, y)` 内部流程：计算各类均值 $\boldsymbol{\mu}_k$ → 构造 $\mathbf{S}_W$ 和 $\mathbf{S}_B$ → 通过 SVD 求解广义特征值问题 → 取最大的 2 个特征值对应的特征向量作为判别方向 → 存入 `scalings_`。
+- `LinearDiscriminantAnalysis.fit(X_scaled, y)` 内部流程：计算各类均值 $\boldsymbol{\mu}_k$ -> 构造 $\mathbf{S}_W$ 和 $\mathbf{S}_B$ -> 通过 SVD 求解广义特征值问题 -> 取最大的 2 个特征值对应的特征向量作为判别方向 -> 存入 `scalings_`。
 - 这**既有训练也有模型**——LDA 产出一个可复用的投影矩阵（`scalings_`），可以对任意新数据做 `transform()`。
 - 与 PCA 对比：`fit()` 都产出一个投影矩阵，但 PCA 不需要 `y`（无监督），LDA 必须有 `y`（有监督）。
 
@@ -798,7 +798,7 @@ plot_dimensionality(
 ### 理解重点
 
 - `plot_dimensionality(...)` 是当前 LDA 分册唯一的可视化函数——与分类分册的四类评估（混淆矩阵+ROC+决策边界+学习曲线）完全不同。
-- `explained_variance_ratio` 的条件传递（`if hasattr` → `evr` 或 `None`）是 LDA 特有的工程模式——不同求解器对此属性的支持不同。
+- `explained_variance_ratio` 的条件传递（`if hasattr` -> `evr` 或 `None`）是 LDA 特有的工程模式——不同求解器对此属性的支持不同。
 - 图中 `y` 既是训练标签也是着色依据——它在当前分册中有双重作用。坐标轴标签会包含解释占比（如 `LD1 (78.5%)`）。
 
 ## 6. 用伪代码看完整流程
@@ -818,9 +818,9 @@ plot_dimensionality(X_transformed, y=y, explained_variance_ratio=evr, mode="2d")
 
 ### 理解重点
 
-- 当前 LDA 流水线的主线非常清楚：取数 → 标准化 → 有监督训练 → 判别投影 → 2D 可视化。
+- 当前 LDA 流水线的主线非常清楚：取数 -> 标准化 -> 有监督训练 -> 判别投影 -> 2D 可视化。
 - 这条链路里最关键的中间变量是：`X_scaled`（标准化特征）、训练后的 `model`（含 `scalings_`）、二维投影结果 `X_transformed` 和标签 `y`。
-- 与 PCA 流水线的步骤形式极其相似（StandardScaler → fit → transform → plot），但 `fit()` 是否传 `y` 是两套流程的本质分野。
+- 与 PCA 流水线的步骤形式极其相似（StandardScaler -> fit -> transform -> plot），但 `fit()` 是否传 `y` 是两套流程的本质分野。
 
 ## 训练诊断可视化
 
@@ -835,7 +835,7 @@ plot_dimensionality(X_transformed, y=y, explained_variance_ratio=evr, mode="2d")
 
 ## 小结
 
-- 当前 LDA 流水线非常清晰：复制数据 → 拆出 `X` 和 `y` → 全量标准化 → `fit(X, y)` 学习判别方向 → `transform(X)` 投影到 2D → 判别散点图。
+- 当前 LDA 流水线非常清晰：复制数据 -> 拆出 `X` 和 `y` -> 全量标准化 -> `fit(X, y)` 学习判别方向 -> `transform(X)` 投影到 2D -> 判别散点图。
 - 与 PCA 流水线的核心差异：`y` 参与训练（有监督）、降维上限 $K-1$（非 $\min(d,N)$）、优化目标不同（类间/类内比 vs 方差）。
 - 与分类分册的核心差异：输出是低维坐标而非类别预测、可视化是降维散点图而非混淆矩阵/ROC、无 `predict()`（用 `transform()` 替代）。
 
@@ -1002,7 +1002,7 @@ python -m pipelines.dimensionality.lda
 ### 理解重点
 
 - 这个命令串起当前 LDA 分册中最核心的工程流程。
-- 依次完成：数据复制 → 拆出 `X` 和 `y` → 全量标准化 → LDA `fit(X, y)`（学习判别方向）→ `transform(X)`（投影到 2D）→ 判别散点图。
+- 依次完成：数据复制 -> 拆出 `X` 和 `y` -> 全量标准化 -> LDA `fit(X, y)`（学习判别方向）-> `transform(X)`（投影到 2D）-> 判别散点图。
 - 对大多数读者来说，`pipelines/dimensionality/lda.py` 是理解工程实现的最佳起点——代码量少、流程清晰。
 
 ## 2. `run()` 串起了整个流程
@@ -1046,7 +1046,7 @@ def run():
 ### 理解重点
 
 - `run()` 的职责是编排，不是算法实现——真正的广义特征值求解在 `LinearDiscriminantAnalysis.fit()` 中。
-- 数据流是单向的：数据 → 标准化 → 判别方向学习 → 投影 → 2D 散点图。
+- 数据流是单向的：数据 -> 标准化 -> 判别方向学习 -> 投影 -> 2D 散点图。
 - 与分类流水线的核心差异：
   - **无 `predict()` 调用**——LDA 在这里是降维工具，输出是 `transform()` 而非类别标签
   - **无 `predict_proba`**——当前流水线不涉及分类概率
@@ -1156,7 +1156,7 @@ def run():
 
 ## 小结
 
-- 当前 LDA 工程实现采用与 PCA 一致的模块分层：数据生成 → 训练封装（有监督）→ 流水线编排 → 单一可视化（判别散点图）。
+- 当前 LDA 工程实现采用与 PCA 一致的模块分层：数据生成 -> 训练封装（有监督）-> 流水线编排 -> 单一可视化（判别散点图）。
 - `run()` 负责串联，`train_model(...)` 负责判别方向学习（`fit(X, y)`），`plot_dimensionality(...)` 负责降维可视化。
 - LDA 在工程上最不同于 PCA 的地方：`fit()` 有 `y` 参数（有监督）、`n_components` 受 $K-1$ 约束、`explained_variance_ratio_` 含义不同（判别能力 vs 方差）。
 - LDA 在工程上最不同于分类算法的地方：输出是 `transform()` 而非 `predict()`、单一降维散点图而非多类评估图——这是由降维定位决定的。

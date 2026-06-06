@@ -170,12 +170,12 @@ for name, param in model.named_parameters():
 ## 快速排查清单
 
 ```
-1. 数据归一化了吗？         → transforms.Normalize()
-2. 学习率合适吗？          → 尝试 1e-4, 1e-3, 1e-2, 0.1
-3. 权重初始化了吗？         → Kaiming/ReLU, Xavier/Tanh
-4. 标签格式对吗？          → CrossEntropyLoss 用 int 标签
-5. 输出范围正常吗？        → logits 应在 [-2, 2]
-6. 梯度值正常吗？          → 梯度范数应在 [1e-6, 1e2]
+1. 数据归一化了吗？         -> transforms.Normalize()
+2. 学习率合适吗？          -> 尝试 1e-4, 1e-3, 1e-2, 0.1
+3. 权重初始化了吗？         -> Kaiming/ReLU, Xavier/Tanh
+4. 标签格式对吗？          -> CrossEntropyLoss 用 int 标签
+5. 输出范围正常吗？        -> logits 应在 [-2, 2]
+6. 梯度值正常吗？          -> 梯度范数应在 [1e-6, 1e2]
 ```
 ![LossNotDown.png](https://img.yumeko.site/file/blog/articles/1780581591091.webp)
 

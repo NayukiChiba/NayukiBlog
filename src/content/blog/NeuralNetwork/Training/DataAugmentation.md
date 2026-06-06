@@ -33,11 +33,11 @@ transforms.RandomHorizontalFlip(p=0.5)       # 水平翻转（自然图像标配
 transforms.RandomVerticalFlip(p=0.5)         # 垂直翻转（卫星/显微镜图适用）
 
 # 旋转
-transforms.RandomRotation(degrees=15)         # ±15°（MNIST 用 ±10° 足够）
+transforms.RandomRotation(degrees=15)         # +/-15°（MNIST 用 +/-10° 足够）
 
 # 仿射变换
 transforms.RandomAffine(
-    degrees=10,              # 旋转 ±10°
+    degrees=10,              # 旋转 +/-10°
     translate=(0.1, 0.1),    # 平移 10%
     scale=(0.9, 1.1)         # 缩放 90%~110%
 )
@@ -51,10 +51,10 @@ transforms.RandomResizedCrop(224, scale=(0.8, 1.0))
 ```python
 # 颜色抖动
 transforms.ColorJitter(
-    brightness=0.2,    # 亮度 ±20%
-    contrast=0.2,      # 对比度 ±20%
-    saturation=0.2,    # 饱和度 ±20%
-    hue=0.1             # 色相 ±10%
+    brightness=0.2,    # 亮度 +/-20%
+    contrast=0.2,      # 对比度 +/-20%
+    saturation=0.2,    # 饱和度 +/-20%
+    hue=0.1             # 色相 +/-10%
 )
 
 # 随机灰度
@@ -81,14 +81,14 @@ transforms.RandomErasing(p=0.5, scale=(0.02, 0.33))
 
 ```python
 transforms.RandomAffine(
-    degrees=10,          # 旋转：±10°
-    translate=(0.1, 0.1) # 平移：±10%
+    degrees=10,          # 旋转：+/-10°
+    translate=(0.1, 0.1) # 平移：+/-10%
 )
 ```
 
 **为什么只有旋转和平移？** 手写数字最常见的变化就是书写角度（有人写得斜）和位置偏移（有人偏左）。这两种增强足够模拟真实场景，且不改变类别。
 
-**为什么不做水平翻转？** 某些数字翻转后会变成另一个数字（如 6 ↔ 9 的某种写法），引入标签噪声。
+**为什么不做水平翻转？** 某些数字翻转后会变成另一个数字（如 6 <-> 9 的某种写法），引入标签噪声。
 
 ## 5. ImageNet 风格的标准增强
 
@@ -116,7 +116,7 @@ valTransform = transforms.Compose([
 ## 6. 选择流程
 
 ```
-任务类型 → 分析真实场景变化 → 选择对应增强 → 可视化验证 → 调整强度
+任务类型 -> 分析真实场景变化 -> 选择对应增强 -> 可视化验证 -> 调整强度
 ```
 
 不要盲目堆砌所有增强方法——每种增强都应该有明确的"模拟目标"。

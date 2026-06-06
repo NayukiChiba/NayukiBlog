@@ -86,14 +86,14 @@ Loss = -log(0.659) = 0.417
 如果模型对类别 0 的 logit 是 5.0（非常确信）：
 
 ```
-Softmax: 类别 0 概率 ≈ 0.982
+Softmax: 类别 0 概率 ~= 0.982
 Loss = -log(0.982) = 0.018 （接近于 0）
 ```
 
 如果模型对类别 0 的 logit 是 -1.0（预测错误方向）：
 
 ```
-Softmax: 类别 0 概率 ≈ 0.090
+Softmax: 类别 0 概率 ~= 0.090
 Loss = -log(0.090) = 2.408 （较大的惩罚）
 ```
 
@@ -305,8 +305,8 @@ $$
 $$
 
 这意味着：
-- 误差越大，梯度越大 → 大误差样本驱动更多学习
-- 误差接近 0 时，梯度也接近 0 → 收敛时自动"减速"
+- 误差越大，梯度越大 -> 大误差样本驱动更多学习
+- 误差接近 0 时，梯度也接近 0 -> 收敛时自动"减速"
 - 这种性质让 MSE 在误差服从高斯分布时是最优的（最大似然估计等价于最小化 MSE）
 
 ```python
@@ -320,7 +320,7 @@ predictions = torch.tensor([2.5, 1.0, 3.0, 4.5])
 targets = torch.tensor([3.0, 1.5, 2.5, 4.0])
 
 loss = criterion(predictions, targets)
-# = ((3.0-2.5)² + (1.5-1.0)² + (2.5-3.0)² + (4.0-4.5)²) / 4
+# = ((3.0-2.5)^2 + (1.5-1.0)^2 + (2.5-3.0)^2 + (4.0-4.5)^2) / 4
 # = (0.25 + 0.25 + 0.25 + 0.25) / 4 = 0.25
 ```
 
@@ -378,17 +378,17 @@ PyTorch 中为 Smooth L1 Loss（$\delta=1$ 时等同于 Huber）：
 ```python
 criterion = nn.SmoothL1Loss(beta=1.0)
 
-# beta 即 δ，控制 MSE/MAE 的切换点
-# |误差| ≤ beta → MSE 行为
-# |误差| > beta → MAE 行为
+# beta 即 delta，控制 MSE/MAE 的切换点
+# |误差| <= beta -> MSE 行为
+# |误差| > beta -> MAE 行为
 ```
 
 **三者对比**：
 
 ```
-误差为 0.5 时:  MSE=0.25,  MAE=0.5,   Huber≈0.125
-误差为 3.0 时:  MSE=9.0,   MAE=3.0,   Huber≈2.5
-误差为 10.0 时: MSE=100,   MAE=10.0,  Huber≈9.5
+误差为 0.5 时:  MSE=0.25,  MAE=0.5,   Huber~=0.125
+误差为 3.0 时:  MSE=9.0,   MAE=3.0,   Huber~=2.5
+误差为 10.0 时: MSE=100,   MAE=10.0,  Huber~=9.5
 ```
 
 Huber 对大误差的惩罚远小于 MSE，缓解了异常值问题；对小误差保持了平滑梯度。
@@ -405,7 +405,7 @@ loss = criterion(predictions, targets)
 
 # 错误：形状不匹配（不会报错但结果不对）
 predictions = model(x)       # (batch_size, 1)
-targets = y.squeeze()        # (batch_size,)  ← 会被广播
+targets = y.squeeze()        # (batch_size,)  <- 会被广播
 ```
 
 **输出层**：回归任务最后一层不用激活函数（或仅用线性层），直接输出预测值。

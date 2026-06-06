@@ -123,8 +123,8 @@ from sklearn.naive_bayes import GaussianNB
 
 model = GaussianNB(var_smoothing=1e-9)
 model.fit(X_train_s, y_train)
-# model.theta_   → 各类别各特征的均值 μ_kj，形状 (n_classes, n_features)
-# model.var_     → 各类别各特征的方差 σ_kj²（应用平滑后的），形状 (n_classes, n_features)
+# model.theta_   -> 各类别各特征的均值 mu_kj，形状 (n_classes, n_features)
+# model.var_     -> 各类别各特征的方差 sigma_kj^2（应用平滑后的），形状 (n_classes, n_features)
 ```
 
 ### 理解重点
@@ -175,7 +175,7 @@ GaussianNB 的参数估计全部是解析解（闭式解）：
 
 ## 小结
 
-- 朴素贝叶斯的核心数学链：贝叶斯公式 $P(Y\vert\mathbf{x}) \propto P(\mathbf{x}\vert Y)P(Y)$ → 条件独立 $\prod P(x_j\vert Y)$ → 高斯似然 $\mathcal{N}(\mu_{kj}, \sigma_{kj}^2)$ → MAP 决策（对数形式）→ `var_smoothing` 数值保护。
+- 朴素贝叶斯的核心数学链：贝叶斯公式 $P(Y\vert\mathbf{x}) \propto P(\mathbf{x}\vert Y)P(Y)$ -> 条件独立 $\prod P(x_j\vert Y)$ -> 高斯似然 $\mathcal{N}(\mu_{kj}, \sigma_{kj}^2)$ -> MAP 决策（对数形式）-> `var_smoothing` 数值保护。
 - 所有参数（先验、均值、方差）都是解析解——不需要迭代优化，训练极快。
 - 当前源码使用 `GaussianNB(var_smoothing=1e-9)`，对应连续特征的高斯建模——与 iris 数据的 4 个连续特征天然匹配。
 
@@ -324,7 +324,7 @@ X_test_s = scaler.transform(X_test)
 ## 小结
 
 - 当前 Naive Bayes 数据来自 `load_iris()`：150 样本、4 个连续特征、3 个均衡类别。
-- 数据流为：加载 → 特征/标签拆分 → 切分（`stratify=y`）→ 标准化（仅在训练集 `fit`）。
+- 数据流为：加载 -> 特征/标签拆分 -> 切分（`stratify=y`）-> 标准化（仅在训练集 `fit`）。
 - iris 的连续特征与高斯朴素贝叶斯的 $\mathcal{N}(\mu_{kj}, \sigma_{kj}^2)$ 假设天然匹配，是教学场景中的自然选择。
 
 # 思路与直觉
@@ -402,7 +402,7 @@ $$
 ### 理解重点
 
 - GaussianNB 的独特之处在于：它既不像逻辑回归那样迭代优化，也不像 KNN 那样依赖全部训练集做预测——参数估计极快，预测也极快。
-- 但代价是两项强假设：① 每类内特征服从高斯分布；② 给定类别后特征条件独立。在真实数据上这两者都可能被违反。
+- 但代价是两项强假设：1 每类内特征服从高斯分布；2 给定类别后特征条件独立。在真实数据上这两者都可能被违反。
 - 理解 GaussianNB 与其他算法的直觉差异，是理解"何时选它、何时不选它"的基础。
 
 ## 5. "朴素"假设的直觉
@@ -537,7 +537,7 @@ print(f"方差(var_):\n{model.var_}")
 ### 理解重点
 
 - `theta_` 和 `var_` 是 GaussianNB 最核心的两个训练产出——它们就是各类别下各特征高斯分布的参数。
-- `theta_` 形状 $(3, 4)$ 意味着 3 个类别 × 4 个特征 = 12 个均值；`var_` 同样有 12 个方差——模型一共只估计 24 个数字，训练极快。
+- `theta_` 形状 $(3, 4)$ 意味着 3 个类别 x 4 个特征 = 12 个均值；`var_` 同样有 12 个方差——模型一共只估计 24 个数字，训练极快。
 - `class_prior_` 把"先验概率"这一理论概念直接映射为可观察的数值，是理解生成式分类思路的入口。
 - `epsilon_` 提供了方差平滑的实际量级，对于理解 `var_smoothing` 是否真正生效有参考价值。
 
@@ -621,7 +621,7 @@ y = data["label"]
 |---|---|---|---|
 | `X` | `DataFrame` | 特征矩阵，形状 $(150, 4)$ | `X` |
 | `y` | `Series` | 标签向量，取值 $y_i \in \{0, 1, 2\}$ | `y` |
-| `test_size` | `float` | 测试集占比。150 × 0.2 = 30 测试样本，120 训练样本 | `0.2` |
+| `test_size` | `float` | 测试集占比。150 x 0.2 = 30 测试样本，120 训练样本 | `0.2` |
 | `random_state` | `int` | 随机种子，保证切分可复现 | `42` |
 | `stratify` | `array_like` | 传入 `y` 使训练/测试集类别比例与原始数据一致 | `y` |
 
@@ -668,7 +668,7 @@ X_test_s = scaler.transform(X_test)
 
 ### 参数速览
 
-适用 API：`train_model(X_train_s, y_train)` → `model.predict(X_test_s)`
+适用 API：`train_model(X_train_s, y_train)` -> `model.predict(X_test_s)`
 
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
@@ -686,7 +686,7 @@ y_pred = model.predict(X_test_s)
 
 ### 理解重点
 
-- `train_model(...)` 的 `fit()` 内部：扫描数据 → 统计 $n_k$ → 估计 $P(Y=c_k)$ → 每类每特征计算 $\mu_{kj}$ 和 $\sigma_{kj}^2$ → 应用 `var_smoothing`。不涉及任何迭代。
+- `train_model(...)` 的 `fit()` 内部：扫描数据 -> 统计 $n_k$ -> 估计 $P(Y=c_k)$ -> 每类每特征计算 $\mu_{kj}$ 和 $\sigma_{kj}^2$ -> 应用 `var_smoothing`。不涉及任何迭代。
 - `predict(...)` 内部：对每个测试样本计算所有类别的后验概率（对数形式），选最大值——这是纯粹的代数运算。
 - `y_pred` 是后续混淆矩阵的直接输入。
 
@@ -785,7 +785,7 @@ plot_learning_curve(
 
 ## 小结
 
-- 当前 Naive Bayes 流水线的训练过程：复制数据 → 特征/标签拆分 → 切分（`stratify=y`）→ 标准化 → 训练主模型 → 硬分类预测 → 概率输出。
+- 当前 Naive Bayes 流水线的训练过程：复制数据 -> 特征/标签拆分 -> 切分（`stratify=y`）-> 标准化 -> 训练主模型 -> 硬分类预测 -> 概率输出。
 - 三个模型实例各司其职：`model`（4 维主评估）、`model_2d`（PCA 2D 可视化）、`GaussianNB()`（学习曲线克隆）。
 - GaussianNB 的训练（`fit`）和预测（`predict`/`predict_proba`）都是纯代数运算，不涉及迭代——这是它在工程上区别于逻辑回归的最显著特征。
 
@@ -794,7 +794,7 @@ plot_learning_curve(
 ## 本章目标
 
 1. 明确当前仓库 Naive Bayes 实现的四种评估手段及其分别回答的问题。
-2. 理解 3×3 混淆矩阵、One-vs-Rest ROC 曲线和 PCA 决策边界图在多分类场景下的解读方式。
+2. 理解 3x3 混淆矩阵、One-vs-Rest ROC 曲线和 PCA 决策边界图在多分类场景下的解读方式。
 3. 理解 GaussianNB 的独有可解释性来源——`theta_`、`var_`、`class_prior_`——而非决策树式的特征重要性。
 
 ## 重点方法与概念速览
@@ -803,7 +803,7 @@ plot_learning_curve(
 |---|---|---|
 | `y_pred` | 预测结果 | 测试集类别输出，由 MAP 决策 $\arg\max_c [\ln P(c) + \sum \ln P(x_j \vert c)]$ 产生 |
 | `y_scores` | 预测概率 | 测试集各类别后验概率，来自贝叶斯公式后验归一化 |
-| `plot_confusion_matrix(...)` | 函数 | 绘制 3×3 多分类混淆矩阵 |
+| `plot_confusion_matrix(...)` | 函数 | 绘制 3x3 多分类混淆矩阵 |
 | `plot_roc_curve(...)` | 函数 | 绘制多分类 One-vs-Rest ROC 曲线——每类别一条 |
 | `plot_decision_boundary(...)` | 函数 | 绘制 PCA 2D 空间下的分类边界 |
 | `plot_learning_curve(...)` | 函数 | 绘制训练/验证得分随样本量变化的曲线 |
@@ -1002,7 +1002,7 @@ plot_learning_curve(
 
 ## 小结
 
-- 当前仓库对 Naive Bayes 的评估：混淆矩阵看错误分布（3×3 多分类），ROC 曲线看各类别概率区分力（One-vs-Rest 三条），PCA 决策边界图看二维投影边界形状，学习曲线看样本量对表现的影响趋势。
+- 当前仓库对 Naive Bayes 的评估：混淆矩阵看错误分布（3x3 多分类），ROC 曲线看各类别概率区分力（One-vs-Rest 三条），PCA 决策边界图看二维投影边界形状，学习曲线看样本量对表现的影响趋势。
 - GaussianNB 不产生 `feature_importances_`（决策树）或 `coef_`（逻辑回归），但其 `theta_`（各类别下各特征均值）和 `var_`（各类别下各特征方差）提供了生成式视角下的可解释性。
 - 四项评估组合起来，能全面解释 `GaussianNB(var_smoothing=1e-9)` 在 iris 三分类任务上的实际表现。
 
@@ -1022,7 +1022,7 @@ plot_learning_curve(
 | 数据导出 | `data_generation/__init__.py` | 向外暴露 `naive_bayes_data` |
 | 训练封装 | `model_training/classification/naive_bayes.py` | 构建并训练 `GaussianNB`，打印 `classes_`、`class_prior_` |
 | 流水线入口 | `pipelines/classification/naive_bayes.py` | 组织切分、标准化、训练、预测与可视化的完整编排 |
-| 混淆矩阵可视化 | `result_visualization/confusion_matrix.py` | 绘制并保存 3×3 多分类混淆矩阵图 |
+| 混淆矩阵可视化 | `result_visualization/confusion_matrix.py` | 绘制并保存 3x3 多分类混淆矩阵图 |
 | ROC 曲线可视化 | `result_visualization/roc_curve.py` | 绘制并保存多分类 One-vs-Rest ROC 曲线图 |
 | 决策边界可视化 | `result_visualization/decision_boundary.py` | 绘制并保存 PCA 二维决策边界图 |
 | 学习曲线可视化 | `result_visualization/learning_curve.py` | 绘制并保存训练/验证得分曲线图 |
@@ -1038,7 +1038,7 @@ python -m pipelines.classification.naive_bayes
 ### 理解重点
 
 - 这个命令串起当前 Naive Bayes 分册中最核心的工程流程。
-- 依次完成：数据复制 → 特征/标签拆分 → 切分 → 标准化 → GaussianNB `fit()`（统计 $\mu_{kj}$、$\sigma_{kj}^2$）→ 预测 → 概率输出 → 四种可视化。
+- 依次完成：数据复制 -> 特征/标签拆分 -> 切分 -> 标准化 -> GaussianNB `fit()`（统计 $\mu_{kj}$、$\sigma_{kj}^2$）-> 预测 -> 概率输出 -> 四种可视化。
 - 对大多数读者来说，`pipelines/classification/naive_bayes.py` 是理解工程实现的最佳起点。
 
 ## 2. `run()` 串起了整个流程
@@ -1077,8 +1077,8 @@ def run():
 ### 理解重点
 
 - `run()` 的职责是编排，不是算法实现——真正的训练在 `GaussianNB.fit()`（统计 $\mu_{kj}$ 和 $\sigma_{kj}^2$）中。
-- 数据流是单向的：数据 → 切分 → 标准化 → 参数估计 → 预测 → 评估。
-- 与其他分类流水线（逻辑回归、KNN、决策树）结构高度一致——统一采用"数据准备 → 训练 → 预测 → 四类可视化"的模式。
+- 数据流是单向的：数据 -> 切分 -> 标准化 -> 参数估计 -> 预测 -> 评估。
+- 与其他分类流水线（逻辑回归、KNN、决策树）结构高度一致——统一采用"数据准备 -> 训练 -> 预测 -> 四类可视化"的模式。
 
 ## 3. 训练模块负责什么
 
@@ -1111,7 +1111,7 @@ def run():
 
 | 模块 | 函数 | 输入 | 输出 |
 |---|---|---|---|
-| 混淆矩阵 | `plot_confusion_matrix(...)` | `y_test`、`y_pred` | 3×3 多分类混淆矩阵图（PNG） |
+| 混淆矩阵 | `plot_confusion_matrix(...)` | `y_test`、`y_pred` | 3x3 多分类混淆矩阵图（PNG） |
 | ROC 曲线 | `plot_roc_curve(...)` | `y_test`、`y_scores` | 多分类 One-vs-Rest ROC 曲线图（PNG）——3 条曲线 |
 | 决策边界 | `plot_decision_boundary(...)` | `model_2d`、`X_2d`、`y.values` | PCA 二维分类边界图（PNG） |
 | 学习曲线 | `plot_learning_curve(...)` | `GaussianNB()`、`X_train_s`、`y_train` | 训练/验证得分随样本量变化曲线（PNG） |
@@ -1161,7 +1161,7 @@ def run():
 
 1. 先看 `pipelines/classification/naive_bayes.py` — 入口，了解整体流程
 2. 再看 `model_training/classification/naive_bayes.py` — 训练封装，理解参数估计和日志输出
-3. 再看 `result_visualization/confusion_matrix.py` — 基础分类结果评估（3×3 矩阵）
+3. 再看 `result_visualization/confusion_matrix.py` — 基础分类结果评估（3x3 矩阵）
 4. 再看 `result_visualization/roc_curve.py` — One-vs-Rest 概率区分能力评估
 5. 再看 `result_visualization/decision_boundary.py` — PCA 空间边界可视化
 6. 再看 `result_visualization/learning_curve.py` — 训练行为诊断
@@ -1170,7 +1170,7 @@ def run():
 ### 理解重点
 
 - 从入口看整体流程，再下钻到训练与可视化细节，阅读成本最低。
-- 这个顺序对应数据流方向：数据 → 标准化 → 参数估计 → 预测 → 评估。
+- 这个顺序对应数据流方向：数据 -> 标准化 -> 参数估计 -> 预测 -> 评估。
 
 ## 运行结果
 
@@ -1185,7 +1185,7 @@ def run():
 
 ## 小结
 
-- 当前 Naive Bayes 工程实现采用清晰的模块分层：数据生成 → 训练封装 → 流水线编排 → 结果可视化。
+- 当前 Naive Bayes 工程实现采用清晰的模块分层：数据生成 -> 训练封装 -> 流水线编排 -> 结果可视化。
 - `run()` 负责串联，`train_model(...)` 负责参数估计（纯统计计算），各可视化函数负责结果展示与诊断。
 - GaussianNB 在工程上最不同于逻辑回归/决策树的地方：`fit()` 不涉及迭代优化——纯粹的统计量扫描；训练日志输出 `class_prior_` 而非 `coef_`；封装极简（仅 2 个构造器参数）。
 
@@ -1267,7 +1267,7 @@ def run():
 - 这一章的重点不是新增概念，而是把前面章节学到的内容重新落到源码和实验现象上。
 - 如果能独立解释以下问题，说明已经掌握了当前 Naive Bayes 分册的核心内容：
   - 标准化必须在切分后执行（防止数据泄露），GaussianNB 保留标准化主要是为了方差稳定性和 PCA 可视化
-  - 贝叶斯公式 $P(Y \vert \mathbf{x}) \propto P(\mathbf{x} \vert Y) P(Y)$ → 条件独立 $\prod P(x_j \vert Y)$ → 高斯似然 $\mathcal{N}(\mu_{kj}, \sigma_{kj}^2)$ → MAP 决策（对数形式）的完整数学链
+  - 贝叶斯公式 $P(Y \vert \mathbf{x}) \propto P(\mathbf{x} \vert Y) P(Y)$ -> 条件独立 $\prod P(x_j \vert Y)$ -> 高斯似然 $\mathcal{N}(\mu_{kj}, \sigma_{kj}^2)$ -> MAP 决策（对数形式）的完整数学链
   - `var_smoothing` 是 $\sigma_{kj}^2$ 的数值保护——方差近零时 $\frac{1}{\sqrt{2\pi \sigma^2}} \to \infty$
   - `theta_` 和 `var_` 反映各类别各特征的分布特征，类间均值差异大且方差小的特征是区分力最强的特征
   - GaussianNB 的概率输出是连续的贝叶斯后验概率，ROC 曲线平滑——与 KNN 的离散邻域频率本质不同

@@ -174,7 +174,7 @@ $$
 
 ## 小结
 
-- KMeans 的数学核心链：簇内平方和 $\min\sum\|\mathbf{x}-\boldsymbol{\mu}\|^2$ → 分配-更新交替迭代 → `k-means++` 加权初始化 → `n_init` 多轮择优 → 收敛到局部最优。
+- KMeans 的数学核心链：簇内平方和 $\min\sum\|\mathbf{x}-\boldsymbol{\mu}\|^2$ $\rightarrow$ 分配-更新交替迭代 $\rightarrow$ `k-means++` 加权初始化 $\rightarrow$ `n_init` 多轮择优 $\rightarrow$ 收敛到局部最优。
 - KMeans 有显式质心（`cluster_centers_`）和可量化的损失（`inertia_`）——这是它区别于 DBSCAN 最核心的数学特征。
 - 当前源码 `KMeans(n_clusters=4, init='k-means++', n_init=10, max_iter=300)` 是针对 `make_blobs` 球形高斯簇的最经典配置。
 
@@ -296,7 +296,7 @@ X_scaled = scaler.fit_transform(X)
 ## 小结
 
 - 当前 KMeans 数据来自 `make_blobs(n_samples=400, centers=4, cluster_std=0.8)`：2 个连续特征、4 个各向同性高斯簇。
-- 数据流为：`make_blobs` → DataFrame（`x1`、`x2` + `true_label`）→ 剥离 `true_label` → 全量标准化。
+- 数据流为：`make_blobs` -> DataFrame（`x1`、`x2` + `true_label`）-> 剥离 `true_label` -> 全量标准化。
 - `true_label` 仅用于结果对照——这是无监督聚类与有监督分类在数据处理上的根本差异。
 - `make_blobs` 的球形高斯假设与 KMeans 的平方欧氏距离优化天然匹配——这使其成为 KMeans 教学的理想基准数据。
 
@@ -313,7 +313,7 @@ X_scaled = scaler.fit_transform(X)
 | 名称 | 类型 | 作用 |
 |---|---|---|
 | 中心式聚类 | 核心直觉 | 每个簇由一个质心代表，样本归属于最近的质心 |
-| 交替逼近 | 迭代机制 | 反复"分点→移心→分点→移心"直到稳定 |
+| 交替逼近 | 迭代机制 | 反复"分点->移心->分点->移心"直到稳定 |
 | 预设 $K$ | 前置约束 | 必须在运行前指定期望的簇数——算法不会自己决定 |
 | 球形偏好 | 隐假设 | KMeans 的簇边界是 Voronoi 多边形——每个簇被最近质心"吸引" |
 | `make_blobs` | 理想数据 | 各簇围绕质心球形散布——完全符合 KMeans 的模型假设 |
@@ -338,7 +338,7 @@ KMeans 的工作方式可以想象成：
 2. **分地盘**——每个点归离自己最近的中心管辖
 3. **挪中心**——每个中心移到它所辖区域内所有点的正中间
 4. **重新分地盘**——因为中心挪了，有些点该换归属
-5. **继续挪**——重复"分地盘→挪中心"，直到中心不再大幅移动
+5. **继续挪**——重复"分地盘->挪中心"，直到中心不再大幅移动
 
 ### 理解重点
 
@@ -405,7 +405,7 @@ KMeans 的工作方式可以想象成：
 
 ## 小结
 
-- KMeans 的直觉核心是中心式聚类：预设 $K$ 个质心 → 反复"分配-更新"交替 → 收敛到局部最优。
+- KMeans 的直觉核心是中心式聚类：预设 $K$ 个质心 -> 反复"分配-更新"交替 -> 收敛到局部最优。
 - `make_blobs` 球形高斯簇与 KMeans 的模型假设完美匹配——这是展示其优势的最佳教学数据。
 - KMeans 与 DBSCAN 在直觉上截然相反：一个从全局中心出发划分，一个从局部密度出发连通——选哪个取决于数据形态，而非算法优劣。
 
@@ -614,7 +614,7 @@ X_scaled = scaler.fit_transform(X)
 
 ### 参数速览
 
-适用 API：`train_model(X_scaled)` → `model.fit(X_scaled)`
+适用 API：`train_model(X_scaled)` -> `model.fit(X_scaled)`
 
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
@@ -629,9 +629,9 @@ model = train_model(X_scaled)
 
 ### 理解重点
 
-- `KMeans.fit(X_scaled)` 内部流程：`k-means++` 初始化 $K$ 个质心 → 分配每个点到最近质心 → 更新质心为簇内均值 → 重复直到收敛或达到 `max_iter`。
+- `KMeans.fit(X_scaled)` 内部流程：`k-means++` 初始化 $K$ 个质心 -> 分配每个点到最近质心 -> 更新质心为簇内均值 -> 重复直到收敛或达到 `max_iter`。
 - 与 DBSCAN 不同——KMeans 的 `fit()` 是迭代优化过程（有 `n_iter_` 属性记录迭代次数），而非一次性密度扩展。
-- 与分类模型比较：分类流程是 `fit(X, y)` → `predict(X_test)`，KMeans 流程是 `fit(X)` → `labels_` + `cluster_centers_` + `inertia_`。
+- 与分类模型比较：分类流程是 `fit(X, y)` -> `predict(X_test)`，KMeans 流程是 `fit(X)` -> `labels_` + `cluster_centers_` + `inertia_`。
 
 ## 4. 获取聚类结果
 
@@ -726,7 +726,7 @@ plot_clusters(
 
 ## 小结
 
-- 当前 KMeans 流水线极为简洁：复制数据 → 剥离 `true_label` → 全量标准化 → `fit(X)` 交替迭代 → `labels_` + `cluster_centers_` + `inertia_` 三输出 → 可视化对照（含质心标记）。
+- 当前 KMeans 流水线极为简洁：复制数据 -> 剥离 `true_label` -> 全量标准化 -> `fit(X)` 交替迭代 -> `labels_` + `cluster_centers_` + `inertia_` 三输出 -> 可视化对照（含质心标记）。
 - 与 DBSCAN 的核心差异：KMeans 有 `cluster_centers_`（DBSCAN 没有）、有 `inertia_`（DBSCAN 没有）、有 `predict()`（DBSCAN 没有）、强制分配无噪声点（DBSCAN 有 $-1$ 噪声）、$K$ 必须预设（DBSCAN 由密度自动决定）。
 - 与分类分册的核心差异：无切分（无 `train_test_split`）、无监督标签、无 `predict_proba`、无混淆矩阵/ROC/学习曲线。
 
@@ -808,7 +808,7 @@ $$
 \text{inertia} = \sum_{k=1}^{K} \sum_{\mathbf{x}_i \in C_k} \|\mathbf{x}_i - \boldsymbol{\mu}_k\|^2
 $$
 
-- 值越小 → 簇内样本离质心越近 → 簇越紧凑
+- 值越小 -> 簇内样本离质心越近 -> 簇越紧凑
 - 但 `inertia_` **随 $K$ 增大单调递减**——当 $K = N$（每个点自成簇）时 `inertia_ = 0`。因此不能直接用 `inertia_` 比较不同 $K$ 的模型
 
 ### 肘部法则
@@ -903,7 +903,7 @@ python -m pipelines.clustering.kmeans
 ### 理解重点
 
 - 这个命令串起当前 KMeans 分册中最核心的工程流程。
-- 依次完成：数据复制 → 剥离 `true_label` → 全量标准化 → KMeans `fit()`（分配-更新交替迭代）→ `inertia_` 日志 → 对照散点图（含质心标记）。
+- 依次完成：数据复制 -> 剥离 `true_label` -> 全量标准化 -> KMeans `fit()`（分配-更新交替迭代）-> `inertia_` 日志 -> 对照散点图（含质心标记）。
 - 对大多数读者来说，`pipelines/clustering/kmeans.py` 是理解工程实现的最佳起点——代码量少、流程清晰。
 
 ## 2. `run()` 串起了整个流程
@@ -939,7 +939,7 @@ def run():
 ### 理解重点
 
 - `run()` 的职责是编排，不是算法实现——真正的分配-更新迭代在 `KMeans.fit()` 中。
-- 数据流是单向的：数据 → 标准化 → KMeans 迭代优化 → `labels_` + `cluster_centers_` + `inertia_` → 对照散点图（含质心标记）。
+- 数据流是单向的：数据 -> 标准化 -> KMeans 迭代优化 -> `labels_` + `cluster_centers_` + `inertia_` -> 对照散点图（含质心标记）。
 - 与分类流水线的核心差异：
   - **无 `train_test_split`**——无监督聚类不划分训练/测试集
   - **无 `predict()` 调用**——流水线直接使用 `model.labels_`（虽然 KMeans 支持 `predict()`，但教学流水线不演示）
@@ -1047,12 +1047,12 @@ def run():
 1. 把 `pipeline` 文件误认为训练算法实现本体——它只是编排层，真正的分配-更新迭代在 `KMeans.fit()` 中。
 2. 期待当前流水线有 `train_test_split`——无监督聚类不需要。
 3. 忽略 `inertia_` 的日志输出——它是理解聚类紧密度的最直接依据。
-4. 把 `true_label` 当成参与训练的数据流——它的流向是"数据 → 可视化"，从未进入模型。
+4. 把 `true_label` 当成参与训练的数据流——它的流向是"数据 -> 可视化"，从未进入模型。
 5. 忘记 `centers` 参数是 KMeans 调用 `plot_clusters` 的特有参数——DBSCAN 不传此参数。
 
 ## 小结
 
-- 当前 KMeans 工程实现采用极简的模块分层：数据生成 → 训练封装（无监督）→ 流水线编排 → 单一可视化（对照散点图 + 质心标记）。
+- 当前 KMeans 工程实现采用极简的模块分层：数据生成 -> 训练封装（无监督）-> 流水线编排 -> 单一可视化（对照散点图 + 质心标记）。
 - `run()` 负责串联，`train_model(...)` 负责交替迭代优化（仅 `fit(X)`），`plot_clusters(...)` 负责视觉对照（含 `centers` 参数）。
 - KMeans 在工程上最不同于 DBSCAN 的地方：有 `cluster_centers_`（传入 `plot_clusters` 的 `centers`）、有 `inertia_`（训练日志输出）、有 `predict()`（虽然流水线未演示）、无噪声点概念。
 - KMeans 在工程上最不同于分类算法的地方：无切分、无监督 `fit()`、单一可视化（对照散点图）——这是由无监督聚类本质决定的。
@@ -1128,7 +1128,7 @@ def run():
 |---|---|---|
 | 1 | scikit-learn 官方文档：`KMeans` | 完整构造器参数（`n_clusters`、`init`、`n_init`、`max_iter`、`tol`、`algorithm`、`random_state`）、属性（`cluster_centers_`、`labels_`、`inertia_`、`n_iter_`）与方法（`fit`、`predict`、`fit_predict`、`fit_transform`、`transform`）说明 |
 | 2 | scikit-learn 官方文档：`make_blobs` | 各向同性高斯簇数据生成器的 `n_samples`、`centers`、`cluster_std`、`n_features`、`shuffle`、`random_state` 等参数说明 |
-| 3 | scikit-learn 用户指南：Clustering → K-means | KMeans 算法原理、`k-means++` 初始化、肘部法则选 $K$、不同数据形态上的局限性与与其他聚类算法的使用场景对比 |
+| 3 | scikit-learn 用户指南：Clustering -> K-means | KMeans 算法原理、`k-means++` 初始化、肘部法则选 $K$、不同数据形态上的局限性与与其他聚类算法的使用场景对比 |
 | 4 | Arthur, D. and Vassilvitskii, S. (2007). *k-means++: The Advantages of Careful Seeding*. SODA 2007. | k-means++ 原始论文——加权随机采样初始化策略的理论分析、近似比证明（$\Theta(\log K)$ 竞争比）和实验验证 |
 
 - scikit-learn `KMeans`：https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html

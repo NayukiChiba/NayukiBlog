@@ -286,7 +286,7 @@ fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 axes[0, 0].plot(x, np.sin(x)); axes[0, 0].set_title("sin(x)")
 axes[0, 1].plot(x, np.cos(x)); axes[0, 1].set_title("cos(x)")
 axes[1, 0].plot(x, np.exp(-x / 5) * np.sin(x)); axes[1, 0].set_title("Damped")
-axes[1, 1].plot(x, x ** 2); axes[1, 1].set_title("x²")
+axes[1, 1].plot(x, x ** 2); axes[1, 1].set_title("x^2")
 plt.tight_layout()
 plt.close()
 ```
@@ -313,7 +313,7 @@ plt.close()
 
 ## 小结
 
-- Matplotlib 采用 Figure → Axes → Axis 三层结构——先理解对象层级再绘图
+- Matplotlib 采用 Figure -> Axes -> Axis 三层结构——先理解对象层级再绘图
 - `subplots` 是创建画布的统一入口——单图和多图都用它
 - 线型、标记、颜色三要素各自承载不同信息维度——避免混用
 - 子图布局 + 统一样式是专业报告图的基础
@@ -591,7 +591,7 @@ ax.boxplot(x, *, patch_artist=False, labels=None)
 |---|---|---|---|
 | `x` | `array_like` 或 `list[array_like]` | 单组或多组样本 | `[np.random.normal(0, std, 100) for std in range(1, 5)]` |
 | `patch_artist` | `bool` | 是否允许箱体填充颜色，默认为 `False` | `True` |
-| `labels` | `list[str]` | 组标签 | `["σ=1", "σ=2", "σ=3", "σ=4"]` |
+| `labels` | `list[str]` | 组标签 | `["$\sigma$=1", "$\sigma$=2", "$\sigma$=3", "$\sigma$=4"]` |
 
 #### 示例代码
 
@@ -603,7 +603,7 @@ np.random.seed(42)
 data = [np.random.normal(0, std, 100) for std in range(1, 5)]
 
 fig, ax = plt.subplots(figsize=(8, 6))
-bp = ax.boxplot(data, patch_artist=True, labels=["σ=1", "σ=2", "σ=3", "σ=4"])
+bp = ax.boxplot(data, patch_artist=True, labels=["sigma=1", "sigma=2", "sigma=3", "sigma=4"])
 colors = ["lightblue", "lightgreen", "lightyellow", "lightcoral"]
 for patch, color in zip(bp["boxes"], colors):
     patch.set_facecolor(color)
@@ -637,7 +637,7 @@ plt.close()
 ## 小结
 
 - 柱状图看比较，散点图看关系，直方图看分布——先确定问题的图类型
-- 饼图只适合 ≤5 类别的占比展示
+- 饼图只适合 <=5 类别的占比展示
 - 箱线图是统计摘要最可靠的方式——搭配直方图使用效果更好
 
 # Seaborn 统计可视化
@@ -1149,7 +1149,7 @@ A/B/C 三个类别的均值对比柱状图
 ## 小结
 
 - Pandas `plot()` 是探索阶段最快的出图方式——比 Matplotlib 少写大量样板代码
-- 先 Pandas 快速出图 → 再用 Matplotlib API 精调细节
+- 先 Pandas 快速出图 -> 再用 Matplotlib API 精调细节
 - DataFrame 多列绘图天然适合比较型图表
 - GroupBy + plot 是业务分析的标准闭环——分而治之，一目了然
 
@@ -1251,7 +1251,7 @@ age、income、score 三个变量的分布与均值/中位数标记
 #### 重点方法
 
 ```python
-DataFrame.corr(method='pearson', numeric_only=False)   # → DataFrame
+DataFrame.corr(method='pearson', numeric_only=False)   # -> DataFrame
 sns.heatmap(data, *, annot=None, cmap=None, center=None, ax=None)
 ```
 
@@ -1316,7 +1316,7 @@ x 与 y_strong 相关性最高（~0.96），x 与 y_none 接近无关
 #### 重点方法
 
 ```python
-Series.value_counts(normalize=False, dropna=True)    # → Series
+Series.value_counts(normalize=False, dropna=True)    # -> Series
 sns.boxplot(data=None, *, x=None, y=None, ax=None)
 ```
 
@@ -1410,7 +1410,7 @@ plt.close()
 #### 重点方法
 
 ```python
-DataFrame.isnull()           # → DataFrame[bool]
+DataFrame.isnull()           # -> DataFrame[bool]
 sns.heatmap(data, *, cbar=True, cmap=None, ax=None)
 ```
 
@@ -1753,7 +1753,7 @@ plt.close()
 #### 重点方法
 
 ```python
-RandomForestClassifier.feature_importances_     # → ndarray，和为 1
+RandomForestClassifier.feature_importances_     # -> ndarray，和为 1
 ax.barh(y, width, *, color=None)
 ```
 
@@ -1800,7 +1800,7 @@ plt.close()
 
 ## 常见坑
 
-1. 决策边界图在高维数据上毫无意义——只能在 ≤3 维使用
+1. 决策边界图在高维数据上毫无意义——只能在 <=3 维使用
 2. `plot_tree` 对深树输出不可读——务必限制 max_depth
 3. 特征重要性只反映"对模型预测的贡献"，不是因果关系
 

@@ -172,7 +172,7 @@ XGBoost 寻找候选分裂点时，不用简单的等频分桶（直方图），
 | 目标函数近似 | 一阶（仅梯度） | 一阶（仅梯度） | **二阶（梯度 + Hessian）** |
 | 正则化 | 学习率收缩 | 学习率收缩 | **学习率 + L1 + L2 + gamma 剪枝** |
 | 叶子权重 | 逐点线搜索 | 逐点线搜索 | **闭式解**（二次近似） |
-| 分裂点搜索 | 预排序 → 逐一计算 | 直方图分桶 | **加权分位数草图** |
+| 分裂点搜索 | 预排序 $\rightarrow$ 逐一计算 | 直方图分桶 | **加权分位数草图** |
 | 缺失值 | 不支持 | 不支持 | **稀疏感知——自动学习最优方向** |
 | 并行 | 无 | 直方图构建级 | **列块级** |
 | 树生长 | Level-wise | Leaf-wise | Level-wise（近似） |
@@ -186,7 +186,7 @@ XGBoost 寻找候选分裂点时，不用简单的等频分桶（直方图），
 
 ## 小结
 
-- XGBoost 的数学核心链：加法模型 → 二阶泰勒展开（$g_i + \frac{1}{2}h_i f^2$）→ 正则化目标（$+\gamma T + \frac{1}{2}\lambda\|\mathbf{w}\|^2 + \alpha\|\mathbf{w}\|_1$）→ 叶子权重闭式解 $w_j^* = -\frac{G_j}{H_j+\lambda}$ → 分裂增益公式 → 精确剪枝。
+- XGBoost 的数学核心链：加法模型 $\rightarrow$ 二阶泰勒展开（$g_i + \frac{1}{2}h_i f^2$）$\rightarrow$ 正则化目标（$+\gamma T + \frac{1}{2}\lambda\|\mathbf{w}\|^2 + \alpha\|\mathbf{w}\|_1$）$\rightarrow$ 叶子权重闭式解 $w_j^* = -\frac{G_j}{H_j+\lambda}$ $\rightarrow$ 分裂增益公式 $\rightarrow$ 精确剪枝。
 - 与 GBDT/LightGBM 的最关键区别：二阶展开 + 显式正则化项——前者提供更精确的目标近似，后者提供更强的过拟合控制。
 - 当前源码 `XGBRegressor(n_estimators=300, max_depth=6, reg_lambda=1.0, reg_alpha=0.0, gamma=0.0)` 是回归任务的经典配置——L2 默认开启、无 L1 稀疏、无最低分裂增益。
 
@@ -204,7 +204,7 @@ XGBoost 寻找候选分裂点时，不用简单的等频分桶（直方图），
 |---|---|---|
 | `EnsembleData.xgboost()` | 静态方法 | 返回加州房价真实数据集 |
 | `fetch_california_housing(...)` | 函数 | scikit-learn 提供的真实世界加州房价数据集加载器 |
-| `xgboost_data` | 变量 | 在 `data_generation/__init__.py` 中导出的全局 DataFrame（20640 × 9） |
+| `xgboost_data` | 变量 | 在 `data_generation/__init__.py` 中导出的全局 DataFrame（20640 $\times$ 9） |
 | `price` | 目标列 | 连续值回归目标——加州地区房屋中位价（单位：10 万美元） |
 | `train_test_split` | 函数 | 训练/测试切分——无 `stratify` 参数（回归任务） |
 
@@ -327,8 +327,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 ## 小结
 
-- 当前 XGBoost 数据来自 `fetch_california_housing(as_frame=True)`：加州真实房价数据，20640 样本 × 8 特征，目标为连续房价。
-- 数据流为：`fetch_california_housing` → 重命名目标列 → 训练/测试切分（无标准化、无分层）。
+- 当前 XGBoost 数据来自 `fetch_california_housing(as_frame=True)`：加州真实房价数据，20640 样本 x 8 特征，目标为连续房价。
+- 数据流为：`fetch_california_housing` -> 重命名目标列 -> 训练/测试切分（无标准化、无分层）。
 - 真实数据 + 回归任务的设计意图是展示 XGBoost 在工业表格回归场景下的工程成熟度——正则化、大规模数据、缺失值稀疏感知。
 
 # 思路与直觉
@@ -428,7 +428,7 @@ XGBoost 的稀疏感知：自动学习——在这个特征上，缺失值应该
 
 - XGBoost 定位是"最严谨的 Boosting"——每个细节都有数学依据（二阶展开、闭式解、正则化理论）。
 - LightGBM 定位是"最快的 Boosting"——牺牲一些数学精确性换取工程速度。
-- 三者在实际比赛中的精度差异很小——通常 XGBoost ≈ LightGBM > sklearn GBDT，差距主要来自调参。
+- 三者在实际比赛中的精度差异很小——通常 XGBoost ~= LightGBM > sklearn GBDT，差距主要来自调参。
 
 ## 可视化
 
@@ -482,7 +482,7 @@ XGBoost 的稀疏感知：自动学习——在这个特征上，缺失值应该
 | `max_depth` | `int` | 树的最大深度。`6`——深于 GBDT（3），浅于完全生长 | `3`、`6`、`10` |
 | `min_child_weight` | `int` | 叶子节点的最小 Hessian 和。`1`——MSE 下等价于最小样本数 | `1`、`5`、`10` |
 | `subsample` | `float` | 行采样比例。`0.9`——每轮迭代随机保留 90% 训练样本 | `0.5`、`0.9`、`1.0` |
-| `colsample_bytree` | `float` | 列采样比例。`0.9`——每棵树随机选择 90% 的特征（≈7/8） | `0.3`、`0.9`、`1.0` |
+| `colsample_bytree` | `float` | 列采样比例。`0.9`——每棵树随机选择 90% 的特征（~=7/8） | `0.3`、`0.9`、`1.0` |
 | `gamma` | `float` | 分裂所需的最小损失下降。`0.0`——不设最低增益门槛 | `0.0`、`0.1`、`1.0` |
 | `reg_alpha` | `float` | L1 正则化系数。`0.0`——不启用 L1 稀疏 | `0.0`、`0.1`、`1.0` |
 | `reg_lambda` | `float` | L2 正则化系数。`1.0`——**默认开启**，抑制叶子权重过大 | `0.0`、`1.0`、`10.0` |
@@ -654,13 +654,12 @@ print(f"特征重要性: {model.feature_importances_}")
 
 ```
 xgboost_data.copy()
-    │
-    ├─ ① X = data.drop(columns=["price"]), y = data["price"]
-    ├─ ② feature_names = list(X.columns)
-    ├─ ③ X_train, X_test, y_train, y_test = train_test_split(test_size=0.2)
-    ├─ ④ model = train_model(X_train, y_train)  # 无标准化，含 ImportError 检查
-    ├─ ⑤ y_pred = model.predict(X_test)
-    └─ ⑥ 两项评估可视化
+  - 1 X = data.drop(columns=["price"]), y = data["price"]
+  - 2 feature_names = list(X.columns)
+  - 3 X_train, X_test, y_train, y_test = train_test_split(test_size=0.2)
+  - 4 model = train_model(X_train, y_train)  # 无标准化，含 ImportError 检查
+  - 5 y_pred = model.predict(X_test)
+  - 6 两项评估可视化
 ```
 
 ### 参数速览
@@ -703,7 +702,7 @@ xgboost_data.copy()
 | `max_depth` | `6` | 每棵树的最大深度——可以分裂 6 次（最多 64 个叶子） |
 | `min_child_weight` | `1` | 叶子节点的最小 Hessian 和——回归下等价于最小样本数 1 |
 | `subsample` | `0.9` | 行采样比例——每轮随机保留 90% 训练样本 |
-| `colsample_bytree` | `0.9` | 列采样比例——每棵树随机选 90% 特征（≈7/8） |
+| `colsample_bytree` | `0.9` | 列采样比例——每棵树随机选 90% 特征（~=7/8） |
 | `gamma` | `0.0` | 分裂最低增益——当前不设门槛 |
 | `reg_lambda` | `1.0` | L2 正则化——压缩叶子权重 |
 | `reg_alpha` | `0.0` | L1 正则化——当前不启用 |
@@ -720,8 +719,8 @@ xgboost_data.copy()
 ### `model.predict(X_test)` — 输出连续值
 
 ```
-300 棵树加权累加（每棵 × learning_rate）
-    → 连续实数（房价预测值，单位：10 万美元）
+300 棵树加权累加（每棵 x learning_rate）
+    -> 连续实数（房价预测值，单位：10 万美元）
 ```
 
 ### 参数速览
@@ -763,7 +762,7 @@ xgboost_data.copy()
 ## 小结
 
 - XGBoost 流水线是最简洁的集成模型流水线——6 步完成数据拆分、训练、预测和两项评估，无标准化、无分层。
-- `fit()` 的核心流程：二阶泰勒展开 $g_i + \frac{1}{2}h_i f^2$ → 正则化目标 + 叶子权重闭式解 $w_j^* = -\frac{G_j}{H_j+\lambda}$ → 加权分位数草图 + 列块并行 → 300 棵树串行累加。
+- `fit()` 的核心流程：二阶泰勒展开 $g_i + \frac{1}{2}h_i f^2$ -> 正则化目标 + 叶子权重闭式解 $w_j^* = -\frac{G_j}{H_j+\lambda}$ -> 加权分位数草图 + 列块并行 -> 300 棵树串行累加。
 - `predict()` 输出连续实数——与分类集成模型的 softmax + argmax 预测路径在本质上不同。
 
 # 评估与诊断
@@ -884,7 +883,7 @@ plot_feature_importance(
 | 评估维度 | Bagging | GBDT | LightGBM | XGBoost |
 |---|---|---|---|---|
 | 任务类型 | 分类 | 分类 | 分类 | **回归** |
-| 混淆矩阵 | 2×2 | 3×3 | 4×4 | **不适用** |
+| 混淆矩阵 | 2x2 | 3x3 | 4x4 | **不适用** |
 | ROC 曲线 | 条件可用 | 始终可用 | 始终可用 | **不适用** |
 | 残差分析 | 无 | 无 | 无 | **有** |
 | 特征重要性 | 无 | 8 特征排序 | 20 特征排序 | **8 特征排序** |
@@ -901,7 +900,7 @@ plot_feature_importance(
 ### 健康的残差图
 
 - 残差随机散布在零线上下，无明显趋势
-- 残差主要集中在 ±0.5（半个价格单位）以内
+- 残差主要集中在 +/-0.5（半个价格单位）以内
 - 没有明显的异方差性（高预测区残差显著增大）
 
 ### 需要关注的异常信号
@@ -947,7 +946,7 @@ plot_feature_importance(
 
 | 层 | 文件 | 职责 | 输出 |
 |---|---|---|---|
-| 数据生成层 | `data_generation/ensemble.py` → `data_generation/__init__.py` | 加载加州房价真实数据并导出 `xgboost_data` | 全局 `DataFrame`（20640 行 × 9 列） |
+| 数据生成层 | `data_generation/ensemble.py` -> `data_generation/__init__.py` | 加载加州房价真实数据并导出 `xgboost_data` | 全局 `DataFrame`（20640 行 x 9 列） |
 | 模型训练层 | `model_training/ensemble/xgboost.py` | 封装 `XGBRegressor` 训练——含 `ImportError` 处理 + 装饰器 | `XGBRegressor` 模型对象 |
 | 流水线编排层 | `pipelines/ensemble/xgboost.py` | 串联数据拆分、训练、预测和两项评估——端到端入口 | 终端日志 + 调用两个可视化函数 |
 | 可视化层 | `result_visualization/residual_plot.py`、`feature_importance.py` | 生成两项评估图表 | 2 个 PNG 文件 |
@@ -985,29 +984,18 @@ plot_feature_importance(
 
 ```
 xgboost_data (全局 DataFrame)
-    │
-    ├─→ X = data.drop(columns=["price"])  ──→ feature_names = list(X.columns) ──┐
-    ├─→ y = data["price"]                                                        │
-    │                                                                             │
-    ├─→ train_test_split(X, y, test_size=0.2)                                    │
-    │   ├─→ X_train (16512, 8) ──────────────────────────────────────┐          │
-    │   ├─→ y_train (16512,) ────────────────────────┐               │          │
-    │   │                                             │               │          │
-    │   ├─→ X_test (4128, 8) ────────────────────┐   │               │          │
-    │   └─→ y_test (4128,) ───────────────┐      │   │               │          │
-    │                                       │      │   │               │          │
-    │   ┌───────────────────────────────────┘      │   │               │          │
-    │   │                                          │   │               │          │
-    │   │  train_model(X_train, y_train) ──→ model │   │               │          │
-    │   │      │                                    │   │               │          │
-    │   │      ├─→ model.predict(X_test) ──→ y_pred─┘   │               │          │
-    │   │      │                                         │               │          │
-    │   │      ├─→ model.feature_importances_ ──→ + feature_names ──────┘          │
-    │   │      │                                         │                         │
-    │   │      plot_residuals(y_test, y_pred, ...) ←─────┘                         │
-    │   │      plot_feature_importance(model, feature_names, ...) ←────────────────┘
-    │   │
-    │   └──────────────────────────────────────────────────────────────────────────┘
+  - -> X = data.drop(columns=["price"])  ──-> feature_names = list(X.columns) ──┐
+  - -> y = data["price"]                                                        │
+  - -> train_test_split(X, y, test_size=0.2)                                    │
+    - -> X_train (16512, 8) ──────────────────────────────────────┐          │
+    - -> y_train (16512,) ────────────────────────┐               │          │
+    - -> X_test (4128, 8) ────────────────────┐   │               │          │
+    - -> y_test (4128,) ───────────────┐      │   │               │          │
+    - train_model(X_train, y_train) ──-> model │   │               │          │
+      - -> model.predict(X_test) ──-> y_pred─┘   │               │          │
+      - -> model.feature_importances_ ──-> + feature_names ──────┘          │
+      - plot_residuals(y_test, y_pred, ...) <-─────┘                         │
+      - plot_feature_importance(model, feature_names, ...) <-────────────────┘
 ```
 
 ### 理解重点
@@ -1098,7 +1086,7 @@ XGBoost 流水线完成！
 
 ## 小结
 
-- XGBoost 工程实现遵循本仓库标准四层架构：数据生成层 → 模型训练层 → 流水线编排层 → 可视化层（含 2 个模块）。
+- XGBoost 工程实现遵循本仓库标准四层架构：数据生成层 -> 模型训练层 -> 流水线编排层 -> 可视化层（含 2 个模块）。
 - `run()` 是四个集成模型中最简洁的编排函数——6 步完成数据拆分、训练、预测和两项评估，无预处理步骤。
 - 与其他集成模型的三个关键工程差异：（1）回归任务——无分类评估；（2）真实数据——无需标准化；（3）参数体系最丰富——9 项可配置超参数。
 
@@ -1212,4 +1200,4 @@ model = train_model(X_train, y_train, subsample=0.5, colsample_bytree=0.5)
 
 - 7 个自检问题覆盖 XGBoost 的核心创新：二阶泰勒展开、三重正则化、闭式解、加权分位数、`min_child_weight` 含义、与其他集成模型对比。
 - 5 个动手练习从不同角度探索 XGBoost 的行为——调整 L2 正则化、gamma 门槛、树深度、对比 GBDT 回归、改变采样比例。
-- 4 篇参考文献从原始论文（Chen & Guestrin 2016）→ 官方文档 → API 参考 → GBDT 理论基础构成完整的阅读路线。
+- 4 篇参考文献从原始论文（Chen & Guestrin 2016）$\rightarrow$ 官方文档 $\rightarrow$ API 参考 $\rightarrow$ GBDT 理论基础构成完整的阅读路线。

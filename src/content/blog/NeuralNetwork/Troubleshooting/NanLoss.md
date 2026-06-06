@@ -16,7 +16,7 @@ status: published
 ```
 Epoch  8: Train Loss 0.324, Val Loss 0.412
 Epoch  9: Train Loss 0.298, Val Loss 0.389
-Epoch 10: Train Loss   NaN, Val Loss   NaN    ← 突然变成 NaN
+Epoch 10: Train Loss   NaN, Val Loss   NaN    <- 突然变成 NaN
 ```
 
 之后所有 Loss 都是 NaN，模型参数也变成了 NaN——[[NeuralNetwork/Troubleshooting/TrainingUnstable|训练不稳]]的极端表现。
@@ -34,7 +34,7 @@ NaN（Not a Number）在数值计算中由以下操作产生：
 
 ## 原因一：梯度爆炸（最常见的[[NeuralNetwork/Troubleshooting/GradientExplodingVanishing|梯度问题]]）
 
-**机制**：某次参数更新幅度过大，导致某个参数变成极值（如 ±1e38），后续前向/反向传播产生 NaN。
+**机制**：某次参数更新幅度过大，导致某个参数变成极值（如 +/-1e38），后续前向/反向传播产生 NaN。
 
 **诊断**：
 
@@ -116,7 +116,7 @@ for batchIdx, (images, labels) in enumerate(trainLoader):
 
 ## 原因五：学习率过大
 
-**机制**：学习率太大 → 参数更新幅度过大 → 权重变为 NaN → 传播到所有输出。
+**机制**：学习率太大 -> 参数更新幅度过大 -> 权重变为 NaN -> 传播到所有输出。
 
 ```python
 # 如果 lr > 0.1 且使用 Adam，容易出问题
@@ -196,10 +196,10 @@ def safeTrainingStep(model, images, labels, criterion, optimizer, gradClip=1.0):
 ## 快速排查清单
 
 ```
-1. 加了梯度裁剪吗？          → torch.nn.utils.clip_grad_norm_()
-2. 学习率合理吗？            → 默认 0.001 (Adam), 0.01 (SGD)
-3. 数据中有 NaN 吗？         → 检查 DataLoader 输出
-4. 模型有 BN 层且 eps 合理吗？ → eps=1e-5 一般是安全的
-5. 自定义 Loss 有除零保护吗？  → 分母 + 1e-8
+1. 加了梯度裁剪吗？          -> torch.nn.utils.clip_grad_norm_()
+2. 学习率合理吗？            -> 默认 0.001 (Adam), 0.01 (SGD)
+3. 数据中有 NaN 吗？         -> 检查 DataLoader 输出
+4. 模型有 BN 层且 eps 合理吗？ -> eps=1e-5 一般是安全的
+5. 自定义 Loss 有除零保护吗？  -> 分母 + 1e-8
 ```
 ![NanLoss.png](https://img.yumeko.site/file/blog/articles/1780581591179.webp)

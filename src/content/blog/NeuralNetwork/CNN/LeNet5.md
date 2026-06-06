@@ -11,7 +11,7 @@ status: published
 
 ## 1. 历史背景
 
-LeNet-5 由 Yann LeCun 等人在 1998 年发表（论文《Gradient-Based Learning Applied to Document Recognition》），用于手写支票上的数字识别。它是第一个成功商用的 CNN，奠定了现代 CNN 的基础架构模式：**卷积 → 池化 → 全连接**。
+LeNet-5 由 Yann LeCun 等人在 1998 年发表（论文《Gradient-Based Learning Applied to Document Recognition》），用于手写支票上的数字识别。它是第一个成功商用的 CNN，奠定了现代 CNN 的基础架构模式：**卷积 $\rightarrow$ 池化 $\rightarrow$ 全连接**。
 
 尽管以今天的标准看非常简单（仅 ~61,000 参数），LeNet-5 的架构思想——局部连接、权重共享、层次化特征提取——至今仍是所有 CNN 的核心。
 
@@ -21,7 +21,7 @@ LeNet-5 由 Yann LeCun 等人在 1998 年发表（论文《Gradient-Based Learni
 
 | 层名 | 操作 | 参数 | 输入形状 | 输出形状 |
 |:---:| --- | --- | --- | --- |
-| — | Resize | 28→32 | $(1,28,28)$ | $(1,32,32)$ |
+| — | Resize | 28$\rightarrow$32 | $(1,28,28)$ | $(1,32,32)$ |
 | C1 | Conv2d + Tanh | in=1, out=6, k=5 | $(1,32,32)$ | $(6,28,28)$ |
 | S2 | AvgPool2d | k=2, s=2 | $(6,28,28)$ | $(6,14,14)$ |
 | C3 | Conv2d + Tanh | in=6, out=16, k=5 | $(6,14,14)$ | $(16,10,10)$ |
@@ -77,19 +77,19 @@ LeNet-5 使用平均[[NeuralNetwork/CNN/CNNCoreLayers|池化]]。这在当时是
 class LeNet(nn.Module):
     def __init__(self, num_classes=10):
         super().__init__()
-        # C1: (1, 32, 32) → (6, 28, 28)
+        # C1: (1, 32, 32) -> (6, 28, 28)
         self.conv1 = nn.Conv2d(1, 6, kernel_size=5)
-        # S2: (6, 28, 28) → (6, 14, 14)
+        # S2: (6, 28, 28) -> (6, 14, 14)
         self.pool1 = nn.AvgPool2d(2, 2)
-        # C3: (6, 14, 14) → (16, 10, 10)
+        # C3: (6, 14, 14) -> (16, 10, 10)
         self.conv2 = nn.Conv2d(6, 16, kernel_size=5)
-        # S4: (16, 10, 10) → (16, 5, 5)
+        # S4: (16, 10, 10) -> (16, 5, 5)
         self.pool2 = nn.AvgPool2d(2, 2)
-        # C5: (16, 5, 5) → (120, 1, 1)
+        # C5: (16, 5, 5) -> (120, 1, 1)
         self.conv3 = nn.Conv2d(16, 120, kernel_size=5)
-        # F6: 120 → 84
+        # F6: 120 -> 84
         self.fc1 = nn.Linear(120, 84)
-        # Output: 84 → num_classes
+        # Output: 84 -> num_classes
         self.fc2 = nn.Linear(84, num_classes)
         self.tanh = nn.Tanh()
 
@@ -119,6 +119,6 @@ class LeNet(nn.Module):
 
 ## 6. 总结
 
-LeNet-5 的意义不在于性能（今天的学生项目都能轻易超越），而在于它开创了 CNN 的范式。理解 LeNet-5 之后再看 [[NeuralNetwork/CNN/AlexNet|AlexNet]]、VGG、ResNet，你会发现它们都是在 LeNet-5 的基础上 "加料"——换激活函数、加深、加 BN、改连接方式——但核心的 Conv→Pool→FC 模式从未改变。各架构的详细演进可参见 [[NeuralNetwork/CNN/ArchitectureComparison|架构对比]]。
+LeNet-5 的意义不在于性能（今天的学生项目都能轻易超越），而在于它开创了 CNN 的范式。理解 LeNet-5 之后再看 [[NeuralNetwork/CNN/AlexNet|AlexNet]]、VGG、ResNet，你会发现它们都是在 LeNet-5 的基础上 "加料"——换激活函数、加深、加 BN、改连接方式——但核心的 Conv$\rightarrow$Pool$\rightarrow$FC 模式从未改变。各架构的详细演进可参见 [[NeuralNetwork/CNN/ArchitectureComparison|架构对比]]。
 
-LeNet-5 的思想在后续架构中被继承和发扬，从 [[NeuralNetwork/CNN/AlexNet|AlexNet]] 的 GPU 训练到 ResNet 的残差连接，Conv→Pool→FC 范式始终如一。
+LeNet-5 的思想在后续架构中被继承和发扬，从 [[NeuralNetwork/CNN/AlexNet|AlexNet]] 的 GPU 训练到 ResNet 的残差连接，Conv$\rightarrow$Pool$\rightarrow$FC 范式始终如一。

@@ -91,8 +91,8 @@ Firewall not enabled (skipping reload)
 * `1Panel`启动
 ```bash
 [1Panel 2026-02-14 03:00:29 install Log]: 正在配置 1Panel 服务  
-Created symlink /etc/systemd/system/multi-user.target.wants/1panel-agent.service → /etc/systemd/system/1panel-agent.service.  
-Created symlink /etc/systemd/system/multi-user.target.wants/1panel-core.service → /etc/systemd/system/1panel-core.service.  
+Created symlink /etc/systemd/system/multi-user.target.wants/1panel-agent.service -> /etc/systemd/system/1panel-agent.service.  
+Created symlink /etc/systemd/system/multi-user.target.wants/1panel-core.service -> /etc/systemd/system/1panel-core.service.  
 [1Panel 2026-02-14 03:00:30 install Log]: 正在启动 1Panel 服务  
 [1Panel 2026-02-14 03:00:30 install Log]: 1Panel 服务已成功启动，正在继续执行后续配置，请稍候...  
 [1Panel 2026-02-14 03:00:43 install Log]:  

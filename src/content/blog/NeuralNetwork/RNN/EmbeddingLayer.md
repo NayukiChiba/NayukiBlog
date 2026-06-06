@@ -263,8 +263,8 @@ E = nn.Embedding(5, 3, padding_idx=0)
 
 # 查看随机初始化的嵌入矩阵
 print(E.weight)
-# tensor([[ 0.0000,  0.0000,  0.0000],   ← padding_idx=0 已置零
-#         [ 0.5410, -0.2934,  1.1783],   ← N(0,1) 随机值
+# tensor([[ 0.0000,  0.0000,  0.0000],   <- padding_idx=0 已置零
+#         [ 0.5410, -0.2934,  1.1783],   <- N(0,1) 随机值
 #         [-1.2034,  0.7241, -0.1102],
 #         [ 0.3892, -0.5123, -0.6015],
 #         [-0.0843,  1.4420,  0.2617]], requires_grad=True)
@@ -355,7 +355,7 @@ print(E.weight.grad[1])
 - `loss.backward()`：`out.sum()` 对 `out` 每个分量的梯度都是 1。PAD 位置的梯度 `[1., 1., 1.]` 会通过查表操作回传到 `E.weight[0]`——但 `padding_idx` 机制在 backward 的最后一步将其清零。
 - 打印 `E.weight.grad[0]`：全零，验证 PAD 行不参与更新。打印 `E.weight.grad[1]`：`[1., 1., 1.]`，说明正常词正常接收梯度。
 
-**为什么这个处理至关重要？** 假设不加 `padding_idx`，PAD token 也会获得随机的嵌入向量和正常的梯度。考虑一个实际场景：每条输入有 8 个有效词 + 120 个 PAD，每批 64 条数据。如果不处理 PAD，每批中有 64×120=7680 个 PAD token 参与梯度计算——它们携带的梯度噪声会干扰有效词的嵌入学习，并经由 RNN 层放大。`padding_idx` 将这些位置的梯度完全切断，PAD 就真正成为了"不存在"的 token。
+**为什么这个处理至关重要？** 假设不加 `padding_idx`，PAD token 也会获得随机的嵌入向量和正常的梯度。考虑一个实际场景：每条输入有 8 个有效词 + 120 个 PAD，每批 64 条数据。如果不处理 PAD，每批中有 64x120=7680 个 PAD token 参与梯度计算——它们携带的梯度噪声会干扰有效词的嵌入学习，并经由 RNN 层放大。`padding_idx` 将这些位置的梯度完全切断，PAD 就真正成为了"不存在"的 token。
 
 ---
 
@@ -409,7 +409,7 @@ $$
 **缺点**：
 
 - 词表可能很大（数万到数十万），嵌入层参数量可观
-- **OOV 问题**：词表外词只能映射到 $\langle\text{UNK}\rangle$，丢失了具体信息——"新垣结衣"和"埃隆·马斯克"都坍缩为同一个 UNK 向量
+- **OOV 问题**：词表外词只能映射到 $\langle\text{UNK}\rangle$，丢失了具体信息——"新垣结衣"和"埃隆.马斯克"都坍缩为同一个 UNK 向量
 - 依赖分词器：中文分词（jieba）的错误会传递到下游；英文的子词切分（BPE, WordPiece）也需要额外处理
 - 词频过滤（`min_freq`）会丢弃低频但可能信息量很高的词
 
@@ -539,29 +539,29 @@ import torch.nn as nn
 
 # 词级嵌入 —— EmotionClassification 项目风格
 wordEmbedding = nn.Embedding(
-    num_embeddings=10000,    # ① 词表大小 V
-    embedding_dim=300,       # ② 每个词的向量维度 d_e
-    padding_idx=0,           # ③ PAD 索引
+    num_embeddings=10000,    # 1 词表大小 V
+    embedding_dim=300,       # 2 每个词的向量维度 d_e
+    padding_idx=0,           # 3 PAD 索引
 )
 
 # 字符级嵌入 —— Char-RNN 项目风格
 charEmbedding = nn.Embedding(
-    num_embeddings=65,       # ① 字符种类数（约65种）
-    embedding_dim=256,       # ② 每个字符的向量维度 d_e
+    num_embeddings=65,       # 1 字符种类数（约65种）
+    embedding_dim=256,       # 2 每个字符的向量维度 d_e
     # 无 padding_idx —— 字符级使用滑动窗口，天然等长
 )
 ```
 
 **参数逐个解释：**
 
-**① `num_embeddings`（词表大小 $V$）**：这是嵌入矩阵的行数，也是输入索引的取值范围。`nn.Embedding(V, d_e)` 内部维护一个形状为 `(V, d_e)` 的可训练权重矩阵。传入的索引必须在 $[0, V-1]$ 范围内，否则会抛出 `IndexError`。对于 EmotionClassification，$V$ 通常从几千到几万不等——取决于分词后按频率过滤的策略（`min_freq`）。Char-RNN 的字符种类数只有几十，$V$ 很小。
+**1 `num_embeddings`（词表大小 $V$）**：这是嵌入矩阵的行数，也是输入索引的取值范围。`nn.Embedding(V, d_e)` 内部维护一个形状为 `(V, d_e)` 的可训练权重矩阵。传入的索引必须在 $[0, V-1]$ 范围内，否则会抛出 `IndexError`。对于 EmotionClassification，$V$ 通常从几千到几万不等——取决于分词后按频率过滤的策略（`min_freq`）。Char-RNN 的字符种类数只有几十，$V$ 很小。
 
-**② `embedding_dim`（嵌入维度 $d_e$）**：这是嵌入向量的长度，即每个词/字符被表示为多少维的实值向量。这个数字决定了嵌入层的表达能力上限和参数量：
+**2 `embedding_dim`（嵌入维度 $d_e$）**：这是嵌入向量的长度，即每个词/字符被表示为多少维的实值向量。这个数字决定了嵌入层的表达能力上限和参数量：
 - $d_e = 300$ 对应嵌入矩阵参数量 $10000 \times 300 = 3\text{M}$
 - $d_e = 256$ 对应嵌入矩阵参数量 $65 \times 256 = 16.6\text{K}$
 - $d_e$ 越大，每个词的表示越丰富——但参数量线性增长，且边际收益递减
 
-**③ `padding_idx`（PAD 索引）**：指定哪个整数索引对应填充位置。设置为某个值（通常为 0）后：
+**3 `padding_idx`（PAD 索引）**：指定哪个整数索引对应填充位置。设置为某个值（通常为 0）后：
 - 前向时该行的输出恒为零向量
 - 反向时该行的梯度恒为零向量
 - 这一行在整个训练过程中**永远不更新**
@@ -643,7 +643,7 @@ class BaseRNN(nn.Module):
         embedded = self.dropout(embedded)
 
         # Step 3: RNN
-        # 输入: (B, L, 300)，输出: (B, L, 512)  [256×2 因为双向]
+        # 输入: (B, L, 300)，输出: (B, L, 512)  [256x2 因为双向]
         rnn_output, _ = self.rnn(embedded)
 
         # 后续进入 Attention 池化，分类器
@@ -695,10 +695,10 @@ print(out[0, 0, :])   # 句子 1 第 1 个 token (index=2)
 # 查看嵌入矩阵参数
 totalParams = sum(p.numel() for p in embed.parameters())
 print(f"嵌入层参数量: {totalParams}")
-# 嵌入层参数量: 1600  (= 100 × 16)
+# 嵌入层参数量: 1600  (= 100 x 16)
 
 # 其中 index=0 那一行虽然计入参数量，但从未参与更新
-# 实际有效参数量: 99 × 16 = 1584
+# 实际有效参数量: 99 x 16 = 1584
 ```
 
 这个最小示例覆盖了嵌入层的全部核心行为：查表、输出稠密向量、padding_idx 强制置零。理解这段代码中每一行的输入输出形状变化，就理解了嵌入层的全部。

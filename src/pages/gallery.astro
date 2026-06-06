@@ -205,7 +205,7 @@ const allTags = getTags(gallery);
             selectedTagsContainer.innerHTML = selectedTags
                 .map(
                     (tag) =>
-                        `<span class="selected-tag">${tag}<span class="remove-tag" data-tag="${tag}">×</span></span>`,
+                        `<span class="selected-tag">${tag}<span class="remove-tag" data-tag="${tag}">x</span></span>`,
                 )
                 .join("");
             if (clearBtn) clearBtn.style.display = "inline-flex";

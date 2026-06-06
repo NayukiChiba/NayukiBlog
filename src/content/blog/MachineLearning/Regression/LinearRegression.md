@@ -188,7 +188,7 @@ $$
 
 ## 小结
 
-- 线性回归的数学核心链：线性模型 $\hat{y} = \mathbf{w}^T\mathbf{x} + b$ → OLS $\min \|\mathbf{y} - \mathbf{X}\tilde{\mathbf{w}}\|^2$ → 正规方程闭式解 → MLE 概率解释 → `coef_`/`intercept_` 工程映射。
+- 线性回归的数学核心链：线性模型 $\hat{y} = \mathbf{w}^T\mathbf{x} + b$ $\rightarrow$ OLS $\min \|\mathbf{y} - \mathbf{X}\tilde{\mathbf{w}}\|^2$ $\rightarrow$ 正规方程闭式解 $\rightarrow$ MLE 概率解释 $\rightarrow$ `coef_`/`intercept_` 工程映射。
 - 与决策树回归的根本区别：全局线性函数 vs 分段常数，闭式解 vs 贪心搜索，系数可解释 vs 重要性无方向。
 - 当前源码 `LinearRegression()` 是 OLS 的最简教学实现——无超参数、无标准化、关系透明，是回归学习的逻辑起点。
 
@@ -197,7 +197,7 @@ $$
 ## 本章目标
 
 1. 明确本仓库线性回归数据来自 `RegressionDatasetFactory.loadLinearRegressionDataset()` 手工合成的线性房价数据。
-2. 理解显式生成公式——`price = 2×面积 + 10×房间数 - 3×房龄 + N(0,10²) + 50`——与训练结果之间的对照关系。
+2. 理解显式生成公式——`price = 2x面积 + 10x房间数 - 3x房龄 + N(0,10^2) + 50`——与训练结果之间的对照关系。
 3. 明确训练/测试集切分方式，以及当前实现**没有标准化**这一关键事实。
 
 ## 重点方法与概念速览
@@ -281,7 +281,7 @@ $$
 
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
-| `test_size` | `float` | 测试集占比。`0.2`——200 × 0.2 = 40 个测试样本 | `0.2` |
+| `test_size` | `float` | 测试集占比。`0.2`——200 x 0.2 = 40 个测试样本 | `0.2` |
 | `random_state` | `int` | 随机种子。`42` | `42` |
 | 返回值 | `tuple` | `(X_train, X_test, y_train, y_test)`——训练集 160 样本，测试集 40 样本 | — |
 
@@ -320,14 +320,14 @@ X_train, X_test, y_train, y_test = train_test_split(
 | 数据来源 | 手工合成——显式线性公式 | California Housing 真实数据 | `make_friedman1`——非线性合成 |
 | 样本数 | 200 | 20640 | 200 |
 | 特征维度 | 3 | 8 | 10 |
-| 真实关系 | **已知——`2×面积 + 10×房间数 - 3×房龄 + 50`** | 未知——真实世界复杂关系 | 已知——Friedman 非线性函数 |
+| 真实关系 | **已知——`2$\times$面积 + 10$\times$房间数 - 3$\times$房龄 + 50`** | 未知——真实世界复杂关系 | 已知——Friedman 非线性函数 |
 | 噪声 | 显式高斯 $N(0,10^2)$ | 真实世界噪声 | 显式高斯噪声 |
 | 标准化 | 无 | 无 | 有（`StandardScaler`） |
 | 设计意图 | **系数可验证——关系透明的教学基线** | 真实数据非线性 + 特征交互 | 核方法非线性拟合 |
 
 ### 理解重点
 
-- 三种数据设计形成清晰的递进：线性回归用显式线性公式（关系完全透明）→ 决策树回归用真实数据（关系复杂未知）→ SVR 用合成非线性（关系已知但非线性）。
+- 三种数据设计形成清晰的递进：线性回归用显式线性公式（关系完全透明）-> 决策树回归用真实数据（关系复杂未知）-> SVR 用合成非线性（关系已知但非线性）。
 - 线性回归数据的核心价值在于"已知答案"——训练后可以定量验证 OLS 恢复了多少真实信号。
 - 200 样本是有意的小规模——足以展示 OLS 的基本行为，又保持训练和可视化的即时性。
 
@@ -347,7 +347,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 ## 小结
 
 - 当前线性回归数据来自 `RegressionDatasetFactory.loadLinearRegressionDataset()`——手工合成 3 特征 200 样本的线性房价数据，生成公式完全透明。
-- 数据流为：独立均匀采样 → 线性组合 + 高斯噪声 → DataFrame（`面积`/`房间数`/`房龄`+`price`）→ 随机切分（`test_size=0.2`）→ 直接训练（无标准化）。
+- 数据流为：独立均匀采样 -> 线性组合 + 高斯噪声 -> DataFrame（`面积`/`房间数`/`房龄`+`price`）-> 随机切分（`test_size=0.2`）-> 直接训练（无标准化）。
 - 透明的关系设计使线性回归分册成为"系数可验证"的教学基线——训练结果可直接与真实公式对照，这是所有其他回归分册不具备的核心优势。
 
 # 思路与直觉
@@ -356,7 +356,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 1. 理解线性回归的核心直觉——用一条直线/超平面近似特征与目标的关系，系数直接表达影响方向与大小。
 2. 理解为什么当前手工合成的透明数据是建立回归直觉的最佳起点。
-3. 建立"系数正负 → 影响方向，系数大小 → 影响强度，截距 → 基线"的直觉链。
+3. 建立"系数正负 -> 影响方向，系数大小 -> 影响强度，截距 -> 基线"的直觉链。
 
 ## 重点方法与概念速览
 
@@ -365,7 +365,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 | `LinearRegression` | 模型 | 用线性函数拟合连续值目标——回归建模的起点 |
 | `coef_` | 属性 | 各特征的线性系数——正值表示正向影响，负值表示负向影响 |
 | `intercept_` | 属性 | 截距——所有特征取 0 时的基线预测值 |
-| 真实生成公式 | 数据 | `price = 2×面积 + 10×房间数 - 3×房龄 + noise + 50`——训练后可直接对照 |
+| 真实生成公式 | 数据 | `price = 2$\times$面积 + 10$\times$房间数 - 3$\times$房龄 + noise + 50`——训练后可直接对照 |
 
 ## 1. 线性回归想做什么
 
@@ -397,9 +397,9 @@ $$
 
 | 系数现象 | 直观含义 | 当前数据示例 |
 |---|---|---|
-| 系数为正 | 特征增大 → 预测值增大 | `面积` 系数 ≈ 2——面积越大，房价越高 |
-| 系数为负 | 特征增大 → 预测值减小 | `房龄` 系数 ≈ -3——房龄越大，房价越低 |
-| 系数绝对值大 | 该特征的单位变化对预测值影响大 | `房间数` 系数 ≈ 10——每多一个房间，房价多 10 单位 |
+| 系数为正 | 特征增大 -> 预测值增大 | `面积` 系数 ~= 2——面积越大，房价越高 |
+| 系数为负 | 特征增大 -> 预测值减小 | `房龄` 系数 ~= -3——房龄越大，房价越低 |
+| 系数绝对值大 | 该特征的单位变化对预测值影响大 | `房间数` 系数 ~= 10——每多一个房间，房价多 10 单位 |
 | 系数接近 0 | 该特征对预测值几乎无影响 | 如果加入无关特征，其系数应接近 0 |
 
 ### 理解重点
@@ -461,9 +461,9 @@ $$
 
 ## 小结
 
-- 线性回归的核心直觉：加权求和 → 最小化误差 → 得到一组可解释的系数——每个系数直接告诉你特征对目标的影响方向与大小。
+- 线性回归的核心直觉：加权求和 -> 最小化误差 -> 得到一组可解释的系数——每个系数直接告诉你特征对目标的影响方向与大小。
 - 当前手工合成数据是建立回归直觉的最佳起点——真实关系完全透明，训练后可直接验证 OLS 是否恢复了正确答案。
-- 建立"系数正负 → 方向，系数大小 → 强度，截距 → 基线"的直觉链之后，再看数学原理、训练流程和评估会非常顺畅。
+- 建立"系数正负 -> 方向，系数大小 -> 强度，截距 -> 基线"的直觉链之后，再看数学原理、训练流程和评估会非常顺畅。
 
 # 模型构建
 
@@ -502,8 +502,8 @@ from sklearn.linear_model import LinearRegression
 
 model = LinearRegression()
 model.fit(X_train, y_train)
-# model.coef_      ≈ [2.0, 10.0, -3.0]
-# model.intercept_ ≈ 50.0
+# model.coef_      ~= [2.0, 10.0, -3.0]
+# model.intercept_ ~= 50.0
 ```
 
 ### 理解重点
@@ -625,7 +625,7 @@ for name, coef in zip(feature_names, model.coef_):
 | `model.fit(X_train, y_train)` | 方法 | 求解 $\min_{\mathbf{w},b} \|\mathbf{y} - \mathbf{X}\mathbf{w} - b\|^2$——一次计算完成 |
 | `model.predict(X_test)` | 方法 | 对测试集做矩阵乘法预测——$\hat{y} = \mathbf{X}\mathbf{w} + b$ |
 | `plot_residuals(...)` | 函数 | 绘制预测-真实散点图 + 残差分布图 |
-| `plot_learning_curve(...)` | 函数 | 绘制训练/验证 R² 随样本量变化的曲线 |
+| `plot_learning_curve(...)` | 函数 | 绘制训练/验证 R^2 随样本量变化的曲线 |
 
 ## 1. 完整流水线流程
 
@@ -633,13 +633,12 @@ for name, coef in zip(feature_names, model.coef_):
 
 ```
 loadLinearRegressionDataset()
-    │
-    ├─ ① X = data.drop(columns=["price"]), y = data["price"]
-    ├─ ② X_train, X_test, y_train, y_test = train_test_split(test_size=0.2)
-    ├─ ③ model = trainLinearRegressionModel(X_train, y_train)
-    ├─ ④ y_pred = model.predict(X_test)
-    ├─ ⑤ plot_residuals(y_test, y_pred)
-    └─ ⑥ plot_learning_curve(LinearRegression(), X_train, y_train, scoring="r2")
+  - 1 X = data.drop(columns=["price"]), y = data["price"]
+  - 2 X_train, X_test, y_train, y_test = train_test_split(test_size=0.2)
+  - 3 model = trainLinearRegressionModel(X_train, y_train)
+  - 4 y_pred = model.predict(X_test)
+  - 5 plot_residuals(y_test, y_pred)
+  - 6 plot_learning_curve(LinearRegression(), X_train, y_train, scoring="r2")
 ```
 
 ### 参数速览
@@ -657,7 +656,7 @@ loadLinearRegressionDataset()
 ### 理解重点
 
 - 这是本仓库**最简流水线**——仅 6 步，无标准化、无特征重要性、无树结构，聚焦于系数解释和残差诊断。
-- 训练步骤耗时极短（毫秒级）——3 个特征 × 160 样本的 SVD 求解计算量极小。
+- 训练步骤耗时极短（毫秒级）——3 个特征 x 160 样本的 SVD 求解计算量极小。
 - 与决策树回归流水线的对比：决策树多出特征重要性和树结构图两步，训练为贪心递归而非闭式求解。
 
 ## 2. 训练细节：SVD 闭式求解
@@ -666,11 +665,11 @@ loadLinearRegressionDataset()
 
 ```
 输入 X_train (160, 3), y_train (160,)
-    ↓
-① 构建设计矩阵: X̃ = [1, X_train] → (160, 4)
-② 对 X̃ 做奇异值分解: X̃ = U Σ V^T
-③ 计算: w̃* = V Σ^{-1} U^T y_train
-④ 返回: coef_ = w̃*[1:], intercept_ = w̃*[0]
+    v
+1 构建设计矩阵: X̃ = [1, X_train] -> (160, 4)
+2 对 X̃ 做奇异值分解: X̃ = U Sigma V^T
+3 计算: w̃* = V Sigma^{-1} U^T y_train
+4 返回: coef_ = w̃*[1:], intercept_ = w̃*[0]
 ```
 
 ### 理解重点
@@ -703,7 +702,7 @@ $$
 | 训练复杂度 | $O(d^3 + Nd^2)$——极快 | $O(d \cdot N \log N)$——快 |
 | 是否需要 `random_state` | 否——确定性解 | **是——分裂涉及随机性** |
 | 收敛判断 | 不需要——闭式解一次到位 | **需要 `max_depth`/`min_samples_split` 等早停** |
-| 预测 | $\hat{y} = \mathbf{X}\mathbf{w} + b$（矩阵乘法） | **沿树走到叶子 → 返回叶子均值** |
+| 预测 | $\hat{y} = \mathbf{X}\mathbf{w} + b$（矩阵乘法） | **沿树走到叶子 -> 返回叶子均值** |
 | 评估可视化 | 残差图 + 学习曲线 | **残差图 + 特征重要性 + 学习曲线 + 树结构** |
 
 ## 常见坑
@@ -714,7 +713,7 @@ $$
 
 ## 小结
 
-- 线性回归流水线为最简 6 步：加载 → 拆分 → 切分 → 训练 → 预测 → 残差图 + 学习曲线——无标准化、无特征重要性、无树结构。
+- 线性回归流水线为最简 6 步：加载 -> 拆分 -> 切分 -> 训练 -> 预测 -> 残差图 + 学习曲线——无标准化、无特征重要性、无树结构。
 - `fit()` 的核心是 SVD 闭式求解——一次计算，无迭代，无收敛判断，是 OLS 区别于所有迭代式算法的最本质特征。
 - `predict()` 是简单的矩阵乘法——测试样本与固定参数做线性组合，计算量极小。
 
@@ -731,7 +730,7 @@ $$
 | 名称 | 类型 | 作用 |
 |---|---|---|
 | `plot_residuals(...)` | 函数 | 生成预测-真实散点图 + 残差分布图——诊断拟合质量和系统偏差 |
-| `plot_learning_curve(...)` | 函数 | 生成训练/验证 R² 曲线——诊断样本量充足性和泛化趋势 |
+| `plot_learning_curve(...)` | 函数 | 生成训练/验证 R^2 曲线——诊断样本量充足性和泛化趋势 |
 | `residuals = y_true - y_pred` | 派生量 | 衡量每个样本的预测误差——残差图的数据源 |
 | `scoring='r2'` | 参数 | 学习曲线使用的评分指标——$R^2 = 1 - \frac{\sum(y_i - \hat{y}_i)^2}{\sum(y_i - \bar{y})^2}$ |
 
@@ -785,7 +784,7 @@ ax2.axhline(y=0, color="r", linestyle="--")
 | `estimator` | `LinearRegression` | **未训练的**新模型实例——学习曲线内部会多次 fit | `LinearRegression()` |
 | `X` | `ndarray`，形状 `(160, 3)` | 训练集特征 | `X_train` |
 | `y` | `ndarray`，形状 `(160,)` | 训练集目标 | `y_train` |
-| `scoring` | `str` | 评分指标。`"r2"`——R² 决定系数 | `"r2"`、`"neg_mean_squared_error"` |
+| `scoring` | `str` | 评分指标。`"r2"`——R^2 决定系数 | `"r2"`、`"neg_mean_squared_error"` |
 | `cv` | `int` | 交叉验证折数。默认 `5` | `5` |
 | `train_sizes` | `ndarray` | 训练样本比例序列。默认 10 个点从 0.1 到 1.0 | `np.linspace(0.1, 1.0, 10)` |
 
@@ -823,8 +822,8 @@ plot_learning_curve(
 | 残差图 | 已实现 | 回归模型的核心诊断工具——可视化误差分布 |
 | 学习曲线 | 已实现 | 诊断样本量充足性和泛化趋势 |
 | 系数打印 | 已实现 | 训练日志中打印 `coef_` 和 `intercept_`——可对照真实公式 |
-| MSE / MAE / RMSE / R² 数值打印 | **未实现** | 当前流水线侧重图形化诊断而非数值指标 |
-| 交叉验证 R² 均值 | **未实现** | 学习曲线内部使用了 CV，但未单独输出 CV 均值 |
+| MSE / MAE / RMSE / R^2 数值打印 | **未实现** | 当前流水线侧重图形化诊断而非数值指标 |
+| 交叉验证 R^2 均值 | **未实现** | 学习曲线内部使用了 CV，但未单独输出 CV 均值 |
 | 特征重要性图 | **不适用** | 线性回归的 `coef_` 直接表达了特征影响——不需要重要性图 |
 
 ### 理解重点
@@ -848,7 +847,7 @@ plot_learning_curve(
 
 1. 只看残差图不看学习曲线——残差图只反映单次测试集表现，学习曲线揭示泛化趋势。
 2. 在关系近线性的合成数据上期待看到复杂诊断信号——线性回归在此数据上表现良好是正常的，不需要"调优"。
-3. 误以为当前流水线已输出 MSE/MAE/R² 数值——实际上仅打印了系数，数值指标需自行添加。
+3. 误以为当前流水线已输出 MSE/MAE/R^2 数值——实际上仅打印了系数，数值指标需自行添加。
 4. 忽略了线性回归独有的"系数可验证"评估优势——对照 `coef_` 与 `[2, 10, -3]` 是其他任何回归模型都没有的评估手段。
 
 ## 小结
@@ -886,7 +885,7 @@ plot_learning_curve(
 | 数据目录层 | `src/mlAlgorithms/datasets/datasetCatalog.py` | `DatasetSpec("regression.linear_regression", ...)`——注册数据集描述与加载器 | 数据集元信息 |
 | 训练层 | `src/mlAlgorithms/training/regression/regressionModels.py` | `trainLinearRegressionModel(...)`——构建 `LinearRegression()` 并 fit | `LinearRegression` 模型对象 |
 | 流水线注册层 | `src/mlAlgorithms/catalog/pipelines.py` | `PipelineSpec("regression.linear_regression", ...)`——关联所有组件 | 流水线配置 |
-| 运行器层 | `src/mlAlgorithms/workflows/regressionRunner.py` | 读取 PipelineSpec → 加载数据 → 预处理（无）→ 训练 → 评估 → 可视化 | 终端日志 + 图像文件 |
+| 运行器层 | `src/mlAlgorithms/workflows/regressionRunner.py` | 读取 PipelineSpec -> 加载数据 -> 预处理（无）-> 训练 -> 评估 -> 可视化 | 终端日志 + 图像文件 |
 | 可视化层 | `src/mlAlgorithms/visualization/` | 绘制残差图、学习曲线 | PNG 图像文件 |
 
 ### 理解重点
@@ -926,22 +925,15 @@ PipelineSpec(
 
 ```
 loadLinearRegressionDataset()
-    │
-    ├─→ X = data.drop(columns=["price"])
-    ├─→ y = data["price"]
-    ├─→ feature_names = list(X.columns)
-    │
-    ├─→ train_test_split(test_size=0.2)
-    │       │
-    │       ├─→ X_train, y_train ──→ model.fit() ──→ model (coef_, intercept_)
-    │       │       │
-    │       │       └─→ plot_learning_curve(LinearRegression(), X_train, y_train)
-    │       │
-    │       └─→ X_test ──→ model.predict() ──→ y_pred
-    │               │
-    │               └─→ plot_residuals(y_test, y_pred)
-    │
-    └─→ model ──→ 终端日志: coef_ + intercept_ 打印
+  - -> X = data.drop(columns=["price"])
+  - -> y = data["price"]
+  - -> feature_names = list(X.columns)
+  - -> train_test_split(test_size=0.2)
+      - -> X_train, y_train ──-> model.fit() ──-> model (coef_, intercept_)
+          - -> plot_learning_curve(LinearRegression(), X_train, y_train)
+      - -> X_test ──-> model.predict() ──-> y_pred
+          - -> plot_residuals(y_test, y_pred)
+  - -> model ──-> 终端日志: coef_ + intercept_ 打印
 ```
 
 ### 理解重点
@@ -1077,7 +1069,7 @@ noise_feature = rng.normal(0, 5, size=200)
 
 回答：无关特征的系数是否接近 0？加入无关特征后，原有三个特征的系数是否发生明显变化？学习曲线是否受影响？
 
-### 练习 5：手动计算 R² 并与残差图对照
+### 练习 5：手动计算 R^2 并与残差图对照
 
 在流水线中手动计算并打印测试集 $R^2$：
 
@@ -1086,7 +1078,7 @@ from sklearn.metrics import r2_score, mean_squared_error
 
 r2 = r2_score(y_test, y_pred)
 mse = mean_squared_error(y_test, y_pred)
-print(f"测试集 R²: {r2:.4f}")
+print(f"测试集 R^2: {r2:.4f}")
 print(f"测试集 MSE: {mse:.4f}")
 ```
 

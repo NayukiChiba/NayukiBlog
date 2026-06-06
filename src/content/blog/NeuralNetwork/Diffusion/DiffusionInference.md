@@ -59,9 +59,9 @@ $$
 $$
 
 > [!TIP] 关键直觉
-> $t$ 很小 → $\bar{\alpha}_t \approx 1$ → $\mathbf{x}_t \approx \mathbf{x}_0$（信号占主导）
-> $t$ 很大 → $\bar{\alpha}_t \approx 0$ → $\mathbf{x}_t \approx \boldsymbol{\epsilon}$（噪声占主导）
-> $t=T$ → $\mathbf{x}_T \sim \mathcal{N}(0, \mathbf{I})$（纯噪声）
+> $t$ 很小 $\rightarrow$ $\bar{\alpha}_t \approx 1$ $\rightarrow$ $\mathbf{x}_t \approx \mathbf{x}_0$（信号占主导）
+> $t$ 很大 $\rightarrow$ $\bar{\alpha}_t \approx 0$ $\rightarrow$ $\mathbf{x}_t \approx \boldsymbol{\epsilon}$（噪声占主导）
+> $t=T$ $\rightarrow$ $\mathbf{x}_T \sim \mathcal{N}(0, \mathbf{I})$（纯噪声）
 
 ```python
 import numpy as np
@@ -72,8 +72,8 @@ def linearBetaSchedule(T=1000, betaStart=1e-4, betaEnd=0.02):
 
     Args:
         T: 总步数
-        betaStart: 起始 β 值
-        betaEnd: 终止 β 值
+        betaStart: 起始 beta 值
+        betaEnd: 终止 beta 值
     Returns:
         beta: 形状 (T,) 的噪声调度
         alphaBar: 形状 (T,) 的累积乘积
@@ -91,7 +91,7 @@ def forwardDiffuse(x0, t, alphaBar):
     Args:
         x0: 原始图像，形状 (batch, C, H, W)
         t: 时间步，形状 (batch,)
-        alphaBar: 形状 (T,) 的累积 α_bar
+        alphaBar: 形状 (T,) 的累积 alpha_bar
 
     Returns:
         xt: 加噪后的图像
@@ -151,13 +151,13 @@ $$
 ```
 算法: DDPM 采样（Ancestral Sampling）
 
-输入: 噪声预测网络 ε_θ, 总步数 T
+输入: 噪声预测网络 epsilon_theta, 总步数 T
 输出: 生成的图像 x_0
 
 1. x_T ~ N(0, I)                    // 从纯噪声开始
 2. for t = T, T-1, ..., 1:
 3.     z ~ N(0, I) if t > 1 else 0  // 最后一步不加随机噪声
-4.     x_{t-1} = 1/√α_t * (x_t - β_t/√(1-ᾱ_t) * ε_θ(x_t, t)) + σ_t * z
+4.     x_{t-1} = 1/sqrtalpha_t * (x_t - beta_t/sqrt(1-alphā_t) * epsilon_theta(x_t, t)) + sigma_t * z
 5. return x_0
 ```
 
@@ -172,7 +172,7 @@ def ddimSampling(model, T, alphaBar, alpha, beta, shape, device):
     DDPM 采样（完整 T 步去噪）
 
     Args:
-        model: 噪声预测网络 ε_θ(xt, t)
+        model: 噪声预测网络 epsilon_theta(xt, t)
         T: 总步数
         alphaBar: 累积 alpha_bar，形状 (T+1,)
         alpha: 单步 alpha，形状 (T+1,)
@@ -190,7 +190,7 @@ def ddimSampling(model, T, alphaBar, alpha, beta, shape, device):
 
         # 预测噪声
         with torch.no_grad():
-            epsTheta = model(x, tTensor)  # ε_θ(x_t, t)
+            epsTheta = model(x, tTensor)  # epsilon_theta(x_t, t)
 
         # 系数计算
         sqrtAlphaT = torch.sqrt(alpha[t])
@@ -227,8 +227,8 @@ $$
 $$
 
 其中：
-- $\sigma_t = 0$ → **DDIM**（完全确定性，$\mathbf{x}_T$ 唯一确定 $\mathbf{x}_0$）
-- $\sigma_t = \sqrt{(1 - \bar{\alpha}_{t-1})/(1 - \bar{\alpha}_t)} \sqrt{1 - \bar{\alpha}_t/\bar{\alpha}_{t-1}}$ → **DDPM**（随机采样）
+- $\sigma_t = 0$ -> **DDIM**（完全确定性，$\mathbf{x}_T$ 唯一确定 $\mathbf{x}_0$）
+- $\sigma_t = \sqrt{(1 - \bar{\alpha}_{t-1})/(1 - \bar{\alpha}_t)} \sqrt{1 - \bar{\alpha}_t/\bar{\alpha}_{t-1}}$ -> **DDPM**（随机采样）
 
 > [!TIP] DDIM 为什么快？
 > DDIM 可以选择 $T$ 的一个子序列（如等间隔取 50 步），在更少的步数下完成采样。

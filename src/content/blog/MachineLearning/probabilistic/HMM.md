@@ -260,7 +260,7 @@ $$
 
 ## 小结
 
-- HMM 的数学核心链：马尔可夫假设 → 五元组定义 → 三大问题（评估/解码/学习）→ Forward（求和递推）/ Viterbi（取最大递推+回溯）/ Baum-Welch（Forward-Backward + 计数重估）。
+- HMM 的数学核心链：马尔可夫假设 $\rightarrow$ 五元组定义 $\rightarrow$ 三大问题（评估/解码/学习）$\rightarrow$ Forward（求和递推）/ Viterbi（取最大递推+回溯）/ Baum-Welch（Forward-Backward + 计数重估）。
 - 与 EM (GMM) 的根本区别：HMM 的隐变量有时间依赖（马尔可夫链），E 步需成对后验 $\xi_t(i,j)$，预测需 Viterbi 全局解码——而非逐点独立计算。
 - 当前源码 `CategoricalHMM(n_components=3, n_iter=100)` 将上述数学全部封装在 `fit`/`predict`/`score` 三个方法中——`transmat_`、`emissionprob_`、`startprob_` 是训练后的可直接检验的参数。
 
@@ -277,7 +277,7 @@ $$
 | 名称 | 类型 | 作用 |
 |---|---|---|
 | `ProbabilisticData.hmm()` | 方法 | 手动参数化生成 HMM 离散观测序列——含真实隐状态 |
-| `hmm_data` | 全局变量 | 在 `data_generation/__init__.py` 中导出的 DataFrame（300 行 × 3 列） |
+| `hmm_data` | 全局变量 | 在 `data_generation/__init__.py` 中导出的 DataFrame（300 行 $\times$ 3 列） |
 | `obs` | 列 | 离散观测符号序列 $\{0, 1, 2\}$——训练 HMM 的唯一输入 |
 | `state_true` | 列 | 数据生成时记录的真实隐状态——仅用于训练后评估对比 |
 | `reshape(-1, 1)` | 操作 | 将一维序列整形为 hmmlearn 要求的列向量 `(300, 1)` |
@@ -482,7 +482,7 @@ HMM 要做的三件事：
 | 算法 | 问题 | 直觉 | 输出 |
 |---|---|---|---|
 | Forward | 这个观测序列多可能？ | 沿着时间累积所有路径的概率 | 一个标量 $P(O \mid \lambda)$ |
-| Viterbi | 最可能的隐状态路径？ | 沿着时间选最优的上一步 → 递推到终点 → 回溯 | 一个状态序列 $\hat{S}$ |
+| Viterbi | 最可能的隐状态路径？ | 沿着时间选最优的上一步 -> 递推到终点 -> 回溯 | 一个状态序列 $\hat{S}$ |
 | Baum-Welch | 模型参数是什么？ | EM 的 HMM 版——用当前参数估计状态概率，再反推新参数 | 新的 $\hat{A}$、$\hat{B}$、$\hat{\pi}$ |
 
 ### 理解重点
@@ -552,9 +552,9 @@ HMM 当前流水线**无可视化输出**——纯终端文本评估（隐状态
 | `train_model(...)` | 函数 | 构建并训练一个 HMM 模型——含可选依赖检查（`CategoricalHMM` / `MultinomialHMM` 双备份） |
 | `CategoricalHMM(...)` | 类 | hmmlearn 提供的离散 HMM——用 Baum-Welch（EM）估计参数 |
 | `model.fit(X_obs, lengths)` | 方法 | Baum-Welch 训练——迭代 Forward-Backward + 参数重估 |
-| `model.transmat_` | 属性 | 学习到的状态转移矩阵 $A$（3×3） |
+| `model.transmat_` | 属性 | 学习到的状态转移矩阵 $A$（3x3） |
 | `model.startprob_` | 属性 | 学习到的初始状态分布 $\pi$（3,） |
-| `model.emissionprob_` | 属性 | 学习到的观测发射矩阵 $B$（3×3） |
+| `model.emissionprob_` | 属性 | 学习到的观测发射矩阵 $B$（3x3） |
 | `model.predict(X_obs, lengths)` | 方法 | Viterbi 解码——全局最优隐状态路径 |
 
 ## 1. `train_model(...)` 的函数签名
@@ -721,12 +721,11 @@ print(f"初始分布: {model.startprob_.round(3)}")
 
 ```
 hmm_data.copy()
-    │
-    ├─ ① obs = data["obs"].values.astype(int)  → reshape(-1, 1)
-    ├─ ② lengths = [len(obs)]
-    ├─ ③ y_true = data["state_true"].values.astype(int)
-    ├─ ④ model = train_model(X_obs, lengths)
-    └─ ⑤ states_pred = model.predict(X_obs, lengths) → 准确率 + 转移矩阵
+  - 1 obs = data["obs"].values.astype(int)  -> reshape(-1, 1)
+  - 2 lengths = [len(obs)]
+  - 3 y_true = data["state_true"].values.astype(int)
+  - 4 model = train_model(X_obs, lengths)
+  - 5 states_pred = model.predict(X_obs, lengths) -> 准确率 + 转移矩阵
 ```
 
 ### 参数速览
@@ -753,30 +752,30 @@ hmm_data.copy()
 
 ```
 初始化参数（随机或等值）
-    ↓
+    v
 E 步：Forward-Backward 算法
-    Forward:  α_t(i) = P(o_1,...,o_t, s_t=i | λ)
-    Backward: β_t(i) = P(o_{t+1},...,o_T | s_t=i, λ)
-    计算后验: γ_t(i) = P(s_t=i | O, λ) = α_t(i)β_t(i) / P(O|λ)
-              ξ_t(i,j) = P(s_t=i, s_{t+1}=j | O, λ)
-    ↓
+    Forward:  alpha_t(i) = P(o_1,...,o_t, s_t=i | lambda)
+    Backward: beta_t(i) = P(o_{t+1},...,o_T | s_t=i, lambda)
+    计算后验: gamma_t(i) = P(s_t=i | O, lambda) = alpha_t(i)beta_t(i) / P(O|lambda)
+              ξ_t(i,j) = P(s_t=i, s_{t+1}=j | O, lambda)
+    v
 M 步：参数重估
-    π̂_i = γ_1(i)
-    Â_ij = Σ_{t=1}^{T-1} ξ_t(i,j) / Σ_{t=1}^{T-1} γ_t(i)
-    B̂_ij = Σ_{t: o_t=j} γ_t(i) / Σ_{t=1}^{T} γ_t(i)
-    ↓
-检查收敛：|log P(O|λ_new) - log P(O|λ_old)| < tol ?
-    是 → 停止
-    否 → 回到 E 步
-    ↓
-达到 n_iter=100 → 终止
+    pî_i = gamma_1(i)
+    Â_ij = Sigma_{t=1}^{T-1} ξ_t(i,j) / Sigma_{t=1}^{T-1} gamma_t(i)
+    B̂_ij = Sigma_{t: o_t=j} gamma_t(i) / Sigma_{t=1}^{T} gamma_t(i)
+    v
+检查收敛：|log P(O|lambda_new) - log P(O|lambda_old)| < tol ?
+    是 -> 停止
+    否 -> 回到 E 步
+    v
+达到 n_iter=100 -> 终止
 ```
 
 ### 参数速览
 
 | 参数名 | 当前取值 | 训练中的作用 |
 |---|---|---|
-| `n_components` | `3` | 隐状态数——决定了 $A$（3×3）、$B$（3×3）、$\pi$（3,）的维度 |
+| `n_components` | `3` | 隐状态数——决定了 $A$（3x3）、$B$（3x3）、$\pi$（3,）的维度 |
 | `n_iter` | `100` | Baum-Welch 最大迭代次数 |
 | `tol` | `1e-3` | 对数似然收敛阈值——连续两次变化小于此值则停止 |
 
@@ -791,10 +790,10 @@ M 步：参数重估
 ### 算法流程
 
 ```
-初始化: δ_1(i) = π_i * B_{i,o_1}
-递推:   δ_t(j) = max_i [δ_{t-1}(i) * A_{ij}] * B_{j,o_t}
-        ψ_t(j) = argmax_i [δ_{t-1}(i) * A_{ij}]
-终止:   ŝ_T = argmax_i δ_T(i)
+初始化: delta_1(i) = pi_i * B_{i,o_1}
+递推:   delta_t(j) = max_i [delta_{t-1}(i) * A_{ij}] * B_{j,o_t}
+        ψ_t(j) = argmax_i [delta_{t-1}(i) * A_{ij}]
+终止:   ŝ_T = argmax_i delta_T(i)
 回溯:   ŝ_t = ψ_{t+1}(ŝ_{t+1})   (t = T-1, ..., 1)
 ```
 
@@ -816,7 +815,7 @@ M 步：参数重估
 |---|---|---|
 | 数据 | 独立样本矩阵 | **序列列向量 + lengths** |
 | 标准化 | 有（`StandardScaler`） | **无**（离散符号不需要） |
-| E 步 | 逐点后验 $\gamma(z_{ik})$ | **Forward-Backward → $\gamma_t(i)$ + $\xi_t(i,j)$** |
+| E 步 | 逐点后验 $\gamma(z_{ik})$ | **Forward-Backward -> $\gamma_t(i)$ + $\xi_t(i,j)$** |
 | M 步 | 加权更新 $\mu$、$\Sigma$、$\pi$ | **计数重估 $A$、$B$、$\pi$** |
 | 复杂度 | $O(N \times K \times d^2)$ | **$O(T \times K^2)$** |
 | 收敛诊断 | `lower_bound_`（对数似然） | **`monitor_`（逐次对数似然列表）** |
@@ -832,7 +831,7 @@ M 步：参数重估
 ## 小结
 
 - HMM 流水线是最简的 4 步序列流程——数据整形、Baum-Welch 训练、Viterbi 解码、准确率评估，无标准化/切分/可视化。
-- `fit()` 的核心流程：Forward-Backward（E 步计算时序后验）→ 计数重估 $A$/$B$/$\pi$（M 步最大化）→ 对数似然收敛检查 → 循环。
+- `fit()` 的核心流程：Forward-Backward（E 步计算时序后验）-> 计数重估 $A$/$B$/$\pi$（M 步最大化）-> 对数似然收敛检查 -> 循环。
 - `predict()` 使用 Viterbi 全局解码——保证路径的转移合法性，与逐点 argmax 有本质区别。
 
 # 评估与诊断
@@ -984,7 +983,7 @@ print(model.monitor_.history)    # 迭代历史
 
 | 层 | 文件 | 职责 | 输出 |
 |---|---|---|---|
-| 数据生成层 | `data_generation/probabilistic.py` | 手动参数化生成 HMM 序列数据并导出 `hmm_data` | 全局 `DataFrame`（300 行 × 3 列） |
+| 数据生成层 | `data_generation/probabilistic.py` | 手动参数化生成 HMM 序列数据并导出 `hmm_data` | 全局 `DataFrame`（300 行 x 3 列） |
 | 模型训练层 | `model_training/probabilistic/hmm.py` | 封装 `CategoricalHMM` 训练——含双备份可选依赖处理 | `CategoricalHMM` 模型对象 |
 | 流水线编排层 | `pipelines/probabilistic/hmm.py` | 串联数据整形、训练、Viterbi 解码和准确率评估——端到端入口 | 终端日志 + 准确率 + 转移矩阵 |
 | 可视化层 | **无** | HMM 序列数据不适合散点图/矩阵图——终端文本输出已足够 | — |
@@ -1021,19 +1020,13 @@ print(model.monitor_.history)    # 迭代历史
 
 ```
 hmm_data (全局 DataFrame)
-    │
-    ├─→ obs = data["obs"].values ──→ reshape(-1, 1) ──→ X_obs ──┐
-    ├─→ lengths = [len(obs)] ────────────────────────────────────┤
-    ├─→ y_true = data["state_true"].values ─────────────────────┐│
-    │                                                             ││
-    │   train_model(X_obs, lengths) ──→ model                    ││
-    │      │                                                      ││
-    │      └─→ model.predict(X_obs, lengths) ──→ states_pred ──┐ ││
-    │                                                            │ ││
-    │   accuracy = np.mean(states_pred == y_true) ←─────────────┘ ││
-    │   print(model.transmat_) ←──────────────────────────────────┘│
-    │                                                               │
-    └───────────────────────────────────────────────────────────────┘
+  - -> obs = data["obs"].values ──-> reshape(-1, 1) ──-> X_obs ──┐
+  - -> lengths = [len(obs)] ────────────────────────────────────┤
+  - -> y_true = data["state_true"].values ─────────────────────┐│
+  - train_model(X_obs, lengths) ──-> model                    ││
+    - -> model.predict(X_obs, lengths) ──-> states_pred ──┐ ││
+  - accuracy = np.mean(states_pred == y_true) <-─────────────┘ ││
+  - print(model.transmat_) <-──────────────────────────────────┘│
 ```
 
 ### 理解重点
@@ -1049,7 +1042,7 @@ hmm_data (全局 DataFrame)
 | 输出项 | 路径/位置 | 格式 | 说明 |
 |---|---|---|---|
 | 隐状态准确率 | 标准输出 | 文本 `float` | Viterbi 路径与真实状态的逐步匹配率 |
-| 转移矩阵 | 标准输出 | 文本 `ndarray` | 学习到的 3×3 转移矩阵（行和为 1） |
+| 转移矩阵 | 标准输出 | 文本 `ndarray` | 学习到的 3x3 转移矩阵（行和为 1） |
 | 终端日志 | 标准输出 | 文本 | 训练超参数 + 运行耗时 |
 
 ### 示例代码
@@ -1084,7 +1077,7 @@ HMM 流水线完成！
 ### 理解重点
 
 - HMM **无任何文件输出**——所有评估结果以终端文本呈现，是本仓库唯一纯终端输出的流水线。
-- 训练耗时极短（~0.08s）——300 步 × 3 状态，Baum-Welch 在此规模上收敛很快。
+- 训练耗时极短（~0.08s）——300 步 x 3 状态，Baum-Welch 在此规模上收敛很快。
 - 转移矩阵保留 3 位小数——足够直观对比学习结果与真实参数的差异。
 
 ## 5. 训练层细节：与 GMM 的对比
@@ -1122,7 +1115,7 @@ HMM 流水线完成！
 
 ## 小结
 
-- HMM 工程实现遵循三层架构（无可视化层）：数据生成层 → 模型训练层 → 流水线编排层。
+- HMM 工程实现遵循三层架构（无可视化层）：数据生成层 -> 模型训练层 -> 流水线编排层。
 - `run()` 是本仓库最简编排函数——4 步核心操作完成数据整形、训练、Viterbi 解码和评估，所有输出均为终端文本。
 - 与 GMM 的四个关键工程差异：（1）序列输入 + lengths；（2）离散观测无需标准化；（3）双备份可选依赖；（4）无可视化层（纯终端评估）。
 
@@ -1200,10 +1193,10 @@ hmm_A: list = [[0.95, 0.03, 0.02], [0.03, 0.94, 0.03], [0.03, 0.03, 0.94]]
 
 ```python
 # 计算后验概率（需要自己实现 Forward-Backward 或使用 model.score_samples）
-# 逐点 argmax: ŝ_t = argmax_i γ_t(i)
+# 逐点 argmax: ŝ_t = argmax_i gamma_t(i)
 ```
 
-回答：有没有发现逐点 argmax 产生了"不可能的转移"（状态 0 → 2 等）？哪种方法的准确率更高？
+回答：有没有发现逐点 argmax 产生了"不可能的转移"（状态 0 -> 2 等）？哪种方法的准确率更高？
 
 ### 练习 5：使用 Forward 得分评估模型质量
 
@@ -1213,7 +1206,7 @@ hmm_A: list = [[0.95, 0.03, 0.02], [0.03, 0.94, 0.03], [0.03, 0.03, 0.94]]
 for k in [2, 3, 4, 5]:
     model = train_model(X_obs, lengths, n_components=k)
     log_prob = model.score(X_obs, lengths)
-    print(f"K={k}: log P(O|λ) = {log_prob:.2f}")
+    print(f"K={k}: log P(O|lambda) = {log_prob:.2f}")
 ```
 
 回答：对数概率随 $K$ 增大是否单调递增（总是偏好更多参数）？是否可以用 BIC 来平衡拟合和复杂度？

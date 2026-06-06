@@ -39,7 +39,7 @@ $$
 
 **总复杂度**：当 $n \gg d$ 时，瓶颈在 $O(n^2 \cdot d)$。这也是长序列处理的根本挑战。
 
-> [!WARNING] 长序列的 O(n²) 瓶颈
+> [!WARNING] 长序列的 O(n$^2$) 瓶颈
 > - 当 $n = 2048$ 时，注意力矩阵大小为 $2048 \times 2048 = 4\text{M}$
 > - 当 $n = 32768$（32K 上下文），注意力矩阵大小为 $32\text{K} \times 32\text{K} \approx 1\text{B}$
 > - 当 $n = 131072$（128K 上下文），约为 $17\text{B}$ —— 单张 GPU 显存已无法容纳
@@ -133,12 +133,12 @@ class MultiHeadAttention(nn.Module):
 
 ```
 推理第 0 步（Prefill）：
-  输入整个 Prompt → 计算并缓存所有层的 K, V
+  输入整个 Prompt -> 计算并缓存所有层的 K, V
 
 推理第 1 步：
-  输入新生成的 1 个 Token → Q = [1, d]，K_new = [1, d]，V_new = [1, d]
-  K_cached = concat(K_cached, K_new)  → [prompt_len + 1, d]
-  V_cached = concat(V_cached, V_new)  → [prompt_len + 1, d]
+  输入新生成的 1 个 Token -> Q = [1, d]，K_new = [1, d]，V_new = [1, d]
+  K_cached = concat(K_cached, K_new)  -> [prompt_len + 1, d]
+  V_cached = concat(V_cached, V_new)  -> [prompt_len + 1, d]
   Attention(Q_new, K_cached, V_cached)
 ```
 
@@ -153,8 +153,8 @@ $$
 $$
 
 对于 LLaMA-2 7B（$L=32$, $d=4096$, FP16）：
-- 序列长度 2048，batch=1 → $2 \times 32 \times 1 \times 2048 \times 4096 \times 2 \approx 1\text{GB}$
-- 序列长度 4096，batch=1 → $\approx 2\text{GB}$
+- 序列长度 2048，batch=1 -> $2 \times 32 \times 1 \times 2048 \times 4096 \times 2 \approx 1\text{GB}$
+- 序列长度 4096，batch=1 -> $\approx 2\text{GB}$
 - 高并发推理时 KV Cache 是**主要的显存瓶颈**，而非模型参数
 
 ```python
@@ -215,7 +215,7 @@ class KVCacheAttention(nn.Module):
 |:--|:--|:--|:--|
 | QK^T | $O(n^2 d)$ | $O(nd)$ 读 + $O(n^2)$ 写 | IO-bound |
 | Softmax | $O(n^2)$ | $O(n^2)$ 读 + $O(n^2)$ 写 | IO-bound |
-| Attention × V | $O(n^2 d)$ | $O(n^2)$ 读 + $O(nd)$ 写 | IO-bound |
+| Attention x V | $O(n^2 d)$ | $O(n^2)$ 读 + $O(nd)$ 写 | IO-bound |
 
 ### 3.2 FlashAttention 的核心思想
 
@@ -250,13 +250,13 @@ output = flash_attn_func(q, k, v, causal=True)
 
 > [!TIP] FlashAttention 的效果
 > - 内存复杂度从 $O(n^2)$ 降低到 $O(n)$（不存储完整注意力矩阵）
-> - 训练速度提升 2-4×
+> - 训练速度提升 2-4x
 > - 支持更长序列（如 GPT-4 的 128K 上下文）
 > - 数学上**精确等价**于标准 Attention（不是近似！）
 
 ### 3.4 FlashAttention-2/3 的改进
 
-- **FlashAttention-2**：优化了 Q 在序列维度的并行策略，在 H100 上实现 2× 加速
+- **FlashAttention-2**：优化了 Q 在序列维度的并行策略，在 H100 上实现 2x 加速
 - **FlashAttention-3**：针对 Hopper 架构（H100/H200）的异步执行优化，利用 TMA（Tensor Memory Accelerator）和 FP8
 
 ## 4. 位置编码方案
@@ -303,10 +303,10 @@ def applyRotaryEmbedding(x, cos, sin):
     Returns:
         旋转后的张量
     """
-    # 将特征维度两两分组 [x0, x1, x2, x3, ...]  →  [[x0, x1], [x2, x3], ...]
+    # 将特征维度两两分组 [x0, x1, x2, x3, ...]  ->  [[x0, x1], [x2, x3], ...]
     xReshaped = x.reshape(*x.shape[:-1], -1, 2)
 
-    # 旋转: [x, y] → [x*cos - y*sin, x*sin + y*cos]
+    # 旋转: [x, y] -> [x*cos - y*sin, x*sin + y*cos]
     xRotated = torch.stack([
         xReshaped[..., 0] * cos - xReshaped[..., 1] * sin,
         xReshaped[..., 0] * sin + xReshaped[..., 1] * cos,
@@ -360,8 +360,8 @@ $$
 
 ### 6.2 计算优势
 
-- **参数量**：$E \times$ FFN 参数（如 Mixtral 8×7B = 46.7B 总参数）
-- **激活参数**：$\approx$ 1× FFN 参数（如 Mixtral 每次激活 12.9B 参数）
+- **参数量**：$E \times$ FFN 参数（如 Mixtral 8$\times$7B = 46.7B 总参数）
+- **激活参数**：$\approx$ 1$\times$ FFN 参数（如 Mixtral 每次激活 12.9B 参数）
 - **推理速度**：激活参数量量级（远小于总参数量）
 
 ### 6.3 Load Balancing Loss
@@ -384,7 +384,7 @@ $$
 - **GQA**（Grouped-Query Attention）：$h$ 个 Q head，但只有 $g$ 个 K/V head（$g \ll h$）。同组的 Q head 共享 K, V
 - **MQA**（Multi-Query Attention）：所有 Q head 共享一个 K, V（$g=1$）
 
-KV Cache 减小了 $h/g$ 倍。LLaMA-2 70B 使用 $g=8$（$h=64$），KV Cache 减少 8×。
+KV Cache 减小了 $h/g$ 倍。LLaMA-2 70B 使用 $g=8$（$h=64$），KV Cache 减少 8$\times$。
 
 ### 7.2 RMSNorm
 

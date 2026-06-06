@@ -39,9 +39,9 @@ status: published
 | 嵌入式（Embedded） | 在模型训练过程中完成选择 | 内置机制 | 中 | Lasso L1 正则化、树模型重要性 |
 
 **选型直觉**：
-- 数据量极大、特征极多 → 先用 Filter 快速筛一遍 → 再用 Embedded 精筛
-- 小数据集、强解释性要求 → Wrapper（但注意过拟合风险）
-- 线性模型场景 → Embedded（Lasso 一步到位）
+- 数据量极大、特征极多 $\rightarrow$ 先用 Filter 快速筛一遍 $\rightarrow$ 再用 Embedded 精筛
+- 小数据集、强解释性要求 $\rightarrow$ Wrapper（但注意过拟合风险）
+- 线性模型场景 $\rightarrow$ Embedded（Lasso 一步到位）
 
 ## 3. 过滤式方法（Filter Methods）
 
@@ -146,9 +146,9 @@ miScores = mutual_info_regression(X, y, random_state=42)
 ```
 
 > [!TIP] 方法选择速查
-> - 连续特征 × 连续目标（回归） → Pearson 相关系数 / 互信息回归版
-> - 离散特征 × 离散标签（分类） → 卡方检验 / 互信息分类版
-> - 未知关系类型 → 互信息（最通用但计算慢）
+> - 连续特征 x 连续目标（回归） -> Pearson 相关系数 / 互信息回归版
+> - 离散特征 x 离散标签（分类） -> 卡方检验 / 互信息分类版
+> - 未知关系类型 -> 互信息（最通用但计算慢）
 
 ### 3.5 过滤式方法的优缺点
 
@@ -162,7 +162,7 @@ miScores = mutual_info_regression(X, y, random_state=42)
 
 ### 4.1 递归特征消除（RFE）
 
-RFE 的核心思路是**反复训练模型 → 剔除最不重要特征 → 再训练**：
+RFE 的核心思路是**反复训练模型 -> 剔除最不重要特征 -> 再训练**：
 
 1. 用全部 $d$ 个特征训练模型
 2. 根据模型提供的特征重要性（如线性模型的系数绝对值 $|w_j|$）排序
@@ -234,14 +234,14 @@ $$
 
 L1 惩罚的几何特性使得最优解是**稀疏的**——许多系数 $\beta_j$ 恰好为 0。$\lambda$ 控制稀疏程度：
 
-- $\lambda = 0$ → 普通最小二乘，所有系数非零
-- $\lambda \to \infty$ → 所有系数为零
-- $\lambda$ 适中 → 只有部分系数非零
+- $\lambda = 0$ -> 普通最小二乘，所有系数非零
+- $\lambda \to \infty$ -> 所有系数为零
+- $\lambda$ 适中 -> 只有部分系数非零
 
 ```python
 from sklearn.linear_model import LassoCV
 
-# LassoCV 通过交叉验证自动选 λ
+# LassoCV 通过交叉验证自动选 lambda
 model = LassoCV(cv=5, random_state=42)
 model.fit(X, y)
 
@@ -323,12 +323,12 @@ XSelected = selector.fit_transform(X, y)
 
 根据以下场景依次判断：
 
-1. **特征数 > 10,000？** → 先用方差阈值 + 互信息快速筛到 1000 以下
-2. **需要严格的特征独立性检验？** → 过滤式（互信息 / 卡方检验）
-3. **使用线性模型？** → 嵌入式（Lasso L1 正则化）
-4. **使用树模型（RF/GBDT/XGBoost）？** → 嵌入式（特征重要性 + SelectFromModel）
-5. **特征数 < 50 且对最优子集有强需求？** → 包裹式（RFECV / 前向选择）
-6. **通用方案** → Filter（互信息）筛到约 100 → Embedded（树模型）精筛到约 20
+1. **特征数 > 10,000？** -> 先用方差阈值 + 互信息快速筛到 1000 以下
+2. **需要严格的特征独立性检验？** -> 过滤式（互信息 / 卡方检验）
+3. **使用线性模型？** -> 嵌入式（Lasso L1 正则化）
+4. **使用树模型（RF/GBDT/XGBoost）？** -> 嵌入式（特征重要性 + SelectFromModel）
+5. **特征数 < 50 且对最优子集有强需求？** -> 包裹式（RFECV / 前向选择）
+6. **通用方案** -> Filter（互信息）筛到约 100 -> Embedded（树模型）精筛到约 20
 
 ## 7. 综合对比
 
@@ -354,13 +354,13 @@ from sklearn.pipeline import Pipeline
 
 # 完整的特征选择 Pipeline
 pipeline = Pipeline([
-    # 第 1 步：去除低方差特征（d → d1）
+    # 第 1 步：去除低方差特征（d -> d1）
     ('variance_filter', VarianceThreshold(threshold=0.01)),
 
-    # 第 2 步：互信息初筛（d1 → d2）
+    # 第 2 步：互信息初筛（d1 -> d2）
     ('mutual_info', SelectKBest(mutual_info_classif, k=50)),
 
-    # 第 3 步：嵌入式精筛（d2 → d3）
+    # 第 3 步：嵌入式精筛（d2 -> d3）
     ('embedding', SelectFromModel(
         RandomForestClassifier(n_estimators=100, random_state=42),
         threshold='median'

@@ -41,10 +41,10 @@ torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 
 ```
 无裁剪：
-    Loss ↓ 0.45 → 0.32 → 0.18 → NaN → ...
+    Loss v 0.45 -> 0.32 -> 0.18 -> NaN -> ...
 
 有裁剪（max_norm=1.0）：
-    Loss ↓ 0.45 → 0.32 → 0.18 → 0.09 → 0.05 → ...
+    Loss v 0.45 -> 0.32 -> 0.18 -> 0.09 -> 0.05 -> ...
 ```
 
 ### 4. 在训练循环中使用
@@ -143,7 +143,7 @@ class EarlyStopping:
             return False  # 不停止
         else:
             self.counter += 1
-            return self.counter >= self.patience  # patience 耗尽 → 停止
+            return self.counter >= self.patience  # patience 耗尽 -> 停止
 ```
 
 ### 3. minDelta 的设计
@@ -178,11 +178,11 @@ def checkEarlyStop(self, trainLoss, valLoss, trainAcc, valAcc):
     return False, "继续训练"
 ```
 
-**条件 1**：验证指标不再改善 → 模型已经学到了极限。
+**条件 1**：验证指标不再改善 -> 模型已经学到了极限。
 
-**条件 2**：训练损失还在降，但验证损失不再降 → 经典的过拟合模式。
+**条件 2**：训练损失还在降，但验证损失不再降 -> 经典的过拟合模式。
 
-**条件 3**：训练比验证高 10% 以上 → 严重过拟合，直接停。
+**条件 3**：训练比验证高 10% 以上 -> 严重过拟合，直接停。
 
 ### 5. 最佳模型保存
 
@@ -462,9 +462,9 @@ def trainWithStability(model, trainLoader, valLoader, criterion,
 
 | 机制 | 解决的问题 | 在循环中的位置 | 关键参数 |
 | --- | --- | --- | --- |
-| 梯度裁剪 | 梯度爆炸 → NaN | `loss.backward()` 之后、`optimizer.step()` 之前 | `max_norm`（默认 1.0） |
-| Early Stopping | 过拟合 → 泛化差 | 每个 epoch 验证结束后 | `patience`（5--15） |
-| 检查点管理 | 训练中断 → 进度丢失 | 每个 epoch 结束后写入 | 两类文件：最佳 / 最近 |
+| 梯度裁剪 | 梯度爆炸 -> NaN | `loss.backward()` 之后、`optimizer.step()` 之前 | `max_norm`（默认 1.0） |
+| Early Stopping | 过拟合 -> 泛化差 | 每个 epoch 验证结束后 | `patience`（5--15） |
+| 检查点管理 | 训练中断 -> 进度丢失 | 每个 epoch 结束后写入 | 两类文件：最佳 / 最近 |
 
 **配合要点**：
 

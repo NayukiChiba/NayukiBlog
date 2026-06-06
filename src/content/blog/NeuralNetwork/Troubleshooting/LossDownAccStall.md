@@ -124,7 +124,7 @@ totalParams = sum(p.numel() for p in model.parameters())
 print(f"总参数: {totalParams:,}")
 
 # 如果参数量太少（比如 <100K for CIFAR-10），考虑增加
-# Conv2d(32, 32, ...) → Conv2d(32, 64, ...)
+# Conv2d(32, 32, ...) -> Conv2d(32, 64, ...)
 ```
 
 ### 方案 7：使用 Class-Balanced Sampling

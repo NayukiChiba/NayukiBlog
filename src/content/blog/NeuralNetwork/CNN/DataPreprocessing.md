@@ -25,7 +25,7 @@ status: published
 ### 步骤 1：Resize（调整尺寸）
 
 ```
-PIL Image (任意尺寸) → Resize((H, W)) → (H, W)
+PIL Image (任意尺寸) -> Resize((H, W)) -> (H, W)
 ```
 
 不同模型需要不同的输入尺寸：
@@ -37,12 +37,12 @@ PIL Image (任意尺寸) → Resize((H, W)) → (H, W)
 
 ```
 PIL Image (H, W), uint8 [0, 255]
-    ↓
+    v
 Tensor (1, H, W), float32 [0.0, 1.0]
 ```
 
 做了两件事：
-- 把 PIL 图像（H×W）转为 PyTorch 张量（1×H×W），增加通道维度
+- 把 PIL 图像（HxW）转为 PyTorch 张量（1xHxW），增加通道维度
 - 把像素值从 $[0, 255]$ 缩放到 $[0.0, 1.0]$（除以 255）
 
 ### 步骤 3：Normalize（标准化）
@@ -139,11 +139,11 @@ transforms.RandomGrayscale(p=0.1)
 当数据集和模型的通道数不匹配时，需要做通道转换：
 
 ```python
-# 灰度数据集 + RGB 模型 → 灰度转伪 RGB
+# 灰度数据集 + RGB 模型 -> 灰度转伪 RGB
 if datasetChannels == 1 and modelChannels == 3:
     transform = transforms.Lambda(lambda x: x.repeat(3, 1, 1))
 
-# RGB 数据集 + 灰度模型 → RGB 转灰度
+# RGB 数据集 + 灰度模型 -> RGB 转灰度
 if datasetChannels == 3 and modelChannels == 1:
     transform = transforms.Grayscale(num_output_channels=1)
 ```

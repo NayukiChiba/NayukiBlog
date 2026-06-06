@@ -16,7 +16,7 @@ status: published
 ```
 Epoch 5: Train Loss 0.45
 Epoch 6: Train Loss 0.52
-Epoch 7: Train Loss NaN          ← 突然变成 NaN
+Epoch 7: Train Loss NaN          <- 突然变成 NaN
 ```
 
 或者更直观的：Loss 在某个 batch 突然从正常值跳到 `inf` 或 [[NeuralNetwork/Troubleshooting/NanLoss|NaN]]，属于[[NeuralNetwork/Troubleshooting/TrainingUnstable|训练不稳]]的典型现象。
@@ -26,7 +26,7 @@ Epoch 7: Train Loss NaN          ← 突然变成 NaN
 ```
 Epoch 1: Train Loss 2.30, Acc 10%
 Epoch 2: Train Loss 2.30, Acc 10%
-Epoch 5: Train Loss 2.30, Acc 10%  ← 完全不变
+Epoch 5: Train Loss 2.30, Acc 10%  <- 完全不变
 ```
 
 Loss 几乎不变，模型的浅层梯度接近 0。
@@ -91,7 +91,7 @@ BN 能有效控制每层的输出范围，防止梯度过大：
 ```python
 nn.Sequential(
     nn.Conv2d(64, 128, 3, padding=1),
-    nn.BatchNorm2d(128),    # ← BN 稳定梯度
+    nn.BatchNorm2d(128),    # <- BN 稳定梯度
     nn.ReLU(),
 )
 ```
@@ -103,7 +103,7 @@ nn.Sequential(
 ReLU 的正数区域导数为常数 1，不会衰减：
 
 ```python
-# 从 Tanh（导数 ≤1，饱和区 ≈0）
+# 从 Tanh（导数 <=1，饱和区 ~=0）
 self.activation = nn.Tanh()
 
 # 换为 ReLU（正数区导数恒为 1）
@@ -115,7 +115,7 @@ self.activation = nn.ReLU()
 BN 将每层输入调整到激活函数的活跃区，防止落入饱和区：
 
 ```python
-# Conv → BN → ReLU（现代标准顺序）
+# Conv -> BN -> ReLU（现代标准顺序）
 nn.Sequential(
     nn.Conv2d(inCh, outCh, 3, padding=1),
     nn.BatchNorm2d(outCh),
@@ -188,8 +188,8 @@ if gradNorm > 10:
 
 | 症状 | 可能原因 | 首选方案 |
 | --- | --- | --- |
-| Loss → NaN | 梯度爆炸 | 梯度裁剪 + 降低 LR |
+| Loss $\rightarrow$ NaN | 梯度爆炸 | 梯度裁剪 + 降低 LR |
 | Loss 震荡不定 | 梯度偏大 | 梯度裁剪 |
 | Loss 完全不变 | 梯度消失 | 换 ReLU + Kaiming |
-| 浅层梯度 ≈ 0 | 梯度消失 | BN + 残差连接 |
-| 深层梯度 ≈ 0 | 梯度消失（深层） | 残差连接 |
+| 浅层梯度 $\approx$ 0 | 梯度消失 | BN + 残差连接 |
+| 深层梯度 $\approx$ 0 | 梯度消失（深层） | 残差连接 |

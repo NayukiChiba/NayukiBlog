@@ -7,7 +7,7 @@ tags:
   - 概率论
   - 假设检验
   - 分布
-description: 系统讲解多元统计分析的完整框架：四大核心分布（多元正态、Wishart、Hotelling T²、Wilks Λ）、协方差矩阵的计算与几何解释、以及基于这些分布的统计推断方法（均值检验、MANOVA、置信椭球）。从一元到多元的自然推广，配以完整数值示例。
+description: 系统讲解多元统计分析的完整框架：四大核心分布（多元正态、Wishart、Hotelling T^2、Wilks Lambda）、协方差矩阵的计算与几何解释、以及基于这些分布的统计推断方法（均值检验、MANOVA、置信椭球）。从一元到多元的自然推广，配以完整数值示例。
 image: https://img.yumeko.site/file/blog/cover/1780667956153.webp
 status: published
 ---
@@ -69,7 +69,7 @@ $$
 
 **（4）独立性 $\iff$ 不相关性**
 
-对多元正态，这是**充要条件**（一般分布只有"独立 ⇒ 不相关"）：
+对多元正态，这是**充要条件**（一般分布只有"独立 $\Rightarrow$ 不相关"）：
 
 $$
 X_i \perp\!\!\!\perp X_j \quad\iff\quad \Sigma_{ij} = 0
@@ -217,8 +217,8 @@ $$
 
 $\mathbf{W}$ = 组内离差矩阵（"噪声"），$\mathbf{B} + \mathbf{W} = \mathbf{T}$ = 总离差矩阵（"信号 + 噪声"）。
 
-- $H_0$ 成立（各组均值相等）→ $\mathbf{B}$ 很小 → $|\mathbf{B}+\mathbf{W}| \approx |\mathbf{W}|$ → **$\Lambda \approx 1$**
-- $H_0$ 不成立 → $\mathbf{B}$ 很大 → $|\mathbf{B}+\mathbf{W}| \gg |\mathbf{W}|$ → **$\Lambda \ll 1$**
+- $H_0$ 成立（各组均值相等）$\rightarrow$ $\mathbf{B}$ 很小 $\rightarrow$ $|\mathbf{B}+\mathbf{W}| \approx |\mathbf{W}|$ $\rightarrow$ **$\Lambda \approx 1$**
+- $H_0$ 不成立 $\rightarrow$ $\mathbf{B}$ 很大 $\rightarrow$ $|\mathbf{B}+\mathbf{W}| \gg |\mathbf{W}|$ $\rightarrow$ **$\Lambda \ll 1$**
 
 $\Lambda$ 越小，越拒绝 $H_0$。这是一元 ANOVA 中 "$F$ 值越大越显著"的多元对应（$\Lambda$ 本质上是 $1/(1+F)$ 的推广）。
 
@@ -302,7 +302,7 @@ $$
 对 $\hat{\Sigma}$ 做特征分解 $\hat{\Sigma} = \mathbf{V}\mathbf{\Lambda}\mathbf{V}^\top$：
 - **主轴方向** = 特征向量 $\mathbf{v}_1, \dots, \mathbf{v}_d$
 - **半轴长度** = $\sqrt{\lambda_i} \cdot c$
-- 最大特征值方向 = 数据方差最大的方向 → **第一主成分**
+- 最大特征值方向 = 数据方差最大的方向 $\rightarrow$ **第一主成分**
 
 **Mahalanobis 距离**以协方差矩阵为度量，考虑了各维度的方差和相关性：
 
@@ -326,7 +326,7 @@ def sampleCovariance(X: np.ndarray, bias: bool = False) -> np.ndarray:
 
     Args:
         X: 形状 (n, d)，每行一个样本
-        bias: True→除以 n（MLE），False→除以 n-1（无偏）
+        bias: True->除以 n（MLE），False->除以 n-1（无偏）
     Returns:
         形状 (d, d) 的协方差矩阵
     """
@@ -337,7 +337,7 @@ def sampleCovariance(X: np.ndarray, bias: bool = False) -> np.ndarray:
 
 
 def covToCorr(S: np.ndarray) -> np.ndarray:
-    """协方差矩阵 → 相关系数矩阵"""
+    """协方差矩阵 -> 相关系数矩阵"""
     std = np.sqrt(np.diag(S))
     return S / np.outer(std, std)
 
@@ -352,7 +352,7 @@ R = covToCorr(Spop)
 # PCA via eigendecomposition
 evals, evecs = np.linalg.eigh(Spop)
 print(f"特征值: {evals}")                          # [0, 1.333]
-print(f"第一主成分方向: {evecs[:, -1]}")           # ≈ [0.707, 0.707]
+print(f"第一主成分方向: {evecs[:, -1]}")           # ~= [0.707, 0.707]
 print(f"解释方差比: {evals[-1] / evals.sum():.2%}") # 100%
 ```
 
@@ -474,8 +474,8 @@ def wilksLambdaTest(B, W, d, p, q):
     MANOVA Wilks Lambda 检验
 
     Args:
-        B: 组间离差矩阵 (d×d)
-        W: 组内离差矩阵 (d×d)
+        B: 组间离差矩阵 (dxd)
+        W: 组内离差矩阵 (dxd)
         d: 变量维度
         p: 组间自由度 = k-1
         q: 组内自由度 = n-k
@@ -484,7 +484,7 @@ def wilksLambdaTest(B, W, d, p, q):
     """
     Lambda = np.linalg.det(W) / np.linalg.det(B + W)
 
-    # Bartlett χ² 近似
+    # Bartlett chi^2 近似
     bartlett = -(q - (d + p + 1)/2) * np.log(Lambda)
     df = d * p
     pValue = 1 - chi2.cdf(bartlett, df)

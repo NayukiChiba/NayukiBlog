@@ -85,7 +85,7 @@ for images, _ in trainLoader:
     mean = images.mean().item()
     std = images.std().item()
     print(f"均值: {mean:.3f}, 标准差: {std:.3f}")
-    # 理想：均值 ≈ 0, 标准差 ≈ 1
+    # 理想：均值 ~= 0, 标准差 ~= 1
 
     if abs(mean) > 1 or abs(std - 1) > 0.5:
         print("⚠️ 数据可能未正确归一化")
@@ -97,10 +97,10 @@ for images, _ in trainLoader:
 Batch Size 太大会减少每个 epoch 的更新次数：
 
 ```python
-# 当前：128 样本/batch，60000 样本 → 每 epoch 只更新 468 次
+# 当前：128 样本/batch，60000 样本 -> 每 epoch 只更新 468 次
 trainLoader = DataLoader(dataset, batch_size=128, ...)
 
-# 改进：64 样本/batch → 每 epoch 更新 937 次
+# 改进：64 样本/batch -> 每 epoch 更新 937 次
 trainLoader = DataLoader(dataset, batch_size=64, ...)
 ```
 
@@ -112,7 +112,7 @@ BN 能显著加速收敛：
 # 在每个卷积后添加 BN
 nn.Sequential(
     nn.Conv2d(inCh, outCh, 3, padding=1),
-    nn.BatchNorm2d(outCh),    # ← 加速收敛
+    nn.BatchNorm2d(outCh),    # <- 加速收敛
     nn.ReLU(),
 )
 ```
@@ -176,13 +176,13 @@ scaler.update()
 ## 解决优先级
 
 ```
-1. 增大学习率                  → 最直接
-2. 确认数据归一化              → 零成本
-3. 添加 BatchNorm              → 效果显著
-4. 换 Adam 优化器              → 开箱即用
-5. 使用 Warmup + Cosine 调度   → 现代最佳实践
-6. 减小 Batch Size             → 增加更新频率
-7. 混合精度训练                → 加速但不改善收敛
+1. 增大学习率                  -> 最直接
+2. 确认数据归一化              -> 零成本
+3. 添加 BatchNorm              -> 效果显著
+4. 换 Adam 优化器              -> 开箱即用
+5. 使用 Warmup + Cosine 调度   -> 现代最佳实践
+6. 减小 Batch Size             -> 增加更新频率
+7. 混合精度训练                -> 加速但不改善收敛
 ```
 
 ![SlowConvergence.png](https://img.yumeko.site/file/blog/articles/1780581593514.webp)

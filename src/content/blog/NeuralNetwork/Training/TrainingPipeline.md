@@ -60,7 +60,7 @@ valLoader = DataLoader(valSet, batch_size=64,
 
 - `shuffle=True`：训练集打乱，防止模型学到样本顺序
 - `num_workers=4`：子进程加载数据，加速训练
-- `pin_memory=True`：GPU 训练时加速 CPU→GPU 传输
+- `pin_memory=True`：GPU 训练时加速 CPU->GPU 传输
 
 ## 阶段二：模型定义
 

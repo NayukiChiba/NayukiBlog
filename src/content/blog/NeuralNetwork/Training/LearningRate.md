@@ -14,9 +14,9 @@ status: published
 
 有句经验之谈：如果你只能调一个超参数，那就调学习率。
 
-- 学习率太大 → 损失上下跳，无法收敛
-- 学习率太小 → [[NeuralNetwork/Troubleshooting/SlowConvergence|收敛太慢]]，可能陷入局部最优
-- 学习率刚好 → 快速稳定收敛
+- 学习率太大 $\rightarrow$ 损失上下跳，无法收敛
+- 学习率太小 $\rightarrow$ [[NeuralNetwork/Troubleshooting/SlowConvergence|收敛太慢]]，可能陷入局部最优
+- 学习率刚好 $\rightarrow$ 快速稳定收敛
 
 **为什么需要动态调整？** 训练初期离最优解远，需要大步快走（大 LR）。训练后期接近最优解，如果一直用大学习率，会在最优解附近来回震荡无法收敛。大步可能跨过头，需要小步微调（小 LR）。
 
@@ -122,7 +122,7 @@ scheduler = torch.optim.lr_scheduler.MultiStepLR(
 
 ```
 if val_loss 连续 patience 个 epoch 没有显著改善:
-    lr = lr × factor
+    lr = lr x factor
 ```
 
 这是最"懒人友好"的调度器——不需要预设总 epoch 数，调度器自己判断时机。
@@ -164,8 +164,8 @@ scheduler.step(valLoss)  # 必须传入监控指标
 ```
 学习率变化（factor=0.5, patience=3）：
 Epoch  1- 9: lr = 0.001   (初始)
-Epoch 10-19: lr = 0.0005  (第7-9 epoch 没改善 → 减半)
-Epoch 20-24: lr = 0.00025 (第17-19 epoch 没改善 → 再减半)
+Epoch 10-19: lr = 0.0005  (第7-9 epoch 没改善 -> 减半)
+Epoch 20-24: lr = 0.00025 (第17-19 epoch 没改善 -> 再减半)
 ...
 ```
 
@@ -183,7 +183,7 @@ for epoch in range(epochs):
     trainLoss = train(...)
     valLoss = validate(...)
 
-    scheduler.step(valLoss)  # ← 必须传入
+    scheduler.step(valLoss)  # <- 必须传入
 
     # 查看当前学习率
     currentLR = optimizer.param_groups[0]['lr']
@@ -234,7 +234,7 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
 scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
     optimizer,
     T_0=10,          # 第一个周期长度
-    T_mult=2,        # 后续周期倍增：10 → 20 → 40 → 80 ...
+    T_mult=2,        # 后续周期倍增：10 -> 20 -> 40 -> 80 ...
     eta_min=1e-6
 )
 ```
@@ -270,7 +270,7 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
 scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
     optimizer, T_0=50, T_mult=2, eta_min=1e-6
 )
-# 周期：50 → 100 → 200 → 400
+# 周期：50 -> 100 -> 200 -> 400
 ```
 
 ## 6. Warmup：平稳起步的艺术

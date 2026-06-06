@@ -161,7 +161,7 @@ Bagging 的方差缩减依赖于基学习器满足两个条件：
 
 ## 小结
 
-- Bagging 的数学核心链：Bootstrap 采样（约 63.2% 样本被抽中）→ 并行训练 $n$ 个高方差基学习器 → 投票/平均聚合 → 方差从 $\sigma^2$ 缩减到 $\rho\sigma^2 + (1-\rho)\sigma^2/n$ → OOB 误差提供无偏估计。
+- Bagging 的数学核心链：Bootstrap 采样（约 63.2% 样本被抽中）$\rightarrow$ 并行训练 $n$ 个高方差基学习器 $\rightarrow$ 投票/平均聚合 $\rightarrow$ 方差从 $\sigma^2$ 缩减到 $\rho\sigma^2 + (1-\rho)\sigma^2/n$ $\rightarrow$ OOB 误差提供无偏估计。
 - Bagging 降低方差而不降低偏差——因此需要低偏差高方差的基学习器（完全生长的决策树）。
 - 当前源码 `BaggingClassifier(estimator=DecisionTreeClassifier(max_depth=None), n_estimators=80, max_samples=0.8, bootstrap=True, oob_score=True)` 是针对高噪声双月牙数据最经典的 Bagging 配置。
 
@@ -286,7 +286,7 @@ X_test_s = scaler.transform(X_test)
 ## 小结
 
 - 当前 Bagging 数据来自 `make_moons(n_samples=500, noise=0.35)`：2 个连续特征、二分类、高噪声双月牙。
-- 数据流为：`make_moons` → DataFrame（`x1`、`x2` + `label`）→ 分层训练/测试切分 → 训练集拟合标准化器 / 测试集变换。
+- 数据流为：`make_moons` -> DataFrame（`x1`、`x2` + `label`）-> 分层训练/测试切分 -> 训练集拟合标准化器 / 测试集变换。
 - `noise=0.35` 的设计意图是让单棵完全生长树过拟合到锯齿状边界——从而最大程度体现 Bagging 通过并行投票平滑边界的价值。
 
 # 思路与直觉
@@ -328,7 +328,7 @@ Bagging 的工作方式可以想象成：
 
 1. **从同一份教材中每人随机抽取一部分章节**（Bootstrap 采样——每棵树看到约 63.2% 的数据）
 2. **每个人独立学习，完全不受他人影响**（并行训练——80 棵树各自 `fit`）
-3. **每人学到的东西略有不同**（不同的采样子集 → 不同的决策边界）
+3. **每人学到的东西略有不同**（不同的采样子集 -> 不同的决策边界）
 4. **面对新问题时投票决定**（分类：80 棵树投票，多数票为最终答案）
 
 ### 理解重点
@@ -336,7 +336,7 @@ Bagging 的工作方式可以想象成：
 - 第一个学生可能在噪声点上纠结出极其复杂的规则——这是过拟合。
 - 但 80 个学生在不同子集上纠结出的噪声规则各不相同——投票时这些噪声规则互相矛盾，自动抵消。
 - 而真正的信号（两个月牙的整体形状）在所有子集中都存在——投票时信号会被放大。
-- 这就是方差缩减的直觉：**噪声随机、信号一致 → 平均后噪声减弱、信号增强**。
+- 这就是方差缩减的直觉：**噪声随机、信号一致 -> 平均后噪声减弱、信号增强**。
 
 ## 3. 为什么选择完全生长的决策树
 
@@ -409,7 +409,7 @@ Bagging 的工作方式可以想象成：
 
 ## 小结
 
-- Bagging 的直觉核心是并行集成降方差：Bootstrap 采样产生差异化的训练子集 → 并行训练多个高方差基学习器 → 投票平均使随机噪声互相抵消 → 决策边界更平滑。
+- Bagging 的直觉核心是并行集成降方差：Bootstrap 采样产生差异化的训练子集 -> 并行训练多个高方差基学习器 -> 投票平均使随机噪声互相抵消 -> 决策边界更平滑。
 - 当前高噪声双月牙数据 + 完全生长决策树 + `n_estimators=80` 是展示 Bagging 方差缩减能力的最佳教学组合。
 - Bagging 与 Boosting 在直觉上截然相反：一个靠"人多势众"抵消个体偏见（降方差），一个靠"接力纠错"逐步逼近真相（降偏差）——选哪个取决于基学习器是"过于敏感"还是"过于迟钝"。
 
@@ -594,7 +594,7 @@ if oob_score:
 ## 常见坑
 
 1. 把基学习器设为低方差模型——Bagging 的方差缩减效果完全依赖基学习器的高方差特性。
-2. 忽略 `n_estimators` 的边际递减效应——80→200 的改善远小于 10→80 的改善。
+2. 忽略 `n_estimators` 的边际递减效应——80->200 的改善远小于 10->80 的改善。
 3. 忘记 `oob_score=True`——放弃了 Bagging 独有的免费泛化估计。
 4. 混淆 `max_samples` 和 `max_features`——前者控制样本采样比例（每棵树看到的数据量），后者控制特征采样比例（每棵树看到的特征子集）。
 
@@ -679,8 +679,8 @@ python -m pipelines.ensemble.bagging
 
 | 步骤 | 代码 | 意图 |
 |---|---|---|
-| 训练集拟合 | `scaler.fit_transform(X_train)` → `X_train_s` | 在训练集上计算 $\mu$ 和 $\sigma$，同时变换 |
-| 测试集变换 | `scaler.transform(X_test)` → `X_test_s` | 使用训练集的 $\mu$ 和 $\sigma$ 变换——防止数据泄露 |
+| 训练集拟合 | `scaler.fit_transform(X_train)` -> `X_train_s` | 在训练集上计算 $\mu$ 和 $\sigma$，同时变换 |
+| 测试集变换 | `scaler.transform(X_test)` -> `X_test_s` | 使用训练集的 $\mu$ 和 $\sigma$ 变换——防止数据泄露 |
 
 ### 理解重点
 
@@ -764,23 +764,18 @@ if hasattr(model, "predict_proba"):
 
 ```
 bagging_data.copy()
-    │
-    ├─ X = data.drop(columns=["label"])
-    ├─ y = data["label"]
-    │
-    ├─ train_test_split(test_size=0.2, stratify=y)
-    │   ├─ X_train (400, 2)、y_train (400,)
-    │   └─ X_test (100, 2)、y_test (100,)
-    │
-    ├─ StandardScaler
-    │   ├─ X_train_s = scaler.fit_transform(X_train)
-    │   └─ X_test_s = scaler.transform(X_test)
-    │
-    ├─ model = train_model(X_train_s, y_train)
-    │   └─ 终端打印: n_estimators, max_samples, max_features, bootstrap, OOB 得分
-    │
-    ├─ y_pred = model.predict(X_test_s)           → 混淆矩阵
-    └─ y_scores = model.predict_proba(X_test_s)   → ROC 曲线（条件）
+  - X = data.drop(columns=["label"])
+  - y = data["label"]
+  - train_test_split(test_size=0.2, stratify=y)
+    - X_train (400, 2)、y_train (400,)
+    - X_test (100, 2)、y_test (100,)
+  - StandardScaler
+    - X_train_s = scaler.fit_transform(X_train)
+    - X_test_s = scaler.transform(X_test)
+  - model = train_model(X_train_s, y_train)
+    - 终端打印: n_estimators, max_samples, max_features, bootstrap, OOB 得分
+  - y_pred = model.predict(X_test_s)           -> 混淆矩阵
+  - y_scores = model.predict_proba(X_test_s)   -> ROC 曲线（条件）
 ```
 
 ## 常见坑
@@ -792,7 +787,7 @@ bagging_data.copy()
 
 ## 小结
 
-- Bagging 流水线是一个标准的监督分类流程：数据拆解 → 分层切分 → 训练集拟合标准化/测试集变换 → 训练（含 OOB 估计） → 硬预测/软概率 → 混淆矩阵/ROC 曲线。
+- Bagging 流水线是一个标准的监督分类流程：数据拆解 -> 分层切分 -> 训练集拟合标准化/测试集变换 -> 训练（含 OOB 估计） -> 硬预测/软概率 -> 混淆矩阵/ROC 曲线。
 - 与 DBSCAN/KMeans 等无监督流水线的核心差异：有 `y_train`、有 `train_test_split`、有混淆矩阵和 ROC 曲线（而非聚类散点图）。
 - `run()` 是薄编排层——每步调用现有模块，自身不含算法逻辑。
 
@@ -970,7 +965,7 @@ if oob_score:
 
 ## 小结
 
-- Bagging 有三项评估输出：混淆矩阵（硬标签）→ ROC 曲线（软概率）→ OOB 得分（训练内免费估计）——三者从不同角度描述模型质量。
+- Bagging 有三项评估输出：混淆矩阵（硬标签）-> ROC 曲线（软概率）-> OOB 得分（训练内免费估计）——三者从不同角度描述模型质量。
 - OOB 得分是 Bagging 独有的诊断工具——无需额外划分验证集，利用 Bootstrap 采样天然产生的"没被抽中"样本做无偏估计。
 - 当前评估策略是"可视化优先 + OOB 补足"——聚焦于最核心的诊断维度，保持教学型代码的轻量性。
 
@@ -998,7 +993,7 @@ if oob_score:
 
 | 层 | 文件 | 职责 | 输出 |
 |---|---|---|---|
-| 数据生成层 | `data_generation/ensemble.py` → `data_generation/__init__.py` | 生成高噪声双月牙数据并导出为模块变量 `bagging_data` | 全局 `DataFrame`（500 行 × 3 列） |
+| 数据生成层 | `data_generation/ensemble.py` -> `data_generation/__init__.py` | 生成高噪声双月牙数据并导出为模块变量 `bagging_data` | 全局 `DataFrame`（500 行 x 3 列） |
 | 模型训练层 | `model_training/ensemble/bagging.py` | 封装 `BaggingClassifier` 训练——含基学习器创建、sklearn 版本兼容、OOB 日志 | `BaggingClassifier` 模型对象 |
 | 流水线编排层 | `pipelines/ensemble/bagging.py` | 串联数据准备、标准化、训练、预测、评估——端到端入口 | 终端日志 + 调用可视化函数 |
 | 可视化层 | `result_visualization/confusion_matrix.py`、`result_visualization/roc_curve.py` | 生成混淆矩阵热力图和 ROC 曲线图 | PNG 文件 |
@@ -1038,34 +1033,23 @@ if oob_score:
 
 ```
 bagging_data (全局 DataFrame)
-    │
-    ├─→ X = data.drop(columns=["label"])  ──┐
-    ├─→ y = data["label"]                   │
-    │                                        │
-    ├─→ train_test_split(X, y, test_size=0.2, stratify=y)
-    │   ├─→ X_train (400, 2) ──→ scaler.fit_transform() ──→ X_train_s ──┐
-    │   ├─→ y_train (400,) ─────────────────────────────────────────────┤
-    │   │                                                                  │
-    │   ├─→ X_test (100, 2) ──→ scaler.transform() ──→ X_test_s ──┐      │
-    │   └─→ y_test (100,) ─────────────────────────────────┐       │      │
-    │                                                       │       │      │
-    │   ┌───────────────────────────────────────────────────┘       │      │
-    │   │                                                           │      │
-    │   │  train_model(X_train_s, y_train) ──→ model               │      │
-    │   │      │                                                     │      │
-    │   │      ├─→ model.predict(X_test_s) ──→ y_pred ──┐          │      │
-    │   │      │                                         │          │      │
-    │   │      └─→ model.predict_proba(X_test_s) ──→ y_scores ──┐  │      │
-    │   │                                                        │  │      │
-    │   │  plot_confusion_matrix(y_test, y_pred, ...) ←─────────┘  │      │
-    │   │  plot_roc_curve(y_test, y_scores, ...) ←─────────────────┘      │
-    │   │                                                                   │
-    │   └───────────────────────────────────────────────────────────────────┘
+  - -> X = data.drop(columns=["label"])  ──┐
+  - -> y = data["label"]                   │
+  - -> train_test_split(X, y, test_size=0.2, stratify=y)
+    - -> X_train (400, 2) ──-> scaler.fit_transform() ──-> X_train_s ──┐
+    - -> y_train (400,) ─────────────────────────────────────────────┤
+    - -> X_test (100, 2) ──-> scaler.transform() ──-> X_test_s ──┐      │
+    - -> y_test (100,) ─────────────────────────────────┐       │      │
+    - train_model(X_train_s, y_train) ──-> model               │      │
+      - -> model.predict(X_test_s) ──-> y_pred ──┐          │      │
+      - -> model.predict_proba(X_test_s) ──-> y_scores ──┐  │      │
+    - plot_confusion_matrix(y_test, y_pred, ...) <-─────────┘  │      │
+    - plot_roc_curve(y_test, y_scores, ...) <-─────────────────┘      │
 ```
 
 ### 理解重点
 
-- `y` 是最"忙碌"的变量——同时参与了训练（`y_train` → `train_model`）和两项评估（`y_test` → 混淆矩阵 + ROC 曲线）。
+- `y` 是最"忙碌"的变量——同时参与了训练（`y_train` -> `train_model`）和两项评估（`y_test` -> 混淆矩阵 + ROC 曲线）。
 - 与 PCA/LDA 的数据依赖图对比——Bagging 的 `y` 承担了"训练目标"和"评估基准"双重角色，PCA 的标签仅用于可视化着色。
 
 ## 4. 输出文件一览
@@ -1117,7 +1101,7 @@ Bagging 流水线完成！
 # 兼容不同 sklearn 版本
 try:
     model = BaggingClassifier(
-        estimator=base,          # sklearn ≥ 1.2
+        estimator=base,          # sklearn >= 1.2
         n_estimators=n_estimators,
         ...
     )
@@ -1152,7 +1136,7 @@ except TypeError:
 
 ## 小结
 
-- Bagging 工程实现遵循本仓库标准四层架构：数据生成层 → 模型训练层 → 流水线编排层 → 可视化层。
+- Bagging 工程实现遵循本仓库标准四层架构：数据生成层 -> 模型训练层 -> 流水线编排层 -> 可视化层。
 - `run()` 是薄编排函数——10 步调用串联数据准备、标准化、训练、预测和评估。
 - sklearn 版本兼容（`estimator` vs `base_estimator`）和防御性 `hasattr` 检查是本实现的两个工程细节亮点。
 
@@ -1267,4 +1251,4 @@ class EnsembleData:
 
 - 7 个自检问题覆盖 Bagging 的核心概念：Bootstrap 概率、方差缩减、OOB 估计、参数选择、与 Boosting 对比。
 - 5 个动手练习从不同角度探索 Bagging 的行为——改变基学习器数量、采样比例、特征比例、Bootstrap 开关、数据噪声。
-- 4 篇参考文献从原始论文 → 教材 → 官方文档 → 实战指南构成完整的阅读路线。
+- 4 篇参考文献从原始论文 $\rightarrow$ 教材 $\rightarrow$ 官方文档 $\rightarrow$ 实战指南构成完整的阅读路线。

@@ -161,7 +161,7 @@ $$
 
 ## 小结
 
-- PCA 的数学核心链：中心化数据 → 协方差矩阵 $\mathbf{S}$ → 特征值问题 $\mathbf{S}\mathbf{u} = \lambda\mathbf{u}$ → 等价于 SVD $\mathbf{X} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^T$ → 取最大 $q$ 个特征向量作为主成分方向。
+- PCA 的数学核心链：中心化数据 $\rightarrow$ 协方差矩阵 $\mathbf{S}$ $\rightarrow$ 特征值问题 $\mathbf{S}\mathbf{u} = \lambda\mathbf{u}$ $\rightarrow$ 等价于 SVD $\mathbf{X} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^T$ $\rightarrow$ 取最大 $q$ 个特征向量作为主成分方向。
 - 特征值 $\lambda_k$ 就是该方向的投影方差，`explained_variance_ratio_` 就是各方向方差占总方差的比例。
 - 当前源码 `PCA(n_components=2, svd_solver='auto', random_state=42)` 针对低秩合成数据（3 个真实方向 + 10 维表面特征）是展示方差压缩最经典的教学配置。
 
@@ -198,7 +198,7 @@ $$
 | `pca_n_informative` | `int` | 真实信息维度——数据真正的固有秩。默认 `3` | `3`、`5` |
 | `pca_noise_std` | `float` | 高斯噪声的标准差。`0.5` 在"可识别结构"和"适度干扰"间取得平衡 | `0.1`、`0.5`、`1.0` |
 | `random_state` | `int` | 随机种子，保证数据可复现。默认 `42` | `42` |
-| 返回值 | `DataFrame` | 含 10 个特征列（`x1`–`x10`）和 1 个伪标签列（`label`）的 DataFrame，形状 $(400, 11)$ | — |
+| 返回值 | `DataFrame` | 含 10 个特征列（`x1`-`x10`）和 1 个伪标签列（`label`）的 DataFrame，形状 $(400, 11)$ | — |
 
 ### 示例代码
 
@@ -292,8 +292,8 @@ X_scaled = scaler.fit_transform(X)
 
 ## 小结
 
-- 当前 PCA 数据来自手工构造的低秩合成数据：`base`（400×3）@ `projection`（3×10）+ 噪声（$\sigma=0.5$）。
-- 数据流为：随机生成 → 低秩信号 + 噪声 → DataFrame（`x1`–`x10` + `label`）→ 剥离 `label` → 全量标准化。
+- 当前 PCA 数据来自手工构造的低秩合成数据：`base`（400x3）@ `projection`（3x10）+ 噪声（$\sigma=0.5$）。
+- 数据流为：随机生成 -> 低秩信号 + 噪声 -> DataFrame（`x1`–`x10` + `label`）-> 剥离 `label` -> 全量标准化。
 - `label` 仅用于可视化着色——这是无监督降维与有监督降维（LDA）在数据处理上的根本差异。
 - 低秩构造（10 维表面仅 3 维真实变化）使 PCA 的价值直观可感——前 3 个主成分应与后续主成分形成明显的方差断层。
 
@@ -413,7 +413,7 @@ PCA 不需要标签——它的优化目标（投影方差）只涉及 $\mathbf{
 
 ## 小结
 
-- PCA 的直觉核心是无监督方差压缩：找数据变化最大的方向 → 保留前几个主成分 → 用最少维度保留最多信息。
+- PCA 的直觉核心是无监督方差压缩：找数据变化最大的方向 -> 保留前几个主成分 -> 用最少维度保留最多信息。
 - 当前低秩合成数据（3 个真实方向隐藏在 10 维中）是展示 PCA 降维价值的理想教学数据。
 - PCA 与 LDA 在直觉上截然相反：一个从"数据自身变化"出发找最大方差方向，一个从"标签引导"出发找最可分方向——选哪个取决于你是想压缩数据还是想区分类别。
 
@@ -645,7 +645,7 @@ X_scaled = scaler.fit_transform(X)
 
 ### 参数速览
 
-适用函数：`train_model(X_scaled, n_components=2)` → `model.transform(X_scaled)`
+适用函数：`train_model(X_scaled, n_components=2)` -> `model.transform(X_scaled)`
 
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
@@ -684,7 +684,7 @@ plot_dimensionality(
 
 ### 参数速览
 
-适用函数：`train_model(X_scaled, n_components=3)` → `model_3d.transform(X_scaled)`
+适用函数：`train_model(X_scaled, n_components=3)` -> `model_3d.transform(X_scaled)`
 
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
@@ -749,7 +749,7 @@ plot_dimensionality(X_3d, y=y, explained_variance_ratio=..., mode="3d")
 
 ### 理解重点
 
-- 流水线的主线非常清楚：取数 → 标准化 → 2D PCA 训练+投影+画图 → 3D PCA 训练+投影+画图。
+- 流水线的主线非常清楚：取数 -> 标准化 -> 2D PCA 训练+投影+画图 -> 3D PCA 训练+投影+画图。
 - 这条链路里最关键的中间变量是：`X_scaled`（标准化特征）、2D PCA `model`（含 `components_` 和 `explained_variance_ratio_`）、3D PCA `model_3d`、两组投影结果和伪标签 `y`。
 - 与 LDA 流水线最直观的区别：PCA 只画降维图（2D+3D），LDA 只画 2D 图——流程结构相似但输出维度不同。
 
@@ -762,7 +762,7 @@ plot_dimensionality(X_3d, y=y, explained_variance_ratio=..., mode="3d")
 
 ## 小结
 
-- 当前 PCA 流水线分为两阶段：2D PCA（训练+投影+画图）→ 3D PCA（训练+投影+画图）。这是所有算法分册中独一无二的双模型设计。
+- 当前 PCA 流水线分为两阶段：2D PCA（训练+投影+画图）-> 3D PCA（训练+投影+画图）。这是所有算法分册中独一无二的双模型设计。
 - `train_model` 在两次调用中分别传入 `n_components=2` 和 `n_components=3`——两次都只传 `X_scaled`（无监督）。
 - 与 LDA 流水线的核心差异：无监督（无 `y` 入 `fit`）、维数自由（不受 $K-1$ 约束）、两阶段双模型、2D+3D 双图输出。
 - 与分类分册的核心差异：输出是低维坐标而非类别预测、可视化是降维散点图而非混淆矩阵/ROC。
@@ -933,7 +933,7 @@ python -m pipelines.dimensionality.pca
 ### 理解重点
 
 - 这个命令串起当前 PCA 分册中最核心的工程流程。
-- 依次完成：数据复制 → 剥离 `label` → 全量标准化 → 2D PCA `fit(X)`（SVD）→ `transform(X)` → 2D 降维图 → 3D PCA `fit(X)` → `transform(X)` → 3D 降维图。
+- 依次完成：数据复制 -> 剥离 `label` -> 全量标准化 -> 2D PCA `fit(X)`（SVD）-> `transform(X)` -> 2D 降维图 -> 3D PCA `fit(X)` -> `transform(X)` -> 3D 降维图。
 - PCA 流水线独有的两阶段结构：先训练 2D 模型并画图，再训练 3D 模型并画图。这与 LDA 的单模型单图结构不同。
 
 ## 2. `run()` 串起了整个流程
@@ -969,7 +969,7 @@ def run():
 ### 理解重点
 
 - `run()` 的职责是编排，不是算法实现——真正的 SVD 分解在 `PCA.fit()` 中。
-- 数据流是单向且分两支：标准化数据 → 2D PCA `fit`+`transform` → 2D 图，然后再 → 3D PCA `fit`+`transform` → 3D 图。
+- 数据流是单向且分两支：标准化数据 -> 2D PCA `fit`+`transform` -> 2D 图，然后再 -> 3D PCA `fit`+`transform` -> 3D 图。
 - 与分类流水线的核心差异：
   - **无 `train_test_split`**——当前实现为教学型简化
   - **无 `predict()` 调用**——PCA 是降维工具，输出是 `transform()` 而非类别标签
@@ -1083,7 +1083,7 @@ def run():
 
 ## 小结
 
-- 当前 PCA 工程实现采用与 LDA 一致的模块分层，但具有独特的双模型结构：数据生成 → 训练封装（无监督，两次调用）→ 流水线编排（两阶段）→ 可视化（2D+3D）。
+- 当前 PCA 工程实现采用与 LDA 一致的模块分层，但具有独特的双模型结构：数据生成 -> 训练封装（无监督，两次调用）-> 流水线编排（两阶段）-> 可视化（2D+3D）。
 - `run()` 负责串联两阶段流水线，`train_model(...)` 负责 SVD 分解（仅 `fit(X)`），`plot_dimensionality(...)` 负责降维可视化（2D 和 3D 两种模式）。
 - PCA 在工程上最不同于 LDA 的地方：无监督（`fit` 无 `y`）、双模型双图、`n_components` 无 $K-1$ 约束。
 - PCA 在工程上最不同于分类算法的地方：输出是 `transform()` 而非 `predict()`、降维散点图而非分类评估图。
@@ -1112,7 +1112,7 @@ def run():
 - 对 2D 模型：把 `n_components=2` 改成 `1`、`2`、`3`、`5`
 - 观察变化：
   - `explained_variance_ratio_` 各值的变化
-  - 累计解释方差从 ~75%（2D）→ ~94%（3D）→ ~98%（5D）
+  - 累计解释方差从 ~75%（2D）-> ~94%（3D）-> ~98%（5D）
   - 降维图的视觉信息量变化
 - 核心理解：`n_components` 增加带来的信息增益是边际递减的——这正是数据低秩特性的体现
 
@@ -1156,7 +1156,7 @@ def run():
 | # | 文献 | 说明 |
 |---|---|---|
 | 1 | scikit-learn 官方文档：`PCA` | 完整构造器参数（`n_components`、`svd_solver`、`random_state`、`whiten`、`tol`、`iterated_power`、`n_oversamples`、`power_iteration_normalizer`）、属性（`components_`、`explained_variance_`、`explained_variance_ratio_`、`singular_values_`、`mean_`、`n_features_in_`、`n_samples_`）与方法（`fit`、`transform`、`fit_transform`、`inverse_transform`、`get_covariance`、`get_precision`）说明 |
-| 2 | scikit-learn 用户指南：Decomposing signals in components (matrix factorization problems) → PCA | PCA 原理、SVD 求解器选择指南、`n_components` 选择策略、增量 PCA（`IncrementalPCA`）和核 PCA（`KernelPCA`）的适用场景 |
+| 2 | scikit-learn 用户指南：Decomposing signals in components (matrix factorization problems) -> PCA | PCA 原理、SVD 求解器选择指南、`n_components` 选择策略、增量 PCA（`IncrementalPCA`）和核 PCA（`KernelPCA`）的适用场景 |
 | 3 | Jolliffe, I. T. and Cadima, J. (2016). *Principal component analysis: a review and recent developments*. Philosophical Transactions of the Royal Society A. | PCA 综述——从经典推导到稀疏 PCA、鲁棒 PCA 等现代变体，涵盖选主成分数量的多种准则 |
 | 4 | Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Chapter 12: Continuous Latent Variables. | PCA 的概率视角——概率 PCA（PPCA）、EM 算法求解、与因子分析的关系，为理解贝叶斯 PCA 提供基础 |
 

@@ -24,7 +24,7 @@ status: published
 
 ### 1.2 信息瓶颈的具体表现
 
-以 Seq2Seq 机器翻译为例，"编码器的最后一个隐藏状态 → 解码器"是唯一的信息传递通道：
+以 Seq2Seq 机器翻译为例，"编码器的最后一个隐藏状态 $\rightarrow$ 解码器"是唯一的信息传递通道：
 
 - 短句（5-10 词）：$d_h$ 维向量足够编码
 - 中句（20-30 词）：开始丢失细节
@@ -86,7 +86,7 @@ $$
 
 其中 $[s_{t-1}; h_i^{enc}]$ 表示将两个向量沿最后一个维度拼接。$W_a \in \mathbb{R}^{d_a \times (d_s + d_h)}$ 将拼接向量映射到注意力空间，$v \in \mathbb{R}^{d_a}$ 将中间表示压缩为标量得分。
 
-两种形式的本质相同——都是通过可学习的前馈网络（Linear → Tanh → Linear）产生标量得分。区别仅在于分类场景的得分网络"内建"了判断标准，而 Seq2Seq 场景将解码器状态作为外部查询信号。
+两种形式的本质相同——都是通过可学习的前馈网络（Linear $\rightarrow$ Tanh $\rightarrow$ Linear）产生标量得分。区别仅在于分类场景的得分网络"内建"了判断标准，而 Seq2Seq 场景将解码器状态作为外部查询信号。
 
 ### 2.4 第 2 步：遮罩（Masking）
 
@@ -233,8 +233,8 @@ class BahdanauAttention(nn.Module):
       2. 经 W_a 线性变换 + tanh 非线性
       3. 经 v^T 压缩为标量得分 scores
       4. 对 scores 做 mask（PAD 位设为 -1e9）
-      5. Softmax 归一化得到注意力权重 α_{t,i}
-      6. 加权求和: c_t = Σ α_{t,i} · h_i^{enc}
+      5. Softmax 归一化得到注意力权重 alpha_{t,i}
+      6. 加权求和: c_t = Sigma alpha_{t,i} . h_i^{enc}
     """
 
     def __init__(self, hidden_dim, attn_dim):
@@ -244,10 +244,10 @@ class BahdanauAttention(nn.Module):
             attn_dim:   注意力中间表示维度 d_a
         """
         super().__init__()
-        # ① W_a: (d_s + 2*d_h, attn_dim)，将拼接向量映射到注意力空间
+        # 1 W_a: (d_s + 2*d_h, attn_dim)，将拼接向量映射到注意力空间
         # decoder 的 hidden_dim 拼接 encoder 的 hidden_dim * 2 (双向)
         self.W_a = nn.Linear(hidden_dim + hidden_dim * 2, attn_dim, bias=False)
-        # ② v^T: (attn_dim, 1)，将注意力表示压缩为标量得分
+        # 2 v^T: (attn_dim, 1)，将注意力表示压缩为标量得分
         self.v = nn.Linear(attn_dim, 1, bias=False)
 
     def forward(self, decoder_hidden, encoder_outputs, mask):
@@ -258,11 +258,11 @@ class BahdanauAttention(nn.Module):
             mask:            PAD mask, 1=有效 0=PAD, (batch, src_len)
         Returns:
             context:      c_t, 动态上下文向量, (batch, hidden_dim * 2)
-            attn_weights: α_t, 注意力权重, (batch, src_len)
+            attn_weights: alpha_t, 注意力权重, (batch, src_len)
         """
         src_len = encoder_outputs.size(1)  # T
 
-        # Step 1: 评分 —— 对应公式 e_{t,i} = v^T · tanh(W_a · [s_{t-1}; h_i^{enc}])
+        # Step 1: 评分 —— 对应公式 e_{t,i} = v^T . tanh(W_a . [s_{t-1}; h_i^{enc}])
 
         # 将 decoder_hidden 沿 src_len 维度复制 T 份
         # (batch, hidden_dim) -> (batch, 1, hidden_dim) -> (batch, src_len, hidden_dim)
@@ -273,24 +273,24 @@ class BahdanauAttention(nn.Module):
         #   -> (batch, src_len, hidden_dim + hidden_dim * 2)
         concat = torch.cat((decoder_hidden, encoder_outputs), dim=-1)
 
-        # W_a · concat + tanh
+        # W_a . concat + tanh
         # (batch, src_len, hidden_dim + hidden_dim*2) -> (batch, src_len, attn_dim)
         energy = torch.tanh(self.W_a(concat))
 
-        # v^T · energy -> 标量得分
+        # v^T . energy -> 标量得分
         # (batch, src_len, attn_dim) -> (batch, src_len, 1) -> squeeze -> (batch, src_len)
         scores = self.v(energy).squeeze(-1)
 
-        # Step 2: 遮罩 + Softmax —— 对应公式 α_{t,i} = exp(e_{t,i}) / Σ exp(e_{t,j})
+        # Step 2: 遮罩 + Softmax —— 对应公式 alpha_{t,i} = exp(e_{t,i}) / Sigma exp(e_{t,j})
 
-        # PAD 位置得分设为 -1e9，exp(-1e9) ≈ 0
+        # PAD 位置得分设为 -1e9，exp(-1e9) ~= 0
         scores = scores.masked_fill(mask == 0, -1e9)
-        # (batch, src_len) -> (batch, src_len)，Σ_i α_{t,i} = 1
+        # (batch, src_len) -> (batch, src_len)，Sigma_i alpha_{t,i} = 1
         attn_weights = F.softmax(scores, dim=-1)
 
-        # Step 3: 加权求和 —— 对应公式 c_t = Σ α_{t,i} · h_i^{enc}
+        # Step 3: 加权求和 —— 对应公式 c_t = Sigma alpha_{t,i} . h_i^{enc}
 
-        # bmm: (batch, 1, src_len) × (batch, src_len, hidden_dim * 2)
+        # bmm: (batch, 1, src_len) x (batch, src_len, hidden_dim * 2)
         #    -> (batch, 1, hidden_dim * 2) -> squeeze -> (batch, hidden_dim * 2)
         context = torch.bmm(
             attn_weights.unsqueeze(1), encoder_outputs
@@ -413,7 +413,7 @@ class AttentionDecoder(nn.Module):
 | $c_t = \text{Attention}(s_{t-1}, \{h_i^{enc}\})$ | `self.attention(...)` | 详见 3.3.2 节 |
 | $[y_{t-1}; c_t]$ | `torch.cat((embedded, context.unsqueeze(1)), dim=-1)` | `(B, 1, embed_dim + 2*hidden_dim)` |
 | $s_t = \text{GRU}(s_{t-1}, [y_{t-1}; c_t])$ | `self.rnn(rnn_input, hidden)` | `(B, 1, hidden_dim)` |
-| $p(y_t) = \text{softmax}(W_o · s_t + b_o)$ | `self.fc(rnn_output.squeeze(1))` | `(B, hidden_dim)` 到 `(B, output_dim)` |
+| $p(y_t) = \text{softmax}(W_o . s_t + b_o)$ | `self.fc(rnn_output.squeeze(1))` | `(B, hidden_dim)` 到 `(B, output_dim)` |
 | 下一步输入决策 | `decoder_input = trg[:, t] if teacher_force else top1` | `(B,)` |
 
 #### 3.3.4 完整 Seq2Seq 模型
@@ -475,24 +475,24 @@ class AttentionSeq2Seq(nn.Module):
 
 - `src`: `(32, 20)`，整数索引
 - `embedded`: `(32, 20, 256)`，词嵌入后
-- `encoder_outputs`: `(32, 20, 1024)`，双向 GRU 输出（512 × 2）
-- `hidden`: `(4, 32, 512)`，num_layers × 2 个方向的最终状态
+- `encoder_outputs`: `(32, 20, 1024)`，双向 GRU 输出（512 x 2）
+- `hidden`: `(4, 32, 512)`，num_layers x 2 个方向的最终状态
 
 **解码器第 $t$ 步的 Attention 内部：**
 
 - `decoder_hidden`（$s_{t-1}$）：`(32, 512)`
 - `concat`（$[s_{t-1}; h_i^{enc}]$）：`(32, 20, 1536)`，即 512 + 1024
-- `energy`（$\tanh(W_a · \text{concat})$）：`(32, 20, 256)`
-- `scores`（$v^T · \text{energy}$）：`(32, 20)`
+- `energy`（$\tanh(W_a . \text{concat})$）：`(32, 20, 256)`
+- `scores`（$v^T . \text{energy}$）：`(32, 20)`
 - `attn_weights`（Softmax）：`(32, 20)`
-- `context`（$\sum \alpha_i · h_i^{enc}$）：`(32, 1024)`
+- `context`（$\sum \alpha_i . h_i^{enc}$）：`(32, 1024)`
 
 **解码器第 $t$ 步的 GRU 和输出：**
 
 - `embedded`（$y_{t-1}$ 嵌入）：`(32, 1, 256)`
 - `rnn_input`（$[y_{t-1}; c_t]$）：`(32, 1, 1280)`，即 256 + 1024
 - `rnn_output`（$s_t$）：`(32, 1, 512)`
-- `prediction`（$W_o · s_t + b_o$）：`(32, 8000)`
+- `prediction`（$W_o . s_t + b_o$）：`(32, 8000)`
 
 ### 3.4 分类场景的 Attention 实现
 
@@ -563,7 +563,7 @@ class Attention(nn.Module):
 
 代码中的四步与数学流程严格对应：
 
-- `self.score_network(rnn_output)` 实现了 $v^T \cdot \tanh(W \cdot h_i + b)$——`nn.Sequential` 将 `Linear → Tanh → Linear` 串联，等价于论文中的得分网络。
+- `self.score_network(rnn_output)` 实现了 $v^T \cdot \tanh(W \cdot h_i + b)$——`nn.Sequential` 将 `Linear $\rightarrow$ Tanh $\rightarrow$ Linear` 串联，等价于论文中的得分网络。
 - `masked_fill(mask == 0, -1e9)` 实现了 PAD 位置的遮罩。
 - `F.softmax(scores, dim=1)` 沿序列维度做 Softmax 归一化。
 - `torch.bmm(attention_weights.unsqueeze(1), rnn_output)` 实现了加权求和 $\sum_i \alpha_i \cdot h_i$——利用批量矩阵乘法一次性完成所有样本的加权求和。
@@ -580,8 +580,8 @@ class Attention(nn.Module):
 
 | 层 | 操作 | 参数量 |
 |------|------|------:|
-| 第一层 | Linear(512→256) | 512×256 + 256 = 131,328 |
-| 第三层 | Linear(256→1, bias=False) | 256×1 = 256 |
+| 第一层 | Linear(512->256) | 512x256 + 256 = 131,328 |
+| 第三层 | Linear(256->1, bias=False) | 256x1 = 256 |
 | **合计** | | **131,584** |
 
 约 13 万参数——相比 LSTM 层的数百万参数，Attention 的开销很小。

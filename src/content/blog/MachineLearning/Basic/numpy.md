@@ -286,7 +286,7 @@ NumPy快了约 21.3 倍
 | `size` | `int` | 元素总数，等于各维度长度的乘积 |
 | `dtype` | `numpy.dtype` | 元素的数据类型 |
 | `itemsize` | `int` | 每个元素占用的字节数 |
-| `nbytes` | `int` | 数组总字节数，等于 `size × itemsize` |
+| `nbytes` | `int` | 数组总字节数，等于 `size $\times$ itemsize` |
 
 ### 示例代码
 
@@ -313,7 +313,7 @@ float32 numpy.dtype
 ### 理解重点
 
 - 一维向量的 `shape` 是 `(3, )`，注意尾部逗号——它是单元素元组，去掉逗号就成了整数 `3`
-- 二维理解为"行 × 列"，三维及以上建议用"轴"来思考
+- 二维理解为"行 x 列"，三维及以上建议用"轴"来思考
 - 大数组先用 `nbytes / 1024**2` 估算内存占用量
 
 ## 常见坑
@@ -870,7 +870,7 @@ True
 
 #### 理解重点
 
-- 相同的 `seed` + 相同的调用顺序 ⇒ 相同的随机结果
+- 相同的 `seed` + 相同的调用顺序 => 相同的随机结果
 - 中间插入新的随机调用会消耗随机状态，改变后续所有序列
 
 ## 常见坑
@@ -904,7 +904,7 @@ True
 | `arr.size` | 属性 | 元素总数，等于各维度长度乘积 |
 | `arr.dtype` | 属性 | 元素数据类型对象 |
 | `arr.itemsize` | 属性 | 每个元素占用字节数 |
-| `arr.nbytes` | 属性 | 数组总字节数，等于 `size × itemsize` |
+| `arr.nbytes` | 属性 | 数组总字节数，等于 `size $\times$ itemsize` |
 | `arr.astype(...)` | 方法 | 返回类型转换后的新数组 |
 | `np.iinfo(...)` | 函数 | 查询整数类型的取值范围和位数 |
 | `np.finfo(...)` | 函数 | 查询浮点类型的精度参数和范围 |
@@ -977,7 +977,7 @@ size: 12
 ### 理解重点
 
 - `ndim == len(shape)`，始终成立
-- `size == shape[0] × shape[1] × ...`，始终成立
+- `size == shape[0] $\times$ shape[1] $\times$ ...`，始终成立
 - `shape` 是后续索引、广播、变形的基础——拿到数组先看 `shape`
 
 ## 2. 内存与数据类型属性
@@ -1027,7 +1027,7 @@ arr = np.random.random((3, 4))
 print(f"dtype: {arr.dtype}")
 print(f"itemsize: {arr.itemsize}")
 print(f"nbytes: {arr.nbytes}")
-print(f"验证 size × itemsize: {arr.size * arr.itemsize}")
+print(f"验证 size x itemsize: {arr.size * arr.itemsize}")
 ```
 
 ### 输出
@@ -1036,7 +1036,7 @@ print(f"验证 size × itemsize: {arr.size * arr.itemsize}")
 dtype: float64
 itemsize: 8
 nbytes: 96
-验证 size × itemsize: 96
+验证 size x itemsize: 96
 ```
 
 ### 理解重点
@@ -1204,7 +1204,7 @@ print(f"转 str: {arrStr}, dtype={arrStr.dtype}")
 
 #### 理解重点
 
-- 浮点转整数是**截断**（向零取整），`1.9` → `1`，`-1.9` → `-1`——如需四舍五入先用 `np.round`
+- 浮点转整数是**截断**（向零取整），`1.9` -> `1`，`-1.9` -> `-1`——如需四舍五入先用 `np.round`
 - `astype` 返回新数组，不修改原数组——每次调用都有拷贝开销
 - 大数组频繁类型转换是性能瓶颈，应在创建时指定正确的 `dtype`
 
@@ -1265,7 +1265,7 @@ mask.dtype: bool
 2. `astype` 每次都拷贝，大数组频繁调用是性能瓶颈
 3. 大数组先用 `nbytes` 估算内存占用量，再决定用哪种 `dtype`
 4. 布尔组合用 `&` / `|` 忘记加括号，会因运算符优先级报 `TypeError` 或得出错误结果
-5. `arr.astype(int)` 是截断不是四舍五入——`1.9` → `1`
+5. `arr.astype(int)` 是截断不是四舍五入——`1.9` -> `1`
 
 ## 小结
 
@@ -1938,8 +1938,8 @@ cumsum: [ 52 145 160 232 293 314 397 484 559 634]
 
 对多维数组聚合时，`axis` 指定沿哪个轴方向进行。核心直觉（二维）：
 
-- `axis=0`：沿**行方向**走 → 对每一列聚合，结果形状 = 列数
-- `axis=1`：沿**列方向**走 → 对每一行聚合，结果形状 = 行数
+- `axis=0`：沿**行方向**走 -> 对每一列聚合，结果形状 = 列数
+- `axis=1`：沿**列方向**走 -> 对每一行聚合，结果形状 = 行数
 - `axis=None`（默认）：对所有元素聚合为标量
 
 **口诀**："聚合轴就是被吃掉的轴"——`axis=0` 聚合后行维度消失，剩下列。
@@ -2189,7 +2189,7 @@ logical_xor: [False  True  True False]
 
 1. `*` 是逐元素乘，**不是**矩阵乘法——矩阵乘法用 `@` 或 `np.dot`
 2. `axis` 方向容易理解反：`axis=0` 是对列聚合（行被吃掉），不是"对第 0 行操作"
-3. `np.round` 遵循**银行家舍入**（`.5` 向偶数舍入），`2.5` → `2`，`3.5` → `4`
+3. `np.round` 遵循**银行家舍入**（`.5` 向偶数舍入），`2.5` -> `2`，`3.5` -> `4`
 4. `ddof=0`（默认）是**有偏**方差 / 标准差；推断统计应用 `ddof=1` 做无偏估计
 5. `np.log(0)` 返回 `-inf` 并发出 `RuntimeWarning`；负数返回 `nan`
 6. 大整数数组做 `cumprod` 极易溢出，应先 `.astype(np.int64)` 或转浮点
@@ -2233,9 +2233,9 @@ logical_xor: [False  True  True False]
 #### 作用
 
 向量点积或矩阵乘法，行为随输入维度变化：
-- 两个一维向量 → 点积 $a \cdot b = \sum a_i b_i$，返回标量
-- 两个二维矩阵 → 矩阵乘法 $C_{ik} = \sum_j A_{ij} B_{jk}$
-- 高维数组 → 沿最后两轴做矩阵乘法
+- 两个一维向量 -> 点积 $a \cdot b = \sum a_i b_i$，返回标量
+- 两个二维矩阵 -> 矩阵乘法 $C_{ik} = \sum_j A_{ij} B_{jk}$
+- 高维数组 -> 沿最后两轴做矩阵乘法
 
 #### 重点方法
 
@@ -2514,11 +2514,11 @@ eigenvalues, eigenvectors = np.linalg.eig(A)
 print(f"特征值: {eigenvalues}")
 print(f"特征向量:\n{eigenvectors}")
 
-# 验证 A @ v = λ @ v
+# 验证 A @ v = lambda @ v
 for i in range(len(eigenvalues)):
     v = eigenvectors[:, i]
     lam = eigenvalues[i]
-    print(f"λ={lam:.2f}: A@v = {A @ v}, λ*v = {lam * v}, "
+    print(f"lambda={lam:.2f}: A@v = {A @ v}, lambda*v = {lam * v}, "
           f"相等={np.allclose(A @ v, lam * v)}")
 ```
 
@@ -2529,8 +2529,8 @@ for i in range(len(eigenvalues)):
 特征向量:
 [[ 0.89442719 -0.70710678]
  [ 0.4472136   0.70710678]]
-λ=5.00: A@v = [4.47213595 2.23606798], λ*v = [4.47213595 2.23606798], 相等=True
-λ=2.00: A@v = [-1.41421356  1.41421356], λ*v = [-1.41421356  1.41421356], 相等=True
+lambda=5.00: A@v = [4.47213595 2.23606798], lambda*v = [4.47213595 2.23606798], 相等=True
+lambda=2.00: A@v = [-1.41421356  1.41421356], lambda*v = [-1.41421356  1.41421356], 相等=True
 ```
 
 #### 理解重点
@@ -3616,7 +3616,7 @@ split(axis=0) 分 2 块:
 
 #### 理解重点
 
-- 10 个元素分 3 份 → `4, 3, 3`：前面 `size % n` 块各多一个元素
+- 10 个元素分 3 份 -> `4, 3, 3`：前面 `size % n` 块各多一个元素
 - 等分优先 `split`（明确意图），不整除用 `array_split`（容忍不齐）
 
 ## 常见坑
@@ -3630,7 +3630,7 @@ split(axis=0) 分 2 块:
 ## 小结
 
 - 拼接与拆分是数据批处理、窗口构造、特征组合的核心操作
-- 选 API 的思路：**沿现有轴** → `concatenate` / `vstack` / `hstack`；**沿新轴** → `stack` / `dstack`
+- 选 API 的思路：**沿现有轴** -> `concatenate` / `vstack` / `hstack`；**沿新轴** -> `stack` / `dstack`
 - 拆分首选 `split`（严格），不整除退化到 `array_split`
 - 先想清楚"要沿哪个轴变化"，再选具体 API
 
@@ -4378,7 +4378,7 @@ print(f"改副本后，原数组不变: {arr}")
 
 1. 把前 11 章的知识串起来，解决完整的数据处理任务
 2. 学会在真实场景中组合使用索引、统计、线代、广播
-3. 建立"问题 → NumPy 算子"的映射能力
+3. 建立"问题 -> NumPy 算子"的映射能力
 
 ## 重点方法与概念速览
 
@@ -4464,8 +4464,8 @@ print(f"排名: {[students[i] for i in rankIndices]}")
 
 #### 理解重点
 
-- `axis=1` 沿列方向走 → 每行得一个聚合值（学生维度）
-- `axis=0` 沿行方向走 → 每列得一个聚合值（课程维度）
+- `axis=1` 沿列方向走 -> 每行得一个聚合值（学生维度）
+- `axis=0` 沿行方向走 -> 每列得一个聚合值（课程维度）
 - `argsort(...)[::-1]` 是降序索引的标准写法
 
 ## 2. 案例：线性回归
@@ -4528,7 +4528,7 @@ rmse = np.sqrt(np.mean((y - yPred) ** 2))
 print(f"估计参数: y = {slope:.4f}x + {intercept:.4f}")
 print(f"斜率误差: {abs(slope - trueSlope):.4f}")
 print(f"截距误差: {abs(intercept - trueIntercept):.4f}")
-print(f"R² = {r2:.4f}")
+print(f"R^2 = {r2:.4f}")
 print(f"RMSE = {rmse:.4f}")
 
 # 验证：用 allclose 检查正规方程解的残差
@@ -4542,7 +4542,7 @@ print(f"残差接近零: {np.allclose(residual, 0)}")
 估计参数: y = 1.9420x + 1.0644
 斜率误差: 0.0580
 截距误差: 0.0644
-R² = 0.9754
+R^2 = 0.9754
 RMSE = 0.9084
 残差接近零: True
 ```
@@ -4697,5 +4697,5 @@ P99: 134.74
 
 - 本章的重点不是某个具体 API，而是组合能力——把基础算子拼成完整的数据处理流水线
 - 成绩分析靠聚合 + 排序；线性回归靠矩阵运算 + `solve`；图像操作靠切片 + 类型转换；统计分析靠采样 + `histogram`
-- 当你能用 NumPy 实现"数据加载 → 计算 → 统计 → 输出"的完整流水线，NumPy 就真正入门了
+- 当你能用 NumPy 实现"数据加载 $\rightarrow$ 计算 $\rightarrow$ 统计 $\rightarrow$ 输出"的完整流水线，NumPy 就真正入门了
 - 后续学习 Pandas、SciPy、scikit-learn 时，本章建立的计算思维会一直受用——它们底层都建立在 NumPy 之上

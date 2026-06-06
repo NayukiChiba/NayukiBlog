@@ -146,14 +146,14 @@ status: published
 | 唯一解 | 是（当 $\mathbf{X}$ 满秩） | **是——惩罚项使问题强凸（Ridge/EN）或凸（Lasso）** |
 | 对共线性的数值稳定性 | 低——$\mathbf{X}^T\mathbf{X}$ 可能接近奇异 | **高——$\lambda\mathbf{I}$ 改善条件数（Ridge/EN）** |
 | 特征选择 | 无——所有系数非零 | **有——L1 罚项可将系数精确归零** |
-| 超参数数量 | 0 | **1~2（α + 可选的 l1_ratio）** |
+| 超参数数量 | 0 | **1~2（$\alpha$ + 可选的 l1_ratio）** |
 | 尺度敏感性 | 不敏感——闭式解是尺度等变的 | **敏感——惩罚项对系数量级敏感，必须标准化** |
 
 ## 常见坑
 
 1. 把 `alpha` 理解成学习率或迭代轮数——它在这里是正则化强度 $\lambda$，越大惩罚越重。
 2. 认为"正则化一定让预测更准"——正则化在偏差和方差之间权衡，过强的正则化会导致欠拟合。
-3. 只记公式不记代码映射——`alpha` ↔ $\lambda$、`l1_ratio` ↔ $\rho$、`np.sum(np.abs(coef) < 1e-3)` ↔ 稀疏性。
+3. 只记公式不记代码映射——`alpha` $\leftrightarrow$ $\lambda$、`l1_ratio` $\leftrightarrow$ $\rho$、`np.sum(np.abs(coef) < 1e-3)` $\leftrightarrow$ 稀疏性。
 
 ## 小结
 
@@ -167,7 +167,7 @@ status: published
 ## 本章目标
 
 1. 明确正则化回归数据的来源——`loadRegularizationDataset()` 在 diabetes 基础上构造三层特征。
-2. 理解三层特征结构（原始医学 → 共线特征 → 纯噪声）的设计意图。
+2. 理解三层特征结构（原始医学 $\rightarrow$ 共线特征 $\rightarrow$ 纯噪声）的设计意图。
 3. 理解标准化在数据层的执行边界——`StandardScaler` 由流水线层而非数据层执行。
 
 ## 重点方法与概念速览
@@ -213,7 +213,7 @@ def loadRegularizationDataset(self) -> DataFrame:
 
 - 基础数据来自 scikit-learn 的真实糖尿病数据集——10 个标准化后的医学特征，442 个样本。
 - 原始列名 `target` 被重命名为 `price`——保持与仓库其他回归分册的标签列名一致。
-- 共线特征通过 `原始值 × 0.9 + 微小噪声` 构造——与原始列的相关系数约 0.9，刻意制造多重共线性。
+- 共线特征通过 `原始值 $\times$ 0.9 + 微小噪声` 构造——与原始列的相关系数约 0.9，刻意制造多重共线性。
 
 ## 2. 三层特征结构
 
@@ -229,7 +229,7 @@ def loadRegularizationDataset(self) -> DataFrame:
 ### 理解重点
 
 - 三层结构是刻意设计的——每一层测试正则化的不同能力：共线层测试稳定性，噪声层测试稀疏性。
-- `bmi_corr` 与 `bmi` 高度相关（r ≈ 0.9）——OLS 会在这两个特征之间难以分配系数，而 Ridge 会均匀分摊，Lasso 可能只保留一个。
+- `bmi_corr` 与 `bmi` 高度相关（r ~= 0.9）——OLS 会在这两个特征之间难以分配系数，而 Ridge 会均匀分摊，Lasso 可能只保留一个。
 - `noise_*` 理论上不应有任何非零系数——观察 Lasso 的 `near_zero` 计数可以直接验证 L1 的稀疏化效果。
 - 与线性回归的合成数据不同——正则化回归使用真实数据 + 人工干扰，更接近实际应用场景。
 
@@ -295,7 +295,7 @@ X_test_s = scaler.transform(X_test)
 | 样本量 | 200 | 20640 | **442** |
 | 特征数 | 3 | 8 | **21（10 + 3 + 8）** |
 | 特征关系 | 完全独立 | 自然相关 | **刻意构造共线 + 纯噪声** |
-| 标签 | `price = 2×面积 + 10×房间 - 3×房龄 + ε` | 加州房价中位数 | **糖尿病病情进展（真实医学指标）** |
+| 标签 | `price = 2$\times$面积 + 10$\times$房间 - 3$\times$房龄 + $\varepsilon$` | 加州房价中位数 | **糖尿病病情进展（真实医学指标）** |
 | 标准化 | 否 | 否 | **是——强制要求** |
 | 设计意图 | 透明验证 OLS 恢复精度 | 非线性树结构演示 | **观察 L1 稀疏化 + L2 收缩 + 共线性处理** |
 
@@ -327,9 +327,9 @@ X_test_s = scaler.transform(X_test)
 |---|---|---|
 | 共线性问题 | 概念 | 两个特征高度相关时 OLS 系数不稳定——Ridge 分摊解决，Lasso 选择解决 |
 | 高维噪声问题 | 概念 | 无意义特征被 OLS 分到非零权重——L1 惩罚将其驱动到零 |
-| L2 收缩直觉 | 概念 | 平方惩罚→所有系数变小但不归零——"都保留，但都温和" |
-| L1 稀疏直觉 | 概念 | 绝对值惩罚→不重要系数精确归零——"宁可删掉一部分" |
-| 菱形 vs 圆形 | 几何直觉 | L1 约束区域是菱形（尖点在坐标轴）→ 稀疏解；L2 是圆形 → 非稀疏解 |
+| L2 收缩直觉 | 概念 | 平方惩罚->所有系数变小但不归零——"都保留，但都温和" |
+| L1 稀疏直觉 | 概念 | 绝对值惩罚->不重要系数精确归零——"宁可删掉一部分" |
+| 菱形 vs 圆形 | 几何直觉 | L1 约束区域是菱形（尖点在坐标轴）-> 稀疏解；L2 是圆形 -> 非稀疏解 |
 
 ## 1. 为什么当前数据特别适合讲正则化
 
@@ -339,7 +339,7 @@ X_test_s = scaler.transform(X_test)
 
 | 问题类型 | 数据体现 | OLS 的表现 | 正则化的对策 |
 |---|---|---|---|
-| 多重共线性 | `bmi_corr` = `bmi` × 0.9 + ε | 系数在 `bmi` 和 `bmi_corr` 间剧烈摇摆 | Ridge 分摊权重；Lasso 可能只选一个 |
+| 多重共线性 | `bmi_corr` = `bmi` x 0.9 + epsilon | 系数在 `bmi` 和 `bmi_corr` 间剧烈摇摆 | Ridge 分摊权重；Lasso 可能只选一个 |
 | 无关特征 | `noise_1` ~ `noise_8`（纯随机） | 给噪声分配非零系数，过拟合训练集 | Lasso/ElasticNet 将噪声系数压到零 |
 
 ### 理解重点
@@ -420,8 +420,8 @@ X_test_s = scaler.transform(X_test)
 ### 理解重点
 
 - 将约束区域想象成一个"围墙"——损失等高线从原点向外扩张，首次碰到围墙的位置就是解。
-- L2 的围墙是圆形的——圆弧光滑无尖角，损失等高线很少恰好在坐标轴上首次接触围墙 → 系数非零。
-- L1 的围墙是菱形的——菱形的尖点在坐标轴上，损失等高线有较大概率在尖点处接触 → 对应系数为零。
+- L2 的围墙是圆形的——圆弧光滑无尖角，损失等高线很少恰好在坐标轴上首次接触围墙 -> 系数非零。
+- L1 的围墙是菱形的——菱形的尖点在坐标轴上，损失等高线有较大概率在尖点处接触 -> 对应系数为零。
 - 这就是为什么 L1 能产生稀疏解的本质原因——不是"惩罚更重"，而是"约束区域的形状不同"。
 
 ## 6. ElasticNet 的直觉：既想筛选，也想保持稳定
@@ -450,21 +450,21 @@ X_test_s = scaler.transform(X_test)
 
 | 观察项 | 正常表现 | 异常信号 |
 |---|---|---|
-| Lasso 的 `near_zero` | 显著 > 0——`noise_*` 被清零 | 若 = 0——α 太小，L1 未生效 |
-| Ridge 的 `near_zero` | 通常 = 0——所有系数非零 | 若 > 0——α 过大，过度收缩 |
+| Lasso 的 `near_zero` | 显著 > 0——`noise_*` 被清零 | 若 = 0——alpha 太小，L1 未生效 |
+| Ridge 的 `near_zero` | 通常 = 0——所有系数非零 | 若 > 0——alpha 过大，过度收缩 |
 | ElasticNet 的 `near_zero` | 介于 Lasso 和 Ridge 之间 | 若接近 Lasso——`l1_ratio` 偏高 |
-| `bmi` vs `bmi_corr` 系数 | Ridge 两者均非零；Lasso 可能只有一个；EN 两者非零但较小 | 若 OLS 风格（两者都大）——α 太小 |
-| `noise_*` 系数 | Lasso/EN 接近零；Ridge 非零但很小 | 若 Lasso 的 `noise_*` 仍很大——α 不够 |
+| `bmi` vs `bmi_corr` 系数 | Ridge 两者均非零；Lasso 可能只有一个；EN 两者非零但较小 | 若 OLS 风格（两者都大）——alpha 太小 |
+| `noise_*` 系数 | Lasso/EN 接近零；Ridge 非零但很小 | 若 Lasso 的 `noise_*` 仍很大——alpha 不够 |
 
 ### 理解重点
 
 - 系数结构本身就是正则化回归的"成绩单"——不仅看预测精度，还要看系数是否符合预期行为。
 - `near_zero` 是最直观的诊断指标——它直接量化了 L1 的稀疏化效果。
-- 三个模型的行为差异应该在日志中清晰可见——如果三者系数几乎一样，说明 α 设置有问题。
+- 三个模型的行为差异应该在日志中清晰可见——如果三者系数几乎一样，说明 alpha 设置有问题。
 
 ## 常见坑
 
-1. 把"Lasso 产生零系数"等同于"Lasso 预测更准"——稀疏性 ≠ 准确性，两者需分开评估。
+1. 把"Lasso 产生零系数"等同于"Lasso 预测更准"——稀疏性 != 准确性，两者需分开评估。
 2. 只看 `near_zero` 总数不看具体哪些特征被清零——`noise_*` 被清零是好的，`bmi` 被清零则可能过度正则化。
 3. 忽略 `l1_ratio=0.5` 的含义——它不是"一半 L1 一半 L2 的强度"，而是"混合比例各占一半"。
 
@@ -566,7 +566,7 @@ def trainRegularizationModels(XTrain, yTrain, randomState: int = 42):
 
 ### 理解重点
 
-- `alpha=2.0` 明显大于 Lasso 的 `0.15`——Ridge 使用平方惩罚，需要更大的 α 才能产生等量的收缩效果。
+- `alpha=2.0` 明显大于 Lasso 的 `0.15`——Ridge 使用平方惩罚，需要更大的 alpha 才能产生等量的收缩效果。
 - Ridge 有闭式解 $(\mathbf{X}^T\mathbf{X} + \lambda\mathbf{I})^{-1}\mathbf{X}^T\mathbf{y}$——不需要 `max_iter`。
 - Ridge 的 `random_state` 仅在 `solver='sag'` 或 `'saga'` 时生效——当前使用默认 `'auto'`，通常选择闭式求解器。
 
@@ -633,7 +633,7 @@ def trainRegularizationModels(XTrain, yTrain, randomState: int = 42):
 ## 小结
 
 - `trainRegularizationModels(...)` 是本仓库唯一返回多模型的训练函数——一次性构建 Lasso、Ridge、ElasticNet 三个模型。
-- 三个模型的超参数各有侧重：Lasso 强调稀疏化（α=0.15），Ridge 强调收缩（α=2.0），ElasticNet 折中（α=0.2, l1_ratio=0.5）。
+- 三个模型的超参数各有侧重：Lasso 强调稀疏化（alpha=0.15），Ridge 强调收缩（alpha=2.0），ElasticNet 折中（alpha=0.2, l1_ratio=0.5）。
 - `coef_` 不仅是预测参数，更是正则化回归的"成绩单"——观测系数结构比观测预测分数更重要。
 - 标准化是模型构建的隐含前提——`trainRegularizationModels` 的输入必须是标准化后的数据。
 
@@ -661,16 +661,15 @@ def trainRegularizationModels(XTrain, yTrain, randomState: int = 42):
 
 ```
 loadRegularizationDataset()
-    │
-    ├─ ① X = data.drop(columns=["price"]), y = data["price"]
-    ├─ ② X_train, X_test, y_train, y_test = train_test_split(test_size=0.2)
-    ├─ ③ scaler = StandardScaler(); X_train_s = scaler.fit_transform(X_train)
-    ├─ ④ X_test_s = scaler.transform(X_test)
-    ├─ ⑤ models = trainRegularizationModels(X_train_s, y_train)
-    ├─ ⑥ for name, model in models.items():
-    │       y_pred = model.predict(X_test_s)
-    │       plot_residuals(y_test, y_pred, ...)
-    └─ ⑦ plot_feature_importance(model, feature_names)  — 对每个模型
+  - 1 X = data.drop(columns=["price"]), y = data["price"]
+  - 2 X_train, X_test, y_train, y_test = train_test_split(test_size=0.2)
+  - 3 scaler = StandardScaler(); X_train_s = scaler.fit_transform(X_train)
+  - 4 X_test_s = scaler.transform(X_test)
+  - 5 models = trainRegularizationModels(X_train_s, y_train)
+  - 6 for name, model in models.items():
+    - y_pred = model.predict(X_test_s)
+    - plot_residuals(y_test, y_pred, ...)
+  - 7 plot_feature_importance(model, feature_names)  — 对每个模型
 ```
 
 ### 参数速览
@@ -688,7 +687,7 @@ loadRegularizationDataset()
 
 ### 理解重点
 
-- 正则化回归流水线比线性回归多两步——标准化（③④）和特征重要性图（⑦），但没有学习曲线。
+- 正则化回归流水线比线性回归多两步——标准化（34）和特征重要性图（7），但没有学习曲线。
 - 标准化在切分**之后**执行——先在训练集上 `fit_transform`，再对测试集仅 `transform`。
 - 三个模型共享完全相同的训练/测试数据——对比的公平性由统一的切分和标准化保证。
 
@@ -708,8 +707,8 @@ loadRegularizationDataset()
 
 ```python
 scaler = StandardScaler()
-X_train_s = scaler.fit_transform(X_train)  # 计算 μ, σ 并变换
-X_test_s = scaler.transform(X_test)         # 仅变换——使用训练集的 μ, σ
+X_train_s = scaler.fit_transform(X_train)  # 计算 mu, sigma 并变换
+X_test_s = scaler.transform(X_test)         # 仅变换——使用训练集的 mu, sigma
 ```
 
 ### 理解重点
@@ -807,7 +806,7 @@ for name, model in models.items():
 
 ## 小结
 
-- 正则化回归流水线为 8 步：加载 → 拆分 → 切分 → 标准化 → 训练三模型 → 循环预测 → 残差图 → 系数图。
+- 正则化回归流水线为 8 步：加载 -> 拆分 -> 切分 -> 标准化 -> 训练三模型 -> 循环预测 -> 残差图 -> 系数图。
 - 标准化是正则化回归区别于线性回归和决策树回归的最关键工程差异——惩罚项对尺度敏感。
 - 训练阶段一次产出三个模型——Ridge 用闭式解瞬间完成，Lasso/EN 用坐标下降迭代求解。
 - 预测阶段与线性回归完全相同（$\mathbf{X}\mathbf{w} + b$）——差异在 $\mathbf{w}$ 的形态而非预测公式。
@@ -940,7 +939,7 @@ for name, model in models.items():
 | 残差图 | 已实现 | 回归模型的核心诊断——每个模型独立生成 |
 | 系数图（特征重要性） | 已实现 | 正则化回归最关键的诊断——系数结构可视化 |
 | 系数打印 + 近零计数 | 已实现 | 训练日志中打印——可对照系数图验证 |
-| MSE / MAE / RMSE / R² 数值打印 | **未实现** | 当前流水线侧重图形化诊断而非数值指标 |
+| MSE / MAE / RMSE / R^2 数值打印 | **未实现** | 当前流水线侧重图形化诊断而非数值指标 |
 | 学习曲线 | **未实现** | `PipelineSpec` 中学可视化列表为 `[]` |
 | 交叉验证 | **未实现** | 无 `cross_val_score` 等调用 |
 
@@ -1003,7 +1002,7 @@ for name, model in models.items():
 | 数据目录层 | `src/mlAlgorithms/datasets/datasetCatalog.py` | `DatasetSpec("regression.regularization", ...)`——注册数据集描述与加载器 | 数据集元信息 |
 | 训练层 | `src/mlAlgorithms/training/regression/regressionModels.py` | `trainRegularizationModels(...)`——构建三模型 `dict` 并 `fit` | `dict[str, 模型]` |
 | 流水线注册层 | `src/mlAlgorithms/catalog/pipelines.py` | `PipelineSpec("regression.regularization", ...)`——关联所有组件 | 流水线配置 |
-| 运行器层 | `src/mlAlgorithms/workflows/regressionRunner.py` | 读取 PipelineSpec → 加载 → 标准化 → 训练 → 循环评估 → 可视化 | 终端日志 + 图像文件 |
+| 运行器层 | `src/mlAlgorithms/workflows/regressionRunner.py` | 读取 PipelineSpec -> 加载 -> 标准化 -> 训练 -> 循环评估 -> 可视化 | 终端日志 + 图像文件 |
 | 可视化层 | `src/mlAlgorithms/visualization/` | 绘制残差图、系数图 | PNG 图像文件 |
 
 ### 理解重点
@@ -1045,27 +1044,20 @@ PipelineSpec(
 
 ```
 loadRegularizationDataset()
-    │
-    ├─→ X = data.drop(columns=["price"])
-    ├─→ y = data["price"]
-    ├─→ feature_names = list(X.columns)
-    │
-    ├─→ train_test_split(test_size=0.2)
-    │       │
-    │       ├─→ StandardScaler().fit_transform(X_train) ──→ X_train_s
-    │       ├─→ StandardScaler().transform(X_test) ──→ X_test_s
-    │       │
-    │       ├─→ trainRegularizationModels(X_train_s, y_train)
-    │       │       │
-    │       │       ├─→ models["lasso"] = Lasso(...).fit()
-    │       │       ├─→ models["ridge"] = Ridge(...).fit()
-    │       │       └─→ models["elasticnet"] = ElasticNet(...).fit()
-    │       │
-    │       └─→ for name, model in models.items():
-    │               │
-    │               ├─→ y_pred = model.predict(X_test_s)
-    │               ├─→ plot_residuals(y_test, y_pred)
-    │               └─→ plot_feature_importance(model, feature_names)
+  - -> X = data.drop(columns=["price"])
+  - -> y = data["price"]
+  - -> feature_names = list(X.columns)
+  - -> train_test_split(test_size=0.2)
+      - -> StandardScaler().fit_transform(X_train) ──-> X_train_s
+      - -> StandardScaler().transform(X_test) ──-> X_test_s
+      - -> trainRegularizationModels(X_train_s, y_train)
+          - -> models["lasso"] = Lasso(...).fit()
+          - -> models["ridge"] = Ridge(...).fit()
+          - -> models["elasticnet"] = ElasticNet(...).fit()
+      - -> for name, model in models.items():
+          - -> y_pred = model.predict(X_test_s)
+          - -> plot_residuals(y_test, y_pred)
+          - -> plot_feature_importance(model, feature_names)
 ```
 
 ### 理解重点
@@ -1085,7 +1077,7 @@ loadRegularizationDataset()
 | 5 | `StandardScaler().fit_transform(X_train)` | 标准化训练集——**正则化回归独有** |
 | 6 | `StandardScaler().transform(X_test)` | 标准化测试集 |
 | 7 | 调用 `trainRegularizationModels(X_train_s, y_train)` | 训练三个模型——返回 `dict` |
-| 8 | 检测 `multiModel=True` → 进入多模型循环 | **多模型分支——其他回归模型无此步骤** |
+| 8 | 检测 `multiModel=True` -> 进入多模型循环 | **多模型分支——其他回归模型无此步骤** |
 | 9 | 循环内：`model.predict(X_test_s)` | 每个模型独立预测 |
 | 10 | 循环内：`plot_residuals(y_test, y_pred)` | 每个模型独立生成残差图 |
 | 11 | 循环内：`plot_feature_importance(model, feature_names)` | 每个模型独立生成系数图 |
@@ -1137,7 +1129,7 @@ loadRegularizationDataset()
 | 名称 | 类型 | 作用 |
 |---|---|---|
 | 自检问题 | 诊断 | 确认对 L1/L2 惩罚、稀疏性、标准化必要性、共线性处理等核心概念的理解 |
-| 动手练习 | 实践 | 修改 α、l1_ratio、关闭共线/噪声特征——观察三种正则化模型的行为变化 |
+| 动手练习 | 实践 | 修改 alpha、l1_ratio、关闭共线/噪声特征——观察三种正则化模型的行为变化 |
 | 参考文献 | 入口 | 提供正则化回归经典教材和 scikit-learn 官方文档 |
 
 ## 1. 自检问题
@@ -1170,7 +1162,7 @@ models = {
 }
 ```
 
-回答：`alpha=0.01` 时近零系数数量是否接近 0？`alpha=5.0` 时是否几乎所有系数都被清零？`noise_*` 系数在哪个 α 值开始被清零？
+回答：`alpha=0.01` 时近零系数数量是否接近 0？`alpha=5.0` 时是否几乎所有系数都被清零？`noise_*` 系数在哪个 alpha 值开始被清零？
 
 ### 练习 2：改变 ElasticNet 的 l1_ratio
 
@@ -1209,9 +1201,9 @@ for index in range(0):  # 原为 8——改为 0
 
 回答：没有共线特征后，Ridge 和 Lasso 的系数差异是否变小？哪种模型的行为变化最明显？
 
-### 练习 5：手动计算 R² 并就系数图对比
+### 练习 5：手动计算 R^2 并就系数图对比
 
-在流水线预测循环中手动计算并打印 R²：
+在流水线预测循环中手动计算并打印 R^2：
 
 ```python
 from sklearn.metrics import r2_score, mean_squared_error
@@ -1220,10 +1212,10 @@ for name, model in models.items():
     y_pred = model.predict(X_test_s)
     r2 = r2_score(y_test, y_pred)
     mse = mean_squared_error(y_test, y_pred)
-    print(f"{name} - R²: {r2:.4f}, MSE: {mse:.4f}")
+    print(f"{name} - R^2: {r2:.4f}, MSE: {mse:.4f}")
 ```
 
-回答：三个模型的 R² 差距是否显著？"系数更稀疏"和"R² 更高"是否同时发生？数值指标与残差图的视觉判断是否一致？
+回答：三个模型的 R^2 差距是否显著？"系数更稀疏"和"R^2 更高"是否同时发生？数值指标与残差图的视觉判断是否一致？
 
 ## 3. 参考文献
 
@@ -1237,7 +1229,7 @@ for name, model in models.items():
 
 ## 常见坑
 
-1. 修改 `alpha` 后只运行不看 `near_zero`——α 变化的核心效果体现在近零系数数量，而非残差图。
+1. 修改 `alpha` 后只运行不看 `near_zero`——alpha 变化的核心效果体现在近零系数数量，而非残差图。
 2. 调参时同时改多个参数——每次只改一个变量，才能确定是哪个参数导致的行为变化。
 3. 关闭噪声/共线特征后忘记恢复——建议在修改前用 `git stash` 保存原始状态。
 4. 只看一个模型的系数不看三模型对比——正则化回归的诊断价值在于"对比"，单独看一个模型意义有限。
@@ -1246,5 +1238,5 @@ for name, model in models.items():
 ## 小结
 
 - 7 个自检问题覆盖正则化回归的核心概念：L1/L2 惩罚、稀疏性几何直觉、标准化必要性、三层数据结构、近零系数、共线性处理和 PipelineSpec 配置。
-- 5 个动手练习从不同角度探索正则化行为——调 α、调 l1_ratio、关闭噪声、关闭共线、计算数值指标。
+- 5 个动手练习从不同角度探索正则化行为——调 $\alpha$、调 l1_ratio、关闭噪声、关闭共线、计算数值指标。
 - 5 篇参考文献覆盖 ESL、ISLR 两本经典教材、Lasso 和 ElasticNet 两篇原始论文、scikit-learn 官方 API 文档——构成完整的正则化回归学习路线。

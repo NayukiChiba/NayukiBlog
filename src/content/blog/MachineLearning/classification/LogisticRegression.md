@@ -143,7 +143,7 @@ $$
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
 | `penalty` | `str` 或 `None` | 正则化类型。`"l2"` 对 $\|\mathbf{w}\|_2^2$ 惩罚，系数趋于均匀收缩；`"l1"` 对 $\|\mathbf{w}\|_1$ 惩罚，产生稀疏解；`"elasticnet"` 为两者混合；`None` 不做正则化。默认为 `"l2"` | `"l2"`、`"l1"`、`"elasticnet"`、`None` |
-| `C` | `float` | 正则化强度的倒数，数学上 $\lambda = 1/C$。$C$ 越大 → 正则越弱 → 模型越自由；$C$ 越小 → 正则越强 → 系数越收缩趋于 0。默认为 `1.0` | `0.01`、`1.0`、`100.0` |
+| `C` | `float` | 正则化强度的倒数，数学上 $\lambda = 1/C$。$C$ 越大 $\rightarrow$ 正则越弱 $\rightarrow$ 模型越自由；$C$ 越小 $\rightarrow$ 正则越强 $\rightarrow$ 系数越收缩趋于 0。默认为 `1.0` | `0.01`、`1.0`、`100.0` |
 | `l1_ratio` | `float` | L1 正则化在 elasticnet 中的混合比例。仅当 `penalty='elasticnet'` 时生效。$\text{penalty} = \rho \|\mathbf{w}\|_1 + (1-\rho)\|\mathbf{w}\|_2^2$。默认为 `None` | `0.0`、`0.5`、`1.0` |
 
 ### 理解重点
@@ -193,12 +193,12 @@ $$
 |---|---|---|
 | 线性得分 | $z = \mathbf{w}^T\mathbf{x} + b$ | `model.decision_function(X)` |
 | Sigmoid 概率 | $\sigma(z) = 1/(1+e^{-z})$ | `model.predict_proba(X)[:, 1]` |
-| 决策边界 | $\mathbf{w}^T\mathbf{x} + b = 0$ | `model.coef_` × `X` + `model.intercept_` = 0 |
+| 决策边界 | $\mathbf{w}^T\mathbf{x} + b = 0$ | `model.coef_` $\times$ `X` + `model.intercept_` = 0 |
 | 权重系数 | $\mathbf{w} \in \mathbb{R}^d$ | `model.coef_` |
 | 截距 | $b \in \mathbb{R}$ | `model.intercept_` |
 | 交叉熵损失 | $\mathcal{L} = -\frac{1}{N}\sum[y_i\ln\hat{p}_i + (1-y_i)\ln(1-\hat{p}_i)]$ | `solver='lbfgs'` 内部优化目标 |
 | L2 正则化 | $\frac{1}{2C}\|\mathbf{w}\|_2^2$ | `penalty='l2'`，`C=1.0` |
-| 正则化倒数 | $\lambda = 1/C$ | `C=1.0` → $\lambda = 1.0$ |
+| 正则化倒数 | $\lambda = 1/C$ | `C=1.0` $\rightarrow$ $\lambda = 1.0$ |
 | 优化器 | — | `solver='lbfgs'` |
 
 ## 常见坑
@@ -210,7 +210,7 @@ $$
 
 ## 小结
 
-- 逻辑回归的核心数学链：线性得分 $z = \mathbf{w}^T\mathbf{x} + b$ → Sigmoid 概率 $\sigma(z)$ → 交叉熵损失 $\mathcal{L}$ → 梯度下降优化 → 正则化控制复杂度。
+- 逻辑回归的核心数学链：线性得分 $z = \mathbf{w}^T\mathbf{x} + b$ $\rightarrow$ Sigmoid 概率 $\sigma(z)$ $\rightarrow$ 交叉熵损失 $\mathcal{L}$ $\rightarrow$ 梯度下降优化 $\rightarrow$ 正则化控制复杂度。
 - `coef_` 与 `intercept_` 直接决定线性决策边界 $\mathbf{w}^T\mathbf{x} + b = 0$ 的位置——$w_j > 0$ 推高正类概率，$w_j < 0$ 压低正类概率。
 - `C` 是 $\lambda$ 的倒数（$\lambda = 1/C$），$C$ 越大正则越弱——这个方向是当前文档必须反复强调的重点。
 - 当前源码默认使用 L2 正则化 + `lbfgs` 优化器的二分类逻辑回归，与当前高维近线性可分数据高度匹配。
@@ -326,7 +326,7 @@ y = data["label"]
 
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
-| `test_size` | `float` | 测试集占比。当前取 `0.2`，即 80 个测试样本（总样本 400 × 20%） | `0.2`、`0.3` |
+| `test_size` | `float` | 测试集占比。当前取 `0.2`，即 80 个测试样本（总样本 400 x 20%） | `0.2`、`0.3` |
 | `random_state` | `int` | 随机种子，保证每次切分结果一致。当前取 `42` | `42` |
 | `stratify` | `array_like` | 按 `y` 的类别比例分层抽样。数学上保证 $\frac{n_{0,\text{train}}}{n_{0,\text{test}}} \approx \frac{N_{\text{train}}}{N_{\text{test}}}$，尤其重要因为 `flip_y` 可能让类别比例略有偏移 | `y`、`None` |
 | `scaler.fit_transform(X_train)` | 方法 | 在训练集上计算 $\mu_i, \sigma_i$ 并变换：$x_i' = (x_i - \mu_i) / \sigma_i$ | — |
@@ -381,7 +381,7 @@ X_test_s = scaler.transform(X_test)
 
 ## 本章目标
 
-1. 用直观方式理解逻辑回归到底在做什么——线性打分 → Sigmoid → 概率输出。
+1. 用直观方式理解逻辑回归到底在做什么——线性打分 -> Sigmoid -> 概率输出。
 2. 理解为什么它在当前高维近线性可分数据上是合理的概率分类基线。
 3. 理解它与 KNN（局部投票）、决策树（轴对齐切分）、SVC（最大间隔）在思路上的关键差异。
 
@@ -407,7 +407,7 @@ X_test_s = scaler.transform(X_test)
 
 - 先对特征做线性加权求和：$z = w_1 x_1 + w_2 x_2 + \dots + w_d x_d + b$
 - 再把结果通过 Sigmoid 映射成概率：$\sigma(z) = \frac{1}{1+e^{-z}}$
-- 得分越高 → 概率越接近 1；得分越低 → 概率越接近 0；$z=0$ → 概率正好 0.5
+- 得分越高 -> 概率越接近 1；得分越低 -> 概率越接近 0；$z=0$ -> 概率正好 0.5
 
 ### 理解重点
 
@@ -430,7 +430,7 @@ X_test_s = scaler.transform(X_test)
 - 对逻辑回归来说，这是很合适的教学场景：既能展示线性边界的清晰性，又不会因数据过于理想而失去现实感。
 - 与 KNN 的双月牙数据（非线性弧形）和决策树的 blob 数据（区域化分布）教学目的截然不同。
 
-## 3. 用"线性打分 → 概率"理解算法
+## 3. 用"线性打分 -> 概率"理解算法
 
 可以把逻辑回归理解成一个三步走的过程：
 
@@ -441,15 +441,15 @@ X_test_s = scaler.transform(X_test)
 ### 理解重点
 
 - 这也是为什么 `coef_` 和 `intercept_` 在当前分册中值得专门观察——它们直接告诉你每个特征"推"正类还是"拉"负类。
-- 线性得分的符号决定分类方向（正分 → 正类），绝对值大小反映分类置信度。
+- 线性得分的符号决定分类方向（正分 -> 正类），绝对值大小反映分类置信度。
 - 如果把逻辑回归仅理解成"一个会分类的黑盒"，就会错过它最有价值的可解释性部分——系数本身就是模型解释。
 
 ## 4. 为什么 coef_ 值得重点看
 
 在标准化后的特征空间中，`coef_` 有清晰的解释：
 
-- $w_j > 0$：特征 $x_j$ 增大 → 正类概率升高
-- $w_j < 0$：特征 $x_j$ 增大 → 正类概率降低
+- $w_j > 0$：特征 $x_j$ 增大 -> 正类概率升高
+- $w_j < 0$：特征 $x_j$ 增大 -> 正类概率降低
 - $\vert w_j \vert$ 大：特征 $x_j$ 对分类结果影响大
 - $\vert w_j \vert \approx 0$：特征 $x_j$ 在当前决策中基本不参与
 
@@ -489,7 +489,7 @@ X_test_s = scaler.transform(X_test)
 
 ## 小结
 
-- 逻辑回归的直觉核心：线性打分 → Sigmoid 概率映射——先算分值再转概率。
+- 逻辑回归的直觉核心：线性打分 -> Sigmoid 概率映射——先算分值再转概率。
 - 与 KNN（局部邻域投票）、决策树（轴对齐递归切分）和 SVC（最大间隔）不同，逻辑回归学习的是全局线性概率边界。
 - 标准化后 `coef_` 直接反映特征对正类概率的影响方向和强度——这是逻辑回归区别于其他分类模型的重要可解释性优势。
 
@@ -521,7 +521,7 @@ X_test_s = scaler.transform(X_test)
 | `X_train` | `array_like` | 标准化后的训练特征矩阵，形状 `(n_samples, n_features)`。传入 `model.fit()` | `X_train_s` |
 | `y_train` | `array_like` | 训练标签向量，形状 `(n_samples,)`。二分类标签取值为 $\{0, 1\}$ | `y_train` |
 | `penalty` | `str` | 正则化类型。`"l2"` 对 $\|\mathbf{w}\|_2^2$ 惩罚；`"l1"` 对 $\|\mathbf{w}\|_1$ 惩罚（稀疏解）；`"elasticnet"` 混合；`None` 不惩罚。当前默认 `"l2"` | `"l2"`、`"l1"`、`None` |
-| `C` | `float` | 正则化强度倒数，$\lambda = 1/C$。$C$ 越大 → 正则越弱 → 系数越自由。当前默认 `1.0` | `0.01`、`1.0`、`100.0` |
+| `C` | `float` | 正则化强度倒数，$\lambda = 1/C$。$C$ 越大 -> 正则越弱 -> 系数越自由。当前默认 `1.0` | `0.01`、`1.0`、`100.0` |
 | `solver` | `str` | 优化器。`"lbfgs"` 拟牛顿法（默认，适合小中型数据）；`"liblinear"` 坐标下降（适合小数据）；`"saga"` 支持 L1 + 弹性网络 + 大数据。当前默认 `"lbfgs"` | `"lbfgs"`、`"liblinear"`、`"saga"` |
 | `max_iter` | `int` | 优化器最大迭代次数。默认 `100`，当前取 `1000`——给的比较宽裕，防止未收敛就停止 | `100`、`1000` |
 | `class_weight` | `dict`、`str` 或 `None` | 类别权重。`"balanced"` 自动按 $w_k = n / (K \cdot n_k)$ 加权；`None` 各类等权。当前默认 `None` | `None`、`"balanced"`、`{0:0.5, 1:2.0}` |
@@ -551,7 +551,7 @@ model = train_model(X_train_s, y_train)
 | `penalty` | `str` 或 `None` | 正则化类型。`"l2"` = $\frac{1}{2C}\|\mathbf{w}\|_2^2$（均匀收缩）；`"l1"` = $\frac{1}{C}\|\mathbf{w}\|_1$（稀疏解，部分系数压为 0）；`"elasticnet"` = $\frac{1}{C}(\rho\|\mathbf{w}\|_1 + (1-\rho)\|\mathbf{w}\|_2^2)$；`None` 不惩罚。默认为 `"l2"` | `"l2"`、`"l1"`、`"elasticnet"`、`None` |
 | `dual` | `bool` | 对偶或原始形式。仅 `solver='liblinear'` 且 `penalty='l2'` 时对偶形式可用。$n_{\text{samples}} > n_{\text{features}}$ 时应设为 `False`。默认为 `False` | `False`、`True` |
 | `tol` | `float` | 优化收敛容忍度。优化器在两次迭代损失变化小于此值时停止。默认为 `1e-4` | `1e-4`、`1e-6` |
-| `C` | `float` | 正则化强度倒数，数学上 $\lambda = 1/C$。$\lambda$ 越大 → 系数收缩越强 → 过拟合风险越低。默认为 `1.0` | `0.01`、`1.0`、`100.0` |
+| `C` | `float` | 正则化强度倒数，数学上 $\lambda = 1/C$。$\lambda$ 越大 -> 系数收缩越强 -> 过拟合风险越低。默认为 `1.0` | `0.01`、`1.0`、`100.0` |
 | `fit_intercept` | `bool` | 是否计算截距 $b$。`False` 时强制 $b=0$，决策边界过原点。默认为 `True` | `True`、`False` |
 | `intercept_scaling` | `float` | 截距缩放因子。仅 `solver='liblinear'` 且 `fit_intercept=True` 时有效。值越大截距的正则化越小。默认为 `1.0` | `1.0`、`10.0` |
 | `class_weight` | `dict`、`str` 或 `None` | 类别权重。`None` 各类等权；`"balanced"` 各样本权重 $w_k = n / (K \cdot n_k)$，$n_k$ 为类别 $k$ 的样本数。不均衡数据应关注。默认为 `None` | `None`、`"balanced"`、`{0:0.5, 1:2.0}` |
@@ -761,7 +761,7 @@ y_pred = model.predict(X_test_s)
 ### 理解重点
 
 - `model` 是当前分册的主模型，用于正式训练和测试集类别预测。
-- 类别预测的阈值默认是 0.5——概率 ≥ 0.5 判为正类，等价于 $\mathbf{w}^T\mathbf{x} + b \geq 0$。
+- 类别预测的阈值默认是 0.5——概率 >= 0.5 判为正类，等价于 $\mathbf{w}^T\mathbf{x} + b \geq 0$。
 - `y_pred` 是后续混淆矩阵评估的直接输入。
 
 ## 5. 概率输出如何进入流水线
@@ -866,7 +866,7 @@ plot_learning_curve(
 
 ## 小结
 
-- 当前 Logistic Regression 流水线的训练过程：复制数据 → 切分 → 标准化 → `lbfgs` 优化 L2 正则化交叉熵 → 类别预测 → Sigmoid 概率输出 → 多种可视化诊断。
+- 当前 Logistic Regression 流水线的训练过程：复制数据 -> 切分 -> 标准化 -> `lbfgs` 优化 L2 正则化交叉熵 -> 类别预测 -> Sigmoid 概率输出 -> 多种可视化诊断。
 - 逻辑回归的独特之处：概率输出来自连续的 Sigmoid 映射（相对于 KNN 的离散邻域频率），ROC 曲线更平滑。
 - 对本仓库而言，`model`（6 维标准化空间）、`model_2d`（PCA 2D 空间）和学习曲线实例分别承担不同职责。
 
@@ -1156,7 +1156,7 @@ def run():
 ### 理解重点
 
 - `run()` 的职责是编排，不是算法实现——真正的优化在 `LogisticRegression.fit()`（`lbfgs`）中。
-- 数据流是单向的：数据 → 切分 → 标准化 → `lbfgs` 优化 → 预测 → 评估。
+- 数据流是单向的：数据 -> 切分 -> 标准化 -> `lbfgs` 优化 -> 预测 -> 评估。
 - 标准化后 `coef_` 可解释，这是逻辑回归流水线相对于其他算法的一个重要工程特性。
 
 ## 3. 训练模块负责什么
@@ -1251,7 +1251,7 @@ def run():
 ### 理解重点
 
 - 从入口看整体流程，再下钻到训练与可视化细节，阅读成本最低。
-- 这个顺序对应数据流方向：数据 → 标准化 → `lbfgs` 优化 → 预测 → 评估。
+- 这个顺序对应数据流方向：数据 -> 标准化 -> `lbfgs` 优化 -> 预测 -> 评估。
 
 ## 运行结果
 
@@ -1266,7 +1266,7 @@ def run():
 
 ## 小结
 
-- 当前 Logistic Regression 工程实现采用清晰的模块分层：数据生成 → 训练封装 → 流水线编排 → 结果可视化。
+- 当前 Logistic Regression 工程实现采用清晰的模块分层：数据生成 -> 训练封装 -> 流水线编排 -> 结果可视化。
 - `run()` 负责串联流程，`train_model(...)` 负责 `lbfgs` 优化 L2 正则化交叉熵，各可视化函数负责结果展示与诊断。
 - 逻辑回归在工程上最不同于 KNN/决策树的地方：`fit()` 是真正的迭代优化（需要考虑收敛）；`coef_` 提供了显式的系数解释；标准化同时影响优化收敛和系数可比性。
 
@@ -1349,7 +1349,7 @@ def run():
 - 这一章的重点不是新增概念，而是把前面章节学到的内容重新落到源码和实验现象上。
 - 如果能独立解释以下问题，说明已经掌握了当前 Logistic Regression 分册的核心内容：
   - 标准化必须在切分后执行（防止数据泄露），且对逻辑回归有三大好处（收敛稳定、正则均匀、系数可比）
-  - 线性打分 → Sigmoid 概率 → 交叉熵优化的完整数学链
+  - 线性打分 -> Sigmoid 概率 -> 交叉熵优化的完整数学链
   - `C` 是 $\lambda$ 的倒数（$C$ 越大正则越弱）——这是最容易写反的核心概念
   - `coef_` 的正负和绝对值反映特征对正类概率的影响方向和强度
   - 逻辑回归的 Sigmoid 概率输出是连续的，ROC 曲线平滑——与 KNN 的离散邻域频率本质不同

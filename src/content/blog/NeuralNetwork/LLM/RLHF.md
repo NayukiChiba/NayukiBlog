@@ -39,13 +39,13 @@ RLHF 的核心流程包括三个步骤：
 
 ```
 阶段 1: 监督微调（SFT）
-  → 用高质量对话数据微调预训练模型
+  -> 用高质量对话数据微调预训练模型
 
 阶段 2: 训练奖励模型（Reward Model, RM）
-  → 用人类偏好比较数据训练一个能"打分"的模型
+  -> 用人类偏好比较数据训练一个能"打分"的模型
 
 阶段 3: 用 PPO 优化策略
-  → 以 RM 为奖励信号，用强化学习优化语言模型
+  -> 以 RM 为奖励信号，用强化学习优化语言模型
 ```
 
 ![ThreeStageFlow.png](https://img.yumeko.site/file/blog/articles/1780733773680.webp)
@@ -129,8 +129,8 @@ def sftLoss(model, promptIds, responseIds):
 
 ```
 Prompt x: "如何学习机器学习？"
-Response y_A: "可以从吴恩达的课程开始，然后做 Kaggle 项目..."  ← 人类选了 A
-Response y_B: "就去学呗，看书啊。"                              ← 人类没选 B
+Response y_A: "可以从吴恩达的课程开始，然后做 Kaggle 项目..."  <- 人类选了 A
+Response y_B: "就去学呗，看书啊。"                              <- 人类没选 B
 ```
 
 ### 4.3 奖励模型的训练目标
@@ -168,14 +168,14 @@ def rewardModelLoss(rmModel, prompts, responseChosen, responseRejected):
     scoreChosen = rmModel(prompts, responseChosen)     # (batch,)
     scoreRejected = rmModel(prompts, responseRejected)  # (batch,)
 
-    # 分数差 → Sigmoid → 负对数似然
+    # 分数差 -> Sigmoid -> 负对数似然
     diff = scoreChosen - scoreRejected
     loss = -F.logsigmoid(diff).mean()
     return loss
 ```
 
 **奖励模型的实现细节**：
-- 通常在 SFT 模型的基础上，将最后的 LM Head 替换为一个标量输出头（如一个线性层 `hidden_dim → 1`）
+- 通常在 SFT 模型的基础上，将最后的 LM Head 替换为一个标量输出头（如一个线性层 `hidden_dim $\rightarrow$ 1`）
 - 奖励模型的最后一个 Token 的隐藏状态作为整条回答的表示，然后映射到标量分数
 
 ## 5. 阶段 3：用 PPO 优化策略
@@ -271,7 +271,7 @@ for batch in dataloader:
 PPO 虽然有效，但引入了一系列工程复杂度：
 - 需要训练一个独立的奖励模型
 - 需要维护价值模型
-- 需要在线采样（生成回答 → 打分 → 更新）
+- 需要在线采样（生成回答 -> 打分 -> 更新）
 - 训练不稳定，对超参数敏感
 
 ### 6.2 DPO 的核心洞察
@@ -300,8 +300,8 @@ def dpoLoss(policyModel, refModel, prompts, responseChosen, responseRejected, be
     计算 DPO 损失
 
     Args:
-        policyModel: 正在优化的策略模型（π_θ）
-        refModel: 冻结的参考模型（通常是 SFT 模型，π_ref）
+        policyModel: 正在优化的策略模型（pi_theta）
+        refModel: 冻结的参考模型（通常是 SFT 模型，pi_ref）
         prompts: Prompt Token IDs
         responseChosen: 被选中的回答
         responseRejected: 被拒绝的回答

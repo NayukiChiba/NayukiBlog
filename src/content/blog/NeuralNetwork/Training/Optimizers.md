@@ -384,12 +384,12 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
 
 ```
 朴素 SGD
-  └─ SGD + Momentum（引入动量，加速收敛）
-      └─ SGD + Nesterov（"先走再看"，更智能的动量）
-  └─ AdaGrad（参数自适应学习率，但学习率只降不升）
-      └─ RMSprop（指数移动平均替代累加，解决 AdaGrad 缺陷）
-          └─ Adam（RMSprop + Momentum + 偏差校正）
-              └─ AdamW（解耦权重衰减，修复 Adam 正则化问题）
+- SGD + Momentum（引入动量，加速收敛）
+  - SGD + Nesterov（"先走再看"，更智能的动量）
+- AdaGrad（参数自适应学习率，但学习率只降不升）
+  - RMSprop（指数移动平均替代累加，解决 AdaGrad 缺陷）
+    - Adam（RMSprop + Momentum + 偏差校正）
+      - AdamW（解耦权重衰减，修复 Adam 正则化问题）
 ```
 
 ### 6.2 优化器选择速查

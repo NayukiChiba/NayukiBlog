@@ -23,8 +23,8 @@ NiN（Network in Network）由林敏等人在 2014 年 ICLR 上发表。虽然 N
 ![NiN.png](https://img.yumeko.site/file/blog/articles/1780581190548.webp)
 
 ```
-传统卷积：    Conv(k×k) → ReLU
-mlpconv：    Conv(k×k) → ReLU → Conv(1×1) → ReLU → Conv(1×1) → ReLU
+传统卷积：    Conv(kxk) -> ReLU
+mlpconv：    Conv(kxk) -> ReLU -> Conv(1x1) -> ReLU -> Conv(1x1) -> ReLU
 ```
 
 **$1 \times 1$ 卷积的作用**：
@@ -40,9 +40,9 @@ nin_block(192, kernel=5) 的参数量：
 
 | 层 | 计算 | 参数量 |
 | --- | --- | ---:|
-| Conv(5×5): 192→192 | $192 \times 192 \times 25 + 192$ | 921,792 |
-| Conv(1×1): 192→192 | $192 \times 192 \times 1 + 192$ | 37,056 |
-| Conv(1×1): 192→192 | $192 \times 192 \times 1 + 192$ | 37,056 |
+| Conv(5x5): 192->192 | $192 \times 192 \times 25 + 192$ | 921,792 |
+| Conv(1x1): 192->192 | $192 \times 192 \times 1 + 192$ | 37,056 |
+| Conv(1x1): 192->192 | $192 \times 192 \times 1 + 192$ | 37,056 |
 
 注意：$1 \times 1$ 卷积的参数量远小于 $5 \times 5$ 卷积。
 
@@ -53,10 +53,10 @@ nin_block(192, kernel=5) 的参数量：
 
 ```python
 # 传统分类器（如 AlexNet/VGG）
-Flatten → FC(大维度) → FC(大维度) → FC(num_classes)   # 几千万参数
+Flatten -> FC(大维度) -> FC(大维度) -> FC(num_classes)   # 几千万参数
 
 # NiN 的分类器
-mlpconv → AdaptiveAvgPool2d(1) → Flatten              # 几乎零参数
+mlpconv -> AdaptiveAvgPool2d(1) -> Flatten              # 几乎零参数
 ```
 
 **GAP 的三大优势**：
@@ -65,23 +65,23 @@ mlpconv → AdaptiveAvgPool2d(1) → Flatten              # 几乎零参数
 2. **天然正则化**：没有参数就不会过拟合
 3. **空间信息编码**：每个通道的平均值代表了该特征在空间上的整体响应——通道本身就对应了"某个类别在图像中出现的程度"
 
-注意 NiN 的分类器仍然包含了一个 mlpconv（`nin_block(96→num_classes, k=3)`），再接 GAP。这个最后的 mlpconv 将倒数第二层的 96 个特征通道映射为 num_classes 个通道，每个通道对应一个类别——GAP 后直接得到每个类别的置信度。
+注意 NiN 的分类器仍然包含了一个 mlpconv（`nin_block(96$\rightarrow$num_classes, k=3)`），再接 GAP。这个最后的 mlpconv 将倒数第二层的 96 个特征通道映射为 num_classes 个通道，每个通道对应一个类别——GAP 后直接得到每个类别的置信度。
 
 ## 4. 完整架构
 
 | Stage      | 操作                                     | 输入形状            | 输出形状            |
 | ---------- | -------------------------------------- | --------------- | --------------- |
 | —          | Input                                  | —               | $(3, 32, 32)$   |
-| Stage 1    | nin_block(3→192, k=5) + MaxPool(3×3)   | $(3, 32, 32)$   | $(192, 15, 15)$ |
-| Stage 2    | nin_block(192→160, k=5) + MaxPool(3×3) | $(192, 15, 15)$ | $(160, 6, 6)$   |
-| Stage 3    | nin_block(160→96, k=3) + MaxPool(3×3)  | $(160, 6, 6)$   | $(96, 2, 2)$    |
-| Classifier | nin_block(96→num_classes, k=3) + GAP   | $(96, 2, 2)$    | (num_classes,)  |
+| Stage 1    | nin_block(3->192, k=5) + MaxPool(3x3)   | $(3, 32, 32)$   | $(192, 15, 15)$ |
+| Stage 2    | nin_block(192->160, k=5) + MaxPool(3x3) | $(192, 15, 15)$ | $(160, 6, 6)$   |
+| Stage 3    | nin_block(160->96, k=3) + MaxPool(3x3)  | $(160, 6, 6)$   | $(96, 2, 2)$    |
+| Classifier | nin_block(96->num_classes, k=3) + GAP   | $(96, 2, 2)$    | (num_classes,)  |
 ![FullStage.png](https://img.yumeko.site/file/blog/articles/1780581181208.webp)
 ## 5. PyTorch 实现
 
 ```python
 class nin_block(nn.Module):
-    """mlpconv 块：Conv → ReLU → 1×1 Conv → ReLU → 1×1 Conv → ReLU"""
+    """mlpconv 块：Conv -> ReLU -> 1x1 Conv -> ReLU -> 1x1 Conv -> ReLU"""
     def __init__(self, inCh, outCh, kernel_size):
         super().__init__()
         padding = kernel_size // 2

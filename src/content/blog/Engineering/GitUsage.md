@@ -280,7 +280,7 @@ git clone --depth 1 https://github.com/username/repository.git
 
 ## 4. 基本工作流程
 
-> 🔄 Git 工作流程：**工作区** → **暂存区** → **本地仓库** → **远程仓库**
+> 🔄 Git 工作流程：**工作区** -> **暂存区** -> **本地仓库** -> **远程仓库**
 
 ### 4.1 查看状态
 
@@ -474,7 +474,7 @@ git merge --abort
 |------|-------------|------|
 | 推送自己的修改 | origin | `git push origin main` |
 | 获取原始仓库更新 | upstream | `git fetch upstream` |
-| 提交 PR | origin → upstream | 从 origin 向 upstream 发起 PR |
+| 提交 PR | origin -> upstream | 从 origin 向 upstream 发起 PR |
 
 ### 6.2 设置origin和upstream
 
@@ -597,7 +597,7 @@ git commit -m "解决合并冲突"
 
 ## 7. 撤销与回退详解
 
-> ⚠️ **这是最重要也最容易混淆的部分！** 请仔细理解不同命令的区别。
+> ⚠ **这是最重要也最容易混淆的部分！** 请仔细理解不同命令的区别。
 
 ### 7.1 Git 的三个工作区域
 
@@ -619,9 +619,9 @@ git commit -m "解决合并冲突"
 | ----------------------------- | --------------- | ------------ | -------- | ---------------- |
 | `git restore <file>`          | 工作区          | ❌ 不改变    | ✅ 安全  | 撤销文件修改     |
 | `git restore --staged <file>` | 暂存区          | ❌ 不改变    | ✅ 安全  | 取消暂存         |
-| `git reset --soft`            | 提交历史        | ⚠️ 改变      | ✅ 安全  | 重新组织提交     |
-| `git reset --mixed`           | 提交历史+暂存区 | ⚠️ 改变      | ✅ 安全  | 取消提交和暂存   |
-| `git reset --hard`            | 全部            | ⚠️ 改变      | ❌ 危险  | 完全回退         |
+| `git reset --soft`            | 提交历史        | ⚠ 改变      | ✅ 安全  | 重新组织提交     |
+| `git reset --mixed`           | 提交历史+暂存区 | ⚠ 改变      | ✅ 安全  | 取消提交和暂存   |
+| `git reset --hard`            | 全部            | ⚠ 改变      | ❌ 危险  | 完全回退         |
 | `git revert`                  | 创建新提交      | ❌ 不改变    | ✅ 安全  | 撤销已推送的提交 |
 
 ---
@@ -688,7 +688,7 @@ git restore --source=abc1234 filename
 
 ### 7.5 reset：回退提交历史
 
-> ⚠️ `git reset` 会改变提交历史，已推送的提交不要使用 reset！
+> ⚠ `git reset` 会改变提交历史，已推送的提交不要使用 reset！
 
 #### 三种模式对比
 
@@ -706,7 +706,7 @@ git restore --source=abc1234 filename
 
 ![mixed.png](https://img.yumeko.site/file/blog/articles/1780581326726.webp)
 
-**`--hard` 模式（⚠️ 危险！）：**
+**`--hard` 模式（⚠ 危险！）：**
 
 ![hard.png](https://img.yumeko.site/file/blog/articles/1780581307237.webp)
 
@@ -714,9 +714,9 @@ git restore --source=abc1234 filename
 
 | 模式      | 提交历史     | 暂存区      | 工作区      | 安全性  |
 | --------- | ------------ | ----------- | ----------- | ------- |
-| `--soft`  | A → B (HEAD) | ✅ 保留更改 | ✅ 保留更改 | 安全    |
-| `--mixed` | A → B (HEAD) | ❌ 清空     | ✅ 保留更改 | 安全    |
-| `--hard`  | A → B (HEAD) | ❌ 清空     | ❌ 清空     | ⚠️ 危险 |
+| `--soft`  | A -> B (HEAD) | ✅ 保留更改 | ✅ 保留更改 | 安全    |
+| `--mixed` | A -> B (HEAD) | ❌ 清空     | ✅ 保留更改 | 安全    |
+| `--hard`  | A -> B (HEAD) | ❌ 清空     | ❌ 清空     | ⚠ 危险 |
 
 #### --soft：只移动 HEAD，保留所有更改
 
@@ -765,7 +765,7 @@ git commit -m "新的提交信息"
 **场景：** 想要彻底放弃最近的提交和所有修改。
 
 ```bash
-# ⚠️ 危险操作！会丢失所有未提交的更改！
+# ⚠ 危险操作！会丢失所有未提交的更改！
 git reset --hard HEAD~1
 
 # 回退到指定提交
@@ -775,7 +775,7 @@ git reset --hard abc1234
 git reset --hard origin/main
 ```
 
-**⚠️ 警告：** `--hard` 会永久删除工作区的修改，除非使用 `git reflog` 恢复！
+**⚠ 警告：** `--hard` 会永久删除工作区的修改，除非使用 `git reflog` 恢复！
 
 #### reset 常用场景
 
@@ -1258,7 +1258,7 @@ git clean -fd
 
 ---
 
-## 📚 推荐资源
+## [资料] 推荐资源
 
 - [Git 官方文档](https://git-scm.com/doc)
 - [Pro Git 中文版](https://git-scm.com/book/zh/v2)

@@ -120,7 +120,7 @@ BatchNorm 自带轻微正则化效果：
 # 在卷积后添加 BN
 nn.Sequential(
     nn.Conv2d(64, 128, 3, padding=1),
-    nn.BatchNorm2d(128),       # ← 添加 BN
+    nn.BatchNorm2d(128),       # <- 添加 BN
     nn.ReLU(),
 )
 ```
@@ -148,12 +148,12 @@ else:
 ## 解决优先级
 
 ```
-1. Early Stopping          → 立竿见影，零成本
-2. 加强数据增强            → 效果最好
-3. 添加/增大 weight_decay  → 简单有效
-4. 添加 Dropout            → 针对 FC 层
-5. Label Smoothing         → 辅助手段
-6. 减小模型容量            → 可能影响最佳性能
-7. 收集更多数据            → 最根本但成本高
+1. Early Stopping          -> 立竿见影，零成本
+2. 加强数据增强            -> 效果最好
+3. 添加/增大 weight_decay  -> 简单有效
+4. 添加 Dropout            -> 针对 FC 层
+5. Label Smoothing         -> 辅助手段
+6. 减小模型容量            -> 可能影响最佳性能
+7. 收集更多数据            -> 最根本但成本高
 ```
 ![Overfitting.png](https://img.yumeko.site/file/blog/articles/1780581594913.webp)

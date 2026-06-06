@@ -14,7 +14,7 @@ status: published
 
 **上下文管理器 (Context Manager)** 是 Python 中用于规定对象使用范围、确保资源正确分配与释放的机制。其核心目标是实现**确定性的资源管理 (Deterministic Resource Management)**。
 
-在工程实践中，任何涉及“设置(Setup) / 拆除(Teardown)”模式的操作都应使用上下文管理器，例如：
+在工程实践中，任何涉及"设置(Setup) / 拆除(Teardown)"模式的操作都应使用上下文管理器，例如：
 *   **I/O 操作**：文件打开/关闭、Socket 连接/断开。
 *   **并发控制**：线程锁 (Lock) 的获取/释放。
 *   **事务管理**：数据库事务的 commit/rollback。

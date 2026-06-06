@@ -82,10 +82,10 @@ with torch.no_grad():
 
 ```
 # 标准顺序
-Linear → BN → ReLU → Dropout
+Linear -> BN -> ReLU -> Dropout
 
 # 如果遇到方差偏移问题，可尝试
-Linear → Dropout → BN → ReLU
+Linear -> Dropout -> BN -> ReLU
 ```
 
 但这在实践中很少需要。

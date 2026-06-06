@@ -145,8 +145,8 @@ def validateEpoch(model, dataloader, criterion, device):
 
 **双重保险**：`model.eval()` + `torch.no_grad()` 同时使用。
 
-- `model.eval()` → 负责 BN/Dropout 的正确行为
-- `torch.no_grad()` → 关闭梯度追踪（节省显存、加速）
+- `model.eval()` -> 负责 BN/Dropout 的正确行为
+- `torch.no_grad()` -> 关闭梯度追踪（节省显存、加速）
 
 两者是独立的，不能互相替代。
 

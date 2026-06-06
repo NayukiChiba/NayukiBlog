@@ -4,7 +4,7 @@ date: 2026-05-23
 category: 神经网络/CNN
 tags:
   - 经典架构
-description: VGG 证明了"全部使用 3×3 小卷积核"的简洁设计哲学，本文详解 VGG-11/13/16/19 的结构和设计智慧。
+description: VGG 证明了"全部使用 3x3 小卷积核"的简洁设计哲学，本文详解 VGG-11/13/16/19 的结构和设计智慧。
 image: https://img.yumeko.site/file/blog/cover/1780581894886.webp
 status: published
 ---
@@ -37,14 +37,14 @@ VGG 将网络分为 5 个 stage，每个 stage 由若干 $3 \times 3$ 卷积 + M
 
 ```
 Input (3, 224, 224)
-  → Stage 1: [3×3 Conv × N1] → MaxPool   通道: 64
-  → Stage 2: [3×3 Conv × N2] → MaxPool   通道: 128
-  → Stage 3: [3×3 Conv × N3] → MaxPool   通道: 256
-  → Stage 4: [3×3 Conv × N4] → MaxPool   通道: 512
-  → Stage 5: [3×3 Conv × N5] → MaxPool   通道: 512
-  → FC(25088→4096) → ReLU → Dropout
-  → FC(4096→4096) → ReLU → Dropout
-  → FC(4096→1000)
+  -> Stage 1: [3x3 Conv x N1] -> MaxPool   通道: 64
+  -> Stage 2: [3x3 Conv x N2] -> MaxPool   通道: 128
+  -> Stage 3: [3x3 Conv x N3] -> MaxPool   通道: 256
+  -> Stage 4: [3x3 Conv x N4] -> MaxPool   通道: 512
+  -> Stage 5: [3x3 Conv x N5] -> MaxPool   通道: 512
+  -> FC(25088->4096) -> ReLU -> Dropout
+  -> FC(4096->4096) -> ReLU -> Dropout
+  -> FC(4096->1000)
 ```
 
 **空间尺寸变化**：$224 \to 112 \to 56 \to 28 \to 14 \to 7$（每次 MaxPool 尺寸减半）
@@ -78,7 +78,7 @@ Input (3, 224, 224)
 ## 5. PyTorch 实现
 
 ```python
-# vgg_conv 块：Conv → BN → ReLU
+# vgg_conv 块：Conv -> BN -> ReLU
 def vgg_conv(inCh, outCh):
     return nn.Sequential(
         nn.Conv2d(inCh, outCh, 3, padding=1),

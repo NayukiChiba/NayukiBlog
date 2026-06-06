@@ -22,14 +22,14 @@ status: published
 | 层 | 操作 | 输出形状 | 参数量 |
 | --- | --- | --- | ---:|
 | Input | — | $(3, 224, 224)$ | 0 |
-| Conv1 | Conv(11×11, s=4) + ReLU | $(96, 55, 55)$ | 34,944 |
-| Pool1 | MaxPool(3×3, s=2) | $(96, 27, 27)$ | 0 |
-| Conv2 | Conv(5×5) + ReLU | $(256, 27, 27)$ | 614,656 |
-| Pool2 | MaxPool(3×3, s=2) | $(256, 13, 13)$ | 0 |
-| Conv3 | Conv(3×3) + ReLU | $(384, 13, 13)$ | 885,120 |
-| Conv4 | Conv(3×3) + ReLU | $(384, 13, 13)$ | 1,327,488 |
-| Conv5 | Conv(3×3) + ReLU | $(256, 13, 13)$ | 884,992 |
-| Pool5 | MaxPool(3×3, s=2) | $(256, 6, 6)$ | 0 |
+| Conv1 | Conv(11$\times$11, s=4) + ReLU | $(96, 55, 55)$ | 34,944 |
+| Pool1 | MaxPool(3$\times$3, s=2) | $(96, 27, 27)$ | 0 |
+| Conv2 | Conv(5$\times$5) + ReLU | $(256, 27, 27)$ | 614,656 |
+| Pool2 | MaxPool(3$\times$3, s=2) | $(256, 13, 13)$ | 0 |
+| Conv3 | Conv(3$\times$3) + ReLU | $(384, 13, 13)$ | 885,120 |
+| Conv4 | Conv(3$\times$3) + ReLU | $(384, 13, 13)$ | 1,327,488 |
+| Conv5 | Conv(3$\times$3) + ReLU | $(256, 13, 13)$ | 884,992 |
+| Pool5 | MaxPool(3$\times$3, s=2) | $(256, 6, 6)$ | 0 |
 | — | Flatten | $(9216,)$ | 0 |
 | FC1 | Linear + ReLU + Dropout | $(4096,)$ | 37,752,832 |
 | FC2 | Linear + ReLU + Dropout | $(4096,)$ | 16,781,312 |

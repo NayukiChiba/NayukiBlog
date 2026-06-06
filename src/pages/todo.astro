@@ -40,7 +40,7 @@ const longTerm = activeTodos.filter((t) => t.type === "long-term");
         <div class="todo-layers">
             <!-- Layer 2: Short Term -->
             <section class="layer-section">
-                <h2 class="layer-title">🚀 短期目标 (Short-term)</h2>
+                <h2 class="layer-title"> 短期目标 (Short-term)</h2>
                 <div class="task-grid">
                     {shortTerm.map((todo) => <TaskCard {...todo} />)}
                 </div>
@@ -48,7 +48,7 @@ const longTerm = activeTodos.filter((t) => t.type === "long-term");
 
             <!-- Layer 3: Medium Term -->
             <section class="layer-section">
-                <h2 class="layer-title">📅 中期目标 (Medium-term)</h2>
+                <h2 class="layer-title"> 中期目标 (Medium-term)</h2>
                 <div class="task-grid">
                     {mediumTerm.map((todo) => <TaskCard {...todo} />)}
                 </div>
@@ -56,7 +56,7 @@ const longTerm = activeTodos.filter((t) => t.type === "long-term");
 
             <!-- Layer 4: Long Term -->
             <section class="layer-section">
-                <h2 class="layer-title">🏔️ 长期目标 (Long-term)</h2>
+                <h2 class="layer-title"> 长期目标 (Long-term)</h2>
                 <div class="task-grid">
                     {longTerm.map((todo) => <TaskCard {...todo} />)}
                 </div>
