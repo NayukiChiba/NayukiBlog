@@ -12,7 +12,7 @@ status: published
 # 如何将文件夹中文变成英文
 1. 在安装的时候，选择中文，后续不需要安装输入法了，更方便
 2. 在设置中**系统**，**区域与语言**，下载英文
-![ChangLanguage.png](https://img.yumeko.site/file/articles/UbuntuBeautification/ChangLanguage.png)
+![ChangLanguage.png](https://img.yumeko.site/file/blog/articles/ChangLanguage.png)
 3. 重新登录之后，选择**更改文件夹名字**
 > [!WARNING] 注意
 > 注意**不要**勾选**下此不再提醒**
@@ -55,10 +55,11 @@ sudo apt install gnome-shell-extensions
 ## 安装插件
 在这个[插件网站](https://extensions.gnome.org/)中下载一些gnome的插件
 ### JustPerfection
-![JustPerfection1.png](https://img.yumeko.site/file/articles/UbuntuBeautification/JustPerfection1.png)![JustPerfection2.png](https://img.yumeko.site/file/articles/UbuntuBeautification/JustPerfection2.png)
-![JustPerfection3.png](https://img.yumeko.site/file/articles/UbuntuBeautification/JustPerfection3.png)
-![JustPerfection4.png](https://img.yumeko.site/file/articles/UbuntuBeautification/JustPerfection4.png)
-![JustPerfection5.png](https://img.yumeko.site/file/articles/UbuntuBeautification/JustPerfection5.png)
+![JustPerfection1.png](https://img.yumeko.site/file/blog/articles/JustPerfection1.png)
+![JustPerfection2.png](https://img.yumeko.site/file/blog/articles/JustPerfection2.png)
+![JustPerfection3.png](https://img.yumeko.site/file/blog/articles/JustPerfection3.png)
+![JustPerfection4.png](https://img.yumeko.site/file/blog/articles/JustPerfection4.png)
+![JustPerfection5.png](https://img.yumeko.site/file/blog/articles/JustPerfection5.png)
 ### Blur my shell
 不设置
 ### Vitals
@@ -68,17 +69,27 @@ sudo apt install gnome-shell-extensions
 ### Burn My Windows
 设置为**Focus**
 ### Dash to Dock
-![Dock1.png](https://img.yumeko.site/file/articles/UbuntuBeautification/Dock1.png)
-![Dock2.png](https://img.yumeko.site/file/articles/UbuntuBeautification/Dock2.png)
+![Dock1.png](https://img.yumeko.site/file/blog/articles/Dock1.png)
+![Dock2.png](https://img.yumeko.site/file/blog/articles/Dock2.png)
 ### UserTheme
 见下方安装主题
 ## 安装主题
 ### 进入网址找到喜欢的主题
 
 [主题网站](https://www.gnome-look.org/browse?cat=135&ord=latest)
-1. 找到一个主题![theme1.png](https://img.yumeko.site/file/articles/UbuntuBeautification/theme1.png)
-2. 然后点击他的Download，进入他的github主页![theme2.png](https://img.yumeko.site/file/articles/UbuntuBeautification/theme2.png)![theme3.png](https://img.yumeko.site/file/articles/UbuntuBeautification/theme3.png)
-3. 进入**releases**页面，下载源码![theme4.png](https://img.yumeko.site/file/articles/UbuntuBeautification/theme4.png)
+
+1. 找到一个主题
+
+![theme1.png](https://img.yumeko.site/file/blog/articles/1780739066427.png)
+
+1. 然后点击他的Download，进入他的github主页
+
+![theme2.png](https://img.yumeko.site/file/blog/articles/1780739061929.png)
+![theme3.png](https://img.yumeko.site/file/blog/articles/1780739069012.png)
+
+1. 进入**releases**页面，下载源码
+
+![theme4.png](https://img.yumeko.site/file/blog/articles/1780739063513.png)
 ### 解压主题
 
 ```bash
@@ -104,6 +115,7 @@ sudo ./install.sh
 4. 下载在一个文件夹，例如: wallpapaer中
 5. 在Hidamari应用中选择wallpaper为动态壁纸文件夹, 然后刷新即可
 6. 在应用右上角选择开机自动启动
+
 ![Hidamari应用](https://img.yumeko.site/file/blog/articles/1780736592730.png)
 ## 使用conky
 
@@ -111,10 +123,12 @@ sudo ./install.sh
 ```
 sudo apt install conky-all conky-manager
 ```
-2. 安装conky插件
+1. 安装conky插件
 在[conky插件网站](https://www.pling.com/browse?cat=124&ord=latest)中下载喜欢的conky文件, 解压之后放到~/.config/conky/文件夹下, 例如这是Maia插件的界面
+
 ![conky文件夹](https://img.yumeko.site/file/blog/articles/1780736591021.png)
-3. 字体下载
+
+1. 字体下载
 一般conky文件中会放fonts文件夹,
 * 将fonts的ttf都放到/usr/share/fonts中
 * 在conky插件的文件夹下
@@ -126,7 +140,7 @@ sudo mv fonts/* /usr/share/fonts/conky
 ```
 fc-cache -fv
 ```
-4. 使用conky插件即可
+1. 使用conky插件即可
 
 在插件文件夹中
 ```
@@ -135,7 +149,9 @@ fc-cache -fv
 5. 常见的bug
 * 插件背景是黑色
 修改`own_window_argb_visual = false`即可
+
 ![ConkyConfig](https://img.yumeko.site/file/blog/articles/1780581606518.webp)
+
 * 插件中出现了乱码(conky用的是lua语言)
 例如这是一段config中的源代码
 ```
@@ -317,4 +333,4 @@ menuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menu
 > 这里不要update-grub，会重置你的启动名字
 # 最后效果
 
-![Result](https://img.yumeko.site/file/blog/articles/1780581580067.webp)
+![截图 2026-06-07 01-47-28.png](https://img.yumeko.site/file/blog/articles/1780739278569.webp)
