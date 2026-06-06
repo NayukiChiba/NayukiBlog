@@ -59,9 +59,9 @@ $$
 $$
 
 > [!TIP] 关键直觉
-> $t$ 很小 $\rightarrow$ $\bar{\alpha}_t \approx 1$ $\rightarrow$ $\mathbf{x}_t \approx \mathbf{x}_0$（信号占主导）
-> $t$ 很大 $\rightarrow$ $\bar{\alpha}_t \approx 0$ $\rightarrow$ $\mathbf{x}_t \approx \boldsymbol{\epsilon}$（噪声占主导）
-> $t=T$ $\rightarrow$ $\mathbf{x}_T \sim \mathcal{N}(0, \mathbf{I})$（纯噪声）
+> $t$ 很小 -> $\bar{\alpha}_t \approx 1$ -> $\mathbf{x}_t \approx \mathbf{x}_0$（信号占主导）
+> $t$ 很大 -> $\bar{\alpha}_t \approx 0$ -> $\mathbf{x}_t \approx \boldsymbol{\epsilon}$（噪声占主导）
+> $t=T$ -> $\mathbf{x}_T \sim \mathcal{N}(0, \mathbf{I})$（纯噪声）
 
 ```python
 import numpy as np

@@ -286,7 +286,7 @@ NumPy快了约 21.3 倍
 | `size` | `int` | 元素总数，等于各维度长度的乘积 |
 | `dtype` | `numpy.dtype` | 元素的数据类型 |
 | `itemsize` | `int` | 每个元素占用的字节数 |
-| `nbytes` | `int` | 数组总字节数，等于 `size $\times$ itemsize` |
+| `nbytes` | `int` | 数组总字节数，等于 `size x itemsize` |
 
 ### 示例代码
 
@@ -904,7 +904,7 @@ True
 | `arr.size` | 属性 | 元素总数，等于各维度长度乘积 |
 | `arr.dtype` | 属性 | 元素数据类型对象 |
 | `arr.itemsize` | 属性 | 每个元素占用字节数 |
-| `arr.nbytes` | 属性 | 数组总字节数，等于 `size $\times$ itemsize` |
+| `arr.nbytes` | 属性 | 数组总字节数，等于 `size x itemsize` |
 | `arr.astype(...)` | 方法 | 返回类型转换后的新数组 |
 | `np.iinfo(...)` | 函数 | 查询整数类型的取值范围和位数 |
 | `np.finfo(...)` | 函数 | 查询浮点类型的精度参数和范围 |
@@ -977,7 +977,7 @@ size: 12
 ### 理解重点
 
 - `ndim == len(shape)`，始终成立
-- `size == shape[0] $\times$ shape[1] $\times$ ...`，始终成立
+- `size == shape[0] x shape[1] x ...`，始终成立
 - `shape` 是后续索引、广播、变形的基础——拿到数组先看 `shape`
 
 ## 2. 内存与数据类型属性
@@ -4697,5 +4697,5 @@ P99: 134.74
 
 - 本章的重点不是某个具体 API，而是组合能力——把基础算子拼成完整的数据处理流水线
 - 成绩分析靠聚合 + 排序；线性回归靠矩阵运算 + `solve`；图像操作靠切片 + 类型转换；统计分析靠采样 + `histogram`
-- 当你能用 NumPy 实现"数据加载 $\rightarrow$ 计算 $\rightarrow$ 统计 $\rightarrow$ 输出"的完整流水线，NumPy 就真正入门了
+- 当你能用 NumPy 实现"数据加载 -> 计算 -> 统计 -> 输出"的完整流水线，NumPy 就真正入门了
 - 后续学习 Pandas、SciPy、scikit-learn 时，本章建立的计算思维会一直受用——它们底层都建立在 NumPy 之上

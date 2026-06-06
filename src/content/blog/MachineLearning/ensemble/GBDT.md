@@ -168,7 +168,7 @@ $$
 ## 本章目标
 
 1. 明确本仓库 GBDT 数据来自 `EnsembleData.gbdt()` 构造的多类别分类数据。
-2. 理解为什么选择 8 特征 $\times$ 3 类别的数据——中等复杂度，充分展示 GBDT 串行纠错的偏差缩减能力。
+2. 理解为什么选择 8 特征 x 3 类别的数据——中等复杂度，充分展示 GBDT 串行纠错的偏差缩减能力。
 3. 明确当前流程中的训练/测试切分（分层抽样）和标准化顺序。
 
 ## 重点方法与概念速览
@@ -519,7 +519,7 @@ model.fit(X_train, y_train)
 
 ### 理解重点
 
-- `n_estimators` 和 `learning_rate` 是 GBDT 最重要的两个参数——它们共同决定总修正量：$M \times \nu$ 约等于"有效迭代次数"。`200 $\times$ 0.1 = 20` 等效步长。
+- `n_estimators` 和 `learning_rate` 是 GBDT 最重要的两个参数——它们共同决定总修正量：$M \times \nu$ 约等于"有效迭代次数"。`200 x 0.1 = 20` 等效步长。
 - `max_depth=3` 是 GBDT 的标志性配置——与 Bagging 的 `max_depth=None` 形成鲜明对比。浅层树的高偏差是 GBDT 降偏差的前提。
 - `subsample=1.0`（默认）——当前未启用随机梯度提升。若设为 `0.8`，每棵树随机使用 80% 样本，可同时获得方差缩减的额外收益。
 - 与 Bagging 的参数对比：Bagging 有 `bootstrap`、`oob_score`、`n_jobs`（并行），GBDT 有 `learning_rate`、`loss`（学习率和损失函数）。
@@ -1235,4 +1235,4 @@ class EnsembleData:
 
 - 7 个自检问题覆盖 GBDT 的核心概念：加法模型、负梯度、偏差缩减、学习率收缩、随机梯度提升、与 Bagging 对比、回归树基学习器。
 - 5 个动手练习从不同角度探索 GBDT 的行为——改变学习率、基学习器深度、树数量、子采样、数据难度。
-- 4 篇参考文献从原始论文（Friedman 2001）$\rightarrow$ 教材 $\rightarrow$ 官方文档 $\rightarrow$ 实战指南构成完整的阅读路线。
+- 4 篇参考文献从原始论文（Friedman 2001）-> 教材 -> 官方文档 -> 实战指南构成完整的阅读路线。

@@ -17,7 +17,7 @@ status: published
 1. 掌握 sklearn 内置数据集的加载方式与返回结构
 2. 学会使用 `make_*` 系列函数生成人工数据集
 3. 理解 `train_test_split` 的分层抽样机制
-4. 走通 KNN 模型的完整流程：创建 $\rightarrow$ 训练 $\rightarrow$ 预测 $\rightarrow$ 评估
+4. 走通 KNN 模型的完整流程：创建 -> 训练 -> 预测 -> 评估
 5. 熟悉 sklearn 估计器的通用方法与属性命名约定
 
 ## 重点方法与概念速览

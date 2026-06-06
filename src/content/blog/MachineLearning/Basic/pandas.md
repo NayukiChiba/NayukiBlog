@@ -4242,7 +4242,7 @@ dtype: int64
 
 - `memory_usage()`：查看 DataFrame 每列的内存占用（字节）
 - `astype('category')`：将低基数列（重复值多）转为分类类型——大幅节省内存
-- 降精度为数值列节省内存：`float64 $\rightarrow$ float32`、`int64 $\rightarrow$ int32`
+- 降精度为数值列节省内存：`float64 -> float32`、`int64 -> int32`
 
 #### 示例代码
 

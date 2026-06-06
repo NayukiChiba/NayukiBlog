@@ -174,7 +174,7 @@ $$
 
 ## 小结
 
-- KMeans 的数学核心链：簇内平方和 $\min\sum\|\mathbf{x}-\boldsymbol{\mu}\|^2$ $\rightarrow$ 分配-更新交替迭代 $\rightarrow$ `k-means++` 加权初始化 $\rightarrow$ `n_init` 多轮择优 $\rightarrow$ 收敛到局部最优。
+- KMeans 的数学核心链：簇内平方和 $\min\sum\|\mathbf{x}-\boldsymbol{\mu}\|^2$ -> 分配-更新交替迭代 -> `k-means++` 加权初始化 -> `n_init` 多轮择优 -> 收敛到局部最优。
 - KMeans 有显式质心（`cluster_centers_`）和可量化的损失（`inertia_`）——这是它区别于 DBSCAN 最核心的数学特征。
 - 当前源码 `KMeans(n_clusters=4, init='k-means++', n_init=10, max_iter=300)` 是针对 `make_blobs` 球形高斯簇的最经典配置。
 

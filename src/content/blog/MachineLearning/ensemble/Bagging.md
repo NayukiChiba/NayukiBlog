@@ -161,7 +161,7 @@ Bagging 的方差缩减依赖于基学习器满足两个条件：
 
 ## 小结
 
-- Bagging 的数学核心链：Bootstrap 采样（约 63.2% 样本被抽中）$\rightarrow$ 并行训练 $n$ 个高方差基学习器 $\rightarrow$ 投票/平均聚合 $\rightarrow$ 方差从 $\sigma^2$ 缩减到 $\rho\sigma^2 + (1-\rho)\sigma^2/n$ $\rightarrow$ OOB 误差提供无偏估计。
+- Bagging 的数学核心链：Bootstrap 采样（约 63.2% 样本被抽中）-> 并行训练 $n$ 个高方差基学习器 -> 投票/平均聚合 -> 方差从 $\sigma^2$ 缩减到 $\rho\sigma^2 + (1-\rho)\sigma^2/n$ -> OOB 误差提供无偏估计。
 - Bagging 降低方差而不降低偏差——因此需要低偏差高方差的基学习器（完全生长的决策树）。
 - 当前源码 `BaggingClassifier(estimator=DecisionTreeClassifier(max_depth=None), n_estimators=80, max_samples=0.8, bootstrap=True, oob_score=True)` 是针对高噪声双月牙数据最经典的 Bagging 配置。
 
@@ -1251,4 +1251,4 @@ class EnsembleData:
 
 - 7 个自检问题覆盖 Bagging 的核心概念：Bootstrap 概率、方差缩减、OOB 估计、参数选择、与 Boosting 对比。
 - 5 个动手练习从不同角度探索 Bagging 的行为——改变基学习器数量、采样比例、特征比例、Bootstrap 开关、数据噪声。
-- 4 篇参考文献从原始论文 $\rightarrow$ 教材 $\rightarrow$ 官方文档 $\rightarrow$ 实战指南构成完整的阅读路线。
+- 4 篇参考文献从原始论文 -> 教材 -> 官方文档 -> 实战指南构成完整的阅读路线。

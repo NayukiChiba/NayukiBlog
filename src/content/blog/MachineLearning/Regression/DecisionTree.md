@@ -106,7 +106,7 @@ $$
 ### 理解重点
 
 - 回归树的训练不是遍历所有可能的分裂组合——而是对每个特征单独排序、单独搜索最优阈值，再选全局最优。
-- California Housing 有 20640 样本 $\times$ 8 特征——在此规模上决策树训练极快（秒级），这也是树模型的一大工程优势。
+- California Housing 有 20640 样本 x 8 特征——在此规模上决策树训练极快（秒级），这也是树模型的一大工程优势。
 - 当前源码中同时使用 `@timeit` 和 `timer` 打印耗时——对于这个数据规模，训练耗时通常在毫秒到秒级。
 
 ## 5. 复杂度控制与正则化
@@ -170,7 +170,7 @@ $$
 
 ## 小结
 
-- 决策树回归的数学核心链：递归二分特征空间 $\rightarrow$ 平方误差最小化选择 $(j, s)$ $\rightarrow$ 叶子输出区域均值 $\hat{c}_m$ $\rightarrow$ `max_depth`/`min_samples_split`/`min_samples_leaf` 控制复杂度。
+- 决策树回归的数学核心链：递归二分特征空间 -> 平方误差最小化选择 $(j, s)$ -> 叶子输出区域均值 $\hat{c}_m$ -> `max_depth`/`min_samples_split`/`min_samples_leaf` 控制复杂度。
 - 与线性回归的根本区别：分段常数 vs 全局线性，无条件假设 vs 线性假设，天然处理非线性 vs 需特征工程。
 - 当前源码 `DecisionTreeRegressor(max_depth=6, min_samples_split=6, min_samples_leaf=3)` 是展示回归树核心数学最经典的中等复杂度配置。
 
@@ -187,7 +187,7 @@ $$
 | 名称 | 类型 | 作用 |
 |---|---|---|
 | `RegressionDatasetFactory.loadDecisionTreeRegressionDataset()` | 方法 | 加载 California Housing 真实回归数据——标签列重命名为 `price` |
-| `fetch_california_housing(as_frame=True)` | 函数 | scikit-learn 提供的加州房价数据集加载器——20640 样本 $\times$ 8 特征 |
+| `fetch_california_housing(as_frame=True)` | 函数 | scikit-learn 提供的加州房价数据集加载器——20640 样本 x 8 特征 |
 | `price` | 列 | 回归目标列——加州街区房价中位数（单位：$100k） |
 | `train_test_split` | 函数 | 随机切分训练/测试集——`test_size=0.2, random_state=42` |
 

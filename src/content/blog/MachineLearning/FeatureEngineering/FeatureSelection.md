@@ -39,9 +39,9 @@ status: published
 | 嵌入式（Embedded） | 在模型训练过程中完成选择 | 内置机制 | 中 | Lasso L1 正则化、树模型重要性 |
 
 **选型直觉**：
-- 数据量极大、特征极多 $\rightarrow$ 先用 Filter 快速筛一遍 $\rightarrow$ 再用 Embedded 精筛
-- 小数据集、强解释性要求 $\rightarrow$ Wrapper（但注意过拟合风险）
-- 线性模型场景 $\rightarrow$ Embedded（Lasso 一步到位）
+- 数据量极大、特征极多 -> 先用 Filter 快速筛一遍 -> 再用 Embedded 精筛
+- 小数据集、强解释性要求 -> Wrapper（但注意过拟合风险）
+- 线性模型场景 -> Embedded（Lasso 一步到位）
 
 ## 3. 过滤式方法（Filter Methods）
 

@@ -24,7 +24,7 @@ status: published
 
 ### 1.2 信息瓶颈的具体表现
 
-以 Seq2Seq 机器翻译为例，"编码器的最后一个隐藏状态 $\rightarrow$ 解码器"是唯一的信息传递通道：
+以 Seq2Seq 机器翻译为例，"编码器的最后一个隐藏状态 -> 解码器"是唯一的信息传递通道：
 
 - 短句（5-10 词）：$d_h$ 维向量足够编码
 - 中句（20-30 词）：开始丢失细节
@@ -86,7 +86,7 @@ $$
 
 其中 $[s_{t-1}; h_i^{enc}]$ 表示将两个向量沿最后一个维度拼接。$W_a \in \mathbb{R}^{d_a \times (d_s + d_h)}$ 将拼接向量映射到注意力空间，$v \in \mathbb{R}^{d_a}$ 将中间表示压缩为标量得分。
 
-两种形式的本质相同——都是通过可学习的前馈网络（Linear $\rightarrow$ Tanh $\rightarrow$ Linear）产生标量得分。区别仅在于分类场景的得分网络"内建"了判断标准，而 Seq2Seq 场景将解码器状态作为外部查询信号。
+两种形式的本质相同——都是通过可学习的前馈网络（Linear -> Tanh -> Linear）产生标量得分。区别仅在于分类场景的得分网络"内建"了判断标准，而 Seq2Seq 场景将解码器状态作为外部查询信号。
 
 ### 2.4 第 2 步：遮罩（Masking）
 
@@ -563,7 +563,7 @@ class Attention(nn.Module):
 
 代码中的四步与数学流程严格对应：
 
-- `self.score_network(rnn_output)` 实现了 $v^T \cdot \tanh(W \cdot h_i + b)$——`nn.Sequential` 将 `Linear $\rightarrow$ Tanh $\rightarrow$ Linear` 串联，等价于论文中的得分网络。
+- `self.score_network(rnn_output)` 实现了 $v^T \cdot \tanh(W \cdot h_i + b)$——`nn.Sequential` 将 `Linear -> Tanh -> Linear` 串联，等价于论文中的得分网络。
 - `masked_fill(mask == 0, -1e9)` 实现了 PAD 位置的遮罩。
 - `F.softmax(scores, dim=1)` 沿序列维度做 Softmax 归一化。
 - `torch.bmm(attention_weights.unsqueeze(1), rnn_output)` 实现了加权求和 $\sum_i \alpha_i \cdot h_i$——利用批量矩阵乘法一次性完成所有样本的加权求和。

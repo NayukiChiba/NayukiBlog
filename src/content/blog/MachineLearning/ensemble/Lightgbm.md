@@ -175,7 +175,7 @@ $$
 | 损失函数 | 多类对数损失 | 多类对数损失——相同 |
 | 负梯度 | $\tilde{y} = y - p$ | $\tilde{y} = y - p$——相同 |
 | 树生长策略 | Level-wise（按层） | Leaf-wise（按叶子）——**不同** |
-| 分裂点搜索 | 预排序 $\rightarrow$ 逐一计算 | 直方图分桶 $\rightarrow$ 桶边界搜索——**不同** |
+| 分裂点搜索 | 预排序 -> 逐一计算 | 直方图分桶 -> 桶边界搜索——**不同** |
 | 样本采样 | 随机子采样 | GOSS（梯度加权采样）——**不同** |
 | 特征降维 | 无 | EFB（互斥特征捆绑）——**不同** |
 | 树复杂度控制 | `max_depth=3` | `num_leaves=31`——**不同** |
@@ -195,7 +195,7 @@ $$
 ## 小结
 
 - LightGBM 的数学核心链与 GBDT 完全一致：加法模型 + 负梯度拟合 + 多类对数损失 + softmax 输出。
-- LightGBM 的工程优化链：Leaf-wise 生长（损失下降更高效）$\rightarrow$ 直方图分桶（分裂搜索加速）$\rightarrow$ GOSS（梯度加权采样）$\rightarrow$ EFB（互斥特征捆绑）——四项优化在不改变数学框架的前提下大幅提升训练速度。
+- LightGBM 的工程优化链：Leaf-wise 生长（损失下降更高效）-> 直方图分桶（分裂搜索加速）-> GOSS（梯度加权采样）-> EFB（互斥特征捆绑）——四项优化在不改变数学框架的前提下大幅提升训练速度。
 - 当前源码 `LGBMClassifier(n_estimators=300, learning_rate=0.05, num_leaves=31, max_depth=-1, subsample=0.9, colsample_bytree=0.9)` 是轻量级高维数据的经典配置。
 
 # 数据构成
@@ -1090,7 +1090,7 @@ LightGBM 流水线完成！
 ### 理解重点
 
 - LightGBM 的 `max_depth=-1` 不是"无限深度"——Leaf-wise 生长下，复杂度由 `num_leaves` 控制，`max_depth=-1` 表示不额外限制最大深度。
-- `n_estimators=300` + `learning_rate=0.05` 的总修正量（15）小于 GBDT 的 `200 $\times$ 0.1 = 20`——但步子更多更稳。
+- `n_estimators=300` + `learning_rate=0.05` 的总修正量（15）小于 GBDT 的 `200 x 0.1 = 20`——但步子更多更稳。
 - LightGBM 的列采样（`colsample_bytree=0.9`）是 sklearn GBDT 不支持的——这是微软实现的独有正则化手段。
 
 ## 阅读顺序
@@ -1226,4 +1226,4 @@ class EnsembleData:
 
 - 7 个自检问题覆盖 LightGBM 的核心创新：Leaf-wise vs Level-wise、直方图算法、GOSS vs 随机采样、`num_leaves` vs `max_depth`、EFB、与 sklearn GBDT 对比、并行机制。
 - 5 个动手练习从不同角度探索 LightGBM 的行为——改变叶子数、学习率、列采样、对比 GBDT 速度、改变数据规模。
-- 4 篇参考文献从原始论文（Ke et al. 2017）$\rightarrow$ 官方文档 $\rightarrow$ API 参考 $\rightarrow$ GBDT 理论基础构成完整的阅读路线。
+- 4 篇参考文献从原始论文（Ke et al. 2017）-> 官方文档 -> API 参考 -> GBDT 理论基础构成完整的阅读路线。

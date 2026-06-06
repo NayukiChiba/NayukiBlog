@@ -360,8 +360,8 @@ $$
 
 ### 6.2 计算优势
 
-- **参数量**：$E \times$ FFN 参数（如 Mixtral 8$\times$7B = 46.7B 总参数）
-- **激活参数**：$\approx$ 1$\times$ FFN 参数（如 Mixtral 每次激活 12.9B 参数）
+- **参数量**：$E \times$ FFN 参数（如 Mixtral 8x7B = 46.7B 总参数）
+- **激活参数**：$\approx$ 1x FFN 参数（如 Mixtral 每次激活 12.9B 参数）
 - **推理速度**：激活参数量量级（远小于总参数量）
 
 ### 6.3 Load Balancing Loss
@@ -384,7 +384,7 @@ $$
 - **GQA**（Grouped-Query Attention）：$h$ 个 Q head，但只有 $g$ 个 K/V head（$g \ll h$）。同组的 Q head 共享 K, V
 - **MQA**（Multi-Query Attention）：所有 Q head 共享一个 K, V（$g=1$）
 
-KV Cache 减小了 $h/g$ 倍。LLaMA-2 70B 使用 $g=8$（$h=64$），KV Cache 减少 8$\times$。
+KV Cache 减小了 $h/g$ 倍。LLaMA-2 70B 使用 $g=8$（$h=64$），KV Cache 减少 8x。
 
 ### 7.2 RMSNorm
 

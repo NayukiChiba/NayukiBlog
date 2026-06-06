@@ -14,9 +14,9 @@ status: published
 
 有句经验之谈：如果你只能调一个超参数，那就调学习率。
 
-- 学习率太大 $\rightarrow$ 损失上下跳，无法收敛
-- 学习率太小 $\rightarrow$ [[NeuralNetwork/Troubleshooting/SlowConvergence|收敛太慢]]，可能陷入局部最优
-- 学习率刚好 $\rightarrow$ 快速稳定收敛
+- 学习率太大 -> 损失上下跳，无法收敛
+- 学习率太小 -> [[NeuralNetwork/Troubleshooting/SlowConvergence|收敛太慢]]，可能陷入局部最优
+- 学习率刚好 -> 快速稳定收敛
 
 **为什么需要动态调整？** 训练初期离最优解远，需要大步快走（大 LR）。训练后期接近最优解，如果一直用大学习率，会在最优解附近来回震荡无法收敛。大步可能跨过头，需要小步微调（小 LR）。
 

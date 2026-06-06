@@ -172,7 +172,7 @@ XGBoost 寻找候选分裂点时，不用简单的等频分桶（直方图），
 | 目标函数近似 | 一阶（仅梯度） | 一阶（仅梯度） | **二阶（梯度 + Hessian）** |
 | 正则化 | 学习率收缩 | 学习率收缩 | **学习率 + L1 + L2 + gamma 剪枝** |
 | 叶子权重 | 逐点线搜索 | 逐点线搜索 | **闭式解**（二次近似） |
-| 分裂点搜索 | 预排序 $\rightarrow$ 逐一计算 | 直方图分桶 | **加权分位数草图** |
+| 分裂点搜索 | 预排序 -> 逐一计算 | 直方图分桶 | **加权分位数草图** |
 | 缺失值 | 不支持 | 不支持 | **稀疏感知——自动学习最优方向** |
 | 并行 | 无 | 直方图构建级 | **列块级** |
 | 树生长 | Level-wise | Leaf-wise | Level-wise（近似） |
@@ -186,7 +186,7 @@ XGBoost 寻找候选分裂点时，不用简单的等频分桶（直方图），
 
 ## 小结
 
-- XGBoost 的数学核心链：加法模型 $\rightarrow$ 二阶泰勒展开（$g_i + \frac{1}{2}h_i f^2$）$\rightarrow$ 正则化目标（$+\gamma T + \frac{1}{2}\lambda\|\mathbf{w}\|^2 + \alpha\|\mathbf{w}\|_1$）$\rightarrow$ 叶子权重闭式解 $w_j^* = -\frac{G_j}{H_j+\lambda}$ $\rightarrow$ 分裂增益公式 $\rightarrow$ 精确剪枝。
+- XGBoost 的数学核心链：加法模型 -> 二阶泰勒展开（$g_i + \frac{1}{2}h_i f^2$）-> 正则化目标（$+\gamma T + \frac{1}{2}\lambda\|\mathbf{w}\|^2 + \alpha\|\mathbf{w}\|_1$）-> 叶子权重闭式解 $w_j^* = -\frac{G_j}{H_j+\lambda}$ -> 分裂增益公式 -> 精确剪枝。
 - 与 GBDT/LightGBM 的最关键区别：二阶展开 + 显式正则化项——前者提供更精确的目标近似，后者提供更强的过拟合控制。
 - 当前源码 `XGBRegressor(n_estimators=300, max_depth=6, reg_lambda=1.0, reg_alpha=0.0, gamma=0.0)` 是回归任务的经典配置——L2 默认开启、无 L1 稀疏、无最低分裂增益。
 
@@ -204,7 +204,7 @@ XGBoost 寻找候选分裂点时，不用简单的等频分桶（直方图），
 |---|---|---|
 | `EnsembleData.xgboost()` | 静态方法 | 返回加州房价真实数据集 |
 | `fetch_california_housing(...)` | 函数 | scikit-learn 提供的真实世界加州房价数据集加载器 |
-| `xgboost_data` | 变量 | 在 `data_generation/__init__.py` 中导出的全局 DataFrame（20640 $\times$ 9） |
+| `xgboost_data` | 变量 | 在 `data_generation/__init__.py` 中导出的全局 DataFrame（20640 x 9） |
 | `price` | 目标列 | 连续值回归目标——加州地区房屋中位价（单位：10 万美元） |
 | `train_test_split` | 函数 | 训练/测试切分——无 `stratify` 参数（回归任务） |
 
@@ -1200,4 +1200,4 @@ model = train_model(X_train, y_train, subsample=0.5, colsample_bytree=0.5)
 
 - 7 个自检问题覆盖 XGBoost 的核心创新：二阶泰勒展开、三重正则化、闭式解、加权分位数、`min_child_weight` 含义、与其他集成模型对比。
 - 5 个动手练习从不同角度探索 XGBoost 的行为——调整 L2 正则化、gamma 门槛、树深度、对比 GBDT 回归、改变采样比例。
-- 4 篇参考文献从原始论文（Chen & Guestrin 2016）$\rightarrow$ 官方文档 $\rightarrow$ API 参考 $\rightarrow$ GBDT 理论基础构成完整的阅读路线。
+- 4 篇参考文献从原始论文（Chen & Guestrin 2016）-> 官方文档 -> API 参考 -> GBDT 理论基础构成完整的阅读路线。

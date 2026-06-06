@@ -260,7 +260,7 @@ $$
 
 ## 小结
 
-- HMM 的数学核心链：马尔可夫假设 $\rightarrow$ 五元组定义 $\rightarrow$ 三大问题（评估/解码/学习）$\rightarrow$ Forward（求和递推）/ Viterbi（取最大递推+回溯）/ Baum-Welch（Forward-Backward + 计数重估）。
+- HMM 的数学核心链：马尔可夫假设 -> 五元组定义 -> 三大问题（评估/解码/学习）-> Forward（求和递推）/ Viterbi（取最大递推+回溯）/ Baum-Welch（Forward-Backward + 计数重估）。
 - 与 EM (GMM) 的根本区别：HMM 的隐变量有时间依赖（马尔可夫链），E 步需成对后验 $\xi_t(i,j)$，预测需 Viterbi 全局解码——而非逐点独立计算。
 - 当前源码 `CategoricalHMM(n_components=3, n_iter=100)` 将上述数学全部封装在 `fit`/`predict`/`score` 三个方法中——`transmat_`、`emissionprob_`、`startprob_` 是训练后的可直接检验的参数。
 
@@ -277,7 +277,7 @@ $$
 | 名称 | 类型 | 作用 |
 |---|---|---|
 | `ProbabilisticData.hmm()` | 方法 | 手动参数化生成 HMM 离散观测序列——含真实隐状态 |
-| `hmm_data` | 全局变量 | 在 `data_generation/__init__.py` 中导出的 DataFrame（300 行 $\times$ 3 列） |
+| `hmm_data` | 全局变量 | 在 `data_generation/__init__.py` 中导出的 DataFrame（300 行 x 3 列） |
 | `obs` | 列 | 离散观测符号序列 $\{0, 1, 2\}$——训练 HMM 的唯一输入 |
 | `state_true` | 列 | 数据生成时记录的真实隐状态——仅用于训练后评估对比 |
 | `reshape(-1, 1)` | 操作 | 将一维序列整形为 hmmlearn 要求的列向量 `(300, 1)` |

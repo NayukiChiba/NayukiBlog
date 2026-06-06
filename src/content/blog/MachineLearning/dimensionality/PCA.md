@@ -161,7 +161,7 @@ $$
 
 ## 小结
 
-- PCA 的数学核心链：中心化数据 $\rightarrow$ 协方差矩阵 $\mathbf{S}$ $\rightarrow$ 特征值问题 $\mathbf{S}\mathbf{u} = \lambda\mathbf{u}$ $\rightarrow$ 等价于 SVD $\mathbf{X} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^T$ $\rightarrow$ 取最大 $q$ 个特征向量作为主成分方向。
+- PCA 的数学核心链：中心化数据 -> 协方差矩阵 $\mathbf{S}$ -> 特征值问题 $\mathbf{S}\mathbf{u} = \lambda\mathbf{u}$ -> 等价于 SVD $\mathbf{X} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^T$ -> 取最大 $q$ 个特征向量作为主成分方向。
 - 特征值 $\lambda_k$ 就是该方向的投影方差，`explained_variance_ratio_` 就是各方向方差占总方差的比例。
 - 当前源码 `PCA(n_components=2, svd_solver='auto', random_state=42)` 针对低秩合成数据（3 个真实方向 + 10 维表面特征）是展示方差压缩最经典的教学配置。
 

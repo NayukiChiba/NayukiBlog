@@ -188,7 +188,7 @@ if gradNorm > 10:
 
 | 症状 | 可能原因 | 首选方案 |
 | --- | --- | --- |
-| Loss $\rightarrow$ NaN | 梯度爆炸 | 梯度裁剪 + 降低 LR |
+| Loss -> NaN | 梯度爆炸 | 梯度裁剪 + 降低 LR |
 | Loss 震荡不定 | 梯度偏大 | 梯度裁剪 |
 | Loss 完全不变 | 梯度消失 | 换 ReLU + Kaiming |
 | 浅层梯度 $\approx$ 0 | 梯度消失 | BN + 残差连接 |

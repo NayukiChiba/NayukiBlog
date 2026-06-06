@@ -232,7 +232,7 @@ $$
 
 ## 小结
 
-- LDA 的数学核心链：类内/类间散度矩阵 $\mathbf{S}_W, \mathbf{S}_B$ $\rightarrow$ Fisher 准则 $\max \mathbf{w}^T\mathbf{S}_B\mathbf{w} / \mathbf{w}^T\mathbf{S}_W\mathbf{w}$ $\rightarrow$ 广义特征值问题 $\mathbf{S}_B\mathbf{w} = \lambda \mathbf{S}_W\mathbf{w}$ $\rightarrow$ $\mathbf{S}_W^{-1}\mathbf{S}_B$ 特征分解 $\rightarrow$ 取最大 $q \leq K-1$ 个特征向量作为判别方向。
+- LDA 的数学核心链：类内/类间散度矩阵 $\mathbf{S}_W, \mathbf{S}_B$ -> Fisher 准则 $\max \mathbf{w}^T\mathbf{S}_B\mathbf{w} / \mathbf{w}^T\mathbf{S}_W\mathbf{w}$ -> 广义特征值问题 $\mathbf{S}_B\mathbf{w} = \lambda \mathbf{S}_W\mathbf{w}$ -> $\mathbf{S}_W^{-1}\mathbf{S}_B$ 特征分解 -> 取最大 $q \leq K-1$ 个特征向量作为判别方向。
 - $K-1$ 维上限来自 $\text{rank}(\mathbf{S}_B) \leq K-1$ 的秩论证——这是 LDA 区别于 PCA 最核心的数学约束。
 - 当前源码 `LinearDiscriminantAnalysis(n_components=2, solver='svd')` 针对 Wine 数据（$K=3$）是最经典的监督降维配置。
 

@@ -143,7 +143,7 @@ $$
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
 | `penalty` | `str` 或 `None` | 正则化类型。`"l2"` 对 $\|\mathbf{w}\|_2^2$ 惩罚，系数趋于均匀收缩；`"l1"` 对 $\|\mathbf{w}\|_1$ 惩罚，产生稀疏解；`"elasticnet"` 为两者混合；`None` 不做正则化。默认为 `"l2"` | `"l2"`、`"l1"`、`"elasticnet"`、`None` |
-| `C` | `float` | 正则化强度的倒数，数学上 $\lambda = 1/C$。$C$ 越大 $\rightarrow$ 正则越弱 $\rightarrow$ 模型越自由；$C$ 越小 $\rightarrow$ 正则越强 $\rightarrow$ 系数越收缩趋于 0。默认为 `1.0` | `0.01`、`1.0`、`100.0` |
+| `C` | `float` | 正则化强度的倒数，数学上 $\lambda = 1/C$。$C$ 越大 -> 正则越弱 -> 模型越自由；$C$ 越小 -> 正则越强 -> 系数越收缩趋于 0。默认为 `1.0` | `0.01`、`1.0`、`100.0` |
 | `l1_ratio` | `float` | L1 正则化在 elasticnet 中的混合比例。仅当 `penalty='elasticnet'` 时生效。$\text{penalty} = \rho \|\mathbf{w}\|_1 + (1-\rho)\|\mathbf{w}\|_2^2$。默认为 `None` | `0.0`、`0.5`、`1.0` |
 
 ### 理解重点
@@ -193,12 +193,12 @@ $$
 |---|---|---|
 | 线性得分 | $z = \mathbf{w}^T\mathbf{x} + b$ | `model.decision_function(X)` |
 | Sigmoid 概率 | $\sigma(z) = 1/(1+e^{-z})$ | `model.predict_proba(X)[:, 1]` |
-| 决策边界 | $\mathbf{w}^T\mathbf{x} + b = 0$ | `model.coef_` $\times$ `X` + `model.intercept_` = 0 |
+| 决策边界 | $\mathbf{w}^T\mathbf{x} + b = 0$ | `model.coef_` x `X` + `model.intercept_` = 0 |
 | 权重系数 | $\mathbf{w} \in \mathbb{R}^d$ | `model.coef_` |
 | 截距 | $b \in \mathbb{R}$ | `model.intercept_` |
 | 交叉熵损失 | $\mathcal{L} = -\frac{1}{N}\sum[y_i\ln\hat{p}_i + (1-y_i)\ln(1-\hat{p}_i)]$ | `solver='lbfgs'` 内部优化目标 |
 | L2 正则化 | $\frac{1}{2C}\|\mathbf{w}\|_2^2$ | `penalty='l2'`，`C=1.0` |
-| 正则化倒数 | $\lambda = 1/C$ | `C=1.0` $\rightarrow$ $\lambda = 1.0$ |
+| 正则化倒数 | $\lambda = 1/C$ | `C=1.0` -> $\lambda = 1.0$ |
 | 优化器 | — | `solver='lbfgs'` |
 
 ## 常见坑
@@ -210,7 +210,7 @@ $$
 
 ## 小结
 
-- 逻辑回归的核心数学链：线性得分 $z = \mathbf{w}^T\mathbf{x} + b$ $\rightarrow$ Sigmoid 概率 $\sigma(z)$ $\rightarrow$ 交叉熵损失 $\mathcal{L}$ $\rightarrow$ 梯度下降优化 $\rightarrow$ 正则化控制复杂度。
+- 逻辑回归的核心数学链：线性得分 $z = \mathbf{w}^T\mathbf{x} + b$ -> Sigmoid 概率 $\sigma(z)$ -> 交叉熵损失 $\mathcal{L}$ -> 梯度下降优化 -> 正则化控制复杂度。
 - `coef_` 与 `intercept_` 直接决定线性决策边界 $\mathbf{w}^T\mathbf{x} + b = 0$ 的位置——$w_j > 0$ 推高正类概率，$w_j < 0$ 压低正类概率。
 - `C` 是 $\lambda$ 的倒数（$\lambda = 1/C$），$C$ 越大正则越弱——这个方向是当前文档必须反复强调的重点。
 - 当前源码默认使用 L2 正则化 + `lbfgs` 优化器的二分类逻辑回归，与当前高维近线性可分数据高度匹配。

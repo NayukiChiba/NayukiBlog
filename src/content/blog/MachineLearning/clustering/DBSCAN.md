@@ -114,7 +114,7 @@ $\mathbf{x}$ 和 $\mathbf{x}'$ 密度相连，当存在点 $\mathbf{o}$，使得
 
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
-| `eps` | `float` | $\epsilon$ 邻域半径。$\epsilon \uparrow$ $\rightarrow$ 更多点被纳入邻域，大簇倾向、噪声点减少；$\epsilon \downarrow$ $\rightarrow$ 邻居门槛变严，小簇倾向、噪声点增多。默认 `0.3` | `0.2`、`0.3`、`0.5`、`1.0` |
+| `eps` | `float` | $\epsilon$ 邻域半径。$\epsilon \uparrow$ -> 更多点被纳入邻域，大簇倾向、噪声点减少；$\epsilon \downarrow$ -> 邻居门槛变严，小簇倾向、噪声点增多。默认 `0.3` | `0.2`、`0.3`、`0.5`、`1.0` |
 | `min_samples` | `int` | 核心点判定阈值 $\text{MinPts}$。值越大，成为核心点的门槛越高，簇更保守、噪声可能更多。默认 `5` | `3`、`5`、`10`、`20` |
 
 ### 理解重点

@@ -90,9 +90,9 @@ $$
 
 | 年份 | 架构 | 核心创新 |
 | --- | --- | --- |
-| 1998 | LeNet-5 | 奠定 CNN 基础模式（Conv$\rightarrow$Pool$\rightarrow$FC） |
+| 1998 | LeNet-5 | 奠定 CNN 基础模式（Conv->Pool->FC） |
 | 2012 | AlexNet | ReLU 激活、Dropout、GPU 训练 |
-| 2014 | VGG | 全部使用 3$\times$3 小卷积核，网络更深 |
+| 2014 | VGG | 全部使用 3x3 小卷积核，网络更深 |
 | 2014 | NiN | MLP 卷积、用 GAP 替代全连接层 |
 | 2014 | GoogLeNet | Inception 多分支结构，22 层仅 7M 参数 |
 | 2015 | ResNet | 残差学习解决退化问题，可训练 152+ 层 |

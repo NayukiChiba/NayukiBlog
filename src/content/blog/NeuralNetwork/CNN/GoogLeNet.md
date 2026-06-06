@@ -11,7 +11,7 @@ status: published
 
 ## 1. 名字的由来
 
-GoogLeNet 是来自 Google 的团队（Szegedy 等人）在 2014 年 CVPR 上提出的架构，在当年 ImageNet 分类任务中击败 VGG 获得冠军。其名字是对 LeNet 的致敬（"Le" $\rightarrow$ "GoogLe"），论文标题是《Going Deeper with Convolutions》。
+GoogLeNet 是来自 Google 的团队（Szegedy 等人）在 2014 年 CVPR 上提出的架构，在当年 ImageNet 分类任务中击败 VGG 获得冠军。其名字是对 LeNet 的致敬（"Le" -> "GoogLe"），论文标题是《Going Deeper with Convolutions》。
 
 GoogLeNet 的核心是 Inception 模块——其灵感来自 [[NeuralNetwork/CNN/NiN|NiN]] 的 1x1 卷积和微型网络思想。
 

@@ -78,7 +78,7 @@ $$
 \boxed{X_n \xrightarrow{a.s.} X \;\Longrightarrow\; X_n \xrightarrow{P} X}
 $$
 
-几乎必然收敛 $\Rightarrow$ 依概率收敛，但**反过来不成立**。上面的"游荡 1"就是反例。
+几乎必然收敛 -> 依概率收敛，但**反过来不成立**。上面的"游荡 1"就是反例。
 
 ### 2.4 依分布收敛（Convergence in Distribution）
 
@@ -288,7 +288,7 @@ $$
 - $E[X_n] = n^2 \cdot \frac{1}{n^2} = 1$
 - $\operatorname{Var}(X_n) = E[X_n^2] - 1^2 = n^4 \cdot \frac{1}{n^2} - 1 = n^2 - 1$
 
-方差无界 $\rightarrow$ 切比雪夫形式不适用。辛钦形式要求 i.i.d.，此例不是同分布。**WLLN 可能成立也可能不成立**，取决于更精细的分析。
+方差无界 -> 切比雪夫形式不适用。辛钦形式要求 i.i.d.，此例不是同分布。**WLLN 可能成立也可能不成立**，取决于更精细的分析。
 
 关键启示：**SLLN 对条件更敏感**——它对尾部的衰减速率有实质性要求（需要 $E|X_1| < \infty$ 或更强的矩条件），有时在 WLLN 能"侥幸"成立的边缘地带，SLLN 不成立。
 
@@ -342,12 +342,12 @@ $$
 
 | 要点 | 说明 |
 |:--|:--|
-| 大数定律是一个定理家族 | Bernoulli $\rightarrow$ Chebyshev $\rightarrow$ Khinchin $\rightarrow$ Markov（WLLN 线）；Borel $\rightarrow$ Kolmogorov（SLLN 线） |
+| 大数定律是一个定理家族 | Bernoulli -> Chebyshev -> Khinchin -> Markov（WLLN 线）；Borel -> Kolmogorov（SLLN 线） |
 | WLLN 的定义 | $\bar{X}_n \xrightarrow{P} \mu$，即 $P(\vert\bar{X}_n - \mu\vert > \varepsilon) \to 0$ |
 | SLLN 的定义 | $\bar{X}_n \xrightarrow{a.s.} \mu$，即 $P(\lim \bar{X}_n = \mu) = 1$ |
 | 辛钦 WLLN vs 柯尔莫哥洛夫 SLLN | 条件**完全相同**（i.i.d. + $E\vert X\vert < \infty$），结论一弱一强——这是 SLLN 比 WLLN 强的终极证据 |
-| 核心不等式 | 切比雪夫 $\rightarrow$ WLLN；柯尔莫哥洛夫 $\rightarrow$ SLLN |
-| SLLN $\Rightarrow$ WLLN | 几乎必然收敛蕴含依概率收敛，反之不成立（"游荡 1"反例） |
+| 核心不等式 | 切比雪夫 -> WLLN；柯尔莫哥洛夫 -> SLLN |
+| SLLN -> WLLN | 几乎必然收敛蕴含依概率收敛，反之不成立（"游荡 1"反例） |
 | 辛钦 vs 切比雪夫 | 辛钦不要方差但要独立同分布；切比雪夫不要独立/同分布但要方差 |
 
 ---

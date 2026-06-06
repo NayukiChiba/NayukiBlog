@@ -65,7 +65,7 @@ mlpconv -> AdaptiveAvgPool2d(1) -> Flatten              # 几乎零参数
 2. **天然正则化**：没有参数就不会过拟合
 3. **空间信息编码**：每个通道的平均值代表了该特征在空间上的整体响应——通道本身就对应了"某个类别在图像中出现的程度"
 
-注意 NiN 的分类器仍然包含了一个 mlpconv（`nin_block(96$\rightarrow$num_classes, k=3)`），再接 GAP。这个最后的 mlpconv 将倒数第二层的 96 个特征通道映射为 num_classes 个通道，每个通道对应一个类别——GAP 后直接得到每个类别的置信度。
+注意 NiN 的分类器仍然包含了一个 mlpconv（`nin_block(96->num_classes, k=3)`），再接 GAP。这个最后的 mlpconv 将倒数第二层的 96 个特征通道映射为 num_classes 个通道，每个通道对应一个类别——GAP 后直接得到每个类别的置信度。
 
 ## 4. 完整架构
 

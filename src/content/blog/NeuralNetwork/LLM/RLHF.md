@@ -175,7 +175,7 @@ def rewardModelLoss(rmModel, prompts, responseChosen, responseRejected):
 ```
 
 **奖励模型的实现细节**：
-- 通常在 SFT 模型的基础上，将最后的 LM Head 替换为一个标量输出头（如一个线性层 `hidden_dim $\rightarrow$ 1`）
+- 通常在 SFT 模型的基础上，将最后的 LM Head 替换为一个标量输出头（如一个线性层 `hidden_dim -> 1`）
 - 奖励模型的最后一个 Token 的隐藏状态作为整条回答的表示，然后映射到标量分数
 
 ## 5. 阶段 3：用 PPO 优化策略

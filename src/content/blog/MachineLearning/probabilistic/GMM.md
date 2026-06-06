@@ -14,7 +14,7 @@ status: published
 
 ## 本章目标
 
-1. 理解高斯混合模型（GMM）的生成过程——$\pi_k$ 选分量 $\rightarrow$ $\mathcal{N}(\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$ 生成样本。
+1. 理解高斯混合模型（GMM）的生成过程——$\pi_k$ 选分量 -> $\mathcal{N}(\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$ 生成样本。
 2. 理解 EM 算法的两步迭代——E 步（计算责任）和 M 步（最大化参数）。
 3. 理解对数似然的下界保证——EM 保证对数似然单调不减。
 
@@ -178,7 +178,7 @@ $$
 
 ## 小结
 
-- EM 算法的数学核心链：GMM 生成模型 $p(\mathbf{x}) = \sum_k \pi_k \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$ $\rightarrow$ 隐变量 $\rightarrow$ E 步计算责任 $\gamma(z_{ik})$ $\rightarrow$ M 步责任加权更新参数 $\rightarrow$ 对数似然单调递增 $\rightarrow$ 局部收敛。
+- EM 算法的数学核心链：GMM 生成模型 $p(\mathbf{x}) = \sum_k \pi_k \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$ -> 隐变量 -> E 步计算责任 $\gamma(z_{ik})$ -> M 步责任加权更新参数 -> 对数似然单调递增 -> 局部收敛。
 - 与 KMeans 的根本区别：概率软赋值（$\gamma_{ik}$ 连续）vs 距离硬赋值（$r_{ik}$ 离散）、椭圆协方差 vs 球形距离。
 - 当前源码 `GaussianMixture(n_components=3, covariance_type="full", max_iter=200)` 是 GMM 最灵活的教学配置——允许每个分量有独立的全协方差矩阵。
 
@@ -1118,4 +1118,4 @@ labels_km = model_km.predict(X_scaled)
 
 - 7 个自检问题覆盖 EM 算法的核心概念：E 步/M 步、软赋值、协方差类型、`lower_bound_`、参数更新公式、$K$ 选择、与 KMeans 对比。
 - 5 个动手练习从不同角度探索 GMM 的行为——改变协方差类型、错误设定分量数、测试随机种子、分析软归属、对比 KMeans。
-- 4 篇参考文献从原始论文（Dempster et al. 1977）$\rightarrow$ 教材（Bishop + Murphy）$\rightarrow$ 官方文档构成完整的阅读路线。
+- 4 篇参考文献从原始论文（Dempster et al. 1977）-> 教材（Bishop + Murphy）-> 官方文档构成完整的阅读路线。

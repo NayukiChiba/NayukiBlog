@@ -188,7 +188,7 @@ $$
 
 ## 小结
 
-- 线性回归的数学核心链：线性模型 $\hat{y} = \mathbf{w}^T\mathbf{x} + b$ $\rightarrow$ OLS $\min \|\mathbf{y} - \mathbf{X}\tilde{\mathbf{w}}\|^2$ $\rightarrow$ 正规方程闭式解 $\rightarrow$ MLE 概率解释 $\rightarrow$ `coef_`/`intercept_` 工程映射。
+- 线性回归的数学核心链：线性模型 $\hat{y} = \mathbf{w}^T\mathbf{x} + b$ -> OLS $\min \|\mathbf{y} - \mathbf{X}\tilde{\mathbf{w}}\|^2$ -> 正规方程闭式解 -> MLE 概率解释 -> `coef_`/`intercept_` 工程映射。
 - 与决策树回归的根本区别：全局线性函数 vs 分段常数，闭式解 vs 贪心搜索，系数可解释 vs 重要性无方向。
 - 当前源码 `LinearRegression()` 是 OLS 的最简教学实现——无超参数、无标准化、关系透明，是回归学习的逻辑起点。
 
@@ -320,7 +320,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 | 数据来源 | 手工合成——显式线性公式 | California Housing 真实数据 | `make_friedman1`——非线性合成 |
 | 样本数 | 200 | 20640 | 200 |
 | 特征维度 | 3 | 8 | 10 |
-| 真实关系 | **已知——`2$\times$面积 + 10$\times$房间数 - 3$\times$房龄 + 50`** | 未知——真实世界复杂关系 | 已知——Friedman 非线性函数 |
+| 真实关系 | **已知——`2x面积 + 10x房间数 - 3x房龄 + 50`** | 未知——真实世界复杂关系 | 已知——Friedman 非线性函数 |
 | 噪声 | 显式高斯 $N(0,10^2)$ | 真实世界噪声 | 显式高斯噪声 |
 | 标准化 | 无 | 无 | 有（`StandardScaler`） |
 | 设计意图 | **系数可验证——关系透明的教学基线** | 真实数据非线性 + 特征交互 | 核方法非线性拟合 |
@@ -365,7 +365,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 | `LinearRegression` | 模型 | 用线性函数拟合连续值目标——回归建模的起点 |
 | `coef_` | 属性 | 各特征的线性系数——正值表示正向影响，负值表示负向影响 |
 | `intercept_` | 属性 | 截距——所有特征取 0 时的基线预测值 |
-| 真实生成公式 | 数据 | `price = 2$\times$面积 + 10$\times$房间数 - 3$\times$房龄 + noise + 50`——训练后可直接对照 |
+| 真实生成公式 | 数据 | `price = 2x面积 + 10x房间数 - 3x房龄 + noise + 50`——训练后可直接对照 |
 
 ## 1. 线性回归想做什么
 

@@ -69,7 +69,7 @@ $$
 
 **（4）独立性 $\iff$ 不相关性**
 
-对多元正态，这是**充要条件**（一般分布只有"独立 $\Rightarrow$ 不相关"）：
+对多元正态，这是**充要条件**（一般分布只有"独立 -> 不相关"）：
 
 $$
 X_i \perp\!\!\!\perp X_j \quad\iff\quad \Sigma_{ij} = 0
@@ -217,8 +217,8 @@ $$
 
 $\mathbf{W}$ = 组内离差矩阵（"噪声"），$\mathbf{B} + \mathbf{W} = \mathbf{T}$ = 总离差矩阵（"信号 + 噪声"）。
 
-- $H_0$ 成立（各组均值相等）$\rightarrow$ $\mathbf{B}$ 很小 $\rightarrow$ $|\mathbf{B}+\mathbf{W}| \approx |\mathbf{W}|$ $\rightarrow$ **$\Lambda \approx 1$**
-- $H_0$ 不成立 $\rightarrow$ $\mathbf{B}$ 很大 $\rightarrow$ $|\mathbf{B}+\mathbf{W}| \gg |\mathbf{W}|$ $\rightarrow$ **$\Lambda \ll 1$**
+- $H_0$ 成立（各组均值相等）-> $\mathbf{B}$ 很小 -> $|\mathbf{B}+\mathbf{W}| \approx |\mathbf{W}|$ -> **$\Lambda \approx 1$**
+- $H_0$ 不成立 -> $\mathbf{B}$ 很大 -> $|\mathbf{B}+\mathbf{W}| \gg |\mathbf{W}|$ -> **$\Lambda \ll 1$**
 
 $\Lambda$ 越小，越拒绝 $H_0$。这是一元 ANOVA 中 "$F$ 值越大越显著"的多元对应（$\Lambda$ 本质上是 $1/(1+F)$ 的推广）。
 
@@ -302,7 +302,7 @@ $$
 对 $\hat{\Sigma}$ 做特征分解 $\hat{\Sigma} = \mathbf{V}\mathbf{\Lambda}\mathbf{V}^\top$：
 - **主轴方向** = 特征向量 $\mathbf{v}_1, \dots, \mathbf{v}_d$
 - **半轴长度** = $\sqrt{\lambda_i} \cdot c$
-- 最大特征值方向 = 数据方差最大的方向 $\rightarrow$ **第一主成分**
+- 最大特征值方向 = 数据方差最大的方向 -> **第一主成分**
 
 **Mahalanobis 距离**以协方差矩阵为度量，考虑了各维度的方差和相关性：
 

@@ -188,7 +188,7 @@ $$
 | 核系数 | $\gamma = 1/(d \cdot \text{Var}(X))$（`'scale'`） | `gamma='scale'` |
 | 支持向量数量 | — | `model.n_support_` |
 | 支持向量 | $SV = \{\mathbf{x}_i \mid \alpha_i > 0\}$ | `model.support_vectors_` |
-| 对偶系数 $\times$ 标签 | $\alpha_i y_i$ | `model.dual_coef_` |
+| 对偶系数 x 标签 | $\alpha_i y_i$ | `model.dual_coef_` |
 | 决策函数偏置 | $b$ | `model.intercept_` |
 | 类别标签 | $\{-1, +1\}$（内部），$\{0, 1\}$（用户侧） | `model.classes_` |
 | 标准化 | $z_j = (x_j - \mu_j)/\sigma_j$ | `StandardScaler` |
@@ -203,7 +203,7 @@ $$
 
 ## 小结
 
-- SVC 的数学核心链：最大间隔 $\min\frac{1}{2}\|\mathbf{w}\|^2$ $\rightarrow$ 软间隔 $+C\sum\xi_i$ $\rightarrow$ 对偶形式 + 内积 $\rightarrow$ RBF 核 $K(\mathbf{x},\mathbf{z}) = \exp(-\gamma\|\mathbf{x}-\mathbf{z}\|^2)$ $\rightarrow$ 决策函数 $f(\mathbf{x}) = \sum\alpha_i y_i K(\mathbf{x}_i, \mathbf{x}) + b$。
+- SVC 的数学核心链：最大间隔 $\min\frac{1}{2}\|\mathbf{w}\|^2$ -> 软间隔 $+C\sum\xi_i$ -> 对偶形式 + 内积 -> RBF 核 $K(\mathbf{x},\mathbf{z}) = \exp(-\gamma\|\mathbf{x}-\mathbf{z}\|^2)$ -> 决策函数 $f(\mathbf{x}) = \sum\alpha_i y_i K(\mathbf{x}_i, \mathbf{x}) + b$。
 - $C$ 控制软间隔容错，$\gamma$ 控制 RBF 核局部半径——两者联合决定模型复杂度。
 - 支持向量（`n_support_`）是 SVC 独有的教学视角——理解它们就是理解 SVC 行为的关键。
 - 当前源码 `SVC(C=1.0, kernel='rbf', gamma='scale')` 是最经典的非线性 SVM 配置——直接回应同心圆数据的线性不可分特性。

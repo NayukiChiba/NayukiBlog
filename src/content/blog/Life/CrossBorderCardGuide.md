@@ -49,7 +49,7 @@ status: published
 
 ### 2.2 线下刷卡设置
 
-路径：手机银行 $\rightarrow$ 我的 $\rightarrow$ 我的账户 $\rightarrow$ 选中跨境通卡 $\rightarrow$ **限额设置**
+路径：手机银行 -> 我的 -> 我的账户 -> 选中跨境通卡 -> **限额设置**
 
 需要开通以下两项功能：
 
@@ -60,7 +60,7 @@ status: published
 
 ### 2.3 线上支付设置
 
-路径：手机银行 $\rightarrow$ 我的 $\rightarrow$ 我的账户 $\rightarrow$ 选中跨境通卡 $\rightarrow$ **支付设置**
+路径：手机银行 -> 我的 -> 我的账户 -> 选中跨境通卡 -> **支付设置**
 
 需要开通以下功能：
 
