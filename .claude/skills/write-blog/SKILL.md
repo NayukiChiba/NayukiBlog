@@ -155,6 +155,7 @@ $$
 - **不要用 ASCII 艺术图**（`│├└┌` 等字符画的树形图、流程图）。用文字描述逻辑关系
 - **不要用 Mermaid 图**
 - 不要在代码块中使用非 ASCII 的箭头符号（代码注释中 `→` 可以保留）
+- 在code block中不允许使用讲解, 只允许出现代码和项目架构, 其他的东西都不允许, 比如决策树等
 
 ---
 
@@ -177,15 +178,15 @@ python script.py
 ### Python 代码规范
 
 - 使用中文 docstring 和注释
-- 函数用驼峰命名法（如 `computeAccuracy`、`sampleCovariance`）
-- 变量用驼峰命名法（如 `allPreds`、`numClasses`）
+- 函数用snake_case命名法（如 `computeAccuracy`、`sampleCovariance`）
+- 变量用snake_case命名法（如 `allPreds`、`numClasses`）
 - 类型提示放在 docstring 中
 - 代码块只放代码，不放讲解文字
 
 **正确示例**：
 
 ```python
-def sampleCovariance(X: np.ndarray, bias: bool = False) -> np.ndarray:
+def sample_covariance(X: np.ndarray, bias: bool = False) -> np.ndarray:
     """
     计算样本协方差矩阵
 
@@ -207,7 +208,7 @@ def sampleCovariance(X: np.ndarray, bias: bool = False) -> np.ndarray:
 # 这里我们先计算协方差矩阵
 # 协方差矩阵是一个 d×d 的矩阵
 # 对角元是方差，非对角元是协方差
-cov = sampleCovariance(data)  # ← 这些讲解应该在代码块外面的正文里
+cov = sample_covariance(data)  # ← 这些讲解应该在代码块外面的正文里
 ```
 
 ---
@@ -566,9 +567,10 @@ status: published
 - [ ] 所有数学符号使用 LaTeX（`$...$` 或 `$$...$$`）
 - [ ] 核心公式使用 `\boxed{}`
 - [ ] 无 ASCII 艺术图（`│├└┌` 等）
+- [ ] code block 中只有代码或者项目架构, 没有讲解或者决策树等
 - [ ] 无 Mermaid 图
 - [ ] 代码块有语言标记且不包含讲解文字
-- [ ] 变量/函数名使用驼峰命名法
+- [ ] 变量/函数名使用snake_case命名法
 - [ ] Wiki 链接格式正确（无 `.md` 扩展名）
 - [ ] 文章末尾有"相关文章"双链
 - [ ] Fold 块正确配对（`:::fold[...]` 和 `:::`）
