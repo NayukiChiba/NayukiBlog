@@ -1,0 +1,179 @@
+/* =========================================================
+   Markdown 代码块 — 简约窗口风格 + 行号 + 限高滚动
+   结构由 CodeBlockScript.astro 在客户端生成：
+   .code-block-wrapper > .code-header + .code-content > pre
+   ========================================================= */
+
+.code-block-wrapper {
+  margin: 1.5rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--color-border, #e5e5e5);
+  background-color: var(--code-bg, #fafafa);
+}
+
+/* ============ 头部栏 ============ */
+.code-header {
+  display: flex;
+  align-items: center;
+  padding: 0.625rem 1rem;
+  background-color: var(--code-header-bg, #f5f5f5);
+  border-bottom: 1px solid var(--color-border-light, #f0f0f0);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  user-select: none;
+}
+
+/* Mac 风格三色点 */
+.code-header::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff5f56;
+  box-shadow: 18px 0 0 #ffbd2e, 36px 0 0 #27c93f;
+  margin-right: auto;
+  opacity: 0.85;
+}
+
+/* 语言标签：主题色小字 */
+.code-language {
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary, #8a8a8a);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  margin-right: 0.8rem;
+  opacity: 0.85;
+}
+
+/* ============ 操作按钮 ============ */
+.code-actions {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.code-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 6px;
+  color: #999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.code-btn:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  color: var(--color-text, #111111);
+}
+
+.code-actions svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+.icon-check {
+  display: none;
+  color: #16a34a;
+}
+
+.code-btn.copied .icon-copy {
+  display: none;
+}
+
+.code-btn.copied .icon-check {
+  display: inline-block;
+}
+
+/* 折叠按钮箭头旋转 */
+.code-collapse-btn {
+  transition: transform 0.3s ease;
+}
+
+.code-block-wrapper.collapsed .code-collapse-btn {
+  transform: rotate(-90deg);
+}
+
+/* ============ 代码区：默认展开，超高滚动 ============ */
+.code-content {
+  position: relative;
+}
+
+/* 手动折叠时隐藏 */
+.code-block-wrapper.collapsed .code-content {
+  display: none;
+}
+
+/* pre：限高 + 内部滚动 */
+pre.astro-code,
+.content pre {
+  margin: 0 !important;
+  padding: 1rem !important;
+  background: var(--code-bg, #fafafa) !important;
+  color: #24292e !important;
+  max-height: var(--code-max-height, 480px);
+  overflow: auto;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
+  font-size: 0.92em !important;
+  line-height: 1.6 !important;
+  text-align: left;
+  white-space: pre !important;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  tab-size: 4;
+  hyphens: none;
+}
+
+pre.astro-code code,
+.content pre code {
+  background: transparent !important;
+  padding: 0;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  color: inherit;
+}
+
+/* ============ 行号（纯 CSS，复制时不会带入）============ */
+pre.astro-code code {
+  counter-reset: line;
+}
+
+pre.astro-code .line {
+  display: inline;
+}
+
+pre.astro-code .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1.5rem;
+  margin-right: 1.25rem;
+  text-align: right;
+  color: #b8b8b8;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+/* 代码选中样式 */
+pre.astro-code ::selection,
+pre.astro-code code ::selection {
+  background: #d4d4d4;
+}
+
+/* ============ 行内代码：浅主题色底 ============ */
+.content :not(pre) > code {
+  background-color: var(--color-primary-subtle, #f0f0f0);
+  color: var(--color-primary-dark, #1f2328);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-size: 0.9em;
+}

@@ -1,0 +1,187 @@
+---
+// TocScript.astro - 目录（TOC）生成、滚动高亮、折叠、移动端抽屉
+---
+
+<script is:inline>
+  (function () {
+    function initToc() {
+      // 顶部 TOC 标题点击折叠
+      const tocHeader = document.getElementById("toc-header-clickable");
+      const tocToggle = document.getElementById("toc-toggle");
+      const tocNav = document.getElementById("article-toc");
+
+      if (tocHeader && tocToggle && tocNav) {
+        tocHeader.addEventListener("click", () => {
+          tocNav.classList.toggle("collapsed");
+          tocToggle.classList.toggle("collapsed");
+        });
+      }
+
+      const tocContainer = document.getElementById("article-toc");
+      const mobileTocContainer = document.getElementById("mobile-toc");
+      const contentEl = document.querySelector(".content");
+
+      // 移动端目录抽屉
+      const tocFloatBtn = document.getElementById("toc-float-btn");
+      const tocDrawer = document.getElementById("toc-drawer");
+      const tocOverlay = document.getElementById("toc-overlay");
+      const tocDrawerClose = document.getElementById("toc-drawer-close");
+
+      // 确保初始状态关闭
+      tocDrawer?.classList.remove("open");
+      tocOverlay?.classList.remove("visible");
+
+      function openTocDrawer() {
+        tocDrawer?.classList.add("open");
+        tocOverlay?.classList.add("visible");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeTocDrawer() {
+        tocDrawer?.classList.remove("open");
+        tocOverlay?.classList.remove("visible");
+        document.body.style.overflow = "";
+      }
+
+      tocFloatBtn?.addEventListener("click", openTocDrawer);
+      tocDrawerClose?.addEventListener("click", closeTocDrawer);
+      tocOverlay?.addEventListener("click", closeTocDrawer);
+
+      if ((!tocContainer && !mobileTocContainer) || !contentEl) return;
+
+      // 获取所有标题（排除 <details> 折叠块内的标题）
+      const allHeadings = contentEl.querySelectorAll("h1, h2, h3, h4");
+      const headings = Array.from(allHeadings).filter(
+        (h) => !h.closest("details"),
+      );
+
+      if (headings.length === 0) {
+        // 没有标题时隐藏目录栏和移动端按钮
+        const sidebar = document.querySelector(".toc-sidebar");
+        const mobileBtn = document.querySelector(".mobile-toc-btn");
+        if (sidebar) sidebar.style.display = "none";
+        if (mobileBtn) mobileBtn.style.display = "none";
+        return;
+      }
+
+      // 生成目录列表
+      const createTocList = (forMobile) => {
+        const ul = document.createElement("ul");
+
+        headings.forEach((heading, index) => {
+          if (!heading.id) {
+            heading.id = "heading-" + index;
+          }
+
+          const li = document.createElement("li");
+          const level = parseInt(heading.tagName.substring(1));
+          li.className = `toc-item level-${level}`;
+          li.dataset.level = level.toString();
+
+          const div = document.createElement("div");
+          div.className = "toc-item-container";
+
+          const a = document.createElement("a");
+          a.href = "#" + heading.id;
+          a.textContent = heading.textContent;
+
+          a.addEventListener("click", (e) => {
+            e.preventDefault();
+            heading.scrollIntoView({ behavior: "smooth", block: "start" });
+            history.replaceState(null, "", "#" + heading.id);
+            if (forMobile) closeTocDrawer();
+          });
+
+          div.appendChild(a);
+          li.appendChild(div);
+          ul.appendChild(li);
+        });
+
+        return ul;
+      };
+
+      // 桌面端目录 + 层级折叠
+      if (tocContainer) {
+        tocContainer.appendChild(createTocList(false));
+
+        const tocItems = tocContainer.querySelectorAll(".toc-item");
+        tocItems.forEach((item, index) => {
+          const currentLevel = parseInt(item.dataset.level || "0");
+          const nextItem = tocItems[index + 1];
+          if (!nextItem) return;
+
+          const nextLevel = parseInt(nextItem.dataset.level || "0");
+          if (nextLevel <= currentLevel) return;
+
+          const btn = document.createElement("span");
+          btn.className = "toc-collapse-btn";
+          btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+
+          const container = item.querySelector(".toc-item-container");
+          if (container) {
+            container.appendChild(btn);
+            item.classList.add("has-children");
+          }
+
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            btn.classList.toggle("collapsed");
+            const isCollapsed = btn.classList.contains("collapsed");
+
+            for (let i = index + 1; i < tocItems.length; i++) {
+              const sibling = tocItems[i];
+              const siblingLevel = parseInt(sibling.dataset.level || "0");
+              if (siblingLevel <= currentLevel) break;
+              sibling.classList.toggle("hidden-by-parent", isCollapsed);
+            }
+          });
+        });
+      }
+
+      // 移动端目录
+      if (mobileTocContainer) {
+        mobileTocContainer.appendChild(createTocList(true));
+      }
+
+      // 滚动监听：高亮当前章节
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            document
+              .querySelectorAll(".toc-item a")
+              .forEach((link) => link.classList.remove("active"));
+
+            const id = entry.target.id;
+            const activeLinks = document.querySelectorAll(
+              `.toc-item a[href="#${id}"]`,
+            );
+            activeLinks.forEach((activeLink) => {
+              activeLink.classList.add("active");
+
+              // 自动滚动目录，使当前高亮项保持可见
+              const nav = activeLink.closest("#article-toc");
+              if (nav) {
+                const linkRect = activeLink.getBoundingClientRect();
+                const navRect = nav.getBoundingClientRect();
+                if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                  activeLink.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+              }
+            });
+          });
+        },
+        { root: null, rootMargin: "-100px 0px -70% 0px", threshold: 0 },
+      );
+
+      headings.forEach((h) => observer.observe(h));
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initToc);
+    } else {
+      initToc();
+    }
+  })();
+</script>

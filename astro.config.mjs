@@ -56,7 +56,8 @@ export default defineConfig({
         "r", "matlab",
         "latex", "tex",
       ],
-      wrap: true,
+      // 代码不自动换行，长行通过横向滚动查看
+      wrap: false,
     },
   },
 

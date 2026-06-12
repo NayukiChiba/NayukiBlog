@@ -1,7 +1,13 @@
 <script>
+  // GitHub 卡片客户端兜底：仅处理构建时抓取失败的卡片（无 data-loaded 标记）
   class GithubCardInit {
+    static formatCount(num: number): string {
+      if (num >= 1000) return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+      return String(num);
+    }
+
     static init() {
-      document.querySelectorAll('.gc-card[data-repo]').forEach((card) => {
+      document.querySelectorAll('.gc-card[data-repo]:not([data-loaded])').forEach((card) => {
         const repo = (card as HTMLElement).dataset.repo!;
         fetch(`https://api.github.com/repos/${repo}`)
           .then((r) => r.json())
@@ -11,8 +17,15 @@
             const starsEl = card.querySelector('[data-repo-stars]');
             const forksEl = card.querySelector('[data-repo-forks]');
             if (descEl) descEl.textContent = data.description || '';
-            if (starsEl) starsEl.textContent = data.stargazers_count ?? '--';
-            if (forksEl) forksEl.textContent = data.forks_count ?? '--';
+            if (starsEl) starsEl.textContent =
+              typeof data.stargazers_count === 'number'
+                ? GithubCardInit.formatCount(data.stargazers_count)
+                : '--';
+            if (forksEl) forksEl.textContent =
+              typeof data.forks_count === 'number'
+                ? GithubCardInit.formatCount(data.forks_count)
+                : '--';
+            card.setAttribute('data-loaded', 'true');
           })
           .catch(() => {});
       });

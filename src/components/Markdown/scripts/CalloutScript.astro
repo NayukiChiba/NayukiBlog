@@ -1,0 +1,99 @@
+---
+// CalloutScript.astro - Obsidian Callout 支持
+// 将 "> [!TYPE] 标题" 形式的 blockquote 转换为 callout 卡片
+---
+
+<script is:inline>
+  (function () {
+    // 各类型的默认标题（无自定义标题时使用）
+    const CALLOUT_DEFAULT_TITLES = {
+      warning: "Attention 注意",
+    };
+
+    const CALLOUT_ICONS = {
+      note: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>',
+      tip: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-5 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.1.2-2.2.5-3.3a7 7 0 0 0 14 0"></path><path d="M11 19h2"></path></svg>',
+      warning: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',
+      danger: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>',
+      success: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',
+      question: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',
+      abstract: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="11" y2="18"></line></svg>',
+      bug: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="6" width="8" height="14" rx="4"></rect><path d="m19 7-3 2"></path><path d="m5 7 3 2"></path><path d="m19 19-3-2"></path><path d="m5 19 3-2"></path><path d="M20 13h-4"></path><path d="M4 13h4"></path><path d="m10 4 1 2"></path><path d="m14 4-1 2"></path></svg>',
+      example: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>',
+      quote: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2h.75L3 21z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2h.75L15 21z"></path></svg>',
+      todo: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10"></path><polyline points="12 6 12 12 16 14"></polyline><line x1="22" y1="19" x2="16" y2="19"></line><line x1="19" y1="16" x2="19" y2="22"></line></svg>',
+    };
+
+    // 类型别名 → 图标 key
+    const ICON_ALIAS = {
+      info: "note",
+      error: "danger",
+      check: "success",
+      done: "success",
+      faq: "question",
+      help: "question",
+      summary: "abstract",
+      tldr: "abstract",
+      cite: "quote",
+    };
+
+    const TYPE_PATTERN =
+      /^\[!(NOTE|TIP|WARNING|DANGER|INFO|ERROR|SUCCESS|CHECK|DONE|QUESTION|FAQ|HELP|ABSTRACT|SUMMARY|TLDR|BUG|EXAMPLE|QUOTE|CITE|TODO)\](.*?)(<br>|\n|$)/i;
+
+    function initCallouts() {
+      const blockquotes = document.querySelectorAll(".content blockquote");
+      blockquotes.forEach((bq) => {
+        const firstP = bq.querySelector("p");
+        if (!firstP) return;
+
+        const text = firstP.innerHTML;
+        const match = text.match(TYPE_PATTERN);
+        if (!match) return;
+
+        const type = match[1].toLowerCase();
+        // 标题优先级：自定义文字 > 类型默认标题 > 类型名大写
+        const titleText =
+          match[2].trim() ||
+          CALLOUT_DEFAULT_TITLES[type] ||
+          type.toUpperCase();
+
+        // 创建 Callout 容器
+        const callout = document.createElement("div");
+        callout.className = `callout callout-${type}`;
+
+        // 标题（图标 + 文字）
+        const iconKey = ICON_ALIAS[type] || type;
+        const iconSvg = CALLOUT_ICONS[iconKey] || CALLOUT_ICONS.note;
+        const title = document.createElement("div");
+        title.className = "callout-title";
+        title.innerHTML = `<span class="callout-icon">${iconSvg}</span><span class="callout-text">${titleText}</span>`;
+        callout.appendChild(title);
+
+        // 内容区：移入原 blockquote 的所有子节点
+        const content = document.createElement("div");
+        content.className = "callout-content";
+        while (bq.firstChild) {
+          content.appendChild(bq.firstChild);
+        }
+
+        // 去除首个 p 中的类型标记文本
+        const newFirstP = content.querySelector("p");
+        if (newFirstP) {
+          newFirstP.innerHTML = text.replace(TYPE_PATTERN, "");
+          if (newFirstP.innerText.trim() === "") {
+            newFirstP.remove();
+          }
+        }
+
+        callout.appendChild(content);
+        bq.parentNode?.replaceChild(callout, bq);
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initCallouts);
+    } else {
+      initCallouts();
+    }
+  })();
+</script>

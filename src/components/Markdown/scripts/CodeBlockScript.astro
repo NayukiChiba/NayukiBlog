@@ -1,0 +1,118 @@
+---
+// CodeBlockScript.astro - 代码块增强 + 表格包装
+// 为每个 pre 添加 header（语言标签/复制/折叠按钮），默认展开
+---
+
+<script is:inline>
+  (function () {
+    function initCodeBlocks() {
+      const codeBlocks = document.querySelectorAll(".content pre");
+
+      codeBlocks.forEach((pre) => {
+        // 避免重复处理
+        if (pre.closest(".code-block-wrapper")) return;
+
+        // 获取语言标识
+        let lang = "TEXT";
+        const dataLang = pre.getAttribute("data-language");
+        if (dataLang) {
+          lang = dataLang.toUpperCase();
+          if (lang === "PLAINTEXT" || lang === "NONE") lang = "TEXT";
+        } else {
+          // Fallback: 检查 class（Prism 格式 'language-xxx'）
+          let classes = Array.from(pre.classList);
+          let langClass = classes.find((c) => c.startsWith("language-"));
+          if (!langClass) {
+            const code = pre.querySelector("code");
+            if (code) {
+              classes = Array.from(code.classList);
+              langClass = classes.find((c) => c.startsWith("language-"));
+            }
+          }
+          if (langClass) {
+            lang = langClass.replace("language-", "").toUpperCase();
+            if (lang === "PLAINTEXT" || lang === "NONE") lang = "TEXT";
+          }
+        }
+
+        // 包裹结构（默认展开，不加 collapsed）
+        const wrapper = document.createElement("div");
+        wrapper.className = "code-block-wrapper";
+        pre.parentNode?.insertBefore(wrapper, pre);
+
+        // Header：语言标签 + 复制/折叠按钮
+        const header = document.createElement("div");
+        header.className = "code-header";
+        header.innerHTML = `
+          <span class="code-language">${lang}</span>
+          <div class="code-actions">
+              <button class="code-btn copy-btn" title="复制代码">
+                  <svg viewBox="0 0 24 24" fill="none" class="icon-copy" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  <svg viewBox="0 0 24 24" fill="none" class="icon-check" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+              </button>
+              <button class="code-btn code-collapse-btn" title="折叠/展开">
+                  <svg viewBox="0 0 24 24" fill="none" class="icon-chevron" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+              </button>
+          </div>
+        `;
+        wrapper.appendChild(header);
+
+        // 内容容器
+        const content = document.createElement("div");
+        content.className = "code-content";
+        content.appendChild(pre);
+        wrapper.appendChild(content);
+
+        // 复制逻辑
+        const copyBtn = header.querySelector(".copy-btn");
+        copyBtn.addEventListener("click", () => {
+          const text = pre.innerText.replace(/\t/g, "    ");
+          navigator.clipboard.writeText(text).then(() => {
+            copyBtn.classList.add("copied");
+
+            // 复制成功提示
+            const toast = document.getElementById("copy-toast");
+            if (toast) {
+              toast.style.opacity = "1";
+              toast.style.transform = "translateX(-50%) translateY(0)";
+              setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateX(-50%) translateY(20px)";
+              }, 2000);
+            }
+
+            setTimeout(() => copyBtn.classList.remove("copied"), 2000);
+          });
+        });
+
+        // 折叠逻辑（手动）
+        const collapseBtn = header.querySelector(".code-collapse-btn");
+        collapseBtn.addEventListener("click", () => {
+          wrapper.classList.toggle("collapsed");
+        });
+      });
+
+      // 表格：添加包装器以支持横向滚动
+      const tables = document.querySelectorAll(".content table");
+      tables.forEach((table) => {
+        if (table.closest(".table-wrapper")) return;
+        const wrapper = document.createElement("div");
+        wrapper.className = "table-wrapper";
+        table.parentNode?.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initCodeBlocks);
+    } else {
+      initCodeBlocks();
+    }
+  })();
+</script>

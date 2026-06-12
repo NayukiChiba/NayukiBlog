@@ -1,0 +1,80 @@
+/* =========================================================
+   Markdown 表格 — 黑白简约
+   表头白底粗体 + 2px 黑下边框；行间细线；无斑马纹彩底
+   ========================================================= */
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 2rem 0;
+  border-radius: var(--radius-lg, 0.75rem);
+  border: 1px solid var(--color-border, #e5e5e5);
+  background: var(--color-card-bg, #ffffff);
+}
+
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  min-width: 500px;
+  font-size: 0.95rem;
+}
+
+/* 表头 */
+.content thead {
+  background: transparent;
+}
+
+.content th {
+  padding: 0.875rem 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-text, #111111);
+  white-space: nowrap;
+  border-bottom: 2px solid var(--color-primary, #111111);
+}
+
+/* 单元格：不自动换行，长内容靠 wrapper 横向滚动 */
+.content td {
+  padding: 0.875rem 1.25rem;
+  color: var(--color-text-light, #525252);
+  text-align: center;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--color-border-light, #f0f0f0);
+  transition: background-color 0.15s ease;
+}
+
+/* 最后一行无下边线 */
+.content tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* 行悬停：极淡主题色 */
+.content tbody tr:hover td {
+  background-color: var(--color-primary-subtle, #fafafa);
+}
+
+/* 单元格内代码 */
+.content td code {
+  background-color: var(--color-primary-subtle, #f0f0f0);
+  color: var(--color-primary-dark, #1f2328);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+/* 响应式 */
+@media (max-width: 767px) {
+  .table-wrapper {
+    margin: 1.5rem -0.5rem;
+    border-radius: var(--radius-md, 0.5rem);
+  }
+  .content table {
+    min-width: 400px;
+    font-size: 0.875rem;
+  }
+  .content th,
+  .content td {
+    padding: 0.75rem 0.875rem;
+  }
+}
