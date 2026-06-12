@@ -17,6 +17,13 @@
         });
       }
 
+      // 回到顶部按钮（阻止冒泡，避免触发目录折叠）
+      const tocScrollTop = document.getElementById("toc-scroll-top");
+      tocScrollTop?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
       const tocContainer = document.getElementById("article-toc");
       const mobileTocContainer = document.getElementById("mobile-toc");
       const contentEl = document.querySelector(".content");
@@ -53,8 +60,8 @@
 
       if ((!tocContainer && !mobileTocContainer) || !contentEl) return;
 
-      // 获取所有标题（排除 <details> 折叠块内的标题）
-      const allHeadings = contentEl.querySelectorAll("h1, h2, h3, h4");
+      // 获取标题（文章大标题 h1 不算目录内容；排除 <details> 折叠块内的标题）
+      const allHeadings = contentEl.querySelectorAll("h2, h3, h4");
       const headings = Array.from(allHeadings).filter(
         (h) => !h.closest("details"),
       );
@@ -78,7 +85,8 @@
           }
 
           const li = document.createElement("li");
-          const level = parseInt(heading.tagName.substring(1));
+          // 层级归一化：h2 为顶级（level-1），h3 → level-2，h4 → level-3
+          const level = parseInt(heading.tagName.substring(1)) - 1;
           li.className = `toc-item level-${level}`;
           li.dataset.level = level.toString();
 
@@ -120,7 +128,7 @@
 
           const btn = document.createElement("span");
           btn.className = "toc-collapse-btn";
-          btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+          btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
 
           const container = item.querySelector(".toc-item-container");
           if (container) {

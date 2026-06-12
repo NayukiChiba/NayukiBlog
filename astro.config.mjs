@@ -6,16 +6,17 @@ import remarkWikiLink from "remark-wiki-link";
 import remarkDirective from "remark-directive";
 import { remarkLeafDirectives } from "./remark-leaf-directives.mjs";
 import { remarkContainerDirectives } from "./remark-container-directives.mjs";
+import { rehypeLazyImages } from "./rehype-lazy-images.mjs";
 
 // https://astro.build/config
 export default defineConfig({
   // 纯静态输出
   output: "static",
 
-  // 预取链接，加速页面导航
+  // 预取链接：悬停时才后台预取，避免批量加载阻塞导航响应
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: "viewport",
+    defaultStrategy: "hover",
   },
 
   // 集成插件
@@ -41,7 +42,7 @@ export default defineConfig({
         },
       ],
     ],
-    rehypePlugins: [rehypeKatex],
+    rehypePlugins: [rehypeKatex, rehypeLazyImages],
     syntaxHighlight: "shiki",
     shikiConfig: {
       theme: "github-light",
