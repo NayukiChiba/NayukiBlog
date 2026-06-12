@@ -172,6 +172,23 @@
       min-width: 260px;
     }
   }
+
+  /* 移动端：竖排居中 */
+  @media (max-width: 767px) {
+    .profile-content {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .profile-name {
+      justify-content: center;
+    }
+
+    .profile-links {
+      justify-content: center;
+    }
+  }
 </style>
 
 

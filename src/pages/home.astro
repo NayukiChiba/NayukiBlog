@@ -253,6 +253,13 @@ const categorySet = new Set(allPosts.map((p) => p.data.category).filter(Boolean)
     margin-bottom: 2rem;
   }
 
+  /* 移动端：取消负边距，避免与上方内容重叠 */
+  @media (max-width: 767px) {
+    .github-graph-section {
+      margin-top: 0;
+    }
+  }
+
   .github-graph-wrapper {
     position: relative;
   }
@@ -285,6 +292,14 @@ const categorySet = new Set(allPosts.map((p) => p.data.category).filter(Boolean)
     gap: 2rem;
     flex: 1;
     height: 160px;
+  }
+
+  /* 移动端：去掉固定高度，内容居中、紧凑排列 */
+  @media (max-width: 767px) {
+    .stats-card {
+      height: auto;
+      padding: 0.25rem 0;
+    }
   }
 
   .stat-item {
@@ -341,6 +356,16 @@ const categorySet = new Set(allPosts.map((p) => p.data.category).filter(Boolean)
     }
   }
 
+  /* 移动端：名人名言去固定高度、文字居中 */
+  @media (max-width: 767px) {
+    .hitokoto-area {
+      height: auto;
+      padding-top: 0;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
   /* Profile Section */
   .profile-section {
     margin-bottom: 4rem;
@@ -350,6 +375,18 @@ const categorySet = new Set(allPosts.map((p) => p.data.category).filter(Boolean)
     display: flex;
     flex-direction: column;
     gap: 2rem;
+  }
+
+  /* 移动端：整体紧凑、各区块居中 */
+  @media (max-width: 767px) {
+    .profile-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .profile-wrapper {
+      gap: 1.5rem;
+      align-items: center;
+    }
   }
 
   .profile-divider {
