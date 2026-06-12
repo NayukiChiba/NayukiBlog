@@ -687,3 +687,22 @@ const categorySet = new Set(allPosts.map((p) => p.data.category).filter(Boolean)
     fetchAndType();
   }
 </script>
+
+<script>
+  // 激活文章卡片的懒加载图片（home 页无分页，直接全部加载）
+  function loadPostCardImages() {
+    const images = document.querySelectorAll<HTMLImageElement>(
+      '.post-bg-image img[data-src]',
+    );
+    images.forEach((img) => {
+      if (img.dataset.src && !img.src) {
+        img.src = img.dataset.src;
+        img.onload = () => img.classList.add('loaded');
+        img.onerror = () => img.classList.add('loaded');
+      }
+    });
+  }
+
+  loadPostCardImages();
+  document.addEventListener('astro:page-load', loadPostCardImages);
+</script>
