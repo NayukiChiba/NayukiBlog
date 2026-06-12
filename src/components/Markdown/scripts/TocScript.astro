@@ -87,7 +87,8 @@
 
           const a = document.createElement("a");
           a.href = "#" + heading.id;
-          a.textContent = heading.textContent;
+          // 复制标题 HTML 以保留 KaTeX 公式等行内渲染结果
+          a.innerHTML = heading.innerHTML;
 
           a.addEventListener("click", (e) => {
             e.preventDefault();
