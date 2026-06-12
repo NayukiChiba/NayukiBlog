@@ -6,7 +6,7 @@ tags:
   - 服务器
   - Bug
 description: 收集链接服务器时候出现的各种问题
-image: https://img.yumeko.site/file/blog/articles/1780581781760.webp
+image: https://img.yumeko.site/file/blog/cover/1781273572162_HowToSSH.webp
 status: published
 ---
 # 正确的SSH连接过程
