@@ -34,6 +34,7 @@ services:
 ```
 `data/`下面保存的是你的数据，不是网盘内容
 ![1780909400050.png](https://img.yumeko.site/file/blog/articles/1780909431081.webp)
+
 4. 然后在`openlist/`文件夹下启动docker
 ```bash
 docker compose up -d
@@ -71,8 +72,10 @@ docker compose up -d
 
 
 ![dev_app_create_button.jpg](https://img.yumeko.site/file/blog/articles/1780909632723.webp)
+
 6. 选择应用类别为**软件**，并按自己的想法填写应用名称和描述，请注意这三个内容一旦设定完成无法更改，请深思熟虑后填写。
 ![dev_app_create_panel.jpg](https://img.yumeko.site/file/blog/articles/1780909658426.webp)
+
 7. 创建完成后将会回到控制面板，点击应用名称进入应用详情页。
 ![dev_app_console.jpg](https://img.yumeko.site/file/blog/articles/1780909664360.webp)
 > [!ATTENTION] 注意！
@@ -83,8 +86,10 @@ docker compose up -d
 https://api.oplist.org/baiduyun/callback
 ```
 ![dev_app_settings_safety.jpg](https://img.yumeko.site/file/blog/articles/1780909693252.webp)
+
 9. 回到应用详情页，复制必要的`Appkey`与`Secretkey`
 ![dev_app_info.jpg](https://img.yumeko.site/file/blog/articles/1780909692406.webp)
+
 10. 使用[OpenList Token 获取工具](https://api.oplist.org/)通过百度网盘验证登录填写对应的Key，获取令牌
 ![dev_token.png](https://img.yumeko.site/file/blog/articles/1780909711439.webp)
 
