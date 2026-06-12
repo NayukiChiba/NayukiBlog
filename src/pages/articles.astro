@@ -173,6 +173,17 @@ const folderList = [...folderSet].sort().map((path) => {
         let currentSearch = "";
         let visiblePosts: HTMLElement[] = [];
 
+        // 加载单个卡片的封面图片（priority 控制浏览器抓取优先级）
+        const loadImage = (el: HTMLElement, priority: "high" | "low") => {
+            const img = el.querySelector('.post-bg-image img[data-src]') as HTMLImageElement | null;
+            if (img && img.dataset.src && !img.src) {
+                img.setAttribute("fetchpriority", priority);
+                img.src = img.dataset.src;
+                img.onload = () => img.classList.add('loaded');
+                img.onerror = () => img.classList.add('loaded');
+            }
+        };
+
         // ... Pagination logic (keep as is) ...
         const updatePagination = () => {
             const totalPages = Math.ceil(visiblePosts.length / ITEMS_PER_PAGE) || 1;
@@ -183,13 +194,8 @@ const folderList = [...folderSet].sort().map((path) => {
             allPostWrappers.forEach((el) => (el.style.display = "none"));
             visiblePosts.slice(start, end).forEach((el) => {
                 el.style.display = "block";
-                // 懒加载封面图片：仅在文章可见时设置 src
-                const img = el.querySelector('.post-bg-image img[data-src]') as HTMLImageElement | null;
-                if (img && img.dataset.src && !img.src) {
-                    img.src = img.dataset.src;
-                    img.onload = () => img.classList.add('loaded');
-                    img.onerror = () => img.classList.add('loaded');
-                }
+                // 当前页可见图片：高优先级立即加载
+                loadImage(el, "high");
             });
 
             if (pageInput) {
@@ -312,6 +318,17 @@ const folderList = [...folderSet].sort().map((path) => {
 
         // Initial load
         filterPosts();
+
+        // 后台预加载全部封面图片：当前页已高优先级加载，
+        // 其余在浏览器空闲时以低优先级加载，翻页时图片即时可用
+        const preloadRestImages = () => {
+            allPostWrappers.forEach((el) => loadImage(el, "low"));
+        };
+        if ("requestIdleCallback" in window) {
+            requestIdleCallback(preloadRestImages, { timeout: 3000 });
+        } else {
+            setTimeout(preloadRestImages, 1500);
+        }
     }
 
     // Mobile Drawer Logic
