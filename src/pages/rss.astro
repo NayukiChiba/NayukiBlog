@@ -7,25 +7,31 @@ import { fetchAllFeeds, type FeedItem } from "../lib/rss";
 const feeds = getRssFeeds({ status: "active" });
 const results = await fetchAllFeeds(feeds);
 
-// 合并所有源的文章，按日期倒序（无日期的排最后），最多展示 60 条
-interface TimelineItem extends FeedItem {
-    sourceTitle: string;
-    sourceLink: string;
-}
+// 侧边栏订阅源数据
+const sources = results.map((result) => ({
+    id: String(result.feed.id),
+    title: result.title,
+    link: result.link || result.feed.site,
+    count: result.items.length,
+    ok: result.ok,
+}));
 
-const MAX_TIMELINE_ITEMS = 60;
+// 合并所有源的文章，按日期倒序（无日期的排最后）
+interface TimelineItem extends FeedItem {
+    sourceId: string;
+    sourceTitle: string;
+}
 
 const timeline: TimelineItem[] = results
     .filter((result) => result.ok)
     .flatMap((result) =>
         result.items.map((item) => ({
             ...item,
+            sourceId: String(result.feed.id),
             sourceTitle: result.title,
-            sourceLink: result.link,
         })),
     )
-    .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
-    .slice(0, MAX_TIMELINE_ITEMS);
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
 
 // 日期格式化（YYYY-MM-DD）
 function formatDate(iso: string): string {
@@ -38,190 +44,327 @@ const builtAt = new Date().toISOString().slice(0, 16).replace("T", " ");
 ---
 
 <PageLayout title="RSS | Nayuki Blog">
-    <div class="container">
-        <h1 class="page-title">RSS 订阅</h1>
-        <p class="page-desc">我订阅的博客与他们的最新文章。</p>
+    <div class="rss-container">
+        <main class="page-main">
+            <h1 class="page-title">RSS 订阅</h1>
+            <p class="page-desc">我订阅的博客与他们的最新文章。</p>
 
-        <!-- 订阅源卡片 -->
-        <section class="feed-sources">
-            {
-                results.map((result) => (
-                    <a
-                        class={`source-card ${result.ok ? "" : "source-error"}`}
-                        href={result.link || result.feed.site}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <div class="source-head">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <path d="M4 11a9 9 0 0 1 9 9" />
-                                <path d="M4 4a16 16 0 0 1 16 16" />
-                                <circle cx="5" cy="19" r="1" />
-                            </svg>
-                            <span class="source-title">{result.title}</span>
-                        </div>
-                        <span class="source-meta">
-                            {result.ok
-                                ? `${result.items.length} 篇最新文章`
-                                : "暂时无法获取"}
-                        </span>
-                    </a>
-                ))
-            }
-        </section>
+            <div class="content-divider"></div>
 
-        <!-- 最新文章时间线 -->
-        <section class="feed-timeline">
-            <h2 class="timeline-title">最新文章</h2>
+            <!-- 移动端订阅源 chips -->
+            <div class="source-chips mobile-only">
+                <button class="source-chip active" data-source="">全部</button>
+                {
+                    sources
+                        .filter((source) => source.ok)
+                        .map((source) => (
+                            <button class="source-chip" data-source={source.id}>
+                                {source.title}
+                            </button>
+                        ))
+                }
+            </div>
 
-            {
-                timeline.length === 0 ? (
-                    <p class="timeline-empty">暂无内容，等下次构建时再来看看。</p>
-                ) : (
-                    <ul class="timeline-list">
-                        {timeline.map((item) => (
-                            <li class="timeline-item">
-                                <a
-                                    class="item-link"
-                                    href={item.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+            <div class="main-layout">
+                <!-- 左侧：文章列表 + 分页 -->
+                <div class="post-list-section">
+                    <div class="post-list" id="rss-post-list">
+                        {
+                            timeline.map((item) => (
+                                <div
+                                    class="feed-item-wrapper"
+                                    data-source={item.sourceId}
                                 >
-                                    <div class="item-meta">
-                                        <span class="item-source">
-                                            {item.sourceTitle}
-                                        </span>
-                                        <span class="item-date">
-                                            {formatDate(item.date)}
-                                        </span>
-                                    </div>
-                                    <h3 class="item-title">{item.title}</h3>
-                                    {item.summary && (
-                                        <p class="item-summary">{item.summary}</p>
-                                    )}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                )
-            }
-        </section>
+                                    <a
+                                        class="item-link"
+                                        href={item.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <div class="item-meta">
+                                            <span class="item-source">
+                                                {item.sourceTitle}
+                                            </span>
+                                            <span class="item-date">
+                                                {formatDate(item.date)}
+                                            </span>
+                                        </div>
+                                        <h3 class="item-title">{item.title}</h3>
+                                        {item.summary && (
+                                            <p class="item-summary">
+                                                {item.summary}
+                                            </p>
+                                        )}
+                                    </a>
+                                </div>
+                            ))
+                        }
+                    </div>
 
-        <p class="build-note">内容于站点构建时抓取（{builtAt} UTC）</p>
+                    {
+                        timeline.length === 0 && (
+                            <p class="timeline-empty">
+                                暂无内容，等下次构建时再来看看。
+                            </p>
+                        )
+                    }
+
+                    <div class="pagination">
+                        <button id="first-btn" class="page-btn" title="First Page" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
+                        </button>
+                        <button id="prev-btn" class="page-btn" title="Previous Page" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+
+                        <div class="page-input-container">
+                            <input type="number" id="page-input" class="page-input" min="1" value="1" />
+                            <span class="page-separator">/</span>
+                            <span id="total-pages">1</span>
+                        </div>
+
+                        <button id="next-btn" class="page-btn" title="Next Page" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                        <button id="last-btn" class="page-btn" title="Last Page" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
+                        </button>
+                    </div>
+
+                    <p class="build-note">内容于站点构建时抓取（{builtAt} UTC）</p>
+                </div>
+
+                <!-- 右侧：订阅源侧边栏 -->
+                <aside class="filters-sidebar desktop-only">
+                    <div class="sidebar-title">订阅源</div>
+                    <div class="source-box">
+                        <div class="source-item">
+                            <button class="source-btn active" data-source="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="source-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                                <span class="source-name">全部文章</span>
+                                <span class="source-count">{timeline.length}</span>
+                            </button>
+                        </div>
+                        {
+                            sources.map((source) => (
+                                <div class="source-item">
+                                    <button
+                                        class="source-btn"
+                                        data-source={source.id}
+                                        disabled={!source.ok}
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="source-icon">
+                                            <path d="M4 11a9 9 0 0 1 9 9" />
+                                            <path d="M4 4a16 16 0 0 1 16 16" />
+                                            <circle cx="5" cy="19" r="1" />
+                                        </svg>
+                                        <span class="source-name">{source.title}</span>
+                                        <span class="source-count">
+                                            {source.ok ? source.count : "失败"}
+                                        </span>
+                                    </button>
+                                    <a
+                                        class="source-visit"
+                                        href={source.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        title={`访问 ${source.title}`}
+                                        aria-label={`访问 ${source.title}`}
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                            <polyline points="15 3 21 3 21 9" />
+                                            <line x1="10" y1="14" x2="21" y2="3" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </aside>
+            </div>
+        </main>
     </div>
 </PageLayout>
 
+<script>
+    function initRssPage() {
+        const allItems = Array.from(
+            document.querySelectorAll(".feed-item-wrapper"),
+        ) as HTMLElement[];
+        // 页面无内容时跳过初始化
+        if (allItems.length === 0) return;
+
+        const firstBtn = document.getElementById("first-btn") as HTMLButtonElement;
+        const prevBtn = document.getElementById("prev-btn") as HTMLButtonElement;
+        const nextBtn = document.getElementById("next-btn") as HTMLButtonElement;
+        const lastBtn = document.getElementById("last-btn") as HTMLButtonElement;
+        const pageInput = document.getElementById("page-input") as HTMLInputElement;
+        const totalPagesSpan = document.getElementById("total-pages");
+
+        const ITEMS_PER_PAGE = 10;
+        let currentPage = 1;
+        let currentSource = "";
+        let visibleItems: HTMLElement[] = [];
+
+        // 分页渲染
+        const updatePagination = () => {
+            const totalPages = Math.ceil(visibleItems.length / ITEMS_PER_PAGE) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+
+            allItems.forEach((el) => (el.style.display = "none"));
+            visibleItems.slice(start, end).forEach((el) => {
+                el.style.display = "block";
+            });
+
+            if (pageInput) {
+                pageInput.value = currentPage.toString();
+                pageInput.max = totalPages.toString();
+            }
+            if (totalPagesSpan) totalPagesSpan.textContent = totalPages.toString();
+            if (firstBtn) firstBtn.disabled = currentPage === 1;
+            if (prevBtn) prevBtn.disabled = currentPage === 1;
+            if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+            if (lastBtn) lastBtn.disabled = currentPage === totalPages;
+        };
+
+        // 按订阅源筛选
+        const filterItems = () => {
+            visibleItems = allItems.filter((el) => {
+                return !currentSource || el.dataset.source === currentSource;
+            });
+            currentPage = 1;
+            updatePagination();
+        };
+
+        // 翻页
+        const goToPage = (page: number) => {
+            const totalPages = Math.ceil(visibleItems.length / ITEMS_PER_PAGE) || 1;
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                updatePagination();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+        };
+
+        firstBtn?.addEventListener("click", () => goToPage(1));
+        lastBtn?.addEventListener("click", () => {
+            const totalPages = Math.ceil(visibleItems.length / ITEMS_PER_PAGE) || 1;
+            goToPage(totalPages);
+        });
+        prevBtn?.addEventListener("click", () => goToPage(currentPage - 1));
+        nextBtn?.addEventListener("click", () => goToPage(currentPage + 1));
+        pageInput?.addEventListener("change", () => {
+            let page = parseInt(pageInput.value);
+            if (isNaN(page)) page = 1;
+            goToPage(page);
+            pageInput.value = currentPage.toString();
+        });
+        pageInput?.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") pageInput.blur();
+        });
+
+        // 订阅源切换（侧边栏按钮 + 移动端 chips 共用）
+        const sourceBtns = document.querySelectorAll(".source-btn, .source-chip");
+        sourceBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const source = (btn as HTMLElement).dataset.source || "";
+                currentSource = source;
+                // 同步两组按钮的选中态
+                sourceBtns.forEach((b) => {
+                    const value = (b as HTMLElement).dataset.source || "";
+                    b.classList.toggle("active", value === source);
+                });
+                filterItems();
+            });
+        });
+
+        // 初始加载
+        filterItems();
+    }
+
+    // Initialize
+    initRssPage();
+    document.addEventListener("astro:page-load", initRssPage);
+</script>
+
+<style is:global>
+    /* 与 Articles 页面一致的宽度覆盖 - 80% */
+    main {
+        max-width: 80% !important;
+        width: 80% !important;
+        margin: 0 auto !important;
+        padding: 2rem 0 !important;
+    }
+
+    @media (max-width: 1400px) {
+        main {
+            max-width: 90% !important;
+            width: 90% !important;
+        }
+    }
+
+    @media (max-width: 1023px) {
+        main {
+            max-width: 100% !important;
+            width: 100% !important;
+            padding: 1rem !important;
+        }
+    }
+</style>
+
 <style>
-    .container {
-        max-width: 720px;
-        margin: 0 auto;
+    .rss-container {
+        display: block;
+    }
+
+    .page-main {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
     }
 
     .page-desc {
-        text-align: center;
-        color: var(--color-text-muted);
-        margin: 0.5rem 0 2.5rem;
-        font-size: 0.9375rem;
+        color: var(--color-text-light);
+        margin-bottom: 2rem;
     }
 
-    /* ============ 订阅源卡片 ============ */
-    .feed-sources {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 0.875rem;
-        margin-bottom: 3rem;
+    .content-divider {
+        height: 1px;
+        background: var(--color-border);
+        margin: 2rem 0;
+        width: 100%;
     }
 
-    .source-card {
+    .main-layout {
+        display: flex;
+        gap: 3rem;
+        align-items: flex-start;
+        max-width: 100%;
+    }
+
+    .post-list-section {
+        flex: 3;
+        min-width: 0;
+    }
+
+    .post-list {
         display: flex;
         flex-direction: column;
-        gap: 0.375rem;
-        padding: 1rem 1.125rem;
-        background: var(--color-card-bg);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-lg);
-        text-decoration: none;
-        transition:
-            border-color 0.2s ease,
-            transform 0.2s ease,
-            box-shadow 0.2s ease;
+        gap: 1.25rem;
     }
 
-    .source-card:hover {
-        border-color: var(--color-text);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-md);
-    }
-
-    .source-head {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: var(--color-text);
-    }
-
-    .source-title {
-        font-size: 0.9375rem;
-        font-weight: 600;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .source-meta {
-        font-size: 0.75rem;
-        color: var(--color-text-muted);
-    }
-
-    /* 抓取失败的源 */
-    .source-error {
-        opacity: 0.55;
-    }
-
-    .source-error:hover {
-        border-color: var(--color-border);
-        transform: none;
-        box-shadow: none;
-    }
-
-    /* ============ 文章时间线 ============ */
-    .timeline-title {
-        font-size: 1.125rem;
-        font-weight: 700;
-        margin: 0 0 1.25rem;
-        padding-bottom: 0.75rem;
-        border-bottom: 1px solid var(--color-border-light);
-    }
-
-    .timeline-empty {
-        color: var(--color-text-muted);
-        font-size: 0.9375rem;
-        text-align: center;
-        padding: 2rem 0;
-    }
-
-    .timeline-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-
+    /* ============ 文章卡片 ============ */
     .item-link {
         display: block;
-        padding: 1.125rem 1.25rem;
+        padding: 1.25rem 1.5rem;
         background: var(--color-card-bg);
         border: 1px solid var(--color-border);
         border-radius: var(--radius-lg);
@@ -262,7 +405,7 @@ const builtAt = new Date().toISOString().slice(0, 16).replace("T", " ");
 
     .item-title {
         margin: 0;
-        font-size: 1.0625rem;
+        font-size: 1.125rem;
         font-weight: 600;
         color: var(--color-text);
         line-height: 1.4;
@@ -284,22 +427,282 @@ const builtAt = new Date().toISOString().slice(0, 16).replace("T", " ");
         overflow: hidden;
     }
 
+    .timeline-empty {
+        color: var(--color-text-muted);
+        font-size: 0.9375rem;
+        text-align: center;
+        padding: 2rem 0;
+    }
+
+    /* ============ 右侧订阅源侧边栏 ============ */
+    .filters-sidebar {
+        flex: 1;
+        min-width: 250px;
+        max-width: 320px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 2rem;
+        background: var(--color-card-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-top: 0;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-border) transparent;
+    }
+
+    .filters-sidebar::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .filters-sidebar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .filters-sidebar::-webkit-scrollbar-thumb {
+        background-color: var(--color-border);
+        border-radius: 20px;
+    }
+
+    .sidebar-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 1rem;
+        padding-left: 0.5rem;
+    }
+
+    .source-box {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+    }
+
+    .source-item {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .source-btn {
+        flex: 1;
+        min-width: 0;
+        text-align: left;
+        padding: 0.5rem 0.75rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        color: var(--color-text-light);
+        font-size: 0.9rem;
+        border-radius: var(--radius-md);
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-family: inherit;
+        position: relative;
+    }
+
+    .source-btn:hover:not(:disabled) {
+        background-color: var(--color-bg);
+        color: var(--color-primary-dark);
+    }
+
+    .source-btn.active {
+        background-color: var(--color-primary-subtle);
+        color: var(--color-primary-dark);
+        font-weight: 600;
+    }
+
+    .source-btn.active::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 60%;
+        width: 3px;
+        background-color: var(--color-primary);
+        border-radius: 0 4px 4px 0;
+    }
+
+    .source-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+    }
+
+    .source-icon {
+        flex-shrink: 0;
+        opacity: 0.6;
+        transition: all 0.2s ease;
+    }
+
+    .source-btn:hover:not(:disabled) .source-icon,
+    .source-btn.active .source-icon {
+        opacity: 1;
+    }
+
+    .source-name {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .source-count {
+        flex-shrink: 0;
+        font-size: 0.75rem;
+        color: var(--color-text-muted);
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* 跳转到对方网站的外链按钮 */
+    .source-visit {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: var(--radius-md);
+        color: var(--color-text-muted);
+        transition: all 0.2s ease;
+    }
+
+    .source-visit:hover {
+        background-color: var(--color-bg);
+        color: var(--color-text);
+    }
+
+    /* ============ 移动端订阅源 chips ============ */
+    .source-chips {
+        gap: 0.5rem;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+        scrollbar-width: none;
+    }
+
+    .source-chips::-webkit-scrollbar {
+        display: none;
+    }
+
+    .source-chip {
+        flex-shrink: 0;
+        padding: 0.375rem 0.875rem;
+        font-size: 0.8125rem;
+        color: var(--color-text-light);
+        background: var(--color-card-bg);
+        border: 1px solid var(--color-border);
+        border-radius: 999px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        font-family: inherit;
+    }
+
+    .source-chip.active {
+        background: var(--color-text);
+        color: #ffffff;
+        border-color: var(--color-text);
+    }
+
+    /* ============ 分页 ============ */
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .page-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--color-border);
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        color: var(--color-text-light);
+        transition: all 0.2s ease;
+    }
+
+    .page-btn:hover:not(:disabled) {
+        background: var(--color-primary-subtle);
+        color: var(--color-primary-dark);
+        border-color: var(--color-primary-light);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .page-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: var(--color-bg);
+    }
+
+    .page-input-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--color-text-light);
+    }
+
+    .page-input {
+        width: 48px;
+        height: 40px;
+        text-align: center;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-bg-secondary);
+        color: var(--color-text);
+        font-family: inherit;
+        transition: all 0.2s ease;
+    }
+
+    .page-input:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px var(--color-primary-subtle);
+    }
+
     /* ============ 构建时间注记 ============ */
     .build-note {
-        margin-top: 2.5rem;
+        margin-top: 1.5rem;
         text-align: center;
         font-size: 0.75rem;
         color: var(--color-text-muted);
     }
 
-    /* ============ 移动端适配 ============ */
-    @media (max-width: 639px) {
-        .feed-sources {
-            grid-template-columns: 1fr;
+    /* ============ 响应式 ============ */
+    .desktop-only {
+        display: block;
+    }
+
+    .mobile-only {
+        display: none;
+    }
+
+    @media (max-width: 1023px) {
+        .desktop-only {
+            display: none;
         }
 
-        .item-link {
-            padding: 1rem;
+        .mobile-only {
+            display: flex;
+        }
+
+        .main-layout {
+            display: block;
         }
     }
 </style>
