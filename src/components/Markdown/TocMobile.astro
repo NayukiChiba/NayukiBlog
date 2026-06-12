@@ -70,7 +70,7 @@
         /* 悬浮球上方 */
         bottom: calc(2rem + 48px + 12px + 48px + 12px);
         right: 2rem;
-        width: min(300px, calc(100vw - 3rem));
+        width: min(340px, calc(100vw - 3rem));
         max-height: 55vh;
         background: #ffffff;
         border: 1px solid var(--color-border, #e5e5e5);
@@ -178,19 +178,17 @@
         font-size: 1em;
     }
 
-    /* 目录层级缩进 */
+    /* 目录层级：仅靠缩进区分，字体大小保持一致 */
     #mobile-toc .level-1 a {
         padding-left: 0.75rem;
     }
     #mobile-toc .level-2 a {
-        padding-left: 1.5rem;
+        padding-left: 1.25rem;
     }
     #mobile-toc .level-3 a {
-        padding-left: 2.25rem;
-        font-size: 0.8125rem;
+        padding-left: 1.75rem;
     }
     #mobile-toc .level-4 a {
-        padding-left: 3rem;
-        font-size: 0.8125rem;
+        padding-left: 2.25rem;
     }
 </style>
