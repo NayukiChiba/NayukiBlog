@@ -1,41 +1,170 @@
 ---
-// 几何背景 — 工程图纸风格的极简几何装饰层
-// 组成：点阵网格 + 大型虚线圆环 + 旋转方框 + 对角线 + 十字标记 + 主题色点缀
-// 纯 CSS 动画（GPU 合成）+ 轻量鼠标视差，受配置悬浮窗的「背景装饰」「入场动画」开关控制
+// 轨道弧线背景 — 黄金比例嵌套的同心弧组
+//
+// 设计语言：只用「弧线」一种元素。右上一组大轨道弧横扫页面上部，
+// 左下一组小弧呼应；轨道半径按 √φ 等比嵌套（φ 为黄金比例）。
+// 弧线只取一段（留白断弧），配轨道星点与三段主题色弧。
+// 所有参数构建时算好，动画仅 CSS transform 旋转（GPU 合成），
+// 受配置悬浮窗「背景装饰」「入场动画」开关控制。
+
+const PHI = (1 + Math.sqrt(5)) / 2;
+const SQ = Math.sqrt(PHI); // 半级间隔
+
+interface Arc {
+  r: number;
+  ratio: number; // 弧长占周长比例
+  start: number; // 起始角（deg）
+  width: number;
+  opacity: number;
+  dashed: boolean;
+}
+
+// 右上主轨道组：7 条弧，半径 185 × φ^(n/2)
+const BASE_R = 185;
+const arcsMain: Arc[] = [
+  { r: BASE_R, ratio: 0.58, start: 200, width: 1.8, opacity: 0.16, dashed: false },
+  { r: BASE_R * SQ, ratio: 0.4, start: 60, width: 1, opacity: 0.1, dashed: true },
+  { r: BASE_R * PHI, ratio: 0.5, start: 150, width: 1.4, opacity: 0.13, dashed: false },
+  { r: BASE_R * PHI * SQ, ratio: 0.36, start: 290, width: 1, opacity: 0.08, dashed: false },
+  { r: BASE_R * PHI ** 2, ratio: 0.55, start: 100, width: 1.2, opacity: 0.11, dashed: false },
+  { r: BASE_R * PHI ** 2 * SQ, ratio: 0.3, start: 10, width: 1, opacity: 0.07, dashed: true },
+  { r: BASE_R * PHI ** 3, ratio: 0.45, start: 330, width: 1, opacity: 0.09, dashed: false },
+];
+
+// 左下呼应组：3 条
+const MINOR_R = 150;
+const arcsMinor: Arc[] = [
+  { r: MINOR_R, ratio: 0.5, start: 30, width: 1.4, opacity: 0.12, dashed: false },
+  { r: MINOR_R * SQ, ratio: 0.36, start: 140, width: 1, opacity: 0.08, dashed: true },
+  { r: MINOR_R * PHI, ratio: 0.44, start: 250, width: 1, opacity: 0.1, dashed: false },
+];
+
+// 计算 stroke-dasharray（弧段 + 留白 = 周长）
+function arcDash(arc: Arc): string {
+  const c = 2 * Math.PI * arc.r;
+  const seg = c * arc.ratio;
+  return `${seg.toFixed(1)} ${(c - seg).toFixed(1)}`;
+}
+
+// 主题色高亮弧：占周长比例 ratio 的一小段
+function accentDash(r: number, ratio: number): string {
+  const c = 2 * Math.PI * r;
+  return `${(c * ratio).toFixed(1)} ${(c * (1 - ratio)).toFixed(1)}`;
+}
+
+// 轨道星点：极坐标 → 直角坐标
+function orbitPoint(r: number, deg: number): { x: string; y: string } {
+  const rad = (deg * Math.PI) / 180;
+  return { x: (r * Math.cos(rad)).toFixed(1), y: (r * Math.sin(rad)).toFixed(1) };
+}
+
+// 主题色弧轨道（主组两段 + 左下一段）
+const accent1R = BASE_R * PHI;
+const accent2R = BASE_R * PHI ** 2 * SQ;
+const accent3R = MINOR_R * SQ;
+
+// 星点：3 黑 + 2 彩（主组），1 彩（左下）
+const starA = orbitPoint(BASE_R, 245);
+const starB = orbitPoint(BASE_R * PHI ** 2, 30);
+const starC = orbitPoint(BASE_R * PHI ** 3, 180);
+const starAccent1 = orbitPoint(accent1R, 195);
+const starAccent2 = orbitPoint(BASE_R * PHI ** 2, 300);
+const starMinor = orbitPoint(MINOR_R, 75);
+
+const VB_MAIN = Math.ceil(BASE_R * PHI ** 3 + 10);
+const VB_MINOR = Math.ceil(MINOR_R * PHI + 8);
 ---
 
 <div id="particle-bg" class="geo-bg" aria-hidden="true">
   <!-- 点阵网格层（静态） -->
   <div class="geo-grid"></div>
 
+  <!-- 黄金分割构图线（61.8%） -->
+  <div class="geo-phi-line"></div>
+
   <!-- 几何元素层（鼠标视差） -->
   <div class="geo-layer" id="geo-parallax">
-    <!-- 右上：大圆环组（虚线外环 + 实线内环 + 主题色弧线，缓慢旋转） -->
-    <svg class="geo-rings" viewBox="0 0 800 800" fill="none">
-      <circle cx="400" cy="400" r="396" class="ring-dashed"></circle>
-      <circle cx="400" cy="400" r="318" class="ring-solid"></circle>
-      <circle cx="400" cy="400" r="318" class="ring-accent"></circle>
-      <circle cx="400" cy="400" r="240" class="ring-faint"></circle>
+    <!-- 右上：主轨道弧组 -->
+    <svg
+      class="geo-orbits-main"
+      viewBox={`-${VB_MAIN} -${VB_MAIN} ${VB_MAIN * 2} ${VB_MAIN * 2}`}
+      fill="none"
+    >
+      {arcsMain.map((arc) => (
+        <circle
+          cx="0"
+          cy="0"
+          r={arc.r.toFixed(1)}
+          stroke={`rgba(0, 0, 0, ${arc.opacity})`}
+          stroke-width={arc.width}
+          stroke-linecap="round"
+          stroke-dasharray={arc.dashed ? "3 9" : arcDash(arc)}
+          transform={`rotate(${arc.start})`}
+        />
+      ))}
+      <!-- 主题色弧 × 2 -->
+      <circle
+        cx="0"
+        cy="0"
+        r={accent1R.toFixed(1)}
+        class="orbit-accent"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-dasharray={accentDash(accent1R, 0.09)}
+        transform="rotate(252)"
+      />
+      <circle
+        cx="0"
+        cy="0"
+        r={accent2R.toFixed(1)}
+        class="orbit-accent orbit-accent-soft"
+        stroke-width="1.4"
+        stroke-linecap="round"
+        stroke-dasharray={accentDash(accent2R, 0.05)}
+        transform="rotate(96)"
+      />
+      <!-- 轨道星点 -->
+      <circle cx={starA.x} cy={starA.y} r="3.2" fill="rgba(0, 0, 0, 0.3)"></circle>
+      <circle cx={starB.x} cy={starB.y} r="2.6" fill="rgba(0, 0, 0, 0.24)"></circle>
+      <circle cx={starC.x} cy={starC.y} r="2.2" fill="rgba(0, 0, 0, 0.2)"></circle>
+      <circle cx={starAccent1.x} cy={starAccent1.y} r="3.6" class="star-accent"></circle>
+      <circle cx={starAccent2.x} cy={starAccent2.y} r="2.8" class="star-accent star-accent-soft"></circle>
     </svg>
 
-    <!-- 左下：旋转方框组 -->
-    <div class="geo-square geo-square-outer"></div>
-    <div class="geo-square geo-square-inner"></div>
+    <!-- 左下：呼应弧组 -->
+    <svg
+      class="geo-orbits-minor"
+      viewBox={`-${VB_MINOR} -${VB_MINOR} ${VB_MINOR * 2} ${VB_MINOR * 2}`}
+      fill="none"
+    >
+      {arcsMinor.map((arc) => (
+        <circle
+          cx="0"
+          cy="0"
+          r={arc.r.toFixed(1)}
+          stroke={`rgba(0, 0, 0, ${arc.opacity})`}
+          stroke-width={arc.width}
+          stroke-linecap="round"
+          stroke-dasharray={arc.dashed ? "3 9" : arcDash(arc)}
+          transform={`rotate(${arc.start})`}
+        />
+      ))}
+      <circle
+        cx="0"
+        cy="0"
+        r={accent3R.toFixed(1)}
+        class="orbit-accent orbit-accent-soft"
+        stroke-width="1.4"
+        stroke-linecap="round"
+        stroke-dasharray={accentDash(accent3R, 0.08)}
+        transform="rotate(312)"
+      />
+      <circle cx={starMinor.x} cy={starMinor.y} r="3" class="star-accent star-accent-soft"></circle>
+    </svg>
 
-    <!-- 左上：平行对角线组 -->
-    <div class="geo-lines">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-    <!-- 散布的十字标记 -->
+    <!-- 十字标记 -->
     <span class="geo-cross geo-cross-1"></span>
     <span class="geo-cross geo-cross-2"></span>
-    <span class="geo-cross geo-cross-3"></span>
-
-    <!-- 主题色点缀 -->
-    <span class="geo-dot"></span>
   </div>
 </div>
 
@@ -54,11 +183,10 @@
     inset: 0;
     background-image: radial-gradient(
       circle,
-      rgba(0, 0, 0, 0.05) 1px,
+      rgba(0, 0, 0, 0.055) 1px,
       transparent 1px
     );
     background-size: 28px 28px;
-    /* 顶部稍淡，底部渐隐，让内容区呼吸 */
     mask-image: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.5) 0%,
@@ -73,6 +201,30 @@
     );
   }
 
+  /* ===== 黄金分割构图线 ===== */
+  .geo-phi-line {
+    position: absolute;
+    top: 0;
+    left: 61.8%;
+    width: 1px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.06);
+    mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0, 0, 0, 1) 18%,
+      rgba(0, 0, 0, 1) 82%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0, 0, 0, 1) 18%,
+      rgba(0, 0, 0, 1) 82%,
+      transparent 100%
+    );
+  }
+
   /* ===== 视差层 ===== */
   .geo-layer {
     position: absolute;
@@ -80,88 +232,43 @@
     will-change: transform;
   }
 
-  /* ===== 右上大圆环组 ===== */
-  .geo-rings {
+  /* ===== 右上主轨道组 ===== */
+  .geo-orbits-main {
     position: absolute;
-    top: max(-32vmax, -480px);
-    right: max(-26vmax, -390px);
-    width: min(64vmax, 960px);
-    height: min(64vmax, 960px);
-    animation: geoSpin 240s linear infinite;
+    top: max(-42vmax, -640px);
+    right: max(-34vmax, -540px);
+    width: min(112vmax, 1700px);
+    height: min(112vmax, 1700px);
+    animation: geoSpin 420s linear infinite;
   }
 
-  .ring-dashed {
-    stroke: rgba(0, 0, 0, 0.09);
-    stroke-width: 1;
-    stroke-dasharray: 4 10;
-  }
-
-  .ring-solid {
-    stroke: rgba(0, 0, 0, 0.06);
-    stroke-width: 1;
-  }
-
-  .ring-faint {
-    stroke: rgba(0, 0, 0, 0.035);
-    stroke-width: 1;
-  }
-
-  /* 主题色弧线：内环轨道上的一段高亮弧 */
-  .ring-accent {
+  .orbit-accent {
     stroke: var(--radial-c1, #111111);
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    /* 内环周长 2π × 318 ≈ 1998，弧长 150 */
-    stroke-dasharray: 150 1848;
-    opacity: 0.45;
+    opacity: 0.55;
   }
 
-  /* ===== 左下旋转方框 ===== */
-  .geo-square {
+  .orbit-accent-soft {
+    opacity: 0.38;
+  }
+
+  .star-accent {
+    fill: var(--radial-c1, #111111);
+    opacity: 0.55;
+  }
+
+  .star-accent-soft {
+    opacity: 0.4;
+  }
+
+  /* ===== 左下呼应弧组 ===== */
+  .geo-orbits-minor {
     position: absolute;
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    bottom: max(-20vmax, -300px);
+    left: max(-15vmax, -240px);
+    width: min(50vmax, 760px);
+    height: min(50vmax, 760px);
+    animation: geoSpinReverse 540s linear infinite;
   }
-
-  .geo-square-outer {
-    bottom: max(-18vmax, -270px);
-    left: max(-14vmax, -210px);
-    width: min(38vmax, 570px);
-    height: min(38vmax, 570px);
-    transform: rotate(18deg);
-    animation: geoSpinReverse 300s linear infinite;
-  }
-
-  .geo-square-inner {
-    bottom: max(-10vmax, -150px);
-    left: max(-6vmax, -90px);
-    width: min(22vmax, 330px);
-    height: min(22vmax, 330px);
-    border-color: rgba(0, 0, 0, 0.045);
-    transform: rotate(45deg);
-    animation: geoSpin 220s linear infinite;
-  }
-
-  /* ===== 左上平行对角线 ===== */
-  .geo-lines {
-    position: absolute;
-    top: 16vh;
-    left: 4vw;
-    width: 180px;
-    height: 180px;
-    transform: rotate(-45deg);
-  }
-
-  .geo-lines span {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.07);
-  }
-
-  .geo-lines span:nth-child(1) { top: 0; }
-  .geo-lines span:nth-child(2) { top: 14px; width: 70%; }
-  .geo-lines span:nth-child(3) { top: 28px; width: 40%; }
 
   /* ===== 十字标记 ===== */
   .geo-cross {
@@ -174,7 +281,7 @@
   .geo-cross::after {
     content: '';
     position: absolute;
-    background: rgba(0, 0, 0, 0.14);
+    background: rgba(0, 0, 0, 0.18);
   }
 
   .geo-cross::before {
@@ -191,21 +298,8 @@
     height: 1px;
   }
 
-  .geo-cross-1 { top: 22vh; right: 38vw; }
-  .geo-cross-2 { bottom: 18vh; right: 12vw; }
-  .geo-cross-3 { top: 58vh; left: 10vw; }
-
-  /* ===== 主题色点 ===== */
-  .geo-dot {
-    position: absolute;
-    top: 34vh;
-    left: 22vw;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--radial-c1, #111111);
-    opacity: 0.3;
-  }
+  .geo-cross-1 { top: 26vh; left: 12vw; }
+  .geo-cross-2 { bottom: 30vh; right: 8vw; }
 
   /* ===== 动画 ===== */
   @keyframes geoSpin {
@@ -213,33 +307,40 @@
   }
 
   @keyframes geoSpinReverse {
-    from { transform: rotate(18deg); }
-    to { transform: rotate(-342deg); }
+    to { transform: rotate(-360deg); }
   }
 
   /* 关闭入场动画 / 系统减少动效时停止旋转 */
-  :global(html.fx-anim-off) .geo-rings,
-  :global(html.fx-anim-off) .geo-square-outer,
-  :global(html.fx-anim-off) .geo-square-inner {
+  :global(html.fx-anim-off) .geo-orbits-main,
+  :global(html.fx-anim-off) .geo-orbits-minor {
     animation: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .geo-rings,
-    .geo-square-outer,
-    .geo-square-inner {
+    .geo-orbits-main,
+    .geo-orbits-minor {
       animation: none;
     }
   }
 
-  /* 移动端：网格变密度更低、隐藏次要装饰，保持干净 */
+  /* 移动端：弧组收进角落，隐藏构图线 */
   @media (max-width: 768px) {
-    .geo-grid {
-      background-size: 24px 24px;
+    .geo-orbits-main {
+      top: -56vmax;
+      right: -48vmax;
+      width: 124vmax;
+      height: 124vmax;
     }
 
-    .geo-lines,
-    .geo-cross-3 {
+    .geo-orbits-minor {
+      bottom: -24vmax;
+      left: -22vmax;
+      width: 56vmax;
+      height: 56vmax;
+    }
+
+    .geo-phi-line,
+    .geo-cross-2 {
       display: none;
     }
   }
