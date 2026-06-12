@@ -6,7 +6,7 @@ tags:
   - 有趣
   - 服务器
 description: 如何用服务器部署一个QQ机器人
-image: https://img.yumeko.site/file/blog/articles/1780581690796.webp
+image: https://img.yumeko.site/file/blog/cover/1781270823483_AstrSeio.webp
 status: published
 ---
 
