@@ -7,6 +7,7 @@ import remarkDirective from "remark-directive";
 import { remarkLeafDirectives } from "./remark-leaf-directives.mjs";
 import { remarkContainerDirectives } from "./remark-container-directives.mjs";
 import { rehypeLazyImages } from "./rehype-lazy-images.mjs";
+import { rehypeListMarkers } from "./rehype-list-markers.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -42,7 +43,7 @@ export default defineConfig({
         },
       ],
     ],
-    rehypePlugins: [rehypeKatex, rehypeLazyImages],
+    rehypePlugins: [rehypeKatex, rehypeLazyImages, rehypeListMarkers],
     syntaxHighlight: "shiki",
     shikiConfig: {
       theme: "github-light",

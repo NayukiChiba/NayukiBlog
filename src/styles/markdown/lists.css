@@ -31,15 +31,15 @@
 }
 
 /* ============ 有序列表：圆圈数字 ============ */
-/* 使用内建 list-item 计数器（天然支持 start 属性与嵌套重新计数），
-   数字渲染在 1px 圆形边框内，支持任意位数（10、11、100…） */
+/* 序号由构建时 rehype-list-markers 写入 data-marker（正确处理被正文
+   隔开的 <ol start="4">），数字渲染在 1px 圆形边框内，支持任意位数 */
 .content ol {
   list-style: none;
   padding-left: 2.2rem;
 }
 
 .content ol > li::before {
-  content: counter(list-item);
+  content: attr(data-marker);
   position: absolute;
   left: -2.2rem;
   top: 0.22rem;
