@@ -60,10 +60,10 @@
 
       if ((!tocContainer && !mobileTocContainer) || !contentEl) return;
 
-      // 获取标题（文章大标题 h1 不算目录内容；排除 <details> 折叠块内的标题）
-      const allHeadings = contentEl.querySelectorAll("h2, h3, h4");
+      // 获取标题（排除文章大标题 .page-title 和 <details> 折叠块内的标题）
+      const allHeadings = contentEl.querySelectorAll("h1, h2, h3, h4");
       const headings = Array.from(allHeadings).filter(
-        (h) => !h.closest("details"),
+        (h) => !h.closest("details") && !h.classList.contains("page-title"),
       );
 
       if (headings.length === 0) {
@@ -85,7 +85,7 @@
           }
 
           const li = document.createElement("li");
-          // 层级归一化：h2 为顶级（level-1），h3 → level-2，h4 → level-3
+          // 层级归一化：h1 → level-0, h2 → level-1, h3 → level-2, h4 → level-3
           const level = parseInt(heading.tagName.substring(1)) - 1;
           li.className = `toc-item level-${level}`;
           li.dataset.level = level.toString();
