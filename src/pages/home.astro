@@ -9,11 +9,11 @@ import ProfileCard from "../components/index/ProfileCard.astro";
 
 
 import DiaryCard from "../components/DiaryCard.astro";
-import { getCollection } from "astro:content";
+import { getVisiblePosts } from "../lib/posts";
 import { getProjects, getDiaries } from "../lib/data";
 
-// 获取文章列表（最新3篇，只显示已发布的）
-const allPosts = await getCollection("blog", ({ data }) => data.status === "published");
+// 获取文章列表（最新3篇；生产环境只含 published，开发环境含 draft）
+const allPosts = await getVisiblePosts();
 const posts = allPosts
   .sort(
     (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),

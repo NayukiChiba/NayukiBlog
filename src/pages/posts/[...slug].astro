@@ -1,10 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
+import { getVisiblePosts } from '../../lib/posts';
 import MarkdownLayout from "../../layouts/MarkdownLayout.astro";
 
-// 构建时获取所有文章路径
+// 构建时获取所有文章路径（生产环境不为 draft 生成页面）
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog');
+  const blogEntries = await getVisiblePosts();
   return blogEntries.map(entry => ({
     params: { slug: entry.slug },
     props: { entry },
@@ -15,9 +15,8 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
-// 所有已发布文章按日期降序
-const allPosts = (await getCollection('blog'))
-  .filter(p => p.data.status === 'published')
+// 当前环境可见的文章按日期降序
+const allPosts = (await getVisiblePosts())
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 // 前后文章

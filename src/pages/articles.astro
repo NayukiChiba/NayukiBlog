@@ -1,15 +1,13 @@
 ---
-import { getCollection } from "astro:content";
+import { getVisiblePosts } from "../lib/posts";
 import PageLayout from "../layouts/PageLayout.astro";
 import PostCard from "../components/articles/PostCard.astro";
 import CategorySidebar from "../components/articles/CategorySidebar.astro";
 import TagSidebar from "../components/articles/TagSidebar.astro";
 import ArticleSearch from "../components/articles/ArticleSearch.astro";
 
-// 从 Content Collections 读取文章
-const allPosts = await getCollection("blog", ({ data }) => {
-    return data.status === "published";
-});
+// 从 Content Collections 读取文章（生产环境只含 published，开发环境含 draft）
+const allPosts = await getVisiblePosts();
 
 // 转换为页面需要的格式
 const posts = allPosts
