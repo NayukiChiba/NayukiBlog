@@ -1,84 +1,73 @@
-/* 注册可动画的径向渐变颜色变量 */
+/* =========================================================
+   NayukiBlog 全局样式 — 黑白简约设计系统
+   原则：黑白为主、线条简单、留白充分、动效克制
+   ========================================================= */
+
+/* 注册可动画的主题色变量（可被 CSS 原生插值，由配置悬浮窗修改） */
 @property --radial-c1 {
   syntax: '<color>';
   inherits: true;
-  initial-value: #333333;
+  initial-value: #111111;
 }
 
 @property --radial-c2 {
   syntax: '<color>';
   inherits: true;
-  initial-value: #999999;
-}
-
-/* 注册卡片旋转边框角度变量 */
-@property --border-angle {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
-
-/* 卡片旋转渐变边框动画 */
-@keyframes borderSpin {
-  to { --border-angle: 360deg; }
+  initial-value: #a3a3a3;
 }
 
 :root {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  
-  /* 简约配色方案 */
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f8f9fa;
-  --color-text: #1a1a1a;
-  --color-text-light: #525252;
-  --color-text-muted: #888888;
-  
-  /* 撞色设计 - Color 1 & Color 2（用户通过 FloatingButton 修改） */
-  --color-primary: #333333;
-  --color-secondary: #999999;
 
-  /* 动态径向渐变使用的两个独立颜色变量（可被 CSS transition 插值） */
-  --radial-c1: #333333;
-  --radial-c2: #999999;
-  
-  --color-primary-light: color-mix(in srgb, var(--color-primary), white 20%);
+  /* 基础配色 — 黑白灰 */
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f7f7f7;
+  --color-text: #111111;
+  --color-text-light: #525252;
+  --color-text-muted: #8a8a8a;
+
+  /* 主题双色（用户可通过右下角配置悬浮窗修改） */
+  --color-primary: #111111;
+  --color-secondary: #a3a3a3;
+
+  /* 动态渐变使用的两个独立颜色变量（可被 CSS transition 插值） */
+  --radial-c1: #111111;
+  --radial-c2: #a3a3a3;
+
+  --color-primary-light: color-mix(in srgb, var(--color-primary), white 25%);
   --color-primary-dark: color-mix(in srgb, var(--color-primary), black 10%);
-  --color-primary-subtle: color-mix(in srgb, var(--color-primary), transparent 92%);
+  --color-primary-subtle: color-mix(in srgb, var(--color-primary), transparent 94%);
 
   /* 渐变变量 */
-  --gradient-primary: radial-gradient(circle at 50% 50%, var(--radial-c1), var(--radial-c2));
+  --gradient-primary: linear-gradient(135deg, var(--radial-c1), var(--radial-c2));
   --gradient-text: linear-gradient(45deg, var(--radial-c1), var(--radial-c2));
-  
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  
-  /* 将辅助色配置为撞色中的 Color 2 */
+
+  /* 辅助色：仅用于语义状态（成功/失败/链接），不参与装饰 */
   --color-accent: var(--color-secondary);
-  
-  /* 辅助色 */
-  --color-accent-red: #ef4444;
-  --color-accent-green: #10b981;
-  --color-accent-blue: #3b82f6;
-  
-  /* 边框和分隔线 - 稍微加深 */
+  --color-accent-red: #dc2626;
+  --color-accent-green: #16a34a;
+  --color-accent-blue: #2563eb;
+
+  /* 边框和分隔线 */
   --color-border: #e5e5e5;
-  --color-border-light: #f4f4f5;
-  
+  --color-border-light: #f0f0f0;
+
   /* 卡片和表面 */
   --color-card-bg: #ffffff;
   --color-card-hover: #ffffff;
-  
-  /* 阴影 - 保持柔和但更清晰 */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  
-  /* 圆角 - 保持 */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.25rem;
+
+  /* 阴影 — 柔和、无彩色光晕 */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 12px 28px -8px rgba(0, 0, 0, 0.12);
+  --shadow-hover: 0 16px 36px -12px rgba(0, 0, 0, 0.16);
+
+  /* 圆角 — 收紧，保持利落 */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
   --radius-full: 9999px;
 }
 
@@ -89,27 +78,15 @@
 
 html {
   font-family: var(--font-sans);
-  /* 纯白底色保证可读性，body::before 的 fixed 渐变层叠在 z-index:-1 */
-  background: #fdfcfb;
+  background: #fafafa;
   color: var(--color-text);
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
-
-/* body layout moved to PageLayout.astro */
-
-/* Layout Alignment - Moved to PageLayout.astro
-main {
-  flex: 1;
-  width: 100%;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 2rem var(--content-padding);
-}
-*/
 
 /* Force page containers to align with the global layout */
-.home-container, 
-.page-container, 
+.home-container,
+.page-container,
 .container {
   max-width: 100% !important;
   margin: 0 !important;
@@ -122,27 +99,29 @@ a {
   transition: color 0.2s ease;
 }
 
-/* 全局链接 hover：仅改变颜色，不使用 background-clip 裁剪文字
-   （background-clip: text 会导致卡片类 <a> 容器内所有子文字消失） */
 a:hover {
   color: var(--color-primary);
 }
 
-/* 文章正文内的纯文字链接：允许渐变文字效果 */
+/* 文章正文内的纯文字链接：简洁下划线 */
+.prose a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+
 .prose a:hover {
-  background: var(--gradient-primary);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  background-size: 200% auto;
-  animation: var(--animate-gradient);
+  color: var(--color-primary);
+  text-decoration-color: var(--color-primary);
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--color-text);
   line-height: 1.2;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 p {
@@ -152,25 +131,25 @@ p {
 
 /* Markdown Content Styles (Prose) */
 .prose {
-  max-width: 720px; /* Articles can be narrower for readability */
-  margin: 0 auto; /* Center the article content within the main container */
+  max-width: 720px;
+  margin: 0 auto;
 }
 .prose h1 { font-size: 2.25rem; margin-bottom: 1.5rem; }
-.prose h2 { font-size: 1.75rem; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid #eaeaea; padding-bottom: 0.5rem; }
+.prose h2 { font-size: 1.75rem; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border-light); padding-bottom: 0.5rem; }
 .prose h3 { font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
 .prose p { margin-bottom: 1.25rem; }
 .prose ul, .prose ol { margin-bottom: 1.25rem; padding-left: 1.5rem; }
 .prose li { margin-bottom: 0.5rem; color: var(--color-text-light); }
-.prose pre { background: #f5f5f5; padding: 1rem; border-radius: 8px; overflow-x: auto; margin-bottom: 1.5rem; }
-.prose code { font-family: monospace; background: var(--color-bg-secondary); color: var(--color-primary-dark); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+.prose pre { background: var(--color-bg-secondary); padding: 1rem; border-radius: var(--radius-md); overflow-x: auto; margin-bottom: 1.5rem; }
+.prose code { font-family: monospace; background: var(--color-bg-secondary); color: var(--color-text); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
 .prose pre code { background: transparent; padding: 0; }
-.prose blockquote { border-left: 4px solid #eaeaea; padding-left: 1rem; margin-left: 0; color: #666; font-style: italic; }
-.prose img { max-width: 100%; border-radius: 8px; margin: 1.5rem 0; }
-.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+.prose blockquote { border-left: 2px solid var(--color-text); padding-left: 1rem; margin-left: 0; color: var(--color-text-light); }
+.prose img { max-width: 100%; border-radius: var(--radius-md); margin: 1.5rem 0; }
+.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-xs); }
 .prose th, .prose td { border: 1px solid var(--color-border); padding: 0.75rem 1rem; text-align: center; }
-.prose th { background: var(--color-primary-subtle); font-weight: 600; color: var(--color-primary-dark); border-bottom: 2px solid var(--color-primary); }
-.prose tbody tr:nth-child(even) { background-color: var(--color-primary-subtle); }
-.prose tbody tr:hover { background-color: color-mix(in srgb, var(--color-primary), transparent 90%); }
+.prose th { background: var(--color-bg-secondary); font-weight: 600; color: var(--color-text); border-bottom: 2px solid var(--color-text); }
+.prose tbody tr:nth-child(even) { background-color: #fafafa; }
+.prose tbody tr:hover { background-color: var(--color-primary-subtle); }
 
 /* Mobile responsive for prose */
 @media (max-width: 767px) {
@@ -181,42 +160,28 @@ p {
   .prose th, .prose td { padding: 0.5rem; font-size: 0.9rem; }
 }
 
-/* Global Page Title - Elegant Cute Style */
+/* Global Page Title — 简洁现代 */
 .page-title {
   text-align: center !important;
-  color: var(--color-text, #2d2d2d) !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.02em;
+  color: var(--color-text) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em;
   position: relative;
   display: inline-block;
-  padding-bottom: 0.5rem;
-  
-  /* 立体文字效果 - 柔和的多层阴影 */
-  text-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.8),
-    0 2px 2px rgba(0, 0, 0, 0.05),
-    0 3px 3px rgba(0, 0, 0, 0.03),
-    0 1px 8px rgba(255, 158, 181, 0.15);
+  padding-bottom: 0.875rem;
 }
 
-/* 底部装饰线 - 可爱的粉色波浪效果 */
+/* 底部装饰线 — 一条简单的短黑线 */
 .page-title::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 60%;
-  height: 4px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--color-primary-light, #ffb8ca) 20%,
-    var(--color-primary, #ff9eb5) 50%,
-    var(--color-primary-light, #ffb8ca) 80%,
-    transparent 100%
-  );
-  border-radius: 2px;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 1px;
 }
 
 /* 标题容器居中 */
@@ -226,29 +191,7 @@ h1.page-title {
   text-align: center;
 }
 
-/* =========================================================
-   全局动态径向渐变背景
-   使用 @property 注册的 --radial-c1 / --radial-c2 实现
-   颜色之间的 CSS 原生插值动画
-   ========================================================= */
-
-/* 渐变波动：颜色在 c1/c2 之间来回循环切换 */
-@keyframes radialColorShift {
-  0%   { --radial-c1: var(--color-primary);   --radial-c2: var(--color-secondary); }
-  50%  { --radial-c1: var(--color-secondary); --radial-c2: var(--color-primary);   }
-  100% { --radial-c1: var(--color-primary);   --radial-c2: var(--color-secondary); }
-}
-
-/* 渐变中心点漂移：让光斑在页面上移动 */
-@keyframes radialCenterDrift {
-  0%   { background-position: 30% 30%; }
-  25%  { background-position: 70% 20%; }
-  50%  { background-position: 60% 70%; }
-  75%  { background-position: 20% 60%; }
-  100% { background-position: 30% 30%; }
-}
-
-/* body 全屏渐变覆盖层（已禁用，背景由 ParticleBackground 波浪线提供）*/
+/* body 全屏渐变覆盖层（已禁用，背景由 ParticleBackground 提供） */
 body::before {
   display: none;
 }
@@ -265,112 +208,10 @@ body::before {
   }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.8; }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes wiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-3deg); }
-  75% { transform: rotate(3deg); }
-}
-
-@keyframes rainbow {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
-}
-
-/* 可复用动画类 */
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-pulse {
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.animate-wiggle:hover {
-  animation: wiggle 0.5s ease-in-out;
-}
-
-/* 彩虹边框效果 - 用于特殊元素 */
-.rainbow-border {
-  position: relative;
-}
-
-.rainbow-border::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  background: linear-gradient(45deg, 
-    #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd, #ff6b6b);
-  background-size: 400% 400%;
-  border-radius: inherit;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  animation: rainbowMove 3s linear infinite paused;
-}
-
-.rainbow-border:hover::before {
-  opacity: 1;
-  animation-play-state: running;
-}
-
-@keyframes rainbowMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* 闪光效果 */
-.shimmer-effect {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.4) 50%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-/* 应用于所有使用主要渐变的元素 */
-:root {
-  --animate-gradient: radialColorShift 6s ease-in-out infinite;
-}
-
-/* 强制为主要渐变元素添加动画 */
-.bg-gradient-primary, 
-.text-gradient {
-  background-image: var(--gradient-primary) !important;
-  background-size: 200% 200%;
-  animation: var(--animate-gradient);
-}
-
-/* 通用动态背景类 */
-.dynamic-bg {
-  background: radial-gradient(ellipse at center, var(--radial-c1), var(--radial-c2));
-  background-size: 200% 200%;
-  animation: radialColorShift 6s ease-in-out infinite;
-}
 @media (prefers-reduced-motion: reduce) {
-  .animate-float,
-  .animate-pulse,
-  .animate-wiggle:hover,
-  .rainbow-border::before {
+  main > * {
     animation: none !important;
+    opacity: 1 !important;
   }
 }
 
@@ -386,3 +227,23 @@ main > *:nth-child(3) { animation-delay: 0.3s; }
 main > *:nth-child(4) { animation-delay: 0.4s; }
 main > *:nth-child(5) { animation-delay: 0.5s; }
 main > *:nth-child(n+6) { animation-delay: 0.6s; }
+
+/* =========================================================
+   全局效果开关（由右下角配置悬浮窗控制）
+   通过在 <html> 上挂载 class 实现，状态持久化于 localStorage
+   ========================================================= */
+
+/* 关闭背景粒子 */
+html.fx-particles-off #particle-bg {
+  display: none;
+}
+
+/* 关闭页面动画：内容直接呈现，无入场动效 */
+html.fx-anim-off main > * {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+html.fx-anim-off * {
+  scroll-behavior: auto;
+}

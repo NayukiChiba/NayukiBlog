@@ -94,52 +94,42 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
       }
     </style>
     
-    <!-- ⬇️ 防止样式闪烁 (FOUC) 的脚本：在页面渲染前立即应用用户设置的主题色 -->
+    <!-- ⬇️ 防止样式闪烁 (FOUC) 的脚本：在页面渲染前立即应用用户设置的主题色与效果开关 -->
     <script is:inline>
       (function() {
         try {
-          // 立即获取存储的主题 - Clashing Colors Update
-          const c1 = localStorage.getItem('theme-color-1');
-          const c2 = localStorage.getItem('theme-color-2');
           const root = document.documentElement;
 
-          // 核心：强制应用新的撞色变量，并覆盖旧逻辑
-          if (c1 && c2) {
-              root.style.setProperty('--color-primary', c1);
-              root.style.setProperty('--color-secondary', c2);
-              // 移除强制纯色，恢复 CSS 渐变定义
-              // root.style.setProperty('--gradient-primary', c1); 
-              // root.style.setProperty('--gradient-text', c1);    
-              root.style.setProperty('--color-accent', c2);
-          } else {
-              // 如果没有存储，使用默认的撞色 (#55b0e2, #ffe1e1)
-              root.style.setProperty('--color-primary', '#55b0e2');
-              root.style.setProperty('--color-secondary', '#ffe1e1');
-              // root.style.setProperty('--gradient-primary', '#55b0e2');
-              // root.style.setProperty('--gradient-text', '#55b0e2');
-              root.style.setProperty('--color-accent', '#ffe1e1');
+          // 应用主题双色（默认黑白：#111111 / #a3a3a3）
+          function applyTheme() {
+            const c1 = localStorage.getItem('theme-color-1') || '#111111';
+            const c2 = localStorage.getItem('theme-color-2') || '#a3a3a3';
+            root.style.setProperty('--color-primary', c1);
+            root.style.setProperty('--color-secondary', c2);
+            root.style.setProperty('--radial-c1', c1);
+            root.style.setProperty('--radial-c2', c2);
+            root.style.setProperty('--color-accent', c2);
           }
 
-          // 清理旧的存储以防干扰
-          localStorage.removeItem('theme-gradient'); 
-          // 不一定要清除 theme-color，但新逻辑优先检查 theme-color-1/2
+          // 应用效果开关（配置悬浮窗持久化的状态）
+          function applyFxToggles() {
+            root.classList.toggle('fx-particles-off', localStorage.getItem('fx-particles') === 'off');
+            root.classList.toggle('fx-anim-off', localStorage.getItem('fx-anim') === 'off');
+          }
 
-          // 监听 astro:after-swap 事件
+          applyTheme();
+          applyFxToggles();
+
+          // 清理旧版本的存储以防干扰
+          localStorage.removeItem('theme-gradient');
+
+          // 监听 astro:after-swap 事件（View Transitions 切页后重新应用）
           document.addEventListener('astro:after-swap', () => {
-             const nc1 = localStorage.getItem('theme-color-1');
-             const nc2 = localStorage.getItem('theme-color-2');
-             if (nc1 && nc2) {
-                root.style.setProperty('--color-primary', nc1);
-                root.style.setProperty('--color-secondary', nc2);
-                root.style.setProperty('--gradient-primary', nc1);
-                root.style.setProperty('--gradient-text', nc1);
-                root.style.setProperty('--color-accent', nc2);
-             }
+            applyTheme();
+            applyFxToggles();
           });
-          
-
         } catch (e) {
-          console.error('Failed to restore theme color:', e);
+          console.error('Failed to restore theme settings:', e);
         }
       })();
     </script>

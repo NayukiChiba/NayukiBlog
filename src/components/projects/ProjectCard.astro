@@ -38,7 +38,7 @@ const { title, desc, url, tech = [] } = Astro.props;
     display: flex;
     flex-direction: column;
     background: var(--color-card-bg);
-    border: 2px solid var(--color-border);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
     padding: 2rem;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -50,25 +50,10 @@ const { title, desc, url, tech = [] } = Astro.props;
   }
 
   .project-card:hover {
-    box-shadow: var(--shadow-hover);
+    border-color: var(--color-text, #111111);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
     z-index: 10;
-    /* 彗星流光边框 */
-    border: 2px solid transparent;
-    background-color: transparent;
-    background-image:
-        linear-gradient(var(--color-card-bg, #ffffff), var(--color-card-bg, #ffffff)),
-        conic-gradient(
-            from var(--border-angle),
-            transparent 0deg,
-            var(--radial-c1) 40deg,
-            var(--radial-c2) 70deg,
-            transparent 100deg,
-            transparent 360deg
-        );
-    background-clip: padding-box, border-box;
-    background-origin: padding-box, border-box;
-    animation: borderSpin 2.5s linear infinite;
-    box-shadow: var(--shadow-hover), 0 0 16px color-mix(in srgb, var(--radial-c1) 40%, transparent);
   }
 
   .project-content {
