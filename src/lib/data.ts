@@ -9,6 +9,7 @@ import diariesData from "../data/diaries.json";
 import galleryData from "../data/gallery.json";
 import todosData from "../data/todos.json";
 import toolsData from "../data/tools.json";
+import rssData from "../data/rss.json";
 
 // 类型定义
 export interface Project {
@@ -67,6 +68,14 @@ export interface Tool {
   icon?: string;
   category?: string;
   status?: string;
+}
+
+export interface RssFeed {
+  id: number;
+  name: string;
+  site: string;
+  feedUrl: string;
+  status: string;
 }
 
 // 获取项目列表
@@ -238,6 +247,18 @@ export function getTools(options?: {
   }
 
   return tools;
+}
+
+// 获取 RSS 订阅源列表
+export function getRssFeeds(options?: { status?: string }): RssFeed[] {
+  let feeds = rssData.feeds || [];
+
+  // 过滤
+  if (options?.status) {
+    feeds = feeds.filter((f) => f.status === options.status);
+  }
+
+  return feeds;
 }
 
 // 获取所有分类

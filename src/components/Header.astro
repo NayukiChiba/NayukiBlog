@@ -8,13 +8,13 @@ const navItems = [
   { href: '/gallery', label: 'Gallery' },
   { href: '/todo', label: 'TODO' },
   { href: '/toolbox', label: 'Tools' },
+  { href: '/rss', label: 'RSS' },
   { href: '/about', label: 'About' },
 ];
 ---
 
 <header class="site-header">
   <div class="header-container">
-    <a href="/home" class="site-title">Nayuki Blog</a>
     <!-- 移动端汉堡菜单按钮 -->
     <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="打开菜单">
       <span class="hamburger-line"></span>
@@ -84,24 +84,9 @@ const navItems = [
     margin: 0 auto;
     padding: 0 var(--content-padding, 2rem);
     display: flex;
-    justify-content: space-between;
+    /* 移动端只有汉堡按钮，靠右；桌面端导航居中（见下方媒体查询） */
+    justify-content: flex-end;
     align-items: center;
-  }
-
-  .site-title {
-    font-weight: 800;
-    font-size: 1.35rem;
-    text-decoration: none;
-    transition: color 0.2s ease;
-    letter-spacing: -0.02em;
-    position: relative;
-    /* Removed gradient background entirely */
-    color: var(--color-text);
-  }
-
-  /* Hover effect: 简洁的颜色过渡 */
-  .site-title:hover {
-    color: var(--color-primary);
   }
 
   /* 桌面端导航 */
@@ -116,7 +101,7 @@ const navItems = [
     margin: 0;
     padding: 0;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: center;
   }
 
   .nav-list a {
@@ -288,6 +273,10 @@ const navItems = [
 
   /* 平板及以上显示桌面导航，隐藏移动菜单 */
   @media (min-width: 1024px) {
+    .header-container {
+      justify-content: center;
+    }
+
     .desktop-nav {
       display: block;
     }
