@@ -21,31 +21,35 @@
       const mobileTocContainer = document.getElementById("mobile-toc");
       const contentEl = document.querySelector(".content");
 
-      // 移动端目录抽屉
+      // 移动端目录悬浮窗
       const tocFloatBtn = document.getElementById("toc-float-btn");
-      const tocDrawer = document.getElementById("toc-drawer");
-      const tocOverlay = document.getElementById("toc-overlay");
-      const tocDrawerClose = document.getElementById("toc-drawer-close");
+      const tocPanel = document.getElementById("toc-drawer");
 
       // 确保初始状态关闭
-      tocDrawer?.classList.remove("open");
-      tocOverlay?.classList.remove("visible");
-
-      function openTocDrawer() {
-        tocDrawer?.classList.add("open");
-        tocOverlay?.classList.add("visible");
-        document.body.style.overflow = "hidden";
-      }
+      tocPanel?.classList.remove("open");
 
       function closeTocDrawer() {
-        tocDrawer?.classList.remove("open");
-        tocOverlay?.classList.remove("visible");
-        document.body.style.overflow = "";
+        tocPanel?.classList.remove("open");
       }
 
-      tocFloatBtn?.addEventListener("click", openTocDrawer);
-      tocDrawerClose?.addEventListener("click", closeTocDrawer);
-      tocOverlay?.addEventListener("click", closeTocDrawer);
+      function toggleTocPanel(e) {
+        e.stopPropagation();
+        tocPanel?.classList.toggle("open");
+      }
+
+      tocFloatBtn?.addEventListener("click", toggleTocPanel);
+
+      // 点击悬浮窗外部 / Escape 关闭
+      document.addEventListener("click", (e) => {
+        if (!tocPanel?.classList.contains("open")) return;
+        const target = e.target;
+        if (tocPanel.contains(target) || tocFloatBtn?.contains(target)) return;
+        closeTocDrawer();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeTocDrawer();
+      });
 
       if ((!tocContainer && !mobileTocContainer) || !contentEl) return;
 
