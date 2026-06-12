@@ -105,12 +105,12 @@
   color: #009624;
 }
 
-/* Warning (Orange) */
-.callout-warning {
+/* Attention (Orange) — 与 Danger（红色错误/危险）区分：用于提醒注意 */
+.callout-attention {
   border-left-color: #ffab00;
   background-color: rgba(255, 171, 0, 0.02);
 }
-.callout-warning .callout-title {
+.callout-attention .callout-title {
   color: #ff6d00;
 }
 

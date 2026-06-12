@@ -478,7 +478,7 @@ jobs:
 * 在`OAuth APP`设置中，设置选择**主界面**的url和**login**界面的url（这里以`localhost`为例）
 ![Setting.png](https://img.yumeko.site/file/blog/articles/1780581287040.webp)
 
-> [!WARNING]
+> [!ATTENTION]
 > 在生产环境要把Homepage改成你选择**登录之后**要到达的页面，callback URL就是**登录github账号，选择github账号**的页面
 
 ## Callback验证

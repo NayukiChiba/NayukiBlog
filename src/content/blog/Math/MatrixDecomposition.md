@@ -405,7 +405,7 @@ $$
 - **多元正态采样**：若 $z \sim \mathcal{N}(0, I)$，则 $x = \mu + Lz \sim \mathcal{N}(\mu, \Sigma)$，其中 $\Sigma = LL^\top$
 - **Kalman 滤波**：协方差矩阵的传播和更新广泛使用 Cholesky 分解
 
-> [!WARNING] 注意
+> [!ATTENTION] 注意
 > Cholesky 分解要求矩阵**严格正定**（特征值全 $> 0$）。半正定矩阵（有零特征值）会因 $L_{jj} = 0$ 导致算法中断。此时应使用 LDL 分解或添加微小对角扰动（$\Sigma + \epsilon I$）。
 
 ## 5. LDL 分解：对称但不正定时的选择

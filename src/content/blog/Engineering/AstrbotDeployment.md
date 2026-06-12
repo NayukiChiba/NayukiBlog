@@ -301,7 +301,7 @@ mlikiowa/napcat-docker:latest
 
 ![创建napcat容器](https://img.yumeko.site/file/blog/articles/1780580973908.webp)
 
-> [!WARNING] napcat网络
+> [!ATTENTION] napcat网络
 > 需要napcat跟astrbot处于同一个网络
 
 * 设置容器的网络
@@ -525,7 +525,7 @@ volumes:
 
 ![SnowlumaEnv.png](https://img.yumeko.site/file/blog/articles/1780580990985.webp)
 
-> [!WARNING] 注意
+> [!ATTENTION] 注意
 > 要设置环境变量`VNC_PASSWD={密码}`，不然别人可以直接登录你的界面
 
 ## 打开防火墙
@@ -552,7 +552,7 @@ volumes:
 
 开始设置**WebSocket客户端**
 
-> [!WARNING] 注意
+> [!ATTENTION] 注意
 > 注意是客户端，不是服务端
 
 ![WSClient.png](https://img.yumeko.site/file/blog/articles/1780581025042.webp)

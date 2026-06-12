@@ -14,10 +14,10 @@ status: published
 2. 在设置中**系统**，**区域与语言**，下载英文
 ![ChangLanguage.png](https://img.yumeko.site/file/blog/articles/ChangLanguage.png)
 3. 重新登录之后，选择**更改文件夹名字**
-> [!WARNING] 注意
+> [!ATTENTION] 注意
 > 注意**不要**勾选**下此不再提醒**
 * 重新设置回中文，重新登陆
-> [!WARNING] 注意
+> [!ATTENTION] 注意
 > 这次要选择不更改文件夹名字
 
 * 这次可以选择下次不提醒了
@@ -329,7 +329,7 @@ menuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menu
 ```
 
 3. 保存文件即可
-> [!WARNING] 注意
+> [!ATTENTION] 注意
 > 这里不要update-grub，会重置你的启动名字
 # 最后效果
 

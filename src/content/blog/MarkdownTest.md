@@ -6,7 +6,7 @@ tags:
   - Markdown
 description: 这是一个用于测试所有Markdown样式的综合测试文档，包含标题、列表、表格、代码块、数学公式、图片等所有常用元素。
 image: https://img.yumeko.site/file/wife/早坂爱.jpg
-status: published
+status: draft
 ---
 
 # 一级标题 - Markdown 样式完整测试
@@ -236,8 +236,8 @@ $$
 > [!SUCCESS] 这是一个 Success 成功
 > 操作已成功完成！
 
-> [!WARNING]
-> 请注意，这是一个警告信息（无自定义标题，显示默认标题）。
+> [!ATTENTION]
+> 请注意，这是一个注意信息（无自定义标题，显示默认标题）。
 
 > [!DANGER] 这是一个 Danger 危险
 > 这是一个危险操作，请小心！

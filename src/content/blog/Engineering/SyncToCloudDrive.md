@@ -46,7 +46,7 @@ docker compose up -d
 
 ![1780907712960.png](https://img.yumeko.site/file/blog/articles/1780909563840.webp)
 
-> [!WARNING] 注意！！！
+> [!ATTENTION] 注意！！！
 > 两种获取百度网盘token的方法都需要在[这里](https://api.oplist.org/)来获取
 > ![1780909503749.png](https://img.yumeko.site/file/blog/articles/1780909532257.webp)
 ### 获取令牌
@@ -66,7 +66,7 @@ docker compose up -d
 
 5. 使用控制台的创建按钮创建一个应用
 
-> [!WARNING] 注意！！！
+> [!ATTENTION] 注意！！！
 > 请注意个人开发者只能创建一个应用，如您对应用有其他使用，请使用第二和三方法，此处默认您没有应用且愿意为openlist创建应用
 
 
@@ -75,7 +75,7 @@ docker compose up -d
 ![dev_app_create_panel.jpg](https://img.yumeko.site/file/blog/articles/1780909658426.webp)
 7. 创建完成后将会回到控制面板，点击应用名称进入应用详情页。
 ![dev_app_console.jpg](https://img.yumeko.site/file/blog/articles/1780909664360.webp)
-> [!WARNING] 注意！
+> [!ATTENTION] 注意！
 > 您不需要申请上线审核就可以正常使用
 
 8. 选择安全设置，并填写应用回调地址为提供的回调地址并保存
