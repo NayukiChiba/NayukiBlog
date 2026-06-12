@@ -178,7 +178,7 @@
         font-size: 1em;
     }
 
-    /* 目录层级：仅靠缩进区分，字体大小保持一致 */
+    /* 目录层级：缩进 + Markdown # 占位符，字体大小保持一致 */
     #mobile-toc .level-0 a {
         padding-left: 0.5rem;
         font-weight: 600;
@@ -192,7 +192,30 @@
     #mobile-toc .level-3 a {
         padding-left: 1.75rem;
     }
-    #mobile-toc .level-4 a {
-        padding-left: 2.25rem;
+
+    /* 层级占位符：Markdown 风格 #，数量与标题级别一致（h1 → #，h2 → ##…） */
+    #mobile-toc a::before {
+        color: #bbbbbb;
+        margin-right: 0.4rem;
+        font-size: 0.8em;
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    #mobile-toc .level-0 a::before {
+        content: "#";
+    }
+    #mobile-toc .level-1 a::before {
+        content: "##";
+    }
+    #mobile-toc .level-2 a::before {
+        content: "###";
+    }
+    #mobile-toc .level-3 a::before {
+        content: "####";
+    }
+
+    /* 悬停/高亮时占位符跟随主题色 */
+    #mobile-toc a:hover::before,
+    #mobile-toc a.active::before {
+        color: var(--color-primary, #111111);
     }
 </style>

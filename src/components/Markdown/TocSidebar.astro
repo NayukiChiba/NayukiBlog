@@ -281,7 +281,7 @@
         display: none;
     }
 
-    /* 目录层级：缩进 + 树形连接符，字体大小/颜色保持一致 */
+    /* 目录层级：缩进 + Markdown # 占位符，字体大小/颜色保持一致 */
     .toc-item.level-0 {
         margin-top: 0.25rem;
     }
@@ -311,21 +311,30 @@
         padding-left: 2rem;
     }
 
-    .toc-item.level-4 {
-        margin-top: 0.05rem;
-    }
-    #article-toc .toc-item.level-4 a {
-        padding-left: 2.75rem;
-    }
-
-    /* 树形连接符：子层级条目前显示 └ */
-    #article-toc .toc-item.level-2 a::before,
-    #article-toc .toc-item.level-3 a::before,
-    #article-toc .toc-item.level-4 a::before {
-        content: "└";
+    /* 层级占位符：Markdown 风格 #，数量与标题级别一致（h1 → #，h2 → ##…） */
+    #article-toc .toc-item a::before {
         color: #bbbbbb;
         margin-right: 0.4rem;
-        font-size: 0.85em;
+        font-size: 0.8em;
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    #article-toc .toc-item.level-0 a::before {
+        content: "#";
+    }
+    #article-toc .toc-item.level-1 a::before {
+        content: "##";
+    }
+    #article-toc .toc-item.level-2 a::before {
+        content: "###";
+    }
+    #article-toc .toc-item.level-3 a::before {
+        content: "####";
+    }
+
+    /* 悬停/高亮时占位符跟随主题色 */
+    #article-toc .toc-item a:hover::before,
+    #article-toc .toc-item a.active::before {
+        color: var(--color-primary, #111111);
     }
 
     /* 层级分隔线：每个顶级标题（除第一个）上方都有分隔线，保持一致 */
