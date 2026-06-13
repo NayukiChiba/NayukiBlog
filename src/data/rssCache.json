@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T11:07:10.924Z",
+  "generatedAt": "2026-06-13T11:28:44.400Z",
   "feeds": [
     {
       "id": 1,
@@ -1838,34 +1838,6 @@
           "summary": ""
         }
       ]
-    },
-    {
-      "id": 14,
-      "title": "arXiv AI (cs.AI)",
-      "link": "http://rss.arxiv.org/rss/cs.AI",
-      "ok": true,
-      "items": []
-    },
-    {
-      "id": 15,
-      "title": "arXiv ML (cs.LG)",
-      "link": "http://rss.arxiv.org/rss/cs.LG",
-      "ok": true,
-      "items": []
-    },
-    {
-      "id": 16,
-      "title": "arXiv NLP (cs.CL)",
-      "link": "http://rss.arxiv.org/rss/cs.CL",
-      "ok": true,
-      "items": []
-    },
-    {
-      "id": 17,
-      "title": "arXiv CV (cs.CV)",
-      "link": "http://rss.arxiv.org/rss/cs.CV",
-      "ok": true,
-      "items": []
     }
   ]
 }

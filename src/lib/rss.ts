@@ -31,7 +31,7 @@ export interface FeedResult {
 //   见 src/data/rssCache.json）
 const MAX_ITEMS_PER_FEED = 25;
 // 抓取超时（毫秒）
-const FETCH_TIMEOUT = 10000;
+const FETCH_TIMEOUT = 30000;
 // 摘要最大长度
 const SUMMARY_MAX_LENGTH = 120;
 
