@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T18:04:49.189Z",
+  "generatedAt": "2026-06-13T20:12:29.962Z",
   "feeds": [
     {
       "id": 1,
@@ -755,6 +755,24 @@
       "link": "https://news.ycombinator.com/",
       "ok": true,
       "items": [
+        {
+          "title": "Running DOS on Behringers DDX3216 with a DIY x86-Bios from Scratch",
+          "link": "https://chrisdevblog.com/2026/06/08/running-dos-on-behringers-ddx3216-using-a-diy-x86-bios/",
+          "date": "2026-06-13T18:32:22.000Z",
+          "summary": "Article URL: https://chrisdevblog.com/2026/06/08/running-dos-on-behringers-ddx3216-using-a-diy-x86-bios/ Comments URL: h…"
+        },
+        {
+          "title": "GameBoy Workboy",
+          "link": "https://tcrf.net/Workboy",
+          "date": "2026-06-13T17:43:02.000Z",
+          "summary": "Article URL: https://tcrf.net/Workboy Comments URL: https://news.ycombinator.com/item?id=48519552 Points: 74 # Comments:…"
+        },
+        {
+          "title": "PwC Report: AI Making Medical Bills Higher",
+          "link": "https://fortune.com/2026/06/12/ai-making-medical-bills-higher/",
+          "date": "2026-06-13T17:39:14.000Z",
+          "summary": "Article URL: https://fortune.com/2026/06/12/ai-making-medical-bills-higher/ Comments URL: https://news.ycombinator.com/i…"
+        },
         {
           "title": "Amazon CEO's Talks with U.S. Officials Triggered Crackdown on Anthropic Models",
           "link": "https://www.wsj.com/tech/ai/amazon-ceos-talks-with-u-s-officials-triggered-crackdown-on-anthropic-models-dcc90578",
