@@ -281,71 +281,46 @@
         display: none;
     }
 
-    /* 目录层级：缩进 + Markdown # 占位符，字体大小/颜色保持一致 */
+    /* 目录层级：层级关系由 JS 注入的树形连接线前缀表示，缩进统一 */
     .toc-item.level-0 {
         margin-top: 0.25rem;
     }
     #article-toc .toc-item.level-0 a {
-        padding-left: 0.5rem;
         font-weight: 600;
     }
 
     .toc-item.level-1 {
         margin-top: 0.15rem;
     }
-    #article-toc .toc-item.level-1 a {
-        padding-left: 0.75rem;
-    }
-
     .toc-item.level-2 {
         margin-top: 0.15rem;
     }
-    #article-toc .toc-item.level-2 a {
-        padding-left: 1.25rem;
-    }
-
     .toc-item.level-3 {
         margin-top: 0.1rem;
     }
-    #article-toc .toc-item.level-3 a {
-        padding-left: 2rem;
+
+    #article-toc .toc-item a {
+        padding-left: 0.5rem;
     }
 
-    /* 层级占位符：Markdown 风格 #，数量与标题级别一致（h1 → #，h2 → ##…） */
-    #article-toc .toc-item a::before {
-        color: #bbbbbb;
-        margin-right: 0.4rem;
-        font-size: 0.8em;
+    /* 树形连接线前缀：等宽字体保证竖线与连接符纵向对齐 */
+    #article-toc .toc-tree-prefix {
+        color: #cccccc;
         font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-    }
-    #article-toc .toc-item.level-0 a::before {
-        content: "#";
-    }
-    #article-toc .toc-item.level-1 a::before {
-        content: "##";
-    }
-    #article-toc .toc-item.level-2 a::before {
-        content: "###";
-    }
-    #article-toc .toc-item.level-3 a::before {
-        content: "####";
+        white-space: pre;
+        font-size: 0.9em;
     }
 
-    /* 悬停/高亮时占位符跟随主题色 */
-    #article-toc .toc-item a:hover::before,
-    #article-toc .toc-item a.active::before {
+    /* 悬停/高亮时连接线跟随主题色 */
+    #article-toc .toc-item a:hover .toc-tree-prefix,
+    #article-toc .toc-item a.active .toc-tree-prefix {
         color: var(--color-primary, #111111);
     }
 
-    /* 层级分隔线：每个顶级标题（除第一个）上方都有分隔线，保持一致 */
+    /* 层级分隔线：每个顶级标题（除第一个）上方都有分隔线 */
     #article-toc .toc-item.level-0:not(:first-child) {
         margin-top: 0.5rem;
         padding-top: 0.5rem;
         border-top: 1px solid rgba(0, 0, 0, 0.05);
-    }
-    #article-toc .toc-item.level-1:not(:first-child) {
-        margin-top: 0.35rem;
-        padding-top: 0.35rem;
-        border-top: 1px solid rgba(0, 0, 0, 0.03);
     }
 </style>

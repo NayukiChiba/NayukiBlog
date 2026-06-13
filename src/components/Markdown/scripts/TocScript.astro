@@ -75,6 +75,44 @@
         return;
       }
 
+      // 计算树形连接线前缀：以文中最高级别标题为根（深度 0，无前缀）
+      const headingLevels = headings.map((h) =>
+        parseInt(h.tagName.substring(1)),
+      );
+      const minHeadingLevel = Math.min.apply(null, headingLevels);
+      const depths = headingLevels.map((l) => l - minHeadingLevel);
+
+      // 前缀 = 祖先延续线（│ 或空格）+ 自身连接符（├─ 或 └─）
+      const treePrefixes = depths.map((depth, i) => {
+        if (depth === 0) return "";
+        let prefix = "";
+
+        // 祖先列：该深度的祖先在后面还有同级兄弟时画延续线 │，否则留空
+        for (let d = 1; d < depth; d++) {
+          let ancestorHasNext = false;
+          for (let j = i + 1; j < depths.length; j++) {
+            if (depths[j] < d) break;
+            if (depths[j] === d) {
+              ancestorHasNext = true;
+              break;
+            }
+          }
+          prefix += ancestorHasNext ? "│  " : "   ";
+        }
+
+        // 自身连接符：同级最后一项用 └─，否则用 ├─
+        let isLast = true;
+        for (let j = i + 1; j < depths.length; j++) {
+          if (depths[j] < depth) break;
+          if (depths[j] === depth) {
+            isLast = false;
+            break;
+          }
+        }
+        prefix += isLast ? "└─ " : "├─ ";
+        return prefix;
+      });
+
       // 生成目录列表
       const createTocList = (forMobile) => {
         const ul = document.createElement("ul");
@@ -97,6 +135,14 @@
           a.href = "#" + heading.id;
           // 复制标题 HTML 以保留 KaTeX 公式等行内渲染结果
           a.innerHTML = heading.innerHTML;
+
+          // 插入树形连接线前缀（顶级标题无前缀）
+          if (treePrefixes[index]) {
+            const prefixSpan = document.createElement("span");
+            prefixSpan.className = "toc-tree-prefix";
+            prefixSpan.textContent = treePrefixes[index];
+            a.insertBefore(prefixSpan, a.firstChild);
+          }
 
           a.addEventListener("click", (e) => {
             e.preventDefault();

@@ -178,44 +178,22 @@
         font-size: 1em;
     }
 
-    /* 目录层级：缩进 + Markdown # 占位符，字体大小保持一致 */
+    /* 目录层级：层级关系由 JS 注入的树形连接线前缀表示，缩进统一 */
     #mobile-toc .level-0 a {
-        padding-left: 0.5rem;
         font-weight: 600;
     }
-    #mobile-toc .level-1 a {
-        padding-left: 0.75rem;
-    }
-    #mobile-toc .level-2 a {
-        padding-left: 1.25rem;
-    }
-    #mobile-toc .level-3 a {
-        padding-left: 1.75rem;
-    }
 
-    /* 层级占位符：Markdown 风格 #，数量与标题级别一致（h1 → #，h2 → ##…） */
-    #mobile-toc a::before {
-        color: #bbbbbb;
-        margin-right: 0.4rem;
-        font-size: 0.8em;
+    /* 树形连接线前缀：等宽字体保证竖线与连接符纵向对齐 */
+    #mobile-toc .toc-tree-prefix {
+        color: #cccccc;
         font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-    }
-    #mobile-toc .level-0 a::before {
-        content: "#";
-    }
-    #mobile-toc .level-1 a::before {
-        content: "##";
-    }
-    #mobile-toc .level-2 a::before {
-        content: "###";
-    }
-    #mobile-toc .level-3 a::before {
-        content: "####";
+        white-space: pre;
+        font-size: 0.9em;
     }
 
-    /* 悬停/高亮时占位符跟随主题色 */
-    #mobile-toc a:hover::before,
-    #mobile-toc a.active::before {
+    /* 悬停/高亮时连接线跟随主题色 */
+    #mobile-toc a:hover .toc-tree-prefix,
+    #mobile-toc a.active .toc-tree-prefix {
         color: var(--color-primary, #111111);
     }
 </style>
