@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T12:22:17.852Z",
+  "generatedAt": "2026-06-13T14:57:35.908Z",
   "feeds": [
     {
       "id": 1,
@@ -756,10 +756,52 @@
       "ok": true,
       "items": [
         {
+          "title": "Introduction to the experience of rendering Arabic typography&its technical debt",
+          "link": "https://lr0.org/blog/p/arabic/",
+          "date": "2026-06-13T12:40:16.000Z",
+          "summary": "Article URL: https://lr0.org/blog/p/arabic/ Comments URL: https://news.ycombinator.com/item?id=48516710 Points: 19 # Com…"
+        },
+        {
+          "title": "An Interview with Intel's Kira Boyko: Xeon 6's Product Director",
+          "link": "https://chipsandcheese.com/p/an-interview-with-intels-kira-boyko",
+          "date": "2026-06-13T12:20:05.000Z",
+          "summary": "Article URL: https://chipsandcheese.com/p/an-interview-with-intels-kira-boyko Comments URL: https://news.ycombinator.com…"
+        },
+        {
+          "title": "Sam Bankman-Fried loses bid to appeal against fraud conviction in FTX case",
+          "link": "https://www.theguardian.com/business/2026/jun/12/sam-bankman-fried-loses-appeal",
+          "date": "2026-06-13T12:17:27.000Z",
+          "summary": "Article URL: https://www.theguardian.com/business/2026/jun/12/sam-bankman-fried-loses-appeal Comments URL: https://news.…"
+        },
+        {
+          "title": "Show HN: 2 Weeks of Hallucinate – The Photo Gallery",
+          "link": "https://hallucinate.site/gallery",
+          "date": "2026-06-13T12:11:35.000Z",
+          "summary": "Article URL: https://hallucinate.site/gallery Comments URL: https://news.ycombinator.com/item?id=48516510 Points: 49 # C…"
+        },
+        {
+          "title": "AI OSS tool repo goes archived over night after raising $7.3M Seed",
+          "link": "https://github.com/tensorzero/tensorzero",
+          "date": "2026-06-13T12:10:47.000Z",
+          "summary": "Article URL: https://github.com/tensorzero/tensorzero Comments URL: https://news.ycombinator.com/item?id=48516504 Points…"
+        },
+        {
           "title": "Arch Linux Now Believes Malware Incident Under Control: More Than 1,500 Packages",
           "link": "https://www.phoronix.com/news/Arch-Linux-AUR-More-Than-1500",
           "date": "2026-06-13T11:55:30.000Z",
           "summary": "Article URL: https://www.phoronix.com/news/Arch-Linux-AUR-More-Than-1500 Comments URL: https://news.ycombinator.com/item…"
+        },
+        {
+          "title": "Every Frame Perfect",
+          "link": "https://tonsky.me/blog/every-frame-perfect/",
+          "date": "2026-06-13T11:40:20.000Z",
+          "summary": "Article URL: https://tonsky.me/blog/every-frame-perfect/ Comments URL: https://news.ycombinator.com/item?id=48516251 Poi…"
+        },
+        {
+          "title": "RTX 5080 and RTX 3090 Setup: 80 Tok/s on Qwen 3.6 27B Q8",
+          "link": "https://imil.net/blog/posts/2026/rtx-5080-+-rtx-3090-setup-80+-tok-s-on-qwen-3.6-27b-q8/",
+          "date": "2026-06-13T09:55:32.000Z",
+          "summary": "Article URL: https://imil.net/blog/posts/2026/rtx-5080-+-rtx-3090-setup-80+-tok-s-on-qwen-3.6-27b-q8/ Comments URL: http…"
         },
         {
           "title": "Show HN: Paca – Lightweight Jira alternative for human-AI collaboration",
