@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T09:02:47.714Z",
+  "generatedAt": "2026-06-13T09:11:30.922Z",
   "feeds": [
     {
       "id": 1,
@@ -162,9 +162,160 @@
     {
       "id": 2,
       "title": "OpenAI News",
-      "link": "https://openai.com/news/",
-      "ok": false,
-      "items": []
+      "link": "https://openai.com/news",
+      "ok": true,
+      "items": [
+        {
+          "title": "New OpenAI Academy courses for the next era of work",
+          "link": "https://openai.com/index/academy-courses-applying-ai-at-work",
+          "date": "2026-06-12T10:00:00.000Z",
+          "summary": "OpenAI introduces three Academy courses that help people build practical AI skills, create repeatable workflows, and app…"
+        },
+        {
+          "title": "How Preply combines AI and human tutors to personalize learning",
+          "link": "https://openai.com/index/preply",
+          "date": "2026-06-12T00:00:00.000Z",
+          "summary": "Preply uses OpenAI to launch AI-generated lesson summaries, providing personalised feedback and language learning exerci…"
+        },
+        {
+          "title": "Supporting Europe’s work in ensuring a trustworthy AI ecosystem",
+          "link": "https://openai.com/index/supporting-eu-trustworthy-ai-ecosystem",
+          "date": "2026-06-11T00:00:00.000Z",
+          "summary": "OpenAI supports the EU Code of Practice on AI content transparency, advancing provenance standards and tools to help peo…"
+        },
+        {
+          "title": "BBVA puts AI at the core of banking with OpenAI",
+          "link": "https://openai.com/index/bbva",
+          "date": "2026-06-11T00:00:00.000Z",
+          "summary": "Learn how BBVA scaled ChatGPT Enterprise to 100,000 employees and partnered with OpenAI to accelerate AI-powered banking…"
+        },
+        {
+          "title": "OpenAI to acquire Ona",
+          "link": "https://openai.com/index/openai-to-acquire-ona",
+          "date": "2026-06-11T00:00:00.000Z",
+          "summary": "OpenAI plans to acquire Ona to expand Codex with secure, persistent cloud environments, enabling long-running AI agents …"
+        },
+        {
+          "title": "How an astrophysicist uses Codex to help simulate black holes",
+          "link": "https://openai.com/index/using-codex-to-simulate-black-holes",
+          "date": "2026-06-11T00:00:00.000Z",
+          "summary": "Discover how astrophysicist Chi-kwan Chan uses Codex to build black hole simulations, helping scientists study extreme p…"
+        },
+        {
+          "title": "Access OpenAI models and Codex through your Oracle cloud commitment",
+          "link": "https://openai.com/index/openai-on-oracle-cloud",
+          "date": "2026-06-10T20:00:00.000Z",
+          "summary": "Access OpenAI models and Codex through Oracle Cloud, using existing commitments to build and deploy AI with enterprise s…"
+        },
+        {
+          "title": "PRC-linked influence operations are targeting AI debates in the US",
+          "link": "https://openai.com/index/prc-linked-influence-operations-ai-debates",
+          "date": "2026-06-10T12:00:00.000Z",
+          "summary": "A new report from OpenAI details PRC-linked influence operations using AI to target U.S. tech debates, data center narra…"
+        },
+        {
+          "title": "From data to decisions: how LSEG is scaling trusted AI",
+          "link": "https://openai.com/index/lseg",
+          "date": "2026-06-10T00:00:00.000Z",
+          "summary": "See how LSEG uses OpenAI to scale trusted AI across its global business, accelerating insights, shrinking release cycles…"
+        },
+        {
+          "title": "How engineers at Nextdoor use Codex to build without limits",
+          "link": "https://openai.com/index/nextdoor",
+          "date": "2026-06-09T12:00:00.000Z",
+          "summary": "How engineers at Nextdoor use Codex with GPT-5.5 to investigate hard-to-reproduce issues, build across platforms, and fo…"
+        },
+        {
+          "title": "What Codex unlocks for Notion",
+          "link": "https://openai.com/index/notion",
+          "date": "2026-06-09T10:00:00.000Z",
+          "summary": "How Notion uses Codex to one-shot specs, build AI Voice Input for the web, and multiply engineering power across small t…"
+        },
+        {
+          "title": "Industrial policy for the Intelligence Age",
+          "link": "https://openai.com/index/industrial-policy-for-the-intelligence-age",
+          "date": "2026-06-09T00:00:00.000Z",
+          "summary": "Explore our ambitious, people-first industrial policy ideas for the AI era—focused on expanding opportunity, sharing pro…"
+        },
+        {
+          "title": "Confidential submission of draft S-1 to the SEC",
+          "link": "https://openai.com/index/openai-submits-confidential-s-1",
+          "date": "2026-06-08T14:00:00.000Z",
+          "summary": "OpenAI confirms a confidential S-1 submission to the SEC and has not yet determined timing for further action."
+        },
+        {
+          "title": "Built to benefit everyone: our plan",
+          "link": "https://openai.com/index/built-to-benefit-everyone-our-plan",
+          "date": "2026-06-08T01:30:00.000Z",
+          "summary": "A vision for the future of AI, focusing on access, safety, and shared prosperity as OpenAI works to ensure AGI benefits …"
+        },
+        {
+          "title": "Introducing the OpenAI Economic Research Exchange",
+          "link": "https://openai.com/index/economic-research-exchange",
+          "date": "2026-06-08T00:00:00.000Z",
+          "summary": "OpenAI launches the Economic Research Exchange to study AI’s impact on jobs, productivity, and the economy. Applications…"
+        },
+        {
+          "title": "How Endava is redesigning software delivery around AI agents",
+          "link": "https://openai.com/index/endava-frontiers",
+          "date": "2026-06-04T12:00:00.000Z",
+          "summary": "Learn how Endava is using AI agents, ChatGPT Enterprise, and Codex to accelerate software delivery, automate workflows, …"
+        },
+        {
+          "title": "Dreaming: Better memory for a more helpful ChatGPT",
+          "link": "https://openai.com/index/chatgpt-memory-dreaming",
+          "date": "2026-06-04T09:00:00.000Z",
+          "summary": "ChatGPT introduces a new memory system to better remember preferences, keeping context fresh and relevant across convers…"
+        },
+        {
+          "title": "Biodefense in the Intelligence Age",
+          "link": "https://openai.com/index/biodefense-in-the-intelligence-age",
+          "date": "2026-06-04T00:00:00.000Z",
+          "summary": "An action plan for AI-powered biological resilience"
+        },
+        {
+          "title": "Introducing new capabilities to GPT-Rosalind",
+          "link": "https://openai.com/index/introducing-new-capabilities-to-gpt-rosalind",
+          "date": "2026-06-03T13:15:00.000Z",
+          "summary": "GPT-Rosalind advances life sciences research with enhanced biological reasoning, medicinal chemistry expertise, genomics…"
+        },
+        {
+          "title": "How Wasmer used Codex to build a Node.js runtime for the edge",
+          "link": "https://openai.com/index/wasmer",
+          "date": "2026-06-03T12:00:00.000Z",
+          "summary": "See how Wasmer used Codex with GPT-5.5 to build a Node.js runtime for the edge, accelerating development 10x to 20x and …"
+        },
+        {
+          "title": "OpenAI public policy agenda",
+          "link": "https://openai.com/index/public-policy-agenda",
+          "date": "2026-06-03T10:00:00.000Z",
+          "summary": "OpenAI outlines its public policy agenda for AI, including safety, youth protection, workforce transition, and global st…"
+        },
+        {
+          "title": "A blueprint for democratic governance of frontier AI",
+          "link": "https://openai.com/index/frontier-safety-blueprint",
+          "date": "2026-06-03T10:00:00.000Z",
+          "summary": "OpenAI outlines a blueprint for U.S. governance of frontier AI, proposing a federal framework for safety, resilience, an…"
+        },
+        {
+          "title": "Travelers deploys AI-powered claims countrywide with OpenAI",
+          "link": "https://openai.com/index/travelers",
+          "date": "2026-06-02T12:00:00.000Z",
+          "summary": "Travelers built an AI-powered Claim Assistant with OpenAI to guide customers through filing claims, provide 24/7 support…"
+        },
+        {
+          "title": "Codex for every role, tool, and workflow",
+          "link": "https://openai.com/index/codex-for-every-role-tool-workflow",
+          "date": "2026-06-02T09:00:00.000Z",
+          "summary": "Discover new Codex plugins, sites, and annotations that help analysts, marketers, designers, investors, and other teams …"
+        },
+        {
+          "title": "Advancing youth safety and opportunity through global leadership",
+          "link": "https://openai.com/index/advancing-youth-safety-and-opportunity-through-global-leadership",
+          "date": "2026-06-02T07:00:00.000Z",
+          "summary": "OpenAI calls for global action on youth AI safety, proposing an international institute to strengthen safeguards, standa…"
+        }
+      ]
     },
     {
       "id": 3,
@@ -1089,9 +1240,130 @@
     {
       "id": 10,
       "title": "Google Developers Blog",
-      "link": "https://developers.googleblog.com/",
-      "ok": false,
-      "items": []
+      "link": "https://developers.googleblog.com/rss/",
+      "ok": true,
+      "items": [
+        {
+          "title": "DiffusionGemma: The Developer Guide",
+          "link": "https://developers.googleblog.com/diffusiongemma-the-developer-guide/",
+          "date": "",
+          "summary": "DiffusionGemma is an experimental text-generation model built on the Gemma 4 architecture that uses diffusion-based para…"
+        },
+        {
+          "title": "Introducing the Google Colab CLI",
+          "link": "https://developers.googleblog.com/introducing-the-google-colab-cli/",
+          "date": "",
+          "summary": "Google has announced the Google Colab Command-Line Interface (CLI), a new tool that allows developers and AI agents to c…"
+        },
+        {
+          "title": "Bringing Gemma 4 12B to your Laptop: Unlocking Local, Agentic Workflows with Google AI Edge",
+          "link": "https://developers.googleblog.com/bringing-gemma-4-12b-to-your-laptop-unlocking-local-agentic-workflows-with-google-ai-edge/",
+          "date": "",
+          "summary": "Google DeepMind’s Gemma 4 12B model brings agentic, multimodal AI capabilities to everyday laptops with 16GB of RAM, ena…"
+        },
+        {
+          "title": "Gemma 4 12B: The Developer Guide",
+          "link": "https://developers.googleblog.com/gemma-4-12b-the-developer-guide/",
+          "date": "",
+          "summary": "The newly released Gemma 4 12B is a dense, multimodal model designed for high-performance local AI execution on consumer…"
+        },
+        {
+          "title": "How the community trained Gemma to \"Think\" with Tunix and TPUs",
+          "link": "https://developers.googleblog.com/how-the-community-trained-gemma-to-think-with-tunix-and-tpus/",
+          "date": "",
+          "summary": "The Google Tunix Hackathon on Kaggle challenged developers to transform small, non-reasoning base models into general re…"
+        },
+        {
+          "title": "Supercharge your integration workflow with the Google Pay & Wallet Developer MCP server",
+          "link": "https://developers.googleblog.com/supercharge-your-integration-workflow-with-the-google-pay-wallet-developer-mcp-server/",
+          "date": "",
+          "summary": "Google has announced the new Google Pay & Wallet Developer MCP server, an open-standard tool designed to securely connec…"
+        },
+        {
+          "title": "The latest updates to Google Pay",
+          "link": "https://developers.googleblog.com/the-latest-updates-to-google-pay/",
+          "date": "",
+          "summary": "Google Pay is evolving for \"agentic commerce\" by introducing the Universal Commerce Protocol and a new MCP server that a…"
+        },
+        {
+          "title": "Enhancing Android Checkout with Dynamic Callbacks in Google Pay",
+          "link": "https://developers.googleblog.com/enhancing-android-checkout-with-dynamic-callbacks-in-google-pay/",
+          "date": "",
+          "summary": "We are excited to bring Express checkout with Google Pay for Android native apps enabling developers..."
+        },
+        {
+          "title": "Announcing ADK for Kotlin and ADK for Android 0.1.0: Building AI Agents on Android and Beyond",
+          "link": "https://developers.googleblog.com/adk-kotlin-android-building-ai-agents/",
+          "date": "",
+          "summary": "Google has announced the launch of version 0.1.0 of the Agent Development Kit (ADK) for Kotlin, alongside a specialized …"
+        },
+        {
+          "title": "Empowering Service Providers and Hardware Partners with Gemini for Home",
+          "link": "https://developers.googleblog.com/empowering-service-providers-and-hardware-partners-with-gemini-for-home/",
+          "date": "",
+          "summary": "Google is expanding its smart home ecosystem by launching a full-stack Gemini AI offering that integrates advanced camer…"
+        },
+        {
+          "title": "An important update: Transitioning Gemini CLI to Antigravity CLI",
+          "link": "https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/",
+          "date": "",
+          "summary": "Google is unifying its AI terminal tools by transitioning the community-focused Gemini CLI into Antigravity CLI, a new a…"
+        },
+        {
+          "title": "One Year of Innovation: Celebrating 100k Members in the Google Cloud x NVIDIA Developer Community",
+          "link": "https://developers.googleblog.com/one-year-of-innovation-celebrating-100k-members-in-the-google-cloud-x-nvidia-developer-community/",
+          "date": "",
+          "summary": "The Google Cloud and NVIDIA developer community is celebrating its first anniversary with 100,000 members and a renewed …"
+        },
+        {
+          "title": "All the news from the Google I/O 2026 Developer keynote",
+          "link": "https://developers.googleblog.com/all-the-news-from-the-google-io-2026-developer-keynote/",
+          "date": "",
+          "summary": "Google announced the transition from assistive AI to independent agents, highlighting the launch of the Gemini 3.5 serie…"
+        },
+        {
+          "title": "Blazing fast on-device GenAI with LiteRT-LM",
+          "link": "https://developers.googleblog.com/blazing-fast-on-device-genai-with-litert-lm/",
+          "date": "",
+          "summary": "Google AI Edge’s LiteRT-LM provides a production-proven, highly optimized infrastructure for running Gemma 4 across cros…"
+        },
+        {
+          "title": "A Smarter Google AI Edge Gallery: MCP integration, notifications, and session continuity",
+          "link": "https://developers.googleblog.com/a-smarter-google-ai-edge-gallery-mcp-integration-notifications-and-session-continuity/",
+          "date": "",
+          "summary": "The Google AI Edge Gallery app has expanded its on-device AI capabilities by introducing experimental support for the op…"
+        },
+        {
+          "title": "Google Tensor SDK Beta with LiteRT",
+          "link": "https://developers.googleblog.com/google-tensor-sdk-beta-with-litert/",
+          "date": "",
+          "summary": "The Google Tensor ML SDK is graduating to its Beta phase, allowing developers to build and deploy high-performance machi…"
+        },
+        {
+          "title": "Accelerating on-device AI: A look at Arm and Google AI Edge optimization",
+          "link": "https://developers.googleblog.com/accelerating-on-device-ai-a-look-at-arm-and-google-ai-edge-optimization/",
+          "date": "",
+          "summary": "Integration of Arm Scalable Matrix Extension 2 (SME2) and the Google AI Edge software stack enables high-performance, on…"
+        },
+        {
+          "title": "Announcing Genkit Middleware: Intercept, extend, and harden your agentic apps",
+          "link": "https://developers.googleblog.com/announcing-genkit-middleware-intercept-extend-and-harden-your-agentic-apps/",
+          "date": "",
+          "summary": "Genkit is an open-source framework designed to help developers build production-ready, agentic AI applications using Typ…"
+        },
+        {
+          "title": "Build Long-running AI agents that pause, resume, and never lose context with ADK",
+          "link": "https://developers.googleblog.com/build-long-running-ai-agents-that-pause-resume-and-never-lose-context-with-adk/",
+          "date": "",
+          "summary": "How to transition from stateless chatbots to production-grade agents capable of managing long-running enterprise workflo…"
+        },
+        {
+          "title": "Supercharging LLM inference on Google TPUs: Achieving 3X speedups with diffusion-style speculative decoding",
+          "link": "https://developers.googleblog.com/supercharging-llm-inference-on-google-tpus-achieving-3x-speedups-with-diffusion-style-speculative-decoding/",
+          "date": "",
+          "summary": "Researchers at UCSD have successfully implemented DFlash, a block-diffusion speculative decoding method, on Google TPUs …"
+        }
+      ]
     },
     {
       "id": 11,
@@ -1383,35 +1655,186 @@
       "id": 13,
       "title": "Hugging Face Blog (含中文)",
       "link": "https://huggingface.co/blog",
-      "ok": false,
-      "items": []
+      "ok": true,
+      "items": [
+        {
+          "title": "olmo-eval: An evaluation workbench for the model development loop",
+          "link": "https://huggingface.co/blog/allenai/olmo-eval",
+          "date": "2026-06-12T15:56:10.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Profiling in PyTorch (Part 2): From nn.Linear to a Fused MLP",
+          "link": "https://huggingface.co/blog/torch-mlp-fusion",
+          "date": "2026-06-11T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Introducing North Mini Code: Cohere’s First Model For Developers",
+          "link": "https://huggingface.co/blog/CohereLabs/introducing-north-mini-code",
+          "date": "2026-06-09T15:56:23.000Z",
+          "summary": ""
+        },
+        {
+          "title": "How an Agent Built a 3D Paris Gallery by Chaining Two Hugging Face Spaces",
+          "link": "https://huggingface.co/blog/mishig/spaces-agents-md",
+          "date": "2026-06-09T10:46:19.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Migrating Your GitHub CI to Hugging Face Jobs",
+          "link": "https://huggingface.co/blog/github-ci-hf-jobs",
+          "date": "2026-06-09T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "The Open Source Community is backing OpenEnv for Agentic RL",
+          "link": "https://huggingface.co/blog/openenv-agentic-rl",
+          "date": "2026-06-08T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Nemotron 3.5 Content Safety: Customizable Multimodal Safety for Global Enterprise AI",
+          "link": "https://huggingface.co/blog/nvidia/nemotron-3-5-content-safety",
+          "date": "2026-06-04T18:57:45.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Designing the hf CLI as an agent-optimized way to work with the Hub",
+          "link": "https://huggingface.co/blog/hf-cli-for-agents",
+          "date": "2026-06-04T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Direct Preference Optimization Beyond Chatbots",
+          "link": "https://huggingface.co/blog/Dharma-AI/direct-preference-optimization-beyond-chatbots",
+          "date": "2026-06-03T12:55:11.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Adding MCP Tools to Reachy Mini",
+          "link": "https://huggingface.co/blog/adding-mcp-tools-to-reachy-mini",
+          "date": "2026-06-03T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Holo3.1: Fast & Local Computer Use Agents",
+          "link": "https://huggingface.co/blog/Hcompany/holo31",
+          "date": "2026-06-02T14:13:23.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Introducing Mellum2: A 12B Mixture-of-Experts Model by JetBrains",
+          "link": "https://huggingface.co/blog/JetBrains/mellum2-launch",
+          "date": "2026-06-01T15:45:17.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Beyond LLMs: Why Scalable Enterprise AI Adoption Depends on Agent Logic",
+          "link": "https://huggingface.co/blog/ibm-research/agent-logic-and-scalable-ai-adoption",
+          "date": "2026-06-01T13:51:18.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Profiling in PyTorch (Part 1): A Beginner&apos;s Guide to torch.profiler",
+          "link": "https://huggingface.co/blog/torch-profiler",
+          "date": "2026-05-29T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Reachy Mini goes fully local",
+          "link": "https://huggingface.co/blog/local-reachy-mini-conversation",
+          "date": "2026-05-27T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Shipping a Trillion Parameters With a Hub Bucket: Delta Weight Sync in TRL",
+          "link": "https://huggingface.co/blog/delta-weight-sync",
+          "date": "2026-05-27T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Harness, Scaffold, and the AI Agent Terms Worth Getting Right",
+          "link": "https://huggingface.co/blog/agent-glossary",
+          "date": "2026-05-25T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "OlmoEarth v1.1: A more efficient family of Earth observation models",
+          "link": "https://huggingface.co/blog/allenai/olmoearth-v1-1",
+          "date": "2026-05-19T18:38:09.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Introducing the Ettin Reranker Family",
+          "link": "https://huggingface.co/blog/ettin-reranker",
+          "date": "2026-05-19T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "PaddleOCR 3.5: Running OCR and Document Parsing Tasks with a Transformers Backend",
+          "link": "https://huggingface.co/blog/PaddlePaddle/paddleocr-transformers",
+          "date": "2026-05-18T15:12:46.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Granite Embedding Multilingual R2: Open Apache 2.0 Multilingual Embeddings with 32K Context — Best Sub-100M Retrieval Quality",
+          "link": "https://huggingface.co/blog/ibm-granite/granite-embedding-multilingual-r2",
+          "date": "2026-05-14T18:55:01.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Unlocking asynchronicity in continuous batching",
+          "link": "https://huggingface.co/blog/continuous_async",
+          "date": "2026-05-14T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Building Blocks for Foundation Model Training and Inference on AWS",
+          "link": "https://huggingface.co/blog/amazon/foundation-model-building-blocks",
+          "date": "2026-05-11T23:18:26.000Z",
+          "summary": ""
+        },
+        {
+          "title": "vLLM V0 to V1: Correctness Before Corrections in RL",
+          "link": "https://huggingface.co/blog/ServiceNow-AI/correctness-before-corrections",
+          "date": "2026-05-06T19:06:55.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Adding Benchmaxxer Repellant to the Open ASR Leaderboard",
+          "link": "https://huggingface.co/blog/open-asr-leaderboard-private-data",
+          "date": "2026-05-06T00:00:00.000Z",
+          "summary": ""
+        }
+      ]
     },
     {
       "id": 14,
       "title": "arXiv AI (cs.AI)",
-      "link": "https://arxiv.org/list/cs.AI/recent",
-      "ok": false,
+      "link": "http://rss.arxiv.org/rss/cs.AI",
+      "ok": true,
       "items": []
     },
     {
       "id": 15,
       "title": "arXiv ML (cs.LG)",
-      "link": "https://arxiv.org/list/cs.LG/recent",
-      "ok": false,
+      "link": "http://rss.arxiv.org/rss/cs.LG",
+      "ok": true,
       "items": []
     },
     {
       "id": 16,
       "title": "arXiv NLP (cs.CL)",
-      "link": "https://arxiv.org/list/cs.CL/recent",
-      "ok": false,
+      "link": "http://rss.arxiv.org/rss/cs.CL",
+      "ok": true,
       "items": []
     },
     {
       "id": 17,
       "title": "arXiv CV (cs.CV)",
-      "link": "https://arxiv.org/list/cs.CV/recent",
-      "ok": false,
+      "link": "http://rss.arxiv.org/rss/cs.CV",
+      "ok": true,
       "items": []
     }
   ]
