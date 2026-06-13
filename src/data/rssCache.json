@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T16:14:31.253Z",
+  "generatedAt": "2026-06-13T18:04:49.189Z",
   "feeds": [
     {
       "id": 1,
@@ -755,6 +755,30 @@
       "link": "https://news.ycombinator.com/",
       "ok": true,
       "items": [
+        {
+          "title": "Amazon CEO's Talks with U.S. Officials Triggered Crackdown on Anthropic Models",
+          "link": "https://www.wsj.com/tech/ai/amazon-ceos-talks-with-u-s-officials-triggered-crackdown-on-anthropic-models-dcc90578",
+          "date": "2026-06-13T16:57:49.000Z",
+          "summary": "Article URL: https://www.wsj.com/tech/ai/amazon-ceos-talks-with-u-s-officials-triggered-crackdown-on-anthropic-models-dc…"
+        },
+        {
+          "title": "The adder at the heart of Intel's 8087 floating-point chip",
+          "link": "https://www.righto.com/2026/06/intel-8087-adder-reverse-engineered.html",
+          "date": "2026-06-13T16:49:42.000Z",
+          "summary": "Article URL: https://www.righto.com/2026/06/intel-8087-adder-reverse-engineered.html Comments URL: https://news.ycombina…"
+        },
+        {
+          "title": "AI Coding at Home Without Going Broke",
+          "link": "https://stephen.bochinski.dev/blog/2026/06/13/ai-coding-at-home-without-going-broke/",
+          "date": "2026-06-13T16:45:03.000Z",
+          "summary": "Article URL: https://stephen.bochinski.dev/blog/2026/06/13/ai-coding-at-home-without-going-broke/ Comments URL: https://…"
+        },
+        {
+          "title": "GLM 5.2 Is Out",
+          "link": "https://digg.com/tech/ii9xibgn",
+          "date": "2026-06-13T16:18:31.000Z",
+          "summary": "Article URL: https://digg.com/tech/ii9xibgn Comments URL: https://news.ycombinator.com/item?id=48518684 Points: 54 # Com…"
+        },
         {
           "title": "Orthodox C++",
           "link": "https://bkaradzic.github.io/posts/orthodoxc++/",
