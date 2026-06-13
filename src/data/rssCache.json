@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T10:24:44.644Z",
+  "generatedAt": "2026-06-13T11:07:10.924Z",
   "feeds": [
     {
       "id": 1,
@@ -1529,6 +1529,24 @@
       "link": "https://news.ycombinator.com/",
       "ok": true,
       "items": [
+        {
+          "title": "Show HN: Paca – Lightweight Jira alternative for human-AI collaboration",
+          "link": "https://github.com/Paca-AI/paca",
+          "date": "2026-06-13T09:44:25.000Z",
+          "summary": "I built Paca out of pure passion—a free and lightweight Jira alternative written in Go where humans and AI agents work t…"
+        },
+        {
+          "title": "The Fable 5 Jailbreak Shows Why AI Guardrails Alone Are Not Enough",
+          "link": "https://www.agilehunt.com/blog/fable-5-jailbreak-ai-guardrails",
+          "date": "2026-06-13T09:39:57.000Z",
+          "summary": "Article URL: https://www.agilehunt.com/blog/fable-5-jailbreak-ai-guardrails Comments URL: https://news.ycombinator.com/i…"
+        },
+        {
+          "title": "A low-carbon computing platform from your retired phones",
+          "link": "https://research.google/blog/a-low-carbon-computing-platform-from-your-retired-phones/",
+          "date": "2026-06-13T09:38:32.000Z",
+          "summary": "Article URL: https://research.google/blog/a-low-carbon-computing-platform-from-your-retired-phones/ Comments URL: https:…"
+        },
         {
           "title": "Israeli firm BlackCore suspected of meddling in New York and Scotland votes",
           "link": "https://www.reuters.com/world/israeli-firm-blackcore-also-suspected-meddling-nyc-scotland-votes-french-2026-06-11/",
