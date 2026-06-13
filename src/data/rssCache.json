@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T14:57:35.908Z",
+  "generatedAt": "2026-06-13T16:14:31.253Z",
   "feeds": [
     {
       "id": 1,
@@ -755,6 +755,24 @@
       "link": "https://news.ycombinator.com/",
       "ok": true,
       "items": [
+        {
+          "title": "Orthodox C++",
+          "link": "https://bkaradzic.github.io/posts/orthodoxc++/",
+          "date": "2026-06-13T13:58:46.000Z",
+          "summary": "Article URL: https://bkaradzic.github.io/posts/orthodoxc++/ Comments URL: https://news.ycombinator.com/item?id=48517412 …"
+        },
+        {
+          "title": "US bans differential privacy in Census data",
+          "link": "https://desfontain.es/blog/banning-noise.html",
+          "date": "2026-06-13T13:54:56.000Z",
+          "summary": "Article URL: https://desfontain.es/blog/banning-noise.html Comments URL: https://news.ycombinator.com/item?id=48517377 P…"
+        },
+        {
+          "title": "Treating pancreatic tumours may have revealed cancer's master switch",
+          "link": "https://economist.com/science-and-technology/2026/06/12/treating-pancreatic-tumours-may-have-revealed-cancers-master-switch",
+          "date": "2026-06-13T13:34:00.000Z",
+          "summary": "Article URL: https://economist.com/science-and-technology/2026/06/12/treating-pancreatic-tumours-may-have-revealed-cance…"
+        },
         {
           "title": "Introduction to the experience of rendering Arabic typography&its technical debt",
           "link": "https://lr0.org/blog/p/arabic/",
