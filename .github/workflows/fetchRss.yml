@@ -9,8 +9,13 @@
 name: Fetch RSS
 
 on:
+  push:
+    branches: [main]
+    # 忽略缓存文件自身的提交，避免本 workflow 提交后再次触发自己（死循环）
+    paths-ignore:
+      - "src/data/rssCache.json"
   schedule:
-    # 每 6 小时抓取一次（cron 使用 UTC 时间）
+    # 每小时抓取一次（cron 使用 UTC 时间）
     - cron: "0 */1 * * *"
   # 支持在 Actions 页面手动触发
   workflow_dispatch: {}
