@@ -1,0 +1,57 @@
+# RSS 增量抓取（GitHub Actions）
+#
+# 职责：定时抓取订阅源最新文章,增量合并去重后提交
+# src/data/rssCache.json 回仓库。提交到 main 后,由部署平台
+# （Vercel / Netlify 等）监听分支变化自动重新构建部署。
+#
+# 抓取逻辑见 fetchRss.ts,缓存文件 src/data/rssCache.json。
+
+name: Fetch RSS
+
+on:
+  schedule:
+    # 每 6 小时抓取一次（cron 使用 UTC 时间）
+    - cron: "0 */1 * * *"
+  # 支持在 Actions 页面手动触发
+  workflow_dispatch: {}
+
+# 允许 workflow 推送提交回仓库
+permissions:
+  contents: write
+
+# 同一时间只跑一个抓取任务,排队不取消
+concurrency:
+  group: fetch-rss
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 配置 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 抓取 RSS 并更新缓存
+        run: npm run fetch:rss
+
+      - name: 提交缓存变更
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain src/data/rssCache.json)" ]; then
+            git add src/data/rssCache.json
+            git commit -m "chore(rss): 更新 RSS 文章缓存"
+            git push
+            echo "已提交 RSS 缓存更新"
+          else
+            echo "RSS 缓存无变化,跳过提交"
+          fi

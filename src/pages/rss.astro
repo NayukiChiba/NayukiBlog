@@ -1,17 +1,26 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import { getRssFeeds } from "../lib/data";
-import { fetchAllFeeds, type FeedItem } from "../lib/rss";
+import type { FeedItem } from "../lib/rss";
+import rssCache from "../data/rssCache.json";
 
-// 构建时抓取所有启用的订阅源
-const feeds = getRssFeeds({ status: "active" });
-const results = await fetchAllFeeds(feeds);
+// 缓存中单个订阅源的结构（由 fetchRss.ts 抓取写入）
+interface CachedFeed {
+    id: number;
+    title: string;
+    link: string;
+    ok: boolean;
+    items: FeedItem[];
+}
+
+// 读取构建前抓取好的文章缓存
+// （见 fetchRss.ts 与 .github/workflows/fetchRss.yml）
+const results = rssCache.feeds as CachedFeed[];
 
 // 侧边栏订阅源数据
 const sources = results.map((result) => ({
-    id: String(result.feed.id),
+    id: String(result.id),
     title: result.title,
-    link: result.link || result.feed.site,
+    link: result.link,
     count: result.items.length,
     ok: result.ok,
 }));
@@ -27,7 +36,7 @@ const timeline: TimelineItem[] = results
     .flatMap((result) =>
         result.items.map((item) => ({
             ...item,
-            sourceId: String(result.feed.id),
+            sourceId: String(result.id),
             sourceTitle: result.title,
         })),
     )
@@ -39,8 +48,10 @@ function formatDate(iso: string): string {
     return iso.slice(0, 10);
 }
 
-// 构建时间注记
-const builtAt = new Date().toISOString().slice(0, 16).replace("T", " ");
+// 最近一次抓取时间（来自缓存）
+const builtAt = rssCache.generatedAt
+    ? rssCache.generatedAt.slice(0, 16).replace("T", " ")
+    : "";
 ---
 
 <PageLayout title="RSS | Nayuki Blog">
@@ -131,7 +142,11 @@ const builtAt = new Date().toISOString().slice(0, 16).replace("T", " ");
                         </button>
                     </div>
 
-                    <p class="build-note">内容于站点构建时抓取（{builtAt} UTC）</p>
+                    <p class="build-note">
+                        {builtAt
+                            ? `内容更新于 ${builtAt} UTC`
+                            : "内容尚未抓取，等首次抓取后再来看看"}
+                    </p>
                 </div>
 
                 <!-- 右侧：订阅源侧边栏 -->

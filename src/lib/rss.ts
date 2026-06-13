@@ -1,10 +1,10 @@
 /**
- * RSS 订阅源抓取与解析工具（构建时执行）
+ * RSS 订阅源抓取与解析工具（由 fetchRss.ts 在抓取时调用）
  *
  * 功能：
- * 1. 并发抓取所有订阅源的 feed（带超时，单源失败不阻塞构建）
+ * 1. 并发抓取所有订阅源的 feed（带超时，单源失败不阻塞）
  * 2. 自动探测格式：JSON Feed / Atom / RSS 2.0
- * 3. 输出统一的文章列表结构供 rss.astro 渲染
+ * 3. 输出统一的文章列表结构供 fetchRss.ts 增量合并写入缓存
  */
 
 import type { RssFeed } from "./data";
@@ -26,8 +26,10 @@ export interface FeedResult {
   ok: boolean; // 抓取/解析是否成功
 }
 
-// 每个源最多保留的文章数
-const MAX_ITEMS_PER_FEED = 10;
+// 单次抓取每个源最多解析的文章数
+// （feed 通常只输出最新 10~20 篇;历史累积由 fetchRss.ts 合并去重实现,
+//   见 src/data/rssCache.json）
+const MAX_ITEMS_PER_FEED = 50;
 // 抓取超时（毫秒）
 const FETCH_TIMEOUT = 10000;
 // 摘要最大长度

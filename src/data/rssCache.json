@@ -1,0 +1,313 @@
+{
+  "generatedAt": "2026-06-13T03:17:02.632Z",
+  "feeds": [
+    {
+      "id": 1,
+      "title": "泠泫凝的异次元空间",
+      "link": "https://lxnchan.cn/",
+      "ok": true,
+      "items": [
+        {
+          "title": "通过串口安装Linux",
+          "link": "https://lxnchan.cn/serial-linux-install.html",
+          "date": "2026-05-29T04:23:33.000Z",
+          "summary": "以openEuler安装在Hygon 3350主板上为例，演示通过串口安装Linux的过程"
+        },
+        {
+          "title": "Minecraft 认证服务器代理",
+          "link": "https://lxnchan.cn/minecraft-proxy.html",
+          "date": "2026-05-15T04:23:33.000Z",
+          "summary": "针对国内网络环境对Minecraft的认证服务的污染问题做出的代理解决方案，常见的报错包括： Authentication servers are down. Please try again later, sorry! 、 [10:20:…"
+        },
+        {
+          "title": "飞塔分流配置实战",
+          "link": "https://lxnchan.cn/fortigate-oversea.html",
+          "date": "2026-04-24T04:23:33.000Z",
+          "summary": "需求描述：出口为运营商的ONT，下面是Fortigate做多合一网关，在下面有一台Linux服务器，运行PVE，虚拟机内连接另一城市的外部网络，同时在Fortigate上做分流，使得同局域网下其他设备能够访问外部网络。"
+        },
+        {
+          "title": "Windows 安全启动证书检查",
+          "link": "https://lxnchan.cn/secureboot-cert-check.html",
+          "date": "2026-04-10T04:23:33.000Z",
+          "summary": "安全启动有助于确保设备使用受信任的软件启动。 最初于 2011 年颁发的Microsoft安全启动证书将于 2026 年 6 月到期。本文将检查并手动更新该安全启动证书。"
+        },
+        {
+          "title": "Lxn-OneDriveCLI",
+          "link": "https://lxnchan.cn/onedriveCLI.html",
+          "date": "2026-03-31T04:23:33.000Z",
+          "summary": "这是一个第三方的OneDrive命令行工具，基于之前使用的未知来源的闭源OneDrive上传工具重构并添加诸多实用功能。"
+        },
+        {
+          "title": "华三交换机配置 ERPS 环网",
+          "link": "https://lxnchan.cn/erps-configure.html",
+          "date": "2026-03-19T02:58:47.000Z",
+          "summary": "华三交换机 ERPS 环网配置详解"
+        },
+        {
+          "title": "PVE 配置 VLAN 感知",
+          "link": "https://lxnchan.cn/pve-trunk.html",
+          "date": "2026-02-27T02:58:47.000Z",
+          "summary": "需求描述：交换机到服务器有一根网线联通；交换机侧接口为Trunk口，允许vlan 10 20 30通过；PVE有三个虚拟机，分别需要access vlan到虚拟机。"
+        },
+        {
+          "title": "MT7922 无线网卡安装",
+          "link": "https://lxnchan.cn/mt7922-setup.html",
+          "date": "2026-02-27T01:00:47.000Z",
+          "summary": "前两天购买了一块 MT7922 的无线网卡用于替换原机内 RTL8852CE 的无线网卡，驱动部分安装的记录。本文主要记录了MT7922蓝牙驱动提示“由于该设备有问题，Windows 已将其停止。 (代码 43)”的解决过程。"
+        },
+        {
+          "title": "无显示输出 Linux 主机配置桌面显示",
+          "link": "https://lxnchan.cn/headless-linux-desktop.html",
+          "date": "2026-02-15T08:00:47.000Z",
+          "summary": "通过VNC共享当前Debian的桌面"
+        },
+        {
+          "title": "Wireguard 部署 SOP 手册（自用）",
+          "link": "https://lxnchan.cn/wireguard-P2P-manual.html",
+          "date": "2026-02-03T15:00:47.000Z",
+          "summary": "—"
+        },
+        {
+          "title": "Zabbix 7.4 通过钉钉发送告警提醒",
+          "link": "https://lxnchan.cn/zabbix-7.4-dingtalk-alert.html",
+          "date": "2026-01-04T08:00:47.000Z",
+          "summary": "找了一圈网上没有针对于 Zabbix 7.4 版本的钉钉告警教程，于是手搓了一下，如有错误还望海涵。"
+        },
+        {
+          "title": "Debian with xfce 通过 VNC 共享屏幕",
+          "link": "https://lxnchan.cn/x11vnc.html",
+          "date": "2025-12-16T08:00:47.000Z",
+          "summary": "通过VNC共享当前Debian的桌面"
+        },
+        {
+          "title": "华三S6860 IRF堆叠",
+          "link": "https://lxnchan.cn/h3c-s6860-irf.html",
+          "date": "2025-12-07T07:10:00.000Z",
+          "summary": "以两台S6860交换机为例，进行IRF堆叠。"
+        },
+        {
+          "title": "iPad 应用侧载",
+          "link": "https://lxnchan.cn/ipad-livecontainer.html",
+          "date": "2025-12-06T05:55:47.000Z",
+          "summary": "iPad通过安装LiveContainer无限制侧载应用。"
+        },
+        {
+          "title": "Smart DNS 分区解析",
+          "link": "https://lxnchan.cn/smartdns.html",
+          "date": "2025-11-24T07:55:47.000Z",
+          "summary": "使用 smartdns 做到对域名进行分区解析。"
+        },
+        {
+          "title": "建立 NFS 服务器并挂载到客户端",
+          "link": "https://lxnchan.cn/nfs.html",
+          "date": "2025-11-23T06:55:47.000Z",
+          "summary": "我想这确实很简单，但是每次还要翻文档，于是打算单独写出来。"
+        },
+        {
+          "title": "将 Android 以 MTP 方式连接至 Debian",
+          "link": "https://lxnchan.cn/debian-connect-mtp.html",
+          "date": "2025-11-23T05:55:47.000Z",
+          "summary": "不知道为什么我的Debian没有自动挂载Android手机的MTP，导致我没法传文件。我印象里ubuntu应该是可以自动挂载的。于是记录一下。"
+        },
+        {
+          "title": "PVE 虚拟机迁移至 vCenter",
+          "link": "https://lxnchan.cn/pveExport.html",
+          "date": "2025-11-14T02:30:00.000Z",
+          "summary": "vCenter 虚拟机导入及 PVE 侧导出手记"
+        },
+        {
+          "title": "vCenter 虚拟机迁移至 PVE",
+          "link": "https://lxnchan.cn/vcenterExport.html",
+          "date": "2025-11-10T02:30:00.000Z",
+          "summary": "vCenter 虚拟机导出及 PVE 侧导入手记"
+        },
+        {
+          "title": "PVE迁移时提示密钥验证失败",
+          "link": "https://lxnchan.cn/pve-key-verfication-failed.html",
+          "date": "2025-10-27T02:30:00.000Z",
+          "summary": "在一次关机换盘之后迁移虚拟机时提示“ERROR: migration aborted (duration 00:00:00): Can’t connect to destination address using public key”。"
+        },
+        {
+          "title": "修改Windows设备设置区域",
+          "link": "https://lxnchan.cn/change-windows-installtion-region.html",
+          "date": "2025-10-23T01:10:00.000Z",
+          "summary": "Windows 在安装的oobe阶段会让你选择一个区域，这个区域后续会作为“Windows设备设置区域”出现在设置中，本文提供一种除了重进oobe以外的方法修改该值。"
+        },
+        {
+          "title": "恢复 SecureCRT 7.x 保存的密码",
+          "link": "https://lxnchan.cn/crt7-password-decrypt.html",
+          "date": "2025-09-27T05:50:00.000Z",
+          "summary": "在 SecureCRT 中保存的终端密码是不可以直接被查看的，本文提供了一个Python脚本用于解密该密码。仅对 SecureCRT 7.x 版本有效，8.x版本目前好像是没有有效方案。"
+        },
+        {
+          "title": "PVE 超融合下电与上电流程",
+          "link": "https://lxnchan.cn/pve-hypervisior-down-and-up.html",
+          "date": "2025-09-26T03:30:00.000Z",
+          "summary": "主要是处理Ceph的正确下电。"
+        },
+        {
+          "title": "记一次Zabbix异常处理",
+          "link": "https://lxnchan.cn/zabbix-crash.html",
+          "date": "2025-09-21T02:30:00.000Z",
+          "summary": "记一次因缓存过低导致zabbix异常退出的问题。"
+        },
+        {
+          "title": "苹果设备保存SHSH2",
+          "link": "https://lxnchan.cn/apple-device-save-shsh2.html",
+          "date": "2025-09-14T01:30:00.000Z",
+          "summary": "为苹果设备保存shsh2以便未来能够降级"
+        },
+        {
+          "title": "PVE超融合部署",
+          "link": "https://lxnchan.cn/pve-hci.html",
+          "date": "2025-09-04T07:00:00.000Z",
+          "summary": "使用PVE部署超融合基础设施。"
+        },
+        {
+          "title": "树莓派启用zram",
+          "link": "https://lxnchan.cn/raspberrypi-zram.html",
+          "date": "2025-09-01T07:00:00.000Z",
+          "summary": "为树莓派启用zram，也适用于其他Linux发行版和硬件，这里仅作示例"
+        },
+        {
+          "title": "在 Hyper-V 上安装 EVE-NG",
+          "link": "https://lxnchan.cn/ubuntu-install-eveng.html",
+          "date": "2025-08-13T02:30:00.000Z",
+          "summary": "基本原理是将HyperV虚拟机的嵌套虚拟化打开，安装ubuntu，最后将该虚拟机视为裸机，然后使用官方脚本安装 EVE-NG。"
+        },
+        {
+          "title": "Zabbix 部署与 Windows 硬件信息收集",
+          "link": "https://lxnchan.cn/zabbix-7.4-monitor.html",
+          "date": "2025-08-01T07:10:00.000Z",
+          "summary": "从0部署一台能够收集Windows硬件信息的Zabbix服务器"
+        },
+        {
+          "title": "在WSL2中安装CUDA支持",
+          "link": "https://lxnchan.cn/wsl2-nvidia.html",
+          "date": "2025-07-22T02:30:00.000Z",
+          "summary": "安装WSL2并在WSL2中安装nvidia的cuda toolkit，以便在wsl2中共享使用主机的计算卡。"
+        },
+        {
+          "title": "MinIO 集群部署",
+          "link": "https://lxnchan.cn/minio-cluster.html",
+          "date": "2025-07-19T08:00:00.000Z",
+          "summary": "部署一个MinIO集群，个人记录。"
+        },
+        {
+          "title": "vmware 虚拟化平台备份工具 Veeam 12 安装及配置",
+          "link": "https://lxnchan.cn/veeam-install-and-configure.html",
+          "date": "2025-07-17T04:00:00.000Z",
+          "summary": "Veeam Backup &amp; Replication 是一款领先的虚拟化数据保护解决方案，专为 VMware vSphere 平台（包括 ESXi 主机）设计，能够提供高效、可靠的虚拟机备份、还原与复制功能。它通过与 vSphere…"
+        },
+        {
+          "title": "ubuntu 24.04 安装 nVidia 驱动后网卡消失",
+          "link": "https://lxnchan.cn/ubuntu20.04-no-network-when-nvidia-installed.html",
+          "date": "2025-06-29T04:00:00.000Z",
+          "summary": "又名《我怎么这么闲的在自己笔记本上安装ubuntu，装好了也不知道做什么总之就是在ubuntu里面没网卡驱动了这回事》"
+        },
+        {
+          "title": "XMRig 自编译",
+          "link": "https://lxnchan.cn/xmrig-compile.html",
+          "date": "2025-05-25T04:00:00.000Z",
+          "summary": "本文将从源码开始对 XMRig 工具进行各平台各架构的静态编译。"
+        },
+        {
+          "title": "云桌面通过组策略统一体验配置",
+          "link": "https://lxnchan.cn/dc-unified-appearance.html",
+          "date": "2025-05-01T04:00:00.000Z",
+          "summary": "使用组策略功能同步域控内的体验外观（墙纸、桌面图标等）。"
+        },
+        {
+          "title": "Fortigate SSLVPN 无法连接内网 VNC 服务器",
+          "link": "https://lxnchan.cn/fortigate-sslvpn-unable-connect-vnc.html",
+          "date": "2025-04-12T15:24:00.000Z",
+          "summary": "我的内网有个服务器开放了VNC服务，本来是打算通过VNC服务远程访问内网的桌面，但是VNC的端口一经开放就“好评如潮”，实属难绷。"
+        },
+        {
+          "title": "CentOS 7 使用镜像作为本地源并将自身作为YUM源服务器",
+          "link": "https://lxnchan.cn/centos7-local-yum-repo.html",
+          "date": "2025-04-04T15:24:00.000Z",
+          "summary": "在本次案例中，我将使用 CentOS 7 的 Everything 镜像作为本地yum源，并同时将自身作为私有网络中唯一的 YUM 源服务器。"
+        },
+        {
+          "title": "CentOS 7 离线更新 OpenSSH 服务",
+          "link": "https://lxnchan.cn/ssh-update-offline.html",
+          "date": "2025-03-13T15:24:00.000Z",
+          "summary": "前几日客户侧反馈服务器的openssh服务全是漏洞，要求升级，且升级过程必须完全离线，小小研究了一下，记录于此。"
+        },
+        {
+          "title": "使用KubeKey离线部署Kubernetes",
+          "link": "https://lxnchan.cn/k8s-offline.html",
+          "date": "2025-02-28T15:24:00.000Z",
+          "summary": "在x86和arm架构上使用KubeKey从制作离线包开始部署Kubernetes"
+        },
+        {
+          "title": "使用PGP对消息进行签名",
+          "link": "https://lxnchan.cn/pgp-sign.html",
+          "date": "2025-02-24T15:24:00.000Z",
+          "summary": "PGP/GPG 使用发送者的私钥对消息进行签名。接收者可以使用发送者的公钥来验证签名，从而确认消息的来源和未被篡改。"
+        },
+        {
+          "title": "禁止MinIO展示桶内文件列表",
+          "link": "https://lxnchan.cn/minio-deny-list.html",
+          "date": "2025-02-23T08:24:00.000Z",
+          "summary": "默认情况下直接访问MinIO的桶URL会直接列出桶内内容，本文将指引关闭该权限。"
+        },
+        {
+          "title": "华为 Fusion Access 云桌面部署",
+          "link": "https://lxnchan.cn/hw-fusion-access.html",
+          "date": "2025-02-12T05:54:00.000Z",
+          "summary": "华为云桌面的部署相对简单，基本上是一键部署，因此本文可能会写的比较简单，望读者见谅。"
+        },
+        {
+          "title": "vmware Horizon 模板机部署",
+          "link": "https://lxnchan.cn/vhorizon-template.html",
+          "date": "2025-02-04T15:59:59.000Z",
+          "summary": "本文主要是“vmware Horizon 云桌面部署”的扩展，详细讲解了不同操作系统Horizon模板机的创建与部署。"
+        },
+        {
+          "title": "vmware Horizon 云桌面与云应用部署",
+          "link": "https://lxnchan.cn/vhorizon-vdi.html",
+          "date": "2025-02-03T08:24:00.000Z",
+          "summary": "借助 VMware Horizon，IT 部门可在数据中心内运行远程桌面和应用程序，并将这些桌面和应用程序交付给员工。最终用户可以获得熟悉的个性化环境，并可以在企业或家庭中的任何地方访问此环境。通过将桌面数据放在数据中心，管理员可以集中进行…"
+        },
+        {
+          "title": "Citrix XenApp 云应用交付",
+          "link": "https://lxnchan.cn/xenapps.html",
+          "date": "2025-01-23T08:24:00.000Z",
+          "summary": "在上一篇文章已部署好DDC的基础上部署XenApp。"
+        },
+        {
+          "title": "Citrix XenDesktop 云桌面部署",
+          "link": "https://lxnchan.cn/xendesktop.html",
+          "date": "2025-01-17T08:24:00.000Z",
+          "summary": "从零开始部署一套生产环境可用的XenDesktop云桌面基础架构"
+        },
+        {
+          "title": "PVE LVM 扩容",
+          "link": "https://lxnchan.cn/pve-lvm-expand.html",
+          "date": "2024-12-24T08:24:00.000Z",
+          "summary": "PVE 中 LVM 卷的扩容全过程以及相关解释"
+        },
+        {
+          "title": "Linux 网络聚合（bond方式）",
+          "link": "https://lxnchan.cn/linux-bond.html",
+          "date": "2024-11-14T08:24:00.000Z",
+          "summary": "使用bond方式将四个千兆电口聚合为一个4Gbps的聚合口的记录"
+        },
+        {
+          "title": "Citrix XenServer 7.2 部署教程",
+          "link": "https://lxnchan.cn/citrix-xenserver.html",
+          "date": "2024-11-05T08:24:00.000Z",
+          "summary": "部署 XenServer 7.2 。"
+        },
+        {
+          "title": "在 Windows Server 2019 上安装 AMD 显卡驱动",
+          "link": "https://lxnchan.cn/amd-display-driver-on-winserver.html",
+          "date": "2024-10-31T08:24:00.000Z",
+          "summary": "不知道为啥AMD显卡驱动不能安装在Windows Server上，真无语..."
+        }
+      ]
+    }
+  ]
+}
