@@ -29,7 +29,7 @@ export interface FeedResult {
 // 单次抓取每个源最多解析的文章数
 // （feed 通常只输出最新 10~20 篇;历史累积由 fetchRss.ts 合并去重实现,
 //   见 src/data/rssCache.json）
-const MAX_ITEMS_PER_FEED = 50;
+const MAX_ITEMS_PER_FEED = 25;
 // 抓取超时（毫秒）
 const FETCH_TIMEOUT = 10000;
 // 摘要最大长度

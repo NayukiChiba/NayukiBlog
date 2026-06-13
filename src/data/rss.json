@@ -2,9 +2,121 @@
   "feeds": [
     {
       "id": 1,
-      "name": "",
-      "site": "https://lxnchan.cn/",
-      "feedUrl": "https://lxnchan.cn/atom.xml",
+      "name": "Claude Blog",
+      "site": "https://claude.com/blog",
+      "feedUrl": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_claude.xml",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "name": "OpenAI News",
+      "site": "https://openai.com/news/",
+      "feedUrl": "https://openai.com/news/rss.xml",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "name": "OpenAI Research",
+      "site": "https://openai.com/news/research/",
+      "feedUrl": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_openai_research.xml",
+      "status": "active"
+    },
+    {
+      "id": 4,
+      "name": "AI at Meta Blog",
+      "site": "https://ai.meta.com/blog/",
+      "feedUrl": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_meta_ai.xml",
+      "status": "active"
+    },
+    {
+      "id": 5,
+      "name": "Ollama Blog",
+      "site": "https://ollama.com/blog",
+      "feedUrl": "https://ollama.com/blog/rss.xml",
+      "status": "active"
+    },
+    {
+      "id": 6,
+      "name": "Anthropic Research",
+      "site": "https://www.anthropic.com/research",
+      "feedUrl": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_research.xml",
+      "status": "active"
+    },
+    {
+      "id": 7,
+      "name": "Anthropic Engineering",
+      "site": "https://www.anthropic.com/engineering",
+      "feedUrl": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml",
+      "status": "active"
+    },
+    {
+      "id": 8,
+      "name": "Google DeepMind",
+      "site": "https://deepmind.google/blog/",
+      "feedUrl": "https://deepmind.google/blog/rss.xml",
+      "status": "active"
+    },
+    {
+      "id": 9,
+      "name": "Google AI Blog",
+      "site": "https://blog.google/innovation-and-ai/technology/ai/",
+      "feedUrl": "https://blog.google/innovation-and-ai/technology/ai/rss/",
+      "status": "active"
+    },
+    {
+      "id": 10,
+      "name": "Google Developers Blog",
+      "site": "https://developers.googleblog.com/",
+      "feedUrl": "https://developers.googleblog.com/feeds/posts/default/",
+      "status": "active"
+    },
+    {
+      "id": 11,
+      "name": "HelloGitHub 月刊",
+      "site": "https://hellogithub.com",
+      "feedUrl": "https://hellogithub.com/rss",
+      "status": "active"
+    },
+    {
+      "id": 12,
+      "name": "Hacker News",
+      "site": "https://news.ycombinator.com",
+      "feedUrl": "https://hnrss.org/frontpage",
+      "status": "active"
+    },
+    {
+      "id": 13,
+      "name": "Hugging Face Blog (含中文)",
+      "site": "https://huggingface.co/blog",
+      "feedUrl": "https://huggingface.co/blog/feed.xml",
+      "status": "active"
+    },
+    {
+      "id": 14,
+      "name": "arXiv AI (cs.AI)",
+      "site": "https://arxiv.org/list/cs.AI/recent",
+      "feedUrl": "http://rss.arxiv.org/rss/cs.AI",
+      "status": "active"
+    },
+    {
+      "id": 15,
+      "name": "arXiv ML (cs.LG)",
+      "site": "https://arxiv.org/list/cs.LG/recent",
+      "feedUrl": "http://rss.arxiv.org/rss/cs.LG",
+      "status": "active"
+    },
+    {
+      "id": 16,
+      "name": "arXiv NLP (cs.CL)",
+      "site": "https://arxiv.org/list/cs.CL/recent",
+      "feedUrl": "http://rss.arxiv.org/rss/cs.CL",
+      "status": "active"
+    },
+    {
+      "id": 17,
+      "name": "arXiv CV (cs.CV)",
+      "site": "https://arxiv.org/list/cs.CV/recent",
+      "feedUrl": "http://rss.arxiv.org/rss/cs.CV",
       "status": "active"
     }
   ]

@@ -1,313 +1,1418 @@
 {
-  "generatedAt": "2026-06-13T07:42:29.006Z",
+  "generatedAt": "2026-06-13T09:02:47.714Z",
   "feeds": [
     {
       "id": 1,
-      "title": "泠泫凝的异次元空间",
-      "link": "https://lxnchan.cn/",
+      "title": "Claude Blog",
+      "link": "https://claude.com/blog",
       "ok": true,
       "items": [
         {
-          "title": "通过串口安装Linux",
-          "link": "https://lxnchan.cn/serial-linux-install.html",
-          "date": "2026-05-29T04:23:33.000Z",
-          "summary": "以openEuler安装在Hygon 3350主板上为例，演示通过串口安装Linux的过程"
+          "title": "The evolution of agentic surfaces: building with Claude Managed Agents",
+          "link": "https://claude.com/blog/building-with-claude-managed-agents",
+          "date": "2026-06-10T00:00:00.000Z",
+          "summary": "The evolution of agentic surfaces: building with Claude Managed Agents"
         },
         {
-          "title": "Minecraft 认证服务器代理",
-          "link": "https://lxnchan.cn/minecraft-proxy.html",
-          "date": "2026-05-15T04:23:33.000Z",
-          "summary": "针对国内网络环境对Minecraft的认证服务的污染问题做出的代理解决方案，常见的报错包括： Authentication servers are down. Please try again later, sorry! 、 [10:20:…"
+          "title": "New in Claude Managed Agents: run agents on a schedule and store environment variables in vaults",
+          "link": "https://claude.com/blog/whats-new-in-claude-managed-agents",
+          "date": "2026-06-09T00:00:00.000Z",
+          "summary": "New in Claude Managed Agents: run agents on a schedule and store environment variables in vaults"
         },
         {
-          "title": "飞塔分流配置实战",
-          "link": "https://lxnchan.cn/fortigate-oversea.html",
-          "date": "2026-04-24T04:23:33.000Z",
-          "summary": "需求描述：出口为运营商的ONT，下面是Fortigate做多合一网关，在下面有一台Linux服务器，运行PVE，虚拟机内连接另一城市的外部网络，同时在Fortigate上做分流，使得同局域网下其他设备能够访问外部网络。"
+          "title": "Observability for developers building connectors",
+          "link": "https://claude.com/blog/observability-for-developers-building-connectors",
+          "date": "2026-06-08T00:00:00.000Z",
+          "summary": "Observability for developers building connectors"
         },
         {
-          "title": "Windows 安全启动证书检查",
-          "link": "https://lxnchan.cn/secureboot-cert-check.html",
-          "date": "2026-04-10T04:23:33.000Z",
-          "summary": "安全启动有助于确保设备使用受信任的软件启动。 最初于 2011 年颁发的Microsoft安全启动证书将于 2026 年 6 月到期。本文将检查并手动更新该安全启动证书。"
+          "title": "Building intelligent apps for Apple platforms with Claude in the Foundation Models framework",
+          "link": "https://claude.com/blog/claude-for-foundation-models",
+          "date": "2026-06-08T00:00:00.000Z",
+          "summary": "Building intelligent apps for Apple platforms with Claude in the Foundation Models framework"
         },
         {
-          "title": "Lxn-OneDriveCLI",
-          "link": "https://lxnchan.cn/onedriveCLI.html",
-          "date": "2026-03-31T04:23:33.000Z",
-          "summary": "这是一个第三方的OneDrive命令行工具，基于之前使用的未知来源的闭源OneDrive上传工具重构并添加诸多实用功能。"
+          "title": "How one Anthropic seller rebuilt his team's workflows with Claude Code",
+          "link": "https://claude.com/blog/how-anthropic-uses-claude-gtm-engineering",
+          "date": "2026-06-05T00:00:00.000Z",
+          "summary": "How one Anthropic seller rebuilt his team's workflows with Claude Code"
         },
         {
-          "title": "华三交换机配置 ERPS 环网",
-          "link": "https://lxnchan.cn/erps-configure.html",
-          "date": "2026-03-19T02:58:47.000Z",
-          "summary": "华三交换机 ERPS 环网配置详解"
+          "title": "The Claude Cowork product guide",
+          "link": "https://claude.com/blog/the-claude-cowork-product-guide",
+          "date": "2026-06-05T00:00:00.000Z",
+          "summary": "The Claude Cowork product guide"
         },
         {
-          "title": "PVE 配置 VLAN 感知",
-          "link": "https://lxnchan.cn/pve-trunk.html",
-          "date": "2026-02-27T02:58:47.000Z",
-          "summary": "需求描述：交换机到服务器有一根网线联通；交换机侧接口为Trunk口，允许vlan 10 20 30通过；PVE有三个虚拟机，分别需要access vlan到虚拟机。"
+          "title": "Running an AI-native engineering org",
+          "link": "https://claude.com/blog/running-an-ai-native-engineering-org",
+          "date": "2026-06-03T00:00:00.000Z",
+          "summary": "Running an AI-native engineering org"
         },
         {
-          "title": "MT7922 无线网卡安装",
-          "link": "https://lxnchan.cn/mt7922-setup.html",
-          "date": "2026-02-27T01:00:47.000Z",
-          "summary": "前两天购买了一块 MT7922 的无线网卡用于替换原机内 RTL8852CE 的无线网卡，驱动部分安装的记录。本文主要记录了MT7922蓝牙驱动提示“由于该设备有问题，Windows 已将其停止。 (代码 43)”的解决过程。"
+          "title": "Best practices for getting started with Claude Cowork",
+          "link": "https://claude.com/blog/best-practices-for-getting-started-with-claude-cowork",
+          "date": "2026-06-03T00:00:00.000Z",
+          "summary": "Best practices for getting started with Claude Cowork"
         },
         {
-          "title": "无显示输出 Linux 主机配置桌面显示",
-          "link": "https://lxnchan.cn/headless-linux-desktop.html",
-          "date": "2026-02-15T08:00:47.000Z",
-          "summary": "通过VNC共享当前Debian的桌面"
+          "title": "Lessons from building Claude Code: How we use skills",
+          "link": "https://claude.com/blog/lessons-from-building-claude-code-how-we-use-skills",
+          "date": "2026-06-03T00:00:00.000Z",
+          "summary": "Lessons from building Claude Code: How we use skills"
         },
         {
-          "title": "Wireguard 部署 SOP 手册（自用）",
-          "link": "https://lxnchan.cn/wireguard-P2P-manual.html",
-          "date": "2026-02-03T15:00:47.000Z",
-          "summary": "—"
+          "title": "How Anthropic enables self-service data analytics with Claude",
+          "link": "https://claude.com/blog/how-anthropic-enables-self-service-data-analytics-with-claude",
+          "date": "2026-06-03T00:00:00.000Z",
+          "summary": "How Anthropic enables self-service data analytics with Claude"
         },
         {
-          "title": "Zabbix 7.4 通过钉钉发送告警提醒",
-          "link": "https://lxnchan.cn/zabbix-7.4-dingtalk-alert.html",
-          "date": "2026-01-04T08:00:47.000Z",
-          "summary": "找了一圈网上没有针对于 Zabbix 7.4 版本的钉钉告警教程，于是手搓了一下，如有错误还望海涵。"
+          "title": "A harness for every task: dynamic workflows in Claude Code",
+          "link": "https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code",
+          "date": "2026-06-02T00:00:00.000Z",
+          "summary": "A harness for every task: dynamic workflows in Claude Code"
         },
         {
-          "title": "Debian with xfce 通过 VNC 共享屏幕",
-          "link": "https://lxnchan.cn/x11vnc.html",
-          "date": "2025-12-16T08:00:47.000Z",
-          "summary": "通过VNC共享当前Debian的桌面"
+          "title": "Introducing dynamic workflows in Claude Code",
+          "link": "https://claude.com/blog/introducing-dynamic-workflows-in-claude-code",
+          "date": "2026-05-28T00:00:00.000Z",
+          "summary": "Introducing dynamic workflows in Claude Code"
         },
         {
-          "title": "华三S6860 IRF堆叠",
-          "link": "https://lxnchan.cn/h3c-s6860-irf.html",
-          "date": "2025-12-07T07:10:00.000Z",
-          "summary": "以两台S6860交换机为例，进行IRF堆叠。"
+          "title": "Zero Trust for AI agents",
+          "link": "https://claude.com/blog/zero-trust-for-ai-agents",
+          "date": "2026-05-27T00:00:00.000Z",
+          "summary": "Zero Trust for AI agents"
         },
         {
-          "title": "iPad 应用侧载",
-          "link": "https://lxnchan.cn/ipad-livecontainer.html",
-          "date": "2025-12-06T05:55:47.000Z",
-          "summary": "iPad通过安装LiveContainer无限制侧载应用。"
+          "title": "How CodeRabbit used Claude to build an agent orchestration system",
+          "link": "https://claude.com/blog/how-coderabbit-used-claude-to-build-an-agent-orchestration-system",
+          "date": "2026-05-27T00:00:00.000Z",
+          "summary": "How CodeRabbit used Claude to build an agent orchestration system"
         },
         {
-          "title": "Smart DNS 分区解析",
-          "link": "https://lxnchan.cn/smartdns.html",
-          "date": "2025-11-24T07:55:47.000Z",
-          "summary": "使用 smartdns 做到对域名进行分区解析。"
+          "title": "Using LLMs to secure source code",
+          "link": "https://claude.com/blog/using-llms-to-secure-source-code",
+          "date": "2026-05-27T00:00:00.000Z",
+          "summary": "Using LLMs to secure source code"
         },
         {
-          "title": "建立 NFS 服务器并挂载到客户端",
-          "link": "https://lxnchan.cn/nfs.html",
-          "date": "2025-11-23T06:55:47.000Z",
-          "summary": "我想这确实很简单，但是每次还要翻文档，于是打算单独写出来。"
+          "title": "Code w/ Claude London 2026: Rethinking how we build",
+          "link": "https://claude.com/blog/code-w-claude-london-2026-rethinking-how-we-build",
+          "date": "2026-05-26T00:00:00.000Z",
+          "summary": "Code w/ Claude London 2026: Rethinking how we build"
         },
         {
-          "title": "将 Android 以 MTP 方式连接至 Debian",
-          "link": "https://lxnchan.cn/debian-connect-mtp.html",
-          "date": "2025-11-23T05:55:47.000Z",
-          "summary": "不知道为什么我的Debian没有自动挂载Android手机的MTP，导致我没法传文件。我印象里ubuntu应该是可以自动挂载的。于是记录一下。"
+          "title": "How Anthropic's finance team uses Claude to shape the narrative behind the numbers",
+          "link": "https://claude.com/blog/how-anthropics-finance-team-uses-claude-to-shape-the-narrative-behind-the-numbers",
+          "date": "2026-05-22T00:00:00.000Z",
+          "summary": "How Anthropic's finance team uses Claude to shape the narrative behind the numbers"
         },
         {
-          "title": "PVE 虚拟机迁移至 vCenter",
-          "link": "https://lxnchan.cn/pveExport.html",
-          "date": "2025-11-14T02:30:00.000Z",
-          "summary": "vCenter 虚拟机导入及 PVE 侧导出手记"
+          "title": "How our partners are putting Opus to work for cybersecurity",
+          "link": "https://claude.com/blog/how-our-partners-are-putting-opus-to-work-for-cybersecurity",
+          "date": "2026-05-21T00:00:00.000Z",
+          "summary": "How our partners are putting Opus to work for cybersecurity"
         },
         {
-          "title": "vCenter 虚拟机迁移至 PVE",
-          "link": "https://lxnchan.cn/vcenterExport.html",
-          "date": "2025-11-10T02:30:00.000Z",
-          "summary": "vCenter 虚拟机导出及 PVE 侧导入手记"
+          "title": "Claude now works with more security and compliance tools",
+          "link": "https://claude.com/blog/compliance-api-security-partners",
+          "date": "2026-05-21T00:00:00.000Z",
+          "summary": "Claude now works with more security and compliance tools"
         },
         {
-          "title": "PVE迁移时提示密钥验证失败",
-          "link": "https://lxnchan.cn/pve-key-verfication-failed.html",
-          "date": "2025-10-27T02:30:00.000Z",
-          "summary": "在一次关机换盘之后迁移虚拟机时提示“ERROR: migration aborted (duration 00:00:00): Can’t connect to destination address using public key”。"
+          "title": "How an Anthropic sales leader uses Claude Cowork to run a 4,000-account book",
+          "link": "https://claude.com/blog/how-an-anthropic-sales-leader-uses-claude-cowork-to-run-a-4-000-account-book",
+          "date": "2026-05-20T00:00:00.000Z",
+          "summary": "How an Anthropic sales leader uses Claude Cowork to run a 4,000-account book"
         },
         {
-          "title": "修改Windows设备设置区域",
-          "link": "https://lxnchan.cn/change-windows-installtion-region.html",
-          "date": "2025-10-23T01:10:00.000Z",
-          "summary": "Windows 在安装的oobe阶段会让你选择一个区域，这个区域后续会作为“Windows设备设置区域”出现在设置中，本文提供一种除了重进oobe以外的方法修改该值。"
+          "title": "Using Claude Code: The unreasonable effectiveness of HTML",
+          "link": "https://claude.com/blog/using-claude-code-the-unreasonable-effectiveness-of-html",
+          "date": "2026-05-20T00:00:00.000Z",
+          "summary": "Using Claude Code: The unreasonable effectiveness of HTML"
         },
         {
-          "title": "恢复 SecureCRT 7.x 保存的密码",
-          "link": "https://lxnchan.cn/crt7-password-decrypt.html",
-          "date": "2025-09-27T05:50:00.000Z",
-          "summary": "在 SecureCRT 中保存的终端密码是不可以直接被查看的，本文提供了一个Python脚本用于解密该密码。仅对 SecureCRT 7.x 版本有效，8.x版本目前好像是没有有效方案。"
+          "title": "New in Claude Managed Agents: self-hosted sandboxes and MCP tunnels",
+          "link": "https://claude.com/blog/claude-managed-agents-updates",
+          "date": "2026-05-19T00:00:00.000Z",
+          "summary": "New in Claude Managed Agents: self-hosted sandboxes and MCP tunnels"
         },
         {
-          "title": "PVE 超融合下电与上电流程",
-          "link": "https://lxnchan.cn/pve-hypervisior-down-and-up.html",
-          "date": "2025-09-26T03:30:00.000Z",
-          "summary": "主要是处理Ceph的正确下电。"
+          "title": "Deploying Claude across the legal industry",
+          "link": "https://claude.com/blog/deploying-claude-across-the-legal-industry",
+          "date": "2026-05-15T00:00:00.000Z",
+          "summary": "Deploying Claude across the legal industry"
         },
         {
-          "title": "记一次Zabbix异常处理",
-          "link": "https://lxnchan.cn/zabbix-crash.html",
-          "date": "2025-09-21T02:30:00.000Z",
-          "summary": "记一次因缓存过低导致zabbix异常退出的问题。"
+          "title": "How Claude Code works in large codebases: Best practices and where to start",
+          "link": "https://claude.com/blog/how-claude-code-works-in-large-codebases-best-practices-and-where-to-start",
+          "date": "2026-05-14T00:00:00.000Z",
+          "summary": "How Claude Code works in large codebases: Best practices and where to start"
         },
         {
-          "title": "苹果设备保存SHSH2",
-          "link": "https://lxnchan.cn/apple-device-save-shsh2.html",
-          "date": "2025-09-14T01:30:00.000Z",
-          "summary": "为苹果设备保存shsh2以便未来能够降级"
-        },
-        {
-          "title": "PVE超融合部署",
-          "link": "https://lxnchan.cn/pve-hci.html",
-          "date": "2025-09-04T07:00:00.000Z",
-          "summary": "使用PVE部署超融合基础设施。"
-        },
-        {
-          "title": "树莓派启用zram",
-          "link": "https://lxnchan.cn/raspberrypi-zram.html",
-          "date": "2025-09-01T07:00:00.000Z",
-          "summary": "为树莓派启用zram，也适用于其他Linux发行版和硬件，这里仅作示例"
-        },
-        {
-          "title": "在 Hyper-V 上安装 EVE-NG",
-          "link": "https://lxnchan.cn/ubuntu-install-eveng.html",
-          "date": "2025-08-13T02:30:00.000Z",
-          "summary": "基本原理是将HyperV虚拟机的嵌套虚拟化打开，安装ubuntu，最后将该虚拟机视为裸机，然后使用官方脚本安装 EVE-NG。"
-        },
-        {
-          "title": "Zabbix 部署与 Windows 硬件信息收集",
-          "link": "https://lxnchan.cn/zabbix-7.4-monitor.html",
-          "date": "2025-08-01T07:10:00.000Z",
-          "summary": "从0部署一台能够收集Windows硬件信息的Zabbix服务器"
-        },
-        {
-          "title": "在WSL2中安装CUDA支持",
-          "link": "https://lxnchan.cn/wsl2-nvidia.html",
-          "date": "2025-07-22T02:30:00.000Z",
-          "summary": "安装WSL2并在WSL2中安装nvidia的cuda toolkit，以便在wsl2中共享使用主机的计算卡。"
-        },
-        {
-          "title": "MinIO 集群部署",
-          "link": "https://lxnchan.cn/minio-cluster.html",
-          "date": "2025-07-19T08:00:00.000Z",
-          "summary": "部署一个MinIO集群，个人记录。"
-        },
-        {
-          "title": "vmware 虚拟化平台备份工具 Veeam 12 安装及配置",
-          "link": "https://lxnchan.cn/veeam-install-and-configure.html",
-          "date": "2025-07-17T04:00:00.000Z",
-          "summary": "Veeam Backup &amp; Replication 是一款领先的虚拟化数据保护解决方案，专为 VMware vSphere 平台（包括 ESXi 主机）设计，能够提供高效、可靠的虚拟机备份、还原与复制功能。它通过与 vSphere…"
-        },
-        {
-          "title": "ubuntu 24.04 安装 nVidia 驱动后网卡消失",
-          "link": "https://lxnchan.cn/ubuntu20.04-no-network-when-nvidia-installed.html",
-          "date": "2025-06-29T04:00:00.000Z",
-          "summary": "又名《我怎么这么闲的在自己笔记本上安装ubuntu，装好了也不知道做什么总之就是在ubuntu里面没网卡驱动了这回事》"
-        },
-        {
-          "title": "XMRig 自编译",
-          "link": "https://lxnchan.cn/xmrig-compile.html",
-          "date": "2025-05-25T04:00:00.000Z",
-          "summary": "本文将从源码开始对 XMRig 工具进行各平台各架构的静态编译。"
-        },
-        {
-          "title": "云桌面通过组策略统一体验配置",
-          "link": "https://lxnchan.cn/dc-unified-appearance.html",
-          "date": "2025-05-01T04:00:00.000Z",
-          "summary": "使用组策略功能同步域控内的体验外观（墙纸、桌面图标等）。"
-        },
-        {
-          "title": "Fortigate SSLVPN 无法连接内网 VNC 服务器",
-          "link": "https://lxnchan.cn/fortigate-sslvpn-unable-connect-vnc.html",
-          "date": "2025-04-12T15:24:00.000Z",
-          "summary": "我的内网有个服务器开放了VNC服务，本来是打算通过VNC服务远程访问内网的桌面，但是VNC的端口一经开放就“好评如潮”，实属难绷。"
-        },
-        {
-          "title": "CentOS 7 使用镜像作为本地源并将自身作为YUM源服务器",
-          "link": "https://lxnchan.cn/centos7-local-yum-repo.html",
-          "date": "2025-04-04T15:24:00.000Z",
-          "summary": "在本次案例中，我将使用 CentOS 7 的 Everything 镜像作为本地yum源，并同时将自身作为私有网络中唯一的 YUM 源服务器。"
-        },
-        {
-          "title": "CentOS 7 离线更新 OpenSSH 服务",
-          "link": "https://lxnchan.cn/ssh-update-offline.html",
-          "date": "2025-03-13T15:24:00.000Z",
-          "summary": "前几日客户侧反馈服务器的openssh服务全是漏洞，要求升级，且升级过程必须完全离线，小小研究了一下，记录于此。"
-        },
-        {
-          "title": "使用KubeKey离线部署Kubernetes",
-          "link": "https://lxnchan.cn/k8s-offline.html",
-          "date": "2025-02-28T15:24:00.000Z",
-          "summary": "在x86和arm架构上使用KubeKey从制作离线包开始部署Kubernetes"
-        },
-        {
-          "title": "使用PGP对消息进行签名",
-          "link": "https://lxnchan.cn/pgp-sign.html",
-          "date": "2025-02-24T15:24:00.000Z",
-          "summary": "PGP/GPG 使用发送者的私钥对消息进行签名。接收者可以使用发送者的公钥来验证签名，从而确认消息的来源和未被篡改。"
-        },
-        {
-          "title": "禁止MinIO展示桶内文件列表",
-          "link": "https://lxnchan.cn/minio-deny-list.html",
-          "date": "2025-02-23T08:24:00.000Z",
-          "summary": "默认情况下直接访问MinIO的桶URL会直接列出桶内内容，本文将指引关闭该权限。"
-        },
-        {
-          "title": "华为 Fusion Access 云桌面部署",
-          "link": "https://lxnchan.cn/hw-fusion-access.html",
-          "date": "2025-02-12T05:54:00.000Z",
-          "summary": "华为云桌面的部署相对简单，基本上是一键部署，因此本文可能会写的比较简单，望读者见谅。"
-        },
-        {
-          "title": "vmware Horizon 模板机部署",
-          "link": "https://lxnchan.cn/vhorizon-template.html",
-          "date": "2025-02-04T15:59:59.000Z",
-          "summary": "本文主要是“vmware Horizon 云桌面部署”的扩展，详细讲解了不同操作系统Horizon模板机的创建与部署。"
-        },
-        {
-          "title": "vmware Horizon 云桌面与云应用部署",
-          "link": "https://lxnchan.cn/vhorizon-vdi.html",
-          "date": "2025-02-03T08:24:00.000Z",
-          "summary": "借助 VMware Horizon，IT 部门可在数据中心内运行远程桌面和应用程序，并将这些桌面和应用程序交付给员工。最终用户可以获得熟悉的个性化环境，并可以在企业或家庭中的任何地方访问此环境。通过将桌面数据放在数据中心，管理员可以集中进行…"
-        },
-        {
-          "title": "Citrix XenApp 云应用交付",
-          "link": "https://lxnchan.cn/xenapps.html",
-          "date": "2025-01-23T08:24:00.000Z",
-          "summary": "在上一篇文章已部署好DDC的基础上部署XenApp。"
-        },
-        {
-          "title": "Citrix XenDesktop 云桌面部署",
-          "link": "https://lxnchan.cn/xendesktop.html",
-          "date": "2025-01-17T08:24:00.000Z",
-          "summary": "从零开始部署一套生产环境可用的XenDesktop云桌面基础架构"
-        },
-        {
-          "title": "PVE LVM 扩容",
-          "link": "https://lxnchan.cn/pve-lvm-expand.html",
-          "date": "2024-12-24T08:24:00.000Z",
-          "summary": "PVE 中 LVM 卷的扩容全过程以及相关解释"
-        },
-        {
-          "title": "Linux 网络聚合（bond方式）",
-          "link": "https://lxnchan.cn/linux-bond.html",
-          "date": "2024-11-14T08:24:00.000Z",
-          "summary": "使用bond方式将四个千兆电口聚合为一个4Gbps的聚合口的记录"
-        },
-        {
-          "title": "Citrix XenServer 7.2 部署教程",
-          "link": "https://lxnchan.cn/citrix-xenserver.html",
-          "date": "2024-11-05T08:24:00.000Z",
-          "summary": "部署 XenServer 7.2 。"
-        },
-        {
-          "title": "在 Windows Server 2019 上安装 AMD 显卡驱动",
-          "link": "https://lxnchan.cn/amd-display-driver-on-winserver.html",
-          "date": "2024-10-31T08:24:00.000Z",
-          "summary": "不知道为啥AMD显卡驱动不能安装在Windows Server上，真无语..."
+          "title": "The founder's playbook: Building an AI-native startup",
+          "link": "https://claude.com/blog/the-founders-playbook",
+          "date": "2026-05-14T00:00:00.000Z",
+          "summary": "The founder's playbook: Building an AI-native startup"
         }
       ]
+    },
+    {
+      "id": 2,
+      "title": "OpenAI News",
+      "link": "https://openai.com/news/",
+      "ok": false,
+      "items": []
+    },
+    {
+      "id": 3,
+      "title": "OpenAI Research",
+      "link": "https://openai.com/news/research",
+      "ok": true,
+      "items": [
+        {
+          "title": "[NOTICE] This feed is no longer maintained",
+          "link": "https://openai.com/blog/rss.xml",
+          "date": "2026-04-18T14:24:42.000Z",
+          "summary": "OpenAI publishes an official RSS feed. This scraper is retired; the feed XML will be deleted in ~90 days. Recommended al…"
+        },
+        {
+          "title": "Introducing GPT-Rosalind for life sciences research",
+          "link": "https://openai.com/index/introducing-gpt-rosalind/",
+          "date": "2026-04-16T00:00:00.000Z",
+          "summary": "Introducing GPT-Rosalind for life sciences research"
+        },
+        {
+          "title": "Inside our approach to the Model Spec",
+          "link": "https://openai.com/index/our-approach-to-the-model-spec/",
+          "date": "2026-03-25T00:00:00.000Z",
+          "summary": "Inside our approach to the Model Spec"
+        },
+        {
+          "title": "How we monitor internal coding agents for misalignment",
+          "link": "https://openai.com/index/how-we-monitor-internal-coding-agents-misalignment/",
+          "date": "2026-03-19T00:00:00.000Z",
+          "summary": "How we monitor internal coding agents for misalignment"
+        },
+        {
+          "title": "Improving instruction hierarchy in frontier LLMs",
+          "link": "https://openai.com/index/instruction-hierarchy-challenge/",
+          "date": "2026-03-10T00:00:00.000Z",
+          "summary": "Improving instruction hierarchy in frontier LLMs"
+        },
+        {
+          "title": "Introducing GPT-5.4",
+          "link": "https://openai.com/index/introducing-gpt-5-4/",
+          "date": "2026-03-05T00:00:00.000Z",
+          "summary": "Introducing GPT-5.4"
+        },
+        {
+          "title": "GPT-5.4 Thinking System Card",
+          "link": "https://openai.com/index/gpt-5-4-thinking-system-card/",
+          "date": "2026-03-05T00:00:00.000Z",
+          "summary": "GPT-5.4 Thinking System Card"
+        },
+        {
+          "title": "Reasoning models struggle to control their chains of thought, and that’s good",
+          "link": "https://openai.com/index/reasoning-models-chain-of-thought-controllability/",
+          "date": "2026-03-05T00:00:00.000Z",
+          "summary": "Reasoning models struggle to control their chains of thought, and that’s good"
+        },
+        {
+          "title": "Extending single-minus amplitudes to gravitons",
+          "link": "https://openai.com/index/extending-single-minus-amplitudes-to-gravitons/",
+          "date": "2026-03-04T00:00:00.000Z",
+          "summary": "Extending single-minus amplitudes to gravitons"
+        },
+        {
+          "title": "GPT-5.3 Instant System Card",
+          "link": "https://openai.com/index/gpt-5-3-instant-system-card/",
+          "date": "2026-03-03T00:00:00.000Z",
+          "summary": "GPT-5.3 Instant System Card"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "AI at Meta Blog",
+      "link": "https://ai.meta.com/blog/",
+      "ok": true,
+      "items": [
+        {
+          "title": "Scaling How We Build and Test Our Most Advanced AI",
+          "link": "https://ai.meta.com/blog/scaling-how-we-build-test-advanced-ai/",
+          "date": "2026-04-08T00:00:00.000Z",
+          "summary": "Scaling How We Build and Test Our Most Advanced AI"
+        },
+        {
+          "title": "Introducing Muse Spark: Scaling Towards Personal Superintelligence",
+          "link": "https://ai.meta.com/blog/introducing-muse-spark-msl/",
+          "date": "2026-04-08T00:00:00.000Z",
+          "summary": "Introducing Muse Spark: Scaling Towards Personal Superintelligence"
+        },
+        {
+          "title": "How Alta Daily Uses Meta’s Segment Anything to Reimagine the Digital Closet",
+          "link": "https://ai.meta.com/blog/alta-daily-fashion-app-segment-anything/",
+          "date": "2026-04-06T00:00:00.000Z",
+          "summary": "How Alta Daily Uses Meta’s Segment Anything to Reimagine the Digital Closet"
+        },
+        {
+          "title": "SAM 3.1: Faster and More Accessible Real-Time Video Detection and Tracking With Multiplexing and Global Reasoning",
+          "link": "https://ai.meta.com/blog/segment-anything-model-3/",
+          "date": "2026-03-27T00:00:00.000Z",
+          "summary": "SAM 3.1: Faster and More Accessible Real-Time Video Detection and Tracking With Multiplexing and Global Reasoning"
+        },
+        {
+          "title": "Introducing TRIBE v2: A Predictive Foundation Model Trained to Understand How the Human Brain Processes Complex Stimuli",
+          "link": "https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/",
+          "date": "2026-03-26T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Four MTIA Chips in Two Years: Scaling AI Experiences for Billions",
+          "link": "https://ai.meta.com/blog/meta-mtia-scale-ai-chips-for-billions/",
+          "date": "2026-03-11T00:00:00.000Z",
+          "summary": "Four MTIA Chips in Two Years: Scaling AI Experiences for Billions"
+        },
+        {
+          "title": "Mapping the World's Forests with Greater Precision: Introducing Canopy Height Maps v2",
+          "link": "https://ai.meta.com/blog/world-resources-institute-dino-canopy-height-maps-v2/",
+          "date": "2026-03-10T00:00:00.000Z",
+          "summary": "Today, in partnership with the World Resources Institute, we’re announcing Canopy Height Maps v2 (CHMv2): an open source…"
+        },
+        {
+          "title": "Reducing Government Costs and Increasing Access to Greenspaces in the United Kingdom with DINO",
+          "link": "https://ai.meta.com/blog/forest-research-dino/",
+          "date": "2026-02-09T00:00:00.000Z",
+          "summary": "Meta's DINOv2 model is enhancing reforestation efforts around the world. Learn how the UK government is using DINO to he…"
+        },
+        {
+          "title": "The Universities Space Research Association Applies Segment Anything Model for Responding to Flood Emergencies",
+          "link": "https://ai.meta.com/blog/usra-sam-flood-emergencies/",
+          "date": "2025-12-18T00:00:00.000Z",
+          "summary": "The Universities Space Research Association and Meta are collaborating to help support water observing systems set up by…"
+        },
+        {
+          "title": "How DINO and SAM are Helping Modernize Essential Medical Triage Practices",
+          "link": "https://ai.meta.com/blog/upenn-dino-sam-helping-medical-triage/",
+          "date": "2025-12-18T00:00:00.000Z",
+          "summary": "By leveraging advanced AI models, teams at the University of Pennsylvania are aiming to bring cutting-edge automation to…"
+        },
+        {
+          "title": "Introducing SAM Audio: The First Unified Multimodal Model for Audio Separation",
+          "link": "https://ai.meta.com/blog/sam-audio/",
+          "date": "2025-12-16T00:00:00.000Z",
+          "summary": "SAM Audio transforms audio processing by making it easy to isolate any sound from complex audio mixtures using natural, …"
+        },
+        {
+          "title": "How Conservation X Labs Is Using Segment Anything Model 3 for Endangered Wildlife Monitoring",
+          "link": "https://ai.meta.com/blog/segment-anything-conservation-x-wildlife-monitoring/",
+          "date": "2025-11-24T00:00:00.000Z",
+          "summary": "Start-ups like Conservation X Labs are using Meta’s Segment Anything Models to bolster on-the-ground conservation expert…"
+        },
+        {
+          "title": "ExecuTorch Adoption in Reality Labs: Powering On-Device AI Across Meta Devices",
+          "link": "https://ai.meta.com/blog/executorch-reality-labs-on-device-ai/",
+          "date": "2025-11-21T00:00:00.000Z",
+          "summary": "ExecuTorch, Meta’s open source, lightweight, and efficient inference engine, has been instrumental in enabling on-device…"
+        },
+        {
+          "title": "Introducing SAM 3D: Powerful 3D Reconstruction for Physical World Images",
+          "link": "https://ai.meta.com/blog/sam-3d/",
+          "date": "2025-11-19T00:00:00.000Z",
+          "summary": "This release introduces two new state-of-the-art models: SAM 3D Objects for object and scene reconstruction, and SAM 3D …"
+        },
+        {
+          "title": "Omnilingual ASR: Advancing Automatic Speech Recognition for 1,600+ Languages",
+          "link": "https://ai.meta.com/blog/omnilingual-asr-advancing-automatic-speech-recognition/",
+          "date": "2025-11-10T00:00:00.000Z",
+          "summary": "We’re introducing Meta Omnilingual Automatic Speech Recognition, a suite of models providing automatic speech recognitio…"
+        },
+        {
+          "title": "Agents Rule of Two: A Practical Approach to AI Agent Security",
+          "link": "https://ai.meta.com/blog/practical-ai-agent-security/",
+          "date": "2025-10-31T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "The Building Blocks of Agentic AI: From Kernels to Clusters",
+          "link": "https://ai.meta.com/blog/introducing-pytorch-native-agentic-stack/",
+          "date": "2025-10-24T00:00:00.000Z",
+          "summary": "At PyTorch Conference 2025 in San Francisco, we unveiled five new projects spanning kernel languages, distributed system…"
+        },
+        {
+          "title": "How Llama and Oracle are helping Instituto PROA kickstart careers for students in Brazil",
+          "link": "https://ai.meta.com/blog/llama-oracle-help-students-in-brazil/",
+          "date": "2025-08-27T00:00:00.000Z",
+          "summary": "Instituto PROA, a nonprofit organization in Brazil, has transformed its job preparation process for young candidates by …"
+        },
+        {
+          "title": "How DINOv3 is helping World Resources Institute restore forests and farms globally",
+          "link": "https://ai.meta.com/blog/world-resources-institute-dinov3/",
+          "date": "2025-08-14T00:00:00.000Z",
+          "summary": "WRI and the Bezos Earth Fund used DINOv3 to develop an algorithm to accurately count individual trees from drone and sat…"
+        },
+        {
+          "title": "Small robots, mighty vision: NASA Jet Propulsion Laboratory's DINOv2-enabled robot rovers and the future of planetary exploration",
+          "link": "https://ai.meta.com/blog/nasa-jpl-dino-robot-explorers/",
+          "date": "2025-08-14T00:00:00.000Z",
+          "summary": "Using DINOv2, the team at NASA's Jet Propulsion Laboratory built a convenient robot operating system interface for robot…"
+        },
+        {
+          "title": "DINOv3: Self-supervised learning for vision at unprecedented scale",
+          "link": "https://ai.meta.com/blog/dinov3-self-supervised-vision-model/",
+          "date": "2025-08-14T00:00:00.000Z",
+          "summary": "DINOv3 scales self-supervised learning for images to create universal vision backbones that achieve absolute state-of-th…"
+        },
+        {
+          "title": "How Llama helps Biofy Technologies in the fight against antibiotic resistance",
+          "link": "https://ai.meta.com/blog/llama-helps-biofy-fight-antibiotic-resistance/",
+          "date": "2025-08-07T00:00:00.000Z",
+          "summary": "Brazil, the biotech company Biofy Technologies has developed a groundbreaking platform using Llama that reduces diagnost…"
+        },
+        {
+          "title": "How Upwork helps freelancers win more work with Llama",
+          "link": "https://ai.meta.com/blog/upwork-helps-freelancers-with-llama/",
+          "date": "2025-07-31T00:00:00.000Z",
+          "summary": "Upwork, one of the world’s largest work marketplaces, is using Llama to power Uma, its mindful AI, to help freelancers l…"
+        },
+        {
+          "title": "Joining forces with AWS on a new program to help startups build with Llama",
+          "link": "https://ai.meta.com/blog/aws-program-startups-build-with-llama/",
+          "date": "2025-07-21T00:00:00.000Z",
+          "summary": "We're joining forces with Amazon Web Services to announce a new program that will provide resources and support to 30 pr…"
+        },
+        {
+          "title": "Modeling natural conversational dynamics with Seamless Interaction",
+          "link": "https://ai.meta.com/blog/seamless-interaction-natural-conversational-dynamics/",
+          "date": "2025-06-27T00:00:00.000Z",
+          "summary": ""
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Ollama Blog",
+      "link": "https://ollama.com/blog",
+      "ok": true,
+      "items": [
+        {
+          "title": "Ollama's highest performance on Apple Silicon yet with MLX",
+          "link": "https://ollama.com/blog/mlx-performance",
+          "date": "2026-06-11T00:00:00.000Z",
+          "summary": "Ollama's MLX engine has been updated to deliver its highest performance on Apple Silicon yet. Models output higher quali…"
+        },
+        {
+          "title": "Improved performance and model support with GGUF",
+          "link": "https://ollama.com/blog/improved-performance-and-model-support-with-gguf",
+          "date": "2026-06-05T00:00:00.000Z",
+          "summary": "Ollama 0.30 is now available with improved performance and GGUF model compatibility through llama.cpp. This augments Oll…"
+        },
+        {
+          "title": "NVIDIA Nemotron 3 Ultra",
+          "link": "https://ollama.com/blog/nemotron-3-ultra",
+          "date": "2026-06-04T00:00:00.000Z",
+          "summary": "NVIDIA Nemotron 3 Ultra is built for high-throughput reasoning and long-running agent workflows."
+        },
+        {
+          "title": "OpenJarvis: a local-first personal AI is now available to run with Ollama",
+          "link": "https://ollama.com/blog/openjarvis",
+          "date": "2026-05-28T00:00:00.000Z",
+          "summary": "OpenJarvis v1.0 is now available: an open-source framework for building personal AI agents that run on your own hardware…"
+        },
+        {
+          "title": "Ollama is now powered by MLX on Apple Silicon in preview",
+          "link": "https://ollama.com/blog/mlx",
+          "date": "2026-03-30T00:00:00.000Z",
+          "summary": "Today, we're previewing the fastest way to run Ollama on Apple silicon, powered by MLX, Apple's machine learning framewo…"
+        },
+        {
+          "title": "The simplest and fastest way to setup OpenClaw",
+          "link": "https://ollama.com/blog/openclaw-tutorial",
+          "date": "2026-02-23T00:00:00.000Z",
+          "summary": "Setup OpenClaw in under two minutes with a single Ollama command."
+        },
+        {
+          "title": "Subagents and web search in Claude Code",
+          "link": "https://ollama.com/blog/web-search-subagents-claude-code",
+          "date": "2026-02-16T00:00:00.000Z",
+          "summary": "Ollama now supports subagents and web search in Claude Code."
+        },
+        {
+          "title": "OpenClaw",
+          "link": "https://ollama.com/blog/openclaw",
+          "date": "2026-02-01T00:00:00.000Z",
+          "summary": "OpenClaw is a personal AI assistant that connects your messaging apps to local AI coding agents, all running on your own…"
+        },
+        {
+          "title": "ollama launch",
+          "link": "https://ollama.com/blog/launch",
+          "date": "2026-01-23T00:00:00.000Z",
+          "summary": "ollama launch is a new command which sets up and runs coding tools like Claude Code, OpenCode, and Codex with local or c…"
+        },
+        {
+          "title": "Image generation (experimental)",
+          "link": "https://ollama.com/blog/image-generation",
+          "date": "2026-01-20T00:00:00.000Z",
+          "summary": "Generate images locally with Ollama on macOS. Windows and Linux support coming soon."
+        },
+        {
+          "title": "Claude Code with Anthropic API compatibility",
+          "link": "https://ollama.com/blog/claude",
+          "date": "2026-01-16T00:00:00.000Z",
+          "summary": "Ollama is now compatible with the Anthropic Messages API, making it possible to use tools like Claude Code with open mod…"
+        },
+        {
+          "title": "OpenAI Codex with Ollama",
+          "link": "https://ollama.com/blog/codex",
+          "date": "2026-01-15T00:00:00.000Z",
+          "summary": "Open models can be used with OpenAI's Codex CLI through Ollama. Codex can read, modify, and execute code in your working…"
+        },
+        {
+          "title": "OpenAI gpt-oss-safeguard",
+          "link": "https://ollama.com/blog/gpt-oss-safeguard",
+          "date": "2025-10-29T00:00:00.000Z",
+          "summary": "Ollama is partnering with OpenAI and ROOST (Robust Open Online Safety Tools) to bring the latest gpt-oss-safeguard reaso…"
+        },
+        {
+          "title": "MiniMax M2",
+          "link": "https://ollama.com/blog/minimax-m2",
+          "date": "2025-10-28T00:00:00.000Z",
+          "summary": "MiniMax M2 is now available on Ollama's cloud. It's a model built for coding and agentic workflows."
+        },
+        {
+          "title": "NVIDIA DGX Spark performance",
+          "link": "https://ollama.com/blog/nvidia-spark-performance",
+          "date": "2025-10-23T00:00:00.000Z",
+          "summary": "We ran performance tests on release day firmware and an updated Ollama version to see how Ollama performs."
+        },
+        {
+          "title": "New coding models & integrations",
+          "link": "https://ollama.com/blog/coding-models",
+          "date": "2025-10-16T00:00:00.000Z",
+          "summary": "GLM-4.6 and Qwen3-coder-480B are available on Ollama’s cloud service with easy integrations to the tools you are familia…"
+        },
+        {
+          "title": "Qwen3-VL",
+          "link": "https://ollama.com/blog/qwen3-vl",
+          "date": "2025-10-14T00:00:00.000Z",
+          "summary": "Ollama now supports Alibaba's Qwen3-VL."
+        },
+        {
+          "title": "NVIDIA DGX Spark",
+          "link": "https://ollama.com/blog/nvidia-spark",
+          "date": "2025-10-13T00:00:00.000Z",
+          "summary": "The latest NVIDIA DGX Spark is here! Ollama has partnered with NVIDIA to ensure it runs fast and efficiently out-of-the-…"
+        },
+        {
+          "title": "Web search",
+          "link": "https://ollama.com/blog/web-search",
+          "date": "2025-09-24T00:00:00.000Z",
+          "summary": "A new web search API is now available in Ollama. Ollama provides a generous free tier of web searches for individuals to…"
+        },
+        {
+          "title": "New model scheduling",
+          "link": "https://ollama.com/blog/new-model-scheduling",
+          "date": "2025-09-23T00:00:00.000Z",
+          "summary": "Ollama now includes a significantly improved model scheduling system, reducing crashes due to out of memory issues, maxi…"
+        },
+        {
+          "title": "Cloud models",
+          "link": "https://ollama.com/blog/cloud-models",
+          "date": "2025-09-19T00:00:00.000Z",
+          "summary": "Cloud models are now in preview, letting you run larger models with fast, datacenter-grade hardware. You can keep using …"
+        },
+        {
+          "title": "OpenAI gpt-oss",
+          "link": "https://ollama.com/blog/gpt-oss",
+          "date": "2025-08-05T00:00:00.000Z",
+          "summary": "Ollama partners with OpenAI to bring gpt-oss to Ollama and its community."
+        },
+        {
+          "title": "Ollama's new app",
+          "link": "https://ollama.com/blog/new-app",
+          "date": "2025-07-30T00:00:00.000Z",
+          "summary": "Ollama's new app is now available for macOS and Windows."
+        },
+        {
+          "title": "Secure Minions: private collaboration between Ollama and frontier models",
+          "link": "https://ollama.com/blog/secureminions",
+          "date": "2025-06-03T00:00:00.000Z",
+          "summary": "Secure Minions is a secure protocol built by Stanford's Hazy Research lab to allow encrypted local-remote communication."
+        },
+        {
+          "title": "Thinking",
+          "link": "https://ollama.com/blog/thinking",
+          "date": "2025-05-30T00:00:00.000Z",
+          "summary": "Ollama now has the ability to enable or disable thinking. This gives users the flexibility to choose the model’s thinkin…"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Anthropic Research",
+      "link": "https://www.anthropic.com/research",
+      "ok": true,
+      "items": [
+        {
+          "title": "Jun 8, 2026SciencePaving the way for agents in biology",
+          "link": "https://www.anthropic.com/research/agents-in-biology",
+          "date": "2026-06-08T00:00:00.000Z",
+          "summary": "Jun 8, 2026SciencePaving the way for agents in biology"
+        },
+        {
+          "title": "Jun 5, 2026ScienceMaking Claude a chemist",
+          "link": "https://www.anthropic.com/research/making-claude-a-chemist",
+          "date": "2026-06-05T00:00:00.000Z",
+          "summary": "Jun 5, 2026ScienceMaking Claude a chemist"
+        },
+        {
+          "title": "May 27, 2026Economic ResearchCoding agents in the social sciences",
+          "link": "https://www.anthropic.com/research/coding-agents-social-sciences",
+          "date": "2026-05-27T00:00:00.000Z",
+          "summary": "May 27, 2026Economic ResearchCoding agents in the social sciences"
+        },
+        {
+          "title": "May 22, 2026AnnouncementsProject Glasswing: An initial update",
+          "link": "https://www.anthropic.com/research/glasswing-initial-update",
+          "date": "2026-05-22T00:00:00.000Z",
+          "summary": "May 22, 2026AnnouncementsProject Glasswing: An initial update"
+        },
+        {
+          "title": "May 14, 2026Policy2028: Two scenarios for global AI leadership",
+          "link": "https://www.anthropic.com/research/2028-ai-leadership",
+          "date": "2026-05-14T00:00:00.000Z",
+          "summary": "May 14, 2026Policy2028: Two scenarios for global AI leadership"
+        },
+        {
+          "title": "AlignmentMay 8, 2026Teaching Claude whyNew research on how we've reduced agentic misalignment.",
+          "link": "https://www.anthropic.com/research/teaching-claude-why",
+          "date": "2026-05-08T00:00:00.000Z",
+          "summary": "AlignmentMay 8, 2026Teaching Claude whyNew research on how we've reduced agentic misalignment."
+        },
+        {
+          "title": "May 7, 2026PolicyFocus areas for The Anthropic Institute",
+          "link": "https://www.anthropic.com/research/anthropic-institute-agenda",
+          "date": "2026-05-07T00:00:00.000Z",
+          "summary": "May 7, 2026PolicyFocus areas for The Anthropic Institute"
+        },
+        {
+          "title": "May 7, 2026AlignmentDonating our open-source alignment tool",
+          "link": "https://www.anthropic.com/research/donating-open-source-petri",
+          "date": "2026-05-07T00:00:00.000Z",
+          "summary": "May 7, 2026AlignmentDonating our open-source alignment tool"
+        },
+        {
+          "title": "Natural Language Autoencoders: Turning Claude’s thoughts into text",
+          "link": "https://www.anthropic.com/research/natural-language-autoencoders",
+          "date": "2026-05-07T00:00:00.000Z",
+          "summary": "Natural Language Autoencoders: Turning Claude’s thoughts into text"
+        },
+        {
+          "title": "PolicyDec 18, 2025Project Vend: Phase twoIn June, we revealed that we’d set up a small shop in our San Francisco office lunchroom, run by an AI shopkeeper. It was part of Project Vend, a free-form experiment exploring how well AIs could do on complex, real-world tasks. How has Claude's business been since we last wrote?",
+          "link": "https://www.anthropic.com/research/project-vend-2",
+          "date": "2025-12-18T00:00:00.000Z",
+          "summary": "PolicyDec 18, 2025Project Vend: Phase twoIn June, we revealed that we’d set up a small shop in our San Francisco office …"
+        },
+        {
+          "title": "Interpretability",
+          "link": "https://www.anthropic.com/research/team/interpretability",
+          "date": "2024-10-08T00:00:00.000Z",
+          "summary": "Interpretability"
+        },
+        {
+          "title": "Economic Research",
+          "link": "https://www.anthropic.com/research/team/economic-research",
+          "date": "2024-03-18T00:00:00.000Z",
+          "summary": "Economic Research"
+        },
+        {
+          "title": "Alignment",
+          "link": "https://www.anthropic.com/research/team/alignment",
+          "date": "2023-07-23T00:00:00.000Z",
+          "summary": "Alignment"
+        },
+        {
+          "title": "Societal Impacts",
+          "link": "https://www.anthropic.com/research/team/societal-impacts",
+          "date": "2023-07-21T00:00:00.000Z",
+          "summary": "Societal Impacts"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Anthropic Engineering",
+      "link": "https://www.anthropic.com/engineering",
+      "ok": true,
+      "items": [
+        {
+          "title": "How we contain Claude across products",
+          "link": "https://www.anthropic.com/engineering/how-we-contain-claude",
+          "date": "2026-05-25T00:00:00.000Z",
+          "summary": "As agents grow more capable, so does their potential blast radius. The engineering question is how to cap it. Here’s wha…"
+        },
+        {
+          "title": "An update on recent Claude Code quality reports",
+          "link": "https://www.anthropic.com/engineering/april-23-postmortem",
+          "date": "2026-04-23T00:00:00.000Z",
+          "summary": "We traced recent reports of Claude Code quality issues to three separate changes. Here's what happened and what we're ch…"
+        },
+        {
+          "title": "Scaling Managed Agents: Decoupling the brain from the hands",
+          "link": "https://www.anthropic.com/engineering/managed-agents",
+          "date": "2026-04-08T00:00:00.000Z",
+          "summary": "Harnesses encode assumptions that go stale as models improve. Managed Agents—our hosted service for long-horizon agent w…"
+        },
+        {
+          "title": "How we built Claude Code auto mode: a safer way to skip permissions",
+          "link": "https://www.anthropic.com/engineering/claude-code-auto-mode",
+          "date": "2026-03-25T00:00:00.000Z",
+          "summary": "Claude Code users approve 93% of permission prompts. We built classifiers to automate some decisions, increasing safety …"
+        },
+        {
+          "title": "Harness design for long-running application development",
+          "link": "https://www.anthropic.com/engineering/harness-design-long-running-apps",
+          "date": "2026-03-24T00:00:00.000Z",
+          "summary": "Harness design is key to performance at the frontier of agentic coding. Here's how we pushed Claude further in frontend …"
+        },
+        {
+          "title": "Eval awareness in Claude Opus 4.6’s BrowseComp performance",
+          "link": "https://www.anthropic.com/engineering/eval-awareness-browsecomp",
+          "date": "2026-03-06T00:00:00.000Z",
+          "summary": "Evaluating Opus 4.6 on BrowseComp, we found cases where the model recognized the test, then found and decrypted answers …"
+        },
+        {
+          "title": "Building a C compiler with a team of parallel Claudes",
+          "link": "https://www.anthropic.com/engineering/building-c-compiler",
+          "date": "2026-02-05T00:00:00.000Z",
+          "summary": "We tasked Opus 4.6 using agent teams to build a C Compiler, and then (mostly) walked away. Here's what it taught us abou…"
+        },
+        {
+          "title": "Quantifying infrastructure noise in agentic coding evals",
+          "link": "https://www.anthropic.com/engineering/infrastructure-noise",
+          "date": "2026-02-05T00:00:00.000Z",
+          "summary": "Infrastructure configuration can swing agentic coding benchmarks by several percentage points—sometimes more than the le…"
+        },
+        {
+          "title": "Designing AI-resistant technical evaluations",
+          "link": "https://www.anthropic.com/engineering/AI-resistant-technical-evaluations",
+          "date": "2026-01-21T00:00:00.000Z",
+          "summary": "What we learned from three iterations of a performance engineering take-home that Claude keeps beating."
+        },
+        {
+          "title": "Demystifying evals for AI agents",
+          "link": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+          "date": "2026-01-09T00:00:00.000Z",
+          "summary": "The capabilities that make agents useful also make them difficult to evaluate. The strategies that work across deploymen…"
+        },
+        {
+          "title": "Effective harnesses for long-running agents",
+          "link": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+          "date": "2025-11-26T00:00:00.000Z",
+          "summary": "Agents still face challenges working across many context windows. We looked to human engineers for inspiration in creati…"
+        },
+        {
+          "title": "Introducing advanced tool use on the Claude Developer Platform",
+          "link": "https://www.anthropic.com/engineering/advanced-tool-use",
+          "date": "2025-11-24T00:00:00.000Z",
+          "summary": "We’ve added three new beta features that let Claude discover, learn, and execute tools dynamically. Here’s how they work…"
+        },
+        {
+          "title": "Code execution with MCP: Building more efficient agents",
+          "link": "https://www.anthropic.com/engineering/code-execution-with-mcp",
+          "date": "2025-11-04T00:00:00.000Z",
+          "summary": "Direct tool calls consume context for each definition and result. Agents scale better by writing code to call tools inst…"
+        },
+        {
+          "title": "Beyond permission prompts: making Claude Code more secure and autonomous",
+          "link": "https://www.anthropic.com/engineering/claude-code-sandboxing",
+          "date": "2025-10-20T00:00:00.000Z",
+          "summary": "Claude Code's new sandboxing features, a bash tool and Claude Code on the web, reduce permission prompts and increase us…"
+        },
+        {
+          "title": "Equipping agents for the real world with Agent Skills",
+          "link": "https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills",
+          "date": "2025-10-16T00:00:00.000Z",
+          "summary": "Claude is powerful, but real work requires procedural knowledge and organizational context. Introducing Agent Skills, a …"
+        },
+        {
+          "title": "Effective context engineering for AI agents",
+          "link": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+          "date": "2025-09-29T00:00:00.000Z",
+          "summary": "Context is a critical but finite resource for AI agents. In this post, we explore strategies for effectively curating an…"
+        },
+        {
+          "title": "A postmortem of three recent issues",
+          "link": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+          "date": "2025-09-17T00:00:00.000Z",
+          "summary": "This is a technical report on three bugs that intermittently degraded responses from Claude. Below we explain what happe…"
+        },
+        {
+          "title": "Writing effective tools for agents — with agents",
+          "link": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+          "date": "2025-09-11T00:00:00.000Z",
+          "summary": "Agents are only as effective as the tools we give them. We share how to write high-quality tools and evaluations, and ho…"
+        },
+        {
+          "title": "Desktop Extensions: One-click MCP server installation for Claude Desktop",
+          "link": "https://www.anthropic.com/engineering/desktop-extensions",
+          "date": "2025-06-26T00:00:00.000Z",
+          "summary": "Desktop Extensions make installing MCP servers as easy as clicking a button. We share the technical architecture and tip…"
+        },
+        {
+          "title": "How we built our multi-agent research system",
+          "link": "https://www.anthropic.com/engineering/multi-agent-research-system",
+          "date": "2025-06-13T00:00:00.000Z",
+          "summary": "Our Research feature uses multiple Claude agents to explore complex topics more effectively. We share the engineering ch…"
+        },
+        {
+          "title": "Claude Code: Best practices for agentic coding",
+          "link": "https://www.anthropic.com/engineering/claude-code-best-practices",
+          "date": "2025-04-18T00:00:00.000Z",
+          "summary": "Claude Code is a command line tool for agentic coding. This post covers tips and tricks that have proven effective for u…"
+        },
+        {
+          "title": "The \\\"think\\\" tool: Enabling Claude to stop and think in complex tool use situations",
+          "link": "https://www.anthropic.com/engineering/claude-think-tool",
+          "date": "2025-03-20T00:00:00.000Z",
+          "summary": "A new tool that improves Claude's complex problem-solving performance"
+        },
+        {
+          "title": "Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet",
+          "link": "https://www.anthropic.com/engineering/swe-bench-sonnet",
+          "date": "2025-01-06T00:00:00.000Z",
+          "summary": "SWE-bench is an AI evaluation benchmark that assesses a model's ability to complete real-world software engineering task…"
+        },
+        {
+          "title": "Building effective agents",
+          "link": "https://www.anthropic.com/engineering/building-effective-agents",
+          "date": "2024-12-19T00:00:00.000Z",
+          "summary": "We've worked with dozens of teams building LLM agents across industries. Consistently, the most successful implementatio…"
+        },
+        {
+          "title": "Introducing Contextual Retrieval",
+          "link": "https://www.anthropic.com/engineering/contextual-retrieval",
+          "date": "2024-09-19T00:00:00.000Z",
+          "summary": "For an AI model to be useful in specific contexts, it often needs access to background knowledge."
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Google DeepMind",
+      "link": "https://deepmind.google/blog/",
+      "ok": true,
+      "items": [
+        {
+          "title": "DiffusionGemma: 4x faster text generation",
+          "link": "https://deepmind.google/blog/diffusiongemma-4x-faster-text-generation/",
+          "date": "2026-06-10T16:24:11.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Investing in multi-agent AI safety research",
+          "link": "https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/",
+          "date": "2026-06-10T10:21:19.000Z",
+          "summary": "Google DeepMind and partners announce a $10M funding call for multi-agent safety research."
+        },
+        {
+          "title": "Fluid, natural voice translation with Gemini 3.5 Live Translate",
+          "link": "https://deepmind.google/blog/fluid-natural-voice-translation-with-gemini-35-live-translate/",
+          "date": "2026-06-09T15:16:25.000Z",
+          "summary": "Gemini 3.5 Live Translate brings near real-time, natural speech translation to Google AI Studio, Google Translate and Go…"
+        },
+        {
+          "title": "Introducing Gemma 4 12B: a unified, encoder-free multimodal model",
+          "link": "https://deepmind.google/blog/introducing-gemma-4-12b-a-unified-encoder-free-multimodal-model/",
+          "date": "2026-06-09T14:10:19.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Powering the future of robotics in Europe",
+          "link": "https://deepmind.google/blog/powering-the-future-of-robotics-in-europe/",
+          "date": "2026-06-09T14:02:33.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Measuring the impact of learning with AI in Sierra Leone and beyond",
+          "link": "https://deepmind.google/blog/measuring-the-impact-of-learning-with-ai-in-sierra-leone-and-beyond/",
+          "date": "2026-06-08T13:04:59.000Z",
+          "summary": "Results from a randomized controlled trial show the potential of Gemini’s Guided Learning feature to boost engagement an…"
+        },
+        {
+          "title": "We’re launching the Google DeepMind Accelerator program in Asia Pacific to tackle environmental risks",
+          "link": "https://deepmind.google/blog/were-launching-the-google-deepmind-accelerator-program-in-asia-pacific-to-tackle-environmental-risks/",
+          "date": "2026-05-21T19:46:42.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Fast-tracking genetic leads to reverse cellular aging",
+          "link": "https://deepmind.google/blog/fast-tracking-genetic-leads-to-reverse-cellular-aging/",
+          "date": "2026-05-18T18:21:39.000Z",
+          "summary": "Biologists use Co-Scientist to find novel factors that successfully rejuvenate human cells."
+        },
+        {
+          "title": "Simulate real-world places with Project Genie and Street View",
+          "link": "https://deepmind.google/blog/simulate-real-world-places-with-project-genie-and-street-view/",
+          "date": "2026-05-17T19:53:18.000Z",
+          "summary": "We’re expanding access to Google AI Ultra subscribers globally and introducing a new capability powered by Street View."
+        },
+        {
+          "title": "Introducing Gemini Omni",
+          "link": "https://deepmind.google/blog/introducing-gemini-omni/",
+          "date": "2026-05-17T19:50:57.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Introducing Google Antigravity 2.0",
+          "link": "https://deepmind.google/blog/introducing-google-antigravity-2-0/",
+          "date": "2026-05-17T19:43:45.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Gemini for Science: AI experiments and tools for a new era of discovery",
+          "link": "https://deepmind.google/blog/gemini-for-science-ai-experiments-and-tools-for-a-new-era-of-discovery/",
+          "date": "2026-05-17T13:50:34.000Z",
+          "summary": "A collection of science tools and experiments to expand the scale and precision of scientific exploration."
+        },
+        {
+          "title": "Making it easier to understand how content was created and edited",
+          "link": "https://deepmind.google/blog/making-it-easier-to-understand-how-content-was-created-and-edited/",
+          "date": "2026-05-17T13:43:50.000Z",
+          "summary": "We're expanding our tools to help you understand how content was created and edited across the web."
+        },
+        {
+          "title": "Strengthening Singapore’s AI Future: A New National Partnership",
+          "link": "https://deepmind.google/blog/strengthening-singapores-ai-future-a-new-national-partnership/",
+          "date": "2026-05-16T09:13:34.000Z",
+          "summary": "Google DeepMind and Singapore partner to apply frontier AI to address complex challenges across health, education, and s…"
+        },
+        {
+          "title": "Finding the molecular switches behind new infectious diseases",
+          "link": "https://deepmind.google/blog/finding-the-molecular-switches-behind-new-infectious-diseases/",
+          "date": "2026-05-16T08:16:06.000Z",
+          "summary": "Clare Bryant uses Co-Scientist to identify genetic triggers in emerging infectious diseases."
+        },
+        {
+          "title": "Opening new paths in aging research",
+          "link": "https://deepmind.google/blog/opening-new-paths-in-aging-research/",
+          "date": "2026-05-16T08:08:44.000Z",
+          "summary": "Calico Life Sciences uses Co-Scientist to connect scattered findings and generate new leads in aging research."
+        },
+        {
+          "title": "Accelerating discovery of liver disease mechanisms",
+          "link": "https://deepmind.google/blog/accelerating-discovery-of-liver-disease-mechanisms/",
+          "date": "2026-05-16T08:00:15.000Z",
+          "summary": "Filippo Menolascina uses Co-Scientist to identify new liver disease treatments and explain why existing drugs only help …"
+        },
+        {
+          "title": "Uniting biological toolkits for a new approach to ALS",
+          "link": "https://deepmind.google/blog/uniting-biological-toolkits-for-a-new-approach-to-als/",
+          "date": "2026-05-16T07:53:11.000Z",
+          "summary": "Co-Scientist unites Boston Children’s Hospital and MIT’s labs to explore new RNA-based treatments for ALS."
+        },
+        {
+          "title": "Uncovering repurposed medicines to fight liver fibrosis",
+          "link": "https://deepmind.google/blog/uncovering-repurposed-medicines-to-fight-liver-fibrosis/",
+          "date": "2026-05-16T07:40:27.000Z",
+          "summary": "Stanford geneticist uses Co-Scientist to help find new treatments for chronic liver disease and liver fibrosis."
+        },
+        {
+          "title": "How WeatherNext helped the National Hurricane Center better predict Hurricane Melissa’s historic landfall in Jamaica",
+          "link": "https://deepmind.google/blog/how-weathernext-helped-the-national-hurricane-center-better-predict-hurricane-melissas-historic-landfall-in-jamaica/",
+          "date": "2026-05-16T03:14:17.000Z",
+          "summary": "Learn how our WeatherNext AI model help forecasters give communities unprecedented time to prepare ahead of the historic…"
+        },
+        {
+          "title": "Gemini 3.5: frontier intelligence with action",
+          "link": "https://deepmind.google/blog/gemini-3-5-frontier-intelligence-with-action/",
+          "date": "2026-05-15T22:50:12.000Z",
+          "summary": "Gemini 3.5 is built to help you execute complex, agentic workflows."
+        },
+        {
+          "title": "Co-Scientist: A multi-agent AI partner to accelerate research",
+          "link": "https://deepmind.google/blog/co-scientist-a-multi-agent-ai-partner-to-accelerate-research/",
+          "date": "2026-05-12T14:40:07.000Z",
+          "summary": "Introducing Co-Scientist, a collaborative AI partner built with Gemini to help researchers accelerate scientific breakth…"
+        },
+        {
+          "title": "AlphaEvolve: How our Gemini-powered coding agent is scaling impact across fields",
+          "link": "https://deepmind.google/blog/alphaevolve-impact/",
+          "date": "2026-05-06T10:43:49.000Z",
+          "summary": "Explore how AlphaEvolve's Gemini-powered algorithms are driving impact across business, infrastructure, and science."
+        },
+        {
+          "title": "Enabling a new model for healthcare with AI co-clinician",
+          "link": "https://deepmind.google/blog/ai-co-clinician/",
+          "date": "2026-04-30T12:14:15.000Z",
+          "summary": "Researching the path to AI-augmented care and development of an AI co-clinician."
+        },
+        {
+          "title": "Announcing our partnership with the Republic of Korea",
+          "link": "https://deepmind.google/blog/announcing-our-partnership-with-the-republic-of-korea/",
+          "date": "2026-04-27T07:00:06.000Z",
+          "summary": "Google DeepMind and Korea partner to accelerate scientific breakthroughs using frontier AI models"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Google AI Blog",
+      "link": "https://blog.google/innovation-and-ai/technology/ai/",
+      "ok": true,
+      "items": [
+        {
+          "title": "Our new community investments in Virginia support local jobs and expand energy affordability.",
+          "link": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/virginia-community-investments/",
+          "date": "2026-06-11T20:00:00.000Z",
+          "summary": "We’re helping build the state’s next-generation workforce and investing in energy programs."
+        },
+        {
+          "title": "The latest AI news we announced in May 2026",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-may-2026/",
+          "date": "2026-06-05T14:45:00.000Z",
+          "summary": "Here are Google’s latest AI updates from May 2026"
+        },
+        {
+          "title": "5 ways Google Search can level up your thrift and vintage shopping",
+          "link": "https://blog.google/products-and-platforms/products/search/thrifting-tips/",
+          "date": "2026-06-03T13:00:00.000Z",
+          "summary": "Uncover second-hand scores with AI tools in Google Search and Shopping."
+        },
+        {
+          "title": "How we used Gemini to build Google I/O 2026",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/io-2026-google-ai/",
+          "date": "2026-06-01T16:00:00.000Z",
+          "summary": "Learn how Googlers used AI to produce Google I/O 2026."
+        },
+        {
+          "title": "Take our I/O 2026 quiz, vibe coded in Google AI Studio.",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/io-2026-vibe-coded-quiz/",
+          "date": "2026-05-29T19:00:00.000Z",
+          "summary": "We used Google AI Studio to vibe code a quiz about our top I/O 2026 announcements."
+        },
+        {
+          "title": "9 demos of Gemini Omni and Gemini 3.5 in action",
+          "link": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-3-5-videos/",
+          "date": "2026-05-29T17:30:00.000Z",
+          "summary": "Watch 9 videos showing the capabilities of Gemini Omni and Gemini 3.5, announced at Google I/O 2026."
+        },
+        {
+          "title": "Check out real-life AI prototypes from the Futures Lab.",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/university-waterloo-labs/",
+          "date": "2026-05-29T12:00:00.000Z",
+          "summary": "University of Waterloo students develop AI prototypes like sign language tutors to reshape the future of education and w…"
+        },
+        {
+          "title": "Catch up on 12 major I/O 2026 moments",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/io-2026-keynote-moment-videos/",
+          "date": "2026-05-28T15:00:00.000Z",
+          "summary": "Here are 12 of the biggest Google I/O 2026 keynote moments, including news about Gemini Omni, Gemini 3.5 Flash and more."
+        },
+        {
+          "title": "Catch up on the Dialogues stage at Google I/O 2026.",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/io-2026-dialogues-recap/",
+          "date": "2026-05-22T18:00:00.000Z",
+          "summary": "A recap of the 2026 I/O Dialogues, where leaders discuss the future of AI, quantum computing, robotics and creativity."
+        },
+        {
+          "title": "We’re announcing new community investments in Missouri.",
+          "link": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/missouri-programs/",
+          "date": "2026-05-20T20:40:00.000Z",
+          "summary": "We’re helping build the state’s next-generation workforce and investing in energy programs."
+        },
+        {
+          "title": "100 things we announced at I/O 2026",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/google-io-2026-all-our-announcements/",
+          "date": "2026-05-20T19:30:00.000Z",
+          "summary": "We've been busy! Here’s a rundown of the top announcements, launches and demos at I/O 2026."
+        },
+        {
+          "title": "A new experiment brings better group meetings to Google Beam",
+          "link": "https://blog.google/innovation-and-ai/models-and-research/google-research/google-beam-group-meetings/",
+          "date": "2026-05-20T16:45:00.000Z",
+          "summary": "See and hear your colleagues in true-to-life size and sound, making hybrid meetings feel more inclusive and connected."
+        },
+        {
+          "title": "How AI Mode is changing the way people search in the U.S.",
+          "link": "https://blog.google/products-and-platforms/products/search/ai-mode-us-insights/",
+          "date": "2026-05-19T17:45:00.000Z",
+          "summary": "One year after launch, see how AI Mode’s users are shifting from keywords to natural language queries."
+        },
+        {
+          "title": "New ways to create and get things done in Google Workspace",
+          "link": "https://blog.google/products-and-platforms/products/workspace/workspace-updates/",
+          "date": "2026-05-19T17:45:00.000Z",
+          "summary": "Announcing new voice capabilities in Gmail, Docs and Keep, a new design tool called Google Pics and updates to AI Inbox."
+        },
+        {
+          "title": "I/O 2026: Welcome to the agentic Gemini era",
+          "link": "https://blog.google/innovation-and-ai/sundar-pichai-io-2026/",
+          "date": "2026-05-19T17:45:00.000Z",
+          "summary": "The latest from Google I/O: See how we’re helping you get more done with Gemini."
+        },
+        {
+          "title": "Gemini 3.5: frontier intelligence with action",
+          "link": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-5/",
+          "date": "2026-05-19T17:45:00.000Z",
+          "summary": "At Google I/O we released Gemini 3.5, our latest series of models combining frontier intelligence with action."
+        },
+        {
+          "title": "A new era for AI Search",
+          "link": "https://blog.google/products-and-platforms/products/search/search-io-2026/",
+          "date": "2026-05-19T17:45:00.000Z",
+          "summary": "We shared the next step in our journey to bring together the best of a search engine with the best of AI."
+        },
+        {
+          "title": "Everything new in our Google AI subscriptions, fresh from I/O 2026",
+          "link": "https://blog.google/products-and-platforms/products/google-one/google-ai-subscriptions/",
+          "date": "2026-05-19T17:45:00.000Z",
+          "summary": "Introducing a $100 AI Ultra plan — plus, new features and benefits for Google AI Plus, Pro and Ultra subscribers."
+        },
+        {
+          "title": "I/O 2026",
+          "link": "https://blog.google/innovation-and-ai/technology/developers-tools/google-io-2026-collection/",
+          "date": "2026-05-19T17:45:00.000Z",
+          "summary": "At Google I/O 2026, we shared how we’re making AI more helpful for everyone. See everything we announced."
+        },
+        {
+          "title": "The new AI-powered Google Finance is expanding to Europe.",
+          "link": "https://blog.google/products-and-platforms/products/search/ai-powered-google-finance-in-europe/",
+          "date": "2026-05-11T06:00:00.000Z",
+          "summary": "This week, the new, AI-powered Google Finance is launching across Europe, with full local language support. This reimagi…"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Google Developers Blog",
+      "link": "https://developers.googleblog.com/",
+      "ok": false,
+      "items": []
+    },
+    {
+      "id": 11,
+      "title": "HelloGitHub 月刊",
+      "link": "https://hellogithub.com",
+      "ok": true,
+      "items": [
+        {
+          "title": "HelloGitHub 第 122 期",
+          "link": "https://hellogithub.com/periodical/volume/122",
+          "date": "2026-05-28T00:07:51.000Z",
+          "summary": "本期共有 39 个项目，包含 C 项目 (2)，C# 项目 (3)，C++ 项目 (2)，Go 项目 (4)，JavaScript 项目 (5)，Python 项目 (4)，Rust 项目 (3)，Skills (3)，Swift 项目 (…"
+        },
+        {
+          "title": "HelloGitHub 第 121 期",
+          "link": "https://hellogithub.com/periodical/volume/121",
+          "date": "2026-04-28T00:05:57.000Z",
+          "summary": "本期共有 40 个项目，包含 C 项目 (1)，C# 项目 (2)，C++ 项目 (2)，Go 项目 (4)，JavaScript 项目 (4)，Kotlin 项目 (1)，Python 项目 (3)，Rust 项目 (4)，Skills …"
+        },
+        {
+          "title": "HelloGitHub 第 120 期",
+          "link": "https://hellogithub.com/periodical/volume/120",
+          "date": "2026-03-27T00:08:31.000Z",
+          "summary": "本期共有 40 个项目，包含 C 项目 (1)，C# 项目 (4)，C++ 项目 (2)，Go 项目 (4)，Java 项目 (3)，JavaScript 项目 (5)，Kotlin 项目 (2)，Python 项目 (4)，Rust 项目…"
+        },
+        {
+          "title": "HelloGitHub 第 119 期",
+          "link": "https://hellogithub.com/periodical/volume/119",
+          "date": "2026-02-28T00:10:09.000Z",
+          "summary": "本期共有 41 个项目，包含 C 项目 (2)，C# 项目 (2)，C++ 项目 (2)，Go 项目 (4)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (2)，Python 项目 (5)，Rust 项目…"
+        },
+        {
+          "title": "HelloGitHub 第 118 期",
+          "link": "https://hellogithub.com/periodical/volume/118",
+          "date": "2026-01-28T00:10:57.000Z",
+          "summary": "本期共有 41 个项目，包含 C 项目 (1)，C# 项目 (3)，C++ 项目 (3)，Go 项目 (5)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (2)，Python 项目 (5)，Rust 项目…"
+        },
+        {
+          "title": "HelloGitHub 第 117 期",
+          "link": "https://hellogithub.com/periodical/volume/117",
+          "date": "2025-12-26T00:03:43.000Z",
+          "summary": "本期共有 39 个项目，包含 C 项目 (2)，C# 项目 (3)，C++ 项目 (1)，Go 项目 (4)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (2)，PHP 项目 (1)，Python 项目 …"
+        },
+        {
+          "title": "HelloGitHub 第 116 期",
+          "link": "https://hellogithub.com/periodical/volume/116",
+          "date": "2025-11-28T00:02:57.000Z",
+          "summary": "本期共有 40 个项目，包含 C 项目 (1)，C# 项目 (2)，C++ 项目 (4)，Go 项目 (4)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (2)，PHP 项目 (1)，Python 项目 …"
+        },
+        {
+          "title": "HelloGitHub 第 115 期",
+          "link": "https://hellogithub.com/periodical/volume/115",
+          "date": "2025-10-28T00:04:46.000Z",
+          "summary": "本期共有 41 个项目，包含 C 项目 (2)，C# 项目 (3)，C++ 项目 (3)，Go 项目 (3)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (2)，Python 项目 (5)，Rust 项目…"
+        },
+        {
+          "title": "HelloGitHub 第 114 期",
+          "link": "https://hellogithub.com/periodical/volume/114",
+          "date": "2025-09-27T23:49:05.000Z",
+          "summary": "本期共有 39 个项目，包含 C 项目 (2)，C# 项目 (2)，C++ 项目 (3)，Go 项目 (4)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (1)，Python 项目 (5)，Rust 项目…"
+        },
+        {
+          "title": "HelloGitHub 第 113 期",
+          "link": "https://hellogithub.com/periodical/volume/113",
+          "date": "2025-08-28T00:09:53.000Z",
+          "summary": "本期共有 40 个项目，包含 C 项目 (3)，C# 项目 (2)，C++ 项目 (3)，Go 项目 (4)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (1)，Python 项目 (5)，Rust 项目…"
+        },
+        {
+          "title": "HelloGitHub 第 112 期",
+          "link": "https://hellogithub.com/periodical/volume/112",
+          "date": "2025-07-28T00:05:17.000Z",
+          "summary": "本期共有 42 个项目，包含 C 项目 (2)，C# 项目 (2)，C++ 项目 (3)，Go 项目 (4)，Java 项目 (3)，JavaScript 项目 (5)，Kotlin 项目 (1)，Python 项目 (5)，Rust 项目…"
+        },
+        {
+          "title": "HelloGitHub 第 111 期",
+          "link": "https://hellogithub.com/periodical/volume/111",
+          "date": "2025-06-26T23:56:20.000Z",
+          "summary": "本期共有 41 个项目，包含 C 项目 (1)，C# 项目 (2)，C++ 项目 (3)，Go 项目 (4)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (2)，Objective-C 项目 (1)，Py…"
+        },
+        {
+          "title": "HelloGitHub 第 110 期",
+          "link": "https://hellogithub.com/periodical/volume/110",
+          "date": "2025-05-28T00:05:12.000Z",
+          "summary": "本期共有 41 个项目，包含 C 项目 (1)，C# 项目 (3)，C++ 项目 (3)，CSS 项目 (1)，Go 项目 (4)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (1)，Python 项目 …"
+        },
+        {
+          "title": "HelloGitHub 第 109 期",
+          "link": "https://hellogithub.com/periodical/volume/109",
+          "date": "2025-04-28T00:00:16.000Z",
+          "summary": "本期共有 43 个项目，包含 C 项目 (2)，C# 项目 (3)，C++ 项目 (2)，Go 项目 (4)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (1)，PHP 项目 (1)，Python 项目 …"
+        },
+        {
+          "title": "HelloGitHub 第 108 期",
+          "link": "https://hellogithub.com/periodical/volume/108",
+          "date": "2025-03-27T23:52:53.000Z",
+          "summary": "本期共有 38 个项目，包含 C 项目 (3)，C# 项目 (1)，C++ 项目 (3)，CSS 项目 (1)，Go 项目 (2)，Java 项目 (1)，JavaScript 项目 (5)，Kotlin 项目 (1)，Python 项目 …"
+        },
+        {
+          "title": "HelloGitHub 第 107 期",
+          "link": "https://hellogithub.com/periodical/volume/107",
+          "date": "2025-02-28T00:00:24.000Z",
+          "summary": "本期共有 43 个项目，包含 C 项目 (2)，C# 项目 (3)，C++ 项目 (3)，Go 项目 (5)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (1)，Python 项目 (5)，Rust 项目…"
+        },
+        {
+          "title": "HelloGitHub 第 106 期",
+          "link": "https://hellogithub.com/periodical/volume/106",
+          "date": "2025-01-27T00:07:40.000Z",
+          "summary": "本期共有 42 个项目，包含 C 项目 (1)，C# 项目 (2)，C++ 项目 (4)，Go 项目 (4)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (2)，Python 项目 (5)，Rust 项目…"
+        },
+        {
+          "title": "HelloGitHub 第 105 期",
+          "link": "https://hellogithub.com/periodical/volume/105",
+          "date": "2024-12-27T00:03:55.000Z",
+          "summary": "本期共有 40 个项目，包含 C 项目 (2)，C# 项目 (2)，C++ 项目 (2)，CSS 项目 (1)，Go 项目 (5)，Java 项目 (3)，JavaScript 项目 (5)，Kotlin 项目 (1)，Python 项目 …"
+        },
+        {
+          "title": "HelloGitHub 第 104 期",
+          "link": "https://hellogithub.com/periodical/volume/104",
+          "date": "2024-11-28T00:15:37.000Z",
+          "summary": "本期共有 41 个项目，包含 C 项目 (3)，C# 项目 (2)，C++ 项目 (3)，Go 项目 (5)，JavaScript 项目 (5)，Kotlin 项目 (2)，Python 项目 (5)，Rust 项目 (3)，Swift 项…"
+        },
+        {
+          "title": "HelloGitHub 第 103 期",
+          "link": "https://hellogithub.com/periodical/volume/103",
+          "date": "2024-10-28T00:04:36.000Z",
+          "summary": "本期共有 43 个项目，包含 C 项目 (2)，C# 项目 (2)，C++ 项目 (3)，Go 项目 (5)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (2)，Python 项目 (5)，Rust 项目…"
+        },
+        {
+          "title": "HelloGitHub 第 102 期",
+          "link": "https://hellogithub.com/periodical/volume/102",
+          "date": "2024-09-26T23:55:17.000Z",
+          "summary": "本期共有 41 个项目，包含 C 项目 (3)，C# 项目 (2)，C++ 项目 (2)，Go 项目 (5)，Java 项目 (3)，JavaScript 项目 (5)，Kotlin 项目 (2)，Python 项目 (5)，Rust 项目…"
+        },
+        {
+          "title": "HelloGitHub 第 101 期",
+          "link": "https://hellogithub.com/periodical/volume/101",
+          "date": "2024-08-28T00:03:47.000Z",
+          "summary": "本期共有 44 个项目，包含 C 项目 (3)，C# 项目 (2)，C++ 项目 (2)，Go 项目 (5)，Java 项目 (2)，JavaScript 项目 (5)，Kotlin 项目 (2)，PHP 项目 (2)，Python 项目 …"
+        },
+        {
+          "title": "HelloGitHub 第 100 期",
+          "link": "https://hellogithub.com/periodical/volume/100",
+          "date": "2024-07-26T00:04:22.000Z",
+          "summary": "本期共有 41 个项目，包含 C 项目 (2)，C# 项目 (4)，C++ 项目 (1)，Go 项目 (4)，Java 项目 (3)，JavaScript 项目 (5)，Kotlin 项目 (1)，Python 项目 (5)，Rust 项目…"
+        },
+        {
+          "title": "HelloGitHub 第 99 期",
+          "link": "https://hellogithub.com/periodical/volume/99",
+          "date": "2024-06-28T00:11:44.000Z",
+          "summary": "本期共有 42 个项目，包含 C 项目 (1)，C# 项目 (2)，C++ 项目 (3)，Go 项目 (5)，Java 项目 (2)，JavaScript 项目 (5)，PHP 项目 (1)，Python 项目 (5)，Ruby 项目 (1…"
+        },
+        {
+          "title": "HelloGitHub 第 98 期",
+          "link": "https://hellogithub.com/periodical/volume/98",
+          "date": "2024-05-28T00:12:43.000Z",
+          "summary": "本期共有 40 个项目，包含 C 项目 (2)，C# 项目 (1)，C++ 项目 (3)，Go 项目 (5)，Java 项目 (4)，JavaScript 项目 (5)，Kotlin 项目 (1)，Python 项目 (5)，Rust 项目…"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Hacker News",
+      "link": "https://news.ycombinator.com/",
+      "ok": true,
+      "items": [
+        {
+          "title": "Israeli firm BlackCore suspected of meddling in New York and Scotland votes",
+          "link": "https://www.reuters.com/world/israeli-firm-blackcore-also-suspected-meddling-nyc-scotland-votes-french-2026-06-11/",
+          "date": "2026-06-13T07:45:39.000Z",
+          "summary": "Article URL: https://www.reuters.com/world/israeli-firm-blackcore-also-suspected-meddling-nyc-scotland-votes-french-2026…"
+        },
+        {
+          "title": "Show HN: Skill for your agent to visualize your gbrain and Obsidian",
+          "link": "https://github.com/vladignatyev/brain-map-skill",
+          "date": "2026-06-13T06:43:42.000Z",
+          "summary": "Article URL: https://github.com/vladignatyev/brain-map-skill Comments URL: https://news.ycombinator.com/item?id=48514124…"
+        },
+        {
+          "title": "Leaving Mozilla",
+          "link": "https://blog.unitedheroes.net/5751",
+          "date": "2026-06-13T05:57:14.000Z",
+          "summary": "Article URL: https://blog.unitedheroes.net/5751 Comments URL: https://news.ycombinator.com/item?id=48513806 Points: 97 #…"
+        },
+        {
+          "title": "Shepherd's Dog: A Game by the Most Dangerous AI Model",
+          "link": "https://koenvangilst.nl/lab/claude-fable-shepherds-dog",
+          "date": "2026-06-13T05:44:46.000Z",
+          "summary": "Article URL: https://koenvangilst.nl/lab/claude-fable-shepherds-dog Comments URL: https://news.ycombinator.com/item?id=4…"
+        },
+        {
+          "title": "There is a shadow hanging over this Fable thing",
+          "link": "https://12gramsofcarbon.com/p/tech-things-there-is-a-massive-shadow",
+          "date": "2026-06-13T05:16:41.000Z",
+          "summary": "Article URL: https://12gramsofcarbon.com/p/tech-things-there-is-a-massive-shadow Comments URL: https://news.ycombinator.…"
+        },
+        {
+          "title": "On CPU Physics and CPU Cycles",
+          "link": "https://6it.dev/blog/on-cpu-physics-and-cpu-cycles-80730",
+          "date": "2026-06-13T04:37:08.000Z",
+          "summary": "Article URL: https://6it.dev/blog/on-cpu-physics-and-cpu-cycles-80730 Comments URL: https://news.ycombinator.com/item?id…"
+        },
+        {
+          "title": "A generic dynamic array in C that stores no capacity and needs no struct",
+          "link": "https://gist.github.com/alurm/2ca14be134d719fe7431217a6b18d91e",
+          "date": "2026-06-13T02:50:10.000Z",
+          "summary": "Article URL: https://gist.github.com/alurm/2ca14be134d719fe7431217a6b18d91e Comments URL: https://news.ycombinator.com/i…"
+        },
+        {
+          "title": "Open source AI must win",
+          "link": "https://opensourceaimustwin.com/?share=v2",
+          "date": "2026-06-13T02:14:24.000Z",
+          "summary": "Article URL: https://opensourceaimustwin.com/?share=v2 Comments URL: https://news.ycombinator.com/item?id=48511908 Point…"
+        },
+        {
+          "title": "TycoonLE: A Jax reinforcement learning environment for long-horizon planning",
+          "link": "https://github.com/vrtnis/tycoon-learning-environment",
+          "date": "2026-06-13T02:02:07.000Z",
+          "summary": "Article URL: https://github.com/vrtnis/tycoon-learning-environment Comments URL: https://news.ycombinator.com/item?id=48…"
+        },
+        {
+          "title": "Statement on US government directive to suspend access to Fable 5 and Mythos 5",
+          "link": "https://www.anthropic.com/news/fable-mythos-access",
+          "date": "2026-06-13T00:51:30.000Z",
+          "summary": "https://x.com/ClaudeDevs/status/2065597942602531163 Comments URL: https://news.ycombinator.com/item?id=48511072 Points: …"
+        },
+        {
+          "title": "Show HN: Putt.day a daily mini golf game",
+          "link": "https://putt.day/",
+          "date": "2026-06-12T22:56:06.000Z",
+          "summary": "Article URL: https://putt.day/ Comments URL: https://news.ycombinator.com/item?id=48510341 Points: 157 # Comments: 71"
+        },
+        {
+          "title": "Twenty One Zero-Days in FFmpeg",
+          "link": "https://depthfirst.com/research/21-zero-days-in-ffmpeg",
+          "date": "2026-06-12T22:13:29.000Z",
+          "summary": "Article URL: https://depthfirst.com/research/21-zero-days-in-ffmpeg Comments URL: https://news.ycombinator.com/item?id=4…"
+        },
+        {
+          "title": "Electric motors with no rare earths",
+          "link": "https://www.renaultgroup.com/en/magazine/energy-and-powertrains/all-about-electric-motors-with-no-rare-earths/",
+          "date": "2026-06-12T22:08:03.000Z",
+          "summary": "Article URL: https://www.renaultgroup.com/en/magazine/energy-and-powertrains/all-about-electric-motors-with-no-rare-eart…"
+        },
+        {
+          "title": "Palantir loses legal challenge against Swiss investigative magazine",
+          "link": "https://www.ft.com/content/7ffcace7-9dc0-4e7e-9912-895ac073f979",
+          "date": "2026-06-12T20:39:36.000Z",
+          "summary": "Article URL: https://www.ft.com/content/7ffcace7-9dc0-4e7e-9912-895ac073f979 Comments URL: https://news.ycombinator.com/…"
+        },
+        {
+          "title": "Swift at Apple: Migrating the TrueType hinting interpreter",
+          "link": "https://www.swift.org/blog/migrating-truetype-hinting-to-swift/",
+          "date": "2026-06-12T19:54:27.000Z",
+          "summary": "Article URL: https://www.swift.org/blog/migrating-truetype-hinting-to-swift/ Comments URL: https://news.ycombinator.com/…"
+        },
+        {
+          "title": "How to setup a local coding agent on macOS",
+          "link": "https://ikyle.me/blog/2026/how-to-setup-a-local-coding-agent-on-macos",
+          "date": "2026-06-12T17:34:55.000Z",
+          "summary": "Article URL: https://ikyle.me/blog/2026/how-to-setup-a-local-coding-agent-on-macos Comments URL: https://news.ycombinato…"
+        },
+        {
+          "title": "Pirates, a naval warfare game inspired by Sid Meier's Pirates",
+          "link": "https://piwodlaiwo.github.io/pirates/",
+          "date": "2026-06-12T17:07:46.000Z",
+          "summary": "Article URL: https://piwodlaiwo.github.io/pirates/ Comments URL: https://news.ycombinator.com/item?id=48506659 Points: 2…"
+        },
+        {
+          "title": "Launch HN: BitBoard (YC P25) – Analytics Workspace for Agents",
+          "link": "https://bitboard.work/",
+          "date": "2026-06-12T16:58:03.000Z",
+          "summary": "We’re Connor and Ambar from BitBoard ( https://bitboard.work ). BitBoard is an agentic analytics workspace. We give you …"
+        },
+        {
+          "title": "CRISPR tech selectively shreds cancer cells, including \"undruggable\" cancers",
+          "link": "https://innovativegenomics.org/news/crispr-technique-selectively-shreds-cancer-cells/",
+          "date": "2026-06-12T15:15:24.000Z",
+          "summary": "Article URL: https://innovativegenomics.org/news/crispr-technique-selectively-shreds-cancer-cells/ Comments URL: https:/…"
+        },
+        {
+          "title": "Slightly reducing the sloppiness of AI generated front end",
+          "link": "https://envs.net/~volpe/blog/posts/reduce-slop.html",
+          "date": "2026-06-12T14:48:38.000Z",
+          "summary": "Article URL: https://envs.net/~volpe/blog/posts/reduce-slop.html Comments URL: https://news.ycombinator.com/item?id=4850…"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Hugging Face Blog (含中文)",
+      "link": "https://huggingface.co/blog",
+      "ok": false,
+      "items": []
+    },
+    {
+      "id": 14,
+      "title": "arXiv AI (cs.AI)",
+      "link": "https://arxiv.org/list/cs.AI/recent",
+      "ok": false,
+      "items": []
+    },
+    {
+      "id": 15,
+      "title": "arXiv ML (cs.LG)",
+      "link": "https://arxiv.org/list/cs.LG/recent",
+      "ok": false,
+      "items": []
+    },
+    {
+      "id": 16,
+      "title": "arXiv NLP (cs.CL)",
+      "link": "https://arxiv.org/list/cs.CL/recent",
+      "ok": false,
+      "items": []
+    },
+    {
+      "id": 17,
+      "title": "arXiv CV (cs.CV)",
+      "link": "https://arxiv.org/list/cs.CV/recent",
+      "ok": false,
+      "items": []
     }
   ]
 }
