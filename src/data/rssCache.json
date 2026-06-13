@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T11:34:46.577Z",
+  "generatedAt": "2026-06-13T12:22:17.852Z",
   "feeds": [
     {
       "id": 1,
@@ -755,6 +755,12 @@
       "link": "https://news.ycombinator.com/",
       "ok": true,
       "items": [
+        {
+          "title": "Arch Linux Now Believes Malware Incident Under Control: More Than 1,500 Packages",
+          "link": "https://www.phoronix.com/news/Arch-Linux-AUR-More-Than-1500",
+          "date": "2026-06-13T11:55:30.000Z",
+          "summary": "Article URL: https://www.phoronix.com/news/Arch-Linux-AUR-More-Than-1500 Comments URL: https://news.ycombinator.com/item…"
+        },
         {
           "title": "Show HN: Paca – Lightweight Jira alternative for human-AI collaboration",
           "link": "https://github.com/Paca-AI/paca",
