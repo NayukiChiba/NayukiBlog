@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T20:12:29.962Z",
+  "generatedAt": "2026-06-13T21:58:57.060Z",
   "feeds": [
     {
       "id": 1,
@@ -756,6 +756,18 @@
       "ok": true,
       "items": [
         {
+          "title": "Police officer investigated for using AI to 'create evidence' in multiple cases",
+          "link": "https://news.sky.com/story/derbyshire-police-officer-investigated-for-using-ai-to-create-evidence-in-multiple-cases-13553661",
+          "date": "2026-06-13T19:54:55.000Z",
+          "summary": "Article URL: https://news.sky.com/story/derbyshire-police-officer-investigated-for-using-ai-to-create-evidence-in-multip…"
+        },
+        {
+          "title": "What Happens to an Economy When It's Too Hot to Work?",
+          "link": "https://www.bloomberg.com/news/features/2026-06-12/india-s-extreme-heat-is-hurting-its-economy-and-workers",
+          "date": "2026-06-13T18:35:15.000Z",
+          "summary": "Article URL: https://www.bloomberg.com/news/features/2026-06-12/india-s-extreme-heat-is-hurting-its-economy-and-workers …"
+        },
+        {
           "title": "Running DOS on Behringers DDX3216 with a DIY x86-Bios from Scratch",
           "link": "https://chrisdevblog.com/2026/06/08/running-dos-on-behringers-ddx3216-using-a-diy-x86-bios/",
           "date": "2026-06-13T18:32:22.000Z",
@@ -780,6 +792,12 @@
           "summary": "Article URL: https://www.wsj.com/tech/ai/amazon-ceos-talks-with-u-s-officials-triggered-crackdown-on-anthropic-models-dc…"
         },
         {
+          "title": "Amazon CEO's talks with U.S. officials triggered crackdown on Anthropic models",
+          "link": "https://www.wsj.com/tech/ai/amazon-ceos-talks-with-u-s-officials-triggered-crackdown-on-anthropic-models-dcc90578?st=Yct6gx&reflink=desktopwebshare_permalink",
+          "date": "2026-06-13T16:57:49.000Z",
+          "summary": "https://www.wsj.com/tech/ai/amazon-ceos-talks-with-u-s-offic... Comments URL: https://news.ycombinator.com/item?id=48519…"
+        },
+        {
           "title": "The adder at the heart of Intel's 8087 floating-point chip",
           "link": "https://www.righto.com/2026/06/intel-8087-adder-reverse-engineered.html",
           "date": "2026-06-13T16:49:42.000Z",
@@ -796,6 +814,12 @@
           "link": "https://digg.com/tech/ii9xibgn",
           "date": "2026-06-13T16:18:31.000Z",
           "summary": "Article URL: https://digg.com/tech/ii9xibgn Comments URL: https://news.ycombinator.com/item?id=48518684 Points: 54 # Com…"
+        },
+        {
+          "title": "GLM 5.2 Is Out",
+          "link": "https://twitter.com/jietang/status/2065784751345287314",
+          "date": "2026-06-13T16:18:31.000Z",
+          "summary": "https://digg.com/tech/ii9xibgn Comments URL: https://news.ycombinator.com/item?id=48518684 Points: 208 # Comments: 93"
         },
         {
           "title": "Orthodox C++",
