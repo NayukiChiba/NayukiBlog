@@ -182,7 +182,40 @@ RSSHub 的路由格式为：
 https://rss.<你的域名>/<源>/<路由>?<参数>
 ```
 
-例如你部署的 `https://rss.example.com/bilibili/user/video/2267573`，返回 B 站 UP 主的最新视频 RSS。
+例如 `https://rss.example.com/bilibili/user/video/2267573`，返回 B 站 UP 主的最新视频 RSS。
+
+## 配置环境变量
+
+部分路由（如 Twitter）需要认证才能使用。在 1Panel 中：**容器 → RSSHub → 编辑 → 环境变量**。
+
+### Twitter 认证
+
+Twitter/X 路由 `503` 是因为没配认证。任选一种方式：
+
+**方式一：Cookie 一键配置（推荐）**
+
+浏览器登录 [x.com](https://x.com) → `F12` → **Application** → **Cookies** → `x.com` → 找到 `auth_token` 和 `ct0`，复制值。
+
+![X_auth_token.png](https://img.yumeko.site/file/blog/articles/1781349495468_X_auth_token.webp)
+
+添加环境变量：
+
+| 变量 | 值 |
+|------|-----|
+| `TWITTER_COOKIE` | `auth_token=你复制的值; ct0=你复制的值` |
+
+**方式二：用户名密码登录**
+
+| 变量 | 说明 |
+|------|------|
+| `TWITTER_USERNAME` | Twitter 用户名 |
+| `TWITTER_PASSWORD` | Twitter 密码 |
+| `TWITTER_AUTHENTICATION_SECRET` | 开了两步验证才填，认证 App 中 `secret=` 后面的值 |
+| `TWITTER_PHONE_OR_EMAIL` | 手机号或邮箱（辅助验证） |
+
+> [!WARNING]
+> 建议用非主力小号，新号或异地登录可能被风控。
+> 改好 `TWITTER_COOKIE` 和 `ACCESS_KEY` 的值，保存后重启容器。
 
 ## 常用路由
 
