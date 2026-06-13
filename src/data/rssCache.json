@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T09:11:30.922Z",
+  "generatedAt": "2026-06-13T10:24:44.644Z",
   "feeds": [
     {
       "id": 1,
@@ -1648,6 +1648,18 @@
           "link": "https://envs.net/~volpe/blog/posts/reduce-slop.html",
           "date": "2026-06-12T14:48:38.000Z",
           "summary": "Article URL: https://envs.net/~volpe/blog/posts/reduce-slop.html Comments URL: https://news.ycombinator.com/item?id=4850…"
+        },
+        {
+          "title": "Hazel (YC W24) Is Hiring a Full Stack Engineer",
+          "link": "https://www.ycombinator.com/companies/hazel-2/jobs/3epPWgu-full-stack-engineer-ts-sci",
+          "date": "2026-06-12T13:14:18.000Z",
+          "summary": "Article URL: https://www.ycombinator.com/companies/hazel-2/jobs/3epPWgu-full-stack-engineer-ts-sci Comments URL: https:/…"
+        },
+        {
+          "title": "If you are asking for human attention, demonstrate human effort",
+          "link": "https://tombedor.dev/human-attention-and-human-effort/",
+          "date": "2026-06-11T23:01:55.000Z",
+          "summary": "Article URL: https://tombedor.dev/human-attention-and-human-effort/ Comments URL: https://news.ycombinator.com/item?id=4…"
         }
       ]
     },
