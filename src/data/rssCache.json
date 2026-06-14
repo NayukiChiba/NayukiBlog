@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T04:58:14.571Z",
+  "generatedAt": "2026-06-14T08:11:51.156Z",
   "feeds": [
     {
       "id": 1,
@@ -756,10 +756,58 @@
       "ok": true,
       "items": [
         {
+          "title": "Don't trust large context windows",
+          "link": "https://garrit.xyz/posts/2026-05-06-dont-trust-large-context-windows",
+          "date": "2026-06-14T06:07:09.000Z",
+          "summary": "Article URL: https://garrit.xyz/posts/2026-05-06-dont-trust-large-context-windows Comments URL: https://news.ycombinator…"
+        },
+        {
+          "title": "Consciousness likely not unique to earthlings, paper says",
+          "link": "https://news.ucr.edu/articles/2026/06/10/consciousness-likely-not-unique-earthlings-paper-says",
+          "date": "2026-06-14T05:27:45.000Z",
+          "summary": "Article URL: https://news.ucr.edu/articles/2026/06/10/consciousness-likely-not-unique-earthlings-paper-says Comments URL…"
+        },
+        {
+          "title": "Tribblix: The retro Illumos distribution",
+          "link": "http://tribblix.org/",
+          "date": "2026-06-14T05:23:12.000Z",
+          "summary": "Article URL: http://tribblix.org/ Comments URL: https://news.ycombinator.com/item?id=48524434 Points: 28 # Comments: 7"
+        },
+        {
+          "title": "Phoenix LiveView 1.2 Released",
+          "link": "https://phoenixframework.org/blog/phoenix-liveview-1-2-released",
+          "date": "2026-06-14T04:53:51.000Z",
+          "summary": "Article URL: https://phoenixframework.org/blog/phoenix-liveview-1-2-released Comments URL: https://news.ycombinator.com/…"
+        },
+        {
+          "title": "Pac-Man, but you're the ghost",
+          "link": "https://garrit.xyz/posts/2026-06-13-pac-man-but-you-re-the-ghost",
+          "date": "2026-06-14T04:18:45.000Z",
+          "summary": "Article URL: https://garrit.xyz/posts/2026-06-13-pac-man-but-you-re-the-ghost Comments URL: https://news.ycombinator.com…"
+        },
+        {
+          "title": "Software Architecture Guide (2019)",
+          "link": "https://martinfowler.com/architecture/",
+          "date": "2026-06-14T04:07:37.000Z",
+          "summary": "Article URL: https://martinfowler.com/architecture/ Comments URL: https://news.ycombinator.com/item?id=48524084 Points: …"
+        },
+        {
+          "title": "Free SQL→ER diagram tool, runs in the browser, nothing uploaded",
+          "link": "https://sqltoerdiagram.com/",
+          "date": "2026-06-14T03:43:30.000Z",
+          "summary": "Article URL: https://sqltoerdiagram.com/ Comments URL: https://news.ycombinator.com/item?id=48523992 Points: 71 # Commen…"
+        },
+        {
           "title": "The Redistribution of Housing Wealth Caused by Rent Control [pdf]",
           "link": "https://www.rhawa.org/file/secure/shs-the-impact-of-rent-control-in-st-paul.pdf",
           "date": "2026-06-14T02:59:34.000Z",
           "summary": "Article URL: https://www.rhawa.org/file/secure/shs-the-impact-of-rent-control-in-st-paul.pdf Comments URL: https://news.…"
+        },
+        {
+          "title": "Making Claude a Chemist",
+          "link": "https://www.anthropic.com/research/making-claude-a-chemist",
+          "date": "2026-06-14T02:55:36.000Z",
+          "summary": "Article URL: https://www.anthropic.com/research/making-claude-a-chemist Comments URL: https://news.ycombinator.com/item?…"
         },
         {
           "title": "Weave: Merging based on language structure and not lines",
