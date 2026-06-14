@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T03:30:22.463Z",
+  "generatedAt": "2026-06-14T04:58:14.571Z",
   "feeds": [
     {
       "id": 1,
@@ -762,10 +762,22 @@
           "summary": "Article URL: https://www.rhawa.org/file/secure/shs-the-impact-of-rent-control-in-st-paul.pdf Comments URL: https://news.…"
         },
         {
+          "title": "Weave: Merging based on language structure and not lines",
+          "link": "https://ataraxy-labs.github.io/weave/",
+          "date": "2026-06-14T02:45:38.000Z",
+          "summary": "Article URL: https://ataraxy-labs.github.io/weave/ Comments URL: https://news.ycombinator.com/item?id=48523705 Points: 8…"
+        },
+        {
           "title": "Building a serial and VGA \"everything console\"",
           "link": "http://oldvcr.blogspot.com/2026/06/building-serial-and-vga-everything.html",
           "date": "2026-06-14T02:31:15.000Z",
           "summary": "Article URL: http://oldvcr.blogspot.com/2026/06/building-serial-and-vga-everything.html Comments URL: https://news.ycomb…"
+        },
+        {
+          "title": "Quadratic funding democratizes allocation by rewarding projects w/ broad support",
+          "link": "https://internetfreedom.torproject.org/funding-distribution/",
+          "date": "2026-06-14T02:30:45.000Z",
+          "summary": "Article URL: https://internetfreedom.torproject.org/funding-distribution/ Comments URL: https://news.ycombinator.com/ite…"
         },
         {
           "title": "Apt Encounters of the Third Kind",
@@ -1007,7 +1019,7 @@
       "id": 13,
       "title": "Hugging Face Blog (含中文)",
       "link": "https://huggingface.co/blog",
-      "ok": false,
+      "ok": true,
       "items": [
         {
           "title": "olmo-eval: An evaluation workbench for the model development loop",
