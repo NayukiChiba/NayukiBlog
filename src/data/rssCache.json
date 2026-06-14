@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T11:27:27.454Z",
+  "generatedAt": "2026-06-14T13:51:22.599Z",
   "feeds": [
     {
       "id": 1,
@@ -755,6 +755,24 @@
       "link": "https://news.ycombinator.com/",
       "ok": true,
       "items": [
+        {
+          "title": "How did Atari apply side art to Arcade Cabinets?",
+          "link": "https://arcadeblogger.com/2026/06/14/how-did-atari-apply-side-art-to-arcade-cabinets/",
+          "date": "2026-06-14T12:57:33.000Z",
+          "summary": "Article URL: https://arcadeblogger.com/2026/06/14/how-did-atari-apply-side-art-to-arcade-cabinets/ Comments URL: https:/…"
+        },
+        {
+          "title": "The Birth and Death of JavaScript (2014)",
+          "link": "https://www.destroyallsoftware.com/talks/the-birth-and-death-of-javascript",
+          "date": "2026-06-14T12:38:31.000Z",
+          "summary": "Article URL: https://www.destroyallsoftware.com/talks/the-birth-and-death-of-javascript Comments URL: https://news.ycomb…"
+        },
+        {
+          "title": "How to Earn a Billion Dollars",
+          "link": "https://paulgraham.com/earn.html",
+          "date": "2026-06-14T11:50:48.000Z",
+          "summary": "Article URL: https://paulgraham.com/earn.html Comments URL: https://news.ycombinator.com/item?id=48526360 Points: 61 # C…"
+        },
         {
           "title": "UK police officer under criminal investigation over alleged use of AI",
           "link": "https://www.ft.com/content/514bab88-788c-4d48-a140-03597860bdb6",
