@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T08:11:51.156Z",
+  "generatedAt": "2026-06-14T11:27:27.454Z",
   "feeds": [
     {
       "id": 1,
@@ -755,6 +755,12 @@
       "link": "https://news.ycombinator.com/",
       "ok": true,
       "items": [
+        {
+          "title": "UK police officer under criminal investigation over alleged use of AI",
+          "link": "https://www.ft.com/content/514bab88-788c-4d48-a140-03597860bdb6",
+          "date": "2026-06-14T10:53:13.000Z",
+          "summary": "Article URL: https://www.ft.com/content/514bab88-788c-4d48-a140-03597860bdb6 Comments URL: https://news.ycombinator.com/…"
+        },
         {
           "title": "Don't trust large context windows",
           "link": "https://garrit.xyz/posts/2026-05-06-dont-trust-large-context-windows",
