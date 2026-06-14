@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T13:51:22.599Z",
+  "generatedAt": "2026-06-14T15:46:33.475Z",
   "feeds": [
     {
       "id": 1,
@@ -755,6 +755,66 @@
       "link": "https://news.ycombinator.com/",
       "ok": true,
       "items": [
+        {
+          "title": "I indexed 669 GB of my GoPro videos using my M1 Max computer and local ML models",
+          "link": "https://news.ycombinator.com/item?id=48528029",
+          "date": "2026-06-14T15:13:57.000Z",
+          "summary": "TLDR: I had 2,207 GoPro videos, and I need to rewatch them to find interesting moments from my cycling journey. I built …"
+        },
+        {
+          "title": "Measles surge in Utah sparks fears US could undo decades of progress",
+          "link": "https://www.dailymail.com/news/article-15897903/measles-surge-utah-US-elimination-status.html",
+          "date": "2026-06-14T15:13:42.000Z",
+          "summary": "Article URL: https://www.dailymail.com/news/article-15897903/measles-surge-utah-US-elimination-status.html Comments URL:…"
+        },
+        {
+          "title": "Perlisisms",
+          "link": "https://www.cs.yale.edu/homes/perlis-alan/quotes.html",
+          "date": "2026-06-14T14:56:56.000Z",
+          "summary": "Article URL: https://www.cs.yale.edu/homes/perlis-alan/quotes.html Comments URL: https://news.ycombinator.com/item?id=48…"
+        },
+        {
+          "title": "Cloud-based LLM gold rush is ending",
+          "link": "https://automato.substack.com/p/apple-wwdc-and-the-fable-5-embargo",
+          "date": "2026-06-14T14:56:35.000Z",
+          "summary": "Article URL: https://automato.substack.com/p/apple-wwdc-and-the-fable-5-embargo Comments URL: https://news.ycombinator.c…"
+        },
+        {
+          "title": "UK set to announce social media ban for under-16s",
+          "link": "https://www.manchestereveningnews.co.uk/news/uk-news/uk-set-announce-social-media-34119132",
+          "date": "2026-06-14T14:51:03.000Z",
+          "summary": "Article URL: https://www.manchestereveningnews.co.uk/news/uk-news/uk-set-announce-social-media-34119132 Comments URL: ht…"
+        },
+        {
+          "title": "Dangerous hormone-disrupting chemicals found in US breast milk samples",
+          "link": "https://www.theguardian.com/us-news/2026/jun/14/breast-milk-research-chemicals",
+          "date": "2026-06-14T14:47:12.000Z",
+          "summary": "Article URL: https://www.theguardian.com/us-news/2026/jun/14/breast-milk-research-chemicals Comments URL: https://news.y…"
+        },
+        {
+          "title": "No, everyone is not using AI for everything",
+          "link": "https://gabrielweinberg.com/p/people-are-consuming-ai-like-they",
+          "date": "2026-06-14T14:44:29.000Z",
+          "summary": "Article URL: https://gabrielweinberg.com/p/people-are-consuming-ai-like-they Comments URL: https://news.ycombinator.com/…"
+        },
+        {
+          "title": "A 'cold blob' in the Atlantic could be a sign of AMOC shutdown – CNN",
+          "link": "https://www.cnn.com/2026/06/12/climate/cold-blob-atlantic-amoc-ocean-circulation",
+          "date": "2026-06-14T14:40:33.000Z",
+          "summary": "Article URL: https://www.cnn.com/2026/06/12/climate/cold-blob-atlantic-amoc-ocean-circulation Comments URL: https://news…"
+        },
+        {
+          "title": "Rio de Janeiro's city government model Rio3.5 beats Qwen3.7 in recent benchmarks",
+          "link": "https://twitter.com/zenmagnets/status/2065796012820848699",
+          "date": "2026-06-14T14:38:37.000Z",
+          "summary": "Article URL: https://twitter.com/zenmagnets/status/2065796012820848699 Comments URL: https://news.ycombinator.com/item?i…"
+        },
+        {
+          "title": "EU Commission looking at practical consequences of Anthropic decision",
+          "link": "https://www.reuters.com/legal/litigation/eu-commission-looking-practical-consequences-anthropic-decision-spokesperson-2026-06-14/",
+          "date": "2026-06-14T14:33:11.000Z",
+          "summary": "Article URL: https://www.reuters.com/legal/litigation/eu-commission-looking-practical-consequences-anthropic-decision-sp…"
+        },
         {
           "title": "How did Atari apply side art to Arcade Cabinets?",
           "link": "https://arcadeblogger.com/2026/06/14/how-did-atari-apply-side-art-to-arcade-cabinets/",
