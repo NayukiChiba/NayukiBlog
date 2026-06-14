@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T15:46:33.475Z",
+  "generatedAt": "2026-06-14T17:15:46.075Z",
   "feeds": [
     {
       "id": 1,
@@ -755,6 +755,24 @@
       "link": "https://news.ycombinator.com/",
       "ok": true,
       "items": [
+        {
+          "title": "Swiss voters reject proposal to cap population at ten million",
+          "link": "https://www.swissinfo.ch/eng/swiss-politics/swiss-voters-reject-proposal-to-cap-population-at-ten-million/91548146",
+          "date": "2026-06-14T16:28:54.000Z",
+          "summary": "Article URL: https://www.swissinfo.ch/eng/swiss-politics/swiss-voters-reject-proposal-to-cap-population-at-ten-million/9…"
+        },
+        {
+          "title": "Linux 7.1",
+          "link": "https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u",
+          "date": "2026-06-14T16:01:30.000Z",
+          "summary": "Article URL: https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u Commen…"
+        },
+        {
+          "title": "Rio de Janeiro's \"homegrown\" LLM appears to be a merge of an existing model",
+          "link": "https://github.com/nex-agi/Nex-N2/issues/4",
+          "date": "2026-06-14T15:37:31.000Z",
+          "summary": "Article URL: https://github.com/nex-agi/Nex-N2/issues/4 Comments URL: https://news.ycombinator.com/item?id=48528371 Poin…"
+        },
         {
           "title": "I indexed 669 GB of my GoPro videos using my M1 Max computer and local ML models",
           "link": "https://news.ycombinator.com/item?id=48528029",
