@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T19:18:42.499Z",
+  "generatedAt": "2026-06-14T21:05:44.105Z",
   "feeds": [
     {
       "id": 1,
@@ -756,6 +756,18 @@
       "ok": true,
       "items": [
         {
+          "title": "Chaosnet (1981)",
+          "link": "https://tumbleweed.nu/r/lm-3/uv/amber.html",
+          "date": "2026-06-14T19:14:21.000Z",
+          "summary": "https://bitsavers.trailing-edge.com/pdf/mit/ai/AIM-628_chaos... Comments URL: https://news.ycombinator.com/item?id=48531…"
+        },
+        {
+          "title": "Yserver: A modern X11 server written in Rust",
+          "link": "https://github.com/joske/yserver",
+          "date": "2026-06-14T19:10:35.000Z",
+          "summary": "Article URL: https://github.com/joske/yserver Comments URL: https://news.ycombinator.com/item?id=48531394 Points: 28 # C…"
+        },
+        {
           "title": "Rome Fell and Nobody Noticed",
           "link": "https://friedkielbasa.substack.com/p/rome-fell-and-nobody-noticed",
           "date": "2026-06-14T18:29:13.000Z",
@@ -1199,7 +1211,7 @@
       "id": 13,
       "title": "Hugging Face Blog (含中文)",
       "link": "https://huggingface.co/blog",
-      "ok": true,
+      "ok": false,
       "items": [
         {
           "title": "olmo-eval: An evaluation workbench for the model development loop",
