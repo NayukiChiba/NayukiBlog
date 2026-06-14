@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T17:15:46.075Z",
+  "generatedAt": "2026-06-14T19:18:42.499Z",
   "feeds": [
     {
       "id": 1,
@@ -756,10 +756,40 @@
       "ok": true,
       "items": [
         {
+          "title": "Rome Fell and Nobody Noticed",
+          "link": "https://friedkielbasa.substack.com/p/rome-fell-and-nobody-noticed",
+          "date": "2026-06-14T18:29:13.000Z",
+          "summary": "Article URL: https://friedkielbasa.substack.com/p/rome-fell-and-nobody-noticed Comments URL: https://news.ycombinator.co…"
+        },
+        {
+          "title": "Show HN: Kage – Shadow any website to a single binary for offline viewing",
+          "link": "https://github.com/tamnd/kage",
+          "date": "2026-06-14T17:25:38.000Z",
+          "summary": "Article URL: https://github.com/tamnd/kage Comments URL: https://news.ycombinator.com/item?id=48529990 Points: 80 # Comm…"
+        },
+        {
+          "title": "Dillo directory – Directory of useful sites that work reasonably well on Dillo",
+          "link": "https://dir.dillo-browser.org/",
+          "date": "2026-06-14T17:02:16.000Z",
+          "summary": "Article URL: https://dir.dillo-browser.org/ Comments URL: https://news.ycombinator.com/item?id=48529645 Points: 23 # Com…"
+        },
+        {
+          "title": "FTX's former Anthropic stake would be worth about $75B at today's valuation",
+          "link": "https://news.ycombinator.com/item?id=48529190",
+          "date": "2026-06-14T16:31:27.000Z",
+          "summary": "FTX held a diluted 7.84% stake in Anthropic, according to Reuters. Anthropic’s latest reported valuation is around $965B…"
+        },
+        {
           "title": "Swiss voters reject proposal to cap population at ten million",
           "link": "https://www.swissinfo.ch/eng/swiss-politics/swiss-voters-reject-proposal-to-cap-population-at-ten-million/91548146",
           "date": "2026-06-14T16:28:54.000Z",
           "summary": "Article URL: https://www.swissinfo.ch/eng/swiss-politics/swiss-voters-reject-proposal-to-cap-population-at-ten-million/9…"
+        },
+        {
+          "title": "Ask HN: What are you working on? (June 2026)",
+          "link": "https://news.ycombinator.com/item?id=48528779",
+          "date": "2026-06-14T16:05:28.000Z",
+          "summary": "What are you working on? Any new ideas that you're thinking about? Comments URL: https://news.ycombinator.com/item?id=48…"
         },
         {
           "title": "Linux 7.1",
