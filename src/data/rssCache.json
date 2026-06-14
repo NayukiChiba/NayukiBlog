@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T21:05:44.105Z",
+  "generatedAt": "2026-06-14T23:04:00.086Z",
   "feeds": [
     {
       "id": 1,
@@ -756,6 +756,42 @@
       "ok": true,
       "items": [
         {
+          "title": "Did Anthropic Ask for This?",
+          "link": "https://www.verysane.ai/p/did-anthropic-ask-for-this",
+          "date": "2026-06-14T22:23:05.000Z",
+          "summary": "Article URL: https://www.verysane.ai/p/did-anthropic-ask-for-this Comments URL: https://news.ycombinator.com/item?id=485…"
+        },
+        {
+          "title": "Why Is Claude Turning into an a**Hole?",
+          "link": "https://bramcohen.com/p/why-is-claude-turning-into-an-asshole",
+          "date": "2026-06-14T22:04:01.000Z",
+          "summary": "Article URL: https://bramcohen.com/p/why-is-claude-turning-into-an-asshole Comments URL: https://news.ycombinator.com/it…"
+        },
+        {
+          "title": "Windows 11 users are tired of MS account requirements creeping into everything",
+          "link": "https://www.windowscentral.com/microsoft/windows-11/windows-11-users-are-tired-of-microsoft-account-requirements-and-workarounds",
+          "date": "2026-06-14T21:42:12.000Z",
+          "summary": "Article URL: https://www.windowscentral.com/microsoft/windows-11/windows-11-users-are-tired-of-microsoft-account-require…"
+        },
+        {
+          "title": "Abu Fanous",
+          "link": "https://en.wikipedia.org/wiki/Abu_Fanous",
+          "date": "2026-06-14T21:06:41.000Z",
+          "summary": "Article URL: https://en.wikipedia.org/wiki/Abu_Fanous Comments URL: https://news.ycombinator.com/item?id=48532722 Points…"
+        },
+        {
+          "title": "AI is code – and can't be prompted into being smarter",
+          "link": "https://www.theregister.com/ai-and-ml/2026/06/14/ai-is-code-and-cant-be-prompted-into-being-smarter/5254141",
+          "date": "2026-06-14T20:17:54.000Z",
+          "summary": "Article URL: https://www.theregister.com/ai-and-ml/2026/06/14/ai-is-code-and-cant-be-prompted-into-being-smarter/5254141…"
+        },
+        {
+          "title": "Vibe Coder vs. Software Engineer",
+          "link": "https://yusufaytas.com/vibe-coder-vs-software-engineer",
+          "date": "2026-06-14T20:12:42.000Z",
+          "summary": "Article URL: https://yusufaytas.com/vibe-coder-vs-software-engineer Comments URL: https://news.ycombinator.com/item?id=4…"
+        },
+        {
           "title": "Chaosnet (1981)",
           "link": "https://tumbleweed.nu/r/lm-3/uv/amber.html",
           "date": "2026-06-14T19:14:21.000Z",
@@ -772,6 +808,12 @@
           "link": "https://friedkielbasa.substack.com/p/rome-fell-and-nobody-noticed",
           "date": "2026-06-14T18:29:13.000Z",
           "summary": "Article URL: https://friedkielbasa.substack.com/p/rome-fell-and-nobody-noticed Comments URL: https://news.ycombinator.co…"
+        },
+        {
+          "title": "Show HN: Discover Wikipedia articles popular on Hacker News",
+          "link": "https://www.orangecrumbs.com/",
+          "date": "2026-06-14T17:54:17.000Z",
+          "summary": "Article URL: https://www.orangecrumbs.com/ Comments URL: https://news.ycombinator.com/item?id=48530382 Points: 28 # Comm…"
         },
         {
           "title": "Show HN: Kage – Shadow any website to a single binary for offline viewing",
@@ -1211,7 +1253,7 @@
       "id": 13,
       "title": "Hugging Face Blog (含中文)",
       "link": "https://huggingface.co/blog",
-      "ok": false,
+      "ok": true,
       "items": [
         {
           "title": "olmo-eval: An evaluation workbench for the model development loop",
