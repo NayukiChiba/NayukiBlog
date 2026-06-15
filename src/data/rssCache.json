@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T03:39:55.502Z",
+  "generatedAt": "2026-06-15T09:58:06.808Z",
   "feeds": [
     {
       "id": 1,
@@ -761,6 +761,42 @@
       "link": "https://news.ycombinator.com/",
       "ok": true,
       "items": [
+        {
+          "title": "Anthropic flies staff to D.C. to clean up White House fight",
+          "link": "https://www.axios.com/2026/06/14/anthropic-white-house-mythos-fable",
+          "date": "2026-06-15T09:23:15.000Z",
+          "summary": "Article URL: https://www.axios.com/2026/06/14/anthropic-white-house-mythos-fable Comments URL: https://news.ycombinator.…"
+        },
+        {
+          "title": "What the Fuck Happened to Nerds",
+          "link": "https://mrmarket.lol/what-the-fuck-happened-to-nerds/",
+          "date": "2026-06-15T08:23:52.000Z",
+          "summary": "Article URL: https://mrmarket.lol/what-the-fuck-happened-to-nerds/ Comments URL: https://news.ycombinator.com/item?id=48…"
+        },
+        {
+          "title": "Openrouter Fusion API",
+          "link": "https://openrouter.ai/openrouter/fusion",
+          "date": "2026-06-15T07:10:57.000Z",
+          "summary": "Article URL: https://openrouter.ai/openrouter/fusion Comments URL: https://news.ycombinator.com/item?id=48537641 Points:…"
+        },
+        {
+          "title": "Dalus (YC W25) Is Hiring a Senior Software Engineer in Germany",
+          "link": "https://www.ycombinator.com/companies/dalus/jobs/5IDmKJt-senior-software-frontend-engineer-germany-office",
+          "date": "2026-06-15T07:00:22.000Z",
+          "summary": "Article URL: https://www.ycombinator.com/companies/dalus/jobs/5IDmKJt-senior-software-frontend-engineer-germany-office C…"
+        },
+        {
+          "title": "Curl will not accept vulnerability reports during July 2026",
+          "link": "https://daniel.haxx.se/blog/2026/06/15/curl-summer-of-bliss/",
+          "date": "2026-06-15T06:02:57.000Z",
+          "summary": "Article URL: https://daniel.haxx.se/blog/2026/06/15/curl-summer-of-bliss/ Comments URL: https://news.ycombinator.com/ite…"
+        },
+        {
+          "title": "Apple Foundation Models",
+          "link": "https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/apple-foundation-models",
+          "date": "2026-06-15T04:55:34.000Z",
+          "summary": "Article URL: https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/apple-foundation-models Comments URL: http…"
+        },
         {
           "title": "Even More Batteries Included with Emacs",
           "link": "https://karthinks.com/software/even-more-batteries-included-with-emacs/",
