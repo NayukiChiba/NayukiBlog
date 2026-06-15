@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T09:58:06.808Z",
+  "generatedAt": "2026-06-15T15:48:20.189Z",
   "feeds": [
     {
       "id": 1,
@@ -558,6 +558,12 @@
       "ok": true,
       "items": [
         {
+          "title": "We’re strengthening our presence in Alabama through new investments and community support.",
+          "link": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/alabama-investment-june-2026/",
+          "date": "2026-06-15T15:00:00.000Z",
+          "summary": "Google has announced a $1.5 billion investment for 2026 and 2027 to expand its data center campus in Jackson County, Ala…"
+        },
+        {
           "title": "Our new community investments in Virginia support local jobs and expand energy affordability.",
           "link": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/virginia-community-investments/",
           "date": "2026-06-11T20:00:00.000Z",
@@ -761,6 +767,66 @@
       "link": "https://news.ycombinator.com/",
       "ok": true,
       "items": [
+        {
+          "title": "Iroh 1.0",
+          "link": "https://www.iroh.computer/blog/v1",
+          "date": "2026-06-15T15:13:06.000Z",
+          "summary": "Article URL: https://www.iroh.computer/blog/v1 Comments URL: https://news.ycombinator.com/item?id=48542480 Points: 39 # …"
+        },
+        {
+          "title": "Fox Is Buying Roku",
+          "link": "https://www.fastcompany.com/91559558/fox-corp-buying-roku-stock-prices-fall-on-tv-streaming-merger",
+          "date": "2026-06-15T14:55:50.000Z",
+          "summary": "Article URL: https://www.fastcompany.com/91559558/fox-corp-buying-roku-stock-prices-fall-on-tv-streaming-merger Comments…"
+        },
+        {
+          "title": "Hetzner increased dedicated server prices 3-4x",
+          "link": "https://news.ycombinator.com/item?id=48542064",
+          "date": "2026-06-15T14:44:02.000Z",
+          "summary": "A few months after raising prices ~30%, Hetzner has increased bare metal pricing again, this time by 3-4x: AX102: €124 -…"
+        },
+        {
+          "title": "Show HN: Can Europe train a frontier AI model on the compute it owns?",
+          "link": "https://github.com/sammysltd/euromesh",
+          "date": "2026-06-15T13:31:09.000Z",
+          "summary": "Article URL: https://github.com/sammysltd/euromesh Comments URL: https://news.ycombinator.com/item?id=48541014 Points: 2…"
+        },
+        {
+          "title": "Google Flight Simulator",
+          "link": "https://developers.google.com/maps/documentation/earth/flight-simulator",
+          "date": "2026-06-15T13:26:08.000Z",
+          "summary": "Article URL: https://developers.google.com/maps/documentation/earth/flight-simulator Comments URL: https://news.ycombina…"
+        },
+        {
+          "title": "CrankGPT",
+          "link": "https://crankgpt.com",
+          "date": "2026-06-15T13:20:13.000Z",
+          "summary": "Article URL: https://crankgpt.com Comments URL: https://news.ycombinator.com/item?id=48540854 Points: 235 # Comments: 97"
+        },
+        {
+          "title": "Applying Brevity and Language Efficiency in Prompt Engineering",
+          "link": "https://prahladyeri.github.io/guides/applying-brevity-and-language-efficiency-to-prompt-engineering.html",
+          "date": "2026-06-15T13:16:20.000Z",
+          "summary": "Article URL: https://prahladyeri.github.io/guides/applying-brevity-and-language-efficiency-to-prompt-engineering.html Co…"
+        },
+        {
+          "title": "Salesforce to Acquire Fin (formerly Intercom) for $3.6BN",
+          "link": "https://www.salesforce.com/news/press-releases/2026/06/15/salesforce-signs-definitive-agreement-to-acquire-fin/?bc=HL",
+          "date": "2026-06-15T12:08:59.000Z",
+          "summary": "Article URL: https://www.salesforce.com/news/press-releases/2026/06/15/salesforce-signs-definitive-agreement-to-acquire-…"
+        },
+        {
+          "title": "Anthropic's Safety Superpower",
+          "link": "https://stratechery.com/2026/anthropics-safety-superpower/",
+          "date": "2026-06-15T10:06:35.000Z",
+          "summary": "Article URL: https://stratechery.com/2026/anthropics-safety-superpower/ Comments URL: https://news.ycombinator.com/item?…"
+        },
+        {
+          "title": "Show HN: I wrote a C++ ray tracer from scratch without AI",
+          "link": "https://github.com/themartiano/luz",
+          "date": "2026-06-15T09:34:10.000Z",
+          "summary": "Article URL: https://github.com/themartiano/luz Comments URL: https://news.ycombinator.com/item?id=48538833 Points: 99 #…"
+        },
         {
           "title": "Anthropic flies staff to D.C. to clean up White House fight",
           "link": "https://www.axios.com/2026/06/14/anthropic-white-house-mythos-fable",
