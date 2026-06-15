@@ -78,13 +78,6 @@
       "status": "active"
     },
     {
-      "id": 12,
-      "name": "Hacker News",
-      "site": "https://news.ycombinator.com",
-      "feedUrl": "https://hnrss.org/frontpage",
-      "status": "active"
-    },
-    {
       "id": 13,
       "name": "Hugging Face Blog (含中文)",
       "site": "https://huggingface.co/blog",
