@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T00:26:46.120Z",
+  "generatedAt": "2026-06-16T06:29:58.246Z",
   "feeds": [
     {
       "id": 1,
@@ -7,6 +7,12 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Meet the winners of Built with Opus 4.7 Claude Code hackathon",
+          "link": "https://claude.com/blog/meet-the-winners-of-built-with-opus-4-7-claude-code-hackathon",
+          "date": "2026-06-15T00:00:00.000Z",
+          "summary": "Meet the winners of Built with Opus 4.7 Claude Code hackathon"
+        },
         {
           "title": "The evolution of agentic surfaces: building with Claude Managed Agents",
           "link": "https://claude.com/blog/building-with-claude-managed-agents",
