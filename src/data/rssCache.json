@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T18:00:11.067Z",
+  "generatedAt": "2026-06-16T21:13:36.470Z",
   "feeds": [
     {
       "id": 1,
@@ -81,6 +81,12 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Predicting model behavior before release by simulating deployment",
+          "link": "https://openai.com/index/deployment-simulation",
+          "date": "2026-06-16T00:00:00.000Z",
+          "summary": "OpenAI introduces Deployment Simulation, a method to predict AI model behavior before deployment using real conversation…"
+        },
         {
           "title": "Introducing the OpenAI Partner Network",
           "link": "https://openai.com/index/introducing-openai-partner-network",
