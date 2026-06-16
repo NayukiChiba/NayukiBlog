@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T12:09:17.345Z",
+  "generatedAt": "2026-06-16T18:00:11.067Z",
   "feeds": [
     {
       "id": 1,
@@ -696,6 +696,18 @@
           "link": "https://developers.googleblog.com/empowering-service-providers-and-hardware-partners-with-gemini-for-home/",
           "date": "",
           "summary": "Google is expanding its smart home ecosystem by launching a full-stack Gemini AI offering that integrates advanced camer…"
+        },
+        {
+          "title": "Enhance Security and Trust: New Session Metadata in Sign in with Google",
+          "link": "https://developers.googleblog.com/enhance-security-and-trust-new-session-metadata-in-sign-in-with-google/",
+          "date": "",
+          "summary": "Google is enhancing Sign in with Google by introducing new OIDC standard claims—specifically auth_time and amr (Authenti…"
+        },
+        {
+          "title": "Unlocking the Power of the TPU Stack: Introducing our new Developer Hub",
+          "link": "https://developers.googleblog.com/unlocking-the-power-of-the-tpu-stack-introducing-our-new-developer-hub/",
+          "date": "",
+          "summary": "Google has officially launched the TPU Developer Hub, a centralized educational resource designed to help model builders…"
         }
       ]
     },
