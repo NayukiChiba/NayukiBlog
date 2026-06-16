@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T21:13:36.470Z",
+  "generatedAt": "2026-06-16T23:20:22.832Z",
   "feeds": [
     {
       "id": 1,
@@ -501,6 +501,12 @@
       "link": "https://deepmind.google/blog/",
       "ok": true,
       "items": [
+        {
+          "title": "Unlocking UK house-building with AI-accelerated planning",
+          "link": "https://deepmind.google/blog/unlocking-uk-house-building-with-ai-accelerated-planning/",
+          "date": "2026-06-16T21:29:50.000Z",
+          "summary": "UK government partners with Google DeepMind to build a new AI-powered prototype aimed at faster housing decisions."
+        },
         {
           "title": "DiffusionGemma: 4x faster text generation",
           "link": "https://deepmind.google/blog/diffusiongemma-4x-faster-text-generation/",
