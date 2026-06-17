@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T08:58:19.967Z",
+  "generatedAt": "2026-06-17T12:53:36.262Z",
   "feeds": [
     {
       "id": 1,
@@ -801,8 +801,20 @@
       "id": 13,
       "title": "Hugging Face Blog (含中文)",
       "link": "https://huggingface.co/blog",
-      "ok": false,
+      "ok": true,
       "items": [
+        {
+          "title": "From the Hugging Face Hub to robot hardware with Strands Agents and LeRobot",
+          "link": "https://huggingface.co/blog/amazon/strands-lerobot-hub-to-hardware",
+          "date": "2026-06-17T10:18:05.000Z",
+          "summary": ""
+        },
+        {
+          "title": "GLM-5.2: Built for Long-Horizon Tasks",
+          "link": "https://huggingface.co/blog/zai-org/glm-52-blog",
+          "date": "2026-06-17T09:01:25.000Z",
+          "summary": ""
+        },
         {
           "title": "olmo-eval: An evaluation workbench for the model development loop",
           "link": "https://huggingface.co/blog/allenai/olmo-eval",
