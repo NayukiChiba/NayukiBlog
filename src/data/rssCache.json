@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T19:22:07.604Z",
+  "generatedAt": "2026-06-17T21:56:31.125Z",
   "feeds": [
     {
       "id": 1,
@@ -86,6 +86,12 @@
           "link": "https://openai.com/index/ai-chemist-improves-reaction",
           "date": "2026-06-17T10:00:00.000Z",
           "summary": "OpenAI and Molecule.one show how a near-autonomous AI chemist using GPT-5.4 improved a key drug-making reaction, advanci…"
+        },
+        {
+          "title": "Introducing LifeSciBench",
+          "link": "https://openai.com/index/introducing-life-sci-bench",
+          "date": "2026-06-17T00:00:00.000Z",
+          "summary": "Introducing LifeSciBench, an expert-authored, expert-reviewed benchmark for evaluating how AI systems handle real-world …"
         },
         {
           "title": "Predicting model behavior before release by simulating deployment",
@@ -744,6 +750,12 @@
           "link": "https://developers.googleblog.com/announcing-the-agentic-resource-discovery-specification/",
           "date": "",
           "summary": "An open specification for finding and verifying tools, skills, and agents across the web.Agents are ..."
+        },
+        {
+          "title": "A2UI + MCP Apps: Combining the best of declarative and custom agentic UIs",
+          "link": "https://developers.googleblog.com/a2ui-and-mcp-apps/",
+          "date": "",
+          "summary": "This post introduces three architectural patterns designed to integrate Model Context Protocol (MCP) Apps and Agent-to-U…"
         }
       ]
     },
