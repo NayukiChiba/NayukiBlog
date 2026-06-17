@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T16:36:23.211Z",
+  "generatedAt": "2026-06-17T19:22:07.604Z",
   "feeds": [
     {
       "id": 1,
@@ -81,6 +81,12 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "A near-autonomous AI chemist improves a challenging reaction in medicinal chemistry",
+          "link": "https://openai.com/index/ai-chemist-improves-reaction",
+          "date": "2026-06-17T10:00:00.000Z",
+          "summary": "OpenAI and Molecule.one show how a near-autonomous AI chemist using GPT-5.4 improved a key drug-making reaction, advanci…"
+        },
         {
           "title": "Predicting model behavior before release by simulating deployment",
           "link": "https://openai.com/index/deployment-simulation",
