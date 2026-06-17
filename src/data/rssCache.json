@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T23:20:22.832Z",
+  "generatedAt": "2026-06-17T03:33:46.891Z",
   "feeds": [
     {
       "id": 1,
@@ -365,6 +365,12 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "Jun 16, 2026Economic ResearchAgentic coding and persistent returns to expertise",
+          "link": "https://www.anthropic.com/research/claude-code-expertise",
+          "date": "2026-06-16T00:00:00.000Z",
+          "summary": "Jun 16, 2026Economic ResearchAgentic coding and persistent returns to expertise"
+        },
         {
           "title": "Jun 8, 2026SciencePaving the way for agents in biology",
           "link": "https://www.anthropic.com/research/agents-in-biology",
