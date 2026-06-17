@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T12:53:36.262Z",
+  "generatedAt": "2026-06-17T16:36:23.211Z",
   "feeds": [
     {
       "id": 1,
@@ -582,6 +582,12 @@
       "ok": true,
       "items": [
         {
+          "title": "New research shows how AMIE, our medical AI, could help manage health conditions.",
+          "link": "https://blog.google/innovation-and-ai/models-and-research/google-research/amie-for-disease-management-in-nature/",
+          "date": "2026-06-17T15:00:00.000Z",
+          "summary": "Research in “Nature” shows our conversational AI system matches primary care physicians in complex disease management."
+        },
+        {
           "title": "We’re strengthening our presence in Alabama through new investments and community support.",
           "link": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/alabama-investment-june-2026/",
           "date": "2026-06-15T15:00:00.000Z",
@@ -726,6 +732,12 @@
           "link": "https://developers.googleblog.com/unlocking-the-power-of-the-tpu-stack-introducing-our-new-developer-hub/",
           "date": "",
           "summary": "Google has officially launched the TPU Developer Hub, a centralized educational resource designed to help model builders…"
+        },
+        {
+          "title": "Announcing the Agentic Resource Discovery specification",
+          "link": "https://developers.googleblog.com/announcing-the-agentic-resource-discovery-specification/",
+          "date": "",
+          "summary": "An open specification for finding and verifying tools, skills, and agents across the web.Agents are ..."
         }
       ]
     },
@@ -804,6 +816,12 @@
       "ok": true,
       "items": [
         {
+          "title": "MolmoMotion: Language-guided 3D motion forecasting",
+          "link": "https://huggingface.co/blog/allenai/molmomotion",
+          "date": "2026-06-17T15:26:44.000Z",
+          "summary": ""
+        },
+        {
           "title": "From the Hugging Face Hub to robot hardware with Strands Agents and LeRobot",
           "link": "https://huggingface.co/blog/amazon/strands-lerobot-hub-to-hardware",
           "date": "2026-06-17T10:18:05.000Z",
@@ -813,6 +831,12 @@
           "title": "GLM-5.2: Built for Long-Horizon Tasks",
           "link": "https://huggingface.co/blog/zai-org/glm-52-blog",
           "date": "2026-06-17T09:01:25.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Agentic Resource Discovery: Let agents search",
+          "link": "https://huggingface.co/blog/agentic-resource-discovery-launch",
+          "date": "2026-06-17T00:00:00.000Z",
           "summary": ""
         },
         {
