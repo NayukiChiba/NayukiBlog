@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T03:25:07.850Z",
+  "generatedAt": "2026-06-18T08:41:11.607Z",
   "feeds": [
     {
       "id": 1,
@@ -7,6 +7,24 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Secure access to the Claude Platform with Workload Identity Federation",
+          "link": "https://claude.com/blog/workload-identity-federation",
+          "date": "2026-06-17T00:00:00.000Z",
+          "summary": "Secure access to the Claude Platform with Workload Identity Federation"
+        },
+        {
+          "title": "Claude Design now stays on brand for daily work",
+          "link": "https://claude.com/blog/claude-design-stays-on-brand-for-daily-work",
+          "date": "2026-06-17T00:00:00.000Z",
+          "summary": "Claude Design now stays on brand for daily work"
+        },
+        {
+          "title": "Meet the winners of our Claude Opus 4.8 Build Day hackathon",
+          "link": "https://claude.com/blog/meet-the-winners-of-our-claude-opus-4-8-build-day-hackathon",
+          "date": "2026-06-17T00:00:00.000Z",
+          "summary": "Meet the winners of our Claude Opus 4.8 Build Day hackathon"
+        },
         {
           "title": "Meet the winners of Built with Opus 4.7 Claude Code hackathon",
           "link": "https://claude.com/blog/meet-the-winners-of-built-with-opus-4-7-claude-code-hackathon",
