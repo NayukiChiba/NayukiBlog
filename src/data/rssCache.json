@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T14:18:47.474Z",
+  "generatedAt": "2026-06-18T16:25:08.951Z",
   "feeds": [
     {
       "id": 1,
@@ -99,6 +99,12 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Using AI to help physicians diagnose rare genetic diseases affecting children",
+          "link": "https://openai.com/index/diagnose-rare-childhood-diseases",
+          "date": "2026-06-18T08:00:00.000Z",
+          "summary": "Researchers used an OpenAI reasoning model to help diagnose rare diseases, identifying 18 new diagnoses in previously un…"
+        },
         {
           "title": "A near-autonomous AI chemist improves a challenging reaction in medicinal chemistry",
           "link": "https://openai.com/index/ai-chemist-improves-reaction",
@@ -873,7 +879,7 @@
       "id": 13,
       "title": "Hugging Face Blog (含中文)",
       "link": "https://huggingface.co/blog",
-      "ok": true,
+      "ok": false,
       "items": [
         {
           "title": "Is it agentic enough? Benchmarking open models on your own tooling",
