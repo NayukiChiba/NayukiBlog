@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T23:22:32.790Z",
+  "generatedAt": "2026-06-18T03:25:07.850Z",
   "feeds": [
     {
       "id": 1,
@@ -390,10 +390,22 @@
           "summary": "Jun 8, 2026SciencePaving the way for agents in biology"
         },
         {
+          "title": "Jun 8, 2026Frontier Red TeamMeasuring LLMs’ impact on N-day exploits",
+          "link": "https://www.anthropic.com/research/n-days",
+          "date": "2026-06-08T00:00:00.000Z",
+          "summary": "Jun 8, 2026Frontier Red TeamMeasuring LLMs’ impact on N-day exploits"
+        },
+        {
           "title": "Jun 5, 2026ScienceMaking Claude a chemist",
           "link": "https://www.anthropic.com/research/making-claude-a-chemist",
           "date": "2026-06-05T00:00:00.000Z",
           "summary": "Jun 5, 2026ScienceMaking Claude a chemist"
+        },
+        {
+          "title": "Jun 3, 2026Frontier Red TeamMapping AI-enabled cyber threats: Insights from the LLM ATT&CK Navigator",
+          "link": "https://www.anthropic.com/research/attack-navigator",
+          "date": "2026-06-03T00:00:00.000Z",
+          "summary": "Jun 3, 2026Frontier Red TeamMapping AI-enabled cyber threats: Insights from the LLM ATT&CK Navigator"
         },
         {
           "title": "May 27, 2026Economic ResearchCoding agents in the social sciences",
@@ -406,6 +418,12 @@
           "link": "https://www.anthropic.com/research/glasswing-initial-update",
           "date": "2026-05-22T00:00:00.000Z",
           "summary": "May 22, 2026AnnouncementsProject Glasswing: An initial update"
+        },
+        {
+          "title": "May 22, 2026Frontier Red TeamMeasuring LLMs’ ability to develop exploits",
+          "link": "https://www.anthropic.com/research/exploit-evals",
+          "date": "2026-05-22T00:00:00.000Z",
+          "summary": "May 22, 2026Frontier Red TeamMeasuring LLMs’ ability to develop exploits"
         },
         {
           "title": "May 14, 2026Policy2028: Two scenarios for global AI leadership",
