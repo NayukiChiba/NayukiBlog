@@ -9,27 +9,11 @@ tags:
   - SVD
   - 特征值
 description: 系统讲解八种核心矩阵分解方法（LU、Cholesky、LDL、QR、特征值、谱分解、Schur、SVD），包括每种分解的数学定义、存在条件、几何直觉、应用场景及 Python 实现，附带完整的对比总结表。
-image: https://img.yumeko.site/file/blog/MatrixDecomposition.png
-status: draft
+image: https://img.yumeko.site/file/blog/cover/1781779027125_MatrixDecomposition.webp
+status: published
 ---
 
 > **前置阅读**：本文假定读者熟悉线性代数基本概念（矩阵乘法、转置、逆、秩、范数）。若需回顾多元统计中的矩阵运算，可参阅 [[Math/MultivariateStatistics|多元统计分析基础]]。
-
-![图0: 矩阵分解 Banner](https://img.yumeko.site/file/blog/MatrixDecomposition.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于技术博客封面。
-> 设计概念：从左到右展示八种矩阵分解的符号公式——
-> A=LU（下三角×上三角）、A=LL^T（Cholesky）、A=LDL^T（LDL）、
-> A=QR（正交×上三角）、A=QΛQ^T（特征值）、A=∑λᵢuᵢuᵢ^T（谱分解）、
-> A=QTQ^H（Schur）、A=UΣV^T（SVD），
-> 每种分解用不同颜色的矩阵块表示，形成"矩阵分解家族"的视觉序列。
-> 配色：深蓝到青绿渐变，现代数学教科书风格。
-> 顶部留白供标题叠加。
-> ```
-
 ## 1. 问题的起点
 
 在机器学习中，矩阵无处不在——协方差矩阵、权重矩阵、数据矩阵。但原始矩阵的形式往往不方便直接求解问题：
@@ -63,20 +47,8 @@ status: draft
 | **Schur** | $A = QTQ^H$ | $Q$ 酉矩阵，$T$ 上三角 | 任意方阵 |
 | **SVD** | $A = U\Sigma V^\top$ | $U,V$ 正交，$\Sigma$ 对角 | **任意矩阵**（最通用） |
 
-![图1: 分解关系图](https://img.yumeko.site/file/blog/MatrixDecomposition/OverviewMap.png)
+![OverviewMap.png](https://img.yumeko.site/file/blog/articles/1781779079471_OverviewMap.webp)
 
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的教学关系图，展示矩阵分解之间的适用条件层级关系。
-> 从顶部"SVD（任意矩阵）"开始，逐层向下分支：
-> SVD → 方阵→ 特征值分解→ 正规矩阵→ 谱分解；
-> SVD → 方阵→ Schur 分解（不可对角化时）；
-> SVD → 方阵→ LU分解→ 对称→ LDL分解→ 正定→ Cholesky分解；
-> 另一分支：SVD → 任意矩阵→ QR分解。
-> 箭头标注条件，每种分解用圆角矩形卡片表示。
-> 白色背景，细线箭头，专业数据可视化配色。
-> ```
 
 > [!TIP] 核心直觉
 > 越「特殊」的矩阵拥有越「简洁」的分解。SVD 是最通用的（任意矩阵都能做），但代价是因子解释性不如特征值分解直观。工程中应优先选择能满足条件的、最简单的分解。
@@ -495,17 +467,7 @@ $$
 
 QR 分解本质上是 **Gram-Schmidt 正交化过程的矩阵形式**。$A$ 的列向量是空间中的一组基，$Q$ 的列是经过正交归一化后的标准正交基，$R$ 记录了原始基在正交基下的坐标。
 
-![图2: QR 分解几何意义](https://img.yumeko.site/file/blog/MatrixDecomposition/QRGeometry.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的几何示意图，展示 QR 分解的含义。
-> 左侧：二维平面上两个线性无关的向量 a1, a2（斜坐标系）。
-> 右侧：正交归一化后的 q1, q2（标准正交基），以及上三角矩阵 R 的系数如何将 q1, q2 映射回 a1, a2。
-> 箭头标注：a1 = r11·q1, a2 = r12·q1 + r22·q2。
-> 白色背景，蓝色向量，学术教科书风格，中文标注。
-> ```
+![QRGeometry.png](https://img.yumeko.site/file/blog/articles/1781779125199_QRGeometry.webp)
 
 ### 5.3 数值示例
 
@@ -987,19 +949,7 @@ $$
 
 SVD 将任意线性变换分解为三个步骤：
 
-![图3: SVD 三步变换](https://img.yumeko.site/file/blog/MatrixDecomposition/SVDGeometry.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张教学示意图，展示 SVD 的几何意义——三步变换。
-> 左侧：输入空间 R^n 中的单位球面。
-> 中间步骤1：V^T 旋转/反射（球面不变，只转动方向）。
-> 中间步骤2：Σ 缩放（球面被拉伸为椭球，各轴按奇异值 σ1,σ2 缩放）。
-> 右侧：U 再次旋转，得到 R^m 中的最终椭球。
-> 每步之间用彩色箭头连接，标注矩阵名称。
-> 白色背景，学术教科书风格，中文标注。
-> ```
+![SVDGeometry.png](https://img.yumeko.site/file/blog/articles/1781781552326_SVDGeometry.webp)
 
 1. **$V^\top$（正交变换）**：旋转/反射，保持长度不变（单位球面仍是球面）
 2. **$\Sigma$（对角缩放）**：在各坐标轴上按 $\sigma_i$ 独立缩放（球面 → 椭球面）
@@ -1382,18 +1332,7 @@ $P = \sqrt{A^\top A}$ 与 $A^\top A$ 有相同的特征向量，特征值为 $\s
 
 ## 12. 完整对比总结
 
-![图4: 分解对比表](https://img.yumeko.site/file/blog/MatrixDecomposition/ComparisonTable.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的信息图，以层级决策树的形式展示如何选择合适的矩阵分解方法。
-> 从顶部问"矩阵是否对称？"开始，分为左右两支。
-> 左侧（对称）：正定→Cholesky，非正定→LDL，对角化→特征值分解。
-> 右侧（非对称）：方阵→LU或Schur，任意→QR或SVD。
-> 每个终点卡片标注分解公式、复杂度（O记号）、典型应用一个词。
-> 白色背景，蓝绿色系，专业信息图风格。
-> ```
+![ComparisonTable.png](https://img.yumeko.site/file/blog/articles/1781779228685_ComparisonTable.webp)
 
 ### 分解选择决策树
 
