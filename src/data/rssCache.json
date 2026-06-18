@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T16:25:08.951Z",
+  "generatedAt": "2026-06-18T19:23:34.214Z",
   "feeds": [
     {
       "id": 1,
@@ -99,6 +99,18 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "New usage analytics and updated spend controls for enterprises",
+          "link": "https://openai.com/index/chatgpt-enterprise-spend-controls",
+          "date": "2026-06-18T17:00:00.000Z",
+          "summary": "OpenAI introduces new spend controls and usage analytics for ChatGPT Enterprise, helping organizations manage costs and …"
+        },
+        {
+          "title": "Improving health intelligence in ChatGPT",
+          "link": "https://openai.com/index/improving-health-intelligence-in-chatgpt",
+          "date": "2026-06-18T11:00:00.000Z",
+          "summary": "Learn how GPT-5.5 Instant improves ChatGPT’s health and wellness responses with stronger reasoning, better context, clea…"
+        },
         {
           "title": "Using AI to help physicians diagnose rare genetic diseases affecting children",
           "link": "https://openai.com/index/diagnose-rare-childhood-diseases",
@@ -804,6 +816,12 @@
           "link": "https://developers.googleblog.com/a2ui-and-mcp-apps/",
           "date": "",
           "summary": "This post introduces three architectural patterns designed to integrate Model Context Protocol (MCP) Apps and Agent-to-U…"
+        },
+        {
+          "title": "How A2A is Building a World of Collaborative Agents",
+          "link": "https://developers.googleblog.com/how-a2a-is-building-a-world-of-collaborative-agents/",
+          "date": "",
+          "summary": "Celebrating the first anniversary of the Agent-to-Agent (A2A) protocol, this blog post highlights how the framework enab…"
         }
       ]
     },
@@ -879,11 +897,23 @@
       "id": 13,
       "title": "Hugging Face Blog (含中文)",
       "link": "https://huggingface.co/blog",
-      "ok": false,
+      "ok": true,
       "items": [
+        {
+          "title": "MosaicLeaks: Can your research agent keep a secret?",
+          "link": "https://huggingface.co/blog/ServiceNow/mosaicleaks",
+          "date": "2026-06-18T18:13:13.000Z",
+          "summary": ""
+        },
         {
           "title": "Is it agentic enough? Benchmarking open models on your own tooling",
           "link": "https://huggingface.co/blog/is-it-agentic-enough",
+          "date": "2026-06-18T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Beyond LoRA: Can you beat the most popular fine-tuning technique?",
+          "link": "https://huggingface.co/blog/peft-beyond-lora",
           "date": "2026-06-18T00:00:00.000Z",
           "summary": ""
         },
