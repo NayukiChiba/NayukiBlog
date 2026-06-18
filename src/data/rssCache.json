@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T12:20:47.868Z",
+  "generatedAt": "2026-06-18T14:18:47.474Z",
   "feeds": [
     {
       "id": 1,
@@ -562,6 +562,12 @@
           "summary": "UK government partners with Google DeepMind to build a new AI-powered prototype aimed at faster housing decisions."
         },
         {
+          "title": "Securing the future of AI agents",
+          "link": "https://deepmind.google/blog/securing-the-future-of-ai-agents/",
+          "date": "2026-06-16T15:46:31.000Z",
+          "summary": "Securing internal systems with an AI Control Roadmap, combining traditional safeguards and real-time monitoring."
+        },
+        {
           "title": "DiffusionGemma: 4x faster text generation",
           "link": "https://deepmind.google/blog/diffusiongemma-4x-faster-text-generation/",
           "date": "2026-06-10T16:24:11.000Z",
@@ -869,6 +875,12 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Is it agentic enough? Benchmarking open models on your own tooling",
+          "link": "https://huggingface.co/blog/is-it-agentic-enough",
+          "date": "2026-06-18T00:00:00.000Z",
+          "summary": ""
+        },
         {
           "title": "MolmoMotion: Language-guided 3D motion forecasting",
           "link": "https://huggingface.co/blog/allenai/molmomotion",
