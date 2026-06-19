@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-19T00:22:44.210Z",
+  "generatedAt": "2026-06-19T06:12:37.629Z",
   "feeds": [
     {
       "id": 1,
@@ -7,6 +7,24 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Centrally manage authorization for MCP connectors",
+          "link": "https://claude.com/blog/enterprise-managed-auth",
+          "date": "2026-06-18T00:00:00.000Z",
+          "summary": "Centrally manage authorization for MCP connectors"
+        },
+        {
+          "title": "Steering Claude Code: CLAUDE.md files, skills, hooks, rules, subagents and more",
+          "link": "https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more",
+          "date": "2026-06-18T00:00:00.000Z",
+          "summary": "Steering Claude Code: CLAUDE.md files, skills, hooks, rules, subagents and more"
+        },
+        {
+          "title": "Claude Code now supports artifacts",
+          "link": "https://claude.com/blog/artifacts-in-claude-code",
+          "date": "2026-06-18T00:00:00.000Z",
+          "summary": "Claude Code now supports artifacts"
+        },
         {
           "title": "Secure access to the Claude Platform with Workload Identity Federation",
           "link": "https://claude.com/blog/workload-identity-federation",
@@ -413,6 +431,12 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "Jun 18, 2026Frontier Red TeamProject Fetch: Phase two",
+          "link": "https://www.anthropic.com/research/project-fetch-phase-two",
+          "date": "2026-06-18T00:00:00.000Z",
+          "summary": "Jun 18, 2026Frontier Red TeamProject Fetch: Phase two"
+        },
         {
           "title": "Jun 16, 2026Economic ResearchAgentic coding and persistent returns to expertise",
           "link": "https://www.anthropic.com/research/claude-code-expertise",
