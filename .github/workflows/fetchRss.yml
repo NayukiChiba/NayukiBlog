@@ -15,8 +15,8 @@ on:
     paths-ignore:
       - "src/data/rssCache.json"
   schedule:
-    # 每小时抓取一次（cron 使用 UTC 时间）
-    - cron: "0 */1 * * *"
+    # 每6小时抓取一次（cron 使用 UTC 时间）
+    - cron: "0 */6 * * *"
   # 支持在 Actions 页面手动触发
   workflow_dispatch: {}
 
