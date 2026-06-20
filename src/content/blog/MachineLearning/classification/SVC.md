@@ -139,7 +139,12 @@ $$
 
 | 参数名 | 类型 | 说明 | 示例取值 |
 |---|---|---|---|
-| `gamma` | `float` 或 `str` | RBF 核系数。`'scale'`（默认）时 $\gamma = 1/(n\_features \cdot X.var())$；`'auto'` 时 $\gamma = 1/n\_features$；传入 `float` 时直接使用。$\gamma$ 越大，单个支持向量的影响范围越小、边界越精细弯曲 | `'scale'`、`'auto'`、`0.1`、`1.0`、`10.0` |
+| `gamma` | `float` 或 `str` | RBF 核系数。$\gamma$ 越大，单个支持向量的影响范围越小、边界越精细弯曲 | `'scale'`、`'auto'`、`0.1`、`1.0`、`10.0` |
+
+
+- `'scale'`（默认）时 $\gamma = \displaystyle\frac{1}{(n\_features \cdot X.var())}$
+- `'auto'` 时 $\gamma = \displaystyle\frac{1}{n\_features}$
+- 传入 `float` 时直接使用。
 
 ### 理解重点
 
