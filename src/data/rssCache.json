@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T16:22:00.548Z",
+  "generatedAt": "2026-06-22T20:28:37.584Z",
   "feeds": [
     {
       "id": 1,
@@ -117,6 +117,24 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Daybreak: Tools for securing every organization in the world",
+          "link": "https://openai.com/index/daybreak-securing-the-world",
+          "date": "2026-06-22T10:00:00.000Z",
+          "summary": "OpenAI introduces new Daybreak tools, including Codex Security and GPT-5.5-Cyber, to help organizations find, validate, …"
+        },
+        {
+          "title": "Patch the Planet: a Daybreak initiative to support open source maintainers",
+          "link": "https://openai.com/index/patch-the-planet",
+          "date": "2026-06-22T10:00:00.000Z",
+          "summary": "OpenAI introduces Patch the Planet, a Daybreak initiative helping open-source maintainers find, validate, and fix vulner…"
+        },
+        {
+          "title": "Codex-maxxing for long-running work",
+          "link": "https://openai.com/index/codex-maxxing-long-running-work",
+          "date": "2026-06-22T00:00:00.000Z",
+          "summary": "Learn how Jason Liu uses Codex to preserve context, manage complex projects, and help work continue beyond a single prom…"
+        },
         {
           "title": "Samsung Electronics brings ChatGPT and Codex to employees",
           "link": "https://openai.com/index/samsung-electronics-chatgpt-codex-deployment",
@@ -858,6 +876,12 @@
           "link": "https://developers.googleblog.com/measuring-what-matters-with-jules/",
           "date": "",
           "summary": "AI coding agents are rapidly shifting from reactive assistants that complete tasks when prompted to ..."
+        },
+        {
+          "title": "Build Cross-Language Multi-Agent Team with Google’s Agent Development Kit and A2A",
+          "link": "https://developers.googleblog.com/build-cross-language-multi-agent-team-with-google-agent-development-kit-and-a2a/",
+          "date": "",
+          "summary": "How a Python agent and a Go agent collaborate on contract compliance using the Agent2Agent protocolY..."
         }
       ]
     },
