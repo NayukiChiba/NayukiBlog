@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T11:28:06.378Z",
+  "generatedAt": "2026-06-22T16:22:00.548Z",
   "feeds": [
     {
       "id": 1,
@@ -852,6 +852,12 @@
           "link": "https://developers.googleblog.com/how-a2a-is-building-a-world-of-collaborative-agents/",
           "date": "",
           "summary": "Celebrating the first anniversary of the Agent-to-Agent (A2A) protocol, this blog post highlights how the framework enab…"
+        },
+        {
+          "title": "Measuring What Matters with Jules",
+          "link": "https://developers.googleblog.com/measuring-what-matters-with-jules/",
+          "date": "",
+          "summary": "AI coding agents are rapidly shifting from reactive assistants that complete tasks when prompted to ..."
         }
       ]
     },
@@ -929,6 +935,12 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "PP-OCRv6 on Hugging Face: 50-Language OCR from 1.5M to 34.5M Parameters",
+          "link": "https://huggingface.co/blog/PaddlePaddle/pp-ocrv6",
+          "date": "2026-06-22T13:18:56.000Z",
+          "summary": ""
+        },
         {
           "title": "MosaicLeaks: Can your research agent keep a secret?",
           "link": "https://huggingface.co/blog/ServiceNow/mosaicleaks",
