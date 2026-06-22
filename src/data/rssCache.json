@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-21T19:09:11.921Z",
+  "generatedAt": "2026-06-22T02:28:05.088Z",
   "feeds": [
     {
       "id": 1,
@@ -117,6 +117,12 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Samsung Electronics brings ChatGPT and Codex to employees",
+          "link": "https://openai.com/index/samsung-electronics-chatgpt-codex-deployment",
+          "date": "2026-06-21T23:00:00.000Z",
+          "summary": "Samsung Electronics deploys ChatGPT Enterprise and Codex to employees worldwide, marking one of OpenAI’s largest enterpr…"
+        },
         {
           "title": "New usage analytics and updated spend controls for enterprises",
           "link": "https://openai.com/index/chatgpt-enterprise-spend-controls",
