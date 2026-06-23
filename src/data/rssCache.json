@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T14:14:48.992Z",
+  "generatedAt": "2026-06-23T19:46:32.531Z",
   "feeds": [
     {
       "id": 1,
@@ -7,6 +7,12 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Agent identity in Claude Tag: a new access model for autonomous, team-wide AI",
+          "link": "https://claude.com/blog/agent-identity-access-model",
+          "date": "2026-06-24T00:00:00.000Z",
+          "summary": "Agent identity in Claude Tag: a new access model for autonomous, team-wide AI"
+        },
         {
           "title": "The full Claude Desktop experience on AWS, Google Cloud, and Microsoft Foundry",
           "link": "https://claude.com/blog/the-full-claude-desktop-experience-on-aws-google-cloud-and-microsoft-foundry",
@@ -123,6 +129,12 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How GPT-5 helped immunologist Derya Unutmaz solve a 3-year-old mystery",
+          "link": "https://openai.com/index/gpt-5-immunology-mystery",
+          "date": "2026-06-23T17:00:00.000Z",
+          "summary": "GPT-5 Pro helped solve a 3-year-old immunology mystery, offering insights into T cell behavior. The breakthrough could s…"
+        },
         {
           "title": "How Omio is building the future of conversational travel",
           "link": "https://openai.com/index/omio",
@@ -980,6 +992,12 @@
         {
           "title": "Shipping huggingface_hub every week with AI, open tools, and a human in the loop",
           "link": "https://huggingface.co/blog/huggingface-hub-release-ci",
+          "date": "2026-06-23T00:00:00.000Z",
+          "summary": ""
+        },
+        {
+          "title": "Experimenting with the proposed Cross-Origin Storage API in Transformers.js",
+          "link": "https://huggingface.co/blog/cross-origin-storage",
           "date": "2026-06-23T00:00:00.000Z",
           "summary": ""
         },
