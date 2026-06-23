@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T08:53:09.763Z",
+  "generatedAt": "2026-06-23T14:14:48.992Z",
   "feeds": [
     {
       "id": 1,
@@ -971,6 +971,12 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Build real agentic apps using CUGA: two dozen working examples on a lightweight harness",
+          "link": "https://huggingface.co/blog/ibm-research/cuga-apps",
+          "date": "2026-06-23T12:51:55.000Z",
+          "summary": ""
+        },
         {
           "title": "Shipping huggingface_hub every week with AI, open tools, and a human in the loop",
           "link": "https://huggingface.co/blog/huggingface-hub-release-ci",
