@@ -15,6 +15,7 @@ export interface FeedItem {
   link: string;
   date: string; // ISO 字符串，无效日期为空
   summary: string;
+  content?: string; // 用于页面搜索的较长纯文本内容
 }
 
 // 单个订阅源的抓取结果
@@ -34,6 +35,8 @@ const MAX_ITEMS_PER_FEED = 10;
 const FETCH_TIMEOUT = 30000;
 // 摘要最大长度
 const SUMMARY_MAX_LENGTH = 120;
+// 搜索内容最大长度
+const CONTENT_MAX_LENGTH = 3000;
 
 // ==================== 文本处理 ====================
 
@@ -63,6 +66,15 @@ function toSummary(raw: string): string {
     .trim();
   if (text.length <= SUMMARY_MAX_LENGTH) return text;
   return text.slice(0, SUMMARY_MAX_LENGTH) + "…";
+}
+
+// 清洗为用于搜索的较长纯文本内容
+function toContent(raw: string): string {
+  const text = decodeEntities(stripCdata(raw))
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return text.slice(0, CONTENT_MAX_LENGTH);
 }
 
 // 清洗标题/链接等单行字段
@@ -116,14 +128,18 @@ function extractAtomLink(xml: string): string {
 function parseJsonFeed(data: any): { title: string; link: string; items: FeedItem[] } {
   const items: FeedItem[] = (data.items || [])
     .slice(0, MAX_ITEMS_PER_FEED)
-    .map((item: any) => ({
-      title: toText(String(item.title || "无标题")),
-      link: String(item.url || item.external_url || ""),
-      date: toIsoDate(String(item.date_published || item.date_modified || "")),
-      summary: toSummary(
-        String(item.summary || item.content_text || item.content_html || ""),
-      ),
-    }));
+    .map((item: any) => {
+      const rawContent = String(
+        item.summary || item.content_text || item.content_html || "",
+      );
+      return {
+        title: toText(String(item.title || "无标题")),
+        link: String(item.url || item.external_url || ""),
+        date: toIsoDate(String(item.date_published || item.date_modified || "")),
+        summary: toSummary(rawContent),
+        content: toContent(rawContent),
+      };
+    });
 
   return {
     title: toText(String(data.title || "")),
@@ -138,16 +154,18 @@ function parseAtom(xml: string): { title: string; link: string; items: FeedItem[
   // feed 头部 = 去掉所有 entry 后的部分
   const head = xml.replace(/<entry(?:\s[^>]*)?>[\s\S]*?<\/entry>/gi, "");
 
-  const items: FeedItem[] = entries.slice(0, MAX_ITEMS_PER_FEED).map((entry) => ({
-    title: toText(extractTag(entry, "title")) || "无标题",
-    link: extractAtomLink(entry),
-    date: toIsoDate(
-      extractTag(entry, "published") || extractTag(entry, "updated"),
-    ),
-    summary: toSummary(
-      extractTag(entry, "summary") || extractTag(entry, "content"),
-    ),
-  }));
+  const items: FeedItem[] = entries.slice(0, MAX_ITEMS_PER_FEED).map((entry) => {
+    const rawContent = extractTag(entry, "summary") || extractTag(entry, "content");
+    return {
+      title: toText(extractTag(entry, "title")) || "无标题",
+      link: extractAtomLink(entry),
+      date: toIsoDate(
+        extractTag(entry, "published") || extractTag(entry, "updated"),
+      ),
+      summary: toSummary(rawContent),
+      content: toContent(rawContent),
+    };
+  });
 
   return {
     title: toText(extractTag(head, "title")),
@@ -162,12 +180,17 @@ function parseRss(xml: string): { title: string; link: string; items: FeedItem[]
   // channel 头部 = 去掉所有 item 后的部分
   const head = xml.replace(/<item(?:\s[^>]*)?>[\s\S]*?<\/item>/gi, "");
 
-  const items: FeedItem[] = itemBlocks.slice(0, MAX_ITEMS_PER_FEED).map((item) => ({
-    title: toText(extractTag(item, "title")) || "无标题",
-    link: toText(extractTag(item, "link")),
-    date: toIsoDate(extractTag(item, "pubDate") || extractTag(item, "dc:date")),
-    summary: toSummary(extractTag(item, "description")),
-  }));
+  const items: FeedItem[] = itemBlocks.slice(0, MAX_ITEMS_PER_FEED).map((item) => {
+    const rawContent =
+      extractTag(item, "content:encoded") || extractTag(item, "description");
+    return {
+      title: toText(extractTag(item, "title")) || "无标题",
+      link: toText(extractTag(item, "link")),
+      date: toIsoDate(extractTag(item, "pubDate") || extractTag(item, "dc:date")),
+      summary: toSummary(rawContent),
+      content: toContent(rawContent),
+    };
+  });
 
   return {
     title: toText(extractTag(head, "title")),
