@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T14:30:29.827Z",
+  "generatedAt": "2026-06-24T19:23:08.339Z",
   "feeds": [
     {
       "id": 1,
@@ -666,6 +666,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Introducing computer use in Gemini 3.5 Flash",
+          "link": "https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/",
+          "date": "2026-06-24T16:30:01.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "Unlocking UK house-building with AI-accelerated planning",
           "link": "https://deepmind.google/blog/unlocking-uk-house-building-with-ai-accelerated-planning/",
           "date": "2026-06-16T21:29:50.000Z",
@@ -1007,6 +1014,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel",
+          "link": "https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel",
+          "date": "2026-06-24T16:00:13.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World",
+          "link": "https://huggingface.co/blog/ffasr-leaderboard",
+          "date": "2026-06-24T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Build real agentic apps using CUGA: two dozen working examples on a lightweight harness",
           "link": "https://huggingface.co/blog/ibm-research/cuga-apps",
