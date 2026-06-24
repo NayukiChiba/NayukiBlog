@@ -2,33 +2,60 @@
 import PageLayout from "../layouts/PageLayout.astro";
 import type { FeedItem } from "../lib/rss";
 import rssCache from "../data/rssCache.json";
+import rssConfig from "../data/rss.json";
 
 // 缓存中单个订阅源的结构（由 fetchRss.ts 抓取写入）
 interface CachedFeed {
     id: number;
     title: string;
+    category?: string;
     link: string;
     ok: boolean;
     items: FeedItem[];
+}
+
+interface CategoryFolder {
+    path: string;
+    name: string;
+    level: number;
+    hasChildren: boolean;
+    count: number;
 }
 
 // 读取构建前抓取好的文章缓存
 // （见 fetchRss.ts 与 .github/workflows/fetchRss.yml）
 const results = rssCache.feeds as CachedFeed[];
 
+const feedConfigById = new Map(
+    (rssConfig.feeds || []).map((feed) => [feed.id, feed]),
+);
+
 // 侧边栏订阅源数据
 const sources = results.map((result) => ({
     id: String(result.id),
     title: result.title,
+    category: result.category || feedConfigById.get(result.id)?.category || "",
     link: result.link,
     count: result.items.length,
     ok: result.ok,
 }));
 
+const categorySet = new Set<string>();
+sources.forEach((source) => {
+    if (!source.category) return;
+    const parts = source.category.split("/");
+    let current = "";
+    parts.forEach((part) => {
+        current = current ? `${current}/${part}` : part;
+        categorySet.add(current);
+    });
+});
+
 // 合并所有源的文章，按日期倒序（无日期的排最后）
 interface TimelineItem extends FeedItem {
     sourceId: string;
     sourceTitle: string;
+    sourceCategory: string;
 }
 
 const timeline: TimelineItem[] = results
@@ -38,9 +65,25 @@ const timeline: TimelineItem[] = results
             ...item,
             sourceId: String(result.id),
             sourceTitle: result.title,
+            sourceCategory: result.category || feedConfigById.get(result.id)?.category || "",
         })),
     )
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+
+const categoryFolders: CategoryFolder[] = [...categorySet].sort().map((path) => {
+    const level = path.split("/").length - 1;
+    const name = path.split("/").pop() || "";
+    const hasChildCategory = [...categorySet].some(
+        (item) => item.startsWith(path + "/") && item !== path,
+    );
+    const hasSource = sources.some((source) => source.category === path);
+    const count = timeline.filter(
+        (item) =>
+            item.sourceCategory === path ||
+            item.sourceCategory.startsWith(path + "/"),
+    ).length;
+    return { path, name, level, hasChildren: hasChildCategory || hasSource, count };
+});
 
 // 日期格式化（YYYY-MM-DD）
 function formatDate(iso: string): string {
@@ -62,17 +105,19 @@ const builtAt = rssCache.generatedAt
 
             <div class="content-divider"></div>
 
-            <!-- 移动端订阅源 chips -->
-            <div class="source-chips mobile-only">
-                <button class="source-chip active" data-source="">全部</button>
+            <!-- 移动端分类 chips -->
+            <div class="filter-chips mobile-only" aria-label="RSS 分类筛选">
+                <button class="category-chip active" data-category="">全部分类</button>
                 {
-                    sources
-                        .filter((source) => source.ok)
-                        .map((source) => (
-                            <button class="source-chip" data-source={source.id}>
-                                {source.title}
-                            </button>
-                        ))
+                    categoryFolders.map((category) => (
+                        <button
+                            class="category-chip"
+                            data-category={category.path}
+                            style={`margin-left: ${category.level * 0.75}rem`}
+                        >
+                            {category.name}
+                        </button>
+                    ))
                 }
             </div>
 
@@ -85,6 +130,7 @@ const builtAt = rssCache.generatedAt
                                 <div
                                     class="feed-item-wrapper"
                                     data-source={item.sourceId}
+                                    data-category={item.sourceCategory}
                                 >
                                     <a
                                         class="item-link"
@@ -149,53 +195,92 @@ const builtAt = rssCache.generatedAt
                     </p>
                 </div>
 
-                <!-- 右侧：订阅源侧边栏 -->
+                <!-- 右侧：分类侧边栏 -->
                 <aside class="filters-sidebar desktop-only">
-                    <div class="sidebar-title">订阅源</div>
-                    <div class="source-box">
-                        <div class="source-item">
-                            <button class="source-btn active" data-source="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="source-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                                <span class="source-name">全部文章</span>
-                                <span class="source-count">{timeline.length}</span>
+                    <div class="sidebar-title">分类</div>
+                    <div class="category-box">
+                        <div class="category-item">
+                            <button class="category-btn active" data-category="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="filter-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                                <span class="filter-name">全部分类</span>
+                                <span class="filter-count">{timeline.length}</span>
                             </button>
                         </div>
                         {
-                            sources.map((source) => (
-                                <div class="source-item">
-                                    <button
-                                        class="source-btn"
-                                        data-source={source.id}
-                                        disabled={!source.ok}
+                            categoryFolders.map((category) => {
+                                const parentPath = category.path.includes("/")
+                                    ? category.path.substring(
+                                          0,
+                                          category.path.lastIndexOf("/"),
+                                      )
+                                    : "";
+                                const parentFolder = parentPath
+                                    ? categoryFolders.find((item) => item.path === parentPath)
+                                    : null;
+                                const isHidden = parentFolder?.hasChildren ?? false;
+                                const childSources = sources.filter(
+                                    (source) => source.category === category.path,
+                                );
+
+                                return (
+                                    <>
+                                    <div
+                                        class="category-item"
+                                        data-path={category.path}
+                                        style={`padding-left: ${category.level * 1}rem; ${isHidden ? "display: none" : ""}`}
                                     >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="source-icon">
-                                            <path d="M4 11a9 9 0 0 1 9 9" />
-                                            <path d="M4 4a16 16 0 0 1 16 16" />
-                                            <circle cx="5" cy="19" r="1" />
-                                        </svg>
-                                        <span class="source-name">{source.title}</span>
-                                        <span class="source-count">
-                                            {source.ok ? source.count : "失败"}
-                                        </span>
-                                    </button>
-                                    <a
-                                        class="source-visit"
-                                        href={source.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        title={`访问 ${source.title}`}
-                                        aria-label={`访问 ${source.title}`}
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                                            <polyline points="15 3 21 3 21 9" />
-                                            <line x1="10" y1="14" x2="21" y2="3" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            ))
+                                        {category.hasChildren && (
+                                            <button
+                                                class="category-toggle"
+                                                data-target={category.path}
+                                                aria-label={`展开 ${category.name}`}
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon" style="transform: rotate(-90deg)"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                            </button>
+                                        )}
+                                        {!category.hasChildren && (
+                                            <span class="category-spacer"></span>
+                                        )}
+                                        <button
+                                            class="category-btn"
+                                            data-category={category.path}
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="filter-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                            <span class="filter-name">{category.name}</span>
+                                            <span class="filter-count">{category.count}</span>
+                                        </button>
+                                    </div>
+                                    {childSources.map((source) => (
+                                        <div
+                                            class="source-item"
+                                            data-source-path={`${category.path}/${source.id}`}
+                                            data-parent={category.path}
+                                            style={`padding-left: ${(category.level + 1) * 1}rem; display: none`}
+                                        >
+                                            <span class="category-spacer"></span>
+                                            <button
+                                                class="source-btn"
+                                                data-source={source.id}
+                                                disabled={!source.ok}
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="filter-icon">
+                                                    <path d="M4 11a9 9 0 0 1 9 9" />
+                                                    <path d="M4 4a16 16 0 0 1 16 16" />
+                                                    <circle cx="5" cy="19" r="1" />
+                                                </svg>
+                                                <span class="filter-name">{source.title}</span>
+                                                <span class="filter-count">
+                                                    {source.ok ? source.count : "失败"}
+                                                </span>
+                                            </button>
+                                        </div>
+                                    ))}
+                                    </>
+                                );
+                            })
                         }
                     </div>
+
                 </aside>
             </div>
         </main>
@@ -219,6 +304,7 @@ const builtAt = rssCache.generatedAt
 
         const ITEMS_PER_PAGE = 10;
         let currentPage = 1;
+        let currentCategory = "";
         let currentSource = "";
         let visibleItems: HTMLElement[] = [];
 
@@ -246,10 +332,18 @@ const builtAt = rssCache.generatedAt
             if (lastBtn) lastBtn.disabled = currentPage === totalPages;
         };
 
-        // 按订阅源筛选
+        // 按分类或订阅源筛选
         const filterItems = () => {
             visibleItems = allItems.filter((el) => {
-                return !currentSource || el.dataset.source === currentSource;
+                const category = el.dataset.category || "";
+                const matchSource = !currentSource || el.dataset.source === currentSource;
+                if (currentSource) return matchSource;
+
+                return (
+                    !currentCategory ||
+                    category === currentCategory ||
+                    category.startsWith(currentCategory + "/")
+                );
             });
             currentPage = 1;
             updatePagination();
@@ -282,17 +376,95 @@ const builtAt = rssCache.generatedAt
             if (e.key === "Enter") pageInput.blur();
         });
 
-        // 订阅源切换（侧边栏按钮 + 移动端 chips 共用）
-        const sourceBtns = document.querySelectorAll(".source-btn, .source-chip");
-        sourceBtns.forEach((btn) => {
-            btn.addEventListener("click", () => {
-                const source = (btn as HTMLElement).dataset.source || "";
-                currentSource = source;
-                // 同步两组按钮的选中态
-                sourceBtns.forEach((b) => {
-                    const value = (b as HTMLElement).dataset.source || "";
-                    b.classList.toggle("active", value === source);
+        const updateActiveState = (
+            selector: string,
+            dataAttr: "category" | "source",
+            value: string,
+        ) => {
+            document.querySelectorAll(selector).forEach((btn) => {
+                const btnValue = (btn as HTMLElement).dataset[dataAttr] || "";
+                btn.classList.toggle("active", btnValue === value);
+            });
+        };
+
+        // 分类折叠与展开
+        document.querySelectorAll(".category-toggle").forEach((toggle) => {
+            toggle.addEventListener("click", (event) => {
+                event.stopPropagation();
+                const btn = toggle as HTMLElement;
+                const targetPath = btn.dataset.target || "";
+                const icon = btn.querySelector(".toggle-icon") as HTMLElement | null;
+                const isCollapsed =
+                    !icon || icon.style.transform.includes("rotate(-90deg)");
+                const allCategories = document.querySelectorAll(
+                    ".category-item[data-path]",
+                );
+                const allSources = document.querySelectorAll(".source-item[data-parent]");
+
+                if (isCollapsed) {
+                    if (icon) icon.style.transform = "rotate(0deg)";
+                    allCategories.forEach((item) => {
+                        const path = (item as HTMLElement).dataset.path || "";
+                        const lastSlash = path.lastIndexOf("/");
+                        const directParent =
+                            lastSlash > -1 ? path.substring(0, lastSlash) : "";
+                        if (directParent === targetPath) {
+                            (item as HTMLElement).style.display = "flex";
+                        }
+                    });
+                    allSources.forEach((item) => {
+                        const parent = (item as HTMLElement).dataset.parent || "";
+                        if (parent === targetPath) {
+                            (item as HTMLElement).style.display = "flex";
+                        }
+                    });
+                    return;
+                }
+
+                if (icon) icon.style.transform = "rotate(-90deg)";
+                allCategories.forEach((item) => {
+                    const path = (item as HTMLElement).dataset.path || "";
+                    if (path.startsWith(targetPath + "/") && path !== targetPath) {
+                        (item as HTMLElement).style.display = "none";
+                        const childToggle = item.querySelector(
+                            ".toggle-icon",
+                        ) as HTMLElement | null;
+                        if (childToggle) {
+                            childToggle.style.transform = "rotate(-90deg)";
+                        }
+                    }
                 });
+                allSources.forEach((item) => {
+                    const parent = (item as HTMLElement).dataset.parent || "";
+                    if (parent === targetPath || parent.startsWith(targetPath + "/")) {
+                        (item as HTMLElement).style.display = "none";
+                    }
+                });
+            });
+        });
+
+        // 分类切换（侧边栏按钮 + 移动端 chips 共用）
+        document.querySelectorAll(".category-btn, .category-chip").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                currentCategory = (btn as HTMLElement).dataset.category || "";
+                currentSource = "";
+                updateActiveState(
+                    ".category-btn, .category-chip",
+                    "category",
+                    currentCategory,
+                );
+                updateActiveState(".source-btn", "source", "");
+                filterItems();
+            });
+        });
+
+        // 订阅源切换：订阅源作为分类树叶子节点
+        document.querySelectorAll(".source-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                currentSource = (btn as HTMLElement).dataset.source || "";
+                currentCategory = "";
+                updateActiveState(".source-btn", "source", currentSource);
+                updateActiveState(".category-btn, .category-chip", "category", "");
                 filterItems();
             });
         });
@@ -489,18 +661,49 @@ const builtAt = rssCache.generatedAt
         padding-left: 0.5rem;
     }
 
-    .source-box {
+    .category-box {
         display: flex;
         flex-direction: column;
         gap: 0.1rem;
     }
 
+    .category-item,
     .source-item {
         display: flex;
         align-items: center;
         gap: 0.25rem;
     }
 
+    .category-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        color: var(--color-text-muted);
+        padding: 0;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+    }
+
+    .category-toggle:hover {
+        background-color: var(--color-bg-secondary);
+        color: var(--color-text);
+    }
+
+    .toggle-icon {
+        transition: transform 0.2s ease;
+    }
+
+    .category-spacer {
+        width: 20px;
+        flex-shrink: 0;
+    }
+
+    .category-btn,
     .source-btn {
         flex: 1;
         min-width: 0;
@@ -520,17 +723,24 @@ const builtAt = rssCache.generatedAt
         position: relative;
     }
 
+    .category-btn:hover {
+        background-color: var(--color-bg);
+        color: var(--color-primary-dark);
+    }
+
     .source-btn:hover:not(:disabled) {
         background-color: var(--color-bg);
         color: var(--color-primary-dark);
     }
 
+    .category-btn.active,
     .source-btn.active {
         background-color: var(--color-primary-subtle);
         color: var(--color-primary-dark);
         font-weight: 600;
     }
 
+    .category-btn.active::before,
     .source-btn.active::before {
         content: '';
         position: absolute;
@@ -548,18 +758,20 @@ const builtAt = rssCache.generatedAt
         cursor: not-allowed;
     }
 
-    .source-icon {
+    .filter-icon {
         flex-shrink: 0;
         opacity: 0.6;
         transition: all 0.2s ease;
     }
 
-    .source-btn:hover:not(:disabled) .source-icon,
-    .source-btn.active .source-icon {
+    .category-btn:hover .filter-icon,
+    .category-btn.active .filter-icon,
+    .source-btn:hover:not(:disabled) .filter-icon,
+    .source-btn.active .filter-icon {
         opacity: 1;
     }
 
-    .source-name {
+    .filter-name {
         flex: 1;
         min-width: 0;
         overflow: hidden;
@@ -567,33 +779,15 @@ const builtAt = rssCache.generatedAt
         white-space: nowrap;
     }
 
-    .source-count {
+    .filter-count {
         flex-shrink: 0;
         font-size: 0.75rem;
         color: var(--color-text-muted);
         font-variant-numeric: tabular-nums;
     }
 
-    /* 跳转到对方网站的外链按钮 */
-    .source-visit {
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 28px;
-        height: 28px;
-        border-radius: var(--radius-md);
-        color: var(--color-text-muted);
-        transition: all 0.2s ease;
-    }
-
-    .source-visit:hover {
-        background-color: var(--color-bg);
-        color: var(--color-text);
-    }
-
-    /* ============ 移动端订阅源 chips ============ */
-    .source-chips {
+    /* ============ 移动端分类 chips ============ */
+    .filter-chips {
         gap: 0.5rem;
         overflow-x: auto;
         padding-bottom: 0.5rem;
@@ -601,11 +795,11 @@ const builtAt = rssCache.generatedAt
         scrollbar-width: none;
     }
 
-    .source-chips::-webkit-scrollbar {
+    .filter-chips::-webkit-scrollbar {
         display: none;
     }
 
-    .source-chip {
+    .category-chip {
         flex-shrink: 0;
         padding: 0.375rem 0.875rem;
         font-size: 0.8125rem;
@@ -619,7 +813,7 @@ const builtAt = rssCache.generatedAt
         font-family: inherit;
     }
 
-    .source-chip.active {
+    .category-chip.active {
         background: var(--color-text);
         color: #ffffff;
         border-color: var(--color-text);

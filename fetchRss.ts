@@ -34,6 +34,7 @@ const MAX_KEEP_PER_FEED = 300;
 interface CachedFeed {
   id: number;
   title: string;
+  category?: string;
   link: string;
   ok: boolean;
   items: FeedItem[];
@@ -127,6 +128,7 @@ async function main(): Promise<void> {
       return {
         id: result.feed.id,
         title: old?.title || result.title,
+        category: result.feed.category || old?.category,
         link: old?.link || result.link,
         ok: false,
         items: oldItems,
@@ -140,6 +142,7 @@ async function main(): Promise<void> {
     return {
       id: result.feed.id,
       title: result.title,
+      category: result.feed.category,
       link: result.link,
       ok: true,
       items: merged,

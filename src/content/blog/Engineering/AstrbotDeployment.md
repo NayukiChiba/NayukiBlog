@@ -409,7 +409,6 @@ services:
 ### Snowluma的`compose.yml`
 
 ```dockerfile
-
 services:
   snowluma:
     image: ${SNOWLUMA_IMAGE:-motricseven7/snowluma:latest}
@@ -428,6 +427,8 @@ services:
       SNOWLUMA_LOG_LEVEL: ${SNOWLUMA_LOG_LEVEL:-info}
       SNOWLUMA_SCREEN: ${SNOWLUMA_SCREEN:-1920x1080x16}
       SNOWLUMA_HOOK_AUTOLOAD: ${SNOWLUMA_HOOK_AUTOLOAD:-1}
+      SNOWLUMA_EXTRA_QQ_HOMES: "${SNOWLUMA_EXTRA_QQ_HOMES:-}"
+      SNOWLUMA_QQ_FLAGS: "${SNOWLUMA_QQ_FLAGS:---disable-gpu --disable-software-rasterizer --disable-gpu-compositing}"
     ports:
       - "${VNC_PORT:-5900}:5900"
       - "${NOVNC_PORT:-6081}:6081"
@@ -472,6 +473,7 @@ services:
       - astrbot-net
 
   snowluma:
+    user: "0:0"
     image: ${SNOWLUMA_IMAGE:-motricseven7/snowluma:latest}
     container_name: ${SNOWLUMA_CONTAINER:-snowluma}
     restart: unless-stopped
@@ -488,6 +490,9 @@ services:
       SNOWLUMA_LOG_LEVEL: ${SNOWLUMA_LOG_LEVEL:-info}
       SNOWLUMA_SCREEN: ${SNOWLUMA_SCREEN:-1920x1080x16}
       SNOWLUMA_HOOK_AUTOLOAD: ${SNOWLUMA_HOOK_AUTOLOAD:-1}
+      # 以下两行为第二个片段新增的环境变量
+      SNOWLUMA_EXTRA_QQ_HOMES: "${SNOWLUMA_EXTRA_QQ_HOMES:-}"
+      SNOWLUMA_QQ_FLAGS: "${SNOWLUMA_QQ_FLAGS:---disable-gpu --disable-software-rasterizer --disable-gpu-compositing}"
     ports:
       - "${VNC_PORT:-5900}:5900"
       - "${NOVNC_PORT:-6081}:6081"
@@ -497,8 +502,8 @@ services:
     volumes:
       - snowluma-data:/app/snowluma-data
       - snowluma-qq-config:/app/.config
-      - snowluma-qq-data:/app/.local/share
-      - astrbot-data:/AstrBot/data
+      - snowluma-qq-data:/app/.local/sharevault backup: {{date}}
+      - astrbot-data:/AstrBot/data   # 保留与 astrbot 共享的数据卷
     networks:
       - astrbot-net
 

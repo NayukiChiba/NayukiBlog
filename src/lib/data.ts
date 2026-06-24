@@ -73,6 +73,7 @@ export interface Tool {
 export interface RssFeed {
   id: number;
   name: string;
+  category?: string;
   site: string;
   feedUrl: string;
   status: string;
@@ -250,12 +251,18 @@ export function getTools(options?: {
 }
 
 // 获取 RSS 订阅源列表
-export function getRssFeeds(options?: { status?: string }): RssFeed[] {
+export function getRssFeeds(options?: {
+  status?: string;
+  category?: string;
+}): RssFeed[] {
   let feeds = rssData.feeds || [];
 
   // 过滤
   if (options?.status) {
     feeds = feeds.filter((f) => f.status === options.status);
+  }
+  if (options?.category) {
+    feeds = feeds.filter((f) => f.category === options.category);
   }
 
   return feeds;
