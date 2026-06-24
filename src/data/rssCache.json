@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T19:46:32.531Z",
+  "generatedAt": "2026-06-24T01:54:36.694Z",
   "feeds": [
     {
       "id": 1,
@@ -134,6 +134,12 @@
           "link": "https://openai.com/index/gpt-5-immunology-mystery",
           "date": "2026-06-23T17:00:00.000Z",
           "summary": "GPT-5 Pro helped solve a 3-year-old immunology mystery, offering insights into T cell behavior. The breakthrough could s…"
+        },
+        {
+          "title": "Helping build shared standards for advanced AI",
+          "link": "https://openai.com/index/helping-build-shared-standards-for-advanced-ai",
+          "date": "2026-06-23T13:00:00.000Z",
+          "summary": "OpenAI helps build shared standards for advanced AI, supporting evaluation frameworks, safety practices, and global coop…"
         },
         {
           "title": "How Omio is building the future of conversational travel",
