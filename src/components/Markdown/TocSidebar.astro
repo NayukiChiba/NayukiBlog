@@ -1,9 +1,11 @@
 ---
 // TocSidebar.astro - 桌面端目录侧边栏组件
+import ArticleContentSearch from "./ArticleContentSearch.astro";
 ---
 
 <aside class="toc-sidebar desktop-only">
     <div class="toc-sticky">
+        <ArticleContentSearch />
         <div class="toc-header" id="toc-header-clickable">
             <span>文章目录</span>
             <span class="toc-header-actions">

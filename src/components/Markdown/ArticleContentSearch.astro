@@ -1,0 +1,469 @@
+---
+// ArticleContentSearch.astro - 文章正文搜索、高亮与上下定位
+---
+
+<div class="article-content-search" aria-label="文章正文搜索">
+    <div class="article-search-box">
+        <svg
+            class="article-search-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input
+            class="article-content-search-input"
+            type="text"
+            placeholder="搜索正文…"
+            autocomplete="off"
+            spellcheck="false"
+        />
+        <button
+            class="article-content-search-clear"
+            type="button"
+            title="清除搜索"
+            aria-label="清除搜索"
+            hidden
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+    <div class="article-search-controls">
+        <span class="article-search-count">0/0</span>
+        <span class="article-search-actions">
+            <button
+                class="article-search-prev"
+                type="button"
+                title="上一个"
+                aria-label="上一个搜索结果"
+                disabled
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+            </button>
+            <button
+                class="article-search-next"
+                type="button"
+                title="下一个"
+                aria-label="下一个搜索结果"
+                disabled
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+        </span>
+    </div>
+</div>
+
+<script is:inline>
+    (function () {
+        if (window.__articleContentSearchInitialized) return;
+        window.__articleContentSearchInitialized = true;
+
+        let matches = [];
+        let currentIndex = -1;
+        let currentQuery = "";
+
+        function getSections() {
+            return Array.from(document.querySelectorAll(".article-content-search"));
+        }
+
+        function getInputs() {
+            return Array.from(
+                document.querySelectorAll(".article-content-search-input"),
+            );
+        }
+
+        function syncInputs(value) {
+            getInputs().forEach((input) => {
+                if (input.value !== value) input.value = value;
+            });
+        }
+
+        function setControlsDisabled(disabled) {
+            document
+                .querySelectorAll(".article-search-prev, .article-search-next")
+                .forEach((button) => {
+                    button.disabled = disabled;
+                });
+        }
+
+        function updateUi() {
+            const hasQuery = currentQuery.trim().length > 0;
+            const hasMatches = matches.length > 0;
+            const text = hasQuery && hasMatches ? `${currentIndex + 1}/${matches.length}` : "0/0";
+
+            document.querySelectorAll(".article-search-count").forEach((count) => {
+                count.textContent = text;
+                count.classList.toggle("no-result", hasQuery && !hasMatches);
+            });
+
+            document
+                .querySelectorAll(".article-content-search-clear")
+                .forEach((button) => {
+                    button.hidden = !hasQuery;
+                });
+
+            setControlsDisabled(!hasMatches);
+        }
+
+        function clearHighlights() {
+            document.querySelectorAll("mark.article-search-mark").forEach((mark) => {
+                const parent = mark.parentNode;
+                if (!parent) return;
+                parent.replaceChild(document.createTextNode(mark.textContent || ""), mark);
+                parent.normalize();
+            });
+            matches = [];
+            currentIndex = -1;
+        }
+
+        function shouldSkipTextNode(node) {
+            const parent = node.parentElement;
+            if (!parent) return true;
+            if (!node.nodeValue || !node.nodeValue.trim()) return true;
+
+            return Boolean(
+                parent.closest(
+                    [
+                        ".post-header",
+                        ".prev-next-nav",
+                        ".article-content-search",
+                        "pre",
+                        "code",
+                        "script",
+                        "style",
+                        "textarea",
+                        "input",
+                        "button",
+                        "svg",
+                        ".katex",
+                    ].join(","),
+                ),
+            );
+        }
+
+        function collectTextNodes(contentEl) {
+            const walker = document.createTreeWalker(
+                contentEl,
+                NodeFilter.SHOW_TEXT,
+                {
+                    acceptNode(node) {
+                        return shouldSkipTextNode(node)
+                            ? NodeFilter.FILTER_REJECT
+                            : NodeFilter.FILTER_ACCEPT;
+                    },
+                },
+            );
+
+            const nodes = [];
+            while (walker.nextNode()) {
+                nodes.push(walker.currentNode);
+            }
+            return nodes;
+        }
+
+        function highlightNode(node, query) {
+            const text = node.nodeValue || "";
+            const lowerText = text.toLowerCase();
+            const lowerQuery = query.toLowerCase();
+            const fragment = document.createDocumentFragment();
+            let cursor = 0;
+            let matchIndex = lowerText.indexOf(lowerQuery);
+
+            if (matchIndex === -1) return;
+
+            while (matchIndex !== -1) {
+                if (matchIndex > cursor) {
+                    fragment.appendChild(
+                        document.createTextNode(text.slice(cursor, matchIndex)),
+                    );
+                }
+
+                const mark = document.createElement("mark");
+                mark.className = "article-search-mark";
+                mark.textContent = text.slice(matchIndex, matchIndex + query.length);
+                fragment.appendChild(mark);
+                matches.push(mark);
+
+                cursor = matchIndex + query.length;
+                matchIndex = lowerText.indexOf(lowerQuery, cursor);
+            }
+
+            if (cursor < text.length) {
+                fragment.appendChild(document.createTextNode(text.slice(cursor)));
+            }
+
+            node.parentNode?.replaceChild(fragment, node);
+        }
+
+        function setCurrentMatch(index, shouldScroll) {
+            if (!matches.length) {
+                currentIndex = -1;
+                updateUi();
+                return;
+            }
+
+            currentIndex = (index + matches.length) % matches.length;
+            matches.forEach((mark, idx) => {
+                mark.classList.toggle("current", idx === currentIndex);
+            });
+
+            updateUi();
+
+            if (shouldScroll) {
+                matches[currentIndex].scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                });
+            }
+        }
+
+        function runSearch(query, shouldScroll) {
+            currentQuery = query;
+            clearHighlights();
+
+            const normalizedQuery = query.trim();
+            if (!normalizedQuery) {
+                updateUi();
+                return;
+            }
+
+            const contentEl = document.querySelector(".content");
+            if (!contentEl) {
+                updateUi();
+                return;
+            }
+
+            collectTextNodes(contentEl).forEach((node) => {
+                highlightNode(node, normalizedQuery);
+            });
+
+            setCurrentMatch(0, shouldScroll && matches.length > 0);
+        }
+
+        function goTo(delta) {
+            if (!matches.length) return;
+            setCurrentMatch(currentIndex + delta, true);
+        }
+
+        function bindSection(section) {
+            const input = section.querySelector(".article-content-search-input");
+            const clearBtn = section.querySelector(".article-content-search-clear");
+            const prevBtn = section.querySelector(".article-search-prev");
+            const nextBtn = section.querySelector(".article-search-next");
+            if (!input || input.__articleSearchBound) return;
+
+            input.__articleSearchBound = true;
+            input.addEventListener("input", () => {
+                syncInputs(input.value);
+                runSearch(input.value, false);
+            });
+            input.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    goTo(event.shiftKey ? -1 : 1);
+                }
+            });
+
+            clearBtn?.addEventListener("click", () => {
+                syncInputs("");
+                runSearch("", false);
+            });
+            prevBtn?.addEventListener("click", () => goTo(-1));
+            nextBtn?.addEventListener("click", () => goTo(1));
+        }
+
+        function initArticleContentSearch() {
+            getSections().forEach(bindSection);
+            syncInputs(currentQuery);
+            updateUi();
+        }
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", initArticleContentSearch);
+        } else {
+            initArticleContentSearch();
+        }
+        document.addEventListener("astro:page-load", initArticleContentSearch);
+    })();
+</script>
+
+<style is:global>
+    .article-content-search {
+        margin-bottom: 0.75rem;
+        padding: 0 0.5rem;
+    }
+
+    .article-search-box {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        min-width: 0;
+        padding: 0 0.6rem;
+        border: 1px solid var(--color-border, #e5e5e5);
+        border-radius: 8px;
+        background: var(--color-card-bg, #ffffff);
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    .article-search-box:focus-within {
+        border-color: var(--color-primary, #111111);
+        box-shadow: 0 0 0 3px var(--color-primary-subtle, rgba(0, 0, 0, 0.06));
+    }
+
+    .article-search-icon {
+        flex-shrink: 0;
+        color: var(--color-text-muted, #999999);
+    }
+
+    .article-content-search-input {
+        flex: 1;
+        min-width: 0;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: var(--color-text, #111111);
+        font-family: inherit;
+        font-size: 0.82rem;
+        padding: 0.5rem 0;
+    }
+
+    .article-content-search-input::placeholder {
+        color: var(--color-text-muted, #999999);
+    }
+
+    .article-content-search-clear,
+    .article-search-prev,
+    .article-search-next {
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--color-text-muted, #999999);
+        background: transparent;
+        border-radius: 6px;
+        padding: 0;
+        transition:
+            background-color 0.2s ease,
+            color 0.2s ease;
+    }
+
+    .article-content-search-clear {
+        width: 20px;
+        height: 20px;
+        background: var(--color-border, #e5e5e5);
+    }
+
+    .article-content-search-clear:hover,
+    .article-search-prev:hover:not(:disabled),
+    .article-search-next:hover:not(:disabled) {
+        color: var(--color-primary, #111111);
+        background: var(--color-primary-subtle, rgba(0, 0, 0, 0.06));
+    }
+
+    .article-search-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 24px;
+        margin-top: 0.35rem;
+        padding: 0 0.1rem;
+    }
+
+    .article-search-count {
+        color: var(--color-text-muted, #999999);
+        font-size: 0.75rem;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .article-search-count.no-result {
+        color: var(--color-primary, #111111);
+    }
+
+    .article-search-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+    }
+
+    .article-search-prev,
+    .article-search-next {
+        width: 24px;
+        height: 24px;
+    }
+
+    .article-search-prev:disabled,
+    .article-search-next:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+    }
+
+    .content mark.article-search-mark {
+        padding: 0 0.12em;
+        border-radius: 3px;
+        color: inherit;
+        background: color-mix(in srgb, var(--color-primary, #111111) 18%, transparent);
+        box-shadow: inset 0 -0.18em 0 color-mix(in srgb, var(--color-primary, #111111) 35%, transparent);
+    }
+
+    .content mark.article-search-mark.current {
+        background: color-mix(in srgb, var(--color-primary, #111111) 32%, transparent);
+        box-shadow:
+            0 0 0 2px color-mix(in srgb, var(--color-primary, #111111) 28%, transparent),
+            inset 0 -0.2em 0 color-mix(in srgb, var(--color-primary, #111111) 55%, transparent);
+    }
+
+    .mobile-toc-panel .article-content-search {
+        margin: 0;
+        padding: 0.75rem;
+        border-bottom: 1px solid var(--color-border-light, #f0f0f0);
+    }
+</style>

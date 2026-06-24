@@ -1,6 +1,7 @@
 ---
 // TocMobile - 移动端目录悬浮球 + 悬浮窗组件
 // 悬浮球位于右下角配置按钮上方，点击弹出目录悬浮窗
+import ArticleContentSearch from "./ArticleContentSearch.astro";
 ---
 
 <!-- 移动端目录悬浮球 -->
@@ -32,6 +33,7 @@
 <!-- 移动端目录悬浮窗 -->
 <div class="mobile-toc-panel" id="toc-drawer">
     <div class="toc-panel-head">文章目录</div>
+    <ArticleContentSearch />
     <nav class="toc-panel-content" id="mobile-toc"></nav>
 </div>
 

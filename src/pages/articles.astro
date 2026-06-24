@@ -68,6 +68,8 @@ const folderList = [...folderSet].sort().map((path) => {
 
             <div class="main-layout">
                 <div class="post-list-section">
+                    <ArticleSearch />
+
                     <div class="post-list">
                         {
                             posts.map((post: any) => (
@@ -111,8 +113,6 @@ const folderList = [...folderSet].sort().map((path) => {
 
                 <!-- Desktop Sidebar -->
                 <aside class="filters-sidebar desktop-only">
-                    <ArticleSearch />
-                    <div class="sidebar-divider"></div>
                     <CategorySidebar folders={folderList} />
                     <div class="sidebar-divider"></div>
                     <TagSidebar tags={tagsWithCount} />
@@ -140,9 +140,6 @@ const folderList = [...folderSet].sort().map((path) => {
                 <span class="drawer-title">筛选文章</span>
             </div>
                 <div class="drawer-content">
-                    <!-- 搜索框（移动端） -->
-                    <ArticleSearch />
-                    <div class="sidebar-divider"></div>
                     <CategorySidebar folders={folderList} />
                     <div class="sidebar-divider"></div>
                     <TagSidebar tags={tagsWithCount} />
@@ -441,6 +438,10 @@ const folderList = [...folderSet].sort().map((path) => {
     .post-list-section {
         flex: 3; /* 60% relative to sidebar's 1 (approx) */
         min-width: 0;
+    }
+
+    .post-list-section :global(.article-search) {
+        margin-bottom: 1.5rem;
     }
 
     /* Sidebar */
