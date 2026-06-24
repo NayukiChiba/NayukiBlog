@@ -1,9 +1,10 @@
 {
-  "generatedAt": "2026-06-24T13:59:22.228Z",
+  "generatedAt": "2026-06-24T14:10:33.720Z",
   "feeds": [
     {
       "id": 1,
       "title": "Claude Blog",
+      "category": "AI",
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
@@ -126,6 +127,7 @@
     {
       "id": 2,
       "title": "OpenAI News",
+      "category": "AI",
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
@@ -284,6 +286,7 @@
     {
       "id": 3,
       "title": "OpenAI Research",
+      "category": "AI",
       "link": "https://openai.com/news/research",
       "ok": true,
       "items": [
@@ -352,6 +355,7 @@
     {
       "id": 4,
       "title": "AI at Meta Blog",
+      "category": "AI",
       "link": "https://ai.meta.com/blog/",
       "ok": true,
       "items": [
@@ -420,6 +424,7 @@
     {
       "id": 5,
       "title": "Ollama Blog",
+      "category": "AI",
       "link": "https://ollama.com/blog",
       "ok": true,
       "items": [
@@ -488,6 +493,7 @@
     {
       "id": 6,
       "title": "Anthropic Research",
+      "category": "AI",
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
@@ -586,6 +592,7 @@
     {
       "id": 7,
       "title": "Anthropic Engineering",
+      "category": "AI",
       "link": "https://www.anthropic.com/engineering",
       "ok": true,
       "items": [
@@ -654,6 +661,7 @@
     {
       "id": 8,
       "title": "Google DeepMind",
+      "category": "AI",
       "link": "https://deepmind.google/blog/",
       "ok": true,
       "items": [
@@ -734,6 +742,7 @@
     {
       "id": 9,
       "title": "Google AI Blog",
+      "category": "AI",
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
@@ -814,6 +823,7 @@
     {
       "id": 10,
       "title": "Google Developers Blog",
+      "category": "技术",
       "link": "https://developers.googleblog.com/rss/",
       "ok": true,
       "items": [
@@ -924,6 +934,7 @@
     {
       "id": 11,
       "title": "HelloGitHub 月刊",
+      "category": "技术",
       "link": "https://hellogithub.com",
       "ok": true,
       "items": [
@@ -992,6 +1003,7 @@
     {
       "id": 13,
       "title": "Hugging Face Blog (含中文)",
+      "category": "AI",
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
