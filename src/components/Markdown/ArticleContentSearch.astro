@@ -48,8 +48,6 @@
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
         </button>
-    </div>
-    <div class="article-search-controls">
         <span class="article-search-count">0/0</span>
         <span class="article-search-actions">
             <button
@@ -320,7 +318,11 @@
         function initArticleContentSearch() {
             getSections().forEach(bindSection);
             syncInputs(currentQuery);
-            updateUi();
+            if (currentQuery.trim()) {
+                runSearch(currentQuery, false);
+            } else {
+                updateUi();
+            }
         }
 
         if (document.readyState === "loading") {
@@ -348,6 +350,7 @@
         border: 1px solid var(--color-border, #e5e5e5);
         border-radius: 8px;
         background: var(--color-card-bg, #ffffff);
+        min-height: 40px;
         transition:
             border-color 0.2s ease,
             box-shadow 0.2s ease;
@@ -372,7 +375,7 @@
         color: var(--color-text, #111111);
         font-family: inherit;
         font-size: 0.82rem;
-        padding: 0.5rem 0;
+        padding: 0.55rem 0;
     }
 
     .article-content-search-input::placeholder {
@@ -409,19 +412,12 @@
         background: var(--color-primary-subtle, rgba(0, 0, 0, 0.06));
     }
 
-    .article-search-controls {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        min-height: 24px;
-        margin-top: 0.35rem;
-        padding: 0 0.1rem;
-    }
-
     .article-search-count {
+        flex-shrink: 0;
         color: var(--color-text-muted, #999999);
         font-size: 0.75rem;
         font-variant-numeric: tabular-nums;
+        white-space: nowrap;
     }
 
     .article-search-count.no-result {
@@ -436,8 +432,16 @@
 
     .article-search-prev,
     .article-search-next {
-        width: 24px;
-        height: 24px;
+        width: 30px;
+        height: 30px;
+        color: var(--color-text-light, #555555);
+        background: var(--color-bg-secondary, #f7f7f7);
+    }
+
+    .article-search-prev svg,
+    .article-search-next svg {
+        width: 17px;
+        height: 17px;
     }
 
     .article-search-prev:disabled,

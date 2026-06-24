@@ -71,7 +71,7 @@ import ArticleContentSearch from "./ArticleContentSearch.astro";
         top: 100px;
         width: 200px;
         max-height: calc(100vh - 120px);
-        overflow-y: auto;
+        overflow: hidden;
         z-index: 50;
     }
 
@@ -107,6 +107,10 @@ import ArticleContentSearch from "./ArticleContentSearch.astro";
 
     .toc-sticky {
         width: 100%;
+        max-height: calc(100vh - 120px);
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
     }
 
     .toc-header {
@@ -174,10 +178,13 @@ import ArticleContentSearch from "./ArticleContentSearch.astro";
         transition:
             max-height 0.3s ease,
             opacity 0.3s ease;
-        max-height: calc(100vh - 180px);
+        max-height: calc(100vh - 250px);
+        flex: 1;
+        min-height: 0;
         opacity: 1;
         overflow-y: auto;
         overflow-x: hidden;
+        overscroll-behavior: contain;
     }
 
     #article-toc.collapsed {
