@@ -114,19 +114,23 @@ import ArticleContentSearch from "./ArticleContentSearch.astro";
     }
 
     .toc-header {
-        font-weight: 600;
+        font-weight: 700;
         margin-bottom: 0.5rem;
-        font-size: 0.85rem;
-        color: #999;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        padding-left: 1rem;
+        font-size: 1rem;
+        color: var(--color-text, #111111);
+        letter-spacing: 0;
+        padding-left: 0.5rem;
         padding-right: 0.5rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
         cursor: pointer;
         user-select: none;
+    }
+
+    .toc-header > span:first-child {
+        flex: 1;
+        min-width: 0;
     }
 
     /* 头部右侧操作区：回到顶部 + 收缩箭头 */
