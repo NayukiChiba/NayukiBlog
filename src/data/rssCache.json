@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T08:49:29.609Z",
+  "generatedAt": "2026-06-24T13:59:22.228Z",
   "feeds": [
     {
       "id": 1,
@@ -129,6 +129,12 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "OpenAI and Broadcom unveil LLM-optimized inference chip",
+          "link": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+          "date": "2026-06-24T06:00:00.000Z",
+          "summary": "OpenAI and Broadcom introduce Jalapeño, a custom AI chip built for LLM inference to improve performance, efficiency, and…"
+        },
         {
           "title": "How GPT-5 helped immunologist Derya Unutmaz solve a 3-year-old mystery",
           "link": "https://openai.com/index/gpt-5-immunology-mystery",
