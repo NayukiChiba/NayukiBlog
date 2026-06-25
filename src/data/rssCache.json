@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-25T15:51:38.482Z",
+  "generatedAt": "2026-06-25T19:42:37.116Z",
   "feeds": [
     {
       "id": 1,
@@ -768,6 +768,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Our latest Google Finance upgrades, including a new app",
+          "link": "https://blog.google/products-and-platforms/products/search/google-finance-updates-june-2026/",
+          "date": "2026-06-25T16:00:00.000Z",
+          "summary": "The new Google Finance is coming out of beta and launching a new Android app.",
+          "content": "The new Google Finance is coming out of beta and launching a new Android app."
+        },
+        {
           "title": "New research shows how AMIE, our medical AI, could help manage health conditions.",
           "link": "https://blog.google/innovation-and-ai/models-and-research/google-research/amie-for-disease-management-in-nature/",
           "date": "2026-06-17T15:00:00.000Z",
@@ -1028,6 +1035,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Which tokens does a hybrid model predict better?",
+          "link": "https://huggingface.co/blog/allenai/hybrid-token-prediction",
+          "date": "2026-06-25T16:11:42.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel",
           "link": "https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel",
