@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T14:10:33.720Z",
+  "generatedAt": "2026-06-25T13:56:18.896Z",
   "feeds": [
     {
       "id": 1,
@@ -13,6 +13,13 @@
           "link": "https://claude.com/blog/agent-identity-access-model",
           "date": "2026-06-24T00:00:00.000Z",
           "summary": "Agent identity in Claude Tag: a new access model for autonomous, team-wide AI"
+        },
+        {
+          "title": "Building effective human-agent teams",
+          "link": "https://claude.com/blog/building-effective-human-agent-teams",
+          "date": "2026-06-24T00:00:00.000Z",
+          "summary": "Building effective human-agent teams",
+          "content": "Building effective human-agent teams"
         },
         {
           "title": "The full Claude Desktop experience on AWS, Google Cloud, and Microsoft Foundry",
@@ -131,6 +138,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How agents are transforming work",
+          "link": "https://openai.com/index/how-agents-are-transforming-work",
+          "date": "2026-06-25T02:00:00.000Z",
+          "summary": "A new OpenAI research paper shows how AI agents are transforming work, enabling longer, more complex tasks and expanding…",
+          "content": "A new OpenAI research paper shows how AI agents are transforming work, enabling longer, more complex tasks and expanding productivity across roles."
+        },
         {
           "title": "OpenAI and Broadcom unveil LLM-optimized inference chip",
           "link": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
@@ -666,6 +680,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Introducing computer use in Gemini 3.5 Flash",
+          "link": "https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/",
+          "date": "2026-06-24T16:30:01.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "Unlocking UK house-building with AI-accelerated planning",
           "link": "https://deepmind.google/blog/unlocking-uk-house-building-with-ai-accelerated-planning/",
           "date": "2026-06-16T21:29:50.000Z",
@@ -1007,6 +1028,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel",
+          "link": "https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel",
+          "date": "2026-06-24T16:00:13.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World",
+          "link": "https://huggingface.co/blog/ffasr-leaderboard",
+          "date": "2026-06-24T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Build real agentic apps using CUGA: two dozen working examples on a lightweight harness",
           "link": "https://huggingface.co/blog/ibm-research/cuga-apps",
