@@ -503,6 +503,7 @@ services:
       - snowluma-data:/app/snowluma-data
       - snowluma-qq-config:/app/.config
       - snowluma-qq-data:/app/.local/share
+      - snowluma-config:/app/snowluma/config
       # vault backup: {{date}}
       - astrbot-data:/AstrBot/data   # 保留与 astrbot 共享的数据卷
     networks:
@@ -516,6 +517,7 @@ volumes:
   snowluma-data:
   snowluma-qq-config:
   snowluma-qq-data:
+  snowluma-config:
   astrbot-data:
 ```
 
