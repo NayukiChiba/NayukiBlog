@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T19:23:08.339Z",
+  "generatedAt": "2026-06-25T01:57:58.127Z",
   "feeds": [
     {
       "id": 1,
@@ -13,6 +13,13 @@
           "link": "https://claude.com/blog/agent-identity-access-model",
           "date": "2026-06-24T00:00:00.000Z",
           "summary": "Agent identity in Claude Tag: a new access model for autonomous, team-wide AI"
+        },
+        {
+          "title": "Building effective human-agent teams",
+          "link": "https://claude.com/blog/building-effective-human-agent-teams",
+          "date": "2026-06-24T00:00:00.000Z",
+          "summary": "Building effective human-agent teams",
+          "content": "Building effective human-agent teams"
         },
         {
           "title": "The full Claude Desktop experience on AWS, Google Cloud, and Microsoft Foundry",
