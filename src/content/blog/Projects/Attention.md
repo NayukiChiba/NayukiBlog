@@ -8,8 +8,8 @@ tags:
   - Transformer
   - GPT
 description: 从缩放点积注意力开始，手写多头注意力、Transformer Block 与小型 GPT 中文文本生成模型。
-image: https://img.yumeko.site/file/blog/Attention.png
-status: draft
+image: https://img.yumeko.site/file/blog/cover/1782480856710_Attention.webp
+status: published
 ---
 
 # 手搓 Attention 项目

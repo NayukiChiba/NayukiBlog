@@ -8,8 +8,8 @@ tags:
   - 图像分类
   - 深度学习
 description: 一个支持多种经典 CNN 架构与多数据集组合训练、评估、推理和基准测试的图像分类项目。
-image: https://img.yumeko.site/file/blog/ALLCNN.png
-status: draft
+image: https://img.yumeko.site/file/blog/cover/1782480588457_ALLCNN.webp
+status: published
 ---
 
 # ALL-CNN 经典卷积网络项目
