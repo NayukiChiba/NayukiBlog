@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-25T19:42:37.116Z",
+  "generatedAt": "2026-06-26T01:59:35.276Z",
   "feeds": [
     {
       "id": 1,
@@ -1035,6 +1035,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Run a vLLM Server on HF Jobs in One Command",
+          "link": "https://huggingface.co/blog/vllm-jobs",
+          "date": "2026-06-26T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Which tokens does a hybrid model predict better?",
           "link": "https://huggingface.co/blog/allenai/hybrid-token-prediction",
