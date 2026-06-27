@@ -14,7 +14,7 @@ status: published
 
 # 手搓 Attention 项目
 
-> **前置阅读**：本文默认读者熟悉 [[NeuralNetwork/RNN/Attention|注意力机制]] 与 [[NeuralNetwork/Transformer/TransformerComputation|Transformer 计算流程]]。
+> **前置阅读**：本文默认读者熟悉 [[NeuralNetwork/RNN/Attention|注意力机制]] 与 [[NeuralNetwork/Transformer/TransformerOverview|Transformer 架构总览]]。
 
 ::github[repo=NayukiChiba/Attention]
 
@@ -556,11 +556,11 @@ $$
 | `generator.py` | 将 logits 转成可控的文本生成过程 |
 
 从学习路线看，它适合作为从 [[NeuralNetwork/RNN/Attention|RNN Attention]] 走向
-[[NeuralNetwork/Transformer/TransformerComputation|Transformer]] 的工程桥梁：先看懂公式，再看懂张量形状，最后跑通一个能训练、能评估、能生成的最小 GPT。
+[[NeuralNetwork/Transformer/TransformerOverview|Transformer]] 的工程桥梁：先看懂公式，再看懂张量形状，最后跑通一个能训练、能评估、能生成的最小 GPT。
 
 ---
 
 > **相关文章**：
 > - [[NeuralNetwork/RNN/Attention|注意力机制详解：从信息瓶颈到 Bahdanau 注意力]]
-> - [[NeuralNetwork/Transformer/TransformerComputation|Transformer 计算流程]]
+> - [[NeuralNetwork/Transformer/TransformerOverview|Transformer 架构总览]]
 > - [[Projects/MachineLearning|机器学习全汇总项目]]
