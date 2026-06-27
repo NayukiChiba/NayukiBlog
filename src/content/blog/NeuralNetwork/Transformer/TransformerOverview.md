@@ -7,23 +7,11 @@ tags:
   - 深度学习
   - 架构
 description: 从 RNN 的顺序计算问题出发，区分传统 Transformer 与现代 LLM Transformer，并解释 Encoder/Decoder 差异。
-image: https://img.yumeko.site/file/blog/TransformerOverview.png
+image: https://img.yumeko.site/file/blog/cover/1782558436087_TransformerOverview.webp
 status: published
 ---
 
 > **前置阅读**：建议先阅读 [[NeuralNetwork/RNN/Attention|注意力机制详解]]，再阅读本文。
-
-![图0: Transformer 架构总览 Banner](https://img.yumeko.site/file/blog/TransformerOverview.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于 Transformer 架构总览技术博客封面。
-> 设计概念：把 token 序列、Self-Attention 矩阵、Transformer Block 堆叠和输出 logits 串成一条清晰的数据流。
-> 左侧是输入 token 网格，中间是多层 Transformer Block，右侧是概率分布柱状图。
-> 配色：深蓝到暖金渐变，现代数据科学美学风格。
-> 简洁无衬线标签，淡色网格背景，顶部留白供标题叠加。
-> ```
 
 ## 1. Transformer 想解决什么问题
 
@@ -81,16 +69,7 @@ Transformer 可以分成两个层次理解：
 
 ## 3. Transformer 的三种常见结构
 
-![图1: Encoder-only、Encoder-Decoder 与 Decoder-only 对比](https://img.yumeko.site/file/blog/TransformerOverview/ArchitectureComparison.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的教学对比图，展示 Encoder-only、Encoder-Decoder 与 Decoder-only 三种 Transformer 架构。
-> 画面分成三列：左列只包含 Encoder 堆叠和双向注意力，中列包含 Encoder、Decoder 和 Cross-Attention，右列只包含带 causal mask 的 Decoder 堆叠。
-> 用箭头标出输入、上下文读取和输出方向，关键标签包括 Encoder、Decoder、Cross-Attention、Causal Mask。
-> 白色背景，细线框图，柔和蓝白配色，教科书插图风格。
-> ```
+![ArchitectureComparison.png](https://img.yumeko.site/file/blog/articles/1782558536786_ArchitectureComparison.webp)
 
 ### 3.1 Encoder-only
 

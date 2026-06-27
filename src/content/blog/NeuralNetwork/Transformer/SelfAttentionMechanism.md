@@ -7,23 +7,11 @@ tags:
   - Self-Attention
   - 注意力机制
 description: 从 Q、K、V 的含义出发，拆解缩放点积注意力、多头注意力、mask 与张量形状。
-image: https://img.yumeko.site/file/blog/SelfAttentionMechanism.png
+image: https://img.yumeko.site/file/blog/cover/1782558454107_SelfAttentionMechanism.webp
 status: published
 ---
 
 > **前置阅读**：建议先阅读 [[NeuralNetwork/Transformer/TransformerOverview|Transformer 架构总览]]，理解 Transformer Block 的整体位置。
-
-![图0: Self-Attention 机制 Banner](https://img.yumeko.site/file/blog/SelfAttentionMechanism.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于 Self-Attention 技术博客封面。
-> 设计概念：多个 token 通过注意力权重矩阵互相读取信息，形成新的上下文表示。
-> 左侧是 token 向量序列，中间是 Q、K、V 三组投影和注意力矩阵，右侧是加权求和后的输出向量。
-> 配色：深蓝到暖金渐变，现代数据科学美学风格。
-> 简洁无衬线标签，淡色网格背景，顶部留白供标题叠加。
-> ```
 
 ## 1. Self-Attention 在做什么
 
@@ -49,16 +37,7 @@ $$
 
 ## 2. Q、K、V 的含义
 
-![图1: Query、Key、Value 与注意力权重](https://img.yumeko.site/file/blog/SelfAttentionMechanism/QKVAttention.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的科学示意图，解释 Query、Key、Value 如何生成注意力权重并读取信息。
-> 左侧画输入 token 矩阵 X，分三条箭头投影为 Q、K、V；中间画 QK^T 注意力分数矩阵和 softmax；右侧画权重矩阵乘以 V 得到输出 Z。
-> 关键标注使用 LaTeX 风格：Q=XW_Q、K=XW_K、V=XW_V、softmax(QK^T/sqrt(d_k))V。
-> 白色背景，细坐标轴线，柔和蓝白配色，教科书插图风格。
-> ```
+![QKVAttention.png](https://img.yumeko.site/file/blog/articles/1782558541565_QKVAttention.webp)
 
 Self-Attention 会把输入 $X$ 投影成三组向量：
 
