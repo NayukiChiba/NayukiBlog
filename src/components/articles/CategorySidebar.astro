@@ -4,6 +4,7 @@ interface Folder {
   name: string;
   level: number;
   hasChildren: boolean;
+  hasPublished: boolean;
 }
 
 interface Props {
@@ -29,7 +30,12 @@ const { folders } = Astro.props;
       const isHidden = parentFolder?.hasChildren ?? false;
 
       return (
-      <div class="folder-item" data-path={folder.path} style={`padding-left: ${folder.level * 1}rem; ${isHidden ? 'display: none' : ''}`}>
+      <div
+        class="folder-item"
+        data-path={folder.path}
+        data-has-published={String(folder.hasPublished)}
+        style={`padding-left: ${folder.level * 1}rem; ${isHidden ? 'display: none' : ''}`}
+      >
         {folder.hasChildren && (
           <button class="folder-toggle" data-target={folder.path}>
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon" style="transform: rotate(-90deg)"><polyline points="6 9 12 15 18 9"></polyline></svg>

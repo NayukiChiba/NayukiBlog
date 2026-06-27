@@ -19,10 +19,14 @@ const posts = allPosts
         tags: post.data.tags || [],
         image: post.data.image || "",
         folder: post.data.category || "",
+        status: post.data.status || "published",
         // 提取正文用于内容搜索，去除 markdown 语法后取前 3000 字
         body: (post.body || "").replace(/[#*`\[\]()>!_|~]/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 3000),
     }))
     .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+
+const isDev = import.meta.env.DEV;
+const draftCount = posts.filter((post) => post.status === "draft").length;
 
 const tagCounts = posts
     .flatMap((post) => post.tags || [])
@@ -31,20 +35,41 @@ const tagCounts = posts
         return acc;
     }, {});
 
+const publishedTagSet = new Set<string>();
+posts.forEach((post) => {
+    if (post.status === "published") {
+        (post.tags || []).forEach((tag: string) => publishedTagSet.add(tag));
+    }
+});
+
 const tagsWithCount = Object.entries(tagCounts)
-    .map(([tag, count]) => ({ tag, count: count as number }))
+    .map(([tag, count]) => ({
+        tag,
+        count: count as number,
+        hasPublished: publishedTagSet.has(tag),
+    }))
     .sort((a, b) => a.tag.localeCompare(b.tag));
 
 // Folder Logic
 const folderSet = new Set<string>();
+const publishedFolderSet = new Set<string>();
+
+const addFolderAncestors = (targetSet: Set<string>, path: string) => {
+    const parts = path.split("/");
+    let current = "";
+    parts.forEach((part) => {
+        current = current ? `${current}/${part}` : part;
+        targetSet.add(current);
+    });
+};
+
 posts.forEach((post) => {
     if (post.folder) {
-        const parts = post.folder.split("/");
-        let current = "";
-        parts.forEach((part) => {
-            current = current ? `${current}/${part}` : part;
-            folderSet.add(current);
-        });
+        addFolderAncestors(folderSet, post.folder);
+
+        if (post.status === "published") {
+            addFolderAncestors(publishedFolderSet, post.folder);
+        }
     }
 });
 
@@ -54,7 +79,13 @@ const folderList = [...folderSet].sort().map((path) => {
     const hasChildren = [...folderSet].some(
         (p) => p.startsWith(path + "/") && p !== path,
     );
-    return { path, name: name || "", level, hasChildren };
+    return {
+        path,
+        name: name || "",
+        level,
+        hasChildren,
+        hasPublished: publishedFolderSet.has(path),
+    };
 });
 ---
 
@@ -70,6 +101,27 @@ const folderList = [...folderSet].sort().map((path) => {
                 <div class="post-list-section">
                     <ArticleSearch />
 
+                    {
+                        isDev && draftCount > 0 && (
+                            <div class="draft-toggle-panel" id="draft-toggle-panel">
+                                <label class="draft-toggle">
+                                    <input
+                                        id="draft-toggle-input"
+                                        type="checkbox"
+                                        class="draft-toggle-input"
+                                    />
+                                    <span class="draft-toggle-track" aria-hidden="true">
+                                        <span class="draft-toggle-thumb"></span>
+                                    </span>
+                                    <span class="draft-toggle-text">
+                                        显示草稿
+                                        <span class="draft-toggle-count">{draftCount}</span>
+                                    </span>
+                                </label>
+                            </div>
+                        )
+                    }
+
                     <div class="post-list">
                         {
                             posts.map((post: any) => (
@@ -80,6 +132,7 @@ const folderList = [...folderSet].sort().map((path) => {
                                     data-title={post.title}
                                     data-desc={post.desc}
                                     data-content={post.body}
+                                    data-status={post.status}
                                 >
                                     <PostCard {...post} />
                                 </div>
@@ -166,7 +219,48 @@ const folderList = [...folderSet].sort().map((path) => {
         let currentTag = "";
         let currentFolder = "";
         let currentSearch = "";
+        let showDrafts = false;
         let visiblePosts: HTMLElement[] = [];
+        const draftToggleInput = document.getElementById("draft-toggle-input") as HTMLInputElement | null;
+
+        const hasPublishedPostInFolder = (folderPath: string) =>
+            allPostWrappers.some((el) => {
+                const folder = el.dataset.folder || "";
+                const status = el.dataset.status || "published";
+                return status !== "draft" && (folder === folderPath || folder.startsWith(folderPath + "/"));
+            });
+
+        const hasPublishedPostWithTag = (tag: string) =>
+            allPostWrappers.some((el) => {
+                const tags = el.dataset.tags?.split(",") || [];
+                const status = el.dataset.status || "published";
+                return status !== "draft" && tags.includes(tag);
+            });
+
+        const updateDraftFilterControls = () => {
+            document.querySelectorAll<HTMLElement>(".folder-item[data-path]").forEach((item) => {
+                const hasPublished = item.dataset.hasPublished === "true";
+                item.classList.toggle("draft-filtered", !showDrafts && !hasPublished);
+            });
+
+            document.querySelectorAll<HTMLElement>(".tag-btn[data-tag]").forEach((btn) => {
+                const tag = btn.dataset.tag || "";
+                if (!tag) return;
+
+                const hasPublished = btn.dataset.hasPublished === "true";
+                btn.classList.toggle("draft-filtered", !showDrafts && !hasPublished);
+            });
+
+            if (!showDrafts && currentFolder && !hasPublishedPostInFolder(currentFolder)) {
+                currentFolder = "";
+                updateActiveState(".folder-btn", "folder", "");
+            }
+
+            if (!showDrafts && currentTag && !hasPublishedPostWithTag(currentTag)) {
+                currentTag = "";
+                updateActiveState(".tag-btn", "tag", "");
+            }
+        };
 
         // 加载单个卡片的封面图片（priority 控制浏览器抓取优先级）
         const loadImage = (el: HTMLElement, priority: "high" | "low") => {
@@ -205,12 +299,16 @@ const folderList = [...folderSet].sort().map((path) => {
         };
 
         const filterPosts = () => {
+            updateDraftFilterControls();
+
             const query = currentSearch.toLowerCase().trim();
             visiblePosts = allPostWrappers.filter((el) => {
                 const tags = el.dataset.tags?.split(",") || [];
                 const folder = el.dataset.folder || "";
+                const status = el.dataset.status || "published";
                 const matchTag = !currentTag || tags.includes(currentTag);
                 const matchFolder = !currentFolder || folder === currentFolder || folder.startsWith(currentFolder + "/");
+                const matchStatus = showDrafts || status !== "draft";
 
                 // 模糊搜索：标题、简介、正文
                 let matchSearch = true;
@@ -221,7 +319,7 @@ const folderList = [...folderSet].sort().map((path) => {
                     matchSearch = title.includes(query) || desc.includes(query) || content.includes(query);
                 }
 
-                return matchTag && matchFolder && matchSearch;
+                return matchTag && matchFolder && matchStatus && matchSearch;
             });
             currentPage = 1;
             updatePagination();
@@ -277,6 +375,20 @@ const folderList = [...folderSet].sort().map((path) => {
             currentSearch = (e as CustomEvent<{ query: string }>).detail.query;
             filterPosts();
         });
+
+        if (draftToggleInput) {
+            showDrafts = localStorage.getItem("articles:show-drafts") === "true";
+            draftToggleInput.checked = showDrafts;
+
+            if (!(draftToggleInput as any)._draftToggleBound) {
+                (draftToggleInput as any)._draftToggleBound = true;
+                draftToggleInput.addEventListener("change", () => {
+                    showDrafts = draftToggleInput.checked;
+                    localStorage.setItem("articles:show-drafts", String(showDrafts));
+                    filterPosts();
+                });
+            }
+        }
 
         // Filter Logic
         tagBtns.forEach((btn) => {
@@ -444,6 +556,91 @@ const folderList = [...folderSet].sort().map((path) => {
         margin-bottom: 1.5rem;
     }
 
+    .draft-toggle-panel {
+        display: flex;
+        justify-content: flex-end;
+        margin: -0.5rem 0 1.5rem;
+    }
+
+    .draft-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 0.5rem 0.75rem;
+        border: 1.5px solid var(--color-border);
+        border-radius: 10px;
+        background: var(--color-bg);
+        color: var(--color-text-light);
+        cursor: pointer;
+        user-select: none;
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            color 0.2s ease;
+    }
+
+    .draft-toggle:hover,
+    .draft-toggle:focus-within {
+        border-color: var(--color-primary);
+        color: var(--color-primary-dark);
+        box-shadow: 0 0 0 3px var(--color-primary-subtle);
+    }
+
+    .draft-toggle-input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .draft-toggle-track {
+        width: 34px;
+        height: 20px;
+        border-radius: var(--radius-full);
+        background: var(--color-border);
+        padding: 2px;
+        transition: background 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .draft-toggle-thumb {
+        display: block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--color-card-bg);
+        box-shadow: var(--shadow-xs);
+        transition: transform 0.2s ease;
+    }
+
+    .draft-toggle-input:checked + .draft-toggle-track {
+        background: var(--color-primary);
+    }
+
+    .draft-toggle-input:checked + .draft-toggle-track .draft-toggle-thumb {
+        transform: translateX(14px);
+    }
+
+    .draft-toggle-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .draft-toggle-count {
+        min-width: 1.35rem;
+        height: 1.35rem;
+        padding: 0 0.4rem;
+        border-radius: var(--radius-full);
+        background: var(--color-bg-secondary);
+        color: var(--color-text-muted);
+        font-size: 0.72rem;
+        line-height: 1.35rem;
+        text-align: center;
+    }
+
     /* Sidebar */
     .filters-sidebar {
         flex: 1; /* 20% relative to list's 3 (approx) */
@@ -481,6 +678,11 @@ const folderList = [...folderSet].sort().map((path) => {
         height: 1px;
         background: var(--color-border);
         margin: 1.5rem 0;
+    }
+
+    :global(.folder-item.draft-filtered),
+    :global(.tag-btn.draft-filtered) {
+        display: none !important;
     }
 
     .post-list {
@@ -709,5 +911,14 @@ const folderList = [...folderSet].sort().map((path) => {
         }
         .desktop-only { display: none; }
         .mobile-only { display: flex; }
+
+        .draft-toggle-panel {
+            justify-content: stretch;
+        }
+
+        .draft-toggle {
+            width: 100%;
+            justify-content: center;
+        }
     }
 </style>

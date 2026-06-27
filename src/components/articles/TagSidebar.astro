@@ -2,6 +2,7 @@
 interface Tag {
   tag: string;
   count: number;
+  hasPublished: boolean;
 }
 
 interface Props {
@@ -15,10 +16,11 @@ const { tags } = Astro.props;
   <div class="sidebar-title">标签</div>
   <div class="tags-box">
     <button class="tag-btn active" data-tag="">全部</button>
-    {tags.map(({ tag, count }) => (
+    {tags.map(({ tag, count, hasPublished }) => (
       <button 
         class="tag-btn" 
         data-tag={tag}
+        data-has-published={String(hasPublished)}
         title={`${count} posts`}
       >
         {tag}
