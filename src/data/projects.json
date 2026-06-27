@@ -38,7 +38,7 @@
         "LLM",
         "Transformer"
       ],
-      "status": "planning",
+      "status": "in-progress",
       "visibility": "published"
     },
     {
@@ -51,7 +51,7 @@
         "Attention",
         "Transformer"
       ],
-      "status": "in-progress",
+      "status": "completed",
       "visibility": "published"
     },
     {

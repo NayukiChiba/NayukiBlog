@@ -1,6 +1,16 @@
 {
   "diaries": [
     {
+      "id": 22,
+      "date": "2026-06-16T09:21",
+      "content": "毕业典礼，嘻嘻，再见珞珈山，9月见",
+      "mood": "happy",
+      "weather": "sunny",
+      "images": [
+        "https://img.yumeko.site/file/blog/diary/1782523389162_20260616095716.webp"
+      ]
+    },
+    {
       "id": 21,
       "date": "2026-06-03T07:05",
       "content": "毕业啦！",
