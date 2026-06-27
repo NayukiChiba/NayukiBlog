@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T01:53:16.276Z",
+  "generatedAt": "2026-06-27T08:22:21.612Z",
   "feeds": [
     {
       "id": 1,
@@ -518,6 +518,13 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "Jun 26, 2026Economic ResearchAnthropic Economic Index report: Cadences",
+          "link": "https://www.anthropic.com/research/economic-index-june-2026-report",
+          "date": "2026-06-26T00:00:00.000Z",
+          "summary": "Jun 26, 2026Economic ResearchAnthropic Economic Index report: Cadences",
+          "content": "Jun 26, 2026Economic ResearchAnthropic Economic Index report: Cadences"
+        },
         {
           "title": "Jun 18, 2026Frontier Red TeamProject Fetch: Phase two",
           "link": "https://www.anthropic.com/research/project-fetch-phase-two",
