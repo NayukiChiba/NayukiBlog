@@ -7,23 +7,12 @@ tags:
   - FlashAttention
   - 长序列
 description: 从标准 Attention 的显存读写瓶颈出发，解释 FlashAttention 如何通过分块和在线 Softmax 精确计算注意力。
-image: https://img.yumeko.site/file/blog/FlashAttention.png
+image: https://img.yumeko.site/file/blog/cover/1782558814500_FlashAttention.webp
 status: draft
 ---
 
 > **前置阅读**：建议先阅读 [[NeuralNetwork/Transformer/SelfAttentionMechanism|Self-Attention 机制详解]]。
 
-![图0: FlashAttention 原理 Banner](https://img.yumeko.site/file/blog/FlashAttention.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于 FlashAttention 原理技术博客封面。
-> 设计概念：展示注意力矩阵被分块搬入高速 SRAM，避免完整写回显存。
-> 左侧是 Q、K、V 矩阵，中间是分块 attention 计算网格，右侧是在线 softmax 累积输出。
-> 配色：深蓝到暖金渐变，现代数据科学美学风格。
-> 简洁无衬线标签，淡色网格背景，顶部留白供标题叠加。
-> ```
 
 ## 1. 标准 Attention 的问题
 
@@ -68,16 +57,7 @@ FlashAttention 的核心不是改公式，而是减少 HBM 往返。
 
 ## 3. FlashAttention 的核心思想
 
-![图1: FlashAttention 的分块计算与在线 Softmax](https://img.yumeko.site/file/blog/FlashAttention/BlockwiseSoftmax.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的科学示意图，解释 FlashAttention 如何分块读取 K、V 并在线更新 softmax 统计量。
-> 画面左侧是 Q block，中间是多个 K/V block 依次进入 SRAM，右侧是输出 O 的累积更新。
-> 标注 m_i、l_i、O_i 三个在线 softmax 状态，并用箭头表示每个 block 只短暂驻留在高速缓存中。
-> 白色背景，细线流程图，柔和蓝白配色，教科书插图风格。
-> ```
+![BlockwiseSoftmax.png](https://img.yumeko.site/file/blog/articles/1782559070537_BlockwiseSoftmax.webp)
 
 FlashAttention 做两件事：
 

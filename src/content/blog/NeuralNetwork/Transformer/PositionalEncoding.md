@@ -7,23 +7,11 @@ tags:
   - 位置编码
   - RoPE
 description: 解释为什么 Transformer 需要位置编码，并对比 Sinusoidal、Learned、RoPE 与 ALiBi。
-image: https://img.yumeko.site/file/blog/PositionalEncoding.png
+image: https://img.yumeko.site/file/blog/cover/1782558815778_PositionalEncoding.webp
 status: published
 ---
 
 > **前置阅读**：建议先阅读 [[NeuralNetwork/Transformer/SelfAttentionMechanism|Self-Attention 机制详解]]。
-
-![图0: Transformer 位置编码 Banner](https://img.yumeko.site/file/blog/PositionalEncoding.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于 Transformer 位置编码技术博客封面。
-> 设计概念：展示 token embedding 与 position encoding 相加后进入注意力层。
-> 左侧是 token 序列，中间是正弦位置编码热力图和旋转向量示意，右侧是带位置信息的 attention。
-> 配色：深蓝到暖金渐变，现代数据科学美学风格。
-> 简洁无衬线标签，淡色网格背景，顶部留白供标题叠加。
-> ```
 
 ## 1. 为什么需要位置编码
 
@@ -96,16 +84,7 @@ $$
 
 ## 4. RoPE：旋转位置编码
 
-![图1: RoPE 将位置信息写入旋转角度](https://img.yumeko.site/file/blog/PositionalEncoding/RopeRotation.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的科学示意图，解释 RoPE 如何把位置编码为二维子空间中的旋转角度。
-> 左侧画两个二维向量 q 和 k，右侧画它们分别按位置 m、n 旋转后的 q_m、k_n，并标注相对角度 n-m。
-> 关键标注使用 LaTeX 风格：R_m q、R_n k、(R_m q)^T(R_n k)。
-> 白色背景，细坐标轴线，柔和蓝白配色，教科书插图风格。
-> ```
+![RopeRotation.png](https://img.yumeko.site/file/blog/articles/1782559140604_RopeRotation.webp)
 
 RoPE 不直接把位置向量加到 token embedding 上，而是把位置以旋转方式作用到 Query 和 Key 上。
 

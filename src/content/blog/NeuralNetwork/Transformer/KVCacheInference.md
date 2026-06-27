@@ -7,23 +7,11 @@ tags:
   - KV Cache
   - 推理优化
 description: 解释自回归生成中的重复计算问题，拆解 KV Cache 如何缓存历史 Key/Value 并降低单步推理成本。
-image: https://img.yumeko.site/file/blog/KVCacheInference.png
+image: https://img.yumeko.site/file/blog/cover/1782558811921_KVCacheInference.webp
 status: draft
 ---
 
 > **前置阅读**：建议先阅读 [[NeuralNetwork/Transformer/SelfAttentionMechanism|Self-Attention 机制详解]] 与 [[NeuralNetwork/Transformer/PositionalEncoding|Transformer 位置编码]]。
-
-![图0: KV Cache 推理加速 Banner](https://img.yumeko.site/file/blog/KVCacheInference.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于 KV Cache 推理加速技术博客封面。
-> 设计概念：展示自回归生成中历史 token 的 K、V 被缓存，新 token 只计算自己的 Q、K、V。
-> 左侧是已生成 token 序列，中间是逐步增长的 K Cache 和 V Cache，右侧是当前 token 查询缓存并输出下一个 token。
-> 配色：深蓝到暖金渐变，现代数据科学美学风格。
-> 简洁无衬线标签，淡色网格背景，顶部留白供标题叠加。
-> ```
 
 ## 1. 自回归推理为什么慢
 
@@ -73,16 +61,7 @@ $$
 
 ## 3. Prefill 与 Decode
 
-![图1: Prefill 与 Decode 阶段的 KV Cache 变化](https://img.yumeko.site/file/blog/KVCacheInference/PrefillDecode.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的教学流程图，展示 KV Cache 在 Prefill 和 Decode 两个阶段的变化。
-> 左半部分是 Prefill：整段 prompt 一次性计算 Q、K、V，并写入 K Cache、V Cache；右半部分是 Decode：每一步只计算新 token 的 K、V 并追加到缓存。
-> 用时间轴标出 t=1、t=2、t=3，缓存形状标注为 (batch, heads, seq_len, d_head)。
-> 白色背景，细线流程图，柔和蓝白配色，教科书插图风格。
-> ```
+![PrefillDecode.png](https://img.yumeko.site/file/blog/articles/1782559253455_PrefillDecode.webp)
 
 自回归推理通常分成两个阶段：
 

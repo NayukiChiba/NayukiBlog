@@ -8,23 +8,11 @@ tags:
   - RMSNorm
   - MoE
 description: 解释 GQA/MQA、RMSNorm、SwiGLU、MoE 等现代 Transformer 中常见组件的作用与取舍。
-image: https://img.yumeko.site/file/blog/ModernTransformerComponents.png
+image: https://img.yumeko.site/file/blog/cover/1782558810330_ModernTransformerComponents.webp
 status: draft
 ---
 
 > **前置阅读**：建议先阅读 [[NeuralNetwork/Transformer/TransformerBlock|Transformer Block 结构]]。
-
-![图0: 现代 Transformer 组件 Banner](https://img.yumeko.site/file/blog/ModernTransformerComponents.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于现代 Transformer 组件技术博客封面。
-> 设计概念：在一个 Transformer Block 周围展示 GQA、RMSNorm、SwiGLU、MoE 和 Pre-LN 等现代组件。
-> 中间是主干 Block，周围以模块标签连接不同改进点，并标出它们分别影响推理显存、训练稳定性和模型容量。
-> 配色：深蓝到暖金渐变，现代数据科学美学风格。
-> 简洁无衬线标签，淡色网格背景，顶部留白供标题叠加。
-> ```
 
 ## 1. 为什么 Transformer 还在不断变化
 
@@ -44,16 +32,7 @@ status: draft
 
 ## 2. GQA 与 MQA
 
-![图1: MHA、MQA 与 GQA 的头部分组对比](https://img.yumeko.site/file/blog/ModernTransformerComponents/GqaMqaComparison.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的对比图，展示 MHA、MQA 与 GQA 在 Query heads 和 Key/Value heads 上的对应关系。
-> 画面分三列：MHA 中每个 Q head 有独立 K/V head；MQA 中所有 Q head 共享一个 K/V head；GQA 中多个 Q head 共享一组 K/V head。
-> 用连线标出共享关系，关键标签包括 MHA、MQA、GQA、Q Heads、KV Heads、Cache Size。
-> 白色背景，细线框图，柔和蓝白配色，教科书插图风格。
-> ```
+![GqaMqaComparison.png](https://img.yumeko.site/file/blog/articles/1782559278637_GqaMqaComparison.webp)
 
 标准 Multi-Head Attention 中，每个 Query head 都有自己的 Key 和 Value：
 

@@ -7,23 +7,11 @@ tags:
   - LayerNorm
   - FFN
 description: 拆解 Transformer Block 中的 Attention、FFN、残差连接和 LayerNorm，并比较 Pre-LN 与 Post-LN。
-image: https://img.yumeko.site/file/blog/TransformerBlock.png
+image: https://img.yumeko.site/file/blog/cover/1782558816091_TransformerBlock.webp
 status: published
 ---
 
 > **前置阅读**：建议先阅读 [[NeuralNetwork/Transformer/SelfAttentionMechanism|Self-Attention 机制详解]]。
-
-![图0: Transformer Block 结构 Banner](https://img.yumeko.site/file/blog/TransformerBlock.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张宽幅 Banner（宽高比 2.35:1），用于 Transformer Block 结构技术博客封面。
-> 设计概念：展示一个 Pre-LN Transformer Block 中 Attention、FFN、残差连接和 LayerNorm 的数据流。
-> 中间是上下排列的 Attention 子层和 FFN 子层，旁边用弧形箭头表示 residual path。
-> 配色：深蓝到暖金渐变，现代数据科学美学风格。
-> 简洁无衬线标签，淡色网格背景，顶部留白供标题叠加。
-> ```
 
 ## 1. Block 是 Transformer 的基本堆叠单元
 
@@ -128,16 +116,7 @@ $$
 
 LayerNorm 可以放在子层之后，也可以放在子层之前。
 
-![图1: Post-LN 与 Pre-LN 数据流对比](https://img.yumeko.site/file/blog/TransformerBlock/PreLnPostLn.png)
-
-> **🖼️ AI 生图提示词：**
->
-> ```
-> 一张简洁的对比图，展示 Post-LN 与 Pre-LN Transformer Block 的归一化位置差异。
-> 画面左右两列：左列是 Post-LN，数据流为 x -> Sublayer -> Add -> LayerNorm；右列是 Pre-LN，数据流为 x -> LayerNorm -> Sublayer -> Add。
-> 用不同颜色标出主分支、残差分支和 LayerNorm 节点，标签清晰标注 Post-LN、Pre-LN、Residual、LayerNorm。
-> 白色背景，细线流程图，柔和蓝白配色，教科书插图风格。
-> ```
+![PreLnPostLn.png](https://img.yumeko.site/file/blog/articles/1782559304752_PreLnPostLn.webp)
 
 ### 5.1 Post-LN
 
