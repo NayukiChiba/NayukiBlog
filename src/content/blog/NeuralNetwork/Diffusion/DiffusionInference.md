@@ -10,7 +10,7 @@ tags:
   - 推理加速
 description: 系统讲解扩散模型的数学原理：前向扩散过程的噪声调度、反向去噪过程的参数化、DDPM 完整采样算法、DDIM 确定性加速采样、Classifier-Free Guidance 条件生成技术，以及主流采样器对比。
 image: https://img.yumeko.site/file/blog/cover/1780668233580.webp
-status: published
+status: draft
 ---
 > **前置阅读**：本文假定读者熟悉概率论基础。建议先阅读 [[Math/ProbabilityInequalities|概率不等式完全指南]]。
 
@@ -428,5 +428,4 @@ def diffusionInferencePipeline(
 
 > **相关文章**：
 > - [[Math/ProbabilityInequalities|概率不等式完全指南]]
-> - [[NeuralNetwork/LLM/RLHF|RLHF 算法详解]]
 > - [[NeuralNetwork/RNN/Attention|注意力机制详解]]

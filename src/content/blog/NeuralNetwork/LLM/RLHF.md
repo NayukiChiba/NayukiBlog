@@ -10,10 +10,10 @@ tags:
   - 大语言模型
 description: 系统讲解 RLHF（基于人类反馈的强化学习）的完整三阶段流程：监督微调、奖励模型训练、PPO 强化学习优化，并深入对比 DPO 如何绕过奖励模型直接利用偏好数据，附完整的数学推导和 Python 实现示例。
 image: https://img.yumeko.site/file/blog/articles/1780733778546.webp
-status: published
+status: draft
 ---
 
-> **前置阅读**：本文假定读者熟悉 LLM 的基本概念。建议先阅读 [[NeuralNetwork/LLM/EmergentAbilities|大模型涌现能力详解]]。
+> **前置阅读**：本文假定读者熟悉 LLM 的基本概念。
 
 ## 1. 为什么需要 RLHF？
 
@@ -364,6 +364,5 @@ def dpoLoss(policyModel, refModel, prompts, responseChosen, responseRejected, be
 ---
 
 > **相关文章**：
-> - [[NeuralNetwork/LLM/EmergentAbilities|大模型涌现能力详解]]
 > - [[NeuralNetwork/RNN/Attention|注意力机制详解]]
-> - [[NeuralNetwork/Transformer/TransformerComputation|Transformer 计算与实现技巧]]
+> - [[NeuralNetwork/Transformer/TransformerOverview|Transformer 架构总览]]

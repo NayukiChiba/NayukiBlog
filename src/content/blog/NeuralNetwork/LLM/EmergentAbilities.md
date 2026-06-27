@@ -9,7 +9,7 @@ tags:
   - 上下文学习
 description: 系统讲解大语言模型涌现能力的定义、关键表现（上下文学习、思维链推理、指令遵循），深入分析 Scaling Laws 的幂律规律与相变现象，探讨涌现机制的主流理论解释和实际工程意义。
 image: https://img.yumeko.site/file/blog/cover/1780668259815.webp
-status: published
+status: draft
 ---
 
 > **前置阅读**：本文假定读者熟悉 Transformer 基本架构。建议先阅读 [[NeuralNetwork/RNN/Attention|注意力机制详解]]。
@@ -93,7 +93,7 @@ CoT 的核心变体：
 
 小模型在给定指令后仍然按照"自回归补全"模式运行（倾向于补全句子而非执行任务）。大模型则能理解指令意图并执行。
 
-这直接催生了 InstructGPT / ChatGPT 的训练范式——RLHF 建立在大模型已经具备一定指令遵循能力的基础上。详见 [[NeuralNetwork/LLM/RLHF|RLHF 算法详解]]。
+这直接催生了 InstructGPT / ChatGPT 的训练范式：先让模型具备一定指令遵循能力，再通过人类偏好数据进一步对齐输出行为。
 
 ### 2.4 更多涌现能力
 
@@ -202,5 +202,4 @@ def continuousMetric(ability):
 
 > **相关文章**：
 > - [[NeuralNetwork/RNN/Attention|注意力机制详解]]
-> - [[NeuralNetwork/Transformer/TransformerComputation|Transformer 计算与实现技巧]]
-> - [[NeuralNetwork/LLM/RLHF|RLHF 算法详解]]
+> - [[NeuralNetwork/Transformer/TransformerOverview|Transformer 架构总览]]

@@ -9,7 +9,7 @@ tags:
   - MDP
 description: 从 MDP 基础出发，深入讲解 Q-learning 的更新公式、TD 误差、算法流程与具体计算示例，结合华为机试真题逐项分析。
 image: https://img.yumeko.site/file/blog/cover/1780746817242.webp
-status: published
+status: draft
 ---
 
 > **前置阅读**：本文假定读者了解概率论基础和基本的监督学习概念。若对 MDP 背景不熟悉，建议先浏览第 2 节的 MDP 回顾。
