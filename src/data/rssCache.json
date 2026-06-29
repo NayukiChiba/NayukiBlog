@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T10:15:48.443Z",
+  "generatedAt": "2026-06-29T15:24:02.204Z",
   "feeds": [
     {
       "id": 1,
@@ -138,6 +138,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Mapping Europe’s AI Workforce Opportunity",
+          "link": "https://openai.com/index/mapping-ai-jobs-transition-eu",
+          "date": "2026-06-29T07:00:00.000Z",
+          "summary": "A new OpenAI report maps how AI could reshape jobs across the EU, highlighting which occupations may face automation, gr…",
+          "content": "A new OpenAI report maps how AI could reshape jobs across the EU, highlighting which occupations may face automation, growth, or workflow changes."
+        },
         {
           "title": "HP Inc. launches Frontier strategic partnership with OpenAI",
           "link": "https://openai.com/index/hp-frontier-partnership",
