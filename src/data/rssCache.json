@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T01:58:19.701Z",
+  "generatedAt": "2026-06-30T08:51:28.611Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,20 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Claude in Microsoft Foundry is now generally available",
+          "link": "https://claude.com/blog/claude-in-microsoft-foundry",
+          "date": "2026-06-29T00:00:00.000Z",
+          "summary": "Claude in Microsoft Foundry is now generally available",
+          "content": "Claude in Microsoft Foundry is now generally available"
+        },
+        {
+          "title": "Introducing the Claude apps gateway for Amazon Bedrock and Google Cloud",
+          "link": "https://claude.com/blog/introducing-the-claude-apps-gateway",
+          "date": "2026-06-29T00:00:00.000Z",
+          "summary": "Introducing the Claude apps gateway for Amazon Bedrock and Google Cloud",
+          "content": "Introducing the Claude apps gateway for Amazon Bedrock and Google Cloud"
+        },
         {
           "title": "Agent identity in Claude Tag: a new access model for autonomous, team-wide AI",
           "link": "https://claude.com/blog/agent-identity-access-model",
@@ -802,6 +816,13 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "Unlocking Britain’s next era of productivity: Building a nation of AI trailblazers",
+          "link": "https://blog.google/company-news/inside-google/around-the-globe/google-europe/united-kingdom/unlocking-britains-next-era-of-productivity-building-a-nation-of-ai-trailblazers/",
+          "date": "2026-06-30T06:00:00.000Z",
+          "summary": "Google UK shares its latest Economic Impact Report and how to enable more people to unlock the benefits of AI-powered te…",
+          "content": "Google UK shares its latest Economic Impact Report and how to enable more people to unlock the benefits of AI-powered technologies."
+        },
         {
           "title": "Ask an AI expert: What exactly is the full stack?",
           "link": "https://blog.google/innovation-and-ai/technology/ai/full-stack-ai-explainer/",
