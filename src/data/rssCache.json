@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T13:49:42.314Z",
+  "generatedAt": "2026-06-30T19:27:55.496Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Getting started with loops",
+          "link": "https://claude.com/blog/getting-started-with-loops",
+          "date": "2026-06-30T00:00:00.000Z",
+          "summary": "Getting started with loops",
+          "content": "Getting started with loops"
+        },
         {
           "title": "Claude in Microsoft Foundry is now generally available",
           "link": "https://claude.com/blog/claude-in-microsoft-foundry",
@@ -152,6 +159,34 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How ChatGPT adoption has expanded",
+          "link": "https://openai.com/index/how-chatgpt-adoption-has-expanded",
+          "date": "2026-06-30T09:00:00.000Z",
+          "summary": "New OpenAI Signals data shows how ChatGPT adoption is growing globally, with users increasing usage, exploring more capa…",
+          "content": "New OpenAI Signals data shows how ChatGPT adoption is growing globally, with users increasing usage, exploring more capabilities, and driving growth across regions and languages."
+        },
+        {
+          "title": "Introducing GeneBench-Pro",
+          "link": "https://openai.com/index/introducing-genebench-pro",
+          "date": "2026-06-30T00:00:00.000Z",
+          "summary": "Introducing GeneBench-Pro, a new benchmark testing AI performance in genomics, biology, and scientific research using co…",
+          "content": "Introducing GeneBench-Pro, a new benchmark testing AI performance in genomics, biology, and scientific research using complex, real-world datasets."
+        },
+        {
+          "title": "Core dump epidemiology: fixing an 18-year-old bug",
+          "link": "https://openai.com/index/core-dump-epidemiology-data-infrastructure-bug",
+          "date": "2026-06-30T00:00:00.000Z",
+          "summary": "OpenAI engineers used large-scale core dump analysis to debug rare infrastructure crashes, uncovering both a hardware fa…",
+          "content": "OpenAI engineers used large-scale core dump analysis to debug rare infrastructure crashes, uncovering both a hardware fault and a long-standing software bug."
+        },
+        {
+          "title": "Inside Genebench-Pro",
+          "link": "https://openai.com/index/genebench-pro/case-studies",
+          "date": "2026-06-30T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Mapping Europe’s AI Workforce Opportunity",
           "link": "https://openai.com/index/mapping-ai-jobs-transition-eu",
@@ -337,7 +372,7 @@
       "title": "OpenAI Research",
       "category": "AI",
       "link": "https://openai.com/news/research",
-      "ok": false,
+      "ok": true,
       "items": [
         {
           "title": "[NOTICE] This feed is no longer maintained",
@@ -729,6 +764,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Start building with Nano Banana 2 Lite and Gemini Omni Flash",
+          "link": "https://deepmind.google/blog/start-building-with-nano-banana-2-lite-and-gemini-omni-flash/",
+          "date": "2026-06-30T16:02:40.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "Introducing computer use in Gemini 3.5 Flash",
           "link": "https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/",
           "date": "2026-06-24T16:30:01.000Z",
@@ -1019,6 +1061,20 @@
           "link": "https://developers.googleblog.com/build-cross-language-multi-agent-team-with-google-agent-development-kit-and-a2a/",
           "date": "",
           "summary": "How a Python agent and a Go agent collaborate on contract compliance using the Agent2Agent protocolY..."
+        },
+        {
+          "title": "Driving the Agent Quality Flywheel from Your Coding Agent",
+          "link": "https://developers.googleblog.com/driving-the-agent-quality-flywheel-from-your-coding-agent/",
+          "date": "",
+          "summary": "Building AI agents often leaves developers uncertain if prompt tweaks to fix single errors will accidentally cause wides…",
+          "content": "Building AI agents often leaves developers uncertain if prompt tweaks to fix single errors will accidentally cause widespread regressions in production. To bridge this gap, Google has introduced a new developer skill for coding agents that automates a five-stage evaluation flywheel: preparing data, running inference, grading with adaptive AutoRaters, analyzing failure clusters, and executing targeted optimizations. Running continuously against production traffic or on-demand via synthetic scenarios, this tool allows developers to describe testing goals in plain language while an independent evaluation service safely validates and counts actual performance improvements."
+        },
+        {
+          "title": "Build reliable multi-agent applications with ADK Go 2.0. Discover our new graph-based workflow engine, built-in human-in-the-loop, and dynamic orchestration",
+          "link": "https://developers.googleblog.com/announcing-adk-go-20/",
+          "date": "",
+          "summary": "The Agent Development Kit (ADK) for Go 2.0 has been released, introducing a first-class, graph-based workflow engine to …",
+          "content": "The Agent Development Kit (ADK) for Go 2.0 has been released, introducing a first-class, graph-based workflow engine to help developers compose complex, multi-agent applications. This update adds built-in primitives for human-in-the-loop (HITL) orchestration, dynamic execution using plain Go code, and automated resilience features like exponential backoff retries. By unifying the execution model, both single-agent applications and intricate graphs now run on the same runtime, simplifying telemetry and state persistence."
         }
       ]
     },
@@ -1105,6 +1161,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration",
+          "link": "https://huggingface.co/blog/ibm-research/scarfbench",
+          "date": "2026-06-30T18:32:50.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Why Specialization Is Inevitable",
+          "link": "https://huggingface.co/blog/Dharma-AI/why-specialization-is-inevitable",
+          "date": "2026-06-30T14:39:11.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Featuring Every Eval Ever Results on Hugging Face Model Pages",
           "link": "https://huggingface.co/blog/eee-community-evals",
