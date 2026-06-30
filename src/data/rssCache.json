@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T08:51:28.611Z",
+  "generatedAt": "2026-06-30T13:49:42.314Z",
   "feeds": [
     {
       "id": 1,
@@ -337,7 +337,7 @@
       "title": "OpenAI Research",
       "category": "AI",
       "link": "https://openai.com/news/research",
-      "ok": true,
+      "ok": false,
       "items": [
         {
           "title": "[NOTICE] This feed is no longer maintained",
@@ -1105,6 +1105,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Featuring Every Eval Ever Results on Hugging Face Model Pages",
+          "link": "https://huggingface.co/blog/eee-community-evals",
+          "date": "2026-06-30T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "DiScoFormer: One transformer for density and score, across distributions",
           "link": "https://huggingface.co/blog/allenai/discoformer",
