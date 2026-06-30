@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T19:29:56.140Z",
+  "generatedAt": "2026-06-30T01:58:19.701Z",
   "feeds": [
     {
       "id": 1,
@@ -394,6 +394,13 @@
       "link": "https://ai.meta.com/blog/",
       "ok": true,
       "items": [
+        {
+          "title": "From Brain Waves to Words: Brain2Qwerty Offers a New Path to Communication Without Surgery",
+          "link": "https://ai.meta.com/blog/brain2qwerty-brain-ai-human-communication/",
+          "date": "2026-06-29T00:00:00.000Z",
+          "summary": "From Brain Waves to Words: Brain2Qwerty Offers a New Path to Communication Without Surgery",
+          "content": "From Brain Waves to Words: Brain2Qwerty Offers a New Path to Communication Without Surgery"
+        },
         {
           "title": "Scaling How We Build and Test Our Most Advanced AI",
           "link": "https://ai.meta.com/blog/scaling-how-we-build-test-advanced-ai/",
