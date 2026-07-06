@@ -9,7 +9,7 @@ tags:
   - 安装
 description: 安装一个Arch系统
 image: https://img.yumeko.site/file/blog/cover/enjoy-archlinux.webp
-status: draft
+status: published
 ---
 # 在U盘中下载iso镜像
 
