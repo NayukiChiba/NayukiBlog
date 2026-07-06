@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T14:50:02.746Z",
+  "generatedAt": "2026-07-06T19:27:23.412Z",
   "feeds": [
     {
       "id": 1,
@@ -1131,6 +1131,13 @@
           "date": "",
           "summary": "The open-source Genkit framework has introduced the Agents API, a full-stack tool designed to simplify the complex plumb…",
           "content": "The open-source Genkit framework has introduced the Agents API, a full-stack tool designed to simplify the complex plumbing of conversational AI by packaging message history, tool loops, and streaming into a single interface. The API supports flexible, server- or client-managed state persistence—allowing for advanced workflows like history branching, long-running detached tasks, and multi-agent coordination—while seamlessly connecting backends to frontends via a unified wire protocol. Currently available in preview for TypeScript and Go, it also integrates with the Genkit Developer UI to allow developers to easily test, debug, and inspect agent snapshots without writing client code."
+        },
+        {
+          "title": "We terminated a TPU mid-training and it recovered in seconds: Introduction to elastic training with MaxText",
+          "link": "https://developers.googleblog.com/we-terminated-a-tpu-mid-training-and-it-recovered-in-seconds-introduction-to-elastic-training-with-maxtext/",
+          "date": "",
+          "summary": "Distributed AI training is notoriously fragile because losing a single machine typically crashes the entire multi-node j…",
+          "content": "Distributed AI training is notoriously fragile because losing a single machine typically crashes the entire multi-node job, forcing a time-consuming, full-workload infrastructure restart. To address this, Google’s JAX ecosystem utilizes elastic training via Pathways, which converts a hardware failure into a catchable Python exception so the running process can survive. When an unplanned failure occurs, the system automatically replaces only the broken worker, restores the last viable checkpoint from Cloud Storage, and resumes training in place—minimizing total downtime to under two minutes without ever restarting the main controller process."
         }
       ]
     },
@@ -1221,6 +1228,13 @@
           "title": "LeRobot v0.6.0: Imagine, Evaluate, Improve",
           "link": "https://huggingface.co/blog/lerobot-release-v060",
           "date": "2026-07-07T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "PRX Part 4: Our Data Strategy",
+          "link": "https://huggingface.co/blog/Photoroom/prx-part4-data",
+          "date": "2026-07-06T15:30:55.000Z",
           "summary": "",
           "content": ""
         },
