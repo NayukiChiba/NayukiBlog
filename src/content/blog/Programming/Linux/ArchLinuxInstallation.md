@@ -8,7 +8,7 @@ tags:
   - 美化
   - 安装
 description: 安装一个Arch系统
-image:
+image: https://img.yumeko.site/file/blog/cover/enjoy-archlinux.webp
 status: draft
 ---
 # 在U盘中下载iso镜像
@@ -21,7 +21,7 @@ status: draft
 
 ## U盘烧录iso镜像
 
-具体过程参考烧录镜像这篇文章，Rufus和Ventoy任选其一即可，推荐Ventoy
+具体过程参考[[USBBooting|制作启动盘]]这篇文章，Rufus和Ventoy任选其一即可，推荐Ventoy
 
 如果你希望U盘不用烧录的情况下，使用iso镜像，请参考如何让U盘使用多个iso镜像这篇文章，使用Ventoy项目，将U盘变成多个iso镜像和其他文件夹共存状态。
 
@@ -103,21 +103,17 @@ lsblk -l
 cfdisk /dev/{空闲盘名字}
 ```
 
-注意：空闲盘怎么填
-
-如果你是树形结构，比如
-
-```bash
-sda
+> [!ATTENTION] 空闲盘怎么填
+> 如果你是树形结构，比如
+> ```
+> sda
 |_sda1 # win C
 |_sda2 # win D
 |_sda3 # win E
 |_sda4 # 空闲盘
-```
-
-如果你想使用sda4作为linux的盘，那你的空闲盘应该是`/dev/sda`
-
-![image-20260706102021130](https://img.yumeko.site/file/blog/articles/image-20260706102021130.webp)
+> ```
+> 如果你想使用sda4作为linux的盘，那你的空闲盘应该是`/dev/sda`
+> ![image-20260706102021130](https://img.yumeko.site/file/blog/articles/image-20260706102021130.webp)
 
 ### 分EFI启动项盘
 
@@ -127,7 +123,8 @@ EFI分区给500MB就够了
 
 ![image-20260706103233222](https://img.yumeko.site/file/blog/articles/image-20260706103233222.webp)
 
-注意，写入完，一定要选择**Write**，一定要写**yes**！！！
+> [!ATTENTION] 设置完成后
+> 一定要选择**Write**，一定要写**yes**！！！
 
 #### 如果是BIOS引导
 
@@ -141,13 +138,15 @@ EFI分区给500MB就够了
 
 ![image-20260706102216507](https://img.yumeko.site/file/blog/articles/image-20260706102216507.webp)
 
-注意，写入完，一定要选择**Write**，一定要写**yes**！！！
+> [!ATTENTION] 设置完成后
+> 一定要选择**Write**，一定要写**yes**！！！
 
 ### 分文件根目录
 
 直接`New`就是默认的`Linux filesystem`
 
-注意要**Write**，一定要输入**yes**！！！
+> [!ATTENTION] 设置完成后
+> 一定要选择**Write**，一定要写**yes**！！！
 
 ### 检查磁盘情况
 
@@ -161,17 +160,18 @@ EFI分区给500MB就够了
 mkfs.ext4 /dev/{Linux Filesystem区名字}
 ```
 
-注意，mkfs.ext4会清空盘数据
+> [!ATTENTION] 格式化注意
+> `mkfs.ext4`会清空盘数据
 
 ### 格式化swap交换分区
 
 ```bash
 mkswap /dev/{swap分区}
 ```
-
 ### EFI分区
 
-注意，如果你有Windows系统，这个EFI就不用格式化了，因为会清空你的EFI启动项，直接跳过这一步就可以
+> [!ATTENTION] 双系统注意
+> 如果你有Windows系统或者其他系统，这个EFI就不用格式化了，因为会清空你的EFI启动项，直接跳过这一步就可以
 
 ```bash
 mkfs.fat -F 32 /dev/{EFI 分区盘}
@@ -271,7 +271,8 @@ date
 
 ## 设置语言
 
-注意：设置为中文会出现乱码，所以暂时设置为英文，进入桌面端可以改
+> [!ATTENTION] 为什么不用中文
+> 设置为中文会出现乱码，所以暂时设置为英文，进入桌面端可以改
 
 ### 取消英文语言注释
 
@@ -395,7 +396,10 @@ grub-install --target=x86_64-efi --efi-directory=boot --bootloader-id=GRUB
 grub-install --target=i386-pc /dev/{系统安装的硬盘}
 ```
 
-注意：这里是硬盘，不是分区
+> [!ATTENTION] 注意
+> 这里是硬盘，不是分区
+
+
 
 ### 生成grub配置文件
 
