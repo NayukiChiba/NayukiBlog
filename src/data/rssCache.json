@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T09:49:01.445Z",
+  "generatedAt": "2026-07-06T11:30:55.265Z",
   "feeds": [
     {
       "id": 1,
@@ -1217,6 +1217,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "LeRobot v0.6.0: Imagine, Evaluate, Improve",
+          "link": "https://huggingface.co/blog/lerobot-release-v060",
+          "date": "2026-07-07T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "🤗 Kernels: Major Updates",
           "link": "https://huggingface.co/blog/revamped-kernels",
