@@ -6,7 +6,7 @@ tags:
   - Linux
   - 安装
 description: 介绍使用Rufus和Ventoy两种烧录U盘的方法
-image:
+image: https://img.yumeko.site/file/blog/cover/Ventoy_Logo.webp
 status: published
 ---
 # 阅读前须知
