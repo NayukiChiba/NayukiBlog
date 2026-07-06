@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T01:48:23.092Z",
+  "generatedAt": "2026-07-06T04:14:22.055Z",
   "feeds": [
     {
       "id": 1,
@@ -1217,6 +1217,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "🤗 Kernels: Major Updates",
+          "link": "https://huggingface.co/blog/revamped-kernels",
+          "date": "2026-07-06T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Hugging Face and Cerebras bring Gemma 4 to real-time voice AI",
           "link": "https://huggingface.co/blog/cerebras-gemma4-voice-ai",
