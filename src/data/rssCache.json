@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T19:27:23.412Z",
+  "generatedAt": "2026-07-07T01:46:02.217Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "A Field Guide to Claude Fable: Finding Your Unknowns",
+          "link": "https://claude.com/blog/a-field-guide-to-claude-fable-finding-your-unknowns",
+          "date": "2026-07-06T00:00:00.000Z",
+          "summary": "A Field Guide to Claude Fable: Finding Your Unknowns",
+          "content": "A Field Guide to Claude Fable: Finding Your Unknowns"
+        },
         {
           "title": "Giving admins more visibility and control over Claude spend",
           "link": "https://claude.com/blog/giving-admins-more-visibility-and-control-over-claude-usage-and-spend",
@@ -602,6 +609,13 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "A global workspace in language models",
+          "link": "https://www.anthropic.com/research/global-workspace",
+          "date": "2026-07-06T00:00:00.000Z",
+          "summary": "A global workspace in language models",
+          "content": "A global workspace in language models"
+        },
         {
           "title": "Jun 26, 2026Economic ResearchAnthropic Economic Index report: Cadences",
           "link": "https://www.anthropic.com/research/economic-index-june-2026-report",
