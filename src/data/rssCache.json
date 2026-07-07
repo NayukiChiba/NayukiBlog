@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T14:00:15.641Z",
+  "generatedAt": "2026-07-07T19:28:52.706Z",
   "feeds": [
     {
       "id": 1,
@@ -173,6 +173,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Australian Payments Plus moves faster with ChatGPT and Codex",
+          "link": "https://openai.com/index/australian-payments-plus",
+          "date": "2026-07-07T00:00:00.000Z",
+          "summary": "See how Australian Payments Plus uses ChatGPT Enterprise and Codex to move faster through payments complexity. AP+ saves…",
+          "content": "See how Australian Payments Plus uses ChatGPT Enterprise and Codex to move faster through payments complexity. AP+ saves time, improves quality, and keeps human judgment central."
+        },
         {
           "title": "How ChatGPT adoption has expanded",
           "link": "https://openai.com/index/how-chatgpt-adoption-has-expanded",
@@ -894,6 +901,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Expanding Managed Agents in Gemini API: background tasks, remote MCP and more",
+          "link": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
+          "date": "2026-07-07T08:54:00.000Z",
+          "summary": "We’re announcing new capabilities in Managed Agents in Gemini API so developers can build reliable, production-ready age…",
+          "content": "We’re announcing new capabilities in Managed Agents in Gemini API so developers can build reliable, production-ready agents."
+        },
+        {
           "title": "The latest AI news we announced in June 2026",
           "link": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-june-2026/",
           "date": "2026-07-01T18:15:00.000Z",
@@ -1239,8 +1253,22 @@
       "ok": true,
       "items": [
         {
+          "title": "Hugging Face Models on Foundry Managed Compute",
+          "link": "https://huggingface.co/blog/microsoft/foundry-managed-compute",
+          "date": "2026-07-07T15:20:06.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "LeRobot v0.6.0: Imagine, Evaluate, Improve",
           "link": "https://huggingface.co/blog/lerobot-release-v060",
+          "date": "2026-07-07T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Run AI workloads on any cloud, store on Hugging Face: zero-egress storage with SkyPilot",
+          "link": "https://huggingface.co/blog/skypilot-hf-storage",
           "date": "2026-07-07T00:00:00.000Z",
           "summary": "",
           "content": ""
