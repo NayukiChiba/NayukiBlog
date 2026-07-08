@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-08T08:03:10.223Z",
+  "generatedAt": "2026-07-08T13:22:17.741Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,34 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "How people are using Claude Cowork",
+          "link": "https://claude.com/blog/how-people-are-using-claude-cowork",
+          "date": "2026-07-07T00:00:00.000Z",
+          "summary": "How people are using Claude Cowork",
+          "content": "How people are using Claude Cowork"
+        },
+        {
+          "title": "Claude Cowork is coming to mobile and web",
+          "link": "https://claude.com/blog/cowork-web-mobile",
+          "date": "2026-07-07T00:00:00.000Z",
+          "summary": "Claude Cowork is coming to mobile and web",
+          "content": "Claude Cowork is coming to mobile and web"
+        },
+        {
+          "title": "Choosing a Claude model and effort level in Claude Code",
+          "link": "https://claude.com/blog/claude-model-and-effort-level-in-claude-code",
+          "date": "2026-07-07T00:00:00.000Z",
+          "summary": "Choosing a Claude model and effort level in Claude Code",
+          "content": "Choosing a Claude model and effort level in Claude Code"
+        },
+        {
+          "title": "Bringing Claude Code and Claude Cowork to government",
+          "link": "https://claude.com/blog/bringing-claude-code-and-claude-cowork-to-government",
+          "date": "2026-07-07T00:00:00.000Z",
+          "summary": "Bringing Claude Code and Claude Cowork to government",
+          "content": "Bringing Claude Code and Claude Cowork to government"
+        },
         {
           "title": "A Field Guide to Claude Fable: Finding Your Unknowns",
           "link": "https://claude.com/blog/a-field-guide-to-claude-fable-finding-your-unknowns",
