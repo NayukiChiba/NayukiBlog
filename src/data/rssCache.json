@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T19:28:52.706Z",
+  "generatedAt": "2026-07-08T01:19:00.332Z",
   "feeds": [
     {
       "id": 1,
@@ -181,6 +181,13 @@
           "content": "See how Australian Payments Plus uses ChatGPT Enterprise and Codex to move faster through payments complexity. AP+ saves time, improves quality, and keeps human judgment central."
         },
         {
+          "title": "MUFG aims to become AI-native with OpenAI",
+          "link": "https://openai.com/index/mufg",
+          "date": "2026-07-07T00:00:00.000Z",
+          "summary": "MUFG uses ChatGPT Enterprise to build an AI-native organization, improve workflows, and deliver new AI-powered financial…",
+          "content": "MUFG uses ChatGPT Enterprise to build an AI-native organization, improve workflows, and deliver new AI-powered financial services at scale."
+        },
+        {
           "title": "How ChatGPT adoption has expanded",
           "link": "https://openai.com/index/how-chatgpt-adoption-has-expanded",
           "date": "2026-06-30T09:00:00.000Z",
@@ -228,6 +235,13 @@
           "date": "2026-06-26T10:00:00.000Z",
           "summary": "OpenAI previews GPT-5.6 Sol, a next-generation model with stronger capabilities in coding, science, and cybersecurity, p…",
           "content": "OpenAI previews GPT-5.6 Sol, a next-generation model with stronger capabilities in coding, science, and cybersecurity, paired with its most advanced safety stack."
+        },
+        {
+          "title": "Designing Organisations That Can Keep Up With AI",
+          "link": "https://openai.com/deployco/news/designing-organisations-that-can-keep-up-with-ai",
+          "date": "2026-06-25T12:00:00.000Z",
+          "summary": "Why organisational latency is becoming the biggest barrier to fully realising AI’s benefits",
+          "content": "Why organisational latency is becoming the biggest barrier to fully realising AI’s benefits"
         },
         {
           "title": "How agents are transforming work",
@@ -1252,6 +1266,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "From Hugging Face to Amazon SageMaker Studio in one click",
+          "link": "https://huggingface.co/blog/amazon/one-click-to-sagemaker-studio",
+          "date": "2026-07-07T21:15:33.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Hugging Face Models on Foundry Managed Compute",
           "link": "https://huggingface.co/blog/microsoft/foundry-managed-compute",
