@@ -1,7 +1,7 @@
 ---
 title: CNN 概述：为什么需要卷积神经网络
 date: 2026-05-07
-category: 神经网络/CNN
+category: 神经网络/总览
 tags:
   - 深度学习
   - 基础

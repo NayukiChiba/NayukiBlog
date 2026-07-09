@@ -675,4 +675,4 @@ LSTM 设计的核心在于将状态存储和输出解耦——$C_t$ 作为受门
 
 > 对比 GRU 参见 [[NeuralNetwork/RNN/GRU|GRU 详解]]
 > 架构对比参见 [[NeuralNetwork/RNN/RNNComparison|RNN 架构对比]]
-> 回到主文档：[[NeuralNetwork/RNN/RNNOverview|RNN 详解主文档]]
+> 回到主文档：[[NeuralNetwork/Overview/RNNOverview|RNN 详解主文档]]

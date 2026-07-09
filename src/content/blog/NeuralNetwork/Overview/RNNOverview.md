@@ -1,7 +1,7 @@
 ---
 title: RNN 概述：为什么需要循环神经网络
 date: 2026-05-29
-category: 神经网络/RNN
+category: 神经网络/总览
 tags:
   - 深度学习
   - 基础
@@ -254,4 +254,4 @@ $$
 - [[NeuralNetwork/RNN/EmbeddingLayer|嵌入层详解]] — 从离散符号到连续向量
 - [[NeuralNetwork/RNN/Attention|注意力机制详解]] — 为 RNN 提供动态上下文聚焦能力
 
-回到主文档：[[NeuralNetwork/RNN/RNNOverview|RNN 详解主文档]]
+回到主文档：[[NeuralNetwork/Overview/RNNOverview|RNN 详解主文档]]

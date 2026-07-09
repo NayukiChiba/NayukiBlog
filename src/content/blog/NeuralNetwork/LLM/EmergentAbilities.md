@@ -202,4 +202,4 @@ def continuousMetric(ability):
 
 > **相关文章**：
 > - [[NeuralNetwork/RNN/Attention|注意力机制详解]]
-> - [[NeuralNetwork/Transformer/TransformerOverview|Transformer 架构总览]]
+> - [[NeuralNetwork/Overview/TransformerOverview|Transformer 架构总览]]

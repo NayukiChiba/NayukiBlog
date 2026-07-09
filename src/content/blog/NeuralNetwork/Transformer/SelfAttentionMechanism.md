@@ -11,7 +11,7 @@ image: https://img.yumeko.site/file/blog/cover/1782558454107_SelfAttentionMechan
 status: published
 ---
 
-> **前置阅读**：建议先阅读 [[NeuralNetwork/Transformer/TransformerOverview|Transformer 架构总览]]，理解 Transformer Block 的整体位置。
+> **前置阅读**：建议先阅读 [[NeuralNetwork/Overview/TransformerOverview|Transformer 架构总览]]，理解 Transformer Block 的整体位置。
 
 ## 1. Self-Attention 在做什么
 
@@ -268,5 +268,5 @@ Self-Attention 的主线如下：
 ---
 
 > **相关文章**：
-> - [[NeuralNetwork/Transformer/TransformerOverview|Transformer 架构总览]]
+> - [[NeuralNetwork/Overview/TransformerOverview|Transformer 架构总览]]
 > - [[NeuralNetwork/Transformer/TransformerBlock|Transformer Block 结构]]

@@ -972,5 +972,5 @@ $$
 
 > 深入 LSTM 参见 [[NeuralNetwork/RNN/LSTM|LSTM 详解]]
 > 深入 GRU 参见 [[NeuralNetwork/RNN/GRU|GRU 详解]]
-> 回到主文档：[[NeuralNetwork/RNN/RNNOverview|RNN 详解主文档]]
+> 回到主文档：[[NeuralNetwork/Overview/RNNOverview|RNN 详解主文档]]
 > 梯度消失/爆炸的详细分析：[[NeuralNetwork/Troubleshooting/GradientExplodingVanishing|梯度消失与爆炸]]

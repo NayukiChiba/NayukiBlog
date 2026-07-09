@@ -1,7 +1,7 @@
 ---
 title: 深度学习项目训练流程总览
 date: 2026-05-07
-category: 神经网络/训练
+category: 神经网络/总览
 tags:
   - 基础
   - 深度学习

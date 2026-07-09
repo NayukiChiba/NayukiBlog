@@ -1,7 +1,7 @@
 ---
 title: Transformer 架构总览
 date: 2026-06-27
-category: 神经网络/Transformer
+category: 神经网络/总览
 tags:
   - Transformer
   - 深度学习
