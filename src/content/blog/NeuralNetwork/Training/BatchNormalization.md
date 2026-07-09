@@ -1,250 +1,512 @@
 ---
-title: Batch Normalization：从原理到实践
+title: BatchNorm 指南：公式、用法、训练推理差异与常见坑
 date: 2026-05-09
 category: 神经网络/训练
 tags:
   - 基础
   - 深度学习
   - 高级教程
-description: 从 Internal Covariate Shift 到训练/测试行为差异，从放置策略到小 batch 处理与 Dropout 交互，一站式掌握 BatchNorm 的原理与最佳实践。
+description: 清晰讲解 BatchNorm 的作用、数学公式、PyTorch 用法、train/eval 差异、小 batch 替代方案、冻结 BN 和常见排查方法。
 image: https://img.yumeko.site/file/blog/cover/1780581701550.webp
 status: published
 ---
 
-## 1. 问题：内部协变量偏移（Internal Covariate Shift）
+## 1. 快速定位：BatchNorm 解决什么问题
 
-在训练过程中，前面层的参数不断更新，导致后面层的输入分布也在不断变化。这种现象被称为"内部协变量偏移"。
+Batch Normalization，简称 `BatchNorm` 或 `BN`，用于稳定每一层的输入分布。
 
-**打个比方**：想象你在学习射箭，但每次射箭时靶子都在随机移动，你就很难学会。BatchNorm 就像把靶子固定在一个标准位置。
+它最常见的作用：
 
-从数学角度看，如果某一层的输入分布一直在变（均值、方差不稳定），该层就需要不断适应新的分布，学习效率极低。
+- 让训练更稳定
+- 允许使用更大的学习率
+- 减少对 [[NeuralNetwork/Training/WeightInitialization|权重初始化]] 的敏感性
+- 在 CNN 中加速收敛
+- 带来轻微正则化效果
 
-## 2. BatchNorm 的数学原理
+最常见的使用位置：
 
-对于一个小批量（mini-batch）中的某个特征维度，BatchNorm 执行以下四步：
+```text
+Conv2d -> BatchNorm2d -> ReLU
+Linear -> BatchNorm1d -> ReLU
+```
 
-**步骤 1**：计算小批量均值
+如果你只想写一个标准 CNN 卷积块，可以直接用这个顺序。
 
-$$
-\mu = \frac{1}{m} \sum_{i=1}^{m} x_i
-$$
+## 2. BatchNorm 公式：归一化再缩放平移
 
-**步骤 2**：计算小批量方差
+### 2.1 计算 batch 均值
 
-$$
-\sigma^2 = \frac{1}{m} \sum_{i=1}^{m} (x_i - \mu)^2
-$$
-
-**步骤 3**：归一化
-
-$$
-\hat{x}_i = \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon}}
-$$
-
-（$\epsilon$ 是防止除零的小常数，默认 $10^{-5}$）
-
-**步骤 4**：缩放和平移（可学习的参数）
+对一个 mini-batch 中的某个通道或特征维度，先计算均值：
 
 $$
-y_i = \gamma \cdot \hat{x}_i + \beta
+\mu_B = \frac{1}{m}\sum_{i=1}^{m}x_i
 $$
 
-其中 $\gamma$（缩放因子）和 $\beta$（平移因子）是**可学习的参数**。这一步至关重要——如果归一化后分布不适合后续的激活函数，网络可以自己学出 $\gamma$ 和 $\beta$ 来恢复对表达有利的分布。
+其中 $m$ 是参与统计的元素数量。
+
+### 2.2 计算 batch 方差
+
+再计算方差：
+
+$$
+\sigma_B^2 = \frac{1}{m}\sum_{i=1}^{m}(x_i-\mu_B)^2
+$$
+
+### 2.3 标准化
+
+把输入变成均值接近 0、方差接近 1 的形式：
+
+$$
+\hat{x}_i=\frac{x_i-\mu_B}{\sqrt{\sigma_B^2+\epsilon}}
+$$
+
+$\epsilon$ 是防止除零的小常数，PyTorch 默认通常是 `1e-5`。
+
+### 2.4 可学习的缩放和平移
+
+最后用可学习参数恢复表达能力：
+
+$$
+y_i=\gamma\hat{x}_i+\beta
+$$
+
+其中：
+
+- $\gamma$ 是缩放参数，对应 PyTorch 的 `weight`
+- $\beta$ 是平移参数，对应 PyTorch 的 `bias`
+
+这一步很重要。BatchNorm 不是强制所有层都只能输出标准正态分布，而是先标准化，再让网络自己学习合适的尺度和偏移。
 
 ![BatchNorm.png](https://img.yumeko.site/file/blog/articles/1780581356287.webp)
 
-### 2.1 BatchNorm 带来的好处
+## 3. BatchNorm1d、BatchNorm2d、BatchNorm3d 怎么选
 
-- **允许更大的学习率**：不用担心梯度爆炸/消失
-- **加速收敛**：训练更快到达较低 loss
-- **有轻微正则化效果**：小批量的统计噪声类似于噪声注入
-- **减少对初始化的敏感性**：即使初始参数不太好，也能训练起来
-- **允许使用 saturating 激活函数**：如 Sigmoid/Tanh，BN 保证它们的输入在活跃区间
+### 3.1 选择规则
 
-## 3. BN 的放置位置：Conv-BN-ReLU vs Conv-ReLU-BN
+| 输入类型 | 常用层 | 输入形状示例 |
+| --- | --- | --- |
+| MLP / 一维特征 | `nn.BatchNorm1d` | `(N, C)` |
+| 一维序列特征 | `nn.BatchNorm1d` | `(N, C, L)` |
+| CNN 图像特征 | `nn.BatchNorm2d` | `(N, C, H, W)` |
+| 3D CNN / 视频 / 体数据 | `nn.BatchNorm3d` | `(N, C, D, H, W)` |
 
-经过大量实验和论文论证，目前的主流共识是：
+### 3.2 BatchNorm2d 统计哪些维度
 
+对 `BatchNorm2d` 来说，输入形状通常是：
+
+```text
+(batch_size, channels, height, width)
 ```
-Conv2d -> BatchNorm2d -> ReLU     <- 推荐（现代标准）
-Linear  -> BatchNorm1d -> ReLU    <- 推荐（现代标准）
+
+它会对每个通道分别统计均值和方差，统计范围包括：
+
+```text
+batch_size、height、width
 ```
 
-**为什么 BN 在激活函数之前？**
+也就是说，每个通道有一组自己的 $\mu_B$、$\sigma_B^2$、$\gamma$、$\beta$。
 
-BN 的核心目的是让激活函数的输入保持稳定的分布。如果 BN 在 ReLU 之后，它归一化的是一个被"截断"过的分布（ReLU 把负值都变成了 0），效果不如归一化原始的全范围分布。
+## 4. 推荐放置位置：Conv -> BN -> ReLU
 
-**历史演进**：
-- 原始 BatchNorm 论文：$\text{Conv} \to \text{ReLU} \to \text{BN}$（在激活之后）
-- 后来发现 $\text{Conv} \to \text{BN} \to \text{ReLU}$ 效果更好，成为现代标准
+### 4.1 CNN 中的标准顺序
 
-## 4. 训练与测试时的行为差异
+现代 CNN 中最常见的顺序是：
 
-这是最容易踩的坑之一。BN 在 `model.train()` 和 `model.eval()` 下的行为完全不同。
+```text
+Conv2d -> BatchNorm2d -> ReLU
+```
 
-| 模式 | 使用的均值/方差 | `running_mean` / `running_var` |
-| --- | --- | :---: |
-| `model.train()` | 当前 batch 的统计量 | **更新**（指数移动平均） |
-| `model.eval()` | 训练期间累积的全局统计量 | **冻结**（不更新） |
-
-**为什么测试时不能用当前 batch 的统计量？**
-
-测试时可能只有一个样本（`batch_size=1`），此时 batch 的均值和方差没有统计意义。所以测试时使用训练过程中累积的全局统计量。
-
-**全局统计量的更新方式**（指数移动平均）：
-
-$$
-\text{running\_mean} = \text{momentum} \times \text{running\_mean} + (1 - \text{momentum}) \times \text{batch\_mean}
-$$
-
-注意 PyTorch 的 `momentum` 定义和论文相反（PyTorch 的 0.1 ~= 论文的 0.9）。
-
-**正确做法**：
+对应代码：
 
 ```python
-# 训练时
-model.train()       # BN 使用当前 batch 的均值/方差
-output = model(trainX)
-
-# 测试/推理时
-model.eval()        # BN 使用训练期间累积的移动平均
-with torch.no_grad():
-    output = model(testX)
+block = nn.Sequential(
+    nn.Conv2d(inChannels, outChannels, kernel_size=3, padding=1, bias=False),
+    nn.BatchNorm2d(outChannels),
+    nn.ReLU(inplace=True),
+)
 ```
 
-**错误示范**（常见 Bug）：
+注意：如果 `Conv2d` 后面立刻接 `BatchNorm2d`，卷积层通常可以设置 `bias=False`。因为 BN 自己有 $\beta$，卷积 bias 往往是冗余的。
+
+### 4.2 MLP 中的标准顺序
+
+MLP 中常见顺序是：
+
+```text
+Linear -> BatchNorm1d -> ReLU
+```
+
+对应代码：
 
 ```python
-# 错误：忘记切换到 eval 模式
+block = nn.Sequential(
+    nn.Linear(inFeatures, hiddenFeatures, bias=False),
+    nn.BatchNorm1d(hiddenFeatures),
+    nn.ReLU(inplace=True),
+)
+```
+
+### 4.3 为什么通常放在激活函数前
+
+BN 的目标是稳定激活函数的输入。
+
+如果先做 ReLU，再做 BN，BN 看到的是已经被截断的分布：负值都变成了 0。这样会改变 BN 的统计对象。
+
+所以工程上优先使用：
+
+```text
+Conv / Linear -> BN -> Activation
+```
+
+## 5. 训练模式和推理模式的区别
+
+### 5.1 train 模式
+
+在 `model.train()` 下，BatchNorm 会：
+
+- 使用当前 batch 的均值和方差做归一化
+- 更新 `running_mean`
+- 更新 `running_var`
+
+```python
 model.train()
-with torch.no_grad():
-    testOutput = model(x)  # BN 使用了错误的统计量！
+output = model(trainImages)
 ```
 
-这会导致测试准确率明显偏低，且每次运行结果都不同。
+### 5.2 eval 模式
 
-### 4.1 几个实用参数
+在 `model.eval()` 下，BatchNorm 会：
 
-**`eps`**：防止分母为零的小常数，默认 `1e-5`。一般不需要修改。
-
-**`momentum`**：移动平均的更新速度。如前所述，PyTorch 的 momentum 定义和论文相反（PyTorch 的 0.1 ~= 论文的 0.9）。
-
-**`track_running_stats`**：是否跟踪全局统计量。默认 `True`。如果设为 `False`，测试时也使用 batch 统计量（通常只在调试时用）。
-
-## 5. 小 batch size 问题与替代方案
-
-BatchNorm 的效果依赖于 batch size。当 `batch_size` 很小（比如 2 或 4）时，batch 统计量的噪声很大，BN 效果会明显下降。
-
-| 归一化方法 | 归一化维度 | 适用场景 |
-| --- | --- | --- |
-| BatchNorm | 沿 batch 维度 | CNN，batch_size >= 16 |
-| LayerNorm | 沿 feature 维度 | Transformer, RNN |
-| InstanceNorm | 沿空间维度（单样本） | 风格迁移，图像生成 |
-| GroupNorm | 通道分组归一化 | batch_size 极小时替代 BN |
-
-小 batch 场景下的替代方案：
+- 不再使用当前 batch 的统计量
+- 使用训练期间累计的 `running_mean`
+- 使用训练期间累计的 `running_var`
+- 不更新 running statistics
 
 ```python
-# 从 nn.BatchNorm2d(128)
-# 改为
-nn.GroupNorm(num_groups=32, num_channels=128)
+model.eval()
+with torch.no_grad():
+    output = model(testImages)
 ```
 
-### 5.1 BN 不适合的情况
+验证和推理时必须调用 `model.eval()`。否则 BN 会继续使用当前 batch 的统计量，结果可能不稳定。
 
-- **Batch size = 1**（用 LayerNorm/InstanceNorm 替代）
-- **RNN 等序列模型**（用 LayerNorm）
-- **生成模型中对噪声敏感的任务**
+### 5.3 train/eval 行为对照
 
-### 5.2 删除 BN 的场景
-
-在需要精确重现（如量化推理）或对 batch 依赖敏感的少数场景下，可以考虑完全移除 BN，用其他方式替代（如权重标准化）。
-
-## 6. BatchNorm 与 Dropout 的交互
-
-BatchNorm 与 Dropout 经常在同一网络中共用，但两者在 train/eval 模式下的行为差异容易引发问题，需特别注意。
-
-### 6.1 放置顺序
-
-当 BN 和 Dropout 同时使用时，推荐顺序为：
-
-```
-Conv2d -> BatchNorm2d -> ReLU -> Dropout
-```
-
-Dropout 放在激活函数之后，对激活值进行随机丢弃。BN 在激活函数之前做归一化，两者各司其职。
-
-### 6.2 方差偏移（Variance Shift）问题
-
-训练时 Dropout 会随机将部分神经元置零，这改变了后续层的输入方差。但在测试时 Dropout 被关闭（或缩放），导致训练和测试间出现"方差偏移"。BN 的 running mean/var 是在训练过程中累积的，可能也因此受到影响。
-
-实践中，可以先单独调好 BN 的放置和参数，再加入 Dropout 并适当降低 Dropout 概率（如从 0.5 降至 0.2~0.3），观察验证集表现来微调。
-
-### 6.3 train/eval 模式一致性
-
-BN 和 Dropout 都会根据 `model.train()` / `model.eval()` 切换行为：
-
-| 组件 | `model.train()` | `model.eval()` |
+| 模式 | 归一化使用的统计量 | 是否更新 running stats |
 | --- | --- | --- |
-| BatchNorm | 使用 batch 统计量，更新 running mean/var | 使用全局统计量 |
-| Dropout | 随机丢弃神经元 | 关闭，不丢弃 |
+| `model.train()` | 当前 batch 的均值和方差 | 是 |
+| `model.eval()` | `running_mean` 和 `running_var` | 否 |
 
-因此，在验证/测试阶段**必须**调用 `model.eval()` 以同时切换 BN 和 Dropout 的行为，否则两者都会产生错误。
+### 5.4 PyTorch momentum 公式
 
-更多 Dropout 的细节可参考 [[NeuralNetwork/Training/Dropout|Dropout 详解]]。
+PyTorch 中 running mean 的更新方式是：
+
+$$
+\text{running\_mean}_{new}
+=(1-\text{momentum})\cdot \text{running\_mean}_{old}
++\text{momentum}\cdot \text{batch\_mean}
+$$
+
+`running_var` 同理。
+
+默认 `momentum=0.1`，表示每次用 10% 的当前 batch 统计量更新 running statistics。
+
+## 6. BatchNorm 的重要参数
+
+### 6.1 num_features
+
+`num_features` 是通道数或特征数：
+
+```python
+nn.BatchNorm1d(num_features=128)
+nn.BatchNorm2d(num_features=64)
+```
+
+对 `BatchNorm2d(64)` 来说，输入的通道数必须是 64。
+
+### 6.2 eps
+
+`eps` 防止除以 0：
+
+```python
+nn.BatchNorm2d(64, eps=1e-5)
+```
+
+一般不需要修改。只有在混合精度训练、数值特别不稳定时才考虑调大。
+
+### 6.3 momentum
+
+`momentum` 控制 running statistics 更新速度：
+
+```python
+nn.BatchNorm2d(64, momentum=0.1)
+```
+
+- 值越大：越依赖最近 batch
+- 值越小：running statistics 更新更慢、更平滑
+
+### 6.4 affine
+
+`affine=True` 时，BN 有可学习的 $\gamma$ 和 $\beta$：
+
+```python
+nn.BatchNorm2d(64, affine=True)
+```
+
+默认就是 `True`。大多数情况不要关。
+
+### 6.5 track_running_stats
+
+`track_running_stats=True` 时，BN 会维护 `running_mean` 和 `running_var`。
+
+如果设为 `False`，训练和推理都会使用当前 batch 的统计量：
+
+```python
+nn.BatchNorm2d(64, track_running_stats=False)
+```
+
+这个选项不适合普通推理场景，除非你非常明确地需要 batch 依赖行为。
 
 ## 7. PyTorch 代码示例
 
-### 7.1 基础用法：构建带 BN 的卷积块
+### 7.1 构建卷积块
 
 ```python
+import torch
 import torch.nn as nn
 
-# 构建一个带 BN 的卷积块
-class ConvBlock(nn.Module):
-    def __init__(self, inCh, outCh):
+
+class ConvBnRelu(nn.Module):
+    """标准 Conv-BN-ReLU 卷积块。"""
+
+    def __init__(self, inChannels: int, outChannels: int) -> None:
         super().__init__()
-        self.conv = nn.Conv2d(inCh, outCh, 3, padding=1)
-        self.bn = nn.BatchNorm2d(outCh)
-        self.relu = nn.ReLU(inplace=True)
+        self.block = nn.Sequential(
+            nn.Conv2d(inChannels, outChannels, kernel_size=3, padding=1, bias=False),
+            nn.BatchNorm2d(outChannels),
+            nn.ReLU(inplace=True),
+        )
 
-    def forward(self, x):
-        x = self.conv(x)
-        x = self.bn(x)
-        x = self.relu(x)
-        return x
-
-# 验证 BN 参数
-bn = nn.BatchNorm2d(64)
-print(f"gamma 形状: {bn.weight.shape}")  # (64,) — 可学习缩放
-print(f"beta 形状: {bn.bias.shape}")    # (64,) — 可学习平移
-print(f"running_mean: {bn.running_mean.shape}")  # (64,) — 运行均值
+    def forward(self, inputTensor: torch.Tensor) -> torch.Tensor:
+        """前向传播。"""
+        return self.block(inputTensor)
 ```
 
-### 7.2 冻结 BN 进行微调
-
-迁移学习微调时，通常冻结 BN 的统计量：
+### 7.2 查看 BN 参数
 
 ```python
-# 方式一：设为 eval 模式（BN 使用预训练统计量，不更新）
-for m in model.modules():
-    if isinstance(m, nn.BatchNorm2d):
-        m.eval()
+bn = nn.BatchNorm2d(64)
 
-# 方式二：完全冻结（不更新统计量也不更新 affine 参数）
-for m in model.modules():
-    if isinstance(m, nn.BatchNorm2d):
-        m.eval()
-        for p in m.parameters():
-            p.requires_grad = False
+print(bn.weight.shape)        # gamma，形状为 (64,)
+print(bn.bias.shape)          # beta，形状为 (64,)
+print(bn.running_mean.shape)  # running mean，形状为 (64,)
+print(bn.running_var.shape)   # running var，形状为 (64,)
 ```
 
-## 8. 总结
+### 7.3 验证时正确切换模式
 
-- BN 的核心是让每一层的输入分布保持稳定，解决 Internal Covariate Shift 问题
-- BN 的四步算法：计算均值、计算方差、归一化、缩放平移（$\gamma$ 和 $\beta$ 可学习）
-- **训练时用 batch 统计量，测试时用全局统计量**——`model.eval()` 不能忘
-- 现代标准位置：$\text{Conv} \to \text{BN} \to \text{ReLU}$
-- 小 batch 场景用 GroupNorm 或 LayerNorm 替代
-- BN 与 Dropout 共用时，注意两者的 train/eval 行为一致性
+```python
+def validate(model: nn.Module, dataLoader, device: torch.device) -> float:
+    """验证模型，确保 BatchNorm 和 Dropout 都切换到 eval 模式。"""
+    model.eval()
+    correctCount = 0
+    totalCount = 0
+
+    with torch.no_grad():
+        for images, labels in dataLoader:
+            images = images.to(device)
+            labels = labels.to(device)
+            logits = model(images)
+            predictions = logits.argmax(dim=1)
+            correctCount += (predictions == labels).sum().item()
+            totalCount += labels.size(0)
+
+    return correctCount / totalCount
+```
+
+## 8. 小 batch 场景：什么时候别用 BatchNorm
+
+### 8.1 BatchNorm 为什么怕小 batch
+
+BatchNorm 依赖 batch 统计量。
+
+当 `batch_size` 很小时，例如 1、2、4，当前 batch 的均值和方差噪声很大。BN 可能让训练变得不稳定。
+
+典型表现：
+
+- 训练 loss 波动很大
+- 验证结果不稳定
+- batch size 改变后精度明显变化
+
+### 8.2 替代方案
+
+| 方法 | 依赖 batch 维度 | 适用场景 |
+| --- | --- | --- |
+| `BatchNorm` | 是 | CNN，batch size 足够大 |
+| `LayerNorm` | 否 | Transformer、RNN、MLP |
+| `GroupNorm` | 否 | 小 batch CNN |
+| `InstanceNorm` | 否 | 风格迁移、图像生成 |
+
+小 batch CNN 中常用 `GroupNorm` 替代：
+
+```python
+# 原来
+nn.BatchNorm2d(128)
+
+# 小 batch 可替换为
+nn.GroupNorm(num_groups=32, num_channels=128)
+```
+
+### 8.3 简单选择规则
+
+- CNN 且 batch size 较大：用 `BatchNorm2d`
+- CNN 但 batch size 很小：用 `GroupNorm`
+- Transformer / RNN：用 `LayerNorm`
+- 图像风格迁移：用 `InstanceNorm`
+
+## 9. 冻结 BatchNorm：迁移学习常用
+
+### 9.1 只冻结 running statistics
+
+迁移学习时，如果新数据集很小，BN 的 running statistics 可能被少量数据带偏。可以让 BN 保持 eval 模式：
+
+```python
+def freezeBatchNormStats(model: nn.Module) -> None:
+    """冻结 BatchNorm 的 running statistics。"""
+    for module in model.modules():
+        if isinstance(module, (nn.BatchNorm1d, nn.BatchNorm2d, nn.BatchNorm3d)):
+            module.eval()
+```
+
+这样做不会冻结 $\gamma$ 和 $\beta$，它们仍然可以训练。
+
+### 9.2 完全冻结 BatchNorm
+
+如果希望 BN 的 running statistics 和 affine 参数都不更新：
+
+```python
+def freezeBatchNorm(model: nn.Module) -> None:
+    """完全冻结 BatchNorm。"""
+    for module in model.modules():
+        if isinstance(module, (nn.BatchNorm1d, nn.BatchNorm2d, nn.BatchNorm3d)):
+            module.eval()
+            for parameter in module.parameters():
+                parameter.requires_grad = False
+```
+
+### 9.3 注意 train() 会重新打开 BN
+
+如果训练循环每个 epoch 都调用：
+
+```python
+model.train()
+```
+
+那么前面单独设置的 `module.eval()` 会被覆盖。需要在 `model.train()` 后再次冻结 BN：
+
+```python
+model.train()
+freezeBatchNormStats(model)
+```
+
+## 10. BatchNorm 与 Dropout
+
+### 10.1 推荐顺序
+
+同时使用 BN 和 Dropout 时，常见顺序是：
+
+```text
+Conv / Linear -> BN -> Activation -> Dropout
+```
+
+例如：
+
+```python
+block = nn.Sequential(
+    nn.Linear(inFeatures, hiddenFeatures, bias=False),
+    nn.BatchNorm1d(hiddenFeatures),
+    nn.ReLU(inplace=True),
+    nn.Dropout(p=0.3),
+)
+```
+
+### 10.2 train/eval 必须一致切换
+
+BN 和 Dropout 都受 `model.train()` / `model.eval()` 影响：
+
+| 组件 | `model.train()` | `model.eval()` |
+| --- | --- | --- |
+| BatchNorm | 使用 batch 统计量，并更新 running stats | 使用 running stats |
+| Dropout | 随机丢弃激活值 | 关闭随机丢弃 |
+
+验证和推理时忘记 `model.eval()`，BN 和 Dropout 都会出错。
+
+更多 Dropout 内容见 [[NeuralNetwork/Training/Dropout|Dropout 详解]]。
+
+## 11. 常见问题排查
+
+### 11.1 验证集准确率波动很大
+
+优先检查：
+
+- 验证前是否调用了 `model.eval()`
+- batch size 是否太小
+- 是否在迁移学习中错误更新了 BN running stats
+
+### 11.2 batch size 从 32 改成 1 后效果明显变差
+
+这是 BN 的常见问题。
+
+处理方式：
+
+- 推理时确保 `model.eval()`
+- 训练时尽量增大 batch size
+- 小 batch 训练改用 `GroupNorm`
+
+### 11.3 迁移学习越训越差
+
+如果目标数据集很小，BN 的 running statistics 可能被新数据集带偏。
+
+可以尝试：
+
+- 冻结 BN running statistics
+- 降低学习率
+- 只训练分类头
+
+### 11.4 Conv 后面接 BN 还要 bias 吗
+
+通常不需要。
+
+因为：
+
+$$
+\text{BN}(Wx+b)
+$$
+
+会减去 batch 均值，卷积 bias 的影响通常会被抵消，而 BN 自己还有可学习的 $\beta$。
+
+所以常见写法是：
+
+```python
+nn.Conv2d(inChannels, outChannels, kernel_size=3, padding=1, bias=False)
+nn.BatchNorm2d(outChannels)
+```
+
+## 12. 总结
+
+### 12.1 记住这几条
+
+- CNN 中常用 `Conv -> BN -> ReLU`
+- 训练时 BN 使用当前 batch 统计量
+- 推理时 BN 使用 `running_mean` 和 `running_var`
+- 验证和推理必须调用 `model.eval()`
+- 小 batch CNN 优先考虑 `GroupNorm`
+- 迁移学习数据很少时，考虑冻结 BN
+
+### 12.2 最容易犯的错
+
+- 验证时忘记 `model.eval()`
+- batch size 很小还强行使用 BN
+- 冻结 BN 后又被 `model.train()` 重新打开
+- Conv 后接 BN 仍保留不必要的 bias
 
