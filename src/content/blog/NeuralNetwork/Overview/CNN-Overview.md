@@ -12,6 +12,8 @@ status: published
 
 ## 1. 全连接网络处理图像的问题
 
+> **前置阅读**：如果你还不熟悉 MLP 的基本结构，可以先阅读 [[NeuralNetwork/Overview/RNNOverview#2-前馈网络的三大局限|RNN 概述 §2 前馈网络的局限]]，其中对 MLP 的局限性做了更系统的讨论。
+
 假设我们有一张 $28 \times 28$ 的灰度手写数字图片。如果使用传统的全连接神经网络（MLP），第一步就是把这个 $28 \times 28 = 784$ 的二维矩阵"拉平"成一个 784 维的向量。
 
 这样做会带来两个严重问题：
@@ -75,10 +77,10 @@ CNN 不需要人工设计特征，而是让网络自己从数据中学习"什么
 
 | 组件                                                             | 作用      |  是否改变空间尺寸   |
 | -------------------------------------------------------------- | ------- | :---------: |
-| 卷积层（Conv）  | 提取特征    | 取决于 padding |
-| 激活函数（Activation） | 引入非线性   |      否      |
-| 池化层（Pooling）   | 下采样，降维  |    是（缩小）    |
-| 批量归一化（BatchNorm）     | 稳定训练    |      否      |
+| [[NeuralNetwork/CNN/CNNCoreLayers]] 卷积层（Conv）  | 提取特征    | 取决于 padding |
+| [[NeuralNetwork/Training/ActivationFunctions]] 激活函数（Activation） | 引入非线性   |      否      |
+| [[NeuralNetwork/CNN/CNNCoreLayers]] 池化层（Pooling）   | 下采样，降维  |    是（缩小）    |
+| [[NeuralNetwork/Training/BatchNormalization]] 批量归一化（BatchNorm）     | 稳定训练    |      否      |
 | 全连接层（FC）                              | 综合特征做分类 |  N/A（接收向量）  |
 一个典型的 CNN 架构模式是：
 
@@ -90,13 +92,28 @@ $$
 
 | 年份 | 架构 | 核心创新 |
 | --- | --- | --- |
-| 1998 | LeNet-5 | 奠定 CNN 基础模式（Conv->Pool->FC） |
-| 2012 | AlexNet | ReLU 激活、Dropout、GPU 训练 |
-| 2014 | VGG | 全部使用 3x3 小卷积核，网络更深 |
-| 2014 | NiN | MLP 卷积、用 GAP 替代全连接层 |
-| 2014 | GoogLeNet | Inception 多分支结构，22 层仅 7M 参数 |
-| 2015 | ResNet | 残差学习解决退化问题，可训练 152+ 层 |
+| 1998 | [[NeuralNetwork/CNN/LeNet5]] LeNet-5 | 奠定 CNN 基础模式（Conv->Pool->FC） |
+| 2012 | [[NeuralNetwork/CNN/AlexNet]] AlexNet | ReLU 激活、[[NeuralNetwork/Training/Dropout]] Dropout、GPU 训练 |
+| 2014 | [[NeuralNetwork/CNN/VGG]] VGG | 全部使用 3x3 小卷积核，网络更深 |
+| 2014 | [[NeuralNetwork/CNN/NiN]] NiN | MLP 卷积、用 GAP 替代全连接层 |
+| 2014 | [[NeuralNetwork/CNN/GoogLeNet]] GoogLeNet | Inception 多分支结构，22 层仅 7M 参数 |
+| 2015 | [[NeuralNetwork/CNN/ResNet]] ResNet | 残差学习解决退化问题，可训练 152+ 层 |
 
 ![CNNArchitectureComparison.png](https://img.yumeko.site/file/blog/cover/1780581716119.webp)
 
-有关各架构的详细对比，参见 架构对比。
+有关各架构的详细对比，参见 [[NeuralNetwork/CNN/ArchitectureComparison|架构对比]]。
+
+## 7. 阅读路线
+
+| 顺序 | 文章 | 重点 |
+|:--|:--|:--|
+| 1 | [[NeuralNetwork/CNN/CNNCoreLayers]] CNN 核心层详解 | 卷积、池化、全连接的计算细节 |
+| 2 | [[NeuralNetwork/CNN/ArchitectureComparison]] CNN 架构对比 | LeNet → ResNet 各架构的设计思路 |
+| 3 | 各架构详解（[[NeuralNetwork/CNN/LeNet5]]、[[NeuralNetwork/CNN/AlexNet]]、[[NeuralNetwork/CNN/VGG]] 等） | 深入各架构的实现细节 |
+
+---
+
+> **相关总览文章**：
+> - [[NeuralNetwork/Overview/RNNOverview|RNN 概述]] — 循环神经网络的核心思想
+> - [[NeuralNetwork/Overview/TransformerOverview|Transformer 架构总览]] — 从 RNN 到 Self-Attention
+> - [[NeuralNetwork/Overview/TrainingPipeline|训练流程总览]] — 深度学习项目的完整工程流程

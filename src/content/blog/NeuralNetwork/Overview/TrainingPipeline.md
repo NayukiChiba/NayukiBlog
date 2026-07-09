@@ -11,7 +11,7 @@ image: https://img.yumeko.site/file/blog/cover/1780581818737.webp
 status: published
 ---
 
-从零开始做一个深度学习项目，应该遵循怎样的步骤？以下是基于 CNN 项目总结的标准流程。
+从零开始做一个深度学习项目，应该遵循怎样的步骤？以下是基于 [[NeuralNetwork/Overview/CNN-Overview|CNN]] 项目总结的标准流程。
 
 ## 阶段一：数据准备
 
@@ -88,6 +88,8 @@ print(f"总参数量: {sum(p.numel() for p in model.parameters()):,}")
 
 ### 3.1 选择损失函数
 
+> 详见 [[NeuralNetwork/Training/LossFunctions|损失函数详解]]
+
 | 任务类型 | 损失函数 |
 | --- | --- |
 | 多分类 | `CrossEntropyLoss` |
@@ -106,6 +108,8 @@ optimizer = torch.optim.SGD(model.parameters(),
 ```
 
 ### 3.3 选择学习率调度器
+
+> 详见 [[NeuralNetwork/Training/LearningRateScheduler|学习率调度器详解]]
 
 ```python
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
@@ -154,6 +158,8 @@ for epoch in range(1, epochs + 1):
 
 ## 阶段五：评估与分析
 
+> 详见 [[NeuralNetwork/Training/EvaluationMetrics|评估指标详解]]
+
 - **测试集评估**：最终准确率和损失
 - **混淆矩阵**：发现类别混淆模式
 - **错误样本分析**：找出模型的薄弱点
@@ -180,13 +186,13 @@ def predict(model, imagePath, transform, classNames, device):
 
 **数据准备**：
 - [ ] 下载数据集，探索数据分布
-- [ ] 定义预处理（ToTensor + Normalize）
-- [ ] 定义数据增强（仅训练集）
+- [ ] 定义预处理（ToTensor + Normalize，参考 [[NeuralNetwork/CNN/DataPreprocessing|数据预处理]]）
+- [ ] 定义[[NeuralNetwork/Training/DataAugmentation|数据增强]]（仅训练集）
 - [ ] 创建 DataLoader
 
 **模型定义**：
-- [ ] 选择/设计架构
-- [ ] 根据激活函数选择初始化
+- [ ] 选择/设计架构（参考 [[NeuralNetwork/Overview/CNN-Overview|CNN 概述]]）
+- [ ] 根据激活函数选择[[NeuralNetwork/Training/WeightInitialization|初始化]]
 - [ ] 用虚拟输入验证输出形状
 
 **训练配置**：
@@ -200,8 +206,15 @@ def predict(model, imagePath, transform, classNames, device):
 - [ ] 实现 [[NeuralNetwork/Training/EarlyStopping|Early Stopping]]
 
 **评估部署**：
-- [ ] 测试集评估 + 混淆矩阵
+- [ ] 测试集评估 + 混淆矩阵（参考 [[NeuralNetwork/Training/EvaluationMetrics|评估指标详解]]）
 - [ ] 错误样本分析
 - [ ] 单张/批量推理函数
+
+---
+
+> **相关总览文章**：
+> - [[NeuralNetwork/Overview/CNN-Overview|CNN 概述]] — 卷积神经网络的核心思想
+> - [[NeuralNetwork/Overview/RNNOverview|RNN 概述]] — 循环神经网络的核心思想
+> - [[NeuralNetwork/Overview/TransformerOverview|Transformer 架构总览]] — 从 RNN 到 Self-Attention
 
 

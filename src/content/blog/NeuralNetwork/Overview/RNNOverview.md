@@ -60,7 +60,7 @@ status: published
 
 ### 2.1 局限一：固定输入尺寸
 
-MLP 的第一层权重矩阵形状固定（如 `(128, 784)`），只能接收 784 维的向量。CNN 虽然通过卷积核的参数共享可以处理不同尺寸的输入，但全连接层仍然要求固定的特征图大小。
+MLP 的第一层权重矩阵形状固定（如 `(128, 784)`），只能接收 784 维的向量。[[NeuralNetwork/Overview/CNN-Overview|CNN]] 虽然通过卷积核的参数共享可以处理不同尺寸的输入，但全连接层仍然要求固定的特征图大小。
 
 对于序列数据，这意味着：
 - 截断会丢失长序列尾部的重要信息
@@ -222,7 +222,7 @@ $$
 | 2014 | Cho 等人提出 GRU | LSTM 的精简版，参数量减少 25% |
 | 2014 | Sutskever 等人提出 Seq2Seq | 编码器-解码器统一了多种序列转换任务 |
 | 2015 | Bahdanau 等人引入 Attention | 使模型可直接访问任意位置的序列信息，为 Transformer 铺路 |
-| 2017 | Vaswani 等人提出 Transformer | 用自注意力取代循环，开启新时代 |
+| 2017 | Vaswani 等人提出 Transformer | 用自注意力取代循环，开启新时代 → [[NeuralNetwork/Overview/TransformerOverview]] |
 
 ---
 
@@ -255,3 +255,10 @@ $$
 - [[NeuralNetwork/RNN/Attention|注意力机制详解]] — 为 RNN 提供动态上下文聚焦能力
 
 回到主文档：[[NeuralNetwork/Overview/RNNOverview|RNN 详解主文档]]
+
+---
+
+> **相关总览文章**：
+> - [[NeuralNetwork/Overview/CNN-Overview|CNN 概述]] — 卷积神经网络的核心思想
+> - [[NeuralNetwork/Overview/TransformerOverview|Transformer 架构总览]] — 从 RNN 到 Self-Attention
+> - [[NeuralNetwork/Overview/TrainingPipeline|训练流程总览]] — 深度学习项目的完整工程流程
