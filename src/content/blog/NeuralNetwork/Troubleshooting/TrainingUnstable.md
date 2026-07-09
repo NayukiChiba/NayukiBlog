@@ -90,7 +90,7 @@ for batchIdx, (images, labels) in enumerate(trainLoader):
     # ... 正常训练步骤
 ```
 
-### 方案 5：使用梯度裁剪
+### 方案 5：使用[[NeuralNetwork/Training/GradientClipping|梯度裁剪]]
 
 ```python
 loss.backward()
@@ -156,7 +156,7 @@ if std / abs(mean) > 0.3:  # 标准差超过均值的 30%
 ```
 1. 降低学习率                  -> 最简单，先试
 2. 增大 batch size             -> 梯度更稳定
-3. 添加梯度裁剪                -> 保底手段
+3. 添加[[NeuralNetwork/Training/GradientClipping|梯度裁剪]]                -> 保底手段
 4. 添加 Warmup                 -> 训练初期稳定
 5. 换 SGD+Momentum             -> Adam 不总是最优
 6. 检查数据异常值              -> 排除数据问题

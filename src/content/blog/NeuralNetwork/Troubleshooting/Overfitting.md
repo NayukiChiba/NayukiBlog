@@ -32,7 +32,7 @@ Epoch 15: Train Loss 0.03, Val Loss 0.85 | Train Acc 99%, Val Acc 76%
 
 ## 解决方案
 
-### 方案 1：[[NeuralNetwork/Training/TrainingStability|Early Stopping]]（首选）
+### 方案 1：[[NeuralNetwork/Training/EarlyStopping|Early Stopping]]（首选）
 
 在验证集指标不再改善时自动停止训练：
 

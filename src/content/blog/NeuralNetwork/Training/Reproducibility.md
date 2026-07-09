@@ -18,7 +18,7 @@ status: published
 
 假设你在[[NeuralNetwork/Training/TrainingPipeline|训练流程]]中跑了一个实验，准确率 95%。第二天改了一行不相关的代码，准确率变成了 93%。是改出 Bug 了，还是随机性导致？
 
-**没有固定随机种子，你永远分不清是代码变更还是随机波动。** 连[[NeuralNetwork/Training/TrainingStability|检查点]]都无法放心地比较和复用。
+**没有固定随机种子，你永远分不清是代码变更还是随机波动。** 连[[NeuralNetwork/Training/Checkpointing|检查点]]都无法放心地比较和复用。
 
 ### 2. 完整的种子固定方案
 

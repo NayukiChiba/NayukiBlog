@@ -912,7 +912,7 @@ torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=5.0)
 
 该函数同时返回裁剪前的梯度总范数，可用于监控训练稳定性。如果返回的范数值持续增长或剧烈波动，说明梯度爆炸风险较高，应降低阈值或检查模型结构。
 
-> 更多梯度裁剪实践参见 [[NeuralNetwork/Training/TrainingStability|梯度裁剪指南]]。
+> 更多梯度裁剪实践参见 [[NeuralNetwork/Training/GradientClipping|梯度裁剪指南]]。
 
 ---
 

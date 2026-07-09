@@ -196,7 +196,7 @@ def safeTrainingStep(model, images, labels, criterion, optimizer, gradClip=1.0):
 ## 快速排查清单
 
 ```
-1. 加了梯度裁剪吗？          -> torch.nn.utils.clip_grad_norm_()
+1. 加了[[NeuralNetwork/Training/GradientClipping|梯度裁剪]]吗？          -> torch.nn.utils.clip_grad_norm_()
 2. 学习率合理吗？            -> 默认 0.001 (Adam), 0.01 (SGD)
 3. 数据中有 NaN 吗？         -> 检查 DataLoader 输出
 4. 模型有 BN 层且 eps 合理吗？ -> eps=1e-5 一般是安全的

@@ -196,8 +196,8 @@ def predict(model, imagePath, transform, classNames, device):
 
 **训练循环**：
 - [ ] 实现 `trainEpoch` + `validateEpoch`
-- [ ] 保存[[NeuralNetwork/Training/TrainingStability|检查点]]（最佳模型和最近模型）
-- [ ] 实现 Early Stopping
+- [ ] 保存[[NeuralNetwork/Training/Checkpointing|检查点]]（最佳模型和最近模型）
+- [ ] 实现 [[NeuralNetwork/Training/EarlyStopping|Early Stopping]]
 
 **评估部署**：
 - [ ] 测试集评估 + 混淆矩阵

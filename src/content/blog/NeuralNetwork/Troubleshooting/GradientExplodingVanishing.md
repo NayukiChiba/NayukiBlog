@@ -51,7 +51,7 @@ $$
 
 ### 梯度爆炸
 
-**方案 1：梯度裁剪（首选）**
+**方案 1：[[NeuralNetwork/Training/GradientClipping|梯度裁剪]]（首选）**
 
 训练循环中添加梯度裁剪，将梯度范数限制在阈值内：
 
@@ -188,8 +188,8 @@ if gradNorm > 10:
 
 | 症状 | 可能原因 | 首选方案 |
 | --- | --- | --- |
-| Loss -> NaN | 梯度爆炸 | 梯度裁剪 + 降低 LR |
-| Loss 震荡不定 | 梯度偏大 | 梯度裁剪 |
+| Loss -> NaN | 梯度爆炸 | [[NeuralNetwork/Training/GradientClipping|梯度裁剪]] + 降低 LR |
+| Loss 震荡不定 | 梯度偏大 | [[NeuralNetwork/Training/GradientClipping|梯度裁剪]] |
 | Loss 完全不变 | 梯度消失 | 换 ReLU + Kaiming |
 | 浅层梯度 $\approx$ 0 | 梯度消失 | BN + 残差连接 |
 | 深层梯度 $\approx$ 0 | 梯度消失（深层） | 残差连接 |
