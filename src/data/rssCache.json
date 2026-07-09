@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-09T14:22:40.738Z",
+  "generatedAt": "2026-07-09T19:16:46.374Z",
   "feeds": [
     {
       "id": 1,
@@ -215,6 +215,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "ChatGPT is now a partner for your most ambitious work",
+          "link": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
+          "date": "2026-07-09T10:00:00.000Z",
+          "summary": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and t…",
+          "content": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work."
+        },
+        {
+          "title": "GPT-5.5 Bio Bug Bounty",
+          "link": "https://openai.com/index/bio-bug-bounty",
+          "date": "2026-07-09T10:00:00.000Z",
+          "summary": "Details about the OpenAI Bio Bounty program",
+          "content": "Details about the OpenAI Bio Bounty program"
+        },
+        {
+          "title": "GPT-5.6: Frontier intelligence that scales with your ambition",
+          "link": "https://openai.com/index/gpt-5-6",
+          "date": "2026-07-09T10:00:00.000Z",
+          "summary": "More intelligence from every token, stronger performance per dollar, and more capability on demand for your hardest work…",
+          "content": "More intelligence from every token, stronger performance per dollar, and more capability on demand for your hardest work."
+        },
         {
           "title": "Our approach to government and national security partnerships",
           "link": "https://openai.com/index/government-national-security-partnerships",
