@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T08:55:10.208Z",
+  "generatedAt": "2026-07-10T13:49:26.288Z",
   "feeds": [
     {
       "id": 1,
@@ -215,6 +215,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How Deutsche Telekom is rewiring telecommunications with AI",
+          "link": "https://openai.com/index/deutsche-telekom",
+          "date": "2026-07-10T07:00:00.000Z",
+          "summary": "How Deutsche Telekom is becoming an AI-native telco with OpenAI-transforming customer service, employee workflows, netwo…",
+          "content": "How Deutsche Telekom is becoming an AI-native telco with OpenAI-transforming customer service, employee workflows, network operations, and the future of voice."
+        },
         {
           "title": "GPT-5.6 is now the preferred model in Microsoft 365 Copilot",
           "link": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot",
