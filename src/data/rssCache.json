@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-09T19:16:46.374Z",
+  "generatedAt": "2026-07-10T01:24:16.134Z",
   "feeds": [
     {
       "id": 1,
@@ -215,6 +215,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "GPT-5.6 is now the preferred model in Microsoft 365 Copilot",
+          "link": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot",
+          "date": "2026-07-09T13:00:00.000Z",
+          "summary": "Learn how GPT-5.6 powers Microsoft 365 Copilot with stronger AI capabilities across Word, Excel, PowerPoint, Chat, and C…",
+          "content": "Learn how GPT-5.6 powers Microsoft 365 Copilot with stronger AI capabilities across Word, Excel, PowerPoint, Chat, and Cowork for faster, higher-quality work."
+        },
         {
           "title": "ChatGPT is now a partner for your most ambitious work",
           "link": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
@@ -1299,6 +1306,13 @@
           "date": "",
           "summary": "On May 23, 2026, fresh off the stage at Google I/O, our Google Developer Experts (GDEs) converged on...",
           "content": "On May 23, 2026, fresh off the stage at Google I/O, our Google Developer Experts (GDEs) converged on..."
+        },
+        {
+          "title": "LiteRT.js, Google's high performance Web AI Inference",
+          "link": "https://developers.googleblog.com/litertjs-googles-high-performance-web-ai-inference/",
+          "date": "",
+          "summary": "We're excited to introduce LiteRT.js, the newest member of the LiteRT family! LiteRT.js is our powerful solution for run…",
+          "content": "We're excited to introduce LiteRT.js, the newest member of the LiteRT family! LiteRT.js is our powerful solution for running machine learning models directly in the browser, extending Google's cross-platform edge AI runtime to the web. Built for JavaScript developers, LiteRT.js delivers state-of-the-art ML model inference performance on WebGPU and upcoming WebNN, with a fallback to WebAssembly for CPU. This post provides a quick tour of LiteRT.js and gives web developers everything they need to get started."
         }
       ]
     },
