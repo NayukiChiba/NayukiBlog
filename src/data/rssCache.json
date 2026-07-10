@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T13:49:26.288Z",
+  "generatedAt": "2026-07-10T19:11:43.313Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Working at the frontier: How Cognition trusts Claude Fable 5 to work through the night",
+          "link": "https://claude.com/blog/working-at-the-frontier-how-cognition-trusts-claude-fable-5-to-work-through-the-night",
+          "date": "2026-07-10T00:00:00.000Z",
+          "summary": "Working at the frontier: How Cognition trusts Claude Fable 5 to work through the night",
+          "content": "Working at the frontier: How Cognition trusts Claude Fable 5 to work through the night"
+        },
         {
           "title": "How Anthropic's marketing operations team uses Claude Cowork to automate reporting and campaign builds",
           "link": "https://claude.com/blog/how-anthropics-marketing-operations-team-uses-claude-cowork-to-automate-reporting-and-campaign-builds",
