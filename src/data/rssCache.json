@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T01:24:16.134Z",
+  "generatedAt": "2026-07-10T08:55:10.208Z",
   "feeds": [
     {
       "id": 1,
@@ -576,6 +576,13 @@
       "link": "https://ai.meta.com/blog/",
       "ok": true,
       "items": [
+        {
+          "title": "Introducing Muse Spark 1.1",
+          "link": "https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/",
+          "date": "2026-07-09T00:00:00.000Z",
+          "summary": "Introducing Muse Spark 1.1",
+          "content": "Introducing Muse Spark 1.1"
+        },
         {
           "title": "Introducing Muse Image and Muse Video",
           "link": "https://ai.meta.com/blog/introducing-muse-image-muse-video-msl/",
@@ -1399,6 +1406,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Profiling in PyTorch (Part 3): Attention is all you profile",
+          "link": "https://huggingface.co/blog/torch-attention-profile",
+          "date": "2026-07-10T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Data for Agents",
           "link": "https://huggingface.co/blog/nvidia/open-data-for-agents",
