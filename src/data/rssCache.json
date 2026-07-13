@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T08:40:28.577Z",
+  "generatedAt": "2026-07-13T13:54:30.334Z",
   "feeds": [
     {
       "id": 1,
@@ -228,6 +228,13 @@
           "date": "2026-07-10T07:00:00.000Z",
           "summary": "How Deutsche Telekom is becoming an AI-native telco with OpenAI-transforming customer service, employee workflows, netwo…",
           "content": "How Deutsche Telekom is becoming an AI-native telco with OpenAI-transforming customer service, employee workflows, network operations, and the future of voice."
+        },
+        {
+          "title": "Getting started with ChatGPT",
+          "link": "https://openai.com/academy/getting-started",
+          "date": "2026-07-10T00:00:00.000Z",
+          "summary": "Learn how to use ChatGPT, start your first conversation, and discover simple ways to write, brainstorm, and solve proble…",
+          "content": "Learn how to use ChatGPT, start your first conversation, and discover simple ways to write, brainstorm, and solve problems with AI."
         },
         {
           "title": "GPT-5.6 is now the preferred model in Microsoft 365 Copilot",
