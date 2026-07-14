@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-14T12:59:21.771Z",
+  "generatedAt": "2026-07-14T18:56:41.610Z",
   "feeds": [
     {
       "id": 1,
@@ -229,6 +229,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How to manage AI investments in the agentic era",
+          "link": "https://openai.com/index/managing-ai-investments-in-agentic-era",
+          "date": "2026-07-14T10:00:00.000Z",
+          "summary": "Learn how enterprises can manage AI investments in the agentic era by measuring useful work per dollar, improving effici…",
+          "content": "Learn how enterprises can manage AI investments in the agentic era by measuring useful work per dollar, improving efficiency, and scaling high-value workflows."
+        },
         {
           "title": "How data science teams use ChatGPT Work",
           "link": "https://openai.com/academy/codex-for-work/how-data-science-teams-use-codex",
@@ -1104,6 +1111,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Celebrating 25 years of visual search innovation",
+          "link": "https://blog.google/products-and-platforms/products/search/google-images-25th-anniversary/",
+          "date": "2026-07-14T16:00:00.000Z",
+          "summary": "Google Images is turning 25. Here’s a look back at some major milestones — and new ways to explore and create visual con…",
+          "content": "Google Images is turning 25. Here’s a look back at some major milestones — and new ways to explore and create visual content."
+        },
+        {
           "title": "Expanding Managed Agents in Gemini API: background tasks, remote MCP and more",
           "link": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
           "date": "2026-07-07T08:54:00.000Z",
@@ -1383,6 +1397,13 @@
           "date": "",
           "summary": "We're excited to introduce LiteRT.js, the newest member of the LiteRT family! LiteRT.js is our powerful solution for run…",
           "content": "We're excited to introduce LiteRT.js, the newest member of the LiteRT family! LiteRT.js is our powerful solution for running machine learning models directly in the browser, extending Google's cross-platform edge AI runtime to the web. Built for JavaScript developers, LiteRT.js delivers state-of-the-art ML model inference performance on WebGPU and upcoming WebNN, with a fallback to WebAssembly for CPU. This post provides a quick tour of LiteRT.js and gives web developers everything they need to get started."
+        },
+        {
+          "title": "Unlocking the Next Era of On-Device AI with Google Tensor and Pixel",
+          "link": "https://developers.googleblog.com/unlocking-the-next-era-of-on-device-ai-with-google-tensor-and-pixel/",
+          "date": "",
+          "summary": "At Google I/O Connect India, Google showcased the future of 100% private, on-device AI powered by the custom Tensor SoC …",
+          "content": "At Google I/O Connect India, Google showcased the future of 100% private, on-device AI powered by the custom Tensor SoC and TPU for the new Pixel 10 family. The event debuted the lightweight Gemma 4 E2B model, which runs natively on the device to enable completely offline multimodal features like AI chat, real-time image recognition, and personal agent tasks. Developers can start building these secure, edge-based applications today by accessing the newly announced Tensor SDK beta and its accompanying open-source resources."
         }
       ]
     },
