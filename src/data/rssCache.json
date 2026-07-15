@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T13:02:49.932Z",
+  "generatedAt": "2026-07-15T18:50:06.378Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Working at the frontier: Why Base44 trusts Claude Fable 5 with their most challenging engineering work",
+          "link": "https://claude.com/blog/working-at-the-frontier-why-base44-trusts-claude-fable-5-with-their-most-challenging-engineering-work",
+          "date": "2026-07-15T00:00:00.000Z",
+          "summary": "Working at the frontier: Why Base44 trusts Claude Fable 5 with their most challenging engineering work",
+          "content": "Working at the frontier: Why Base44 trusts Claude Fable 5 with their most challenging engineering work"
+        },
         {
           "title": "Working at the frontier: How Hebbia builds AI for financial diligence that can't miss a detail",
           "link": "https://claude.com/blog/working-at-the-frontier-how-hebbia-builds-ai-for-financial-diligence-that-cant-miss-a-detail",
@@ -229,6 +236,20 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "The US is advancing AI safety through state and federal action",
+          "link": "https://openai.com/index/advancing-ai-safety-through-state-and-federal-action",
+          "date": "2026-07-15T12:00:00.000Z",
+          "summary": "OpenAI outlines a “reverse federalism” approach to AI governance, where state laws help build a national framework for s…",
+          "content": "OpenAI outlines a “reverse federalism” approach to AI governance, where state laws help build a national framework for safe, democratic AI."
+        },
+        {
+          "title": "GPT-Red: Unlocking Self-Improvement for Robustness",
+          "link": "https://openai.com/index/unlocking-self-improvement-gpt-red",
+          "date": "2026-07-15T10:00:00.000Z",
+          "summary": "Explore GPT-Red, OpenAI’s automated red teaming system that uses self-play to improve AI safety, alignment, and prompt i…",
+          "content": "Explore GPT-Red, OpenAI’s automated red teaming system that uses self-play to improve AI safety, alignment, and prompt injection robustness."
+        },
         {
           "title": "How to manage AI investments in the agentic era",
           "link": "https://openai.com/index/managing-ai-investments-in-agentic-era",
@@ -1504,6 +1525,34 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "What building Shippy taught us about building agents",
+          "link": "https://huggingface.co/blog/allenai/shippy-tech-blog",
+          "date": "2026-07-15T17:29:41.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Model Routing Is Simple. Until It Isn’t.",
+          "link": "https://huggingface.co/blog/ibm-research/model-routing-is-simple-until-it-isnt",
+          "date": "2026-07-15T17:27:01.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Welcome Inkling by Thinking Machines",
+          "link": "https://huggingface.co/blog/thinkingmachines-inkling",
+          "date": "2026-07-15T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
+          "link": "https://huggingface.co/blog/real-world-voiceeq",
+          "date": "2026-07-15T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Profiling in PyTorch (Part 3): Attention is all you profile",
           "link": "https://huggingface.co/blog/torch-attention-profile",
