@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-14T18:56:41.610Z",
+  "generatedAt": "2026-07-15T01:07:52.087Z",
   "feeds": [
     {
       "id": 1,
@@ -1404,6 +1404,13 @@
           "date": "",
           "summary": "At Google I/O Connect India, Google showcased the future of 100% private, on-device AI powered by the custom Tensor SoC …",
           "content": "At Google I/O Connect India, Google showcased the future of 100% private, on-device AI powered by the custom Tensor SoC and TPU for the new Pixel 10 family. The event debuted the lightweight Gemma 4 E2B model, which runs natively on the device to enable completely offline multimodal features like AI chat, real-time image recognition, and personal agent tasks. Developers can start building these secure, edge-based applications today by accessing the newly announced Tensor SDK beta and its accompanying open-source resources."
+        },
+        {
+          "title": "Systems Engineering Playbook: Optimizing Qwen 3.5-397B MoE on Ironwood (TPU7x)",
+          "link": "https://developers.googleblog.com/systems-engineering-playbook-optimizing-qwen-35-397b-moe-on-ironwood-tpu7x/",
+          "date": "",
+          "summary": "To serve the 397B-parameter Qwen 3.5 Mixture-of-Experts (MoE) model on Ironwood TPUs, engineers developed a modular JAX/…",
+          "content": "To serve the 397B-parameter Qwen 3.5 Mixture-of-Experts (MoE) model on Ironwood TPUs, engineers developed a modular JAX/Pallas optimization stack that achieved up to a 4.7x inference speedup for prefill-heavy workloads. The team bypassed severe hardware sharding constraints by deploying a hybrid Data Parallelism and Expert Parallelism (DP+EP) topology, paired with custom low-level communication fusions like a hierarchical reduce-scatter to optimize cross-device token routing. Finally, by executing hardware-aware custom kernels—such as Batched Ragged Page Attention and a fully-fused Gated DeltaNet (GDN) block—they successfully saturated HBM bandwidth and TensorCore MXUs to push system throughput near its theoretical roofline limits."
         }
       ]
     },
