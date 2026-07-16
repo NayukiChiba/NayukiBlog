@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T13:10:46.835Z",
+  "generatedAt": "2026-07-16T18:51:42.401Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,20 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Working with Claude Fable 5 in Claude Cowork",
+          "link": "https://claude.com/blog/working-with-claude-fable-5-in-claude-cowork",
+          "date": "2026-07-16T00:00:00.000Z",
+          "summary": "Working with Claude Fable 5 in Claude Cowork",
+          "content": "Working with Claude Fable 5 in Claude Cowork"
+        },
+        {
+          "title": "How Anthropic runs large-scale code migrations with Claude Code",
+          "link": "https://claude.com/blog/ai-code-migration",
+          "date": "2026-07-16T00:00:00.000Z",
+          "summary": "How Anthropic runs large-scale code migrations with Claude Code",
+          "content": "How Anthropic runs large-scale code migrations with Claude Code"
+        },
         {
           "title": "Working at the frontier: Why Base44 trusts Claude Fable 5 with their most challenging engineering work",
           "link": "https://claude.com/blog/working-at-the-frontier-why-base44-trusts-claude-fable-5-with-their-most-challenging-engineering-work",
@@ -236,6 +250,20 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Why teens deserve access to safe AI",
+          "link": "https://openai.com/index/why-teens-deserve-access-safe-ai",
+          "date": "2026-07-16T16:00:00.000Z",
+          "summary": "Learn how OpenAI is making ChatGPT safer for teens with age-appropriate protections, learning tools, parental controls, …",
+          "content": "Learn how OpenAI is making ChatGPT safer for teens with age-appropriate protections, learning tools, parental controls, and expert partnerships."
+        },
+        {
+          "title": "How Cars24 scales conversations and builds faster with OpenAI",
+          "link": "https://openai.com/index/cars24",
+          "date": "2026-07-16T00:00:00.000Z",
+          "summary": "Cars24 uses OpenAI-powered voice and chat agents to handle 1M+ monthly conversation minutes, recover 12% of lost leads, …",
+          "content": "Cars24 uses OpenAI-powered voice and chat agents to handle 1M+ monthly conversation minutes, recover 12% of lost leads, and bring agentic workflows to teams across the company."
+        },
         {
           "title": "The US is advancing AI safety through state and federal action",
           "link": "https://openai.com/index/advancing-ai-safety-through-state-and-federal-action",
@@ -1146,6 +1174,20 @@
       "ok": true,
       "items": [
         {
+          "title": "Connect more of your apps to Search",
+          "link": "https://blog.google/products-and-platforms/products/search/connected-apps/",
+          "date": "2026-07-16T16:00:00.000Z",
+          "summary": "You’ll be able to securely link and interact with your go-to services directly in AI Mode.",
+          "content": "You’ll be able to securely link and interact with your go-to services directly in AI Mode."
+        },
+        {
+          "title": "Create, edit and star in videos with two Google Vids updates",
+          "link": "https://blog.google/products-and-platforms/products/workspace/gemini-omni-personal-avatars/",
+          "date": "2026-07-16T16:00:00.000Z",
+          "summary": "Gemini Omni and personal avatars in Google Vids make video creation easier than ever.",
+          "content": "Gemini Omni and personal avatars in Google Vids make video creation easier than ever."
+        },
+        {
           "title": "Celebrating 25 years of visual search innovation",
           "link": "https://blog.google/products-and-platforms/products/search/google-images-25th-anniversary/",
           "date": "2026-07-14T16:00:00.000Z",
@@ -1453,6 +1495,13 @@
           "date": "",
           "summary": "Google Cloud has partnered with Parallel Web Systems to natively integrate Parallel's search infrastructure as a web gro…",
           "content": "Google Cloud has partnered with Parallel Web Systems to natively integrate Parallel's search infrastructure as a web grounding provider on the Gemini Enterprise Agent Platform. This integration enables developers to anchor their AI agents in verifiable, real-time web results, significantly improving factual accuracy for complex enterprise workflows. Additionally, the partnership offers expanded architectural flexibility, allowing users to programmatically extract, permanently cache, and process web data alongside other large language models."
+        },
+        {
+          "title": "Building scalable AI agents with modular prompt transpilation",
+          "link": "https://developers.googleblog.com/building-scalable-ai-agents-with-modular-prompt-transpilation/",
+          "date": "",
+          "summary": "To resolve the scaling bottlenecks and runtime errors caused by monolithic system prompts, engineering teams should trea…",
+          "content": "To resolve the scaling bottlenecks and runtime errors caused by monolithic system prompts, engineering teams should treat prompts as build artifacts by modularizing instructions into reusable templates. By running these modular \"skill files\" through a transpiler, developers can enforce static validation, catch missing dependencies at build time, and integrate prompt generation directly into their CI/CD pipelines. This deterministic approach prevents code drift and ultimately establishes a safe framework where agents can propose updates to their own logic via standard pull requests."
         }
       ]
     },
@@ -1539,6 +1588,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "NVIDIA Nemotron 3 Embed Ranks #1 Overall on RTEB, Advancing Agentic Retrieval",
+          "link": "https://huggingface.co/blog/nvidia/nemotron-3-embed-wins-rteb",
+          "date": "2026-07-16T16:01:21.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Newer Models, Same Advantage",
           "link": "https://huggingface.co/blog/Dharma-AI/newer-models-same-advantages",
