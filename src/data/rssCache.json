@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T07:50:38.764Z",
+  "generatedAt": "2026-07-16T13:10:46.835Z",
   "feeds": [
     {
       "id": 1,
@@ -1030,6 +1030,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Our approach to bioresilience",
+          "link": "https://deepmind.google/blog/our-approach-to-bioresilience/",
+          "date": "2026-07-16T09:30:42.000Z",
+          "summary": "Google DeepMind and Isomorphic Labs are sharing our joint approach to bioresilience and AI models.",
+          "content": "Google DeepMind and Isomorphic Labs are sharing our joint approach to bioresilience and AI models."
+        },
+        {
           "title": "Empowering India’s next generation of innovators with ATL Saathi",
           "link": "https://deepmind.google/blog/empowering-indias-next-generation-of-innovators-with-atl-saathi/",
           "date": "2026-07-13T12:37:28.000Z",
@@ -1439,6 +1446,13 @@
           "date": "",
           "summary": "To serve the 397B-parameter Qwen 3.5 Mixture-of-Experts (MoE) model on Ironwood TPUs, engineers developed a modular JAX/…",
           "content": "To serve the 397B-parameter Qwen 3.5 Mixture-of-Experts (MoE) model on Ironwood TPUs, engineers developed a modular JAX/Pallas optimization stack that achieved up to a 4.7x inference speedup for prefill-heavy workloads. The team bypassed severe hardware sharding constraints by deploying a hybrid Data Parallelism and Expert Parallelism (DP+EP) topology, paired with custom low-level communication fusions like a hierarchical reduce-scatter to optimize cross-device token routing. Finally, by executing hardware-aware custom kernels—such as Batched Ragged Page Attention and a fully-fused Gated DeltaNet (GDN) block—they successfully saturated HBM bandwidth and TensorCore MXUs to push system throughput near its theoretical roofline limits."
+        },
+        {
+          "title": "Expanding Choice in Gemini Enterprise Agent Platform: Introducing Grounding with Parallel Web Search",
+          "link": "https://developers.googleblog.com/expanding-choice-in-gemini-enterprise-agent-platform-introducing-grounding-with-parallel-web-search/",
+          "date": "",
+          "summary": "Google Cloud has partnered with Parallel Web Systems to natively integrate Parallel's search infrastructure as a web gro…",
+          "content": "Google Cloud has partnered with Parallel Web Systems to natively integrate Parallel's search infrastructure as a web grounding provider on the Gemini Enterprise Agent Platform. This integration enables developers to anchor their AI agents in verifiable, real-time web results, significantly improving factual accuracy for complex enterprise workflows. Additionally, the partnership offers expanded architectural flexibility, allowing users to programmatically extract, permanently cache, and process web data alongside other large language models."
         }
       ]
     },
@@ -1525,6 +1539,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Newer Models, Same Advantage",
+          "link": "https://huggingface.co/blog/Dharma-AI/newer-models-same-advantages",
+          "date": "2026-07-16T11:49:48.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Security incident disclosure — July 2026",
+          "link": "https://huggingface.co/blog/security-incident-july-2026",
+          "date": "2026-07-16T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "What building Shippy taught us about building agents",
           "link": "https://huggingface.co/blog/allenai/shippy-tech-blog",
