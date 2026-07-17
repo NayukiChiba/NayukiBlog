@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T18:51:42.401Z",
+  "generatedAt": "2026-07-17T01:20:27.738Z",
   "feeds": [
     {
       "id": 1,
@@ -1502,6 +1502,13 @@
           "date": "",
           "summary": "To resolve the scaling bottlenecks and runtime errors caused by monolithic system prompts, engineering teams should trea…",
           "content": "To resolve the scaling bottlenecks and runtime errors caused by monolithic system prompts, engineering teams should treat prompts as build artifacts by modularizing instructions into reusable templates. By running these modular \"skill files\" through a transpiler, developers can enforce static validation, catch missing dependencies at build time, and integrate prompt generation directly into their CI/CD pipelines. This deterministic approach prevents code drift and ultimately establishes a safe framework where agents can propose updates to their own logic via standard pull requests."
+        },
+        {
+          "title": "Evolving Spec-Driven Development: Conductor Now Supports Antigravity",
+          "link": "https://developers.googleblog.com/evolving-spec-driven-development-conductor-now-supports-antigravity/",
+          "date": "",
+          "summary": "Conductor has evolved from a Gemini CLI extension into a portable plugin, bringing conversational Spec-Driven Developmen…",
+          "content": "Conductor has evolved from a Gemini CLI extension into a portable plugin, bringing conversational Spec-Driven Development (SDD) to ecosystems like Antigravity CLI and Claude. Rather than relying on strict command sequences, developers can now chat naturally with their AI assistant while it dynamically manages persistent markdown artifacts (like spec.md and plan.md) in the background. This update eliminates workflow friction while ensuring your repository remains a version-controlled, single source of truth for your project's architecture and state across different AI tools."
         }
       ]
     },
