@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-17T18:48:20.264Z",
+  "generatedAt": "2026-07-18T01:12:22.012Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,20 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Zero risk isn't the job: a CISO's guide to agentic AI",
+          "link": "https://claude.com/blog/ciso-guide-to-agentic-ai",
+          "date": "2026-07-17T00:00:00.000Z",
+          "summary": "Zero risk isn't the job: a CISO's guide to agentic AI",
+          "content": "Zero risk isn't the job: a CISO's guide to agentic AI"
+        },
+        {
+          "title": "Working at the frontier: How Cursor knew Claude Fable 5 was ready for the hardest 1% of problems",
+          "link": "https://claude.com/blog/working-at-the-frontier-cursor",
+          "date": "2026-07-17T00:00:00.000Z",
+          "summary": "Working at the frontier: How Cursor knew Claude Fable 5 was ready for the hardest 1% of problems",
+          "content": "Working at the frontier: How Cursor knew Claude Fable 5 was ready for the hardest 1% of problems"
+        },
         {
           "title": "Working with Claude Fable 5 in Claude Cowork",
           "link": "https://claude.com/blog/working-with-claude-fable-5-in-claude-cowork",
