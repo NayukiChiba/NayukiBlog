@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20T13:43:40.852Z",
+  "generatedAt": "2026-07-20T19:19:51.660Z",
   "feeds": [
     {
       "id": 1,
@@ -264,6 +264,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Safety and alignment in an era of long-horizon models",
+          "link": "https://openai.com/index/safety-alignment-long-horizon-models",
+          "date": "2026-07-20T10:00:00.000Z",
+          "summary": "OpenAI shares lessons from deploying long-running AI models, highlighting new safety risks, observed failures, and impro…",
+          "content": "OpenAI shares lessons from deploying long-running AI models, highlighting new safety risks, observed failures, and improved safeguards through iterative deployment."
+        },
         {
           "title": "A scorecard for the AI age",
           "link": "https://openai.com/index/a-scorecard-for-the-ai-age",
@@ -1530,6 +1537,13 @@
           "date": "",
           "summary": "Conductor has evolved from a Gemini CLI extension into a portable plugin, bringing conversational Spec-Driven Developmen…",
           "content": "Conductor has evolved from a Gemini CLI extension into a portable plugin, bringing conversational Spec-Driven Development (SDD) to ecosystems like Antigravity CLI and Claude. Rather than relying on strict command sequences, developers can now chat naturally with their AI assistant while it dynamically manages persistent markdown artifacts (like spec.md and plan.md) in the background. This update eliminates workflow friction while ensuring your repository remains a version-controlled, single source of truth for your project's architecture and state across different AI tools."
+        },
+        {
+          "title": "Run Ray on TPU, Part 1: The foundations",
+          "link": "https://developers.googleblog.com/run-ray-on-tpu-part-1-the-foundations/",
+          "date": "",
+          "summary": "Ray 2.55 introduces official, first-class support for Google Cloud TPUs, enabling developers to run distributed Python w…",
+          "content": "Ray 2.55 introduces official, first-class support for Google Cloud TPUs, enabling developers to run distributed Python workloads on Google's accelerators using the familiar Ray task-and-actor APIs. To handle the strict networking requirement of keeping multi-host TPU \"slices\" together over their Inter-Chip Interconnect (ICI), the KubeRay Operator on GKE automatically provisions and labels the underlying hardware layout. Ray Core utilizes these labels via its slice_placement_group() primitive to atomically reserve complete slices, allowing developers to deploy jobs through KubeRay, Ray Train, or Ray Serve simply by declaring a hardware topology (like \"4x4\") without writing custom placement code."
         }
       ]
     },
@@ -1616,6 +1630,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Introducing Cosmos 3 Edge",
+          "link": "https://huggingface.co/blog/nvidia/cosmos3edge",
+          "date": "2026-07-20T15:58:51.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Fine-tune video and image models at scale with NVIDIA NeMo Automodel and 🤗 Diffusers",
           "link": "https://huggingface.co/blog/nvidia/scale-diffusers-finetuning-nemo-automodel",
