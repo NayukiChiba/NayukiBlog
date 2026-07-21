@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T08:02:31.169Z",
+  "generatedAt": "2026-07-21T13:08:51.169Z",
   "feeds": [
     {
       "id": 1,
@@ -1637,6 +1637,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Grabette: an open system to record robot-manipulation data",
+          "link": "https://huggingface.co/blog/grabette",
+          "date": "2026-07-21T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Introducing Cosmos 3 Edge",
           "link": "https://huggingface.co/blog/nvidia/cosmos3edge",
