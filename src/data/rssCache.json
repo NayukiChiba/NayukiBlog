@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20T19:19:51.660Z",
+  "generatedAt": "2026-07-21T01:17:46.984Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Working at the frontier: How Rakuten builds agents overnight with Claude Fable 5",
+          "link": "https://claude.com/blog/working-at-the-frontier-rakuten",
+          "date": "2026-07-20T00:00:00.000Z",
+          "summary": "Working at the frontier: How Rakuten builds agents overnight with Claude Fable 5",
+          "content": "Working at the frontier: How Rakuten builds agents overnight with Claude Fable 5"
+        },
         {
           "title": "Zero risk isn't the job: a CISO's guide to agentic AI",
           "link": "https://claude.com/blog/ciso-guide-to-agentic-ai",
