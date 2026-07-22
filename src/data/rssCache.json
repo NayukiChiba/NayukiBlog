@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T18:59:55.410Z",
+  "generatedAt": "2026-07-22T01:16:37.515Z",
   "feeds": [
     {
       "id": 1,
@@ -277,6 +277,20 @@
           "date": "2026-07-21T17:00:00.000Z",
           "summary": "OpenAI launches the ChatGPT for Small Businesses program, helping entrepreneurs build AI skills, automate work, and grow…",
           "content": "OpenAI launches the ChatGPT for Small Businesses program, helping entrepreneurs build AI skills, automate work, and grow with ChatGPT Work."
+        },
+        {
+          "title": "OpenAI and Hugging Face partner to address security incident during model evaluation",
+          "link": "https://openai.com/index/hugging-face-model-evaluation-security-incident",
+          "date": "2026-07-21T07:00:00.000Z",
+          "summary": "OpenAI and Hugging Face share early findings from a security incident during AI model evaluation, highlighting advanced …",
+          "content": "OpenAI and Hugging Face share early findings from a security incident during AI model evaluation, highlighting advanced cyber capabilities and lessons for defenders."
+        },
+        {
+          "title": "David Vélez and Robin Vince join the boards of the OpenAI Foundation and OpenAI Group PBC",
+          "link": "https://openai.com/index/david-velez-robin-vince-join-openai-boards",
+          "date": "2026-07-21T00:00:00.000Z",
+          "summary": "David Vélez and Robin Vince join the boards of the OpenAI Foundation and OpenAI Group PBC, bringing global leadership in…",
+          "content": "David Vélez and Robin Vince join the boards of the OpenAI Foundation and OpenAI Group PBC, bringing global leadership in finance, technology, and governance."
         },
         {
           "title": "Safety and alignment in an era of long-horizon models",
@@ -1665,6 +1679,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "The State of Simulation for Physical AI: An Overview",
+          "link": "https://huggingface.co/blog/nvidia/state-of-simulation-for-physical-ai",
+          "date": "2026-07-21T20:00:27.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Grabette: an open system to record robot-manipulation data",
           "link": "https://huggingface.co/blog/grabette",
