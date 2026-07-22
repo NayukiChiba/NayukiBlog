@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T13:14:44.704Z",
+  "generatedAt": "2026-07-22T18:52:33.480Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "How Outtake built a cyber investigator on Claude",
+          "link": "https://claude.com/blog/how-outtake-built-a-cyber-investigator-on-claude",
+          "date": "2026-07-22T00:00:00.000Z",
+          "summary": "How Outtake built a cyber investigator on Claude",
+          "content": "How Outtake built a cyber investigator on Claude"
+        },
         {
           "title": "How Datadog built a “universal machine tool” for Claude Code",
           "link": "https://claude.com/blog/how-datadog-built-a-universal-machine-tool-for-claude-code",
@@ -291,6 +298,13 @@
           "date": "2026-07-22T13:00:00.000Z",
           "summary": "OpenAI announces Project Camellia in Effingham County, Georgia, with commitments to responsible energy, community invest…",
           "content": "OpenAI announces Project Camellia in Effingham County, Georgia, with commitments to responsible energy, community investment, jobs, and access to Codex."
+        },
+        {
+          "title": "Advancing the next era of national science",
+          "link": "https://openai.com/index/advancing-the-next-era-of-national-science",
+          "date": "2026-07-22T12:00:00.000Z",
+          "summary": "OpenAI outlines its commitment to advancing American science working with the U.S. Department of Energy and national lab…",
+          "content": "OpenAI outlines its commitment to advancing American science working with the U.S. Department of Energy and national labs to use frontier AI to accelerate discovery."
         },
         {
           "title": "Introducing OpenAI Presence",
@@ -1148,6 +1162,13 @@
       "link": "https://deepmind.google/blog/",
       "ok": true,
       "items": [
+        {
+          "title": "Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission",
+          "link": "https://deepmind.google/blog/accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission/",
+          "date": "2026-07-22T13:38:54.000Z",
+          "summary": "Google commits $40M in AI tokens and credits for the Genesis Mission",
+          "content": "Google commits $40M in AI tokens and credits for the Genesis Mission"
+        },
         {
           "title": "Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber",
           "link": "https://deepmind.google/blog/introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber/",
