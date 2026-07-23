@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-23T01:23:36.065Z",
+  "generatedAt": "2026-07-23T08:05:45.640Z",
   "feeds": [
     {
       "id": 1,
@@ -14,6 +14,13 @@
           "date": "2026-07-22T00:00:00.000Z",
           "summary": "How Outtake built a cyber investigator on Claude",
           "content": "How Outtake built a cyber investigator on Claude"
+        },
+        {
+          "title": "Building verification loops in Claude Code with skills",
+          "link": "https://claude.com/blog/building-verification-loops-in-claude-code-with-skills",
+          "date": "2026-07-22T00:00:00.000Z",
+          "summary": "Building verification loops in Claude Code with skills",
+          "content": "Building verification loops in Claude Code with skills"
         },
         {
           "title": "How Datadog built a “universal machine tool” for Claude Code",
@@ -1756,6 +1763,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Bringing Nunchaku 4-bit Diffusion Inference to Diffusers",
+          "link": "https://huggingface.co/blog/nunchaku-diffusers",
+          "date": "2026-07-23T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "The State of Simulation for Physical AI: An Overview",
           "link": "https://huggingface.co/blog/nvidia/state-of-simulation-for-physical-ai",
