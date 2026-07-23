@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-23T13:17:49.532Z",
+  "generatedAt": "2026-07-23T18:55:12.257Z",
   "feeds": [
     {
       "id": 1,
@@ -299,6 +299,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Launching Health in ChatGPT",
+          "link": "https://openai.com/index/health-in-chatgpt",
+          "date": "2026-07-23T00:00:00.000Z",
+          "summary": "Health in ChatGPT now lets eligible U.S. users securely connect medical records and Apple Health to get more personalize…",
+          "content": "Health in ChatGPT now lets eligible U.S. users securely connect medical records and Apple Health to get more personalized insights and better understand their health."
+        },
         {
           "title": "Building AI infrastructure with the Effingham County community",
           "link": "https://openai.com/index/building-ai-infrastructure-with-the-effingham-county-community",
