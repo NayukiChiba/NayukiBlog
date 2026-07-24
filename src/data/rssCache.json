@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T13:11:03.821Z",
+  "generatedAt": "2026-07-24T19:07:19.978Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,27 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Claude models explained: choosing the best model for your use case",
+          "link": "https://claude.com/blog/claude-models-explained-choosing-the-best-model-for-your-use-case",
+          "date": "2026-07-24T00:00:00.000Z",
+          "summary": "Claude models explained: choosing the best model for your use case",
+          "content": "Claude models explained: choosing the best model for your use case"
+        },
+        {
+          "title": "The new rules of context engineering for Claude 5 generation models",
+          "link": "https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models",
+          "date": "2026-07-24T00:00:00.000Z",
+          "summary": "The new rules of context engineering for Claude 5 generation models",
+          "content": "The new rules of context engineering for Claude 5 generation models"
+        },
+        {
+          "title": "How the product designer who built Claude Design uses it to explore ideas before building them",
+          "link": "https://claude.com/blog/how-the-product-designer-who-built-claude-design-uses-it-to-explore-ideas-before-building-them",
+          "date": "2026-07-24T00:00:00.000Z",
+          "summary": "How the product designer who built Claude Design uses it to explore ideas before building them",
+          "content": "How the product designer who built Claude Design uses it to explore ideas before building them"
+        },
         {
           "title": "Think through hard problems in voice mode",
           "link": "https://claude.com/blog/think-through-hard-problems-in-voice-mode",
@@ -1698,6 +1719,13 @@
           "date": "",
           "summary": "Tunix is Google’s new JAX-native post-training library designed to eliminate TPU idling bottlenecks when training multi-…",
           "content": "Tunix is Google’s new JAX-native post-training library designed to eliminate TPU idling bottlenecks when training multi-turn, tool-using LLM reasoning agents. It maximizes hardware throughput by combining highly concurrent, asynchronous rollouts with a decoupled producer-consumer pipeline, ensuring the trainer is constantly fed even while agents wait on network I/O or environment steps. Additionally, Tunix provides plug-and-play abstractions and continuous macro-level profiling, allowing developers to easily integrate custom open-source environments and optimize complex distributed workflows without massive code rewrites."
+        },
+        {
+          "title": "Run Ray on TPU, Part 2: Ray AI libraries",
+          "link": "https://developers.googleblog.com/run-ray-on-tpu-part-2-ray-ai-libraries/",
+          "date": "",
+          "summary": "This second installment explores how Ray’s higher-level libraries—Serve, Data, and Train—abstract the complexities of ru…",
+          "content": "This second installment explores how Ray’s higher-level libraries—Serve, Data, and Train—abstract the complexities of running AI workloads on Google's TPU slices. Ray Serve uses a simple topology configuration to correctly gang-schedule large multi-host models, while Ray Data eliminates data-loading bottlenecks by feeding accelerators directly with native JAX batches. Finally, JaxTrainer streamlines distributed training across TPUs by automatically handling cross-slice coordination, checkpointing, and fault tolerance."
         }
       ]
     },
