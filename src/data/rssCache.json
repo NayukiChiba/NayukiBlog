@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T01:19:50.315Z",
+  "generatedAt": "2026-07-24T08:02:42.571Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,20 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Think through hard problems in voice mode",
+          "link": "https://claude.com/blog/think-through-hard-problems-in-voice-mode",
+          "date": "2026-07-23T00:00:00.000Z",
+          "summary": "Think through hard problems in voice mode",
+          "content": "Think through hard problems in voice mode"
+        },
+        {
+          "title": "Four role-based certifications for the people who put Claude to work for customers",
+          "link": "https://claude.com/blog/four-role-based-claude-certifications",
+          "date": "2026-07-23T00:00:00.000Z",
+          "summary": "Four role-based certifications for the people who put Claude to work for customers",
+          "content": "Four role-based certifications for the people who put Claude to work for customers"
+        },
         {
           "title": "How Outtake built a cyber investigator on Claude",
           "link": "https://claude.com/blog/how-outtake-built-a-cyber-investigator-on-claude",
