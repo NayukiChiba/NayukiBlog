@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-25T07:46:17.933Z",
+  "generatedAt": "2026-07-25T12:53:42.749Z",
   "feeds": [
     {
       "id": 1,
@@ -1015,6 +1015,13 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "Jul 24, 2026Frontier Red TeamProject Pilot: Can AI control a drone?",
+          "link": "https://www.anthropic.com/research/project-pilot",
+          "date": "2026-07-24T00:00:00.000Z",
+          "summary": "Jul 24, 2026Frontier Red TeamProject Pilot: Can AI control a drone?",
+          "content": "Jul 24, 2026Frontier Red TeamProject Pilot: Can AI control a drone?"
+        },
         {
           "title": "Jul 14, 2026Economic ResearchHow Canada uses Claude: Findings from the Anthropic Economic Index",
           "link": "https://www.anthropic.com/research/how-canada-uses-claude",
