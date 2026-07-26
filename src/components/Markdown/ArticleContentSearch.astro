@@ -340,6 +340,7 @@
         padding: 0 0.5rem;
     }
 
+    /* 搜索框：白卡圆角，focus 主题描边 + 柔和光环 */
     .article-search-box {
         position: relative;
         display: flex;
@@ -347,23 +348,28 @@
         gap: 0.45rem;
         min-width: 0;
         padding: 0 0.6rem;
-        border: 1px solid var(--color-border, #e5e5e5);
-        border-radius: 8px;
+        border: 1px solid var(--color-border, #e3e6f0);
+        border-radius: var(--radius-md, 12px);
         background: var(--color-card-bg, #ffffff);
         min-height: 40px;
         transition:
-            border-color 0.2s ease,
-            box-shadow 0.2s ease;
+            border-color 0.2s var(--ease-out, ease),
+            box-shadow 0.2s var(--ease-out, ease);
     }
 
     .article-search-box:focus-within {
-        border-color: var(--color-primary, #111111);
-        box-shadow: 0 0 0 3px var(--color-primary-subtle, rgba(0, 0, 0, 0.06));
+        border-color: var(--color-primary, #4c5670);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary, #4c5670), transparent 85%);
     }
 
     .article-search-icon {
         flex-shrink: 0;
-        color: var(--color-text-muted, #999999);
+        color: var(--color-text-muted, #8b91a5);
+        transition: color 0.2s ease;
+    }
+
+    .article-search-box:focus-within .article-search-icon {
+        color: var(--color-primary, #4c5670);
     }
 
     .article-content-search-input {
@@ -372,14 +378,14 @@
         border: none;
         outline: none;
         background: transparent;
-        color: var(--color-text, #111111);
+        color: var(--color-text, #14161f);
         font-family: inherit;
         font-size: 0.82rem;
         padding: 0.55rem 0;
     }
 
     .article-content-search-input::placeholder {
-        color: var(--color-text-muted, #999999);
+        color: var(--color-text-muted, #8b91a5);
     }
 
     .article-content-search-clear,
@@ -390,7 +396,7 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        color: var(--color-text-muted, #999999);
+        color: var(--color-text-muted, #8b91a5);
         background: transparent;
         border-radius: 6px;
         padding: 0;
@@ -402,26 +408,28 @@
     .article-content-search-clear {
         width: 20px;
         height: 20px;
-        background: var(--color-border, #e5e5e5);
+        background: var(--color-bg-secondary, #eef0f8);
+        border-radius: 50%;
     }
 
     .article-content-search-clear:hover,
     .article-search-prev:hover:not(:disabled),
     .article-search-next:hover:not(:disabled) {
-        color: var(--color-primary, #111111);
-        background: var(--color-primary-subtle, rgba(0, 0, 0, 0.06));
+        color: var(--color-primary, #4c5670);
+        background: color-mix(in srgb, var(--color-primary, #4c5670), transparent 90%);
     }
 
     .article-search-count {
         flex-shrink: 0;
-        color: var(--color-text-muted, #999999);
+        color: var(--color-text-muted, #8b91a5);
         font-size: 0.75rem;
         font-variant-numeric: tabular-nums;
         white-space: nowrap;
     }
 
+    /* 无结果：语义红提示 */
     .article-search-count.no-result {
-        color: var(--color-primary, #111111);
+        color: #ef4444;
     }
 
     .article-search-actions {
@@ -434,8 +442,8 @@
     .article-search-next {
         width: 30px;
         height: 30px;
-        color: var(--color-text-light, #555555);
-        background: var(--color-bg-secondary, #f7f7f7);
+        color: var(--color-text-light, #4e5567);
+        background: var(--color-bg-secondary, #eef0f8);
     }
 
     .article-search-prev svg,
@@ -450,24 +458,37 @@
         cursor: not-allowed;
     }
 
+    /* 正文命中高亮：淡雾蓝浅底 + 底部着重线 */
     .content mark.article-search-mark {
         padding: 0 0.12em;
-        border-radius: 3px;
+        border-radius: 4px;
         color: inherit;
-        background: color-mix(in srgb, var(--color-primary, #111111) 18%, transparent);
-        box-shadow: inset 0 -0.18em 0 color-mix(in srgb, var(--color-primary, #111111) 35%, transparent);
+        background: color-mix(in srgb, var(--radial-c2, #93a9c9), transparent 75%);
+        box-shadow: inset 0 -0.18em 0 color-mix(in srgb, var(--radial-c2, #93a9c9), transparent 45%);
     }
 
+    /* 当前命中：雾蓝更醒目 + 外圈光环 */
     .content mark.article-search-mark.current {
-        background: color-mix(in srgb, var(--color-primary, #111111) 32%, transparent);
+        background: color-mix(in srgb, var(--color-primary, #4c5670), transparent 65%);
         box-shadow:
-            0 0 0 2px color-mix(in srgb, var(--color-primary, #111111) 28%, transparent),
-            inset 0 -0.2em 0 color-mix(in srgb, var(--color-primary, #111111) 55%, transparent);
+            0 0 0 2px color-mix(in srgb, var(--color-primary, #4c5670), transparent 55%),
+            inset 0 -0.2em 0 color-mix(in srgb, var(--color-primary, #4c5670), transparent 40%);
     }
 
     .mobile-toc-panel .article-content-search {
         margin: 0;
         padding: 0.75rem;
-        border-bottom: 1px solid var(--color-border-light, #f0f0f0);
+        border-bottom: 1px solid var(--color-border-light, #edeff7);
+    }
+
+    /* 减弱动效偏好 */
+    @media (prefers-reduced-motion: reduce) {
+        .article-search-box,
+        .article-search-icon,
+        .article-content-search-clear,
+        .article-search-prev,
+        .article-search-next {
+            transition: none;
+        }
     }
 </style>

@@ -38,7 +38,7 @@ import ArticleContentSearch from "./ArticleContentSearch.astro";
 </div>
 
 <style is:global>
-    /* ====== 移动端目录悬浮球 ====== */
+    /* ====== 移动端目录悬浮球：玻璃白圆钮 ====== */
     /* 默认位置：右下角配置按钮（fx-trigger）正上方 */
     .mobile-toc-btn {
         position: fixed;
@@ -48,25 +48,31 @@ import ArticleContentSearch from "./ArticleContentSearch.astro";
         width: 48px;
         height: 48px;
         border-radius: 50%;
-        background: #ffffff;
-        border: 1px solid var(--color-border, #e5e5e5);
-        color: var(--color-text, #111111);
-        box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.07));
+        background: var(--surface-glass, rgba(255, 255, 255, 0.72));
+        backdrop-filter: blur(12px) saturate(1.5);
+        -webkit-backdrop-filter: blur(12px) saturate(1.5);
+        border: 1px solid var(--color-border, #e3e6f0);
+        color: var(--color-text, #14161f);
+        box-shadow: var(--shadow-md, 0 8px 24px -8px rgba(23, 25, 35, 0.1));
         cursor: pointer;
         z-index: 9998;
         align-items: center;
         justify-content: center;
         transition:
-            border-color 0.25s ease,
-            box-shadow 0.25s ease;
+            border-color 0.25s var(--ease-out, ease),
+            color 0.25s var(--ease-out, ease),
+            box-shadow 0.25s var(--ease-out, ease),
+            transform 0.25s var(--ease-out, ease);
     }
 
     .mobile-toc-btn:hover {
-        border-color: var(--color-text, #111111);
-        box-shadow: var(--shadow-lg, 0 12px 28px -8px rgba(0, 0, 0, 0.12));
+        border-color: color-mix(in srgb, var(--color-primary, #4c5670), transparent 45%);
+        color: var(--color-primary, #4c5670);
+        box-shadow: var(--shadow-hover, 0 14px 32px -14px rgba(26, 29, 36, 0.14));
+        transform: translateY(-2px);
     }
 
-    /* ====== 目录悬浮窗 ====== */
+    /* ====== 目录悬浮窗：玻璃白卡 ====== */
     .mobile-toc-panel {
         position: fixed;
         /* 悬浮球上方 */
@@ -74,16 +80,18 @@ import ArticleContentSearch from "./ArticleContentSearch.astro";
         right: 2rem;
         width: min(340px, calc(100vw - 3rem));
         max-height: 55vh;
-        background: #ffffff;
-        border: 1px solid var(--color-border, #e5e5e5);
-        border-radius: 14px;
-        box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.18);
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(20px) saturate(1.5);
+        -webkit-backdrop-filter: blur(20px) saturate(1.5);
+        border: 1px solid var(--color-border-light, #edeff7);
+        border-radius: var(--radius-lg, 16px);
+        box-shadow: var(--shadow-lg, 0 16px 40px -16px rgba(23, 25, 35, 0.16));
         z-index: 9998;
         display: flex;
         flex-direction: column;
         overflow: hidden;
         transform-origin: bottom right;
-        transition: opacity 0.18s ease, transform 0.18s ease;
+        transition: opacity 0.18s var(--ease-out, ease), transform 0.22s var(--ease-out, ease);
         opacity: 0;
         transform: translateY(6px) scale(0.98);
         pointer-events: none;
@@ -98,12 +106,27 @@ import ArticleContentSearch from "./ArticleContentSearch.astro";
     .toc-panel-head {
         padding: 0.875rem 1rem;
         font-size: 0.8125rem;
+        font-family: var(--font-display, inherit);
         font-weight: 600;
-        color: var(--color-text, #111111);
+        color: var(--color-text, #14161f);
         letter-spacing: 0.02em;
-        border-bottom: 1px solid var(--color-border-light, #f0f0f0);
+        border-bottom: 1px solid var(--color-border-light, #edeff7);
         flex-shrink: 0;
         user-select: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* 面板标题前置几何标记：纯色旋转小方块（呼应 Logo） */
+    .toc-panel-head::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 2.5px;
+        transform: rotate(45deg);
+        background: var(--color-primary, #4c5670);
+        flex-shrink: 0;
     }
 
     .toc-panel-content {
@@ -128,8 +151,8 @@ import ArticleContentSearch from "./ArticleContentSearch.astro";
         }
     }
 
-    /* 桌面端（>=1400px，有侧边目录）隐藏移动端目录组件 */
-    @media (min-width: 1400px) {
+    /* 桌面端（>=1480px，有侧边目录）隐藏移动端目录组件 */
+    @media (min-width: 1480px) {
         .mobile-toc-btn,
         .mobile-toc-panel {
             display: none !important;
@@ -148,31 +171,50 @@ import ArticleContentSearch from "./ArticleContentSearch.astro";
         line-height: 1;
     }
 
+    /* 目录项：左侧纯色短条（hover/active 展开），与桌面端一致 */
     #mobile-toc a {
         text-decoration: none;
-        color: var(--color-text-light, #525252);
+        color: var(--color-text-light, #4e5567);
         font-size: 0.875rem;
         display: block;
+        position: relative;
         padding: 0.625rem 0.75rem;
-        border-left: 2px solid transparent;
-        border-radius: 0 6px 6px 0;
-        transition: all 0.2s;
+        border-radius: var(--radius-sm, 8px);
+        transition:
+            color 0.2s var(--ease-out, ease),
+            background-color 0.2s var(--ease-out, ease);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
+    #mobile-toc a::before {
+        content: "";
+        position: absolute;
+        left: 2px;
+        top: 50%;
+        transform: translateY(-50%) scaleY(0);
+        width: 3px;
+        height: 58%;
+        border-radius: var(--radius-full, 999px);
+        background: var(--color-primary, #4c5670);
+        transition: transform 0.25s var(--ease-out, ease);
+    }
+
     #mobile-toc a:hover {
-        color: var(--color-primary, #111111);
-        border-left-color: var(--color-primary, #111111);
-        background: var(--color-primary-subtle, rgba(0, 0, 0, 0.04));
+        color: var(--color-primary, #4c5670);
+        background: color-mix(in srgb, var(--color-primary, #4c5670), transparent 93%);
     }
 
     #mobile-toc a.active {
-        color: var(--color-primary, #111111);
+        color: var(--color-primary, #4c5670);
         font-weight: 600;
-        border-left-color: var(--color-primary, #111111);
-        background: var(--color-primary-subtle, rgba(0, 0, 0, 0.04));
+        background: color-mix(in srgb, var(--color-primary, #4c5670), transparent 91%);
+    }
+
+    #mobile-toc a:hover::before,
+    #mobile-toc a.active::before {
+        transform: translateY(-50%) scaleY(1);
     }
 
     /* 大纲中的 KaTeX 公式：跟随目录字号，不放大 */
@@ -187,7 +229,7 @@ import ArticleContentSearch from "./ArticleContentSearch.astro";
 
     /* 树形连接线前缀：等宽字体保证竖线与连接符纵向对齐 */
     #mobile-toc .toc-tree-prefix {
-        color: #cccccc;
+        color: rgba(139, 145, 165, 0.45);
         font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
         white-space: pre;
         font-size: 0.9em;
@@ -196,6 +238,19 @@ import ArticleContentSearch from "./ArticleContentSearch.astro";
     /* 悬停/高亮时连接线跟随主题色 */
     #mobile-toc a:hover .toc-tree-prefix,
     #mobile-toc a.active .toc-tree-prefix {
-        color: var(--color-primary, #111111);
+        color: var(--color-primary, #4c5670);
+    }
+
+    /* 减弱动效偏好 */
+    @media (prefers-reduced-motion: reduce) {
+        .mobile-toc-btn,
+        .mobile-toc-panel,
+        #mobile-toc a,
+        #mobile-toc a::before {
+            transition: none;
+        }
+        .mobile-toc-btn:hover {
+            transform: none;
+        }
     }
 </style>

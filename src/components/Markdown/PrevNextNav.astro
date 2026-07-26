@@ -42,8 +42,8 @@ const { prevPost, nextPost } = Astro.props;
 <style is:global>
   .prev-next-nav {
     margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--color-border, #e8e8e8);
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--color-border-light, #edeff7);
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -57,37 +57,44 @@ const { prevPost, nextPost } = Astro.props;
     }
   }
 
-  .nav-card {
+  /* 迷你卡片：白卡细边，hover 抬升 + 主题描边 + 箭头位移
+     选择器带上 a 元素提升优先级，覆盖 .content a 的下划线样式 */
+  .prev-next-nav a.nav-card,
+  .prev-next-nav .nav-card {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     height: 3.75rem;
     width: 100%;
     padding: 0 1.25rem;
-    border-radius: 1rem;
-    border: 2px solid var(--color-border, #e8e8e8);
-    background: var(--color-card-bg, #fff);
-    text-decoration: none;
+    border-radius: var(--radius-lg, 16px);
+    border: 1px solid var(--color-border, #e6e8ee);
+    background: var(--color-card-bg, #ffffff);
+    box-shadow: var(--shadow-xs, 0 1px 2px rgba(26, 29, 36, 0.04));
+    text-decoration: none; /* 覆盖 .content a 的下划线 */
     color: inherit;
-    transition: border-color 0.25s, box-shadow 0.25s;
+    transition:
+      border-color 0.25s var(--ease-out, ease),
+      box-shadow 0.25s var(--ease-out, ease),
+      transform 0.25s var(--ease-out, ease);
     overflow: hidden;
   }
 
   @media (min-width: 768px) {
-    .nav-card {
+    .prev-next-nav .nav-card {
       max-width: calc(50% - 0.375rem);
     }
   }
 
-  .prev-next-nav .nav-card:hover {
-    border-color: var(--color-primary);
-    border-radius: 1rem;
-    box-shadow:
-      0 0 16px color-mix(in srgb, var(--radial-c1) 30%, transparent);
+  .prev-next-nav a.nav-card:hover {
+    color: inherit;
+    border-color: color-mix(in srgb, var(--color-primary, #4c5670), transparent 45%);
+    box-shadow: var(--shadow-hover, 0 14px 32px -14px rgba(26, 29, 36, 0.14));
+    transform: translateY(-3px);
   }
 
-  .nav-card:active {
-    transform: scale(0.97);
+  .prev-next-nav a.nav-card:active {
+    transform: translateY(-1px) scale(0.99);
   }
 
   .nav-card-next {
@@ -99,24 +106,51 @@ const { prevPost, nextPost } = Astro.props;
     visibility: hidden;
   }
 
+  /* 箭头：主题色，hover 沿导航方向位移 */
   .nav-icon {
     flex-shrink: 0;
-    color: var(--color-primary);
+    color: var(--color-primary, #4c5670);
     display: flex;
     align-items: center;
+    transition: transform 0.25s var(--ease-out, ease);
+  }
+
+  .prev-next-nav a.nav-card:hover .nav-icon {
+    transform: translateX(-4px);
+  }
+
+  .prev-next-nav a.nav-card-next:hover .nav-icon {
+    transform: translateX(4px);
   }
 
   .nav-text {
     font-size: 0.92rem;
     font-weight: 600;
-    color: var(--color-text, #2d2d2d);
+    color: var(--color-text, #14161f);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: calc(100% - 2.5rem);
   }
 
-  .nav-card:hover .nav-text {
-    color: var(--color-primary);
+  .prev-next-nav a.nav-card:hover .nav-text {
+    color: var(--color-primary, #4c5670);
+  }
+
+  /* 减弱动效偏好：取消抬升与箭头位移 */
+  @media (prefers-reduced-motion: reduce) {
+    .prev-next-nav a.nav-card,
+    .prev-next-nav .nav-card,
+    .nav-icon {
+      transition: none;
+    }
+    .prev-next-nav a.nav-card:hover,
+    .prev-next-nav a.nav-card:active {
+      transform: none;
+    }
+    .prev-next-nav a.nav-card:hover .nav-icon,
+    .prev-next-nav a.nav-card-next:hover .nav-icon {
+      transform: none;
+    }
   }
 </style>

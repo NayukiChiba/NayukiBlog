@@ -1,51 +1,52 @@
 /* =========================================================
-   Markdown 代码块 — 简约窗口风格 + 行号 + 限高滚动
+   Markdown 代码块 — 白底浅色卡片 + 行号 + 限高滚动
+   素雅风格：白底、细边框、浅灰头部，与博客整体协调
    结构由 CodeBlockScript.astro 在客户端生成：
    .code-block-wrapper > .code-header + .code-content > pre
+   Shiki（github-light）的 token 颜色以行内样式输出，此处不覆盖
    ========================================================= */
 
 .code-block-wrapper {
   margin: 1.5rem 0;
-  border-radius: 10px;
+  border-radius: var(--radius-md, 12px);
   overflow: hidden;
-  border: 1px solid var(--color-border, #e5e5e5);
-  background-color: var(--code-bg, #fafafa);
+  border: 1px solid var(--color-border, #e6e8ee);
+  background-color: var(--code-bg, #fdfdfe);
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(26, 29, 36, 0.04));
 }
 
-/* ============ 头部栏 ============ */
+/* ============ 头部栏：浅灰 ============ */
 .code-header {
   display: flex;
   align-items: center;
-  padding: 0.625rem 1rem;
-  background-color: var(--code-header-bg, #f5f5f5);
-  border-bottom: 1px solid var(--color-border-light, #f0f0f0);
+  padding: 0.55rem 0.875rem;
+  background-color: var(--code-header-bg, #f4f6fa);
+  border-bottom: 1px solid var(--color-border-light, #f0f1f5);
   font-family: var(--font-mono, monospace);
   font-size: 0.85rem;
   user-select: none;
 }
 
-/* Mac 风格三色点 */
+/* Mac 风格三色点（固定装饰色，降饱和） */
 .code-header::before {
   content: "";
   display: block;
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #ff5f56;
-  box-shadow: 18px 0 0 #ffbd2e, 36px 0 0 #27c93f;
+  background-color: #eca8a2;
+  box-shadow: 18px 0 0 #ecd3a0, 36px 0 0 #a9d6b6;
   margin-right: auto;
-  opacity: 0.85;
 }
 
-/* 语言标签：主题色小字 */
+/* 语言标签：小号灰字 */
 .code-language {
   font-weight: 600;
   text-transform: uppercase;
-  color: var(--color-primary, #8a8a8a);
   font-size: 0.7rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   margin-right: 0.8rem;
-  opacity: 0.85;
+  color: var(--color-text-muted, #9096a5);
 }
 
 /* ============ 操作按钮 ============ */
@@ -61,7 +62,7 @@
   cursor: pointer;
   padding: 5px;
   border-radius: 6px;
-  color: #999999;
+  color: var(--color-text-muted, #9096a5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,8 +70,8 @@
 }
 
 .code-btn:hover {
-  background-color: rgba(0, 0, 0, 0.06);
-  color: var(--color-text, #111111);
+  background-color: var(--color-bg-secondary, #f2f4f8);
+  color: var(--color-text, #1a1d24);
 }
 
 .code-actions svg {
@@ -79,9 +80,10 @@
   stroke-width: 2;
 }
 
+/* 复制成功：语义绿 */
 .icon-check {
   display: none;
-  color: #16a34a;
+  color: #5f9e7f;
 }
 
 .code-btn.copied .icon-copy {
@@ -94,7 +96,7 @@
 
 /* 折叠按钮箭头旋转 */
 .code-collapse-btn {
-  transition: transform 0.3s ease;
+  transition: transform 0.3s var(--ease-out, ease);
 }
 
 .code-block-wrapper.collapsed .code-collapse-btn {
@@ -111,18 +113,19 @@
   display: none;
 }
 
-/* pre：限高 + 内部滚动 */
+/* pre：白底 + 限高 + 内部滚动
+   注意：color 不加 !important，保留 Shiki 行内 token 颜色 */
 pre.astro-code,
 .content pre {
   margin: 0 !important;
-  padding: 1rem !important;
-  background: var(--code-bg, #fafafa) !important;
-  color: #24292e !important;
+  padding: 1.05rem 1.2rem !important;
+  background: var(--code-bg, #fdfdfe) !important;
+  color: var(--color-text, #1a1d24);
   max-height: var(--code-max-height, 480px);
   overflow: auto;
-  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
-  font-size: 0.92em !important;
-  line-height: 1.6 !important;
+  font-family: var(--font-mono, Consolas, Monaco, monospace) !important;
+  font-size: 0.9em !important;
+  line-height: 1.62 !important;
   text-align: left;
   white-space: pre !important;
   word-spacing: normal;
@@ -141,6 +144,30 @@ pre.astro-code code,
   color: inherit;
 }
 
+/* 代码区滚动条：浅色 */
+pre.astro-code::-webkit-scrollbar,
+.content pre::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+pre.astro-code::-webkit-scrollbar-track,
+.content pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+pre.astro-code::-webkit-scrollbar-thumb,
+.content pre::-webkit-scrollbar-thumb {
+  background: #dde0e8;
+  border-radius: 8px;
+  border: 2px solid var(--code-bg, #fdfdfe);
+}
+
+pre.astro-code::-webkit-scrollbar-thumb:hover,
+.content pre::-webkit-scrollbar-thumb:hover {
+  background: #c8cdd9;
+}
+
 /* ============ 行号（纯 CSS，复制时不会带入）============ */
 pre.astro-code code {
   counter-reset: line;
@@ -157,23 +184,33 @@ pre.astro-code .line::before {
   width: 1.5rem;
   margin-right: 1.25rem;
   text-align: right;
-  color: #b8b8b8;
+  color: #c3c8d4;
   font-variant-numeric: tabular-nums;
   user-select: none;
 }
 
-/* 代码选中样式 */
+/* 代码选中样式：淡雾蓝 */
 pre.astro-code ::selection,
-pre.astro-code code ::selection {
-  background: #d4d4d4;
+pre.astro-code code ::selection,
+.content pre ::selection {
+  background: color-mix(in srgb, var(--radial-c2, #93a9c9), transparent 60%);
+  color: var(--color-text, #1a1d24);
 }
 
-/* ============ 行内代码：浅主题色底 ============ */
+/* ============ 行内代码：浅灰底 + 深字 ============ */
 .content :not(pre) > code {
-  background-color: var(--color-primary-subtle, #f0f0f0);
-  color: var(--color-primary-dark, #1f2328);
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
-  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-  font-size: 0.9em;
+  background-color: var(--color-bg-secondary, #f2f4f8);
+  color: var(--color-text, #1a1d24);
+  padding: 0.15em 0.42em;
+  border-radius: 5px;
+  font-family: var(--font-mono, Consolas, Monaco, monospace);
+  font-size: 0.875em;
+}
+
+/* 减弱动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .code-btn,
+  .code-collapse-btn {
+    transition: none;
+  }
 }

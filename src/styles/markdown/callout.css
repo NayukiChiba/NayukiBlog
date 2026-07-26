@@ -1,19 +1,33 @@
 /* =========================================================
    Markdown 引用块 / Obsidian Callouts / 折叠块
-   blockquote：黑白简约；callouts：保留语义色
+   素雅灰蓝：
+   - blockquote：左侧纯色竖线 + 极浅底 + 圆角
+   - callout：圆角卡 + 左侧色条 + 标题浅色条（语义色相保留、整体降饱和）
+   - details：白卡圆角 + 主题三角箭头
    ========================================================= */
 
-/* ============ 普通引用块：浅主题色底 + 主题色左边框 ============ */
+/* ============ 普通引用块：左侧纯色竖线 ============ */
 .content blockquote {
+  position: relative;
   margin: 2rem 0;
-  padding: 1rem 1.5rem;
-  background-color: var(--color-primary-subtle, #f7f7f7);
-  border-left: 2px solid var(--color-primary, #111111);
-  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.5rem 1rem 1.625rem;
+  background-color: color-mix(in srgb, var(--color-primary, #4c5670), transparent 96%);
+  border-radius: var(--radius-md, 12px);
+  overflow: hidden;
+}
+
+.content blockquote::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--color-border, #e6e8ee);
 }
 
 .content blockquote p {
-  color: #444444;
+  color: var(--color-text-light, #4e5567);
   margin: 0.6rem 0;
 }
 
@@ -25,25 +39,28 @@
   margin-bottom: 0;
 }
 
-/* ============ Obsidian Callouts ============ */
+/* ============ Obsidian Callouts：圆角卡 + 左侧色条 ============ */
 .callout {
-  margin: 1.5rem 0;
-  border-radius: 8px;
+  margin: 1.75rem 0;
+  border-radius: var(--radius-md, 12px);
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background-color: #ffffff;
+  border: 1px solid var(--color-border-light, #edeff7);
+  background-color: var(--color-card-bg, #ffffff);
   border-left-width: 3px;
   border-left-style: solid;
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(23, 25, 35, 0.04));
 }
 
+/* 标题条：底色跟随各类型标题色（currentColor 自动适配语义色，浅底更淡） */
 .callout-title {
-  padding: 10px 16px;
-  font-weight: 600;
+  padding: 0.7rem 1rem;
+  font-weight: 650;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.6rem;
   font-size: 0.95rem;
   user-select: none;
+  background-color: color-mix(in srgb, currentColor, transparent 94%);
 }
 
 .callout-icon {
@@ -51,6 +68,7 @@
   align-items: center;
   width: 18px;
   height: 18px;
+  flex-shrink: 0;
 }
 
 .callout-icon svg {
@@ -58,12 +76,12 @@
   height: 100%;
 }
 
-/* 内容区：收紧与标题的间距 */
+/* 内容区 */
 .callout-content {
-  padding: 4px 16px 12px 16px;
+  padding: 0.75rem 1rem 0.875rem 1rem;
   font-size: 0.95rem;
-  color: var(--text-color, #111111);
-  line-height: 1.6;
+  color: var(--color-text-light, #4e5567);
+  line-height: 1.7;
 }
 
 /* 首尾元素去掉外边距，消除标题与内容间的大空隙 */
@@ -84,102 +102,102 @@
   margin-bottom: 0;
 }
 
-/* ============ Callout 类型变体（语义色保留）============ */
+/* ============ Callout 类型变体（语义色相体系保留，整体降饱和）============ */
 /* Note / Info (Blue) */
 .callout-note,
 .callout-info {
-  border-left-color: #448aff;
-  background-color: rgba(68, 138, 255, 0.02);
+  border-left-color: #6a89b7;
+  background-color: rgba(106, 137, 183, 0.02);
 }
 .callout-note .callout-title,
 .callout-info .callout-title {
-  color: #2962ff;
+  color: #4b6c97;
 }
 
 /* Tip (Green) */
 .callout-tip {
-  border-left-color: #00c853;
-  background-color: rgba(0, 200, 83, 0.02);
+  border-left-color: #5f9e7f;
+  background-color: rgba(95, 158, 127, 0.02);
 }
 .callout-tip .callout-title {
-  color: #009624;
+  color: #44775e;
 }
 
 /* Attention (Orange) — 与 Danger（红色错误/危险）区分：用于提醒注意 */
 .callout-attention {
-  border-left-color: #ffab00;
-  background-color: rgba(255, 171, 0, 0.02);
+  border-left-color: #d9a05b;
+  background-color: rgba(217, 160, 91, 0.02);
 }
 .callout-attention .callout-title {
-  color: #ff6d00;
+  color: #9d6f33;
 }
 
 /* Danger / Error (Red) */
 .callout-danger,
 .callout-error {
-  border-left-color: #ff1744;
-  background-color: rgba(255, 23, 68, 0.02);
+  border-left-color: #d4626a;
+  background-color: rgba(212, 98, 106, 0.02);
 }
 .callout-danger .callout-title,
 .callout-error .callout-title {
-  color: #d50000;
+  color: #b0424b;
 }
 
 /* Success / Check / Done (Teal) */
 .callout-success,
 .callout-check,
 .callout-done {
-  border-left-color: #00bfa5;
-  background-color: rgba(0, 191, 165, 0.03);
+  border-left-color: #5b9e96;
+  background-color: rgba(91, 158, 150, 0.03);
 }
 .callout-success .callout-title,
 .callout-check .callout-title,
 .callout-done .callout-title {
-  color: #00897b;
+  color: #3f7a72;
 }
 
 /* Question / FAQ / Help (Purple) */
 .callout-question,
 .callout-faq,
 .callout-help {
-  border-left-color: #7c4dff;
-  background-color: rgba(124, 77, 255, 0.03);
+  border-left-color: #8a7fb8;
+  background-color: rgba(138, 127, 184, 0.03);
 }
 .callout-question .callout-title,
 .callout-faq .callout-title,
 .callout-help .callout-title {
-  color: #6200ea;
+  color: #675b96;
 }
 
 /* Abstract / Summary / TLDR (Cyan) */
 .callout-abstract,
 .callout-summary,
 .callout-tldr {
-  border-left-color: #00b0ff;
-  background-color: rgba(0, 176, 255, 0.03);
+  border-left-color: #64a0bd;
+  background-color: rgba(100, 160, 189, 0.03);
 }
 .callout-abstract .callout-title,
 .callout-summary .callout-title,
 .callout-tldr .callout-title {
-  color: #0081cb;
+  color: #497e98;
 }
 
 /* Bug (Deep Orange) */
 .callout-bug {
-  border-left-color: #ff3d00;
-  background-color: rgba(255, 61, 0, 0.03);
+  border-left-color: #c97a5c;
+  background-color: rgba(201, 122, 92, 0.03);
 }
 .callout-bug .callout-title {
-  color: #bf360c;
+  color: #a05237;
 }
 
 /* Example (Deep Purple) */
 .callout-example {
-  border-left-color: #651fff;
-  background-color: rgba(101, 31, 255, 0.03);
+  border-left-color: #7d74ad;
+  background-color: rgba(125, 116, 173, 0.03);
 }
 .callout-example .callout-title {
-  color: #4527a0;
+  color: #5d5490;
 }
 
 /* Quote / Cite (Blue Grey) */
@@ -190,49 +208,73 @@
 }
 .callout-quote .callout-title,
 .callout-cite .callout-title {
-  color: #455a64;
+  color: #546e7a;
 }
 
 /* Todo (Blue) */
 .callout-todo {
-  border-left-color: #2979ff;
-  background-color: rgba(41, 121, 255, 0.03);
+  border-left-color: #6a89b7;
+  background-color: rgba(106, 137, 183, 0.03);
 }
 .callout-todo .callout-title {
-  color: #1565c0;
+  color: #41608a;
 }
 
 /* ============ 折叠块 (Details/Summary) ============ */
 details {
-  margin: 1.5rem 0;
-  border: 1px solid var(--color-border, #e5e5e5);
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
+  margin: 1.75rem 0;
+  border: 1px solid var(--color-border, #e3e6f0);
+  border-radius: var(--radius-md, 12px);
+  padding: 0.875rem 1.125rem;
   background: var(--color-card-bg, #ffffff);
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(23, 25, 35, 0.04));
+  transition: border-color 0.25s var(--ease-out, ease), box-shadow 0.25s var(--ease-out, ease);
+}
+
+details:hover {
+  border-color: color-mix(in srgb, var(--color-primary, #4c5670), transparent 70%);
+  box-shadow: var(--shadow-sm, 0 2px 8px -2px rgba(26, 29, 36, 0.05));
 }
 
 details summary {
   cursor: pointer;
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--color-text, #111111);
+  color: var(--color-text, #14161f);
   list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
 }
 
 details summary::-webkit-details-marker {
   display: none;
 }
 
+/* 主题色三角箭头：展开时旋转 90 度 */
 details summary::before {
-  content: "▶ ";
-  font-size: 0.7rem;
-  color: var(--color-text-muted, #8a8a8a);
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 6px solid var(--color-primary, #4c5670);
+  border-top: 4.5px solid transparent;
+  border-bottom: 4.5px solid transparent;
+  flex-shrink: 0;
+  transition: transform 0.25s var(--ease-out, ease);
 }
 
 details[open] summary::before {
-  content: "▼ ";
+  transform: rotate(90deg);
 }
 
 details > *:not(summary) {
   margin-top: 0.75rem;
+}
+
+/* 减弱动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+  details,
+  details summary::before {
+    transition: none;
+  }
 }

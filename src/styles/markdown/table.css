@@ -1,15 +1,16 @@
 /* =========================================================
-   Markdown 表格 — 黑白简约
-   表头白底粗体 + 2px 黑下边框；行间细线；无斑马纹彩底
+   Markdown 表格 — 素雅灰蓝
+   外层圆角白卡 + 细边框；表头浅底 + 中性下边线；行 hover 极淡
    ========================================================= */
 
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
   margin: 2rem 0;
-  border-radius: var(--radius-lg, 0.75rem);
-  border: 1px solid var(--color-border, #e5e5e5);
+  border-radius: var(--radius-md, 12px);
+  border: 1px solid var(--color-border, #e3e6f0);
   background: var(--color-card-bg, #ffffff);
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(23, 25, 35, 0.04));
 }
 
 .content table {
@@ -20,27 +21,29 @@
   font-size: 0.95rem;
 }
 
-/* 表头 */
+/* 表头：浅底 */
 .content thead {
-  background: transparent;
+  background: var(--color-bg-secondary, #eef0f8);
 }
 
 .content th {
   padding: 0.875rem 1.25rem;
   font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
   text-align: center;
-  color: var(--color-text, #111111);
+  color: var(--color-text, #1a1d24);
   white-space: nowrap;
-  border-bottom: 2px solid var(--color-primary, #111111);
+  border-bottom: 1px solid var(--color-border, #e6e8ee);
 }
 
 /* 单元格：不自动换行，长内容靠 wrapper 横向滚动 */
 .content td {
   padding: 0.875rem 1.25rem;
-  color: var(--color-text-light, #525252);
+  color: var(--color-text-light, #4e5567);
   text-align: center;
   white-space: nowrap;
-  border-bottom: 1px solid var(--color-border-light, #f0f0f0);
+  border-bottom: 1px solid var(--color-border-light, #edeff7);
   transition: background-color 0.15s ease;
 }
 
@@ -49,15 +52,15 @@
   border-bottom: none;
 }
 
-/* 行悬停：极淡主题色 */
+/* 行悬停：极淡主题浅底 */
 .content tbody tr:hover td {
-  background-color: var(--color-primary-subtle, #fafafa);
+  background-color: color-mix(in srgb, var(--color-primary, #4c5670), transparent 94%);
 }
 
-/* 单元格内代码 */
+/* 单元格内代码：与行内代码同配方（浅灰底 + 深字） */
 .content td code {
-  background-color: var(--color-primary-subtle, #f0f0f0);
-  color: var(--color-primary-dark, #1f2328);
+  background-color: var(--color-bg-secondary, #f2f4f8);
+  color: var(--color-text, #1a1d24);
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
   font-size: 0.85em;
@@ -67,7 +70,7 @@
 @media (max-width: 767px) {
   .table-wrapper {
     margin: 1.5rem -0.5rem;
-    border-radius: var(--radius-md, 0.5rem);
+    border-radius: var(--radius-sm, 8px);
   }
   .content table {
     min-width: 400px;

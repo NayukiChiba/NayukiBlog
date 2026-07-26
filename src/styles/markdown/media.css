@@ -1,5 +1,6 @@
 /* =========================================================
    Markdown 媒体 — 图片、KaTeX 公式、视频嵌入
+   素雅灰蓝：圆角 + 中性柔和阴影，hover 轻抬升
    ========================================================= */
 
 /* ============ 图片 ============ */
@@ -8,13 +9,16 @@
   max-width: 75%;
   height: auto;
   margin: 2rem auto;
-  border-radius: var(--radius-md, 0.5rem);
-  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.06));
-  transition: transform 0.3s ease;
+  border-radius: var(--radius-md, 12px);
+  box-shadow: var(--shadow-md, 0 8px 24px -8px rgba(23, 25, 35, 0.1));
+  transition:
+    transform 0.3s var(--ease-out, ease),
+    box-shadow 0.3s var(--ease-out, ease);
 }
 
 .content img:not(.cover-image):hover {
-  transform: scale(1.01);
+  transform: translateY(-2px) scale(1.005);
+  box-shadow: var(--shadow-lg, 0 16px 40px -16px rgba(23, 25, 35, 0.16));
 }
 
 @media (max-width: 767px) {
@@ -23,7 +27,17 @@
   }
 }
 
-/* ============ KaTeX 公式：移动端横向滚动 ============ */
+/* 减弱动效偏好：图片不做位移 */
+@media (prefers-reduced-motion: reduce) {
+  .content img:not(.cover-image) {
+    transition: none;
+  }
+  .content img:not(.cover-image):hover {
+    transform: none;
+  }
+}
+
+/* ============ KaTeX 公式：移动端横向滚动（功能样式，不动）============ */
 .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
@@ -34,14 +48,34 @@
   white-space: nowrap;
 }
 
+/* ============ 原生视频 ============ */
+/* 文章内直接插入 <video src="..." controls></video> 即可播放；
+   GIF 作为普通图片插入，走上方 img 规则并支持灯箱放大 */
+.content video {
+  display: block;
+  max-width: 75%;
+  height: auto;
+  margin: 2rem auto;
+  border-radius: var(--radius-md, 12px);
+  box-shadow: var(--shadow-md, 0 8px 24px -8px rgba(23, 25, 35, 0.1));
+  background: #101218;
+}
+
+@media (max-width: 767px) {
+  .content video {
+    max-width: 100%;
+  }
+}
+
 /* ============ 视频/嵌入 ============ */
 .embed-video {
   position: relative;
   padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: var(--radius-md, 12px);
   margin: 1.5rem 0;
+  box-shadow: var(--shadow-sm, 0 2px 8px -2px rgba(23, 25, 35, 0.06));
 }
 
 .embed-video iframe,
@@ -60,8 +94,8 @@ figure {
 
 figure iframe {
   width: 100%;
-  border-radius: 10px;
-  border: 1px solid var(--color-border, #e5e5e5);
+  border-radius: var(--radius-md, 12px);
+  border: 1px solid var(--color-border, #e6e8ee);
 }
 
 .bilibili-player {
