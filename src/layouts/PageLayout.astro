@@ -3,20 +3,42 @@ import Header from "../components/Header.astro";
 import FloatingButton from "../components/FloatingButton.astro";import SakanaWidgetComponent from '../components/SakanaWidget.astro';import CdnPreloader from "../components/CdnPreloader.astro";
 import ParticleBackground from "../components/ParticleBackground.astro";
 import ProgressBar from "../components/ProgressBar.astro";
+import AsideProfile from "../components/AsideProfile.astro";
+import AsideRight from "../components/AsideRight.astro";
+import { getVisiblePosts } from "../lib/posts";
 import "../styles/global.css"; // Import global styles
 
 interface Props {
   title: string;
   description?: string;
   needsMath?: boolean; // 是否需要加载 KaTeX
+  hideAsideRight?: boolean; // 页面自带右侧栏（如 articles 的筛选栏）时隐藏全局右栏
 }
 
 const {
   title,
   description = "A personal website",
   needsMath = false,
+  hideAsideRight = false,
 } = Astro.props;
 const apiBase = import.meta.env.PUBLIC_API_BASE || "";
+
+// 右侧趣味栏数据：最近文章 + 博客统计
+const asideAllPosts = await getVisiblePosts();
+const asideSorted = [...asideAllPosts].sort(
+  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
+);
+const asideRecentPosts = asideSorted.slice(0, 5).map((post) => ({
+  title: post.data.title,
+  url: `/posts/${post.slug}`,
+  date: post.data.date,
+  image: post.data.image || "",
+}));
+const asideStats = {
+  articles: asideAllPosts.length,
+  tags: new Set(asideAllPosts.flatMap((p) => p.data.tags || [])).size,
+  categories: new Set(asideAllPosts.map((p) => p.data.category).filter(Boolean)).size,
+};
 ---
 
 <!doctype html>
@@ -32,7 +54,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <!-- KaTeX CSS - 仅在需要数学公式时加载，使用 CDN -->
@@ -47,14 +69,9 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
     }
 
     <style is:global>
-      :root {
-        --max-width: 1000px;
-        --content-padding: 1.5rem;
-      }
-
       html {
         scrollbar-gutter: stable;
-        overflow-x: hidden;
+        overflow-x: clip;
       }
 
       body {
@@ -63,47 +80,103 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
         display: flex;
         flex-direction: column;
         min-height: 100vh;
-        overflow-x: hidden;
-        /* 背景改为透明，由 global.css body::before 提供动态径向渐变背景 */
+        overflow-x: clip;
+        /* 背景由 ParticleBackground 提供 */
         background: transparent;
       }
 
-      main {
-        flex: 1;
+      /* ===== 主体：david03 式三栏（左资料导航 / 中内容 / 右趣味栏）
+             三栏顶部同一水平线对齐，随页面整体滚动 ===== */
+      .page-shell {
+        position: relative;
+        z-index: 1;
         width: 100%;
-        max-width: var(--max-width);
+        max-width: var(--page-max, min(1300px, 94vw));
         margin: 0 auto;
-        padding: 2.5rem var(--content-padding);
+        padding: 1.75rem 0 2.5rem;
+        display: grid;
+        grid-template-columns: var(--aside-col, 244px) minmax(0, 1fr) var(--aside-col, 244px);
+        gap: 1.5rem;
+        /* 列高随最高列拉伸（默认 stretch），保证两侧 sticky 全程可吸附 */
+        flex: 1;
+      }
+
+      .page-aside,
+      .page-aside-right {
+        min-width: 0;
+      }
+
+      /* 信息卡组跟随滚动，滚过后吸附在视口上缘 */
+      .aside-sticky {
+        position: sticky;
+        top: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      main {
+        min-width: 0;
+        width: 100%;
         position: relative;
         z-index: 1;
       }
 
-      /* 移动端响应式 */
-      @media (max-width: 1023px) {
-        :root {
-          --content-padding: 1rem;
+      /* 页面级大标题收敛：三栏布局下不再需要占屏的大标题区 */
+      main .page-title,
+      main .page-desc,
+      main .content-divider {
+        display: none !important;
+      }
+
+      /* 页面自带右侧栏（如 articles 筛选栏）时：两栏，让中列容纳页内侧栏 */
+      .page-shell.no-right {
+        grid-template-columns: var(--aside-col, 244px) minmax(0, 1fr);
+      }
+
+      .page-shell.no-right .page-aside-right {
+        display: none;
+      }
+
+      /* 中屏（1024~1279px）：隐藏右栏，两栏布局 */
+      @media (max-width: 1279px) {
+        .page-shell {
+          grid-template-columns: var(--aside-col, 244px) minmax(0, 1fr);
         }
 
+        .page-aside-right {
+          display: none;
+        }
+      }
+
+      /* 移动端 / 窄屏：单栏，隐藏两侧信息栏 */
+      @media (max-width: 1023px) {
         html {
           scrollbar-gutter: auto;
         }
 
-        main {
-          padding: 2rem var(--content-padding);
+        .page-shell {
+          grid-template-columns: 1fr;
+          max-width: 100%;
+          padding: 1.25rem 1rem 2rem;
+        }
+
+        .page-aside {
+          display: none;
         }
       }
     </style>
-    
+
     <!-- ⬇️ 防止样式闪烁 (FOUC) 的脚本：在页面渲染前立即应用用户设置的主题色与效果开关 -->
     <script is:inline>
       (function() {
         try {
           const root = document.documentElement;
 
-          // 应用主题双色（默认黑白：#111111 / #a3a3a3）
+          // 应用主题双色（默认雾蓝：#4c5670 / #93a9c9）
           function applyTheme() {
-            const c1 = localStorage.getItem('theme-color-1') || '#111111';
-            const c2 = localStorage.getItem('theme-color-2') || '#a3a3a3';
+            const c1 = localStorage.getItem('theme-color-1') || '#4c5670';
+            const c2 = localStorage.getItem('theme-color-2') || '#93a9c9';
             root.style.setProperty('--color-primary', c1);
             root.style.setProperty('--color-secondary', c2);
             root.style.setProperty('--radial-c1', c1);
@@ -161,11 +234,6 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
               Math.PI;
 
             // 位置计算：反向移动背景以模拟光源移动效果 (Parallax)
-            // 鼠标在左(0%) -> 背景位置向右移(更小%)
-            // 实际上 background-position 百分比对应图片和容器的对齐点。
-            // 想要高光跟随鼠标，当鼠标在左边，高光应该在左边。
-            // 渐变中心是 50%。
-            // 简单的映射：鼠标位置 0-100% -> bg-pos 0-100%
             const bgPosX = mouseXPercentage;
 
             title.style.setProperty("--bg-angle", `${angle + 90}deg`);
@@ -189,19 +257,40 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
       window.API_BASE = apiBase;
     </script>
     <Header />
-    <main>
-      <slot />
-    </main>
+
+    <div class={`page-shell${hideAsideRight ? ' no-right' : ''}`}>
+      <!-- 左侧：资料 + 导航（文档流 + sticky，随页面滚动） -->
+      <aside class="page-aside">
+        <div class="aside-sticky">
+          <AsideProfile />
+        </div>
+      </aside>
+
+      <main>
+        <slot />
+      </main>
+
+      <!-- 右侧：最近文章 + 博客信息 + 随机传送 -->
+      <aside class="page-aside page-aside-right">
+        <div class="aside-sticky">
+          <AsideRight recentPosts={asideRecentPosts} stats={asideStats} />
+        </div>
+      </aside>
+    </div>
+
     <footer>
-      <p>
-        &copy; {new Date().getFullYear()} Nayuki. All rights reserved.
-      </p>
+      <div class="footer-inner">
+        <span class="footer-mark" aria-hidden="true"></span>
+        <p>
+          &copy; {new Date().getFullYear()} Nayuki. All rights reserved.
+        </p>
+      </div>
     </footer>
     <FloatingButton />
+    <SakanaWidgetComponent />
     <CdnPreloader />
     <ParticleBackground />
     <ProgressBar />
-    <SakanaWidgetComponent />
   </body>
 </html>
 
@@ -209,19 +298,58 @@ const apiBase = import.meta.env.PUBLIC_API_BASE || "";
   /* Footer styles specific to layout */
   footer {
     text-align: center;
-    padding: 3rem 2rem;
+    padding: 2.5rem 2rem 2.75rem;
     color: var(--color-text-muted);
-    font-size: 0.875rem;
-    border-top: 1px solid var(--color-border);
+    font-size: 0.85rem;
     margin-top: auto;
-    background: var(--color-bg-secondary);
     position: relative;
     z-index: 1;
   }
 
+  /* 顶部渐隐分隔线 */
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(640px, 80%);
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-border) 25%,
+      var(--color-border) 75%,
+      transparent
+    );
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  .footer-inner p {
+    margin: 0;
+    color: var(--color-text-muted);
+    letter-spacing: 0.01em;
+  }
+
+  /* 几何标记：墨蓝旋转小方块 */
+  .footer-mark {
+    width: 9px;
+    height: 9px;
+    border-radius: 3px;
+    background: var(--color-primary);
+    transform: rotate(45deg);
+    opacity: 0.75;
+  }
+
   @media (max-width: 767px) {
     footer {
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 2.25rem;
       font-size: 0.8125rem;
     }
   }

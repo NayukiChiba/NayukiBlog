@@ -19,14 +19,13 @@ const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
 
 <header class="site-header">
   <div class="header-container">
-    <!-- 移动端汉堡菜单按钮 -->
-    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="打开菜单">
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-    </button>
+    <!-- Logo -->
+    <a href="/home" class="site-logo" aria-label="返回首页">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span class="logo-text">Nayuki</span>
+    </a>
 
-    <!-- 桌面端导航 -->
+    <!-- 桌面端导航（顶栏水平） -->
     <nav class="desktop-nav">
       <ul class="nav-list">
         {navItems.map(item => (
@@ -38,6 +37,13 @@ const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
         ))}
       </ul>
     </nav>
+
+    <!-- 移动端汉堡菜单按钮 -->
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="打开菜单">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
 
     <!-- 移动端导航抽屉 -->
     <nav class="mobile-nav" id="mobile-nav">
@@ -67,16 +73,18 @@ const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
 <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
 
 <style>
+  /* =========================================
+     顶部玻璃导航条（Fuwari 式）
+     ========================================= */
   .site-header {
-    background-color: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--color-border);
+    background: var(--surface-glass, rgba(255, 255, 255, 0.78));
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border-bottom: 1px solid var(--color-border-light);
     position: sticky;
     top: 0;
     z-index: 1000;
-    padding: 1.125rem 0;
-    transition: all 0.3s ease;
+    transition: transform 0.32s var(--ease-out, ease);
   }
 
   .site-header.hidden {
@@ -84,58 +92,111 @@ const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
   }
 
   .header-container {
-    max-width: var(--max-width, 1200px);
+    max-width: var(--page-max, min(1440px, 92vw));
     margin: 0 auto;
-    padding: 0 var(--content-padding, 2rem);
     display: flex;
-    /* 移动端只有汉堡按钮，靠右；桌面端导航居中（见下方媒体查询） */
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 0;
   }
 
-  /* 桌面端导航 */
+  /* ===== Logo ===== */
+  .site-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  /* Logo 几何标记：墨蓝旋转方块 + 白色圆孔 */
+  .logo-mark {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    border-radius: 4.5px;
+    background: var(--color-primary, #4c5670);
+    transform: rotate(45deg);
+    transition: transform 0.45s var(--ease-spring, ease);
+  }
+
+  .logo-mark::after {
+    content: '';
+    position: absolute;
+    inset: 4.5px;
+    border-radius: 50%;
+    background: #ffffff;
+  }
+
+  .site-logo:hover .logo-mark {
+    transform: rotate(225deg);
+  }
+
+  .logo-text {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+    transition: color 0.2s ease;
+  }
+
+  .site-logo:hover .logo-text {
+    color: var(--color-primary);
+  }
+
+  /* ===== 桌面端导航 ===== */
   .desktop-nav {
     display: none;
   }
 
   .nav-list {
     display: flex;
-    gap: 0.375rem;
+    gap: 0.125rem;
     list-style: none;
     margin: 0;
     padding: 0;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-end;
   }
 
   .nav-list a {
+    position: relative;
     color: var(--color-text-light);
     text-decoration: none;
-    font-size: 0.9375rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    transition: color 0.25s ease, background-color 0.25s ease;
+    padding: 0.45rem 0.8rem;
+    border-radius: var(--radius-full, 999px);
+    transition: color 0.2s var(--ease-out, ease), background-color 0.2s var(--ease-out, ease);
     white-space: nowrap;
-    position: relative;
-    -webkit-text-fill-color: unset;
   }
 
-  /* hover: 过渡到主题色，无闪烁 */
   .nav-list a:not(.active):hover {
-    color: var(--radial-c1);
-    background-color: transparent;
+    color: var(--color-text);
+    background-color: var(--color-bg-secondary);
   }
 
-  /* active: 底部下划线 + 浅色背景高亮 */
   .nav-list a.active {
     color: var(--color-text);
     font-weight: 600;
-    background-color: color-mix(in srgb, var(--radial-c1) 12%, white);
-    box-shadow: inset 0 -2px 0 var(--radial-c1);
+    background-color: var(--color-primary-subtle);
   }
 
-  /* 移动端汉堡菜单按钮 */
+  .nav-list a.active::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1px;
+    width: 14px;
+    height: 2.5px;
+    border-radius: 999px;
+    background: var(--color-primary);
+    opacity: 0.9;
+  }
+
+  /* ===== 移动端汉堡菜单按钮 ===== */
   .mobile-menu-btn {
     display: flex;
     flex-direction: column;
@@ -153,9 +214,15 @@ const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
     display: block;
     width: 100%;
     height: 2px;
-    background-color: #333;
+    background-color: var(--color-text, #1a1d24);
     border-radius: 2px;
-    transition: all 0.3s ease;
+    transition: all 0.3s var(--ease-out, ease);
+  }
+
+  /* 三条线宽度错落，展开后归一 */
+  .hamburger-line:nth-child(2) {
+    width: 72%;
+    align-self: flex-end;
   }
 
   .mobile-menu-btn.active .hamburger-line:nth-child(1) {
@@ -170,20 +237,20 @@ const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
     transform: rotate(-45deg) translate(6px, -6px);
   }
 
-  /* 移动端遮罩层 - 使用 :global 因为元素在 header 外部 */
+  /* ===== 移动端遮罩层（元素在 header 外部，需 :global） ===== */
   :global(.mobile-nav-overlay) {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(26, 29, 36, 0.4);
     z-index: 998;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
   }
 
   :global(.mobile-nav-overlay.active) {
@@ -191,18 +258,21 @@ const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
     visibility: visible;
   }
 
-  /* 移动端导航抽屉 */
+  /* ===== 移动端导航抽屉 ===== */
   .mobile-nav {
     position: fixed;
     top: 0;
     right: 0;
     width: 280px;
     height: 100vh;
-    background: white;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
     z-index: 999;
     transform: translateX(100%);
-    transition: transform 0.3s ease, visibility 0.3s ease;
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.32s var(--ease-out, ease), visibility 0.32s ease;
+    box-shadow: -10px 0 32px rgba(26, 29, 36, 0.12);
+    border-left: 1px solid var(--color-border-light);
     overflow-y: auto;
     visibility: hidden;
   }
@@ -216,14 +286,14 @@ const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid #eaeaea;
+    padding: 1.05rem 1.5rem;
+    border-bottom: 1px solid var(--color-border-light);
   }
 
   .mobile-nav-title {
     font-weight: 600;
-    font-size: 1.1rem;
-    color: #333;
+    font-size: 1rem;
+    color: var(--color-text);
   }
 
   .mobile-nav-close {
@@ -235,73 +305,91 @@ const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
     background: none;
     border: none;
     cursor: pointer;
-    color: #666;
+    color: var(--color-text-muted);
     border-radius: 50%;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   .mobile-nav-close:hover {
-    background-color: #f5f5f5;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
   }
 
   .mobile-nav-list {
     list-style: none;
     margin: 0;
-    padding: 1rem 0;
-  }
-
-  .mobile-nav-list li {
-    border-bottom: 1px solid #f5f5f5;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 
   .mobile-nav-list a {
     display: block;
-    padding: 1rem 1.5rem;
-    color: #666;
+    padding: 0.75rem 1rem;
+    color: var(--color-text-light);
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 500;
-    transition: all 0.2s ease;
+    border-radius: var(--radius-md, 12px);
+    transition: all 0.2s var(--ease-out, ease);
+    position: relative;
   }
 
   .mobile-nav-list a:hover {
-    background-color: #f9f9f9;
-    color: #000;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
   }
 
   .mobile-nav-list a.active {
-    color: #000;
-    background-color: #f5f5f5;
-    border-left: 3px solid #000;
+    color: var(--color-text);
+    font-weight: 600;
+    background-color: var(--color-primary-subtle);
   }
 
-  /* 平板及以上显示桌面导航，隐藏移动菜单 */
+  .mobile-nav-list a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 55%;
+    border-radius: 999px;
+    background: var(--color-primary);
+  }
+
+  /* 桌面端（≥1024px）：整个顶栏隐藏，导航由左侧信息栏的菜单卡承担 */
   @media (min-width: 1024px) {
-    .header-container {
-      justify-content: center;
-    }
-
-    .desktop-nav {
-      display: block;
-    }
-
-    .mobile-menu-btn {
+    .site-header {
       display: none;
     }
 
     .mobile-nav {
       display: none !important;
     }
-    
+
     :global(.mobile-nav-overlay) {
       display: none !important;
     }
   }
 
-  /* 小屏幕下调整 header padding */
+  /* 小屏幕：顶栏内容全宽 + 侧边距 */
   @media (max-width: 1023px) {
     .header-container {
-      padding: 0 1rem;
+      max-width: 100%;
+      padding: 0.8rem 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header,
+    .logo-mark,
+    .mobile-nav,
+    .mobile-nav-close,
+    .mobile-nav-list a,
+    .nav-list a {
+      transition: none;
     }
   }
 </style>
