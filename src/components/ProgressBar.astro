@@ -32,13 +32,13 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: 4px;
-    background: var(--gradient-primary); /* Use gradient variable */
+    height: 2.5px;
+    background: var(--color-primary, #4c5670);
+    border-radius: 0 999px 999px 0;
     width: 0%;
     z-index: 9999;
     transition:
-      width 0.2s ease,
+      width 0.2s var(--ease-out, ease),
       opacity 0.5s ease;
-    box-shadow: 0 0 10px var(--color-primary-light);
   }
 </style>
