@@ -97,7 +97,7 @@ const builtAt = rssCache.generatedAt
     : "";
 ---
 
-<PageLayout title="RSS | Nayuki Blog">
+<PageLayout title="RSS | Nayuki Blog" hideAsideRight={true}>
     <div class="rss-container">
         <main class="page-main">
             <h1 class="page-title">RSS 订阅</h1>
@@ -590,30 +590,7 @@ const builtAt = rssCache.generatedAt
     document.addEventListener("astro:page-load", initRssPage);
 </script>
 
-<style is:global>
-    /* 与 Articles 页面一致的宽度覆盖 - 80% */
-    main {
-        max-width: 80% !important;
-        width: 80% !important;
-        margin: 0 auto !important;
-        padding: 2rem 0 !important;
-    }
-
-    @media (max-width: 1400px) {
-        main {
-            max-width: 90% !important;
-            width: 90% !important;
-        }
-    }
-
-    @media (max-width: 1023px) {
-        main {
-            max-width: 100% !important;
-            width: 100% !important;
-            padding: 1rem !important;
-        }
-    }
-</style>
+<!-- 宽度覆盖已移除：直接使用 PageLayout 的 main（max-width 1220px），内容左右填满 -->
 
 <style>
     .rss-container {
@@ -631,15 +608,37 @@ const builtAt = rssCache.generatedAt
     }
 
     .page-desc {
-        color: var(--color-text-light);
+        color: var(--color-text-muted);
         margin-bottom: 2rem;
+        text-align: center;
     }
 
+    /* 分隔线：渐隐线 + 中心旋转方点 */
     .content-divider {
         height: 1px;
-        background: var(--color-border);
+        background: linear-gradient(
+            90deg,
+            transparent,
+            var(--color-border) 18%,
+            var(--color-border) 82%,
+            transparent
+        );
         margin: 2rem 0;
         width: 100%;
+        position: relative;
+    }
+
+    .content-divider::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 7px;
+        height: 7px;
+        background: var(--color-secondary);
+        border-radius: 2px;
+        box-shadow: 0 0 0 5px var(--color-bg);
     }
 
     .main-layout {
@@ -664,29 +663,31 @@ const builtAt = rssCache.generatedAt
         margin-bottom: 1.25rem;
     }
 
+    /* 搜索框：pill 造型 + 主题 focus 光环 */
     .search-box {
         position: relative;
         display: flex;
         align-items: center;
         background: var(--color-card-bg);
-        border: 1.5px solid var(--color-border);
-        border-radius: 10px;
-        padding: 0 0.875rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        padding: 0 1rem;
         gap: 0.5rem;
+        box-shadow: var(--shadow-xs);
         transition:
-            border-color 0.2s ease,
-            box-shadow 0.2s ease;
+            border-color 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
     }
 
     .search-box:focus-within {
         border-color: var(--color-primary);
-        box-shadow: 0 0 0 3px var(--color-primary-subtle);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--radial-c1), transparent 85%);
     }
 
     .search-icon {
         color: var(--color-text-muted);
         flex-shrink: 0;
-        transition: color 0.2s ease;
+        transition: color 0.2s var(--ease-out);
     }
 
     .search-box:focus-within .search-icon {
@@ -724,23 +725,24 @@ const builtAt = rssCache.generatedAt
         color: var(--color-text-muted);
         padding: 0;
         transition:
-            background 0.2s ease,
-            color 0.2s ease;
+            background 0.2s var(--ease-out),
+            color 0.2s var(--ease-out);
     }
 
     .search-clear:hover {
-        background: var(--color-primary-light);
+        background: color-mix(in srgb, var(--radial-c1), transparent 80%);
         color: var(--color-primary-dark);
     }
 
     .search-hint {
         display: none;
         margin-top: 0.5rem;
-        padding: 0.25rem 0.5rem;
+        padding: 0.3rem 0.75rem;
         font-size: 0.78rem;
         color: var(--color-primary-dark);
-        background: var(--color-primary-subtle);
-        border-radius: 6px;
+        background: color-mix(in srgb, var(--radial-c1), transparent 90%);
+        border-radius: var(--radius-full);
+        width: fit-content;
     }
 
     .search-hint.no-result {
@@ -748,7 +750,7 @@ const builtAt = rssCache.generatedAt
         background: var(--color-bg-secondary);
     }
 
-    /* ============ 文章卡片 ============ */
+    /* ============ 文章卡片：静态 1px 边框 ============ */
     .item-link {
         display: block;
         padding: 1.25rem 1.5rem;
@@ -756,16 +758,18 @@ const builtAt = rssCache.generatedAt
         border: 1px solid var(--color-border);
         border-radius: var(--radius-lg);
         text-decoration: none;
+        box-shadow: var(--shadow-xs);
+        position: relative;
         transition:
-            border-color 0.2s ease,
-            transform 0.2s ease,
-            box-shadow 0.2s ease;
+            border-color 0.25s var(--ease-out),
+            transform 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
     }
 
     .item-link:hover {
-        border-color: var(--color-text);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-md);
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 70%);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
     }
 
     .item-meta {
@@ -776,15 +780,20 @@ const builtAt = rssCache.generatedAt
         margin-bottom: 0.375rem;
     }
 
+    /* 来源徽标：主题浅底 pill */
     .item-source {
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         font-weight: 600;
-        color: var(--color-text-light);
-        letter-spacing: 0.02em;
+        color: var(--color-primary);
+        letter-spacing: 0.04em;
+        background: color-mix(in srgb, var(--radial-c1), transparent 92%);
+        padding: 0.15rem 0.6rem;
+        border-radius: var(--radius-full);
     }
 
+    /* 日期：常规字体（仅保留等宽数字对齐） */
     .item-date {
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         color: var(--color-text-muted);
         font-variant-numeric: tabular-nums;
         flex-shrink: 0;
@@ -796,7 +805,7 @@ const builtAt = rssCache.generatedAt
         font-weight: 600;
         color: var(--color-text);
         line-height: 1.4;
-        transition: color 0.2s ease;
+        transition: color 0.2s var(--ease-out);
     }
 
     .item-link:hover .item-title {
@@ -814,11 +823,26 @@ const builtAt = rssCache.generatedAt
         overflow: hidden;
     }
 
+    /* 空状态：弱色文字 + 几何装饰 */
     .timeline-empty {
         color: var(--color-text-muted);
         font-size: 0.9375rem;
         text-align: center;
-        padding: 2rem 0;
+        padding: 3rem 0;
+        border: 1px dashed var(--color-border);
+        border-radius: var(--radius-lg);
+        background: var(--color-card-bg);
+    }
+
+    .timeline-empty::before {
+        content: "";
+        display: block;
+        width: 12px;
+        height: 12px;
+        margin: 0 auto 0.875rem;
+        border: 1.5px solid #d8dce6;
+        border-radius: 3px;
+        transform: rotate(45deg);
     }
 
     /* ============ 右侧订阅源侧边栏 ============ */
@@ -830,8 +854,10 @@ const builtAt = rssCache.generatedAt
         position: sticky;
         top: 2rem;
         background: var(--color-card-bg);
+        border: 1px solid var(--color-border);
         padding: 1.5rem;
-        border-radius: 12px;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-xs);
         margin-top: 0;
         overflow-y: auto;
         scrollbar-width: thin;
@@ -851,14 +877,28 @@ const builtAt = rssCache.generatedAt
         border-radius: 20px;
     }
 
+    /* 侧栏小标题：overline 风格 + 纯色圆点 */
     .sidebar-title {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         font-weight: 700;
+        font-family: var(--font-display);
         color: var(--color-text-muted);
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.08em;
         margin-bottom: 1rem;
         padding-left: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+    }
+
+    .sidebar-title::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--color-primary);
+        flex-shrink: 0;
     }
 
     .category-box {
@@ -886,16 +926,18 @@ const builtAt = rssCache.generatedAt
         color: var(--color-text-muted);
         padding: 0;
         border-radius: 4px;
-        transition: all 0.2s ease;
+        transition:
+            background-color 0.2s var(--ease-out),
+            color 0.2s var(--ease-out);
     }
 
     .category-toggle:hover {
-        background-color: var(--color-bg-secondary);
-        color: var(--color-text);
+        background-color: color-mix(in srgb, var(--radial-c1), transparent 92%);
+        color: var(--color-primary);
     }
 
     .toggle-icon {
-        transition: transform 0.2s ease;
+        transition: transform 0.2s var(--ease-out);
     }
 
     .category-spacer {
@@ -915,7 +957,9 @@ const builtAt = rssCache.generatedAt
         color: var(--color-text-light);
         font-size: 0.9rem;
         border-radius: var(--radius-md);
-        transition: all 0.2s ease;
+        transition:
+            background-color 0.2s var(--ease-out),
+            color 0.2s var(--ease-out);
         display: flex;
         align-items: center;
         gap: 0.45rem;
@@ -924,18 +968,19 @@ const builtAt = rssCache.generatedAt
     }
 
     .category-btn:hover {
-        background-color: var(--color-bg);
+        background-color: color-mix(in srgb, var(--radial-c1), transparent 93%);
         color: var(--color-primary-dark);
     }
 
     .source-btn:hover:not(:disabled) {
-        background-color: var(--color-bg);
+        background-color: color-mix(in srgb, var(--radial-c1), transparent 93%);
         color: var(--color-primary-dark);
     }
 
+    /* 激活态：主题浅底 + 左侧纯色指示条 */
     .category-btn.active,
     .source-btn.active {
-        background-color: var(--color-primary-subtle);
+        background-color: color-mix(in srgb, var(--radial-c1), transparent 90%);
         color: var(--color-primary-dark);
         font-weight: 600;
     }
@@ -949,7 +994,7 @@ const builtAt = rssCache.generatedAt
         transform: translateY(-50%);
         height: 60%;
         width: 3px;
-        background-color: var(--color-primary);
+        background: var(--color-primary);
         border-radius: 0 4px 4px 0;
     }
 
@@ -961,7 +1006,7 @@ const builtAt = rssCache.generatedAt
     .filter-icon {
         flex-shrink: 0;
         opacity: 0.6;
-        transition: all 0.2s ease;
+        transition: opacity 0.2s var(--ease-out);
     }
 
     .category-btn:hover .filter-icon,
@@ -1006,17 +1051,36 @@ const builtAt = rssCache.generatedAt
         color: var(--color-text-light);
         background: var(--color-card-bg);
         border: 1px solid var(--color-border);
-        border-radius: 999px;
+        border-radius: var(--radius-full);
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition:
+            background-color 0.25s var(--ease-out),
+            color 0.25s var(--ease-out),
+            border-color 0.25s var(--ease-out),
+            transform 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
         white-space: nowrap;
         font-family: inherit;
     }
 
+    .category-chip:hover {
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 55%);
+        color: var(--color-primary);
+        transform: translateY(-1px);
+    }
+
+    /* 激活态：纯色雾蓝底白字，hover 加深 12% */
     .category-chip.active {
-        background: var(--color-text);
+        background: var(--color-primary);
         color: #ffffff;
-        border-color: var(--color-text);
+        border-color: transparent;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .category-chip.active:hover {
+        background: var(--color-primary-dark);
+        color: #ffffff;
+        border-color: transparent;
     }
 
     /* ============ 分页 ============ */
@@ -1027,9 +1091,10 @@ const builtAt = rssCache.generatedAt
         gap: 1rem;
         margin-top: 3rem;
         padding-top: 2rem;
-        border-top: 1px solid var(--color-border);
+        border-top: 1px solid var(--color-border-light);
     }
 
+    /* 分页按钮：pill，hover 抬升 + 主题浅底 */
     .page-btn {
         display: flex;
         align-items: center;
@@ -1037,23 +1102,28 @@ const builtAt = rssCache.generatedAt
         width: 40px;
         height: 40px;
         border: 1px solid var(--color-border);
-        background: var(--color-bg-secondary);
-        border-radius: var(--radius-md);
+        background: var(--color-card-bg);
+        border-radius: var(--radius-full);
         cursor: pointer;
         color: var(--color-text-light);
-        transition: all 0.2s ease;
+        transition:
+            background-color 0.25s var(--ease-out),
+            color 0.25s var(--ease-out),
+            border-color 0.25s var(--ease-out),
+            transform 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
     }
 
     .page-btn:hover:not(:disabled) {
-        background: var(--color-primary-subtle);
-        color: var(--color-primary-dark);
-        border-color: var(--color-primary-light);
+        background: color-mix(in srgb, var(--radial-c1), transparent 90%);
+        color: var(--color-primary);
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 45%);
         transform: translateY(-2px);
-        box-shadow: var(--shadow-sm);
+        box-shadow: var(--shadow-hover);
     }
 
     .page-btn:disabled {
-        opacity: 0.5;
+        opacity: 0.45;
         cursor: not-allowed;
         background: var(--color-bg);
     }
@@ -1063,6 +1133,7 @@ const builtAt = rssCache.generatedAt
         align-items: center;
         gap: 0.5rem;
         font-size: 0.9rem;
+        font-family: var(--font-display);
         color: var(--color-text-light);
     }
 
@@ -1072,23 +1143,28 @@ const builtAt = rssCache.generatedAt
         text-align: center;
         border: 1px solid var(--color-border);
         border-radius: var(--radius-md);
-        background: var(--color-bg-secondary);
+        background: var(--color-card-bg);
         color: var(--color-text);
-        font-family: inherit;
-        transition: all 0.2s ease;
+        font-family: var(--font-display);
+        font-weight: 600;
+        transition:
+            border-color 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
     }
 
     .page-input:focus {
         outline: none;
         border-color: var(--color-primary);
-        box-shadow: 0 0 0 3px var(--color-primary-subtle);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--radial-c1), transparent 85%);
     }
 
     /* ============ 构建时间注记 ============ */
     .build-note {
         margin-top: 1.5rem;
         text-align: center;
-        font-size: 0.75rem;
+        font-size: 0.72rem;
+        font-family: var(--font-mono);
+        letter-spacing: 0.02em;
         color: var(--color-text-muted);
     }
 
@@ -1112,6 +1188,22 @@ const builtAt = rssCache.generatedAt
 
         .main-layout {
             display: block;
+        }
+    }
+
+    /* 减动效偏好：关闭过渡动画 */
+    @media (prefers-reduced-motion: reduce) {
+        .item-link,
+        .page-btn,
+        .page-input,
+        .category-chip,
+        .category-btn,
+        .source-btn,
+        .category-toggle,
+        .toggle-icon,
+        .search-box,
+        .search-clear {
+            transition: none;
         }
     }
 </style>

@@ -203,8 +203,8 @@ const monthNames = [
 
 <style>
     .container {
-        max-width: 800px;
-        margin: 0 auto;
+        /* 放宽内层容器：外层 main 已限 1220px */
+        max-width: 100%;
     }
 
     .page-title {
@@ -214,17 +214,51 @@ const monthNames = [
     }
 
     .page-desc {
-        color: var(--color-text-light);
+        color: var(--color-text-muted);
         margin-bottom: 3.5rem;
         font-size: 1rem;
+        text-align: center;
     }
 
-    /* Timeline Styles */
+    /* Timeline：细线主时间线 + 纯色节点 */
     .timeline {
         position: relative;
         padding-left: 2rem;
-        border-left: 2px solid var(--color-primary-light);
         margin-left: 1rem;
+    }
+
+    .timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        border-radius: var(--radius-full);
+        background: var(--color-border);
+    }
+
+    .timeline-item {
+        position: relative;
+    }
+
+    /* 时间线节点：纯色小圆点 */
+    .timeline-marker {
+        position: absolute;
+        left: calc(-2rem - 3px);
+        top: 0.95rem;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--color-primary);
+        box-shadow: 0 0 0 4px var(--color-bg);
+        pointer-events: none;
+    }
+
+    .month-section > .timeline-marker {
+        top: 0.7rem;
+        width: 7px;
+        height: 7px;
     }
 
     /* Year Section Styles */
@@ -237,8 +271,10 @@ const monthNames = [
     }
 
     .year-summary {
+        font-family: var(--font-display);
         font-size: 1.4rem;
         font-weight: 700;
+        letter-spacing: -0.02em;
         color: var(--color-text);
         padding: 0.5rem 0;
     }
@@ -251,10 +287,23 @@ const monthNames = [
         margin-right: 0.5rem;
     }
 
+    /* 条数徽标：pill，hover 主题浅底 */
     .entry-count {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
         font-weight: 500;
+        font-family: var(--font-sans);
         color: var(--color-text-muted);
+        background: var(--color-bg-secondary);
+        padding: 0.15rem 0.6rem;
+        border-radius: var(--radius-full);
+        transition:
+            background-color 0.25s var(--ease-out),
+            color 0.25s var(--ease-out);
+    }
+
+    .timeline-summary:hover .entry-count {
+        background: color-mix(in srgb, var(--radial-c1), transparent 90%);
+        color: var(--color-primary);
     }
 
     .year-content {
@@ -275,6 +324,7 @@ const monthNames = [
     }
 
     .month-summary {
+        font-family: var(--font-display);
         font-size: 1.15rem;
         font-weight: 600;
         color: var(--color-text-light);
@@ -299,7 +349,7 @@ const monthNames = [
         list-style: none;
         display: flex;
         align-items: center;
-        transition: color 0.2s;
+        transition: color 0.25s var(--ease-out);
         user-select: none;
     }
 
@@ -307,14 +357,14 @@ const monthNames = [
         display: none;
     }
 
-    /* Add arrow indicator for accordions */
+    /* 展开指示箭头：纯色雾蓝 */
     .year-summary::before,
     .month-summary::before {
         content: "▶";
         display: inline-block;
         margin-right: 0.5rem;
         font-size: 0.7em;
-        transition: transform 0.2s;
+        transition: transform 0.25s var(--ease-out);
         color: var(--color-primary);
     }
 
@@ -332,7 +382,7 @@ const monthNames = [
 
     /* Animation for opening sections */
     .timeline-content {
-        animation: slideDown 0.3s ease-out;
+        animation: slideDown 0.3s var(--ease-out);
     }
 
     @keyframes slideDown {
@@ -344,6 +394,24 @@ const monthNames = [
             opacity: 1;
             transform: translateY(0);
         }
+    }
+
+    /* 减动效偏好 / 全局动画开关：关闭动画 */
+    @media (prefers-reduced-motion: reduce) {
+        .timeline-content {
+            animation: none;
+        }
+
+        .timeline-summary,
+        .entry-count,
+        .year-summary::before,
+        .month-summary::before {
+            transition: none;
+        }
+    }
+
+    :global(html.fx-anim-off) .timeline-content {
+        animation: none;
     }
 
     /* Mobile responsive */

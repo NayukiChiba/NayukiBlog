@@ -121,8 +121,8 @@ for (const category of categories) {
 
 <style>
     .container {
-        max-width: 960px;
-        margin: 0 auto;
+        /* 放宽内层容器：外层 main 已限 1220px */
+        max-width: 100%;
     }
     .page-title {
         font-size: 2rem;
@@ -130,8 +130,9 @@ for (const category of categories) {
         margin-bottom: 0.5rem;
     }
     .page-desc {
-        color: #666;
+        color: var(--color-text-muted);
         margin-bottom: 3rem;
+        text-align: center;
     }
 
     .tools-container {
@@ -150,16 +151,48 @@ for (const category of categories) {
         justify-content: space-between;
         margin-bottom: 1rem;
         padding-bottom: 0.5rem;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid var(--color-border-light);
         flex-wrap: wrap;
         gap: 0.5rem;
+        position: relative;
     }
 
+    /* 分隔线上叠加的纯色短杠 */
+    .section-header::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 2rem;
+        height: 3px;
+        border-radius: var(--radius-full);
+        background: var(--color-primary);
+        opacity: 0.85;
+    }
+
+    /* 分类标题：左侧纯色竖杠 */
     .category-title {
+        font-family: var(--font-display);
         font-size: 1.2rem;
-        font-weight: 600;
-        color: #333;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--color-text);
         margin: 0;
+        position: relative;
+        padding-left: 0.875rem;
+    }
+
+    .category-title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 1.2em;
+        background: var(--color-primary);
+        opacity: 0.85;
+        border-radius: var(--radius-full);
     }
 
     .pagination-controls {
@@ -171,12 +204,17 @@ for (const category of categories) {
     .nav-btn {
         width: 32px;
         height: 32px;
-        border-radius: 50%;
-        border: 1px solid #ddd;
-        background: #fff;
-        color: #666;
+        border-radius: var(--radius-full);
+        border: 1px solid var(--color-border);
+        background: var(--color-card-bg);
+        color: var(--color-text-muted);
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition:
+            border-color 0.25s var(--ease-out),
+            color 0.25s var(--ease-out),
+            background-color 0.25s var(--ease-out),
+            transform 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -184,9 +222,11 @@ for (const category of categories) {
     }
 
     .nav-btn:hover:not(:disabled) {
-        border-color: #333;
-        color: #333;
-        background: #f5f5f5;
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 45%);
+        color: var(--color-primary);
+        background: color-mix(in srgb, var(--radial-c1), transparent 90%);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
     }
 
     .nav-btn:disabled {
@@ -196,14 +236,16 @@ for (const category of categories) {
 
     .page-indicator {
         font-size: 0.875rem;
-        color: #666;
+        font-family: var(--font-display);
+        color: var(--color-text-muted);
         min-width: 50px;
         text-align: center;
     }
 
+    /* 当前页码：纯色近黑 */
     .current-page {
-        font-weight: 600;
-        color: #333;
+        font-weight: 700;
+        color: var(--color-text);
     }
 
     .carousel-container {
@@ -215,7 +257,7 @@ for (const category of categories) {
     .carousel-page {
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s var(--ease-out);
         position: absolute;
         left: 0;
         top: 0;
@@ -246,7 +288,15 @@ for (const category of categories) {
 
     @media (min-width: 1024px) {
         .tools-grid {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* 减动效偏好：关闭过渡动画 */
+    @media (prefers-reduced-motion: reduce) {
+        .nav-btn,
+        .carousel-page {
+            transition: none;
         }
     }
 </style>

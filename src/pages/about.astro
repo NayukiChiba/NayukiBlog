@@ -8,6 +8,9 @@ import PageLayout from "../layouts/PageLayout.astro";
 <PageLayout title="About Me | Nayuki Blog">
     <div class="container readme-style">
         <div class="profile-header">
+            <span class="deco deco-ring" aria-hidden="true"></span>
+            <span class="deco deco-square" aria-hidden="true"></span>
+            <span class="deco deco-plus" aria-hidden="true">+</span>
             <div class="avatar-container">
                 <img src="/profile.png" alt="Nayuki" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Nayuki&background=0D8ABC&color=fff'"/>
             </div>
@@ -133,20 +136,46 @@ import PageLayout from "../layouts/PageLayout.astro";
 
 <style>
     .container {
-        max-width: 800px;
-        margin: 0 auto;
+        /* 放宽内层容器：外层 main 已限 1220px */
+        max-width: 100%;
         padding: 2rem 1.5rem 4rem;
         color: var(--color-text);
         line-height: 1.6;
     }
 
+    /* 节标题：纯色短杠 + 呼应圆点 */
     h2 {
+        font-family: var(--font-display);
         font-size: 1.5rem;
         font-weight: 700;
+        letter-spacing: -0.02em;
         margin-top: 2rem;
-        margin-bottom: 1rem;
-        border-bottom: 1px solid var(--color-border);
-        padding-bottom: 0.5rem;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.75rem;
+        position: relative;
+    }
+
+    h2::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 2.5rem;
+        height: 4px;
+        background: var(--color-primary);
+        opacity: 0.85;
+        border-radius: var(--radius-full);
+    }
+
+    h2::before {
+        content: "";
+        position: absolute;
+        left: calc(2.5rem + 0.5rem);
+        bottom: 0;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--radial-c2);
     }
 
     ul {
@@ -159,10 +188,33 @@ import PageLayout from "../layouts/PageLayout.astro";
         margin-bottom: 0.5rem;
     }
 
+    /* 分隔线：渐隐线 + 中心旋转方点 */
     hr {
         border: none;
-        border-top: 1px solid var(--color-border);
-        margin: 2rem 0;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            var(--color-border) 18%,
+            var(--color-border) 82%,
+            transparent
+        );
+        margin: 2.5rem 0;
+        position: relative;
+        overflow: visible;
+    }
+
+    hr::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 7px;
+        height: 7px;
+        background: var(--color-secondary);
+        border-radius: 2px;
+        box-shadow: 0 0 0 5px var(--color-bg);
     }
 
     img {
@@ -180,11 +232,21 @@ import PageLayout from "../layouts/PageLayout.astro";
         text-align: center;
     }
     
+    /* 技术栈：一行五个，居中对齐 */
     .readme-style .center-flex-wrap {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.5rem;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        justify-items: center;
+        gap: 0.75rem 0.5rem;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (max-width: 479px) {
+        .readme-style .center-flex-wrap {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
     }
 
     /* 技术栈图标间距 */
@@ -193,43 +255,110 @@ import PageLayout from "../layouts/PageLayout.astro";
         vertical-align: middle;
     }
 
+    /* 技术栈图标：hover 轻抬 + 主题浅底 */
+    .center-flex-wrap a {
+        display: inline-flex;
+        padding: 0.375rem;
+        border-radius: var(--radius-md);
+        transition:
+            transform 0.25s var(--ease-out),
+            background-color 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
+    }
+
+    .center-flex-wrap a:hover {
+        transform: translateY(-3px);
+        background: color-mix(in srgb, var(--radial-c1), transparent 93%);
+        box-shadow: var(--shadow-sm);
+    }
+
     /* --- Profile Header --- */
     .profile-header {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin: 2rem 0 1.5rem;
+        position: relative;
     }
 
+    /* 头像：纯色描边圆环 */
     .avatar-container {
-        width: 120px;
-        height: 120px;
+        width: 126px;
+        height: 126px;
         border-radius: 50%;
         overflow: hidden;
         margin-bottom: 1rem;
+        padding: 3px;
+        background: var(--color-primary);
         box-shadow: var(--shadow-md);
-        border: 3px solid var(--color-card-bg);
     }
 
     .avatar {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid var(--color-card-bg);
     }
 
     .profile-name {
+        font-family: var(--font-display);
         font-size: 2rem;
         font-weight: 700;
+        letter-spacing: -0.02em;
         color: var(--color-text);
         margin: 0;
     }
 
+    /* 几何装饰（纯装饰元素） */
+    .deco {
+        position: absolute;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    /* 几何装饰描边：中性灰 */
+    .deco-ring {
+        top: 6px;
+        left: calc(50% - 112px);
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 1.5px solid #d8dce6;
+    }
+
+    .deco-square {
+        bottom: 48px;
+        right: calc(50% - 114px);
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        border: 1.5px solid #d8dce6;
+        transform: rotate(45deg);
+    }
+
+    .deco-plus {
+        top: 58%;
+        left: calc(50% - 152px);
+        font-family: var(--font-display);
+        font-size: 1rem;
+        line-height: 1;
+        color: rgba(20, 22, 31, 0.18);
+    }
+
     /* --- 经历 (Experience) 卡片 --- */
+    /* 经历卡：一行两个 */
     .experience-grid {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 1rem;
         margin-bottom: 2rem;
+    }
+
+    @media (max-width: 639px) {
+        .experience-grid {
+            grid-template-columns: 1fr;
+        }
     }
 
     .xp-card {
@@ -241,17 +370,21 @@ import PageLayout from "../layouts/PageLayout.astro";
         border: 1px solid var(--color-border);
         border-radius: var(--radius-lg);
         text-decoration: none;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition:
+            transform 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out),
+            border-color 0.25s var(--ease-out);
         cursor: pointer;
-        box-shadow: var(--shadow-sm);
+        box-shadow: var(--shadow-xs);
         width: 100%;
-        max-width: 400px;
+        position: relative;
+        overflow: hidden;
     }
+
     .xp-card:hover {
-        border-color: var(--color-primary-light);
-        background: var(--color-card-hover);
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-md);
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 70%);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
     }
 
     .xp-icon {
@@ -261,7 +394,7 @@ import PageLayout from "../layouts/PageLayout.astro";
         display: flex;
         align-items: center;
         justify-content: center;
-        background: var(--color-primary-subtle);
+        background: color-mix(in srgb, var(--radial-c1), transparent 92%);
         border-radius: var(--radius-md);
         padding: 0.5rem;
     }
@@ -289,7 +422,9 @@ import PageLayout from "../layouts/PageLayout.astro";
     .xp-arrow {
         color: var(--color-text-muted);
         font-size: 1.25rem;
-        transition: all 0.3s ease;
+        transition:
+            color 0.25s var(--ease-out),
+            transform 0.25s var(--ease-out);
     }
     .xp-card:hover .xp-arrow {
         color: var(--color-primary);
@@ -304,6 +439,19 @@ import PageLayout from "../layouts/PageLayout.astro";
         .xp-icon {
             width: 40px;
             height: 40px;
+        }
+
+        .deco {
+            display: none;
+        }
+    }
+
+    /* 减动效偏好：关闭过渡 */
+    @media (prefers-reduced-motion: reduce) {
+        .xp-card,
+        .xp-arrow,
+        .center-flex-wrap a {
+            transition: none;
         }
     }
 </style>

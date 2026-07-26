@@ -270,8 +270,8 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
 
 <style>
     .page-container {
-        max-width: 960px;
-        margin: 0 auto;
+        /* 放宽内层容器：外层 main 已限 1220px */
+        max-width: 100%;
     }
     .page-title {
         font-size: 2rem;
@@ -279,9 +279,10 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
         margin-bottom: 0.75rem;
     }
     .page-desc {
-        color: var(--color-text-light);
+        color: var(--color-text-muted);
         margin-bottom: 3.5rem;
         font-size: 1rem;
+        text-align: center;
     }
 
     .sections-wrapper {
@@ -296,14 +297,31 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
         justify-content: space-between;
         margin-bottom: 2rem;
         padding-bottom: 0.75rem;
-        border-bottom: 2px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border-light);
         flex-wrap: wrap;
         gap: 1rem;
+        position: relative;
     }
 
+    /* 分隔线上叠加的纯色短杠 */
+    .section-header::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 2.5rem;
+        height: 3px;
+        border-radius: var(--radius-full);
+        background: var(--color-primary);
+        opacity: 0.85;
+    }
+
+    /* 节标题：左侧纯色竖杠 */
     .section-title {
+        font-family: var(--font-display);
         font-size: 1.5rem;
         font-weight: 700;
+        letter-spacing: -0.02em;
         color: var(--color-text);
         margin: 0;
         position: relative;
@@ -317,9 +335,10 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
         top: 50%;
         transform: translateY(-50%);
         width: 4px;
-        height: 1.4em;
-        background: linear-gradient(180deg, var(--color-primary), var(--color-primary-light));
-        border-radius: 2px;
+        height: 1.3em;
+        background: var(--color-primary);
+        opacity: 0.85;
+        border-radius: var(--radius-full);
     }
 
     .pagination-controls {
@@ -336,7 +355,12 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
         background: var(--color-card-bg);
         color: var(--color-text-muted);
         cursor: pointer;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        transition:
+            border-color 0.25s var(--ease-out),
+            color 0.25s var(--ease-out),
+            background-color 0.25s var(--ease-out),
+            transform 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -344,10 +368,11 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
     }
 
     .nav-btn:hover:not(:disabled) {
-        border-color: var(--color-primary);
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 45%);
         color: var(--color-primary);
-        background: var(--color-primary-subtle);
-        transform: scale(1.05);
+        background: color-mix(in srgb, var(--radial-c1), transparent 90%);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
     }
 
     .nav-btn:disabled {
@@ -357,15 +382,17 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
 
     .page-indicator {
         font-size: 0.875rem;
+        font-family: var(--font-display);
         color: var(--color-text-light);
         min-width: 50px;
         text-align: center;
         font-weight: 500;
     }
 
+    /* 当前页码：纯色近黑 */
     .current-page {
         font-weight: 700;
-        color: var(--color-primary);
+        color: var(--color-text);
     }
 
     .carousel-container {
@@ -377,7 +404,7 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
     .carousel-page {
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s var(--ease-out);
         position: absolute;
         left: 0;
         top: 0;
@@ -402,6 +429,14 @@ const planningPages = chunkArray(planningProjects, ITEMS_PER_PAGE);
     @media (min-width: 640px) {
         .project-grid {
             grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* 减动效偏好：关闭过渡动画 */
+    @media (prefers-reduced-motion: reduce) {
+        .nav-btn,
+        .carousel-page {
+            transition: none;
         }
     }
 </style>

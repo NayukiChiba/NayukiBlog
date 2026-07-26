@@ -40,7 +40,7 @@ const longTerm = activeTodos.filter((t) => t.type === "long-term");
         <div class="todo-layers">
             <!-- Layer 2: Short Term -->
             <section class="layer-section">
-                <h2 class="layer-title"> 短期目标 (Short-term)</h2>
+                <h2 class="layer-title"><span class="layer-num" aria-hidden="true">01</span> 短期目标 (Short-term)</h2>
                 <div class="task-grid">
                     {shortTerm.map((todo) => <TaskCard {...todo} />)}
                 </div>
@@ -48,7 +48,7 @@ const longTerm = activeTodos.filter((t) => t.type === "long-term");
 
             <!-- Layer 3: Medium Term -->
             <section class="layer-section">
-                <h2 class="layer-title"> 中期目标 (Medium-term)</h2>
+                <h2 class="layer-title"><span class="layer-num" aria-hidden="true">02</span> 中期目标 (Medium-term)</h2>
                 <div class="task-grid">
                     {mediumTerm.map((todo) => <TaskCard {...todo} />)}
                 </div>
@@ -56,7 +56,7 @@ const longTerm = activeTodos.filter((t) => t.type === "long-term");
 
             <!-- Layer 4: Long Term -->
             <section class="layer-section">
-                <h2 class="layer-title"> 长期目标 (Long-term)</h2>
+                <h2 class="layer-title"><span class="layer-num" aria-hidden="true">03</span> 长期目标 (Long-term)</h2>
                 <div class="task-grid">
                     {longTerm.map((todo) => <TaskCard {...todo} />)}
                 </div>
@@ -67,8 +67,8 @@ const longTerm = activeTodos.filter((t) => t.type === "long-term");
 
 <style>
     .container {
-        max-width: 1000px;
-        margin: 0 auto;
+        /* 放宽内层容器：外层 main 已限 1220px */
+        max-width: 100%;
     }
 
     .header-row {
@@ -81,29 +81,64 @@ const longTerm = activeTodos.filter((t) => t.type === "long-term");
         margin-bottom: 0.5rem;
     }
     .page-desc {
-        color: #666;
+        color: var(--color-text-muted);
         margin: 0;
+        text-align: center;
     }
 
-    /* Completed Section Styles */
+    /* 已完成任务：折叠卡片 */
     .completed-section {
         margin-bottom: 3rem;
-        border: 1px solid #eee;
-        border-radius: 8px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
         padding: 0.5rem;
-        background: #fafafa;
+        background: var(--color-card-bg);
+        box-shadow: var(--shadow-xs);
+        transition:
+            border-color 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
+    }
+
+    .completed-section:hover {
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 60%);
+        box-shadow: var(--shadow-sm);
     }
 
     .completed-section summary {
         cursor: pointer;
-        padding: 0.5rem;
+        padding: 0.6rem 0.875rem;
         font-weight: 500;
-        color: #666;
+        color: var(--color-text-light);
         user-select: none;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border-radius: var(--radius-md);
+        transition:
+            color 0.2s var(--ease-out),
+            background-color 0.2s var(--ease-out);
+    }
+
+    .completed-section summary::-webkit-details-marker {
+        display: none;
+    }
+
+    /* 展开指示箭头：纯色雾蓝 */
+    .completed-section summary::before {
+        content: "▶";
+        font-size: 0.7em;
+        transition: transform 0.25s var(--ease-out);
+        color: var(--color-primary);
+    }
+
+    .completed-section[open] summary::before {
+        transform: rotate(90deg);
     }
 
     .completed-section summary:hover {
-        color: #333;
+        color: var(--color-text);
+        background: color-mix(in srgb, var(--radial-c1), transparent 94%);
     }
 
     .mt-4 {
@@ -114,13 +149,41 @@ const longTerm = activeTodos.filter((t) => t.type === "long-term");
         margin-bottom: 4rem;
     }
 
+    /* 层级标题：装饰序号 + 纯色短杠 */
     .layer-title {
-        font-size: 1.2rem;
-        font-weight: 600;
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
         margin-bottom: 1.5rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 1px solid #eee;
-        color: #333;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--color-border-light);
+        color: var(--color-text);
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        position: relative;
+    }
+
+    .layer-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 2.5rem;
+        height: 3px;
+        border-radius: var(--radius-full);
+        background: var(--color-primary);
+        opacity: 0.85;
+    }
+
+    /* 装饰序号：纯色弱化 */
+    .layer-num {
+        font-family: var(--font-display);
+        font-size: 0.9em;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: var(--color-text-muted);
     }
 
     .task-grid {
@@ -137,7 +200,16 @@ const longTerm = activeTodos.filter((t) => t.type === "long-term");
 
     @media (min-width: 1024px) {
         .task-grid {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* 减动效偏好：关闭过渡 */
+    @media (prefers-reduced-motion: reduce) {
+        .completed-section,
+        .completed-section summary,
+        .completed-section summary::before {
+            transition: none;
         }
     }
 </style>

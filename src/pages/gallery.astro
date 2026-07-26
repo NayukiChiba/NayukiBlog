@@ -26,7 +26,7 @@ const allTags = getTags(gallery);
                         height="12"
                         viewBox="0 0 12 12"
                     >
-                        <path fill="#666" d="M6 8L1 3h10z"></path>
+                        <path fill="currentColor" d="M6 8L1 3h10z"></path>
                     </svg>
                 </div>
                 <div class="select-options" id="select-options">
@@ -423,8 +423,8 @@ const allTags = getTags(gallery);
 
 <style is:global>
     .container {
-        max-width: 1200px;
-        margin: 0 auto;
+        /* 放宽内层容器：外层 main 已限 1220px */
+        max-width: 100%;
         padding: 0 1rem;
     }
 
@@ -438,7 +438,7 @@ const allTags = getTags(gallery);
 
     .filter-section label {
         font-size: 0.9rem;
-        color: #666;
+        color: var(--color-text-light);
         white-space: nowrap;
     }
 
@@ -454,24 +454,25 @@ const allTags = getTags(gallery);
         justify-content: space-between;
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
-        border: 1px solid #e5e5e5;
-        border-radius: 8px;
-        background-color: #fff;
-        color: #333;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        background-color: var(--color-card-bg);
+        color: var(--color-text);
         cursor: pointer;
+        box-shadow: var(--shadow-xs);
         transition:
-            border-color 0.2s ease,
-            box-shadow 0.2s ease;
+            border-color 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
         min-height: 40px;
     }
 
     .select-trigger:hover {
-        border-color: #ccc;
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 55%);
     }
 
     .custom-select.open .select-trigger {
-        border-color: #333;
-        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--radial-c1), transparent 85%);
     }
 
     .selected-tags {
@@ -483,37 +484,41 @@ const allTags = getTags(gallery);
     }
 
     .placeholder {
-        color: #999;
+        color: var(--color-text-muted);
         font-size: 0.85rem;
     }
 
+    /* 已选标签：主题浅底 pill */
     .selected-tag {
         display: inline-flex;
         align-items: center;
         gap: 0.3rem;
-        background: #f0f0f0;
-        color: #333;
-        padding: 0.2rem 0.5rem;
-        border-radius: 4px;
+        background: color-mix(in srgb, var(--radial-c1), transparent 90%);
+        color: var(--color-primary);
+        padding: 0.2rem 0.6rem;
+        border-radius: var(--radius-full);
         font-size: 0.8rem;
+        font-weight: 500;
     }
 
     .remove-tag {
         cursor: pointer;
-        color: #999;
+        color: color-mix(in srgb, var(--radial-c1), transparent 40%);
         font-size: 1rem;
         line-height: 1;
         margin-left: 0.2rem;
+        transition: color 0.2s var(--ease-out);
     }
 
     .remove-tag:hover {
-        color: #666;
+        color: var(--color-accent-red);
     }
 
     .select-arrow {
-        transition: transform 0.2s ease;
+        transition: transform 0.25s var(--ease-out);
         margin-left: 0.5rem;
         flex-shrink: 0;
+        color: var(--color-text-muted);
     }
 
     .custom-select.open .select-arrow {
@@ -522,13 +527,13 @@ const allTags = getTags(gallery);
 
     .select-options {
         position: absolute;
-        top: calc(100% + 4px);
+        top: calc(100% + 6px);
         left: 0;
         right: 0;
-        background: #fff;
-        border: 1px solid #e5e5e5;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background: var(--color-card-bg);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-md);
         max-height: 240px;
         overflow-y: auto;
         z-index: 100;
@@ -536,9 +541,9 @@ const allTags = getTags(gallery);
         visibility: hidden;
         transform: translateY(-8px);
         transition:
-            opacity 0.2s ease,
-            transform 0.2s ease,
-            visibility 0.2s;
+            opacity 0.25s var(--ease-out),
+            transform 0.25s var(--ease-out),
+            visibility 0.25s;
     }
 
     .custom-select.open .select-options {
@@ -553,38 +558,41 @@ const allTags = getTags(gallery);
         gap: 0.6rem;
         padding: 0.6rem 1rem;
         font-size: 0.9rem;
-        color: #333;
+        color: var(--color-text);
         cursor: pointer;
-        transition: background-color 0.15s ease;
+        transition: background-color 0.2s var(--ease-out);
     }
 
     .select-option:first-child {
-        border-radius: 7px 7px 0 0;
+        border-radius: 11px 11px 0 0;
     }
 
     .select-option:last-child {
-        border-radius: 0 0 7px 7px;
+        border-radius: 0 0 11px 11px;
     }
 
     .select-option:hover {
-        background-color: #f5f5f5;
+        background-color: color-mix(in srgb, var(--radial-c1), transparent 93%);
     }
 
     .select-option .checkbox {
         width: 16px;
         height: 16px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
+        border: 1px solid var(--color-border);
+        border-radius: 4px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.15s ease;
+        transition:
+            background-color 0.2s var(--ease-out),
+            border-color 0.2s var(--ease-out);
         flex-shrink: 0;
     }
 
+    /* 选中态：纯色雾蓝底 */
     .select-option.checked .checkbox {
-        background: #333;
-        border-color: #333;
+        background: var(--color-primary);
+        border-color: transparent;
     }
 
     .select-option.checked .checkbox::after {
@@ -598,20 +606,26 @@ const allTags = getTags(gallery);
     }
 
     .clear-btn {
-        padding: 0.4rem 0.8rem;
+        padding: 0.4rem 0.9rem;
         font-size: 0.8rem;
-        border: 1px solid #e5e5e5;
-        border-radius: 6px;
-        background: #fff;
-        color: #666;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        background: var(--color-card-bg);
+        color: var(--color-text-light);
         cursor: pointer;
-        transition: all 0.15s ease;
+        transition:
+            border-color 0.2s var(--ease-out),
+            color 0.2s var(--ease-out),
+            background-color 0.2s var(--ease-out),
+            transform 0.2s var(--ease-out);
         white-space: nowrap;
     }
 
     .clear-btn:hover {
-        border-color: #ccc;
-        color: #333;
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 45%);
+        color: var(--color-primary);
+        background: color-mix(in srgb, var(--radial-c1), transparent 92%);
+        transform: translateY(-1px);
     }
 
     /* Masonry Layout using CSS Columns */
@@ -636,20 +650,31 @@ const allTags = getTags(gallery);
         break-inside: avoid;
         margin-bottom: 1rem;
         position: relative;
-        border-radius: 12px;
+        border-radius: var(--radius-lg);
         overflow: hidden;
+        border: 1px solid var(--color-border-light);
+        box-shadow: var(--shadow-xs);
         transform: translateZ(0); /* Fix for some rendering issues */
+        transition:
+            box-shadow 0.3s var(--ease-out),
+            border-color 0.3s var(--ease-out);
+    }
+
+    /* hover：边框微深 + 中性阴影 */
+    .gallery-item:hover {
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 70%);
+        box-shadow: var(--shadow-hover);
     }
 
     .gallery-item img {
         width: 100%;
         height: auto;
         display: block;
-        transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        transition: transform 0.5s var(--ease-out);
     }
 
     .gallery-item:hover img {
-        transform: scale(1.05);
+        transform: scale(1.04);
     }
 
     /* Overlay Styles */
@@ -666,7 +691,7 @@ const allTags = getTags(gallery);
         );
         padding: 4rem 1.5rem 1.5rem;
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s var(--ease-out);
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -683,7 +708,7 @@ const allTags = getTags(gallery);
         font-weight: 600;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         transform: translateY(10px);
-        transition: transform 0.3s ease;
+        transition: transform 0.3s var(--ease-out);
     }
 
     .gallery-item:hover .image-title {
@@ -695,14 +720,14 @@ const allTags = getTags(gallery);
         flex-wrap: wrap;
         gap: 0.5rem;
         transform: translateY(10px);
-        transition: transform 0.3s ease 0.1s; /* Slight delay */
+        transition: transform 0.3s var(--ease-out) 0.1s; /* Slight delay */
     }
 
     .gallery-item:hover .tags {
         transform: translateY(0);
     }
 
-    /* 查看按钮样式 - 圆形黑底 */
+    /* 查看按钮：纯色圆形主按钮 */
     .view-btn {
         display: inline-flex;
         align-items: center;
@@ -710,16 +735,19 @@ const allTags = getTags(gallery);
         width: 48px;
         height: 48px;
         margin-top: 1rem;
-        background: rgba(0, 0, 0, 0.7);
+        background: var(--color-primary);
         color: white;
         border: none;
         border-radius: 50%;
         font-size: 0;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition:
+            transform 0.3s var(--ease-out),
+            opacity 0.3s var(--ease-out),
+            box-shadow 0.3s var(--ease-out),
+            background-color 0.3s var(--ease-out);
         transform: translateY(10px);
         opacity: 0;
-        backdrop-filter: blur(10px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
@@ -728,9 +756,9 @@ const allTags = getTags(gallery);
         opacity: 1;
     }
 
+    /* hover 加深 12% */
     .view-btn:hover {
-        background: rgba(255, 255, 255, 0.95);
-        color: #333;
+        background: var(--color-primary-dark);
         transform: translateY(-2px) scale(1.05);
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
@@ -760,24 +788,33 @@ const allTags = getTags(gallery);
         padding: 1.5rem 0;
     }
 
+    /* 分页按钮：pill，hover 抬升 + 主题浅底 */
     .page-btn {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        padding: 0.6rem 1.2rem;
+        padding: 0.6rem 1.25rem;
         font-size: 0.9rem;
         font-weight: 500;
-        border: 1px solid #e5e5e5;
-        border-radius: 8px;
-        background: #fff;
-        color: #333;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        background: var(--color-card-bg);
+        color: var(--color-text-light);
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition:
+            border-color 0.25s var(--ease-out),
+            background-color 0.25s var(--ease-out),
+            color 0.25s var(--ease-out),
+            transform 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
     }
 
     .page-btn:hover:not(:disabled) {
-        border-color: #333;
-        background: #fafafa;
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 45%);
+        background: color-mix(in srgb, var(--radial-c1), transparent 92%);
+        color: var(--color-primary);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
     }
 
     .page-btn:disabled {
@@ -795,13 +832,14 @@ const allTags = getTags(gallery);
         align-items: center;
         gap: 0.4rem;
         font-size: 0.95rem;
-        color: #666;
+        font-family: var(--font-display);
+        color: var(--color-text-muted);
         font-weight: 500;
     }
 
     .page-info #current-page {
-        color: #333;
-        font-weight: 600;
+        color: var(--color-primary);
+        font-weight: 700;
     }
 
     /* 图片灯箱样式 */
@@ -817,7 +855,9 @@ const allTags = getTags(gallery);
         justify-content: center;
         opacity: 0;
         visibility: hidden;
-        transition: all 0.3s ease;
+        transition:
+            opacity 0.3s var(--ease-out),
+            visibility 0.3s var(--ease-out);
     }
 
     .lightbox.active {
@@ -831,7 +871,9 @@ const allTags = getTags(gallery);
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.95);
+        background: rgba(15, 17, 28, 0.92);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         cursor: pointer;
     }
 
@@ -850,7 +892,7 @@ const allTags = getTags(gallery);
         max-width: 100%;
         max-height: 75vh;
         object-fit: contain;
-        border-radius: 12px;
+        border-radius: var(--radius-lg);
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
     }
 
@@ -882,7 +924,9 @@ const allTags = getTags(gallery);
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.2s ease;
+        transition:
+            background-color 0.2s var(--ease-out),
+            transform 0.2s var(--ease-out);
         z-index: 10001;
         backdrop-filter: blur(10px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
@@ -911,6 +955,25 @@ const allTags = getTags(gallery);
         .lightbox-info {
             margin: 0 1rem;
             max-width: calc(100vw - 2rem);
+        }
+    }
+
+    /* 减动效偏好：关闭过渡动画 */
+    @media (prefers-reduced-motion: reduce) {
+        .gallery-item,
+        .gallery-item img,
+        .overlay,
+        .image-title,
+        .tags,
+        .view-btn,
+        .page-btn,
+        .clear-btn,
+        .select-trigger,
+        .select-options,
+        .select-arrow,
+        .lightbox,
+        .lightbox-close {
+            transition: none;
         }
     }
 </style>

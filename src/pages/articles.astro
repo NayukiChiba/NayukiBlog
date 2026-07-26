@@ -89,7 +89,7 @@ const folderList = [...folderSet].sort().map((path) => {
 });
 ---
 
-<PageLayout title="Articles | Nayuki Blog">
+<PageLayout title="Articles | Nayuki Blog" hideAsideRight={true}>
     <div class="articles-container">
         <main class="page-main">
             <h1 class="page-title">文章与笔记</h1>
@@ -281,8 +281,10 @@ const folderList = [...folderSet].sort().map((path) => {
             const start = (currentPage - 1) * ITEMS_PER_PAGE;
             const end = start + ITEMS_PER_PAGE;
             allPostWrappers.forEach((el) => (el.style.display = "none"));
-            visiblePosts.slice(start, end).forEach((el) => {
+            visiblePosts.slice(start, end).forEach((el, i) => {
                 el.style.display = "block";
+                // 封面左右交替按“当前可见顺序”标记（跳过被筛选/草稿隐藏的卡）
+                el.classList.toggle("alt-side", i % 2 === 0);
                 // 当前页可见图片：高优先级立即加载
                 loadImage(el, "high");
             });
@@ -488,30 +490,7 @@ const folderList = [...folderSet].sort().map((path) => {
     });
 </script>
 
-<style is:global>
-    /* Global override for width - 80% */
-    main {
-        max-width: 80% !important;
-        width: 80% !important;
-        margin: 0 auto !important;
-        padding: 2rem 0 !important; 
-    }
-    
-    @media (max-width: 1400px) {
-        main {
-            max-width: 90% !important;
-            width: 90% !important;
-        }
-    }
-
-    @media (max-width: 1023px) {
-        main {
-            max-width: 100% !important;
-            width: 100% !important;
-            padding: 1rem !important;
-        }
-    }
-</style>
+<!-- 宽度覆盖已移除：直接使用 PageLayout 的 main（max-width 1220px），内容左右填满 -->
 
 <style>
     .articles-container {
@@ -529,15 +508,37 @@ const folderList = [...folderSet].sort().map((path) => {
         margin-bottom: 0.5rem;
     }
     .page-desc {
-        color: var(--color-text-light);
+        color: var(--color-text-muted);
         margin-bottom: 2rem;
+        text-align: center;
     }
 
+    /* 分隔线：渐隐线 + 中心旋转方点（纯色淡雾蓝） */
     .content-divider {
         height: 1px;
-        background: var(--color-border);
+        background: linear-gradient(
+            90deg,
+            transparent,
+            var(--color-border) 18%,
+            var(--color-border) 82%,
+            transparent
+        );
         margin: 2rem 0;
         width: 100%;
+        position: relative;
+    }
+
+    .content-divider::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 7px;
+        height: 7px;
+        background: var(--color-secondary);
+        border-radius: 2px;
+        box-shadow: 0 0 0 5px var(--color-bg);
     }
 
     .main-layout {
@@ -562,28 +563,30 @@ const folderList = [...folderSet].sort().map((path) => {
         margin: -0.5rem 0 1.5rem;
     }
 
+    /* 草稿开关：pill 卡片 */
     .draft-toggle {
         display: inline-flex;
         align-items: center;
         gap: 0.65rem;
-        padding: 0.5rem 0.75rem;
-        border: 1.5px solid var(--color-border);
-        border-radius: 10px;
-        background: var(--color-bg);
+        padding: 0.5rem 0.875rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        background: var(--color-card-bg);
         color: var(--color-text-light);
         cursor: pointer;
         user-select: none;
+        box-shadow: var(--shadow-xs);
         transition:
-            border-color 0.2s ease,
-            box-shadow 0.2s ease,
-            color 0.2s ease;
+            border-color 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out),
+            color 0.25s var(--ease-out);
     }
 
     .draft-toggle:hover,
     .draft-toggle:focus-within {
-        border-color: var(--color-primary);
-        color: var(--color-primary-dark);
-        box-shadow: 0 0 0 3px var(--color-primary-subtle);
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 45%);
+        color: var(--color-primary);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--radial-c1), transparent 88%);
     }
 
     .draft-toggle-input {
@@ -598,7 +601,7 @@ const folderList = [...folderSet].sort().map((path) => {
         border-radius: var(--radius-full);
         background: var(--color-border);
         padding: 2px;
-        transition: background 0.2s ease;
+        transition: background 0.25s var(--ease-out);
         flex-shrink: 0;
     }
 
@@ -609,9 +612,10 @@ const folderList = [...folderSet].sort().map((path) => {
         border-radius: 50%;
         background: var(--color-card-bg);
         box-shadow: var(--shadow-xs);
-        transition: transform 0.2s ease;
+        transition: transform 0.25s var(--ease-out);
     }
 
+    /* 开关轨道选中态：纯色雾蓝 */
     .draft-toggle-input:checked + .draft-toggle-track {
         background: var(--color-primary);
     }
@@ -650,8 +654,10 @@ const folderList = [...folderSet].sort().map((path) => {
         position: sticky;
         top: 2rem;
         background: var(--color-card-bg);
+        border: 1px solid var(--color-border);
         padding: 1.5rem;
-        border-radius: 12px;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-xs);
         margin-top: 0;
         
         /* Limit height to ~1200px or viewport, whichever is smaller */
@@ -676,8 +682,28 @@ const folderList = [...folderSet].sort().map((path) => {
 
     .sidebar-divider {
         height: 1px;
-        background: var(--color-border);
+        background: linear-gradient(
+            90deg,
+            transparent,
+            var(--color-border) 15%,
+            var(--color-border) 85%,
+            transparent
+        );
         margin: 1.5rem 0;
+        position: relative;
+    }
+
+    .sidebar-divider::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--color-secondary);
+        box-shadow: 0 0 0 4px var(--color-card-bg);
     }
 
     :global(.folder-item.draft-filtered),
@@ -685,13 +711,22 @@ const folderList = [...folderSet].sort().map((path) => {
         display: none !important;
     }
 
+    /* 文章列表：横版卡一行一张（david03 式） */
     .post-list {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1.1rem;
     }
 
-    /* Pagination */
+    /* 封面左右交替：第 1、3、5…张图在右，第 2、4、6…张图在左
+       （.alt-side 由分页脚本按当前可见顺序标记；仅横版断点生效） */
+    @media (min-width: 640px) {
+        .post-list .post-wrapper.alt-side :global(.post-card) {
+            flex-direction: row-reverse;
+        }
+    }
+
+    /* Pagination：pill 按钮，hover 抬升 + 主题浅底 */
     .pagination {
         display: flex;
         align-items: center;
@@ -699,7 +734,7 @@ const folderList = [...folderSet].sort().map((path) => {
         gap: 1rem;
         margin-top: 3rem;
         padding-top: 2rem;
-        border-top: 1px solid var(--color-border);
+        border-top: 1px solid var(--color-border-light);
     }
     .page-btn {
         display: flex;
@@ -708,21 +743,26 @@ const folderList = [...folderSet].sort().map((path) => {
         width: 40px;
         height: 40px;
         border: 1px solid var(--color-border);
-        background: var(--color-bg-secondary);
-        border-radius: var(--radius-md);
+        background: var(--color-card-bg);
+        border-radius: var(--radius-full);
         cursor: pointer;
         color: var(--color-text-light);
-        transition: all 0.2s ease;
+        transition:
+            background-color 0.25s var(--ease-out),
+            color 0.25s var(--ease-out),
+            border-color 0.25s var(--ease-out),
+            transform 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
     }
     .page-btn:hover:not(:disabled) {
-        background: var(--color-primary-subtle);
-        color: var(--color-primary-dark);
-        border-color: var(--color-primary-light);
+        background: color-mix(in srgb, var(--radial-c1), transparent 90%);
+        color: var(--color-primary);
+        border-color: color-mix(in srgb, var(--radial-c1), transparent 45%);
         transform: translateY(-2px);
-        box-shadow: var(--shadow-sm);
+        box-shadow: var(--shadow-hover);
     }
     .page-btn:disabled {
-        opacity: 0.5;
+        opacity: 0.45;
         cursor: not-allowed;
         background: var(--color-bg);
     }
@@ -731,6 +771,7 @@ const folderList = [...folderSet].sort().map((path) => {
         align-items: center;
         gap: 0.5rem;
         font-size: 0.9rem;
+        font-family: var(--font-display);
         color: var(--color-text-light);
     }
     .page-input {
@@ -739,15 +780,18 @@ const folderList = [...folderSet].sort().map((path) => {
         text-align: center;
         border: 1px solid var(--color-border);
         border-radius: var(--radius-md);
-        background: var(--color-bg-secondary);
+        background: var(--color-card-bg);
         color: var(--color-text);
-        font-family: inherit;
-        transition: all 0.2s ease;
+        font-family: var(--font-display);
+        font-weight: 600;
+        transition:
+            border-color 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
     }
     .page-input:focus {
         outline: none;
         border-color: var(--color-primary);
-        box-shadow: 0 0 0 3px var(--color-primary-subtle);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--radial-c1), transparent 85%);
     }
 
     /* Mobile Filter Button - Vertical Tab Style */
@@ -759,10 +803,10 @@ const folderList = [...folderSet].sort().map((path) => {
         width: auto;
         height: auto;
         padding: 1rem 0.5rem;
-        border-radius: 8px 0 0 8px;
+        border-radius: var(--radius-md) 0 0 var(--radius-md);
         background: var(--color-primary);
         color: white;
-        box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+        box-shadow: -4px 0 16px rgba(26, 29, 36, 0.16);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -791,11 +835,13 @@ const folderList = [...folderSet].sort().map((path) => {
     .mobile-drawer-overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.5);
+        background: rgba(15, 17, 28, 0.5);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
         z-index: 999;
         opacity: 0;
         visibility: hidden;
-        transition: all 0.3s;
+        transition: opacity 0.3s var(--ease-out), visibility 0.3s var(--ease-out);
     }
     .mobile-drawer-overlay.active {
         opacity: 1;
@@ -832,10 +878,10 @@ const folderList = [...folderSet].sort().map((path) => {
         width: auto;
         height: auto;
         padding: 1rem 0.5rem;
-        border-radius: 8px 0 0 8px;
+        border-radius: var(--radius-md) 0 0 var(--radius-md);
         background: var(--color-primary);
         color: white;
-        box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+        box-shadow: -4px 0 16px rgba(26, 29, 36, 0.16);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -855,6 +901,7 @@ const folderList = [...folderSet].sort().map((path) => {
         opacity: 1;
         pointer-events: auto;
     }
+    /* hover 加深 12% */
     .drawer-close-arrow:hover {
         background: var(--color-primary-dark);
     }
@@ -872,11 +919,15 @@ const folderList = [...folderSet].sort().map((path) => {
         flex: 1;
         display: flex;
         flex-direction: column;
-        background: var(--color-bg-secondary);
-        box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(20px) saturate(1.5);
+        -webkit-backdrop-filter: blur(20px) saturate(1.5);
+        border-left: 1px solid var(--color-border-light);
+        border-radius: 20px 0 0 20px;
+        box-shadow: -12px 0 40px rgba(15, 17, 28, 0.14);
         opacity: 0;
         transform: translateX(20px);
-        transition: opacity 0.25s ease 0.1s, transform 0.25s ease 0.1s;
+        transition: opacity 0.25s var(--ease-out) 0.1s, transform 0.25s var(--ease-out) 0.1s;
     }
     .mobile-drawer.active .drawer-main {
         opacity: 1;
@@ -885,15 +936,31 @@ const folderList = [...folderSet].sort().map((path) => {
 
     .drawer-header {
         padding: 1.5rem;
-        border-bottom: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border-light);
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
     .drawer-title {
+        font-family: var(--font-display);
         font-size: 1.25rem;
         font-weight: 700;
+        letter-spacing: -0.02em;
         color: var(--color-text);
+        position: relative;
+        padding-left: 0.875rem;
+    }
+    .drawer-title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 1.1em;
+        background: var(--color-primary);
+        opacity: 0.85;
+        border-radius: var(--radius-full);
     }
     .drawer-content {
         flex: 1;
@@ -919,6 +986,22 @@ const folderList = [...folderSet].sort().map((path) => {
         .draft-toggle {
             width: 100%;
             justify-content: center;
+        }
+    }
+
+    /* 减动效偏好：关闭过渡动画 */
+    @media (prefers-reduced-motion: reduce) {
+        .page-btn,
+        .page-input,
+        .draft-toggle,
+        .draft-toggle-track,
+        .draft-toggle-thumb,
+        .mobile-drawer,
+        .mobile-drawer-overlay,
+        .drawer-main,
+        .mobile-filter-btn,
+        .drawer-close-arrow {
+            transition: none;
         }
     }
 </style>
