@@ -1,74 +1,100 @@
 /* =========================================================
-   NayukiBlog 全局样式 — 黑白简约设计系统
-   原则：黑白为主、线条简单、留白充分、动效克制
+   NayukiBlog 全局样式 — 素雅灰蓝设计系统
+   气质：黑白灰为主、雾蓝轻点缀、细线几何、克制动效、
+        舒适的中文阅读排版
    ========================================================= */
 
 /* 注册可动画的主题色变量（可被 CSS 原生插值，由配置悬浮窗修改） */
 @property --radial-c1 {
   syntax: '<color>';
   inherits: true;
-  initial-value: #111111;
+  initial-value: #4c5670;
 }
 
 @property --radial-c2 {
   syntax: '<color>';
   inherits: true;
-  initial-value: #a3a3a3;
+  initial-value: #93a9c9;
 }
 
 :root {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* 字体 — 以舒适阅读为先：Inter 负责拉丁字形，中文交给系统优选字体 */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC',
+    sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* 基础配色 — 黑白灰 */
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f7f7f7;
-  --color-text: #111111;
-  --color-text-light: #525252;
-  --color-text-muted: #8a8a8a;
+  /* 基础配色 — 近白底、近黑字、灰阶过渡 */
+  --color-bg: #fafbfd;
+  --color-bg-secondary: #f2f4f8;
+  --color-text: #1a1d24;
+  --color-text-light: #4b5162;
+  --color-text-muted: #9096a5;
 
-  /* 主题双色（用户可通过右下角配置悬浮窗修改） */
-  --color-primary: #111111;
-  --color-secondary: #a3a3a3;
+  /* 主题双色（用户可通过右下角配置悬浮窗修改）
+     默认「雾蓝」：深灰蓝做强调、淡雾蓝做点缀，低饱和不抢眼 */
+  --color-primary: #4c5670;
+  --color-secondary: #93a9c9;
 
   /* 动态渐变使用的两个独立颜色变量（可被 CSS transition 插值） */
-  --radial-c1: #111111;
-  --radial-c2: #a3a3a3;
+  --radial-c1: #4c5670;
+  --radial-c2: #93a9c9;
 
-  --color-primary-light: color-mix(in srgb, var(--color-primary), white 25%);
-  --color-primary-dark: color-mix(in srgb, var(--color-primary), black 10%);
-  --color-primary-subtle: color-mix(in srgb, var(--color-primary), transparent 94%);
+  --color-primary-light: color-mix(in srgb, var(--color-primary), white 30%);
+  --color-primary-dark: color-mix(in srgb, var(--color-primary), black 12%);
+  --color-primary-subtle: color-mix(in srgb, var(--color-primary), transparent 93%);
 
-  /* 渐变变量 */
-  --gradient-primary: linear-gradient(135deg, var(--radial-c1), var(--radial-c2));
-  --gradient-text: linear-gradient(45deg, var(--radial-c1), var(--radial-c2));
+  /* 渐变变量 — 两端都保持中低明度，可安全承载白字 */
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--radial-c1),
+    color-mix(in srgb, var(--radial-c1), var(--radial-c2) 55%)
+  );
+  --gradient-text: linear-gradient(
+    90deg,
+    var(--radial-c1),
+    color-mix(in srgb, var(--radial-c1), var(--radial-c2) 60%)
+  );
 
   /* 辅助色：仅用于语义状态（成功/失败/链接），不参与装饰 */
   --color-accent: var(--color-secondary);
-  --color-accent-red: #dc2626;
-  --color-accent-green: #16a34a;
-  --color-accent-blue: #2563eb;
+  --color-accent-red: #d4626a;
+  --color-accent-green: #5f9e7f;
+  --color-accent-blue: #6a89b7;
 
   /* 边框和分隔线 */
-  --color-border: #e5e5e5;
-  --color-border-light: #f0f0f0;
+  --color-border: #e6e8ee;
+  --color-border-light: #f0f1f5;
 
   /* 卡片和表面 */
   --color-card-bg: #ffffff;
   --color-card-hover: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.78);
 
-  /* 阴影 — 柔和、无彩色光晕 */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.07);
-  --shadow-lg: 0 12px 28px -8px rgba(0, 0, 0, 0.12);
-  --shadow-hover: 0 16px 36px -12px rgba(0, 0, 0, 0.16);
+  /* 阴影 — 中性柔和，无彩色光晕 */
+  --shadow-xs: 0 1px 2px rgba(26, 29, 36, 0.04);
+  --shadow-sm: 0 2px 8px -2px rgba(26, 29, 36, 0.05);
+  --shadow-md: 0 8px 22px -8px rgba(26, 29, 36, 0.08);
+  --shadow-lg: 0 14px 34px -14px rgba(26, 29, 36, 0.12);
+  --shadow-hover: 0 14px 32px -14px rgba(26, 29, 36, 0.14);
 
-  /* 圆角 — 收紧，保持利落 */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
+  /* 圆角 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
   --radius-full: 9999px;
+
+  /* 缓动曲线 */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* 布局（david03 式三栏）：左资料导航栏 + 中内容 + 右趣味栏
+     --page-max   = 主体最大宽度（左右各留约 5% 空白，中列适度收窄）
+     --aside-col  = 左右信息栏宽度（两侧等宽、沿中线对称） */
+  --page-max: min(1300px, 94vw);
+  --aside-col: 244px;
 }
 
 /* Global styles */
@@ -78,10 +104,37 @@
 
 html {
   font-family: var(--font-sans);
-  background: #fafafa;
+  background: var(--color-bg);
   color: var(--color-text);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 文字选区着色 — 淡雾蓝 */
+::selection {
+  background: color-mix(in srgb, var(--radial-c2), transparent 65%);
+  color: var(--color-text);
+}
+
+/* 滚动条 — 细而低调 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d8dbe4;
+  border-radius: 8px;
+  border: 2px solid var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c2c7d4;
 }
 
 /* Force page containers to align with the global layout */
@@ -96,18 +149,19 @@ html {
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s var(--ease-out);
 }
 
 a:hover {
   color: var(--color-primary);
 }
 
-/* 文章正文内的纯文字链接：简洁下划线 */
+/* 文章正文内的纯文字链接：简洁下划线，hover 加深 */
 .prose a {
   color: var(--color-text);
   text-decoration: underline;
-  text-decoration-color: var(--color-border);
+  text-decoration-color: #c9cdd8;
+  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   transition: text-decoration-color 0.2s ease, color 0.2s ease;
 }
@@ -119,69 +173,125 @@ a:hover {
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--color-text);
-  line-height: 1.2;
+  line-height: 1.35;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 p {
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--color-text-light);
 }
 
 /* Markdown Content Styles (Prose) */
 .prose {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
 }
-.prose h1 { font-size: 2.25rem; margin-bottom: 1.5rem; }
-.prose h2 { font-size: 1.75rem; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border-light); padding-bottom: 0.5rem; }
-.prose h3 { font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
-.prose p { margin-bottom: 1.25rem; }
-.prose ul, .prose ol { margin-bottom: 1.25rem; padding-left: 1.5rem; }
-.prose li { margin-bottom: 0.5rem; color: var(--color-text-light); }
-.prose pre { background: var(--color-bg-secondary); padding: 1rem; border-radius: var(--radius-md); overflow-x: auto; margin-bottom: 1.5rem; }
-.prose code { font-family: monospace; background: var(--color-bg-secondary); color: var(--color-text); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
-.prose pre code { background: transparent; padding: 0; }
-.prose blockquote { border-left: 2px solid var(--color-text); padding-left: 1rem; margin-left: 0; color: var(--color-text-light); }
-.prose img { max-width: 100%; border-radius: var(--radius-md); margin: 1.5rem 0; }
-.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-xs); }
-.prose th, .prose td { border: 1px solid var(--color-border); padding: 0.75rem 1rem; text-align: center; }
-.prose th { background: var(--color-bg-secondary); font-weight: 600; color: var(--color-text); border-bottom: 2px solid var(--color-text); }
-.prose tbody tr:nth-child(even) { background-color: #fafafa; }
+.prose h1 { font-size: 2rem; margin-bottom: 1.25rem; }
+.prose h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 0.875rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+.prose h3 { font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 0.625rem; }
+.prose p { margin-bottom: 1rem; line-height: 1.78; }
+.prose ul, .prose ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+.prose li { margin-bottom: 0.375rem; color: var(--color-text-light); line-height: 1.75; }
+.prose pre {
+  background: #fbfcfe;
+  color: var(--color-text);
+  padding: 1.125rem 1.25rem;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--color-border);
+  line-height: 1.6;
+}
+.prose code {
+  font-family: var(--font-mono);
+  background: var(--color-bg-secondary);
+  color: var(--color-text);
+  padding: 0.15rem 0.4rem;
+  border-radius: 5px;
+  font-size: 0.875em;
+}
+.prose pre code { background: transparent; color: inherit; padding: 0; }
+.prose blockquote {
+  border-left: 3px solid var(--color-border);
+  padding: 0.125rem 0 0.125rem 1.125rem;
+  margin-left: 0;
+  color: var(--color-text-light);
+}
+.prose img { max-width: 100%; border-radius: var(--radius-md); margin: 1.25rem 0; box-shadow: var(--shadow-xs); }
+.prose table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+.prose th, .prose td { border-bottom: 1px solid var(--color-border-light); padding: 0.7rem 1rem; text-align: center; }
+.prose th {
+  background: var(--color-bg-secondary);
+  font-weight: 600;
+  color: var(--color-text);
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.prose tbody tr:last-child td { border-bottom: none; }
+.prose tbody tr { transition: background-color 0.15s ease; }
+.prose tbody tr:nth-child(even) { background-color: #fafbfd; }
 .prose tbody tr:hover { background-color: var(--color-primary-subtle); }
 
 /* Mobile responsive for prose */
 @media (max-width: 767px) {
-  .prose h1 { font-size: 1.75rem; }
-  .prose h2 { font-size: 1.4rem; }
-  .prose h3 { font-size: 1.2rem; }
-  .prose pre { padding: 0.75rem; font-size: 0.85rem; }
+  .prose h1 { font-size: 1.625rem; }
+  .prose h2 { font-size: 1.35rem; }
+  .prose h3 { font-size: 1.15rem; }
+  .prose pre { padding: 0.875rem; font-size: 0.85rem; }
   .prose th, .prose td { padding: 0.5rem; font-size: 0.9rem; }
 }
 
-/* Global Page Title — 简洁现代 */
+/* Global Page Title — 简洁居中 + 低调短杠 */
 .page-title {
   text-align: center !important;
   color: var(--color-text) !important;
-  font-weight: 800 !important;
-  letter-spacing: -0.03em;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em;
   position: relative;
   display: inline-block;
-  padding-bottom: 0.875rem;
+  padding-bottom: 1rem;
 }
 
-/* 底部装饰线 — 一条简单的短黑线 */
+/* 底部装饰 — 雾蓝短杠 + 呼应圆点 */
 .page-title::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
-  width: 2.5rem;
-  height: 2px;
-  background: var(--color-text);
-  border-radius: 1px;
+  transform: translateX(calc(-50% - 5px));
+  width: 2.25rem;
+  height: 3px;
+  background: var(--color-primary);
+  opacity: 0.85;
+  border-radius: var(--radius-full);
+}
+
+.page-title::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: calc(50% + 1.25rem - 5px);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--radial-c2);
 }
 
 /* 标题容器居中 */
@@ -200,7 +310,7 @@ body::before {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -218,15 +328,15 @@ body::before {
 /* Main container children staggered animation */
 main > * {
   opacity: 0;
-  animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: fadeInUp 0.6s var(--ease-out) forwards;
 }
 
-main > *:nth-child(1) { animation-delay: 0.1s; }
-main > *:nth-child(2) { animation-delay: 0.2s; }
-main > *:nth-child(3) { animation-delay: 0.3s; }
-main > *:nth-child(4) { animation-delay: 0.4s; }
-main > *:nth-child(5) { animation-delay: 0.5s; }
-main > *:nth-child(n+6) { animation-delay: 0.6s; }
+main > *:nth-child(1) { animation-delay: 0.05s; }
+main > *:nth-child(2) { animation-delay: 0.12s; }
+main > *:nth-child(3) { animation-delay: 0.19s; }
+main > *:nth-child(4) { animation-delay: 0.26s; }
+main > *:nth-child(5) { animation-delay: 0.33s; }
+main > *:nth-child(n+6) { animation-delay: 0.4s; }
 
 /* =========================================================
    全局效果开关（由右下角配置悬浮窗控制）

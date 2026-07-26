@@ -46,6 +46,7 @@ export default defineConfig({
     rehypePlugins: [rehypeKatex, rehypeLazyImages, rehypeListMarkers],
     syntaxHighlight: "shiki",
     shikiConfig: {
+      // 素雅改版：代码块为白底浅色卡片，配浅色高亮主题与博客整体协调
       theme: "github-light",
       langs: [
         "json", "yaml", "toml", "xml", "ini",
