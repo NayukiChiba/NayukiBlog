@@ -38,6 +38,22 @@
     cursor: pointer;
   }
 
+  /* 纯色淡描边环：贴在头像白边外侧 */
+  .avatar-container::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--color-primary), transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+    transition: transform 0.4s var(--ease-spring);
+  }
+
+  .avatar-container:hover::before {
+    transform: scale(1.06);
+  }
+
   /* 头像图片 */
   .avatar {
     width: 100%;
@@ -48,15 +64,13 @@
     box-shadow: var(--shadow-md);
     position: relative;
     z-index: 2;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 0.5s var(--ease-out), transform 0.5s var(--ease-out);
   }
 
+  /* hover：旋转保留，阴影保持中性 */
   .avatar-container:hover .avatar {
     animation: avatarSpin 1.5s linear infinite;
-    box-shadow: 
-      var(--shadow-lg),
-      0 0 20px color-mix(in srgb, var(--color-primary), transparent 60%),
-      0 0 40px color-mix(in srgb, var(--color-primary), transparent 80%);
+    box-shadow: var(--shadow-hover);
   }
 
   @keyframes avatarSpin {
@@ -70,6 +84,7 @@
 
   /* 名字字符动画 */
   .profile-name {
+    font-family: var(--font-display);
     font-size: 1.75rem;
     font-weight: 700;
     margin: 0 0 0.5rem 0;
@@ -104,6 +119,7 @@
     gap: 0.625rem;
   }
 
+  /* 社交按钮：几何圆角方形，统一 hover 主题浅底 + 上浮 */
   .profile-links a {
     display: flex;
     align-items: center;
@@ -111,33 +127,22 @@
     width: 40px;
     height: 40px;
     color: var(--color-text-light);
-    background: var(--color-border-light);
-    border-radius: var(--radius-full);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1.5px solid transparent;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-md);
+    transition:
+      color 0.25s var(--ease-out),
+      background-color 0.25s var(--ease-out),
+      border-color 0.25s var(--ease-out),
+      transform 0.3s var(--ease-out);
+    border: 1px solid transparent;
   }
 
   .profile-links a:hover {
     transform: translateY(-3px);
-    animation: iconJiggle 0.4s ease;
-  }
-
-  .profile-links a:nth-child(1):hover {
-    color: var(--color-text);
-    background: #f5f5f5;
-    border-color: var(--color-text-muted);
-  }
-
-  .profile-links a:nth-child(2):hover {
-    color: var(--color-accent-blue);
-    background: rgba(77, 171, 247, 0.1);
-    border-color: var(--color-accent-blue);
-  }
-
-  .profile-links a:nth-child(3):hover {
     color: var(--color-primary);
-    background: var(--color-primary-subtle);
-    border-color: var(--color-primary-light);
+    background: color-mix(in srgb, var(--color-primary), transparent 90%);
+    border-color: color-mix(in srgb, var(--color-primary), transparent 70%);
+    animation: iconJiggle 0.4s var(--ease-out);
   }
 
   @keyframes iconJiggle {
@@ -150,13 +155,23 @@
   @media (prefers-reduced-motion: reduce) {
     .avatar-container:hover .avatar,
     .name-char,
-
     .profile-links a {
       animation: none !important;
+    }
+    .avatar-container::before,
+    .avatar,
+    .profile-links a {
+      transition: none;
     }
     .avatar-container:hover .avatar {
       transform: scale(1.05);
     }
+  }
+
+  /* 全局动画开关：关闭循环动画（头像旋转 / 名字波浪） */
+  :global(html.fx-anim-off) .avatar-container:hover .avatar,
+  :global(html.fx-anim-off) .name-char {
+    animation: none !important;
   }
 
   @media (min-width: 640px) {

@@ -156,39 +156,56 @@
         margin-bottom: 0;
     }
 
+    /* 侧栏节标题：overline + 前置纯色短杠 */
     .sidebar-title {
-        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-display);
+        font-size: 0.75rem;
         font-weight: 700;
         color: var(--color-text-muted);
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.08em;
         margin-bottom: 1rem;
         padding-left: 0.5rem;
     }
 
+    .sidebar-title::before {
+        content: '';
+        width: 16px;
+        height: 3px;
+        border-radius: var(--radius-full);
+        background: var(--color-primary);
+        opacity: 0.85;
+        flex-shrink: 0;
+    }
+
+    /* 搜索框：白底胶囊；focus 主题描边 + 柔光圈 */
     .search-box {
         position: relative;
         display: flex;
         align-items: center;
-        background: var(--color-bg);
-        border: 1.5px solid var(--color-border);
-        border-radius: 10px;
-        padding: 0 0.75rem;
+        background: var(--color-card-bg);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        padding: 0 0.875rem;
         gap: 0.5rem;
+        box-shadow: var(--shadow-xs);
         transition:
-            border-color 0.2s ease,
-            box-shadow 0.2s ease;
+            border-color 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
     }
 
     .search-box:focus-within {
         border-color: var(--color-primary);
-        box-shadow: 0 0 0 3px var(--color-primary-subtle, rgba(255, 158, 181, 0.15));
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--radial-c1), transparent 85%);
     }
 
     .search-icon {
         color: var(--color-text-muted);
         flex-shrink: 0;
-        transition: color 0.2s;
+        transition: color 0.2s var(--ease-out);
     }
 
     .search-box:focus-within .search-icon {
@@ -220,31 +237,45 @@
         width: 20px;
         height: 20px;
         border: none;
-        background: var(--color-border);
+        background: var(--color-bg-secondary);
         border-radius: 50%;
         cursor: pointer;
         color: var(--color-text-muted);
         padding: 0;
-        transition: background 0.2s, color 0.2s;
+        transition:
+            background-color 0.2s var(--ease-out),
+            color 0.2s var(--ease-out),
+            transform 0.3s var(--ease-spring);
     }
 
     .search-clear:hover {
-        background: var(--color-primary-light, #ffb3c8);
-        color: var(--color-primary-dark, #c0436c);
+        background: color-mix(in srgb, var(--radial-c1), transparent 88%);
+        color: var(--color-primary);
+        transform: rotate(90deg);
     }
 
+    /* 搜索结果提示：主题浅底胶囊 */
     .search-hint {
         display: none;
         margin-top: 0.5rem;
-        padding: 0.25rem 0.5rem;
-        font-size: 0.78rem;
-        color: var(--color-primary-dark, #c0436c);
-        background: var(--color-primary-subtle, rgba(255, 158, 181, 0.12));
-        border-radius: 6px;
+        padding: 0.3rem 0.75rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.02em;
+        color: color-mix(in srgb, var(--radial-c1), var(--color-text) 30%);
+        background: color-mix(in srgb, var(--radial-c1), transparent 91%);
+        border-radius: var(--radius-full);
     }
 
     .search-hint.no-result {
         color: var(--color-text-muted);
         background: var(--color-bg-secondary);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .search-box,
+        .search-icon,
+        .search-clear {
+            transition: none;
+        }
     }
 </style>

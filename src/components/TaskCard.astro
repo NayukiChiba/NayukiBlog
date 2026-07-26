@@ -68,32 +68,36 @@ const colors = priorityColors[priority.toLowerCase()] || {
 
 <style>
     .task-card {
-        background: #fff;
-        border: 1px solid var(--color-border, #e5e5e5);
-        border-radius: 12px;
+        background: var(--color-card-bg);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
         padding: 1.25rem;
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        transition: all 0.2s ease;
+        box-shadow: var(--shadow-xs);
+        transition:
+            transform 0.25s var(--ease-out),
+            border-color 0.25s var(--ease-out),
+            box-shadow 0.25s var(--ease-out);
         position: relative;
         overflow: hidden;
     }
 
     .task-card:hover {
-        border-color: var(--color-text, #111111);
+        border-color: color-mix(in srgb, var(--color-primary), transparent 70%);
         transform: translateY(-2px);
-        box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.07));
+        box-shadow: var(--shadow-hover);
     }
 
     .task-card[data-completed="true"] {
         opacity: 0.6;
-        background: #fafafa;
+        background: var(--color-bg);
     }
 
     .task-card[data-completed="true"] .task-title {
         text-decoration: line-through;
-        color: #999;
+        color: var(--color-text-muted);
     }
 
     .card-top {
@@ -102,11 +106,25 @@ const colors = priorityColors[priority.toLowerCase()] || {
         align-items: flex-start;
     }
 
+    /* 图标容器：几何圆角方形；卡片 hover 时主题浅底 + 弹性微转 */
     .icon {
-        font-size: 1.5rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1.35rem;
         display: flex;
         align-items: center;
         justify-content: center;
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-md);
+        flex-shrink: 0;
+        transition:
+            background-color 0.25s var(--ease-out),
+            transform 0.35s var(--ease-spring);
+    }
+
+    .task-card:hover .icon {
+        background: color-mix(in srgb, var(--radial-c1), transparent 90%);
+        transform: rotate(-4deg) scale(1.05);
     }
 
     .icon :global(svg) {
@@ -120,15 +138,16 @@ const colors = priorityColors[priority.toLowerCase()] || {
         object-fit: contain;
     }
 
+    /* 优先级徽标：胶囊（配色由模板内联样式提供） */
     .priority-text {
-        font-size: 0.75rem;
-        color: #888;
-        font-weight: 500;
-        text-transform: capitalize;
-        border: 1px solid #eee;
-        padding: 0.1rem 0.4rem;
-        border-radius: 4px;
-        background: #f9f9f9;
+        font-size: 0.72rem;
+        color: var(--color-text-muted);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        border: 1px solid transparent;
+        padding: 0.2rem 0.6rem;
+        border-radius: var(--radius-full);
+        background: var(--color-bg-secondary);
     }
 
     .task-title {
@@ -136,7 +155,7 @@ const colors = priorityColors[priority.toLowerCase()] || {
         font-weight: 600;
         margin: 0;
         line-height: 1.4;
-        color: #333;
+        color: var(--color-text);
     }
 
     .card-bottom {
@@ -156,21 +175,22 @@ const colors = priorityColors[priority.toLowerCase()] || {
     .progress-track {
         flex: 1;
         height: 6px;
-        background: #f0f0f0;
-        border-radius: 3px;
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-full);
         overflow: hidden;
     }
 
+    /* 进度条：纯色填充 */
     .progress-fill {
         height: 100%;
-        background: #333;
-        border-radius: 3px;
-        transition: width 0.3s ease;
+        background: var(--color-primary);
+        border-radius: var(--radius-full);
+        transition: width 0.35s var(--ease-out);
     }
 
     .progress-text {
-        font-size: 0.75rem;
-        color: #666;
+        font-size: 0.72rem;
+        color: var(--color-text-muted);
         font-variant-numeric: tabular-nums;
         width: 2.5em;
         text-align: right;
@@ -179,36 +199,52 @@ const colors = priorityColors[priority.toLowerCase()] || {
     .action-btn {
         width: 28px;
         height: 28px;
-        border-radius: 6px;
-        border: 1px solid #eee;
-        background: #fff;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--color-border);
+        background: var(--color-card-bg);
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 1.1rem;
-        color: #666;
-        transition: all 0.2s;
+        color: var(--color-text-light);
+        transition:
+            background-color 0.2s var(--ease-out),
+            color 0.2s var(--ease-out),
+            border-color 0.2s var(--ease-out),
+            transform 0.2s var(--ease-out);
         padding: 0;
     }
 
     .action-btn:hover {
-        background: #f5f5f5;
-        color: #000;
-        border-color: #ddd;
+        background: color-mix(in srgb, var(--radial-c1), transparent 90%);
+        color: var(--color-primary);
+        border-color: color-mix(in srgb, var(--color-primary), transparent 70%);
     }
 
+    /* 完成按钮：纯色实底 */
     .complete-btn {
-        background: #000;
-        color: #fff;
-        border-color: #000;
+        background: var(--color-primary);
+        color: #ffffff;
+        border-color: transparent;
         display: none;
         font-size: 0.9rem;
     }
 
     .complete-btn:hover {
-        background: #333;
-        color: #fff;
+        background: color-mix(in srgb, var(--color-primary), black 12%);
+        color: #ffffff;
+        border-color: transparent;
+        transform: translateY(-1px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .task-card,
+        .icon,
+        .progress-fill,
+        .action-btn {
+            transition: none;
+        }
     }
 </style>
 

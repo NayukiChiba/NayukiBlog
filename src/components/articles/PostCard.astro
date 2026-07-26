@@ -26,15 +26,15 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
 ---
 
 <a href={url} class="post-card group" data-astro-prefetch="hover">
-    <!-- 背景图片层 -->
+    <!-- 封面缩略图（横版卡左侧） -->
     {image && (
         <div class="post-bg-image">
             <img data-src={image} alt="" aria-hidden="true" />
         </div>
     )}
-    <!-- 渐变遮罩层 -->
+    <!-- 渐变遮罩层（横版布局下不使用，保留节点） -->
     <div class="post-gradient-overlay"></div>
-    
+
     <div class="post-content">
         <div class="post-text">
             <div class="post-header">
@@ -56,37 +56,40 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
 </a>
 
 <style>
+    /* 横版文章卡（david03 式）：左缩略图 + 右内容，一行一张 */
     .post-card {
         position: relative;
-        display: block;
+        display: flex;
+        align-items: stretch;
         background: var(--color-card-bg, #fff);
-        border: 1px solid var(--color-border, #e5e5e5);
-        border-radius: var(--radius-lg, 0.75rem);
+        border: 1px solid var(--color-border, #e6e8ee);
+        border-radius: var(--radius-lg, 14px);
         text-decoration: none;
-        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-        margin-bottom: 1rem;
+        transition:
+            transform 0.25s var(--ease-out, ease),
+            border-color 0.25s var(--ease-out, ease),
+            box-shadow 0.25s var(--ease-out, ease);
         overflow: hidden;
         isolation: isolate;
-        box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.04));
+        box-shadow: var(--shadow-xs, 0 1px 2px rgba(26, 29, 36, 0.04));
         cursor: pointer;
-        min-height: 160px;
+        /* 固定高度：列表中所有卡片高度统一（标题 1 行 + 简介 2 行 + 标签 1 行） */
+        height: 178px;
     }
 
     .post-card:hover {
-        border-color: var(--color-text, #111111);
+        border-color: color-mix(in srgb, var(--color-primary, #4c5670), transparent 70%);
         transform: translateY(-2px);
-        box-shadow: var(--shadow-lg, 0 12px 28px -8px rgba(0, 0, 0, 0.12));
+        box-shadow: var(--shadow-hover, 0 14px 32px -14px rgba(26, 29, 36, 0.14));
     }
 
-    /* 背景图片 - 贴在右侧 */
+    /* 封面：左侧固定宽，完整覆盖 */
     .post-bg-image {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 45%;
-        height: 100%;
-        z-index: 0;
+        position: relative;
+        width: 232px;
+        flex-shrink: 0;
         overflow: hidden;
+        background: var(--color-bg-secondary, #f2f4f8);
     }
 
     .post-bg-image img {
@@ -95,7 +98,7 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
         object-fit: cover;
         object-position: center;
         opacity: 0;
-        transition: transform 0.5s ease, filter 0.3s ease, opacity 0.4s ease;
+        transition: transform 0.45s var(--ease-out, ease), opacity 0.4s ease;
     }
 
     /* 图片加载完成后淡入 */
@@ -104,138 +107,116 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
     }
 
     .post-card:hover .post-bg-image img {
-        transform: scale(1.05);
+        transform: scale(1.045);
     }
 
-    /* 渐变遮罩 - 从左到右逐渐透明，同时左侧模糊 */
+    /* 旧版渐变遮罩层：不再使用 */
     .post-gradient-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 1;
-        background: linear-gradient(
-            to right,
-            var(--color-card-bg, #fff) 0%,
-            var(--color-card-bg, #fff) 40%,
-            rgba(255, 255, 255, 0.95) 50%,
-            rgba(255, 255, 255, 0.7) 65%,
-            rgba(255, 255, 255, 0.3) 80%,
-            transparent 100%
-        );
-        pointer-events: none;
-    }
-
-    /* 给图片添加模糊渐变效果 */
-    .post-bg-image::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 60%;
-        height: 100%;
-        z-index: 1;
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        mask-image: linear-gradient(to right, black 0%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to right, black 0%, transparent 100%);
+        display: none;
     }
 
     /* Content Styles */
     .post-content {
-        padding: 1.5rem;
-        position: relative;
-        z-index: 2;
+        padding: 1.05rem 1.35rem 1.1rem;
         display: flex;
-        gap: 1.5rem;
-        align-items: flex-start;
+        flex: 1;
+        min-width: 0;
     }
 
     .post-text {
         flex: 1;
         min-width: 0;
-        max-width: 65%;
+        display: flex;
+        flex-direction: column;
     }
 
     .post-header {
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.45rem;
     }
 
     .post-date {
         display: block;
-        font-size: 0.8rem;
-        color: var(--color-text-muted, #9a9a9a);
-        margin-bottom: 0.5rem;
+        font-size: 0.75rem;
+        color: var(--color-text-muted, #9096a5);
+        margin-bottom: 0.35rem;
         font-weight: 500;
         letter-spacing: 0.02em;
-        text-transform: uppercase;
     }
 
     .post-title {
         margin: 0;
-        font-size: 1.35rem;
-        font-weight: 700;
-        color: var(--color-text, #2d2d2d);
-        line-height: 1.3;
+        font-size: 1.1rem;
+        font-weight: 650;
+        color: var(--color-text, #1a1d24);
+        line-height: 1.45;
+        letter-spacing: 0.005em;
         transition: color 0.2s ease;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
-    
+
     .post-card:hover .post-title {
-        color: var(--color-primary, #111111);
+        color: var(--color-primary, #4c5670);
     }
 
     .post-desc {
-        margin: 0 0 1.2rem 0;
-        color: var(--color-text-light, #6b6b6b);
-        font-size: 0.95rem;
-        line-height: 1.6;
+        margin: 0 0 0.8rem 0;
+        color: var(--color-text-light, #4b5162);
+        font-size: 0.855rem;
+        line-height: 1.65;
+        letter-spacing: 0.01em;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
 
+    /* 标签固定单行，超出裁剪，避免撑高卡片 */
     .post-tags {
         display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
+        gap: 0.45rem;
+        flex-wrap: nowrap;
+        overflow: hidden;
+        margin-top: auto;
+    }
+
+    .post-tags .tag {
+        flex-shrink: 0;
     }
 
     .tag {
-        font-size: 0.75rem;
-        color: var(--color-text-light, #6b6b6b);
-        background: rgba(255, 255, 255, 0.9);
-        padding: 0.2rem 0.6rem;
+        font-size: 0.72rem;
+        color: var(--color-text-light, #4b5162);
+        background: var(--color-bg-secondary, #f2f4f8);
+        padding: 0.18rem 0.6rem;
         border-radius: 99px;
-        transition: all 0.2s;
-        border: 1px solid var(--color-border, #e8e8e8);
-        backdrop-filter: blur(4px);
+        transition: background-color 0.2s ease, color 0.2s ease;
+        border: 1px solid transparent;
         cursor: pointer;
     }
 
     .tag:hover {
-        background: var(--color-primary-subtle, rgba(59, 130, 246, 0.08));
-        color: var(--color-primary-dark, #1d4ed8);
-        border-color: var(--color-primary-light, #93c5fd);
+        background: var(--color-primary-subtle, rgba(76, 86, 112, 0.07));
+        color: var(--color-primary, #4c5670);
+        border-color: color-mix(in srgb, var(--color-primary, #4c5670), transparent 75%);
     }
 
-    /* 移动端适配 - 图片隐藏 */
+    /* 窄屏：改竖版（封面顶置，完整比例展示），高度随内容 */
     @media (max-width: 639px) {
-        .post-bg-image {
-            display: none;
-        }
-        
-        .post-gradient-overlay {
-            display: none;
-        }
-        
-        .post-text {
-            max-width: 100%;
-        }
-        
         .post-card {
-            min-height: auto;
+            flex-direction: column;
+            height: auto;
+        }
+
+        .post-bg-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+
+        .post-content {
+            padding: 0.95rem 1.1rem 1.05rem;
         }
     }
 
