@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T09:20:28.311Z",
+  "generatedAt": "2026-07-27T14:04:21.856Z",
   "feeds": [
     {
       "id": 1,
@@ -334,6 +334,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How AI is expanding what people do at work",
+          "link": "https://openai.com/index/how-ai-is-expanding-what-people-do-at-work",
+          "date": "2026-07-27T03:30:00.000Z",
+          "summary": "New OpenAI research shows how AI is expanding what workers do, with ChatGPT users taking on tasks across roles and resha…",
+          "content": "New OpenAI research shows how AI is expanding what workers do, with ChatGPT users taking on tasks across roles and reshaping job boundaries."
+        },
         {
           "title": "Launching Health in ChatGPT",
           "link": "https://openai.com/index/health-in-chatgpt",
@@ -1247,6 +1254,13 @@
           "content": "We’re introducing new Gemini models, including Gemini 3.6 Flash, 3.5 Flash-Lite and 3.5 Flash Cyber."
         },
         {
+          "title": "Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber",
+          "link": "https://deepmind.google/blog/introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cyber/",
+          "date": "2026-07-21T15:16:30.000Z",
+          "summary": "We’re introducing new Gemini models, including Gemini 3.6 Flash, 3.5 Flash-Lite and 3.5 Flash Cyber.",
+          "content": "We’re introducing new Gemini models, including Gemini 3.6 Flash, 3.5 Flash-Lite and 3.5 Flash Cyber."
+        },
+        {
           "title": "Introducing Gemini 3.5 Flash Cyber",
           "link": "https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/",
           "date": "2026-07-17T15:00:11.000Z",
@@ -1819,6 +1833,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics",
+          "link": "https://huggingface.co/blog/nvidia/cosmos-h-dreams",
+          "date": "2026-07-27T09:32:20.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Bringing Nunchaku 4-bit Diffusion Inference to Diffusers",
           "link": "https://huggingface.co/blog/nunchaku-diffusers",
