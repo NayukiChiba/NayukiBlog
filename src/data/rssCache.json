@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-28T13:24:10.559Z",
+  "generatedAt": "2026-07-28T19:01:11.818Z",
   "feeds": [
     {
       "id": 1,
@@ -334,6 +334,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Scientific computing in the age of agentic AI",
+          "link": "https://openai.com/index/scientific-computing-agentic-ai",
+          "date": "2026-07-28T17:00:00.000Z",
+          "summary": "A new field report shows how scientists use AI coding agents to modernize scientific computing, accelerating software de…",
+          "content": "A new field report shows how scientists use AI coding agents to modernize scientific computing, accelerating software development and discovery in genomics and beyond."
+        },
         {
           "title": "How AI is expanding what people do at work",
           "link": "https://openai.com/index/how-ai-is-expanding-what-people-do-at-work",
@@ -1391,6 +1398,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Gemini API Managed Agents: 3.6 Flash, hooks, and more",
+          "link": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api-3-6-flash-hooks/",
+          "date": "2026-07-28T16:00:00.000Z",
+          "summary": "We’re announcing even more new capabilities in Managed Agents in Gemini API so developers can build reliable, production…",
+          "content": "We’re announcing even more new capabilities in Managed Agents in Gemini API so developers can build reliable, production-ready agents."
+        },
+        {
           "title": "5 ways AI Mode in Search helps you enjoy the real world",
           "link": "https://blog.google/products-and-platforms/products/search/ai-mode-real-world-tips/",
           "date": "2026-07-28T13:00:00.000Z",
@@ -1861,6 +1875,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "The OlmoEarth Platform: Geospatial inference at planetary scale",
+          "link": "https://huggingface.co/blog/allenai/olmoearth-infrastructure",
+          "date": "2026-07-28T16:27:42.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "LFM2.5-Encoders for Fast Long-Context Inference on CPU",
+          "link": "https://huggingface.co/blog/LiquidAI/lfm2-5-encoders",
+          "date": "2026-07-28T15:01:45.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics",
           "link": "https://huggingface.co/blog/nvidia/cosmos-h-dreams",
