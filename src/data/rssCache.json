@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T19:05:43.817Z",
+  "generatedAt": "2026-07-28T01:15:21.974Z",
   "feeds": [
     {
       "id": 1,
@@ -842,6 +842,13 @@
       "link": "https://ai.meta.com/blog/",
       "ok": true,
       "items": [
+        {
+          "title": "Reimagining Independence: How Meta’s AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics",
+          "link": "https://ai.meta.com/blog/assistive-robotics-university-of-pittsburgh-sam-dino/",
+          "date": "2026-07-27T00:00:00.000Z",
+          "summary": "Reimagining Independence: How Meta’s AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics",
+          "content": "Reimagining Independence: How Meta’s AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics"
+        },
         {
           "title": "How Meta’s AI Models Are Powering the First Wave of Genesis Mission Projects",
           "link": "https://ai.meta.com/blog/genesis-mission-lawrence-berkeley-national-laboratory-segment-anything-dino/",
@@ -1757,6 +1764,13 @@
       "link": "https://hellogithub.com",
       "ok": true,
       "items": [
+        {
+          "title": "HelloGitHub 第 124 期",
+          "link": "https://hellogithub.com/periodical/volume/124",
+          "date": "2026-07-28T00:10:05.000Z",
+          "summary": "本期共有 40 个项目，包含 C 项目 (2)，C# 项目 (2)，C++ 项目 (1)，Go 项目 (4)，Java 项目 (1)，JavaScript 项目 (5)，Python 项目 (5)，Rust 项目 (2)，Skills (3…",
+          "content": "本期共有 40 个项目，包含 C 项目 (2)，C# 项目 (2)，C++ 项目 (1)，Go 项目 (4)，Java 项目 (1)，JavaScript 项目 (5)，Python 项目 (5)，Rust 项目 (2)，Skills (3)，Swift 项目 (3)，人工智能 (5)，其它 (5)，开源书籍 (2)"
+        },
         {
           "title": "HelloGitHub 第 123 期",
           "link": "https://hellogithub.com/periodical/volume/123",
