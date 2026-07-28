@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-28T08:09:17.523Z",
+  "generatedAt": "2026-07-28T13:24:10.559Z",
   "feeds": [
     {
       "id": 1,
@@ -1390,6 +1390,20 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "5 ways AI Mode in Search helps you enjoy the real world",
+          "link": "https://blog.google/products-and-platforms/products/search/ai-mode-real-world-tips/",
+          "date": "2026-07-28T13:00:00.000Z",
+          "summary": "It might sound counterintuitive, but Search's AI tools can actually help you make the most of your time offline whether …",
+          "content": "It might sound counterintuitive, but Search's AI tools can actually help you make the most of your time offline whether you want to book concert tickets or find the perf…"
+        },
+        {
+          "title": "5 ways to host the ultimate dinner party with Google Search",
+          "link": "https://blog.google/products-and-platforms/products/search/dinner-party-hosting-tips/",
+          "date": "2026-07-28T13:00:00.000Z",
+          "summary": "These AI features can help you craft a menu, design a tablescape, and handle other party-planning tasks.",
+          "content": "These AI features can help you craft a menu, design a tablescape, and handle other party-planning tasks."
+        },
         {
           "title": "3 Google updates from Galaxy Unpacked 2026",
           "link": "https://blog.google/products-and-platforms/platforms/android/galaxy-unpacked-2026/",
