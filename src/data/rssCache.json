@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-28T19:01:11.818Z",
+  "generatedAt": "2026-07-29T01:19:21.754Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Bringing MCP 2026-07-28 to Claude",
+          "link": "https://claude.com/blog/bringing-mcp-2026-07-28-to-claude",
+          "date": "2026-07-28T00:00:00.000Z",
+          "summary": "Bringing MCP 2026-07-28 to Claude",
+          "content": "Bringing MCP 2026-07-28 to Claude"
+        },
         {
           "title": "Claude models explained: choosing the best model for your use case",
           "link": "https://claude.com/blog/claude-models-explained-choosing-the-best-model-for-your-use-case",
@@ -1037,6 +1044,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Jul 28, 2026Frontier Red TeamDiscovering cryptographic weaknesses with Claude",
+          "link": "https://www.anthropic.com/research/discovering-cryptographic-weaknesses",
+          "date": "2026-07-28T00:00:00.000Z",
+          "summary": "Jul 28, 2026Frontier Red TeamDiscovering cryptographic weaknesses with Claude",
+          "content": "Jul 28, 2026Frontier Red TeamDiscovering cryptographic weaknesses with Claude"
+        },
+        {
           "title": "Jul 24, 2026Frontier Red TeamProject Pilot: Can AI control a drone?",
           "link": "https://www.anthropic.com/research/project-pilot",
           "date": "2026-07-24T00:00:00.000Z",
@@ -1893,6 +1907,13 @@
           "title": "NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics",
           "link": "https://huggingface.co/blog/nvidia/cosmos-h-dreams",
           "date": "2026-07-27T09:32:20.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident",
+          "link": "https://huggingface.co/blog/agent-intrusion-technical-timeline",
+          "date": "2026-07-27T00:00:00.000Z",
           "summary": "",
           "content": ""
         },
