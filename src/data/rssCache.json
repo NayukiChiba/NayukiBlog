@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-29T18:47:22.435Z",
+  "generatedAt": "2026-07-30T01:10:45.488Z",
   "feeds": [
     {
       "id": 1,
@@ -342,11 +342,25 @@
       "ok": true,
       "items": [
         {
+          "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
+          "link": "https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores",
+          "date": "2026-07-29T15:00:00.000Z",
+          "summary": "How two API settings improved GPT-5.6 performance on ARC-AGI-3, boosting scores and efficiency by retaining reasoning an…",
+          "content": "How two API settings improved GPT-5.6 performance on ARC-AGI-3, boosting scores and efficiency by retaining reasoning and enabling compaction."
+        },
+        {
           "title": "Accelerating scientific discovery with ChatGPT for Academic Researchers",
           "link": "https://openai.com/index/chatgpt-for-academic-researchers",
           "date": "2026-07-29T10:00:00.000Z",
           "summary": "OpenAI is giving 100,000 academic researchers free access to ChatGPT's most advanced AI models to accelerate scientific …",
           "content": "OpenAI is giving 100,000 academic researchers free access to ChatGPT's most advanced AI models to accelerate scientific research, collaboration, and discovery."
+        },
+        {
+          "title": "How GPT-5.6 fuses frontier intelligence with frontier efficiency",
+          "link": "https://openai.com/index/gpt-5-6-frontier-intelligence-efficiency",
+          "date": "2026-07-29T00:00:00.000Z",
+          "summary": "GPT-5.6 improves AI efficiency across models, inference, and agentic workflows, helping deliver more useful intelligence…",
+          "content": "GPT-5.6 improves AI efficiency across models, inference, and agentic workflows, helping deliver more useful intelligence per dollar."
         },
         {
           "title": "Scientific computing in the age of agentic AI",
