@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T13:20:25.362Z",
+  "generatedAt": "2026-07-30T19:05:02.210Z",
   "feeds": [
     {
       "id": 1,
@@ -341,6 +341,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Advancing the price-performance frontier with GPT-5.6",
+          "link": "https://openai.com/index/advancing-the-price-performance-frontier-with-gpt-5-6",
+          "date": "2026-07-30T10:00:00.000Z",
+          "summary": "Explore lower GPT‑5.6 pricing for Luna and Terra—and how OpenAI’s more efficient models help enterprises deploy AI workf…",
+          "content": "Explore lower GPT‑5.6 pricing for Luna and Terra—and how OpenAI’s more efficient models help enterprises deploy AI workflows at scale."
+        },
         {
           "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
           "link": "https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores",
@@ -1289,9 +1296,23 @@
       "ok": true,
       "items": [
         {
+          "title": "Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration",
+          "link": "https://deepmind.google/blog/gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration/",
+          "date": "2026-07-30T15:00:59.000Z",
+          "summary": "Gemini Robotics ER 2 helps robots reason, collaborate, and solve real-world tasks. It represents a step change in video …",
+          "content": "Gemini Robotics ER 2 helps robots reason, collaborate, and solve real-world tasks. It represents a step change in video understanding, tool orchestration, and multi-robot collaboration for robotic applications."
+        },
+        {
           "title": "We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control",
           "link": "https://deepmind.google/blog/were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control/",
           "date": "2026-07-29T16:02:10.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Gemini Robotics 2 brings whole body intelligence to robots",
+          "link": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
+          "date": "2026-07-28T13:21:37.000Z",
           "summary": "",
           "content": ""
         },
@@ -1824,6 +1845,13 @@
           "date": "",
           "summary": "This second installment explores how Ray’s higher-level libraries—Serve, Data, and Train—abstract the complexities of ru…",
           "content": "This second installment explores how Ray’s higher-level libraries—Serve, Data, and Train—abstract the complexities of running AI workloads on Google's TPU slices. Ray Serve uses a simple topology configuration to correctly gang-schedule large multi-host models, while Ray Data eliminates data-loading bottlenecks by feeding accelerators directly with native JAX batches. Finally, JaxTrainer streamlines distributed training across TPUs by automatically handling cross-slice coordination, checkpointing, and fault tolerance."
+        },
+        {
+          "title": "How to use Google microbenchmarks for evaluating TPU performance",
+          "link": "https://developers.googleblog.com/how-to-use-google-microbenchmarks-for-evaluating-tpu-performance/",
+          "date": "",
+          "summary": "Google's open-source TPU microbenchmark suite provides developers with granular performance metrics across Network, Comp…",
+          "content": "Google's open-source TPU microbenchmark suite provides developers with granular performance metrics across Network, Compute, HBM, Host Transfer, and Attention components to validate real-world hardware capabilities. By leveraging these benchmarks to establish a Roofline model, engineers can accurately diagnose whether their machine learning workloads are compute-, memory-, or network-bound. This empirical baseline directly guides targeted software optimizations—such as kernel tuning, mesh sharding, and rematerialization—to maximize hardware utilization for large-scale model deployments."
         }
       ]
     },
@@ -1917,6 +1945,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "GPU Management: Why Idle GPUs Are the New Grounded Aircraft",
+          "link": "https://huggingface.co/blog/Dharma-AI/gpu-management",
+          "date": "2026-07-30T15:09:09.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "The OlmoEarth Platform: Geospatial inference at planetary scale",
           "link": "https://huggingface.co/blog/allenai/olmoearth-infrastructure",
