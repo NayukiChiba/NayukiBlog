@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T08:26:49.043Z",
+  "generatedAt": "2026-07-31T13:23:59.254Z",
   "feeds": [
     {
       "id": 1,
@@ -347,6 +347,13 @@
           "date": "2026-07-31T15:00:00.000Z",
           "summary": "OpenAI shares how its safety, security, transparency, and provenance practices support responsible AI governance in Euro…",
           "content": "OpenAI shares how its safety, security, transparency, and provenance practices support responsible AI governance in Europe. The work will continue as the EU AI Act advances."
+        },
+        {
+          "title": "Univé builds an AI-ready workforce",
+          "link": "https://openai.com/index/unive",
+          "date": "2026-07-31T07:00:00.000Z",
+          "summary": "See how Univé built an AI-ready workforce with ChatGPT Enterprise by combining leadership, responsible governance, and e…",
+          "content": "See how Univé built an AI-ready workforce with ChatGPT Enterprise by combining leadership, responsible governance, and employee-led innovation to transform work at scale."
         },
         {
           "title": "Advancing the price-performance frontier with GPT-5.6",
