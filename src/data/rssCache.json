@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T01:25:05.598Z",
+  "generatedAt": "2026-08-01T07:56:23.736Z",
   "feeds": [
     {
       "id": 1,
@@ -347,6 +347,13 @@
           "date": "2026-08-04T00:00:00.000Z",
           "summary": "OpenAI disrupted a Cambodia-based scam operation using ChatGPT to support investment, romance, gambling, and impersonati…",
           "content": "OpenAI disrupted a Cambodia-based scam operation using ChatGPT to support investment, romance, gambling, and impersonation schemes."
+        },
+        {
+          "title": "Ten advances in mathematics and theoretical computer science",
+          "link": "https://openai.com/index/ten-advances-in-mathematics",
+          "date": "2026-08-01T00:00:00.000Z",
+          "summary": "OpenAI shares new results on long-standing open problems in mathematics and theoretical computer science, including adva…",
+          "content": "OpenAI shares new results on long-standing open problems in mathematics and theoretical computer science, including advances in geometry, cryptography, and complexity."
         },
         {
           "title": "Advancing responsible AI across Europe",
