@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T12:47:15.949Z",
+  "generatedAt": "2026-08-01T18:47:12.658Z",
   "feeds": [
     {
       "id": 1,
@@ -855,7 +855,7 @@
       "title": "OpenAI Research",
       "category": "AI",
       "link": "https://openai.com/news/research",
-      "ok": true,
+      "ok": false,
       "items": [
         {
           "title": "[NOTICE] This feed is no longer maintained",
