@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T14:08:47.429Z",
+  "generatedAt": "2026-08-03T19:13:31.453Z",
   "feeds": [
     {
       "id": 1,
@@ -1908,6 +1908,13 @@
           "date": "",
           "summary": "To prevent context window bloat and reduce token consumption, Genkit Go introduces Agent Skills based on a progressive d…",
           "content": "To prevent context window bloat and reduce token consumption, Genkit Go introduces Agent Skills based on a progressive disclosure architecture. Developers can package specialized instructions, scripts, and references into modular SKILL.md bundles where only the frontmatter metadata is initially exposed to the agent's system prompt. When a task matches the skill's description, Genkit's middleware dynamically loads the full instruction body and associated assets, ensuring the model accesses precise workflows exactly when needed."
+        },
+        {
+          "title": "Scaling real-time AI agents with session-aware load balancing",
+          "link": "https://developers.googleblog.com/scaling-real-time-ai-agents-with-session-aware-load-balancing/",
+          "date": "",
+          "summary": "Real-time AI agents break traditional request-response load balancing paradigms because they rely on long-lived, statefu…",
+          "content": "Real-time AI agents break traditional request-response load balancing paradigms because they rely on long-lived, stateful bidirectional streams that obscure true server capacity. To solve this, developers must implement application-level session tracking directly within the runtime to accurately measure the committed concurrent workload of active conversations. By feeding these precise session counts alongside standard CPU utilization metrics into a hybrid routing algorithm, infrastructure can effectively distribute stateful AI traffic and prevent individual backend bottlenecks."
         }
       ]
     },
