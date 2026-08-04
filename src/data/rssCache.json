@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T08:12:19.333Z",
+  "generatedAt": "2026-08-04T13:30:51.986Z",
   "feeds": [
     {
       "id": 1,
@@ -1523,6 +1523,13 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "The latest AI news we announced in July 2026",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-july-2026/",
+          "date": "2026-08-04T13:00:00.000Z",
+          "summary": "Here are Google’s latest AI updates from July 2026",
+          "content": "Here are Google’s latest AI updates from July 2026"
+        },
         {
           "title": "Gemini API Managed Agents: 3.6 Flash, hooks, and more",
           "link": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api-3-6-flash-hooks/",
