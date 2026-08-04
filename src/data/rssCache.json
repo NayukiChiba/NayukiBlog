@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T01:14:45.080Z",
+  "generatedAt": "2026-08-04T08:12:19.333Z",
   "feeds": [
     {
       "id": 1,
@@ -347,6 +347,13 @@
           "date": "2026-08-04T00:00:00.000Z",
           "summary": "OpenAI disrupted a Cambodia-based scam operation using ChatGPT to support investment, romance, gambling, and impersonati…",
           "content": "OpenAI disrupted a Cambodia-based scam operation using ChatGPT to support investment, romance, gambling, and impersonation schemes."
+        },
+        {
+          "title": "Apple is getting this wrong",
+          "link": "https://openai.com/index/apple-is-getting-this-wrong",
+          "date": "2026-08-03T22:00:00.000Z",
+          "summary": "OpenAI addresses Apple’s baseless lawsuit, corrects claims about its employees, and shares messages documenting what hap…",
+          "content": "OpenAI addresses Apple’s baseless lawsuit, corrects claims about its employees, and shares messages documenting what happened."
         },
         {
           "title": "How we built a realtime system for responsive voice AI in six months",
