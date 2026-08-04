@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T19:13:31.453Z",
+  "generatedAt": "2026-08-04T01:14:45.080Z",
   "feeds": [
     {
       "id": 1,
@@ -347,6 +347,20 @@
           "date": "2026-08-04T00:00:00.000Z",
           "summary": "OpenAI disrupted a Cambodia-based scam operation using ChatGPT to support investment, romance, gambling, and impersonati…",
           "content": "OpenAI disrupted a Cambodia-based scam operation using ChatGPT to support investment, romance, gambling, and impersonation schemes."
+        },
+        {
+          "title": "How we built a realtime system for responsive voice AI in six months",
+          "link": "https://openai.com/index/continuous-voice-interaction-with-gpt-live",
+          "date": "2026-08-03T07:00:00.000Z",
+          "summary": "GPT-Live enables continuous voice interaction with AI, using a turnless speech model and low-latency architecture for fa…",
+          "content": "GPT-Live enables continuous voice interaction with AI, using a turnless speech model and low-latency architecture for faster, more natural conversations."
+        },
+        {
+          "title": "Circles powers telco personalization with OpenAI technology",
+          "link": "https://openai.com/index/circles",
+          "date": "2026-08-03T00:00:00.000Z",
+          "summary": "Circles uses the OpenAI API and Codex to power AI-native telco experiences, increasing ARPU by 22%, reducing churn by 9%…",
+          "content": "Circles uses the OpenAI API and Codex to power AI-native telco experiences, increasing ARPU by 22%, reducing churn by 9%, and improving development efficiency."
         },
         {
           "title": "Ten advances in mathematics and theoretical computer science",
