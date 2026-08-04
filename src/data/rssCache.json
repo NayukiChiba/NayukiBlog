@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T13:30:51.986Z",
+  "generatedAt": "2026-08-04T19:14:47.417Z",
   "feeds": [
     {
       "id": 1,
@@ -347,6 +347,13 @@
           "date": "2026-08-04T00:00:00.000Z",
           "summary": "OpenAI disrupted a Cambodia-based scam operation using ChatGPT to support investment, romance, gambling, and impersonati…",
           "content": "OpenAI disrupted a Cambodia-based scam operation using ChatGPT to support investment, romance, gambling, and impersonation schemes."
+        },
+        {
+          "title": "New ways to learn and teach with ChatGPT Work and Codex",
+          "link": "https://openai.com/index/learn-teach-chatgpt-work-codex",
+          "date": "2026-08-04T00:00:00.000Z",
+          "summary": "Explore new education plugins for ChatGPT Work and Codex that help K–12 teachers, college educators, and students learn,…",
+          "content": "Explore new education plugins for ChatGPT Work and Codex that help K–12 teachers, college educators, and students learn, teach, research, and build."
         },
         {
           "title": "Apple is getting this wrong",
@@ -1531,6 +1538,13 @@
           "content": "Here are Google’s latest AI updates from July 2026"
         },
         {
+          "title": "Inside our 353,000-person vibe coding course",
+          "link": "https://blog.google/innovation-and-ai/technology/developers-tools/ai-agents-intensive-recap-2026/",
+          "date": "2026-08-03T15:00:00.000Z",
+          "summary": "Kaggle’s AI Agents Intensive with Google brought learners together in a no-cost course to build and deploy the next fron…",
+          "content": "Kaggle’s AI Agents Intensive with Google brought learners together in a no-cost course to build and deploy the next frontier of AI."
+        },
+        {
           "title": "Gemini API Managed Agents: 3.6 Flash, hooks, and more",
           "link": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api-3-6-flash-hooks/",
           "date": "2026-07-28T16:00:00.000Z",
@@ -1943,6 +1957,13 @@
           "date": "",
           "summary": "Real-time AI agents break traditional request-response load balancing paradigms because they rely on long-lived, statefu…",
           "content": "Real-time AI agents break traditional request-response load balancing paradigms because they rely on long-lived, stateful bidirectional streams that obscure true server capacity. To solve this, developers must implement application-level session tracking directly within the runtime to accurately measure the committed concurrent workload of active conversations. By feeding these precise session counts alongside standard CPU utilization metrics into a hybrid routing algorithm, infrastructure can effectively distribute stateful AI traffic and prevent individual backend bottlenecks."
+        },
+        {
+          "title": "A unified API for AI model routing",
+          "link": "https://developers.googleblog.com/a-unified-api-for-ai-model-routing/",
+          "date": "",
+          "summary": "Google Cloud API Gateway now offers a model routing feature in Public Preview, allowing developers to dynamically route …",
+          "content": "Google Cloud API Gateway now offers a model routing feature in Public Preview, allowing developers to dynamically route traffic to models like Gemini, Claude, or OpenAI OSS-GPT without hardcoding endpoints or managing open-source proxies. Developers can easily configure these routing rules directly within their OpenAPI 3.x specifications by mapping virtual model names to specific backend targets on a shared host. Once deployed, the Gateway acts as a serverless ingress layer that accepts standard OpenAI-compatible requests, automatically transcodes the payload to the native schema of the target model, and routes the traffic on the fly."
         }
       ]
     },
@@ -2036,6 +2057,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Deploy local agents everywhere with LFM2.5-2.6B",
+          "link": "https://huggingface.co/blog/LiquidAI/lfm2-5-2-6b",
+          "date": "2026-08-04T13:58:29.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "GPU Management: Why Idle GPUs Are the New Grounded Aircraft",
           "link": "https://huggingface.co/blog/Dharma-AI/gpu-management",
