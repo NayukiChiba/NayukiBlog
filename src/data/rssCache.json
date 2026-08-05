@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T13:28:41.874Z",
+  "generatedAt": "2026-08-05T19:08:26.302Z",
   "feeds": [
     {
       "id": 1,
@@ -1978,6 +1978,13 @@
           "date": "",
           "summary": "Google Cloud API Gateway now offers a model routing feature in Public Preview, allowing developers to dynamically route …",
           "content": "Google Cloud API Gateway now offers a model routing feature in Public Preview, allowing developers to dynamically route traffic to models like Gemini, Claude, or OpenAI OSS-GPT without hardcoding endpoints or managing open-source proxies. Developers can easily configure these routing rules directly within their OpenAPI 3.x specifications by mapping virtual model names to specific backend targets on a shared host. Once deployed, the Gateway acts as a serverless ingress layer that accepts standard OpenAI-compatible requests, automatically transcodes the payload to the native schema of the target model, and routes the traffic on the fly."
+        },
+        {
+          "title": "Scaling AI Agent Infrastructure with the MCP Stateless updates",
+          "link": "https://developers.googleblog.com/scaling-ai-agent-infrastructure-with-the-mcp-stateless-updates/",
+          "date": "",
+          "summary": "The 2026-07-28 Model Context Protocol (MCP) specification replaces legacy stateful constraints with a fully stateless co…",
+          "content": "The 2026-07-28 Model Context Protocol (MCP) specification replaces legacy stateful constraints with a fully stateless core, enabling cloud-native horizontal scaling, serverless deployments, and standard round-robin load balancing. This architectural shift introduces standardized HTTP headers for efficient routing without deep packet inspection, caching controls, and Multi Round-Trip Requests (MRTR) to handle interactive and long-running tasks without blocking connections. Developers can immediately begin migrating their agentic applications to this highly scalable infrastructure using the newly available beta SDKs for Python, TypeScript, Go, and C#."
         }
       ]
     },
