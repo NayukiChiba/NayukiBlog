@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T19:14:47.417Z",
+  "generatedAt": "2026-08-05T01:16:06.747Z",
   "feeds": [
     {
       "id": 1,
@@ -341,6 +341,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Third-party cyber evaluations involving OpenAI models",
+          "link": "https://openai.com/index/third-party-cyber-evaluations-involving-openai-models",
+          "date": "2026-08-04T19:00:00.000Z",
+          "summary": "OpenAI explains recent third-party cybersecurity evaluation incidents and outlines new safeguards to strengthen AI model…",
+          "content": "OpenAI explains recent third-party cybersecurity evaluation incidents and outlines new safeguards to strengthen AI model testing and evaluation."
+        },
         {
           "title": "Disrupting a Criminal Scam Operation",
           "link": "https://openai.com/index/disrupting-malicious-uses-of-ai-criminal-scam-operation",
