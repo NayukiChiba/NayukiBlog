@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T01:16:06.747Z",
+  "generatedAt": "2026-08-05T08:10:55.915Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "A guide to cost visibility and control in Claude",
+          "link": "https://claude.com/blog/a-guide-to-cost-visibility-and-control-in-claude",
+          "date": "2026-08-04T00:00:00.000Z",
+          "summary": "A guide to cost visibility and control in Claude",
+          "content": "A guide to cost visibility and control in Claude"
+        },
         {
           "title": "Bringing MCP 2026-07-28 to Claude",
           "link": "https://claude.com/blog/bringing-mcp-2026-07-28-to-claude",
