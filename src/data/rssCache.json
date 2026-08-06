@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-06T13:27:35.525Z",
+  "generatedAt": "2026-08-06T23:46:22.944Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Millennium and Anthropic are building a digital risk analyst with Claude",
+          "link": "https://claude.com/blog/millennium-and-anthropic-are-building-a-digital-risk-analyst-with-claude",
+          "date": "2026-08-06T00:00:00.000Z",
+          "summary": "Millennium and Anthropic are building a digital risk analyst with Claude",
+          "content": "Millennium and Anthropic are building a digital risk analyst with Claude"
+        },
         {
           "title": "Inference hooks: inline data loss prevention for Claude Enterprise",
           "link": "https://claude.com/blog/claude-enterprise-inference-hooks",
@@ -355,6 +362,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Improving GPT‑5.6 Sol in ChatGPT—and expanding access to GPT-5.6 Luna for free users",
+          "link": "https://openai.com/index/improving-gpt-5-6-sol-in-chatgpt",
+          "date": "2026-08-06T10:00:00.000Z",
+          "summary": "ChatGPT introduces improved GPT-5.6 Sol with better accuracy and consistency, plus expanded access for free users and un…",
+          "content": "ChatGPT introduces improved GPT-5.6 Sol with better accuracy and consistency, plus expanded access for free users and unlimited everyday chats with GPT-5.6 Luna."
+        },
+        {
+          "title": "Working with the American Psychological Association on youth mental health and AI",
+          "link": "https://openai.com/index/openai-and-apa-partner-to-advance-responsible-ai",
+          "date": "2026-08-06T06:00:00.000Z",
+          "summary": "OpenAI and the American Psychological Association advance evidence-based guidance, resources, and safeguards for respons…",
+          "content": "OpenAI and the American Psychological Association advance evidence-based guidance, resources, and safeguards for responsible AI use and youth mental health."
+        },
+        {
+          "title": "From asking to doing: How the world is putting ChatGPT to work",
+          "link": "https://openai.com/index/how-the-world-is-putting-chatgpt-to-work",
+          "date": "2026-08-06T00:00:00.000Z",
+          "summary": "New OpenAI Signals data shows how people use ChatGPT worldwide, with country-level insights on adoption, usage trends, a…",
+          "content": "New OpenAI Signals data shows how people use ChatGPT worldwide, with country-level insights on adoption, usage trends, and evolving behavior."
+        },
         {
           "title": "Third-party cyber evaluations involving OpenAI models",
           "link": "https://openai.com/index/third-party-cyber-evaluations-involving-openai-models",
@@ -1387,6 +1415,13 @@
       "ok": true,
       "items": [
         {
+          "title": "WeatherNext: AI model achieves breakthrough in forecasting cyclones",
+          "link": "https://deepmind.google/blog/weathernext-ai-model-achieves-breakthrough-in-forecasting-cyclones/",
+          "date": "2026-08-06T15:06:15.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration",
           "link": "https://deepmind.google/blog/gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration/",
           "date": "2026-07-30T15:00:59.000Z",
@@ -1992,6 +2027,13 @@
           "date": "",
           "summary": "The 2026-07-28 Model Context Protocol (MCP) specification replaces legacy stateful constraints with a fully stateless co…",
           "content": "The 2026-07-28 Model Context Protocol (MCP) specification replaces legacy stateful constraints with a fully stateless core, enabling cloud-native horizontal scaling, serverless deployments, and standard round-robin load balancing. This architectural shift introduces standardized HTTP headers for efficient routing without deep packet inspection, caching controls, and Multi Round-Trip Requests (MRTR) to handle interactive and long-running tasks without blocking connections. Developers can immediately begin migrating their agentic applications to this highly scalable infrastructure using the newly available beta SDKs for Python, TypeScript, Go, and C#."
+        },
+        {
+          "title": "Agent Plugins package your skills, tools, and more",
+          "link": "https://developers.googleblog.com/agent-plugins-package-your-skills-tools-and-more/",
+          "date": "",
+          "summary": "Agent Plugins 1.0.0 is a new, vendor-neutral directory specification—backed by Google, Amazon, Microsoft, and others—for…",
+          "content": "Agent Plugins 1.0.0 is a new, vendor-neutral directory specification—backed by Google, Amazon, Microsoft, and others—for packaging Agent Skills and MCP servers into a single portable unit. By standardizing the manifest (plugin.json) and utilizing a fixed directory layout, it eliminates the need for developers to maintain separate wrappers or configurations to support different AI coding agents and IDEs. Google has officially joined as a Core Maintainer and already rolled out support in the Agents CLI and Data Agent Kit, allowing developers to start building and distributing interoperable plugins today."
         }
       ]
     },
@@ -2085,6 +2127,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Baseten on Hugging Face Inference Providers 🔥",
+          "link": "https://huggingface.co/blog/baseten",
+          "date": "2026-08-06T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Deploy local agents everywhere with LFM2.5-2.6B",
           "link": "https://huggingface.co/blog/LiquidAI/lfm2-5-2-6b",
