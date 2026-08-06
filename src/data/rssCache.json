@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T19:08:26.302Z",
+  "generatedAt": "2026-08-06T01:14:10.141Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Inference hooks: inline data loss prevention for Claude Enterprise",
+          "link": "https://claude.com/blog/claude-enterprise-inference-hooks",
+          "date": "2026-08-05T00:00:00.000Z",
+          "summary": "Inference hooks: inline data loss prevention for Claude Enterprise",
+          "content": "Inference hooks: inline data loss prevention for Claude Enterprise"
+        },
         {
           "title": "A guide to cost visibility and control in Claude",
           "link": "https://claude.com/blog/a-guide-to-cost-visibility-and-control-in-claude",
@@ -1070,7 +1077,7 @@
       "title": "Ollama Blog",
       "category": "AI",
       "link": "https://ollama.com/blog",
-      "ok": true,
+      "ok": false,
       "items": [
         {
           "title": "Ollama: all aboard open models",
