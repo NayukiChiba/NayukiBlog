@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-06T01:14:10.141Z",
+  "generatedAt": "2026-08-06T08:09:54.495Z",
   "feeds": [
     {
       "id": 1,
@@ -1077,7 +1077,7 @@
       "title": "Ollama Blog",
       "category": "AI",
       "link": "https://ollama.com/blog",
-      "ok": false,
+      "ok": true,
       "items": [
         {
           "title": "Ollama: all aboard open models",
