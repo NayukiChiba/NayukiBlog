@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T12:34:04.147Z",
+  "generatedAt": "2026-08-07T18:35:33.417Z",
   "feeds": [
     {
       "id": 1,
@@ -369,6 +369,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Responding to the next frontier of critical cyber capabilities",
+          "link": "https://openai.com/index/responding-next-frontier-critical-cyber-capabilities",
+          "date": "2026-08-07T15:20:00.000Z",
+          "summary": "OpenAI is sharing preliminary cybersecurity evaluations for Astra and the steps we’re taking to strengthen safeguards an…",
+          "content": "OpenAI is sharing preliminary cybersecurity evaluations for Astra and the steps we’re taking to strengthen safeguards and security controls."
+        },
         {
           "title": "How HSP GRUPPE builds AI capabilities for tax advisory",
           "link": "https://openai.com/index/hsp-gruppe",
@@ -2141,6 +2148,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "TutorMoments: Do AI tutors know when to help and when to hold back?",
+          "link": "https://huggingface.co/blog/allenai/tutormoments",
+          "date": "2026-08-07T17:53:32.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Baseten on Hugging Face Inference Providers 🔥",
           "link": "https://huggingface.co/blog/baseten",
