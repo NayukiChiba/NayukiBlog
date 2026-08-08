@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T18:35:33.417Z",
+  "generatedAt": "2026-08-08T00:39:29.198Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,20 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Running auto mode in production",
+          "link": "https://claude.com/blog/auto-mode-in-production",
+          "date": "2026-08-07T00:00:00.000Z",
+          "summary": "Running auto mode in production",
+          "content": "Running auto mode in production"
+        },
+        {
+          "title": "Auto mode is now the default in Claude Code for Pro, Max, and Team plans",
+          "link": "https://claude.com/blog/auto-mode-default-in-claude-code",
+          "date": "2026-08-07T00:00:00.000Z",
+          "summary": "Auto mode is now the default in Claude Code for Pro, Max, and Team plans",
+          "content": "Auto mode is now the default in Claude Code for Pro, Max, and Team plans"
+        },
         {
           "title": "Millennium and Anthropic are building a digital risk analyst with Claude",
           "link": "https://claude.com/blog/millennium-and-anthropic-are-building-a-digital-risk-analyst-with-claude",
