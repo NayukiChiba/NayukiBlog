@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T07:02:36.079Z",
+  "generatedAt": "2026-08-10T12:37:51.065Z",
   "feeds": [
     {
       "id": 1,
@@ -1143,6 +1143,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Muse Glimmer from Meta Superintelligence Labs is now available",
+          "link": "https://ollama.com/blog/muse-glimmer",
+          "date": "2026-08-10T00:00:00.000Z",
+          "summary": "Meta's Muse Glimmer, the first open model released by Meta Superintelligence Labs, is now available. Muse Glimmer is a 3…",
+          "content": "Meta's Muse Glimmer, the first open model released by Meta Superintelligence Labs, is now available. Muse Glimmer is a 30B multimodal model released under the Apache 2.0 license, designed for local coding agents, and accelerated by Ollama's MLX engine with new native DFlash and image input support."
+        },
+        {
           "title": "Ollama: all aboard open models",
           "link": "https://ollama.com/blog/all-aboard-open-models",
           "date": "2026-07-09T00:00:00.000Z",
@@ -2162,6 +2169,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Making Knowledge Distillation Cheap Enough to Run at Scale",
+          "link": "https://huggingface.co/blog/MultiverseComputingCAI/efficient-knowledge-distillation",
+          "date": "2026-08-10T10:05:36.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
+          "link": "https://huggingface.co/blog/muse-glimmer",
+          "date": "2026-08-10T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "TutorMoments: Do AI tutors know when to help and when to hold back?",
           "link": "https://huggingface.co/blog/allenai/tutormoments",
