@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T18:41:44.773Z",
+  "generatedAt": "2026-08-12T00:50:58.480Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Compliance API coverage extends to Claude Cowork and Claude Code",
+          "link": "https://claude.com/blog/compliance-api-cowork-and-claude-code",
+          "date": "2026-08-11T00:00:00.000Z",
+          "summary": "Compliance API coverage extends to Claude Cowork and Claude Code",
+          "content": "Compliance API coverage extends to Claude Cowork and Claude Code"
+        },
         {
           "title": "Running auto mode in production",
           "link": "https://claude.com/blog/auto-mode-in-production",
@@ -396,6 +403,13 @@
           "date": "2026-08-11T10:00:00.000Z",
           "summary": "OpenAI begins testing ads in ChatGPT to support free access, with clear labeling, answer independence, strong privacy pr…",
           "content": "OpenAI begins testing ads in ChatGPT to support free access, with clear labeling, answer independence, strong privacy protections, and user control."
+        },
+        {
+          "title": "Daybreak models are now available on AWS",
+          "link": "https://openai.com/index/daybreak-models-are-now-available-on-aws",
+          "date": "2026-08-11T10:00:00.000Z",
+          "summary": "OpenAI and AWS are making Daybreak cybersecurity capabilities available through Amazon Bedrock to support enterprise sec…",
+          "content": "OpenAI and AWS are making Daybreak cybersecurity capabilities available through Amazon Bedrock to support enterprise security workflows."
         },
         {
           "title": "What building an AI-native finance function taught me",
