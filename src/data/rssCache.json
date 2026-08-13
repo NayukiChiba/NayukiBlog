@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T12:38:38.562Z",
+  "generatedAt": "2026-08-13T18:43:22.411Z",
   "feeds": [
     {
       "id": 1,
@@ -404,6 +404,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "The builder’s guide to GPT‑5.6",
+          "link": "https://openai.com/index/builders-guide-to-gpt-5-6",
+          "date": "2026-08-13T11:00:00.000Z",
+          "summary": "Learn how startups use GPT-5.6 to build faster, more cost-efficient AI agents with smarter model selection and new Respo…",
+          "content": "Learn how startups use GPT-5.6 to build faster, more cost-efficient AI agents with smarter model selection and new Responses API capabilities."
+        },
+        {
+          "title": "Previewing Ultrafast mode: GPT-5.6 Sol at up to 14X the speed",
+          "link": "https://openai.com/index/previewing-ultrafast",
+          "date": "2026-08-13T10:00:00.000Z",
+          "summary": "Preview Ultrafast, a new OpenAI API service tier that runs GPT-5.6 Sol up to 14× faster. Powered by Cerebras, it deliver…",
+          "content": "Preview Ultrafast, a new OpenAI API service tier that runs GPT-5.6 Sol up to 14× faster. Powered by Cerebras, it delivers up to 750 output tokens per second."
+        },
+        {
+          "title": "OpenAI appoints Dali Rajic as Chief Revenue Officer",
+          "link": "https://openai.com/index/dali-rajic-chief-revenue-officer",
+          "date": "2026-08-13T09:00:00.000Z",
+          "summary": "OpenAI appoints Dali Rajic as Chief Revenue Officer to lead its global revenue organization and help businesses realize …",
+          "content": "OpenAI appoints Dali Rajic as Chief Revenue Officer to lead its global revenue organization and help businesses realize the full value of AI."
+        },
         {
           "title": "From assistance to execution: How enterprises put AI to work",
           "link": "https://openai.com/index/how-enterprises-put-ai-to-work",
@@ -1345,6 +1366,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Aug 13, 2026Frontier Red TeamPatterns and problems in emerging multiagent systems",
+          "link": "https://www.anthropic.com/research/multiagent-systems",
+          "date": "2026-08-13T00:00:00.000Z",
+          "summary": "Aug 13, 2026Frontier Red TeamPatterns and problems in emerging multiagent systems",
+          "content": "Aug 13, 2026Frontier Red TeamPatterns and problems in emerging multiagent systems"
+        },
+        {
           "title": "Aug 12, 2026Economic ResearchReviewing the evidence on worker retraining programs",
           "link": "https://www.anthropic.com/research/reviewing-the-evidence-on-worker-retraining-programs",
           "date": "2026-08-12T00:00:00.000Z",
@@ -1583,6 +1611,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Introducing Gemini 3.7 Flash",
+          "link": "https://deepmind.google/blog/introducing-gemini-3-7-flash/",
+          "date": "2026-08-13T17:04:18.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "Putting sign language AI into users’ hands",
           "link": "https://deepmind.google/blog/putting-sign-language-ai-into-users-hands/",
           "date": "2026-08-12T14:01:59.000Z",
@@ -1761,6 +1796,13 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "Bring your spreadsheet data to life with Sheets canvas",
+          "link": "https://blog.google/products-and-platforms/products/workspace/sheets-canvas-for-google-sheets-spreadsheets/",
+          "date": "2026-08-13T16:45:00.000Z",
+          "summary": "Sheets canvas turns data into interactive dashboards, custom study trackers, seating charts, and more, all with a simple…",
+          "content": "Sheets canvas turns data into interactive dashboards, custom study trackers, seating charts, and more, all with a simple prompt."
+        },
         {
           "title": "AMIE, our research medical AI system, demonstrates real-time clinical video consultation capabilities in a first-of-its-kind study.",
           "link": "https://blog.google/innovation-and-ai/models-and-research/google-research/amie-video-consultations/",
@@ -2237,6 +2279,20 @@
           "date": "",
           "summary": "As AI coding assistants shift the developer's primary role from writing boilerplate to reviewing and maintaining systems…",
           "content": "As AI coding assistants shift the developer's primary role from writing boilerplate to reviewing and maintaining systems, language choice becomes critical for long-term architectural integrity. Go directly addresses this new paradigm by utilizing its strict compiler, integrated toolchain, and uncompromising readability to provide deterministic guardrails that help AI models self-correct and generate highly standardized code. By enforcing ecosystem-wide consistency and strict backward compatibility, the Go platform empowers engineering teams to efficiently verify, optimize, and maintain high-velocity, AI-generated output in production environments."
+        },
+        {
+          "title": "Introducing Credentio: Open Source C++ Library for C2PA Content Credentials from Google",
+          "link": "https://developers.googleblog.com/introducing-credentio-open-source-c-library-for-c2pa-content-credentials-from-google/",
+          "date": "",
+          "summary": "Credentio is a newly released, open-source C++ library from Google that allows developers to integrate high-performance,…",
+          "content": "Credentio is a newly released, open-source C++ library from Google that allows developers to integrate high-performance, local-first validation of C2PA Content Credentials into their client and server applications. By processing assets entirely locally with a highly optimized memory footprint, the library delivers instant validation verdicts for multi-gigabyte media files without incurring cloud latency, bandwidth costs, or data privacy risks. The library currently features deep manifest parsing alongside configurable trust list integration, and is available now on Google Source with future plans to support full credential generation and embedding."
+        },
+        {
+          "title": "HeyGen x Google Cloud: Bringing Avatar IV to TPUs",
+          "link": "https://developers.googleblog.com/heygen-x-google-cloud-bringing-avatar-iv-to-tpus/",
+          "date": "",
+          "summary": "HeyGen ported their 18B+ parameter Avatar IV video generation model to Google Cloud's Trillium (v6e) TPUs via torchax an…",
+          "content": "HeyGen ported their 18B+ parameter Avatar IV video generation model to Google Cloud's Trillium (v6e) TPUs via torchax and XLA, utilizing FSDP and Ulysses sequence parallelism across an eight-chip mesh. To achieve a 1.86x speedup for real-time streaming, the engineering team pipelined exposed all-to-all collectives, aligned sparse attention block sizes to eliminate mask padding, and bypassed softmax serial dependencies using a precomputed Cauchy-Schwarz upper bound. These custom Pallas kernel and compiler optimizations were deployed only after passing rigorous two-tier quality gates to guarantee byte-identical or mathematically equivalent pixel outputs."
         }
       ]
     },
@@ -2330,6 +2386,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Record, train, and deploy from one place with Strands Agents, LeRobot, and Hugging Face Storage Buckets",
+          "link": "https://huggingface.co/blog/amazon/strands-lerobot-streaming-data-loop",
+          "date": "2026-08-13T17:16:04.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "What We Learned by Reproducing 2,200 papers from ICML",
+          "link": "https://huggingface.co/blog/icml-2026-open-reproductions",
+          "date": "2026-08-13T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Introducing OlmoEarth embeddings: Custom embedding exports from OlmoEarth Studio for downstream analysis",
           "link": "https://huggingface.co/blog/allenai/olmoearth-embeddings",
