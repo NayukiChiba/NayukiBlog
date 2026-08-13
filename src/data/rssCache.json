@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T18:42:44.221Z",
+  "generatedAt": "2026-08-13T00:52:30.466Z",
   "feeds": [
     {
       "id": 1,
@@ -403,6 +403,13 @@
           "date": "2026-08-12T06:00:00.000Z",
           "summary": "OpenAI research reveals how enterprises are adopting agentic AI, using ChatGPT and Codex, and how frontier firms are pul…",
           "content": "OpenAI research reveals how enterprises are adopting agentic AI, using ChatGPT and Codex, and how frontier firms are pulling ahead in AI adoption."
+        },
+        {
+          "title": "How RingCentral builds AI-native work from engineering to ops",
+          "link": "https://openai.com/index/ringcentral",
+          "date": "2026-08-12T00:00:00.000Z",
+          "summary": "See how RingCentral uses ChatGPT Work and Codex to accelerate AI product development and centralize operational intellig…",
+          "content": "See how RingCentral uses ChatGPT Work and Codex to accelerate AI product development and centralize operational intelligence across engineering and operations."
         },
         {
           "title": "Testing ads in ChatGPT",
