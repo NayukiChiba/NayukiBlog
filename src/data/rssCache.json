@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T07:06:07.536Z",
+  "generatedAt": "2026-08-13T12:38:38.562Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "The Claude in Chrome side panel is now Claude Cowork",
+          "link": "https://claude.com/blog/cowork-chrome-side-panel",
+          "date": "2026-08-12T00:00:00.000Z",
+          "summary": "The Claude in Chrome side panel is now Claude Cowork",
+          "content": "The Claude in Chrome side panel is now Claude Cowork"
+        },
         {
           "title": "Compliance API coverage extends to Claude Cowork and Claude Code",
           "link": "https://claude.com/blog/compliance-api-cowork-and-claude-code",
