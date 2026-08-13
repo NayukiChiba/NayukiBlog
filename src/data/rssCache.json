@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T00:52:30.466Z",
+  "generatedAt": "2026-08-13T07:06:07.536Z",
   "feeds": [
     {
       "id": 1,
@@ -1337,6 +1337,13 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "Aug 12, 2026Economic ResearchReviewing the evidence on worker retraining programs",
+          "link": "https://www.anthropic.com/research/reviewing-the-evidence-on-worker-retraining-programs",
+          "date": "2026-08-12T00:00:00.000Z",
+          "summary": "Aug 12, 2026Economic ResearchReviewing the evidence on worker retraining programs",
+          "content": "Aug 12, 2026Economic ResearchReviewing the evidence on worker retraining programs"
+        },
         {
           "title": "Learning more about Claude's mathematical capabilities",
           "link": "https://www.anthropic.com/research/riemann-zeta",
