@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T12:34:14.719Z",
+  "generatedAt": "2026-08-14T18:37:25.608Z",
   "feeds": [
     {
       "id": 1,
@@ -2407,6 +2407,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "State of Open Models: Summer 2026 Observations",
+          "link": "https://huggingface.co/blog/state-of-open-models-summer-2026",
+          "date": "2026-08-14T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Record, train, and deploy from one place with Strands Agents, LeRobot, and Hugging Face Storage Buckets",
           "link": "https://huggingface.co/blog/amazon/strands-lerobot-streaming-data-loop",
