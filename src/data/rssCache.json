@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T07:02:32.329Z",
+  "generatedAt": "2026-08-14T12:34:14.719Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,27 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Securing the frontier: How JetBrains evaluates and deploys Claude Fable 5",
+          "link": "https://claude.com/blog/how-jetbrains-evaluates-and-deploys-claude-fable-5",
+          "date": "2026-08-13T00:00:00.000Z",
+          "summary": "Securing the frontier: How JetBrains evaluates and deploys Claude Fable 5",
+          "content": "Securing the frontier: How JetBrains evaluates and deploys Claude Fable 5"
+        },
+        {
+          "title": "Claude Tag now reads even more of the room",
+          "link": "https://claude.com/blog/claude-tag-now-reads-even-more-of-the-room",
+          "date": "2026-08-13T00:00:00.000Z",
+          "summary": "Claude Tag now reads even more of the room",
+          "content": "Claude Tag now reads even more of the room"
+        },
+        {
+          "title": "Self-service data analytics in Slack: how Anthropic deploys Claude Tag for ad-hoc questions",
+          "link": "https://claude.com/blog/self-service-data-analytics-in-slack-how-anthropic-deploys-claude-tag-for-ad-hoc-questions",
+          "date": "2026-08-13T00:00:00.000Z",
+          "summary": "Self-service data analytics in Slack: how Anthropic deploys Claude Tag for ad-hoc questions",
+          "content": "Self-service data analytics in Slack: how Anthropic deploys Claude Tag for ad-hoc questions"
+        },
         {
           "title": "The Claude in Chrome side panel is now Claude Cowork",
           "link": "https://claude.com/blog/cowork-chrome-side-panel",
