@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T00:28:03.497Z",
+  "generatedAt": "2026-08-15T06:16:17.611Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Maximizing the value of your Claude Code sessions",
+          "link": "https://claude.com/blog/maximizing-the-value-of-your-claude-code-sessions",
+          "date": "2026-08-14T00:00:00.000Z",
+          "summary": "Maximizing the value of your Claude Code sessions",
+          "content": "Maximizing the value of your Claude Code sessions"
+        },
         {
           "title": "Securing the frontier: How JetBrains evaluates and deploys Claude Fable 5",
           "link": "https://claude.com/blog/how-jetbrains-evaluates-and-deploys-claude-fable-5",
