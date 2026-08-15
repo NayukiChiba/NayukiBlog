@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T18:37:25.608Z",
+  "generatedAt": "2026-08-15T00:28:03.497Z",
   "feeds": [
     {
       "id": 1,
@@ -1113,8 +1113,8 @@
       "id": 3,
       "title": "OpenAI Research",
       "category": "AI",
-      "link": "https://openai.com/news/research",
-      "ok": false,
+      "link": "https://openai.com/news/research/",
+      "ok": true,
       "items": [
         {
           "title": "[NOTICE] This feed is no longer maintained",
@@ -1175,6 +1175,76 @@
           "link": "https://openai.com/index/gpt-5-3-instant-system-card/",
           "date": "2026-03-03T00:00:00.000Z",
           "summary": "GPT-5.3 Instant System Card"
+        },
+        {
+          "title": "On the quantitative analysis of decoder-based generative models",
+          "link": "https://openai.com/index/on-the-quantitative-analysis-of-decoder-based-generative-models",
+          "date": "2016-11-14T08:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "A connection between generative adversarial networks, inverse reinforcement learning, and energy-based models",
+          "link": "https://openai.com/index/a-connection-between-generative-adversarial-networks-inverse-reinforcement-learning-and-energy-based-models",
+          "date": "2016-11-11T08:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "RL²: Fast reinforcement learning via slow reinforcement learning",
+          "link": "https://openai.com/index/rl2",
+          "date": "2016-11-09T08:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Variational lossy autoencoder",
+          "link": "https://openai.com/index/variational-lossy-autoencoder",
+          "date": "2016-11-08T08:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Extensions and limitations of the neural GPU",
+          "link": "https://openai.com/index/extensions-and-limitations-of-the-neural-gpu",
+          "date": "2016-11-02T07:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Transfer from simulation to real world through learning deep inverse dynamics model",
+          "link": "https://openai.com/index/transfer-from-simulation-to-real-world-through-learning-deep-inverse-dynamics-model",
+          "date": "2016-10-11T07:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Infrastructure for deep learning",
+          "link": "https://openai.com/index/infrastructure-for-deep-learning",
+          "date": "2016-08-29T07:00:00.000Z",
+          "summary": "Deep learning is an empirical science, and the quality of a group’s infrastructure is a multiplier on progress. Fortunat…",
+          "content": "Deep learning is an empirical science, and the quality of a group’s infrastructure is a multiplier on progress. Fortunately, today’s open-source ecosystem makes it possible for anyone to build great deep learning infrastructure."
+        },
+        {
+          "title": "Generative models",
+          "link": "https://openai.com/index/generative-models",
+          "date": "2016-06-16T07:00:00.000Z",
+          "summary": "This post describes four projects that share a common theme of enhancing or using generative models, a branch of unsuper…",
+          "content": "This post describes four projects that share a common theme of enhancing or using generative models, a branch of unsupervised learning techniques in machine learning. In addition to describing our work, this post will tell you a bit more about generative models: what they are, why they are important, and where they might be going."
+        },
+        {
+          "title": "OpenAI Gym Beta",
+          "link": "https://openai.com/index/openai-gym-beta",
+          "date": "2016-04-27T07:00:00.000Z",
+          "summary": "We’re releasing the public beta of OpenAI Gym, a toolkit for developing and comparing reinforcement learning (RL) algori…",
+          "content": "We’re releasing the public beta of OpenAI Gym, a toolkit for developing and comparing reinforcement learning (RL) algorithms. It consists of a growing suite of environments (from simulated robots to Atari games), and a site for comparing and reproducing results."
+        },
+        {
+          "title": "Weight normalization: A simple reparameterization to accelerate training of deep neural networks",
+          "link": "https://openai.com/index/weight-normalization",
+          "date": "2016-02-25T08:00:00.000Z",
+          "summary": "",
+          "content": ""
         }
       ]
     },
