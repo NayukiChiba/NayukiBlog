@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T18:18:48.489Z",
+  "generatedAt": "2026-08-18T00:27:53.693Z",
   "feeds": [
     {
       "id": 1,
@@ -2489,6 +2489,13 @@
           "date": "",
           "summary": "HeyGen ported their 18B+ parameter Avatar IV video generation model to Google Cloud's Trillium (v6e) TPUs via torchax an…",
           "content": "HeyGen ported their 18B+ parameter Avatar IV video generation model to Google Cloud's Trillium (v6e) TPUs via torchax and XLA, utilizing FSDP and Ulysses sequence parallelism across an eight-chip mesh. To achieve a 1.86x speedup for real-time streaming, the engineering team pipelined exposed all-to-all collectives, aligned sparse attention block sizes to eliminate mask padding, and bypassed softmax serial dependencies using a precomputed Cauchy-Schwarz upper bound. These custom Pallas kernel and compiler optimizations were deployed only after passing rigorous two-tier quality gates to guarantee byte-identical or mathematically equivalent pixel outputs."
+        },
+        {
+          "title": "Build zero-trust AI agents with Google's Agent Development Kit",
+          "link": "https://developers.googleblog.com/build-zero-trust-ai-agents-with-googles-agent-development-kit/",
+          "date": "",
+          "summary": "Building autonomous AI agents that mutate production state requires moving beyond soft system prompts to a robust zero-t…",
+          "content": "Building autonomous AI agents that mutate production state requires moving beyond soft system prompts to a robust zero-trust architecture. To secure Google Agent Development Kit (ADK) workflows against prompt injections and malicious execution, developers must implement hardware-backed cryptographic signatures for database writes, kernel-level sandboxing with gVisor for dynamic code, and deterministic semantic gateways for I/O validation. By enforcing these hard security boundaries at the infrastructure level, you can safely deploy multi-tool AI agents without risking unauthorized data manipulation or server compromise."
         }
       ]
     },
@@ -2582,6 +2589,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Same Cluster, 33 Points More Utilization: What Changed Was the Order",
+          "link": "https://huggingface.co/blog/Dharma-AI/gpu-management-pt2",
+          "date": "2026-08-17T19:46:21.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "State of Open Models: Summer 2026 Observations",
           "link": "https://huggingface.co/blog/state-of-open-models-summer-2026",
