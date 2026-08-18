@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T12:18:07.041Z",
+  "generatedAt": "2026-08-18T18:17:28.472Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "The Claude Science product guide",
+          "link": "https://claude.com/blog/the-claude-science-product-guide",
+          "date": "2026-08-18T00:00:00.000Z",
+          "summary": "The Claude Science product guide",
+          "content": "The Claude Science product guide"
+        },
         {
           "title": "How ABC Legal turned every employee into a builder with Claude Managed Agents",
           "link": "https://claude.com/blog/how-abc-legal-turned-every-employee-into-a-builder-with-claude-managed-agents",
@@ -452,6 +459,13 @@
           "date": "2026-08-18T11:00:00.000Z",
           "summary": "ChatGPT for Teens helps teens learn, think critically, and use AI with confidence, with stronger built-in protections, h…",
           "content": "ChatGPT for Teens helps teens learn, think critically, and use AI with confidence, with stronger built-in protections, healthy-use features, and additional controls for parents."
+        },
+        {
+          "title": "Asana cleared 5 years of engineering work in 2 weeks with Codex",
+          "link": "https://openai.com/index/asana",
+          "date": "2026-08-18T07:00:00.000Z",
+          "summary": "Asana used OpenAI Codex to replace an outdated testing system in two weeks, completing work expected to take five years …",
+          "content": "Asana used OpenAI Codex to replace an outdated testing system in two weeks, completing work expected to take five years for about $12K."
         },
         {
           "title": "The Defender’s Window",
@@ -2610,6 +2624,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "How Much Memory Does Your Agent Actually Need?",
+          "link": "https://huggingface.co/blog/ibm-research/altk-evolve-hmm",
+          "date": "2026-08-18T18:09:38.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers",
+          "link": "https://huggingface.co/blog/multi-vector-encoder",
+          "date": "2026-08-18T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Same Cluster, 33 Points More Utilization: What Changed Was the Order",
           "link": "https://huggingface.co/blog/Dharma-AI/gpu-management-pt2",
