@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T06:19:53.916Z",
+  "generatedAt": "2026-08-18T12:18:07.041Z",
   "feeds": [
     {
       "id": 1,
@@ -439,6 +439,20 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Partnering with CodeAI to prepare the first AI generation",
+          "link": "https://openai.com/index/partnering-with-codeai",
+          "date": "2026-08-18T11:00:00.000Z",
+          "summary": "OpenAI and CodeAI are partnering to help students build AI literacy, think critically about AI, and develop the skills t…",
+          "content": "OpenAI and CodeAI are partnering to help students build AI literacy, think critically about AI, and develop the skills to use and shape it responsibly."
+        },
+        {
+          "title": "Introducing ChatGPT for Teens: Built for learning, backed by protections",
+          "link": "https://openai.com/index/chatgpt-for-teens",
+          "date": "2026-08-18T11:00:00.000Z",
+          "summary": "ChatGPT for Teens helps teens learn, think critically, and use AI with confidence, with stronger built-in protections, h…",
+          "content": "ChatGPT for Teens helps teens learn, think critically, and use AI with confidence, with stronger built-in protections, healthy-use features, and additional controls for parents."
+        },
         {
           "title": "The Defender’s Window",
           "link": "https://openai.com/index/the-defenders-window",
