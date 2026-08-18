@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T00:27:53.693Z",
+  "generatedAt": "2026-08-18T06:19:53.916Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "How ABC Legal turned every employee into a builder with Claude Managed Agents",
+          "link": "https://claude.com/blog/how-abc-legal-turned-every-employee-into-a-builder-with-claude-managed-agents",
+          "date": "2026-08-17T00:00:00.000Z",
+          "summary": "How ABC Legal turned every employee into a builder with Claude Managed Agents",
+          "content": "How ABC Legal turned every employee into a builder with Claude Managed Agents"
+        },
         {
           "title": "Maximizing the value of your Claude Code sessions",
           "link": "https://claude.com/blog/maximizing-the-value-of-your-claude-code-sessions",
