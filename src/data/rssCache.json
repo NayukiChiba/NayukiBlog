@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T00:27:58.195Z",
+  "generatedAt": "2026-08-19T06:21:04.321Z",
   "feeds": [
     {
       "id": 1,
@@ -446,6 +446,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "ChatGPT Ads expands across Europe",
+          "link": "https://openai.com/index/chatgpt-ads-expands-across-europe",
+          "date": "2026-08-18T22:00:00.000Z",
+          "summary": "ChatGPT Ads is expanding to 31 European markets. Learn how advertisers can reach people as they explore, compare options…",
+          "content": "ChatGPT Ads is expanding to 31 European markets. Learn how advertisers can reach people as they explore, compare options, and make decisions."
+        },
         {
           "title": "Strengthening democratic oversight in national security",
           "link": "https://openai.com/index/strengthening-democratic-oversight-in-national-security",
