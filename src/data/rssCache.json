@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T12:17:48.716Z",
+  "generatedAt": "2026-08-19T18:14:41.352Z",
   "feeds": [
     {
       "id": 1,
@@ -446,6 +446,20 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Offering Zero Data Retention for frontier models",
+          "link": "https://openai.com/index/our-commitment-to-zero-data-retention",
+          "date": "2026-08-19T19:00:00.000Z",
+          "summary": "OpenAI reaffirms Zero Data Retention for eligible API customers and previews Private Safety Processing for advanced AI s…",
+          "content": "OpenAI reaffirms Zero Data Retention for eligible API customers and previews Private Safety Processing for advanced AI safety without compromising data privacy."
+        },
+        {
+          "title": "Replit expands access to software creation with GPT-5.6 Luna",
+          "link": "https://openai.com/index/replit",
+          "date": "2026-08-19T07:00:00.000Z",
+          "summary": "Replit introduces Free Mode, powered by GPT-5.6 Luna, so anyone can turn ideas into working software without worrying ab…",
+          "content": "Replit introduces Free Mode, powered by GPT-5.6 Luna, so anyone can turn ideas into working software without worrying about token costs."
+        },
         {
           "title": "ChatGPT Ads expands across Europe",
           "link": "https://openai.com/index/chatgpt-ads-expands-across-europe",
@@ -2659,6 +2673,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "LFM2.5 Q4\\_0 Checkpoints from Quantization-Aware Distillation",
+          "link": "https://huggingface.co/blog/LiquidAI/qad",
+          "date": "2026-08-19T13:48:49.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "How Much Memory Does Your Agent Actually Need?",
           "link": "https://huggingface.co/blog/ibm-research/altk-evolve-hmm",
