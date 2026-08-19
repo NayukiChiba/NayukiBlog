@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T06:21:04.321Z",
+  "generatedAt": "2026-08-19T12:17:48.716Z",
   "feeds": [
     {
       "id": 1,
@@ -1617,6 +1617,13 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "Aug 18, 2026ScienceHow Claude is accelerating protein design and analytical chemistry",
+          "link": "https://www.anthropic.com/research/Claude-accelerates-protein-design",
+          "date": "2026-08-18T00:00:00.000Z",
+          "summary": "Aug 18, 2026ScienceHow Claude is accelerating protein design and analytical chemistry",
+          "content": "Aug 18, 2026ScienceHow Claude is accelerating protein design and analytical chemistry"
+        },
         {
           "title": "Aug 13, 2026Frontier Red TeamPatterns and problems in emerging multiagent systems",
           "link": "https://www.anthropic.com/research/multiagent-systems",
