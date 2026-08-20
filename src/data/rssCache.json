@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T12:19:46.867Z",
+  "generatedAt": "2026-08-20T18:18:53.896Z",
   "feeds": [
     {
       "id": 1,
@@ -446,6 +446,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How ChatGPT Work helps Stampli move ideas to market",
+          "link": "https://openai.com/index/stampli",
+          "date": "2026-08-20T00:00:00.000Z",
+          "summary": "With a fixed deadline and design resources committed elsewhere, Stampli used Codex and ChatGPT Work to compress weeks of…",
+          "content": "With a fixed deadline and design resources committed elsewhere, Stampli used Codex and ChatGPT Work to compress weeks of launch production into days."
+        },
         {
           "title": "Offering Zero Data Retention for frontier models",
           "link": "https://openai.com/index/our-commitment-to-zero-data-retention",
@@ -2687,6 +2694,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Up to 3.2x Faster Inference with LFM2.5-DSpark",
+          "link": "https://huggingface.co/blog/LiquidAI/lfm25-dspark",
+          "date": "2026-08-20T16:52:57.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "LFM2.5 Q4\\_0 Checkpoints from Quantization-Aware Distillation",
           "link": "https://huggingface.co/blog/LiquidAI/qad",
