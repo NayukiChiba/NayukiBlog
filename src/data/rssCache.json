@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T18:14:41.352Z",
+  "generatedAt": "2026-08-20T00:28:34.260Z",
   "feeds": [
     {
       "id": 1,
@@ -449,6 +449,13 @@
         {
           "title": "Offering Zero Data Retention for frontier models",
           "link": "https://openai.com/index/our-commitment-to-zero-data-retention",
+          "date": "2026-08-19T19:00:00.000Z",
+          "summary": "OpenAI reaffirms Zero Data Retention for eligible API customers and previews Private Safety Processing for advanced AI s…",
+          "content": "OpenAI reaffirms Zero Data Retention for eligible API customers and previews Private Safety Processing for advanced AI safety without compromising data privacy."
+        },
+        {
+          "title": "Offering Zero Data Retention for frontier models",
+          "link": "https://openai.com/index/offering-zero-data-retention-for-frontier-models",
           "date": "2026-08-19T19:00:00.000Z",
           "summary": "OpenAI reaffirms Zero Data Retention for eligible API customers and previews Private Safety Processing for advanced AI s…",
           "content": "OpenAI reaffirms Zero Data Retention for eligible API customers and previews Private Safety Processing for advanced AI safety without compromising data privacy."
@@ -2069,6 +2076,13 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "5 new ways to level up your learning with Search",
+          "link": "https://blog.google/products-and-platforms/products/search/back-to-school-study-tools/",
+          "date": "2026-08-19T19:00:00.000Z",
+          "summary": "Here’s how you can use Google Search tools to study for classes and standardized tests.",
+          "content": "Here’s how you can use Google Search tools to study for classes and standardized tests."
+        },
         {
           "title": "Get closer to the game with Gemini and Pixel",
           "link": "https://blog.google/products-and-platforms/products/gemini/google-gemini-pixel-football-club-partnerships/",
