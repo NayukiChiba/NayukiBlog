@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T18:18:53.896Z",
+  "generatedAt": "2026-08-21T00:30:33.512Z",
   "feeds": [
     {
       "id": 1,
@@ -446,6 +446,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Introducing AI Futures",
+          "link": "https://openai.com/index/introducing-ai-futures",
+          "date": "2026-08-20T07:00:00.000Z",
+          "summary": "Introducing AI Futures, a new OpenAI blog exploring how transformative AI could reshape power, governance, the economy, …",
+          "content": "Introducing AI Futures, a new OpenAI blog exploring how transformative AI could reshape power, governance, the economy, and individual freedom."
+        },
         {
           "title": "How ChatGPT Work helps Stampli move ideas to market",
           "link": "https://openai.com/index/stampli",
