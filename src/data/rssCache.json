@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T12:19:38.262Z",
+  "generatedAt": "2026-08-21T18:18:11.394Z",
   "feeds": [
     {
       "id": 1,
@@ -2708,6 +2708,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Measuring benchmark optimization in speech recognition",
+          "link": "https://huggingface.co/blog/asr-benchmark-optimization",
+          "date": "2026-08-21T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Up to 3.2x Faster Inference with LFM2.5-DSpark",
           "link": "https://huggingface.co/blog/LiquidAI/lfm25-dspark",
