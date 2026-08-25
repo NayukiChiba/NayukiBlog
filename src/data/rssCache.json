@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T00:28:56.127Z",
+  "generatedAt": "2026-08-25T06:22:12.295Z",
   "feeds": [
     {
       "id": 1,
@@ -2778,6 +2778,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Wire It, Run It, Deploy It: AI Workflows in Gradio",
+          "link": "https://huggingface.co/blog/gradio-workflow-guide",
+          "date": "2026-08-25T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Measuring benchmark optimization in speech recognition",
           "link": "https://huggingface.co/blog/asr-benchmark-optimization",
