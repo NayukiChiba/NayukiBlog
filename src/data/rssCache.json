@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T18:20:07.050Z",
+  "generatedAt": "2026-08-25T00:28:56.127Z",
   "feeds": [
     {
       "id": 1,
@@ -502,6 +502,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Advancing price-performance for developers with GPT‑5.6 in Kiro",
+          "link": "https://openai.com/index/gpt-5-6-in-kiro",
+          "date": "2026-08-24T12:00:00.000Z",
+          "summary": "GPT‑5.6 is now available in Kiro, helping developers plan, build, review, and test software with better price-performanc…",
+          "content": "GPT‑5.6 is now available in Kiro, helping developers plan, build, review, and test software with better price-performance."
+        },
         {
           "title": "Introducing AI Futures",
           "link": "https://openai.com/index/introducing-ai-futures",
