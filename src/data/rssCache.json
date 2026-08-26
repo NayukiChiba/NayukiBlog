@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T18:19:49.459Z",
+  "generatedAt": "2026-08-26T00:30:01.291Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,20 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Claude's memory works everywhere, and you decide what's in it",
+          "link": "https://claude.com/blog/claudes-memory-works-everywhere-and-you-decide-whats-in-it",
+          "date": "2026-08-25T00:00:00.000Z",
+          "summary": "Claude's memory works everywhere, and you decide what's in it",
+          "content": "Claude's memory works everywhere, and you decide what's in it"
+        },
+        {
+          "title": "Bain & Company joins the Claude Partner Network as a Global Premier partner",
+          "link": "https://claude.com/blog/bain-company-joins-the-claude-partner-network-as-a-global-premier-partner",
+          "date": "2026-08-25T00:00:00.000Z",
+          "summary": "Bain & Company joins the Claude Partner Network as a Global Premier partner",
+          "content": "Bain & Company joins the Claude Partner Network as a Global Premier partner"
+        },
         {
           "title": "How an Anthropic field marketer uses Claude Code to send weekly personalized updates to every sales rep",
           "link": "https://claude.com/blog/how-an-anthropic-field-marketer-uses-claude-code-to-send-weekly-personalized-updates-to-every-sales-rep",
