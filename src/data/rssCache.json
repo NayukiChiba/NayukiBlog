@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T00:30:01.291Z",
+  "generatedAt": "2026-08-26T06:24:03.027Z",
   "feeds": [
     {
       "id": 1,
@@ -1667,6 +1667,13 @@
       "link": "https://ollama.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Claude Desktop support with Ollama",
+          "link": "https://ollama.com/blog/claude-desktop",
+          "date": "2026-08-25T00:00:00.000Z",
+          "summary": "Claude Desktop can now be configured to work with Ollama as a third-party gateway provider, making it possible to use op…",
+          "content": "Claude Desktop can now be configured to work with Ollama as a third-party gateway provider, making it possible to use open models in Claude."
+        },
         {
           "title": "NVIDIA Nemotron 3.5 Lightning",
           "link": "https://ollama.com/blog/nemotron-3-5-lightning",
