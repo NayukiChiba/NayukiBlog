@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T12:22:25.975Z",
+  "generatedAt": "2026-08-26T19:27:26.060Z",
   "feeds": [
     {
       "id": 1,
@@ -523,6 +523,20 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Bringing ChatGPT for Teachers to more U.S. school districts",
+          "link": "https://openai.com/index/bringing-chatgpt-for-teachers-to-more-us-school-districts",
+          "date": "2026-08-26T10:00:00.000Z",
+          "summary": "ChatGPT for Teachers is expanding to 55 U.S. school systems, bringing secure AI tools, training, and support to over 100…",
+          "content": "ChatGPT for Teachers is expanding to 55 U.S. school systems, bringing secure AI tools, training, and support to over 100,000 more educators and staff."
+        },
+        {
+          "title": "Learning never stops: How AI makes learning continuous",
+          "link": "https://openai.com/index/learning-never-stops",
+          "date": "2026-08-26T10:00:00.000Z",
+          "summary": "OpenAI’s new report explores how students and educators use ChatGPT to make learning more continuous, with support that …",
+          "content": "OpenAI’s new report explores how students and educators use ChatGPT to make learning more continuous, with support that extends beyond the classroom."
+        },
         {
           "title": "How loveholidays is making everyone a builder with Codex",
           "link": "https://openai.com/index/loveholidays",
@@ -1779,6 +1793,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Aug 26, 2026Societal ImpactsEnabling independent research on how people use Claude",
+          "link": "https://www.anthropic.com/research/enabling-independent-research",
+          "date": "2026-08-26T00:00:00.000Z",
+          "summary": "Aug 26, 2026Societal ImpactsEnabling independent research on how people use Claude",
+          "content": "Aug 26, 2026Societal ImpactsEnabling independent research on how people use Claude"
+        },
+        {
           "title": "Aug 18, 2026ScienceHow Claude is accelerating protein design and analytical chemistry",
           "link": "https://www.anthropic.com/research/Claude-accelerates-protein-design",
           "date": "2026-08-18T00:00:00.000Z",
@@ -2030,6 +2051,13 @@
       "link": "https://deepmind.google/blog/",
       "ok": true,
       "items": [
+        {
+          "title": "Intelligent transcription with Gemini 3.5 Transcribe",
+          "link": "https://deepmind.google/blog/intelligent-transcription-with-gemini-3-5-transcribe/",
+          "date": "2026-08-26T17:01:00.000Z",
+          "summary": "Now you can get more intelligent speech-to-text transcription with Gemini 3.5 Transcribe.",
+          "content": "Now you can get more intelligent speech-to-text transcription with Gemini 3.5 Transcribe."
+        },
         {
           "title": "From Atari to EVE Online: Building on 15 Years of AI Research in Games",
           "link": "https://deepmind.google/blog/from-atari-to-eve-online-building-on-15-years-of-ai-research-in-games/",
@@ -2755,6 +2783,13 @@
           "date": "",
           "summary": "Moving live voice agents from demo to production requires rigorous, automated testing to handle the unpredictability of …",
           "content": "Moving live voice agents from demo to production requires rigorous, automated testing to handle the unpredictability of real multi-turn conversations. ADK now provides native live evaluation, allowing developers to test graph-based agent workflows against LLM-driven simulated users that generate actual audio via Gemini TTS. By defining evaluation scenarios and natural-language rubrics, you can automatically score audio responses and tool executions, inspect the resulting transcripts in ADK Web, or run the CLI directly in your CI/CD pipeline."
+        },
+        {
+          "title": "Enterprise-Grade Precision for Long-Context Multimodal Embedding Inference on Cloud TPU",
+          "link": "https://developers.googleblog.com/enterprise-grade-precision-for-long-context-multimodal-embedding-inference-on-cloud-tpu/",
+          "date": "",
+          "summary": "Google Cloud has natively integrated TPU support into the vLLM serving engine, allowing developers to elastically scale …",
+          "content": "Google Cloud has natively integrated TPU support into the vLLM serving engine, allowing developers to elastically scale high-demand embedding pipelines using Google Kubernetes Engine (GKE). To handle massive 15K+ token contexts for models like Qwen3-Embedding-8B, the engineering team implemented TPU-specific optimizations such as hardware-safe tensor alignment, JAX/XLA compilation pre-warming, and a hybrid StepPool architecture for chunked prefill management. These enhancements achieve near-perfect numerical parity with reference GPU baselines, and developers can immediately leverage the open-sourced setup recipes on the AI-Hypercomputer GitHub to build their own high-throughput semantic retrieval applications."
         }
       ]
     },
@@ -2848,6 +2883,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers",
+          "link": "https://huggingface.co/blog/train-multi-vector-encoder",
+          "date": "2026-08-26T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Granite 4.2 LLMs: How They&apos;re Built",
           "link": "https://huggingface.co/blog/ibm-granite/granite-4-2",
