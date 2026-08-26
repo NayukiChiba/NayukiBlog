@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T06:24:03.027Z",
+  "generatedAt": "2026-08-26T12:22:25.975Z",
   "feeds": [
     {
       "id": 1,
@@ -523,6 +523,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How loveholidays is making everyone a builder with Codex",
+          "link": "https://openai.com/index/loveholidays",
+          "date": "2026-08-26T00:00:00.000Z",
+          "summary": "Discover how loveholidays uses OpenAI Codex to make software development accessible across the business, helping teams t…",
+          "content": "Discover how loveholidays uses OpenAI Codex to make software development accessible across the business, helping teams turn ideas into products faster."
+        },
         {
           "title": "The full stack behind abundant intelligence",
           "link": "https://openai.com/index/the-full-stack-behind-abundant-intelligence",
