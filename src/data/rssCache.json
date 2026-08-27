@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T19:27:26.060Z",
+  "generatedAt": "2026-08-27T05:16:31.787Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,27 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "How Warp builds self-improving agents on Claude",
+          "link": "https://claude.com/blog/how-warp-builds-self-improving-agents-on-claude",
+          "date": "2026-08-26T00:00:00.000Z",
+          "summary": "How Warp builds self-improving agents on Claude",
+          "content": "How Warp builds self-improving agents on Claude"
+        },
+        {
+          "title": "Claude gets its own browser in Cowork",
+          "link": "https://claude.com/blog/cowork-built-in-browser",
+          "date": "2026-08-26T00:00:00.000Z",
+          "summary": "Claude gets its own browser in Cowork",
+          "content": "Claude gets its own browser in Cowork"
+        },
+        {
+          "title": "Claude in Chrome is generally available",
+          "link": "https://claude.com/blog/claude-in-chrome-generally-available",
+          "date": "2026-08-26T00:00:00.000Z",
+          "summary": "Claude in Chrome is generally available",
+          "content": "Claude in Chrome is generally available"
+        },
         {
           "title": "Claude's memory works everywhere, and you decide what's in it",
           "link": "https://claude.com/blog/claudes-memory-works-everywhere-and-you-decide-whats-in-it",
@@ -543,6 +564,13 @@
           "date": "2026-08-26T00:00:00.000Z",
           "summary": "Discover how loveholidays uses OpenAI Codex to make software development accessible across the business, helping teams t…",
           "content": "Discover how loveholidays uses OpenAI Codex to make software development accessible across the business, helping teams turn ideas into products faster."
+        },
+        {
+          "title": "The Hugging Face incident and the road ahead",
+          "link": "https://openai.com/index/hugging-face-incident-and-the-road-ahead",
+          "date": "2026-08-26T00:00:00.000Z",
+          "summary": "OpenAI shares findings from the Hugging Face security incident and the steps we’re taking to strengthen AI model securit…",
+          "content": "OpenAI shares findings from the Hugging Face security incident and the steps we’re taking to strengthen AI model security, monitoring, and alignment."
         },
         {
           "title": "The full stack behind abundant intelligence",
