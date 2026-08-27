@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-27T05:16:31.787Z",
+  "generatedAt": "2026-08-27T16:55:28.565Z",
   "feeds": [
     {
       "id": 1,
@@ -544,6 +544,20 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Better answers, broader thinking: What students gain from ChatGPT and critical-thinking training",
+          "link": "https://openai.com/index/what-students-gain-from-chatgpt-critical-thinking-training",
+          "date": "2026-08-27T09:00:00.000Z",
+          "summary": "A randomized study of more than 1,000 students examines ChatGPT, critical thinking, originality, and student performance…",
+          "content": "A randomized study of more than 1,000 students examines ChatGPT, critical thinking, originality, and student performance on a real-world university assignment."
+        },
+        {
+          "title": "Expanding OpenAI’s presence in Brazil",
+          "link": "https://openai.com/index/expanding-our-presence-in-brazil",
+          "date": "2026-08-27T03:00:00.000Z",
+          "summary": "OpenAI is expanding its presence in Brazil, deepening engagement with developers, businesses, and communities to support…",
+          "content": "OpenAI is expanding its presence in Brazil, deepening engagement with developers, businesses, and communities to support AI adoption across the country."
+        },
         {
           "title": "Bringing ChatGPT for Teachers to more U.S. school districts",
           "link": "https://openai.com/index/bringing-chatgpt-for-teachers-to-more-us-school-districts",
@@ -2080,6 +2094,20 @@
       "ok": true,
       "items": [
         {
+          "title": "Gemini Omni 1.1 Flash lets you build with more control",
+          "link": "https://deepmind.google/blog/gemini-omni-1-1-flash-lets-you-build-with-more-control/",
+          "date": "2026-08-27T16:11:32.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Piloting the world's first double-blind AI evaluations",
+          "link": "https://deepmind.google/blog/piloting-the-worlds-first-double-blind-ai-evaluations/",
+          "date": "2026-08-27T12:59:16.000Z",
+          "summary": "Piloting the world's first double-blind AI evaluations",
+          "content": "Piloting the world's first double-blind AI evaluations"
+        },
+        {
           "title": "Intelligent transcription with Gemini 3.5 Transcribe",
           "link": "https://deepmind.google/blog/intelligent-transcription-with-gemini-3-5-transcribe/",
           "date": "2026-08-26T17:01:00.000Z",
@@ -2279,6 +2307,13 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "3 new ways to plan and book travel in Search",
+          "link": "https://blog.google/products-and-platforms/products/search/book-travel-ai-mode/",
+          "date": "2026-08-27T16:00:00.000Z",
+          "summary": "Book hotels and track airfares, plus view miles and rewards with AI Mode in Google Search.",
+          "content": "Book hotels and track airfares, plus view miles and rewards with AI Mode in Google Search."
+        },
         {
           "title": "5 ways to upgrade your home decor with Google Search",
           "link": "https://blog.google/products-and-platforms/products/search/home-decor-tips/",
