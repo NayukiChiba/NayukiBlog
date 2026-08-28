@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-27T16:55:28.565Z",
+  "generatedAt": "2026-08-28T01:49:14.979Z",
   "feeds": [
     {
       "id": 1,
@@ -2853,6 +2853,13 @@
           "date": "",
           "summary": "Google Cloud has natively integrated TPU support into the vLLM serving engine, allowing developers to elastically scale …",
           "content": "Google Cloud has natively integrated TPU support into the vLLM serving engine, allowing developers to elastically scale high-demand embedding pipelines using Google Kubernetes Engine (GKE). To handle massive 15K+ token contexts for models like Qwen3-Embedding-8B, the engineering team implemented TPU-specific optimizations such as hardware-safe tensor alignment, JAX/XLA compilation pre-warming, and a hybrid StepPool architecture for chunked prefill management. These enhancements achieve near-perfect numerical parity with reference GPU baselines, and developers can immediately leverage the open-sourced setup recipes on the AI-Hypercomputer GitHub to build their own high-throughput semantic retrieval applications."
+        },
+        {
+          "title": "Decoding cosmic signals with deep learning and Keras",
+          "link": "https://developers.googleblog.com/decoding-cosmic-signals-with-deep-learning-and-keras/",
+          "date": "",
+          "summary": "Astroparticle physics sits at the exciting intersection of astrophysics and particle physics and stu...",
+          "content": "Astroparticle physics sits at the exciting intersection of astrophysics and particle physics and stu..."
         }
       ]
     },
@@ -2863,6 +2870,13 @@
       "link": "https://hellogithub.com",
       "ok": true,
       "items": [
+        {
+          "title": "HelloGitHub 第 125 期",
+          "link": "https://hellogithub.com/periodical/volume/125",
+          "date": "2026-08-28T00:14:02.000Z",
+          "summary": "本期共有 40 个项目，包含 C 项目 (1)，C# 项目 (3)，C++ 项目 (2)，Go 项目 (4)，Java 项目 (2)，JavaScript 项目 (4)，Kotlin 项目 (1)，Python 项目 (4)，Rust 项目…",
+          "content": "本期共有 40 个项目，包含 C 项目 (1)，C# 项目 (3)，C++ 项目 (2)，Go 项目 (4)，Java 项目 (2)，JavaScript 项目 (4)，Kotlin 项目 (1)，Python 项目 (4)，Rust 项目 (3)，Skills (4)，Swift 项目 (2)，人工智能 (5)，其它 (5)"
+        },
         {
           "title": "HelloGitHub 第 124 期",
           "link": "https://hellogithub.com/periodical/volume/124",
