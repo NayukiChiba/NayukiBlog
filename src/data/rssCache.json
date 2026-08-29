@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T17:45:54.320Z",
+  "generatedAt": "2026-08-29T01:12:57.863Z",
   "feeds": [
     {
       "id": 1,
@@ -2967,6 +2967,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "The Open ASR Leaderboard Adds Its First Global South Language",
+          "link": "https://huggingface.co/blog/open-asr-leaderboard-global-south",
+          "date": "2026-08-28T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers",
           "link": "https://huggingface.co/blog/train-multi-vector-encoder",
