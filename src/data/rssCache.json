@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T01:12:57.863Z",
+  "generatedAt": "2026-08-29T11:50:22.654Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,20 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Claude for Teachers, now available for U.S. K-12 schools and districts",
+          "link": "https://claude.com/blog/claude-for-teachers-now-available-for-schools-and-districts",
+          "date": "2026-08-28T00:00:00.000Z",
+          "summary": "Claude for Teachers, now available for U.S. K-12 schools and districts",
+          "content": "Claude for Teachers, now available for U.S. K-12 schools and districts"
+        },
+        {
+          "title": "How Anthropic employees use Claude Tag",
+          "link": "https://claude.com/blog/how-anthropic-employees-use-claude-tag",
+          "date": "2026-08-28T00:00:00.000Z",
+          "summary": "How Anthropic employees use Claude Tag",
+          "content": "How Anthropic employees use Claude Tag"
+        },
         {
           "title": "How Warp builds self-improving agents on Claude",
           "link": "https://claude.com/blog/how-warp-builds-self-improving-agents-on-claude",
@@ -544,6 +558,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Our decision on Cursor following its acquisition by SpaceX",
+          "link": "https://openai.com/index/our-decision-on-cursor-following-its-acquisition-by-spacex",
+          "date": "2026-08-28T06:00:00.000Z",
+          "summary": "Our decision to wind down our contract providing OpenAI models to Cursor following its acquisition by SpaceX.",
+          "content": "Our decision to wind down our contract providing OpenAI models to Cursor following its acquisition by SpaceX."
+        },
         {
           "title": "Supporting Thailand’s next generation of AI startups",
           "link": "https://openai.com/index/supporting-next-generation-ai-startups-thailand",
@@ -1841,6 +1862,13 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "Aug 28, 2026AlignmentAutomated researchers can reliably mitigate alignment failures",
+          "link": "https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures",
+          "date": "2026-08-28T00:00:00.000Z",
+          "summary": "Aug 28, 2026AlignmentAutomated researchers can reliably mitigate alignment failures",
+          "content": "Aug 28, 2026AlignmentAutomated researchers can reliably mitigate alignment failures"
+        },
         {
           "title": "Aug 26, 2026Societal ImpactsEnabling independent research on how people use Claude",
           "link": "https://www.anthropic.com/research/enabling-independent-research",
