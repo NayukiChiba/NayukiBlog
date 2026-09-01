@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T15:37:57.472Z",
+  "generatedAt": "2026-09-01T20:12:33.014Z",
   "feeds": [
     {
       "id": 1,
@@ -558,6 +558,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How AI-native companies turn workflows into operating capability",
+          "link": "https://openai.com/index/ai-native-company-workflows",
+          "date": "2026-09-01T17:00:00.000Z",
+          "summary": "Basis, Clay, and Exa Labs use AI agents to improve onboarding, account management, and developer integrations. See what …",
+          "content": "Basis, Clay, and Exa Labs use AI agents to improve onboarding, account management, and developer integrations. See what enterprise leaders can apply."
+        },
+        {
+          "title": "Path to Astra: critical capabilities and frontier safeguards",
+          "link": "https://openai.com/index/path-to-astra",
+          "date": "2026-09-01T13:00:00.000Z",
+          "summary": "Astra is the first OpenAI model to meet the Critical cybersecurity capability threshold under the Preparedness Framework…",
+          "content": "Astra is the first OpenAI model to meet the Critical cybersecurity capability threshold under the Preparedness Framework, with stronger safeguards for release."
+        },
+        {
+          "title": "Healthcare organizations can now connect EHR and additional industry data to ChatGPT",
+          "link": "https://openai.com/index/chatgpt-connects-health-records-and-healthcare-sources",
+          "date": "2026-09-01T12:00:00.000Z",
+          "summary": "ChatGPT can now connect to trusted healthcare data, helping clinicians securely access patient context, medical research…",
+          "content": "ChatGPT can now connect to trusted healthcare data, helping clinicians securely access patient context, medical research, and more."
+        },
         {
           "title": "Polimill builds Japan's next-generation public AI infrastructure",
           "link": "https://openai.com/index/polimill",
@@ -2157,6 +2178,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Introducing agentic video understanding with Gemini",
+          "link": "https://deepmind.google/blog/introducing-agentic-video-in-gemini/",
+          "date": "2026-09-01T17:08:51.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "Gemini Omni 1.1 Flash lets you build with more control",
           "link": "https://deepmind.google/blog/gemini-omni-1-1-flash-lets-you-build-with-more-control/",
           "date": "2026-08-27T16:11:32.000Z",
@@ -2370,6 +2398,13 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "Try Google Pics: Easy image creation and editing in Google Workspace",
+          "link": "https://blog.google/products-and-platforms/products/workspace/google-pics/",
+          "date": "2026-09-01T16:00:00.000Z",
+          "summary": "Built on our latest Nano Banana model, Google Pics — our image creation and editing tool — is now available.",
+          "content": "Built on our latest Nano Banana model, Google Pics — our image creation and editing tool — is now available."
+        },
         {
           "title": "3 new ways to plan and book travel in Search",
           "link": "https://blog.google/products-and-platforms/products/search/book-travel-ai-mode/",
