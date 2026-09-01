@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T18:24:47.659Z",
+  "generatedAt": "2026-09-01T02:12:51.898Z",
   "feeds": [
     {
       "id": 1,
@@ -558,6 +558,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Polimill builds Japan's next-generation public AI infrastructure",
+          "link": "https://openai.com/index/polimill",
+          "date": "2026-08-31T07:00:00.000Z",
+          "summary": "Polimill uses OpenAI GPT models and Codex to help municipalities search and use administrative knowledge while accelerat…",
+          "content": "Polimill uses OpenAI GPT models and Codex to help municipalities search and use administrative knowledge while accelerating development."
+        },
         {
           "title": "A milestone in expanding access to AI",
           "link": "https://openai.com/index/expanding-access-to-ai-with-chatgpt-ads",
@@ -1765,6 +1772,13 @@
       "link": "https://ollama.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Ollama's transparent pricing",
+          "link": "https://ollama.com/blog/transparent-pricing",
+          "date": "2026-08-31T00:00:00.000Z",
+          "summary": "Ollama's Pro, Max, and Team plans now use industry-standard per-token pricing with usage included on every plan.",
+          "content": "Ollama's Pro, Max, and Team plans now use industry-standard per-token pricing with usage included on every plan."
+        },
         {
           "title": "Claude Desktop support with Ollama",
           "link": "https://ollama.com/blog/claude-desktop",
