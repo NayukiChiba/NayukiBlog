@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T02:12:51.898Z",
+  "generatedAt": "2026-09-01T10:36:11.816Z",
   "feeds": [
     {
       "id": 1,
@@ -564,6 +564,13 @@
           "date": "2026-08-31T07:00:00.000Z",
           "summary": "Polimill uses OpenAI GPT models and Codex to help municipalities search and use administrative knowledge while accelerat…",
           "content": "Polimill uses OpenAI GPT models and Codex to help municipalities search and use administrative knowledge while accelerating development."
+        },
+        {
+          "title": "OpenAI supports California’s bill to advance youth AI safety",
+          "link": "https://openai.com/index/supporting-california-bill-advance-ai-youth-safety",
+          "date": "2026-08-31T07:00:00.000Z",
+          "summary": "OpenAI supports California SB 1119, advancing strong, age-appropriate AI safeguards for teens while preserving opportuni…",
+          "content": "OpenAI supports California SB 1119, advancing strong, age-appropriate AI safeguards for teens while preserving opportunities to learn, create, and explore."
         },
         {
           "title": "A milestone in expanding access to AI",
