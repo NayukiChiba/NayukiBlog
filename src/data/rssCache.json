@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T10:36:11.816Z",
+  "generatedAt": "2026-09-01T15:37:57.472Z",
   "feeds": [
     {
       "id": 1,
@@ -3023,6 +3023,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI",
+          "link": "https://huggingface.co/blog/webgpu-kernels",
+          "date": "2026-09-01T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "The Open ASR Leaderboard Adds Its First Global South Language",
           "link": "https://huggingface.co/blog/open-asr-leaderboard-global-south",
