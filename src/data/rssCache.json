@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T15:25:26.494Z",
+  "generatedAt": "2026-09-02T20:10:56.077Z",
   "feeds": [
     {
       "id": 1,
@@ -2185,6 +2185,20 @@
       "ok": true,
       "items": [
         {
+          "title": "Proactive cyber defense for governments and enterprises",
+          "link": "https://deepmind.google/blog/proactive-cyber-defense-for-governments-and-enterprises/",
+          "date": "2026-09-02T16:24:24.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Introducing Gemini 3.8 Flash and 3.8 Flash Cyber",
+          "link": "https://deepmind.google/blog/introducing-gemini-3-8-flash-and-38-flash-cyber/",
+          "date": "2026-09-02T16:18:31.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "Introducing agentic video understanding with Gemini",
           "link": "https://deepmind.google/blog/introducing-agentic-video-in-gemini/",
           "date": "2026-09-01T17:08:51.000Z",
@@ -2405,6 +2419,13 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "Proactive cyber defense for governments and enterprises",
+          "link": "https://blog.google/innovation-and-ai/technology/safety-security/fairwind-program/",
+          "date": "2026-09-02T15:40:00.000Z",
+          "summary": "The Fairwind Program is a limited access program for governments and trusted partners to use our cyber defense tools.",
+          "content": "The Fairwind Program is a limited access program for governments and trusted partners to use our cyber defense tools."
+        },
         {
           "title": "The latest AI news we announced in August 2026",
           "link": "https://blog.google/innovation-and-ai/technology/google-ai-updates-august-2026/",
@@ -2972,6 +2993,13 @@
           "date": "",
           "summary": "Astroparticle physics sits at the exciting intersection of astrophysics and particle physics and stu...",
           "content": "Astroparticle physics sits at the exciting intersection of astrophysics and particle physics and stu..."
+        },
+        {
+          "title": "4 engineering patterns behind the strongest AI Agents Challenge submissions",
+          "link": "https://developers.googleblog.com/4-engineering-patterns-behind-the-strongest-ai-agents-challenge-submissions/",
+          "date": "",
+          "summary": "The recent Google for Startups AI Agents Challenge revealed that the most successful multi-agent systems rely on foundat…",
+          "content": "The recent Google for Startups AI Agents Challenge revealed that the most successful multi-agent systems rely on foundational software engineering patterns rather than just raw model power. Winning architectures consistently implemented bidirectional MCP for seamless inter-agent communication, async event buses for parallel execution, strict unified validation for model fallbacks, and tiered routing to minimize expensive inference calls. By prioritizing these structural practices over simple linear prompt chains, developers can build more resilient, low-latency, and cost-effective agentic workflows."
         }
       ]
     },
