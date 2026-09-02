@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T10:01:19.004Z",
+  "generatedAt": "2026-09-02T15:25:26.494Z",
   "feeds": [
     {
       "id": 1,
@@ -3072,6 +3072,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Real-Time Intelligence with IBM Time Series Models on Confluent",
+          "link": "https://huggingface.co/blog/ibm-research/real-time-intelligence",
+          "date": "2026-09-02T13:49:14.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "BenchMIRT: What are LLM benchmarks actually measuring?",
           "link": "https://huggingface.co/blog/allenai/benchmirt",
