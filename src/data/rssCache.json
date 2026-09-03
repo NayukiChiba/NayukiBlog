@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T20:10:56.077Z",
+  "generatedAt": "2026-09-03T01:39:46.663Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,20 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Building commerce agents with Claude",
+          "link": "https://claude.com/blog/claude-for-commerce-agents",
+          "date": "2026-09-02T00:00:00.000Z",
+          "summary": "Building commerce agents with Claude",
+          "content": "Building commerce agents with Claude"
+        },
+        {
+          "title": "A guide to the anatomy of effective commerce agents",
+          "link": "https://claude.com/blog/the-anatomy-of-effective-commerce-agents",
+          "date": "2026-09-02T00:00:00.000Z",
+          "summary": "A guide to the anatomy of effective commerce agents",
+          "content": "A guide to the anatomy of effective commerce agents"
+        },
         {
           "title": "Claude for Teachers, now available for U.S. K-12 schools and districts",
           "link": "https://claude.com/blog/claude-for-teachers-now-available-for-schools-and-districts",
@@ -558,6 +572,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "ATV Big Air Tour turned 3 days of work into 3 hours with ChatGPT",
+          "link": "https://openai.com/index/atv-big-air-tour",
+          "date": "2026-09-02T12:00:00.000Z",
+          "summary": "ATV Big Air Tour uses ChatGPT Work to speed up marketing, merchandising, and more. It even turned merchandise photos int…",
+          "content": "ATV Big Air Tour uses ChatGPT Work to speed up marketing, merchandising, and more. It even turned merchandise photos into an inventory website in 15 minutes."
+        },
         {
           "title": "How AI-native companies turn workflows into operating capability",
           "link": "https://openai.com/index/ai-native-company-workflows",
