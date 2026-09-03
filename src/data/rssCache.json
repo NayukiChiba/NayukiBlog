@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T07:07:48.709Z",
+  "generatedAt": "2026-09-03T10:11:56.229Z",
   "feeds": [
     {
       "id": 1,
@@ -3121,6 +3121,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Training a coding model to paint watercolours with TRL and OpenEnv",
+          "link": "https://huggingface.co/blog/train-to-paint-with-code",
+          "date": "2026-09-03T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Real-Time Intelligence with IBM Time Series Models on Confluent",
           "link": "https://huggingface.co/blog/ibm-research/real-time-intelligence",
