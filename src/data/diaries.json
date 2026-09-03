@@ -1,6 +1,22 @@
 {
   "diaries": [
     {
+      "id": 24,
+      "date": "2026-09-01T09:00",
+      "content": "我已复活",
+      "mood": "excited",
+      "weather": "sunny",
+      "images": []
+    },
+    {
+      "id": 23,
+      "date": "2026-09-02T17:30",
+      "content": "跟研究生同学一起去吃了大米饭，唱了KTV",
+      "mood": "happy",
+      "weather": "sunny",
+      "images": []
+    },
+    {
       "id": 22,
       "date": "2026-06-16T09:21",
       "content": "毕业典礼，嘻嘻，再见珞珈山，9月见",
