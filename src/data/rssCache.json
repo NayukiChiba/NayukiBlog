@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T15:13:49.733Z",
+  "generatedAt": "2026-09-04T19:57:02.258Z",
   "feeds": [
     {
       "id": 1,
@@ -3056,6 +3056,13 @@
           "date": "",
           "summary": "The recent Google for Startups AI Agents Challenge revealed that the most successful multi-agent systems rely on foundat…",
           "content": "The recent Google for Startups AI Agents Challenge revealed that the most successful multi-agent systems rely on foundational software engineering patterns rather than just raw model power. Winning architectures consistently implemented bidirectional MCP for seamless inter-agent communication, async event buses for parallel execution, strict unified validation for model fallbacks, and tiered routing to minimize expensive inference calls. By prioritizing these structural practices over simple linear prompt chains, developers can build more resilient, low-latency, and cost-effective agentic workflows."
+        },
+        {
+          "title": "Driving Developer Excellence: Inside the Program Sprints",
+          "link": "https://developers.googleblog.com/driving-developer-excellence-inside-the-program-sprints/",
+          "date": "",
+          "summary": "The Gemini Enterprise Developer Experience (DevEx) program conducts ongoing sprint testing of end-to-end developer workf…",
+          "content": "The Gemini Enterprise Developer Experience (DevEx) program conducts ongoing sprint testing of end-to-end developer workflows to identify and rapidly resolve friction points without relying on internal shortcuts. This recent sprint focused on optimizing enterprise AI governance, including refining setup prerequisites, securing extension configurations, and clarifying policy enforcement mechanics to ensure a smoother, more reliable deployment. Developers can now leverage updated documentation and standardized code samples to improve their experience with Agent Gateway and Semantic Governance configurations."
         }
       ]
     },
