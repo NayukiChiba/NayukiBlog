@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T20:11:48.411Z",
+  "generatedAt": "2026-09-04T01:35:50.963Z",
   "feeds": [
     {
       "id": 1,
@@ -572,6 +572,34 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Daybreak for Frontline Defenders: $1B to protect essential services",
+          "link": "https://openai.com/index/daybreak-for-frontline-defenders",
+          "date": "2026-09-03T13:15:00.000Z",
+          "summary": "OpenAI introduces Daybreak for Frontline Defenders. A $1 billion commitment expands access to frontier cyber AI, trainin…",
+          "content": "OpenAI introduces Daybreak for Frontline Defenders. A $1 billion commitment expands access to frontier cyber AI, training, and support for essential services."
+        },
+        {
+          "title": "Legora reviewed 41 documents in minutes with GPT-6 Astra",
+          "link": "https://openai.com/index/legora-financial-statement-review-with-astra",
+          "date": "2026-09-03T12:00:00.000Z",
+          "summary": "Legora used GPT-6 Astra to review 41 documents in minutes, find all four planted errors, and improve performance by near…",
+          "content": "Legora used GPT-6 Astra to review 41 documents in minutes, find all four planted errors, and improve performance by nearly 40% in this financial-review workflow."
+        },
+        {
+          "title": "Playco cut manual fixes 50% prototyping games with GPT-6 Astra",
+          "link": "https://openai.com/index/playco-game-prototyping-with-astra",
+          "date": "2026-09-03T12:00:00.000Z",
+          "summary": "Using GPT-6 Astra, Playco built three themed game prototypes from one grey box foundation and reported 50% fewer manual …",
+          "content": "Using GPT-6 Astra, Playco built three themed game prototypes from one grey box foundation and reported 50% fewer manual fixes than with the previous model."
+        },
+        {
+          "title": "Safety overview: GPT-6 Astra",
+          "link": "https://openai.com/index/safety-overview-gpt-6-astra",
+          "date": "2026-09-03T00:00:00.000Z",
+          "summary": "GPT-6 Astra is our most capable broadly deployed model and our first to reach the Critical level of cybersecurity capabi…",
+          "content": "GPT-6 Astra is our most capable broadly deployed model and our first to reach the Critical level of cybersecurity capability under our Preparedness Framework."
+        },
         {
           "title": "ATV Big Air Tour turned 3 days of work into 3 hours with ChatGPT",
           "link": "https://openai.com/index/atv-big-air-tour",
