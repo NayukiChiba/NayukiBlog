@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T09:31:24.699Z",
+  "generatedAt": "2026-09-05T14:03:41.896Z",
   "feeds": [
     {
       "id": 1,
@@ -1550,6 +1550,13 @@
       "link": "https://openai.com/news/research/",
       "ok": true,
       "items": [
+        {
+          "title": "GPT-6 Astra: A new generation of intelligence",
+          "link": "https://openai.com/index/gpt-6-astra",
+          "date": "2026-09-03T11:00:00.000Z",
+          "summary": "Introducing GPT-6 Astra, our most intelligent and aligned model yet, with state-of-the-art capabilities across computer …",
+          "content": "Introducing GPT-6 Astra, our most intelligent and aligned model yet, with state-of-the-art capabilities across computer use, coding, cybersecurity, and science."
+        },
         {
           "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
           "link": "https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores",
