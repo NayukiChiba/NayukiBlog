@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T01:34:50.249Z",
+  "generatedAt": "2026-09-05T09:31:24.699Z",
   "feeds": [
     {
       "id": 1,
@@ -592,6 +592,13 @@
           "date": "2026-09-03T12:00:00.000Z",
           "summary": "Using GPT-6 Astra, Playco built three themed game prototypes from one grey box foundation and reported 50% fewer manual …",
           "content": "Using GPT-6 Astra, Playco built three themed game prototypes from one grey box foundation and reported 50% fewer manual fixes than with the previous model."
+        },
+        {
+          "title": "GPT-6 Astra: A new generation of intelligence",
+          "link": "https://openai.com/index/gpt-6-astra",
+          "date": "2026-09-03T11:00:00.000Z",
+          "summary": "Introducing GPT-6 Astra, our most intelligent and aligned model yet, with state-of-the-art capabilities across computer …",
+          "content": "Introducing GPT-6 Astra, our most intelligent and aligned model yet, with state-of-the-art capabilities across computer use, coding, cybersecurity, and science."
         },
         {
           "title": "Safety overview: GPT-6 Astra",
@@ -1967,6 +1974,13 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "Sep 4, 2026ScienceFormalizing Fermat's Last Theorem",
+          "link": "https://www.anthropic.com/research/formalizing-fermats-last-theorem",
+          "date": "2026-09-04T00:00:00.000Z",
+          "summary": "Sep 4, 2026ScienceFormalizing Fermat's Last Theorem",
+          "content": "Sep 4, 2026ScienceFormalizing Fermat's Last Theorem"
+        },
         {
           "title": "Aug 28, 2026AlignmentAutomated researchers can reliably mitigate alignment failures",
           "link": "https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures",
