@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T14:28:47.861Z",
+  "generatedAt": "2026-09-06T19:40:04.643Z",
   "feeds": [
     {
       "id": 1,
@@ -572,6 +572,20 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "An Alien Mind",
+          "link": "https://openai.com/index/an-alien-mind",
+          "date": "2026-09-06T09:00:00.000Z",
+          "summary": "Jakub Pachocki reflects on increasingly capable AI and the challenge of keeping it aligned. He calls for stronger safegu…",
+          "content": "Jakub Pachocki reflects on increasingly capable AI and the challenge of keeping it aligned. He calls for stronger safeguards and international coordination."
+        },
+        {
+          "title": "Research acceleration: The view inside OpenAI",
+          "link": "https://openai.com/index/research-acceleration-view-inside-openai",
+          "date": "2026-09-06T08:00:00.000Z",
+          "summary": "Inside OpenAI, coding agents are reshaping AI research. Explore early data on agent usage, experiment velocity, task com…",
+          "content": "Inside OpenAI, coding agents are reshaping AI research. Explore early data on agent usage, experiment velocity, task complexity, and research acceleration."
+        },
         {
           "title": "Daybreak for Frontline Defenders: $1B to protect essential services",
           "link": "https://openai.com/index/daybreak-for-frontline-defenders",
