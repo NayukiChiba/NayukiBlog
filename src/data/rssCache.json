@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T01:27:37.441Z",
+  "generatedAt": "2026-09-07T10:50:32.257Z",
   "feeds": [
     {
       "id": 1,
@@ -572,6 +572,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Supporting independent journalism in Ukraine",
+          "link": "https://openai.com/index/supporting-independent-journalism-in-ukraine",
+          "date": "2026-09-07T00:00:00.000Z",
+          "summary": "OpenAI, AIRPPU and WAN-IFRA launch an AI program to help Ukrainian news organizations strengthen innovation, resilience,…",
+          "content": "OpenAI, AIRPPU and WAN-IFRA launch an AI program to help Ukrainian news organizations strengthen innovation, resilience, and independent journalism."
+        },
         {
           "title": "An Alien Mind",
           "link": "https://openai.com/index/an-alien-mind",
