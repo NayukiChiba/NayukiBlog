@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T19:40:04.643Z",
+  "generatedAt": "2026-09-07T01:27:37.441Z",
   "feeds": [
     {
       "id": 1,
@@ -1564,6 +1564,13 @@
       "link": "https://openai.com/news/research/",
       "ok": true,
       "items": [
+        {
+          "title": "Research acceleration: The view inside OpenAI",
+          "link": "https://openai.com/index/research-acceleration-view-inside-openai",
+          "date": "2026-09-06T08:00:00.000Z",
+          "summary": "Inside OpenAI, coding agents are reshaping AI research. Explore early data on agent usage, experiment velocity, task com…",
+          "content": "Inside OpenAI, coding agents are reshaping AI research. Explore early data on agent usage, experiment velocity, task complexity, and research acceleration."
+        },
         {
           "title": "GPT-6 Astra: A new generation of intelligence",
           "link": "https://openai.com/index/gpt-6-astra",
