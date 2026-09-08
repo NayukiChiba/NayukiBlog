@@ -1,6 +1,17 @@
 {
   "books": [
     {
+      "id": 4,
+      "title": "深入理解Agent",
+      "cover": "https://img.yumeko.site/file/blog/bookcover/1788831972399_agent.webp",
+      "url": "https://wwazm.lanzouu.com/ixXJz47agr9e",
+      "status": "published",
+      "tags": [
+        "LLM",
+        "Agent"
+      ]
+    },
+    {
       "id": 1,
       "title": "d2l-PyTorch",
       "cover": "https://img.yumeko.site/file/blog/bookcover/d2l-PyTorch.png",
