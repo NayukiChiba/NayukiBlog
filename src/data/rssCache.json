@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T15:27:04.334Z",
+  "generatedAt": "2026-09-08T20:22:39.096Z",
   "feeds": [
     {
       "id": 1,
@@ -573,6 +573,13 @@
       "ok": true,
       "items": [
         {
+          "title": "How GPT-5.6 Sol helps run quantum computing experiments",
+          "link": "https://openai.com/index/codex-quantum-computing-experiments",
+          "date": "2026-09-08T17:00:00.000Z",
+          "summary": "See how an MIT researcher uses GPT-5.6 Sol with Codex to autonomously run quantum computing experiments, analyze results…",
+          "content": "See how an MIT researcher uses GPT-5.6 Sol with Codex to autonomously run quantum computing experiments, analyze results, and calibrate qubits."
+        },
+        {
           "title": "The Work Now Within Reach",
           "link": "https://openai.com/index/the-work-now-within-reach",
           "date": "2026-09-08T13:00:00.000Z",
@@ -580,11 +587,39 @@
           "content": "Explore how more capable, affordable AI can expand the work people and businesses can accomplish—and make growth more economical."
         },
         {
+          "title": "Introducing ChatGPT Images 2.5",
+          "link": "https://openai.com/index/introducing-chatgpt-images-2-5",
+          "date": "2026-09-08T11:30:00.000Z",
+          "summary": "ChatGPT Images 2.5 helps turn your ideas, sketches, and reference photos into more personalized, polished images that be…",
+          "content": "ChatGPT Images 2.5 helps turn your ideas, sketches, and reference photos into more personalized, polished images that better reflect your ideas."
+        },
+        {
+          "title": "On the Navier–Stokes Millennium Prize Problem",
+          "link": "https://openai.com/index/navier-stokes-solution",
+          "date": "2026-09-08T10:00:00.000Z",
+          "summary": "We’re sharing an AI-generated solution to the Navier–Stokes Millennium Prize Problem, including a writeup and a formal p…",
+          "content": "We’re sharing an AI-generated solution to the Navier–Stokes Millennium Prize Problem, including a writeup and a formal proof in Lean."
+        },
+        {
+          "title": "Funding grants for new research into AI and teen development",
+          "link": "https://openai.com/index/teen-development-research-grants",
+          "date": "2026-09-08T09:00:00.000Z",
+          "summary": "Apply now for OpenAI’s $5 million grant program supporting independent research on how generative AI affects teen develo…",
+          "content": "Apply now for OpenAI’s $5 million grant program supporting independent research on how generative AI affects teen development, well-being, and safety."
+        },
+        {
           "title": "OpenAI expands initiatives to support journalism from classrooms to newsrooms",
           "link": "https://openai.com/index/supporting-journalism-from-classrooms-to-newsrooms",
           "date": "2026-09-08T00:00:00.000Z",
           "summary": "OpenAI is expanding support for journalism with tools, training, and partnerships for students, educators, journalists, …",
           "content": "OpenAI is expanding support for journalism with tools, training, and partnerships for students, educators, journalists, and news organizations."
+        },
+        {
+          "title": "1Password increases engineering productivity 21% with Codex",
+          "link": "https://openai.com/index/1password",
+          "date": "2026-09-08T00:00:00.000Z",
+          "summary": "Engineers at 1Password use Codex to rapidly build new features and internal tools, reaching production-readiness while m…",
+          "content": "Engineers at 1Password use Codex to rapidly build new features and internal tools, reaching production-readiness while maintaining rigorous security policies."
         },
         {
           "title": "Supporting independent journalism in Ukraine",
