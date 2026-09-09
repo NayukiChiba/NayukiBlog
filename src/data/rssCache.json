@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T20:22:39.096Z",
+  "generatedAt": "2026-09-09T01:44:44.884Z",
   "feeds": [
     {
       "id": 1,
@@ -1620,6 +1620,13 @@
       "link": "https://openai.com/news/research/",
       "ok": true,
       "items": [
+        {
+          "title": "On the Navier–Stokes Millennium Prize Problem",
+          "link": "https://openai.com/index/navier-stokes-solution",
+          "date": "2026-09-08T10:00:00.000Z",
+          "summary": "We’re sharing an AI-generated solution to the Navier–Stokes Millennium Prize Problem, including a writeup and a formal p…",
+          "content": "We’re sharing an AI-generated solution to the Navier–Stokes Millennium Prize Problem, including a writeup and a formal proof in Lean."
+        },
         {
           "title": "Research acceleration: The view inside OpenAI",
           "link": "https://openai.com/index/research-acceleration-view-inside-openai",
