@@ -9,7 +9,7 @@ tags:
   - 上下文学习
 description: 系统讲解大语言模型涌现能力的定义、关键表现（上下文学习、思维链推理、指令遵循），深入分析 Scaling Laws 的幂律规律与相变现象，探讨涌现机制的主流理论解释和实际工程意义。
 image: https://img.yumeko.site/file/blog/cover/1780668259815.webp
-status: draft
+status: published
 ---
 
 > **前置阅读**：本文假定读者熟悉 Transformer 基本架构。建议先阅读 [[NeuralNetwork/RNN/Attention|注意力机制详解]]。

@@ -8,7 +8,7 @@ tags:
   - 推理优化
 description: 解释自回归生成中的重复计算问题，拆解 KV Cache 如何缓存历史 Key/Value 并降低单步推理成本。
 image: https://img.yumeko.site/file/blog/cover/1782558811921_KVCacheInference.webp
-status: draft
+status: published
 ---
 
 > **前置阅读**：建议先阅读 [[NeuralNetwork/Transformer/SelfAttentionMechanism|Self-Attention 机制详解]] 与 [[NeuralNetwork/Transformer/PositionalEncoding|Transformer 位置编码]]。

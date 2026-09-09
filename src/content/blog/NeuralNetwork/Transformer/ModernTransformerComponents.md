@@ -9,7 +9,7 @@ tags:
   - MoE
 description: 解释 GQA/MQA、RMSNorm、SwiGLU、MoE 等现代 Transformer 中常见组件的作用与取舍。
 image: https://img.yumeko.site/file/blog/cover/1782558810330_ModernTransformerComponents.webp
-status: draft
+status: published
 ---
 
 > **前置阅读**：建议先阅读 [[NeuralNetwork/Transformer/TransformerBlock|Transformer Block 结构]]。
