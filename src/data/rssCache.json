@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T10:12:08.812Z",
+  "generatedAt": "2026-09-09T13:57:09.511Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Reducing cost and improving performance with Claude Platform",
+          "link": "https://claude.com/blog/reducing-cost-and-improving-performance-with-claude-platform",
+          "date": "2026-09-08T00:00:00.000Z",
+          "summary": "Reducing cost and improving performance with Claude Platform",
+          "content": "Reducing cost and improving performance with Claude Platform"
+        },
         {
           "title": "Building commerce agents with Claude",
           "link": "https://claude.com/blog/claude-for-commerce-agents",
