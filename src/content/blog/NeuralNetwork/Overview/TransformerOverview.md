@@ -252,9 +252,9 @@ Transformer 的核心思想是用 Self-Attention 替代循环递归，让序列�
 
 | 顺序 | 层次 | 文章 | 重点 |
 |:--|:--|:--|:--|
-| 1 | 传统结构 | [[NeuralNetwork/Transformer/SelfAttentionMechanism]] Self-Attention 机制详解 | $Q,K,V$、多头注意力、mask |
-| 2 | 传统结构 | [[NeuralNetwork/Transformer/TransformerBlock]] Transformer Block 结构 | Attention、FFN、残差、LayerNorm |
-| 3 | 连接传统与现代 | [[NeuralNetwork/Transformer/PositionalEncoding]] Transformer 位置编码 | Sinusoidal、Learned、RoPE、ALiBi |
+| 1 | 传统结构 | [[NeuralNetwork/Transformer/SelfAttentionMechanism\|Self-Attention 机制详解]]  | $Q,K,V$、多头注意力、mask |
+| 2 | 传统结构 | [[NeuralNetwork/Transformer/TransformerBlock \| Transformer Block 结构 ]]  | Attention、FFN、残差、LayerNorm |
+| 3 | 连接传统与现代 | [[NeuralNetwork/Transformer/PositionalEncoding \| Transformer 位置编码]]  | Sinusoidal、Learned、RoPE、ALiBi |
 
 ---
 
