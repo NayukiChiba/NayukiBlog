@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T14:53:10.831Z",
+  "generatedAt": "2026-09-10T04:00:31.142Z",
   "feeds": [
     {
       "id": 1,
@@ -579,6 +579,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Paul Christiano joins OpenAI Foundation Board",
+          "link": "https://openai.com/index/paul-christiano-joins-openai-foundation-board",
+          "date": "2026-09-09T17:00:00.000Z",
+          "summary": "Paul Christiano joins the OpenAI Foundation Board and its Safety and Security Committee, bringing experience in AI align…",
+          "content": "Paul Christiano joins the OpenAI Foundation Board and its Safety and Security Committee, bringing experience in AI alignment, safety, and standards."
+        },
+        {
+          "title": "The AI policy window is open. We need to act.",
+          "link": "https://openai.com/index/ai-policy-window",
+          "date": "2026-09-09T13:00:00.000Z",
+          "summary": "Chris Lehane argues that stronger AI capabilities require stronger safety evidence, shared standards, and durable policy…",
+          "content": "Chris Lehane argues that stronger AI capabilities require stronger safety evidence, shared standards, and durable policy action while the policy window remains open."
+        },
+        {
+          "title": "GPT-6 Astra: The next generation in intelligence for work",
+          "link": "https://openai.com/index/gpt-6-astra-next-generation-work",
+          "date": "2026-09-09T11:00:00.000Z",
+          "summary": "Meet GPT-6 Astra, OpenAI’s most capable model for business, with advanced reasoning, computer use, and stronger writing …",
+          "content": "Meet GPT-6 Astra, OpenAI’s most capable model for business, with advanced reasoning, computer use, and stronger writing and design judgment."
+        },
         {
           "title": "How GPT-5.6 Sol helps run quantum computing experiments",
           "link": "https://openai.com/index/codex-quantum-computing-experiments",
@@ -2595,6 +2616,20 @@
       "ok": true,
       "items": [
         {
+          "title": "Get ready for the game with new football features in Search",
+          "link": "https://blog.google/products-and-platforms/products/search/football-features-google-search/",
+          "date": "2026-09-09T16:00:00.000Z",
+          "summary": "Track live game feeds, explore detailed stats, and get custom fantasy recommendations directly in Search this season.",
+          "content": "Track live game feeds, explore detailed stats, and get custom fantasy recommendations directly in Search this season."
+        },
+        {
+          "title": "Recreating a 70-year love story frame by frame",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/love-rendered-film/",
+          "date": "2026-09-09T16:00:00.000Z",
+          "summary": "Discover how filmmakers and Google DeepMind used AI to recreate a couple's unrecorded past in the short film \"Love, Rend…",
+          "content": "Discover how filmmakers and Google DeepMind used AI to recreate a couple's unrecorded past in the short film \"Love, Rendered.\""
+        },
+        {
           "title": "Proactive cyber defense for governments and enterprises",
           "link": "https://blog.google/innovation-and-ai/technology/safety-security/fairwind-program/",
           "date": "2026-09-02T15:40:00.000Z",
@@ -3182,6 +3217,20 @@
           "date": "",
           "summary": "The Gemini Enterprise Developer Experience (DevEx) program conducts ongoing sprint testing of end-to-end developer workf…",
           "content": "The Gemini Enterprise Developer Experience (DevEx) program conducts ongoing sprint testing of end-to-end developer workflows to identify and rapidly resolve friction points without relying on internal shortcuts. This recent sprint focused on optimizing enterprise AI governance, including refining setup prerequisites, securing extension configurations, and clarifying policy enforcement mechanics to ensure a smoother, more reliable deployment. Developers can now leverage updated documentation and standardized code samples to improve their experience with Agent Gateway and Semantic Governance configurations."
+        },
+        {
+          "title": "The Anatomy of Harness Engineering: How to Evaluate, Iterate, and Guard AI Coding Agents",
+          "link": "https://developers.googleblog.com/the-anatomy-of-harness-engineering-how-to-evaluate-iterate-and-guard-ai-coding-agents/",
+          "date": "",
+          "summary": "While end-to-end benchmarks like SWE-bench provide broad performance scores for AI agents, they are often expensive, slo…",
+          "content": "While end-to-end benchmarks like SWE-bench provide broad performance scores for AI agents, they are often expensive, slow, and lack the root-cause diagnostics needed to explain exactly where an agent's logic broke down. To solve this, developers should adopt behavioral evaluations—fast, local, unit-style tests that assert on discrete intermediate actions, such as verifying specific tool calls or file modifications rather than final string equality. By building these inexpensive micro-checks alongside macro benchmarks, engineering teams can confidently iterate on system prompts and upgrade models without the risk of regressions."
+        },
+        {
+          "title": "Announcing ADK for Kotlin 1.0: Building Production-Ready AI Agents in Kotlin, Android, and Beyond",
+          "link": "https://developers.googleblog.com/announcing-adk-for-kotlin-10-building-production-ready-ai-agents-in-kotlin-android-and-beyond/",
+          "date": "",
+          "summary": "Google has officially released version 1.0 of the Agent Development Kit (ADK) for Kotlin, achieving full feature parity …",
+          "content": "Google has officially released version 1.0 of the Agent Development Kit (ADK) for Kotlin, achieving full feature parity with the Python and Java ADK cores to enable idiomatic, multi-agent AI development. Built on Kotlin Multiplatform (KMP), the framework leverages Kotlin Symbol Processing (KSP) for zero-reflection, type-safe function calling, alongside advanced orchestration capabilities like human-in-the-loop workflows and context compaction. Additionally, the release introduces a robust suite of Android-first extensions, allowing mobile developers to integrate local models via LiteRT-LM, cloud reasoning through Firebase AI, session persistence using Room, and semantic memory powered by AppSearch."
         }
       ]
     },
@@ -3282,6 +3331,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commercial-friendly license",
+          "link": "https://huggingface.co/blog/ibm-research/ibm-releases-sota-granite-time-series",
+          "date": "2026-09-09T15:36:24.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole Topic",
           "link": "https://huggingface.co/blog/MultiverseComputingCAI/safety-for-whom",
