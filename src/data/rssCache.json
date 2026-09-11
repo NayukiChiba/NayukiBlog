@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T04:00:31.142Z",
+  "generatedAt": "2026-09-11T03:57:35.283Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "T. Rowe Price brings more of Claude to its investment process",
+          "link": "https://claude.com/blog/t-rowe-price-brings-more-of-claude-to-its-investment-process",
+          "date": "2026-09-10T00:00:00.000Z",
+          "summary": "T. Rowe Price brings more of Claude to its investment process",
+          "content": "T. Rowe Price brings more of Claude to its investment process"
+        },
         {
           "title": "Reducing cost and improving performance with Claude Platform",
           "link": "https://claude.com/blog/reducing-cost-and-improving-performance-with-claude-platform",
@@ -579,6 +586,48 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
+          "link": "https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials",
+          "date": "2026-09-10T16:00:00.000Z",
+          "summary": "César de la Fuente’s lab uses Codex and ChatGPT to search living and extinct genomes for antimicrobial candidates to fig…",
+          "content": "César de la Fuente’s lab uses Codex and ChatGPT to search living and extinct genomes for antimicrobial candidates to fight drug-resistant infections."
+        },
+        {
+          "title": "Now everyone can put data to work",
+          "link": "https://openai.com/index/put-data-to-work",
+          "date": "2026-09-10T15:00:00.000Z",
+          "summary": "Meet the Data agent in ChatGPT Work. Connect company data, uncover insights, and build interactive dashboards with AI us…",
+          "content": "Meet the Data agent in ChatGPT Work. Connect company data, uncover insights, and build interactive dashboards with AI using natural language."
+        },
+        {
+          "title": "Introducing ChatGPT for Financial Services",
+          "link": "https://openai.com/index/introducing-chatgpt-financial-services",
+          "date": "2026-09-10T07:00:00.000Z",
+          "summary": "Introducing ChatGPT for Financial Services, combining built-in financial data and GPT-6 Astra for research, modeling, an…",
+          "content": "Introducing ChatGPT for Financial Services, combining built-in financial data and GPT-6 Astra for research, modeling, and client-ready materials."
+        },
+        {
+          "title": "Expanding AI access and cyber defense for federal, state, local, and tribal governments",
+          "link": "https://openai.com/index/expanding-ai-access-us-government",
+          "date": "2026-09-10T07:00:00.000Z",
+          "summary": "OpenAI and GSA will offer eligible federal, state, local, and tribal governments $0 license fees, 50% off usage, and exp…",
+          "content": "OpenAI and GSA will offer eligible federal, state, local, and tribal governments $0 license fees, 50% off usage, and expanded cyber defense support."
+        },
+        {
+          "title": "Introducing the Agents API",
+          "link": "https://openai.com/index/introducing-the-agents-api",
+          "date": "2026-09-10T00:00:00.000Z",
+          "summary": "Build and launch cloud agents with the Agents API, a managed service powered by the Codex harness for orchestration, lon…",
+          "content": "Build and launch cloud agents with the Agents API, a managed service powered by the Codex harness for orchestration, long-running sessions, and tool use."
+        },
+        {
+          "title": "Build more natural voice experiences with GPT‑Live‑1 in the API",
+          "link": "https://openai.com/index/introducing-gpt-live-1-in-the-api",
+          "date": "2026-09-10T00:00:00.000Z",
+          "summary": "GPT‑Live‑1 brings natural, full-duplex voice conversations to the API, with stronger instruction following, custom voice…",
+          "content": "GPT‑Live‑1 brings natural, full-duplex voice conversations to the API, with stronger instruction following, custom voices, and telephony support."
+        },
         {
           "title": "Paul Christiano joins OpenAI Foundation Board",
           "link": "https://openai.com/index/paul-christiano-joins-openai-foundation-board",
@@ -2094,6 +2143,20 @@
       "ok": true,
       "items": [
         {
+          "title": "Sep 10, 2026Frontier Red TeamMeasuring tactical intelligence targeting and conventional weapons capabilities of AI models",
+          "link": "https://www.anthropic.com/research/intelligence-targeting-conventional-weapons-capabilities",
+          "date": "2026-09-10T00:00:00.000Z",
+          "summary": "Sep 10, 2026Frontier Red TeamMeasuring tactical intelligence targeting and conventional weapons capabilities of AI model…",
+          "content": "Sep 10, 2026Frontier Red TeamMeasuring tactical intelligence targeting and conventional weapons capabilities of AI models"
+        },
+        {
+          "title": "AlignmentSep 9, 2026An alignment assessment of recent cybersecurity incidentsWe present an alignment assessment of four incidents in which Claude models gained unauthorized access to real third-party systems.",
+          "link": "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents",
+          "date": "2026-09-09T00:00:00.000Z",
+          "summary": "AlignmentSep 9, 2026An alignment assessment of recent cybersecurity incidentsWe present an alignment assessment of four …",
+          "content": "AlignmentSep 9, 2026An alignment assessment of recent cybersecurity incidentsWe present an alignment assessment of four incidents in which Claude models gained unauthorized access to real third-party systems."
+        },
+        {
           "title": "Sep 4, 2026ScienceFormalizing Fermat's Last Theorem",
           "link": "https://www.anthropic.com/research/formalizing-fermats-last-theorem",
           "date": "2026-09-04T00:00:00.000Z",
@@ -2615,6 +2678,13 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "3 ways to prep for your next big race with Search",
+          "link": "https://blog.google/products-and-platforms/products/search/running-race-training-tips/",
+          "date": "2026-09-10T16:00:00.000Z",
+          "summary": "Search can help runners get race-day ready with registration alerts, tailored training plans, and more.",
+          "content": "Search can help runners get race-day ready with registration alerts, tailored training plans, and more."
+        },
         {
           "title": "Get ready for the game with new football features in Search",
           "link": "https://blog.google/products-and-platforms/products/search/football-features-google-search/",
@@ -3331,6 +3401,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Rebuilding AUTOMATIC1111 with Gradio Workflow",
+          "link": "https://huggingface.co/blog/gradio-workflow-1111",
+          "date": "2026-09-10T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commercial-friendly license",
           "link": "https://huggingface.co/blog/ibm-research/ibm-releases-sota-granite-time-series",
