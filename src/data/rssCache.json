@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T03:57:35.283Z",
+  "generatedAt": "2026-09-12T03:59:20.131Z",
   "feeds": [
     {
       "id": 1,
@@ -14,6 +14,13 @@
           "date": "2026-09-10T00:00:00.000Z",
           "summary": "T. Rowe Price brings more of Claude to its investment process",
           "content": "T. Rowe Price brings more of Claude to its investment process"
+        },
+        {
+          "title": "What 1,000 small business owners taught us about AI",
+          "link": "https://claude.com/blog/what-1-000-small-business-owners-taught-us-about-ai",
+          "date": "2026-09-10T00:00:00.000Z",
+          "summary": "What 1,000 small business owners taught us about AI",
+          "content": "What 1,000 small business owners taught us about AI"
         },
         {
           "title": "Reducing cost and improving performance with Claude Platform",
@@ -586,6 +593,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Perplexity trusts GPT-6 Astra with end-to-end systems",
+          "link": "https://openai.com/index/perplexity-improving-accuracy-with-astra",
+          "date": "2026-09-14T00:00:00.000Z",
+          "summary": "Perplexity uses Astra to write communications, change software, and monitor production systems, and checks in much less …",
+          "content": "Perplexity uses Astra to write communications, change software, and monitor production systems, and checks in much less frequently than with earlier models."
+        },
+        {
+          "title": "Cognition helps Devin test its own work with GPT‑6 Astra",
+          "link": "https://openai.com/index/cognition-devin-testing-with-astra",
+          "date": "2026-09-11T16:00:00.000Z",
+          "summary": "GPT‑6 Astra improves Devin’s ability to test software and show that it works, with the goal of helping engineers review …",
+          "content": "GPT‑6 Astra improves Devin’s ability to test software and show that it works, with the goal of helping engineers review less code and ship more."
+        },
+        {
+          "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users",
+          "link": "https://openai.com/index/scaling-storage-one-billion-users-part-one",
+          "date": "2026-09-11T10:00:00.000Z",
+          "summary": "Learn how OpenAI evolved Habitat from a Python library into a globally distributed storage platform serving 1 billion Ch…",
+          "content": "Learn how OpenAI evolved Habitat from a Python library into a globally distributed storage platform serving 1 billion ChatGPT users and 22M requests per second."
+        },
         {
           "title": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
           "link": "https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials",
@@ -3301,6 +3329,13 @@
           "date": "",
           "summary": "Google has officially released version 1.0 of the Agent Development Kit (ADK) for Kotlin, achieving full feature parity …",
           "content": "Google has officially released version 1.0 of the Agent Development Kit (ADK) for Kotlin, achieving full feature parity with the Python and Java ADK cores to enable idiomatic, multi-agent AI development. Built on Kotlin Multiplatform (KMP), the framework leverages Kotlin Symbol Processing (KSP) for zero-reflection, type-safe function calling, alongside advanced orchestration capabilities like human-in-the-loop workflows and context compaction. Additionally, the release introduces a robust suite of Android-first extensions, allowing mobile developers to integrate local models via LiteRT-LM, cloud reasoning through Firebase AI, session persistence using Room, and semantic memory powered by AppSearch."
+        },
+        {
+          "title": "Autonomous LLM post-training with Tunix on TPUs",
+          "link": "https://developers.googleblog.com/autonomous-llm-post-training-with-tunix-on-tpus/",
+          "date": "",
+          "summary": "Imagine going to sleep after writing a single Markdown specification and waking up to find that an A...",
+          "content": "Imagine going to sleep after writing a single Markdown specification and waking up to find that an A..."
         }
       ]
     },
