@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T04:17:05.713Z",
+  "generatedAt": "2026-09-15T04:17:02.570Z",
   "feeds": [
     {
       "id": 1,
@@ -593,6 +593,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How Fyxer built an AI executive assistant people trust",
+          "link": "https://openai.com/index/fyxer",
+          "date": "2026-09-14T12:00:00.000Z",
+          "summary": "Fyxer uses OpenAI models, fine-tuning, memory, and real user feedback to organize inboxes and draft emails in each user’…",
+          "content": "Fyxer uses OpenAI models, fine-tuning, memory, and real user feedback to organize inboxes and draft emails in each user’s voice."
+        },
         {
           "title": "Perplexity trusts GPT-6 Astra with end-to-end systems",
           "link": "https://openai.com/index/perplexity-improving-accuracy-with-astra",
@@ -2707,6 +2714,20 @@
       "ok": true,
       "items": [
         {
+          "title": "Watch astronaut Christina Koch and Google’s James Manyika discuss space, technology, and discovery.",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/dialogues-christina-koch/",
+          "date": "2026-09-14T19:00:00.000Z",
+          "summary": "Christina Koch sits down with James Manyika, Google’s Senior Vice President of Research, Labs, Technology & Society.",
+          "content": "Christina Koch sits down with James Manyika, Google’s Senior Vice President of Research, Labs, Technology & Society."
+        },
+        {
+          "title": "DevFest is back",
+          "link": "https://blog.google/innovation-and-ai/technology/developers-tools/devfest2026/",
+          "date": "2026-09-14T16:00:00.000Z",
+          "summary": "DevFest 2026 is back and here’s how you can connect with one of the more than 800 global events to build, secure, and sc…",
+          "content": "DevFest 2026 is back and here’s how you can connect with one of the more than 800 global events to build, secure, and scale in the agentic AI era."
+        },
+        {
           "title": "3 ways to prep for your next big race with Search",
           "link": "https://blog.google/products-and-platforms/products/search/running-race-training-tips/",
           "date": "2026-09-10T16:00:00.000Z",
@@ -3439,6 +3460,13 @@
         {
           "title": "Rebuilding AUTOMATIC1111 with Gradio Workflow",
           "link": "https://huggingface.co/blog/gradio-workflow-1111",
+          "date": "2026-09-10T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL",
+          "link": "https://huggingface.co/blog/asyncgrpo-lora-hfjobs",
           "date": "2026-09-10T00:00:00.000Z",
           "summary": "",
           "content": ""
