@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T04:17:02.570Z",
+  "generatedAt": "2026-09-16T04:12:58.601Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,55 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Building an AI-native revenue organization",
+          "link": "https://claude.com/blog/building-an-ai-native-revenue-organization",
+          "date": "2026-09-15T00:00:00.000Z",
+          "summary": "Building an AI-native revenue organization",
+          "content": "Building an AI-native revenue organization"
+        },
+        {
+          "title": "Bringing Salesforce into Claude",
+          "link": "https://claude.com/blog/salesforce-in-claude",
+          "date": "2026-09-15T00:00:00.000Z",
+          "summary": "Bringing Salesforce into Claude",
+          "content": "Bringing Salesforce into Claude"
+        },
+        {
+          "title": "Claude for Small Business launches new workflows, integrations, and training programs",
+          "link": "https://claude.com/blog/claude-for-small-business-launches-new-workflows-integrations-and-training-programs",
+          "date": "2026-09-15T00:00:00.000Z",
+          "summary": "Claude for Small Business launches new workflows, integrations, and training programs",
+          "content": "Claude for Small Business launches new workflows, integrations, and training programs"
+        },
+        {
+          "title": "Deploying AI from pilot to production",
+          "link": "https://claude.com/blog/deploying-ai-from-pilot-to-production",
+          "date": "2026-09-14T00:00:00.000Z",
+          "summary": "Deploying AI from pilot to production",
+          "content": "Deploying AI from pilot to production"
+        },
+        {
+          "title": "How healthcare organizations use Claude Tag",
+          "link": "https://claude.com/blog/how-healthcare-organizations-use-claude-tag",
+          "date": "2026-09-14T00:00:00.000Z",
+          "summary": "How healthcare organizations use Claude Tag",
+          "content": "How healthcare organizations use Claude Tag"
+        },
+        {
+          "title": "Claude for Financial Advisors",
+          "link": "https://claude.com/blog/claude-for-financial-advisors",
+          "date": "2026-09-14T00:00:00.000Z",
+          "summary": "Claude for Financial Advisors",
+          "content": "Claude for Financial Advisors"
+        },
+        {
+          "title": "Agentic coding is straining CI. Here’s how we scaled test impact analysis at Anthropic",
+          "link": "https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic",
+          "date": "2026-09-14T00:00:00.000Z",
+          "summary": "Agentic coding is straining CI. Here’s how we scaled test impact analysis at Anthropic",
+          "content": "Agentic coding is straining CI. Here’s how we scaled test impact analysis at Anthropic"
+        },
         {
           "title": "T. Rowe Price brings more of Claude to its investment process",
           "link": "https://claude.com/blog/t-rowe-price-brings-more-of-claude-to-its-investment-process",
@@ -2465,6 +2514,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking",
+          "link": "https://deepmind.google/blog/introducing-gemini-3-8-live-and-3-8-live-extended-thinking/",
+          "date": "2026-09-15T17:05:57.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome",
           "link": "https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/",
           "date": "2026-09-08T14:00:15.000Z",
@@ -2713,6 +2769,34 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "AI for Societal Impact",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/ai-for-societal-impact/",
+          "date": "2026-09-15T16:00:00.000Z",
+          "summary": "Explore this collection to see how experts and local leaders are using AI breakthroughs to ensure everyone can share the…",
+          "content": "Explore this collection to see how experts and local leaders are using AI breakthroughs to ensure everyone can share the opportunity of AI."
+        },
+        {
+          "title": "Building AI to accelerate science and improve lives",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/ai-applications-science-people/",
+          "date": "2026-09-15T16:00:00.000Z",
+          "summary": "The true measure of AI is who it helps. Here’s how it’s impacting lives today. We're focused on key areas where advanced…",
+          "content": "The true measure of AI is who it helps. Here’s how it’s impacting lives today. We're focused on key areas where advanced technology can help make extraordinary progress …"
+        },
+        {
+          "title": "AI for everyone in every language",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/ai-for-every-language/",
+          "date": "2026-09-15T16:00:00.000Z",
+          "summary": "We’re moving beyond traditional text translation to build models that understand the world’s rich, living languages exac…",
+          "content": "We’re moving beyond traditional text translation to build models that understand the world’s rich, living languages exactly as they are expressed."
+        },
+        {
+          "title": "New insights from Google’s AI & Economy ATLAS",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/ai-economy-atlas-september-2026/",
+          "date": "2026-09-15T13:00:00.000Z",
+          "summary": "We’ve translated ATLAS’s millions of global data points into an interactive, open-access experience.",
+          "content": "We’ve translated ATLAS’s millions of global data points into an interactive, open-access experience."
+        },
         {
           "title": "Watch astronaut Christina Koch and Google’s James Manyika discuss space, technology, and discovery.",
           "link": "https://blog.google/innovation-and-ai/technology/ai/dialogues-christina-koch/",
@@ -3357,6 +3441,13 @@
           "date": "",
           "summary": "Imagine going to sleep after writing a single Markdown specification and waking up to find that an A...",
           "content": "Imagine going to sleep after writing a single Markdown specification and waking up to find that an A..."
+        },
+        {
+          "title": "Build zero-trust AI agents that judge intent, not just syntax",
+          "link": "https://developers.googleblog.com/build-zero-trust-ai-agents-that-judge-intent-not-just-syntax/",
+          "date": "",
+          "summary": "This blog post explores how to transition AI agents from static, build-time security controls to dynamic runtime governa…",
+          "content": "This blog post explores how to transition AI agents from static, build-time security controls to dynamic runtime governance using the Gemini Enterprise Agent Platform. It highlights three primary managed defenses: Model Armor for screening edge prompts, Semantic Governance Policies for evaluating tool intent against business rules, and Agent Anomaly Detection for catching multi-turn exploits. By shifting these capabilities to the platform level, security administrators can dynamically enforce policies and neutralize complex attacks without needing to modify or redeploy the agent's underlying code."
         }
       ]
     },
@@ -3457,6 +3548,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Your Agent Aced the Task. Will It Do It Again?",
+          "link": "https://huggingface.co/blog/ibm-research/altk-evolve-consistency",
+          "date": "2026-09-15T16:00:44.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Rebuilding AUTOMATIC1111 with Gradio Workflow",
           "link": "https://huggingface.co/blog/gradio-workflow-1111",
