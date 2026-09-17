@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T04:12:58.601Z",
+  "generatedAt": "2026-09-17T04:19:24.235Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Claude Cowork and chat are now one Claude",
+          "link": "https://claude.com/blog/cowork-is-now-claude",
+          "date": "2026-09-16T00:00:00.000Z",
+          "summary": "Claude Cowork and chat are now one Claude",
+          "content": "Claude Cowork and chat are now one Claude"
+        },
         {
           "title": "Building an AI-native revenue organization",
           "link": "https://claude.com/blog/building-an-ai-native-revenue-organization",
@@ -642,6 +649,41 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Our framework for reporting model misalignment",
+          "link": "https://openai.com/index/model-misalignment-reporting-framework",
+          "date": "2026-09-16T17:00:00.000Z",
+          "summary": "OpenAI shares a framework for tracking, investigating, and disclosing model misalignment, alongside six reports of unexp…",
+          "content": "OpenAI shares a framework for tracking, investigating, and disclosing model misalignment, alongside six reports of unexpected or concerning model behavior."
+        },
+        {
+          "title": "Helping older adults use AI in everyday life",
+          "link": "https://openai.com/index/helping-older-adults-use-ai-in-everyday-life",
+          "date": "2026-09-16T16:00:00.000Z",
+          "summary": "OpenAI and AARP are bringing free, hands-on ChatGPT workshops to 1,000 older adults across 10 U.S. cities to build pract…",
+          "content": "OpenAI and AARP are bringing free, hands-on ChatGPT workshops to 1,000 older adults across 10 U.S. cities to build practical AI skills safely."
+        },
+        {
+          "title": "Reimagining advertising with AI",
+          "link": "https://openai.com/index/reimagining-advertising-with-ai",
+          "date": "2026-09-16T13:00:00.000Z",
+          "summary": "Explore new AI-powered advertising experiences from OpenAI, including Sponsored Agents, tools for marketers, and integra…",
+          "content": "Explore new AI-powered advertising experiences from OpenAI, including Sponsored Agents, tools for marketers, and integrations with HubSpot and Shopify."
+        },
+        {
+          "title": "How to connect AI usage to business value",
+          "link": "https://openai.com/index/how-to-connect-ai-usage-to-business-value",
+          "date": "2026-09-16T12:00:00.000Z",
+          "summary": "Learn how ChatGPT Work and Codex analytics help teams understand AI usage and spend, identify training needs, and connec…",
+          "content": "Learn how ChatGPT Work and Codex analytics help teams understand AI usage and spend, identify training needs, and connect adoption to business outcomes."
+        },
+        {
+          "title": "How workers are unlocking new ways of working",
+          "link": "https://openai.com/index/unlocking-new-ways-of-working",
+          "date": "2026-09-16T09:00:00.000Z",
+          "summary": "New OpenAI Economic Research shows how workers use AI beyond traditional roles and which new activities become recurring…",
+          "content": "New OpenAI Economic Research shows how workers use AI beyond traditional roles and which new activities become recurring parts of their work."
+        },
         {
           "title": "How Fyxer built an AI executive assistant people trust",
           "link": "https://openai.com/index/fyxer",
@@ -1781,6 +1823,13 @@
       "link": "https://openai.com/news/research/",
       "ok": true,
       "items": [
+        {
+          "title": "Our framework for reporting model misalignment",
+          "link": "https://openai.com/index/model-misalignment-reporting-framework",
+          "date": "2026-09-16T17:00:00.000Z",
+          "summary": "OpenAI shares a framework for tracking, investigating, and disclosing model misalignment, alongside six reports of unexp…",
+          "content": "OpenAI shares a framework for tracking, investigating, and disclosing model misalignment, alongside six reports of unexpected or concerning model behavior."
+        },
         {
           "title": "On the Navier–Stokes Millennium Prize Problem",
           "link": "https://openai.com/index/navier-stokes-solution",
@@ -3448,6 +3497,13 @@
           "date": "",
           "summary": "This blog post explores how to transition AI agents from static, build-time security controls to dynamic runtime governa…",
           "content": "This blog post explores how to transition AI agents from static, build-time security controls to dynamic runtime governance using the Gemini Enterprise Agent Platform. It highlights three primary managed defenses: Model Armor for screening edge prompts, Semantic Governance Policies for evaluating tool intent against business rules, and Agent Anomaly Detection for catching multi-turn exploits. By shifting these capabilities to the platform level, security administrators can dynamically enforce policies and neutralize complex attacks without needing to modify or redeploy the agent's underlying code."
+        },
+        {
+          "title": "Agent Anomaly Detection, now in Private Preview on the Gemini Enterprise Agent Platform",
+          "link": "https://developers.googleblog.com/agent-anomaly-detection-now-in-private-preview-on-the-gemini-enterprise-agent-platform/",
+          "date": "",
+          "summary": "Agent Anomaly Detection is a new, out-of-band oversight layer for the Gemini Enterprise Agent Platform that analyzes Ope…",
+          "content": "Agent Anomaly Detection is a new, out-of-band oversight layer for the Gemini Enterprise Agent Platform that analyzes OpenTelemetry traces and tool calls to catch behavioral risks without adding runtime latency to live requests. It utilizes a multi-tiered detection pipeline—combining lightweight statistical scanning with deep LLM-based reasoning—to identify logical anomalies and policy violations grounded in the OWASP Agentic Top 10. Developers can triage these automated findings within Security Command Center or leverage the exposed API to programmatically block subsequent tool calls when an agent breaches defined risk thresholds."
         }
       ]
     },
