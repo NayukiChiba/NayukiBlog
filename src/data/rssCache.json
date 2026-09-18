@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T04:19:24.235Z",
+  "generatedAt": "2026-09-18T04:03:15.918Z",
   "feeds": [
     {
       "id": 1,
@@ -649,6 +649,20 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How Cooley is accelerating IPO work with ChatGPT",
+          "link": "https://openai.com/index/cooley-gopublic",
+          "date": "2026-09-17T12:00:00.000Z",
+          "summary": "Cooley built GO Public with ChatGPT Work to bring intelligence to the IPO process, helping lawyers surface issues earlie…",
+          "content": "Cooley built GO Public with ChatGPT Work to bring intelligence to the IPO process, helping lawyers surface issues earlier and focus judgment where it matters most."
+        },
+        {
+          "title": "Introducing Astra for Law",
+          "link": "https://openai.com/index/astra-for-law",
+          "date": "2026-09-17T00:00:00.000Z",
+          "summary": "OpenAI for Law brings frontier intelligence for law, custom firm workflows, connected legal data sources, and legal-grad…",
+          "content": "OpenAI for Law brings frontier intelligence for law, custom firm workflows, connected legal data sources, and legal-grade controls for confidential client work."
+        },
         {
           "title": "Our framework for reporting model misalignment",
           "link": "https://openai.com/index/model-misalignment-reporting-framework",
@@ -2819,6 +2833,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Making global data easier to explore",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/google-un-data-commons-platform/",
+          "date": "2026-09-17T20:00:00.000Z",
+          "summary": "Google and the UN system have launched the UN System Data Commons, a new open platform making global statistics accessib…",
+          "content": "Google and the UN system have launched the UN System Data Commons, a new open platform making global statistics accessible and easy to search."
+        },
+        {
           "title": "AI for Societal Impact",
           "link": "https://blog.google/innovation-and-ai/technology/ai/ai-for-societal-impact/",
           "date": "2026-09-15T16:00:00.000Z",
@@ -3504,6 +3525,13 @@
           "date": "",
           "summary": "Agent Anomaly Detection is a new, out-of-band oversight layer for the Gemini Enterprise Agent Platform that analyzes Ope…",
           "content": "Agent Anomaly Detection is a new, out-of-band oversight layer for the Gemini Enterprise Agent Platform that analyzes OpenTelemetry traces and tool calls to catch behavioral risks without adding runtime latency to live requests. It utilizes a multi-tiered detection pipeline—combining lightweight statistical scanning with deep LLM-based reasoning—to identify logical anomalies and policy violations grounded in the OWASP Agentic Top 10. Developers can triage these automated findings within Security Command Center or leverage the exposed API to programmatically block subsequent tool calls when an agent breaches defined risk thresholds."
+        },
+        {
+          "title": "Why client SDK generation belongs in the open",
+          "link": "https://developers.googleblog.com/why-client-sdk-generation-belongs-in-the-open/",
+          "date": "",
+          "summary": "Google has partnered with Speakeasy to open-source their OpenAPI code generation suite under the AGPLv3 license, a strat…",
+          "content": "Google has partnered with Speakeasy to open-source their OpenAPI code generation suite under the AGPLv3 license, a strategic move prompted by the sudden shutdown of Google's previous proprietary SDK provider. The newly open-sourced suite equips developers with deterministic, multi-language SDK generators that natively support strict typing and SSE streaming, alongside tools for compiling agent-native CLIs and documentation MCP servers. Engineering teams can now safely integrate this robust tooling directly into their CI pipelines to automatically generate reliable client libraries for their own APIs, all while retaining complete licensing control over the output code."
         }
       ]
     },
