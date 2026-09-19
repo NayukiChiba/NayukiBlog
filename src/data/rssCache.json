@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T04:03:15.918Z",
+  "generatedAt": "2026-09-19T04:00:31.111Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,20 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Projects redesigned: from folder to conversation",
+          "link": "https://claude.com/blog/projects-redesigned",
+          "date": "2026-09-17T00:00:00.000Z",
+          "summary": "Projects redesigned: from folder to conversation",
+          "content": "Projects redesigned: from folder to conversation"
+        },
+        {
+          "title": "Working at the frontier: How Balyasny Asset Management evaluates and governs Claude Fable 5",
+          "link": "https://claude.com/blog/working-at-the-frontier-how-balyasny-asset-management-evaluates-and-governs-claude-fable-5",
+          "date": "2026-09-17T00:00:00.000Z",
+          "summary": "Working at the frontier: How Balyasny Asset Management evaluates and governs Claude Fable 5",
+          "content": "Working at the frontier: How Balyasny Asset Management evaluates and governs Claude Fable 5"
+        },
         {
           "title": "Claude Cowork and chat are now one Claude",
           "link": "https://claude.com/blog/cowork-is-now-claude",
@@ -690,6 +704,13 @@
           "date": "2026-09-16T12:00:00.000Z",
           "summary": "Learn how ChatGPT Work and Codex analytics help teams understand AI usage and spend, identify training needs, and connec…",
           "content": "Learn how ChatGPT Work and Codex analytics help teams understand AI usage and spend, identify training needs, and connect adoption to business outcomes."
+        },
+        {
+          "title": "Hex turns complex analysis into visual reports with GPT‑6 Astra",
+          "link": "https://openai.com/index/hex-gpt-6-astra",
+          "date": "2026-09-16T12:00:00.000Z",
+          "summary": "GPT-6 Astra helps Hex’s data agents turn answers into interactive visualizations that employees are proud to share.",
+          "content": "GPT-6 Astra helps Hex’s data agents turn answers into interactive visualizations that employees are proud to share."
         },
         {
           "title": "How workers are unlocking new ways of working",
@@ -2290,6 +2311,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Sep 17, 2026ScienceHow Claude is uplifting biomolecular modeling",
+          "link": "https://www.anthropic.com/research/claude-uplifts-biomolecular-modeling",
+          "date": "2026-09-17T00:00:00.000Z",
+          "summary": "Sep 17, 2026ScienceHow Claude is uplifting biomolecular modeling",
+          "content": "Sep 17, 2026ScienceHow Claude is uplifting biomolecular modeling"
+        },
+        {
           "title": "Sep 10, 2026Frontier Red TeamMeasuring tactical intelligence targeting and conventional weapons capabilities of AI models",
           "link": "https://www.anthropic.com/research/intelligence-targeting-conventional-weapons-capabilities",
           "date": "2026-09-10T00:00:00.000Z",
@@ -2832,6 +2860,20 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "New experts join Google’s AI & Economy team",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/expanding-ai-economy-research-bench/",
+          "date": "2026-09-18T14:00:00.000Z",
+          "summary": "We are expanding our AI & Economy team with world-class academic advisors, fellows, and core internal researchers.",
+          "content": "We are expanding our AI & Economy team with world-class academic advisors, fellows, and core internal researchers."
+        },
+        {
+          "title": "Co-creating the future of fashion with Google",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/google-flow-fashion-week/",
+          "date": "2026-09-18T13:00:00.000Z",
+          "summary": "Google worked side-by-side with designers Jane Wade and Sergio Hudson to custom-design Google Flow tools to prep for NYF…",
+          "content": "Google worked side-by-side with designers Jane Wade and Sergio Hudson to custom-design Google Flow tools to prep for NYFW."
+        },
         {
           "title": "Making global data easier to explore",
           "link": "https://blog.google/innovation-and-ai/technology/ai/google-un-data-commons-platform/",
