@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T04:00:31.111Z",
+  "generatedAt": "2026-09-20T04:19:25.078Z",
   "feeds": [
     {
       "id": 1,
@@ -663,6 +663,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Introducing the Australian Youth Safety Blueprint",
+          "link": "https://openai.com/index/australian-youth-safety-blueprint",
+          "date": "2026-09-18T12:00:00.000Z",
+          "summary": "OpenAI introduces the Australian Youth Safety Blueprint, a six-pillar roadmap for safer AI experiences that protect and …",
+          "content": "OpenAI introduces the Australian Youth Safety Blueprint, a six-pillar roadmap for safer AI experiences that protect and empower young people."
+        },
         {
           "title": "How Cooley is accelerating IPO work with ChatGPT",
           "link": "https://openai.com/index/cooley-gopublic",
