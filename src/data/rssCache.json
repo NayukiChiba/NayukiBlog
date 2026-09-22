@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T04:17:16.482Z",
+  "generatedAt": "2026-09-22T04:12:56.916Z",
   "feeds": [
     {
       "id": 1,
@@ -663,6 +663,41 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Advisory Group on Mathematics and Artificial Intelligence",
+          "link": "https://openai.com/index/advisory-group-on-mathematics-and-ai",
+          "date": "2026-09-21T12:00:00.000Z",
+          "summary": "OpenAI is working with an independent Advisory Group on Mathematics and Artificial Intelligence to guide the review and …",
+          "content": "OpenAI is working with an independent Advisory Group on Mathematics and Artificial Intelligence to guide the review and communication of emerging AI results."
+        },
+        {
+          "title": "Higgsfield AI ships new video features in a day with GPT-6 Astra",
+          "link": "https://openai.com/index/higgsfield-from-prompt-to-production-with-astra",
+          "date": "2026-09-21T12:00:00.000Z",
+          "summary": "With GPT-6 Astra, Higgsfield AI makes video ad creation easier for small businesses and brings new creative tools to mar…",
+          "content": "With GPT-6 Astra, Higgsfield AI makes video ad creation easier for small businesses and brings new creative tools to market faster."
+        },
+        {
+          "title": "Building standards for the next phase of AI",
+          "link": "https://openai.com/index/building-standards-next-phase-ai",
+          "date": "2026-09-21T10:00:00.000Z",
+          "summary": "OpenAI outlines a path to shared global AI standards, calling for coordinated evaluation, reporting, and governance to i…",
+          "content": "OpenAI outlines a path to shared global AI standards, calling for coordinated evaluation, reporting, and governance to improve safety."
+        },
+        {
+          "title": "Expanding OpenAI Academy with new learning paths",
+          "link": "https://openai.com/index/expanding-openai-academy-with-new-learning-paths",
+          "date": "2026-09-21T07:00:00.000Z",
+          "summary": "Explore new OpenAI Academy learning paths for employees, developers, leaders, educators, and students to build and demon…",
+          "content": "Explore new OpenAI Academy learning paths for employees, developers, leaders, educators, and students to build and demonstrate practical AI skills."
+        },
+        {
+          "title": "How V7 gives AI agents institutional memory",
+          "link": "https://openai.com/index/v7",
+          "date": "2026-09-21T00:00:00.000Z",
+          "summary": "Using GPT-5.6, V7 turns scattered company files into context agents can use to complete complex, source-linked work.",
+          "content": "Using GPT-5.6, V7 turns scattered company files into context agents can use to complete complex, source-linked work."
+        },
         {
           "title": "Introducing the Australian Youth Safety Blueprint",
           "link": "https://openai.com/index/australian-youth-safety-blueprint",
@@ -3681,6 +3716,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem",
+          "link": "https://huggingface.co/blog/MultiverseComputingCAI/pruning-llms-like-a-physicist-block-removal-as-an",
+          "date": "2026-09-21T13:44:34.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "tokenizers v1: encode, decode and scaling, measured",
+          "link": "https://huggingface.co/blog/tokenizers-v1",
+          "date": "2026-09-21T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Your Agent Aced the Task. Will It Do It Again?",
           "link": "https://huggingface.co/blog/ibm-research/altk-evolve-consistency",
