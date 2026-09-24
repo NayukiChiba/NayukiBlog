@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T04:10:10.154Z",
+  "generatedAt": "2026-09-24T04:05:06.122Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,27 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Claude Marketplace: one place to discover plugins, agents, and services from our partners",
+          "link": "https://claude.com/blog/claude-marketplace",
+          "date": "2026-09-23T00:00:00.000Z",
+          "summary": "Claude Marketplace: one place to discover plugins, agents, and services from our partners",
+          "content": "Claude Marketplace: one place to discover plugins, agents, and services from our partners"
+        },
+        {
+          "title": "How to prepare for AI-driven code modernization projects",
+          "link": "https://claude.com/blog/how-to-prepare-for-ai-driven-code-modernization-projects",
+          "date": "2026-09-23T00:00:00.000Z",
+          "summary": "How to prepare for AI-driven code modernization projects",
+          "content": "How to prepare for AI-driven code modernization projects"
+        },
+        {
+          "title": "How CodeRabbit, Power Digital, and ThoughtSpot scale with Snowflake and Vercel on Claude Marketplace",
+          "link": "https://claude.com/blog/how-coderabbit-power-digital-and-thoughtspot-scale-with-snowflake-and-vercel-on-claude-marketplace",
+          "date": "2026-09-23T00:00:00.000Z",
+          "summary": "How CodeRabbit, Power Digital, and ThoughtSpot scale with Snowflake and Vercel on Claude Marketplace",
+          "content": "How CodeRabbit, Power Digital, and ThoughtSpot scale with Snowflake and Vercel on Claude Marketplace"
+        },
         {
           "title": "What a task costs on Opus 5.5",
           "link": "https://claude.com/blog/what-a-task-costs-on-opus-5-5",
@@ -670,6 +691,76 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Two years of OpenAI Academy",
+          "link": "https://openai.com/index/two-years-of-openai-academy",
+          "date": "2026-09-23T16:00:00.000Z",
+          "summary": "Marking two years of OpenAI Academy and bringing AI skills to even more communities.",
+          "content": "Marking two years of OpenAI Academy and bringing AI skills to even more communities."
+        },
+        {
+          "title": "OpenAI extends cyber access to Ukraine for civilian defense",
+          "link": "https://openai.com/index/openai-extends-cyber-access-to-ukraine-for-civilian-defense",
+          "date": "2026-09-23T13:00:00.000Z",
+          "summary": "OpenAI is extending access to its Daybreak program to the Government of Ukraine to support the cyber defense of civilian…",
+          "content": "OpenAI is extending access to its Daybreak program to the Government of Ukraine to support the cyber defense of civilian infrastructure."
+        },
+        {
+          "title": "Sam Altman’s remarks at the United Nations Security Council",
+          "link": "https://openai.com/index/sam-altman-un-security-council-remarks",
+          "date": "2026-09-23T12:00:00.000Z",
+          "summary": "OpenAI CEO Sam Altman discusses AI safety, human control, and international cooperation in remarks to the United Nations…",
+          "content": "OpenAI CEO Sam Altman discusses AI safety, human control, and international cooperation in remarks to the United Nations Security Council."
+        },
+        {
+          "title": "Harvey turns legal context into stronger drafts with GPT-6 Astra",
+          "link": "https://openai.com/index/harvey-from-context-to-confidence-with-astra",
+          "date": "2026-09-23T12:00:00.000Z",
+          "summary": "GPT-6 Astra produces more structured, context-aware legal documents, freeing lawyers to focus on strategy.",
+          "content": "GPT-6 Astra produces more structured, context-aware legal documents, freeing lawyers to focus on strategy."
+        },
+        {
+          "title": "How invideo improves color grading 3x with GPT‑6 Astra",
+          "link": "https://openai.com/index/invideo-builds-with-gpt-6-astra",
+          "date": "2026-09-23T12:00:00.000Z",
+          "summary": "With GPT‑6 Astra, invideo plans edits with greater precision, improves color correction and grading threefold, and produ…",
+          "content": "With GPT‑6 Astra, invideo plans edits with greater precision, improves color correction and grading threefold, and produces 50 custom effects in one day."
+        },
+        {
+          "title": "Ringg’s AI agents resolve up to 65% of customer calls with OpenAI",
+          "link": "https://openai.com/index/ringg",
+          "date": "2026-09-23T12:00:00.000Z",
+          "summary": "Using GPT-5.6, Ringg powers multilingual agents across voice, chat, WhatsApp, and web for 90% less cost vs. GPT-4.1.",
+          "content": "Using GPT-5.6, Ringg powers multilingual agents across voice, chat, WhatsApp, and web for 90% less cost vs. GPT-4.1."
+        },
+        {
+          "title": "Introducing MentalHealthBench",
+          "link": "https://openai.com/index/introducing-mentalhealthbench",
+          "date": "2026-09-23T10:00:00.000Z",
+          "summary": "MentalHealthBench is an expert-informed benchmark for evaluating helpful and safe AI responses across realistic mental h…",
+          "content": "MentalHealthBench is an expert-informed benchmark for evaluating helpful and safe AI responses across realistic mental health conversations."
+        },
+        {
+          "title": "ChatGPT Ads expands to Southeast Asia and Taiwan",
+          "link": "https://openai.com/index/chatgpt-ads-expands-southeast-asia-taiwan",
+          "date": "2026-09-23T02:00:00.000Z",
+          "summary": "ChatGPT Ads is expanding to Southeast Asia and Taiwan, giving eligible businesses new ways to reach people across more t…",
+          "content": "ChatGPT Ads is expanding to Southeast Asia and Taiwan, giving eligible businesses new ways to reach people across more than 60 countries."
+        },
+        {
+          "title": "Airbnb widens access to GPT-6 Astra and OpenAI frontier models",
+          "link": "https://openai.com/index/airbnb-gpt-6-astra",
+          "date": "2026-09-23T01:00:00.000Z",
+          "summary": "Learn how Airbnb is expanding access to GPT-6 Astra and OpenAI frontier models to help engineering teams solve bugs, des…",
+          "content": "Learn how Airbnb is expanding access to GPT-6 Astra and OpenAI frontier models to help engineering teams solve bugs, design systems, and ship faster."
+        },
+        {
+          "title": "Grab and OpenAI bring practical AI skills to Southeast Asia",
+          "link": "https://openai.com/index/grab-openai-ai-skills-southeast-asia",
+          "date": "2026-09-23T00:00:00.000Z",
+          "summary": "OpenAI and Grab launch GO Forward with AI, a regional programme helping 30,000 partners build practical AI skills across…",
+          "content": "OpenAI and Grab launch GO Forward with AI, a regional programme helping 30,000 partners build practical AI skills across Southeast Asia."
+        },
         {
           "title": "Better prompt caching for GPT-6",
           "link": "https://openai.com/index/better-prompt-caching-for-gpt-6",
@@ -2682,6 +2773,20 @@
       "ok": true,
       "items": [
         {
+          "title": "Advancing Private AI Compute with secure, server-side memory",
+          "link": "https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/",
+          "date": "2026-09-23T16:00:57.000Z",
+          "summary": "Introducing private, server-side memory to Private AI Compute for personal AI.",
+          "content": "Introducing private, server-side memory to Private AI Compute for personal AI."
+        },
+        {
+          "title": "Gemini 3.8 text-to-speech says hello",
+          "link": "https://deepmind.google/blog/say-hello-to-gemini-38-text-to-speech/",
+          "date": "2026-09-23T15:25:14.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking",
           "link": "https://deepmind.google/blog/introducing-gemini-3-8-live-and-3-8-live-extended-thinking/",
           "date": "2026-09-15T17:05:57.000Z",
@@ -2937,6 +3042,13 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "Google Beam expands with new regions, partners, and customers",
+          "link": "https://blog.google/innovation-and-ai/technology/research/google-beam-expansion/",
+          "date": "2026-09-23T18:00:00.000Z",
+          "summary": "We’re expanding Google Beam to five new countries, and partnering with Industrious for an extended network.",
+          "content": "We’re expanding Google Beam to five new countries, and partnering with Industrious for an extended network."
+        },
         {
           "title": "New experts join Google’s AI & Economy team",
           "link": "https://blog.google/innovation-and-ai/technology/ai/expanding-ai-economy-research-bench/",
@@ -3658,6 +3770,13 @@
           "date": "",
           "summary": "Unlock premium Google Colab compute with Google AI. Subscribers now get priority accelerators, Premium GPUs, and backgro…",
           "content": "Unlock premium Google Colab compute with Google AI. Subscribers now get priority accelerators, Premium GPUs, and background execution for long training runs."
+        },
+        {
+          "title": "Introducing Support for Local AI Models in the Antigravity SDK",
+          "link": "https://developers.googleblog.com/introducing-support-for-local-ai-models-in-the-antigravity-sdk/",
+          "date": "",
+          "summary": "The Google Antigravity SDK now empowers developers to execute offline, agentic workflows locally using models like Gemma…",
+          "content": "The Google Antigravity SDK now empowers developers to execute offline, agentic workflows locally using models like Gemma 4 26B A4B via LiteRT. This update facilitates powerful hybrid orchestration architectures, allowing a cloud model to act as a lightweight planner while local models securely handle token-intensive tasks—like code auditing and patching—directly on-device. Furthermore, the SDK provides drop-in support for OpenAI-compatible inference servers like Ollama and vLLM, enabling the seamless creation of privacy-first, autonomous local utilities."
         }
       ]
     },
@@ -3758,6 +3877,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows",
+          "link": "https://huggingface.co/blog/nvidia/how-to-use-nvidia-warp-and-mjwarp",
+          "date": "2026-09-23T18:41:40.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "How UK AISI and EvalEval Are Making Benchmark Results Reproducible",
           "link": "https://huggingface.co/blog/evaleval-aisi",
