@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T04:05:06.122Z",
+  "generatedAt": "2026-09-25T04:19:08.909Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Coding sessions are longer and use more context. Claude Opus 5.5 is built with that in mind.",
+          "link": "https://claude.com/blog/claude-opus-5-5-built-for-coding-sessions-that-use-more-context",
+          "date": "2026-09-24T00:00:00.000Z",
+          "summary": "Coding sessions are longer and use more context. Claude Opus 5.5 is built with that in mind.",
+          "content": "Coding sessions are longer and use more context. Claude Opus 5.5 is built with that in mind."
+        },
         {
           "title": "Claude Marketplace: one place to discover plugins, agents, and services from our partners",
           "link": "https://claude.com/blog/claude-marketplace",
@@ -2773,6 +2780,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Introducing Gemini 3.8 Live with Live Avatar",
+          "link": "https://deepmind.google/blog/introducing-gemini-38-live-with-live-avatar/",
+          "date": "2026-09-24T16:20:39.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "Advancing Private AI Compute with secure, server-side memory",
           "link": "https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/",
           "date": "2026-09-23T16:00:57.000Z",
@@ -3777,6 +3791,20 @@
           "date": "",
           "summary": "The Google Antigravity SDK now empowers developers to execute offline, agentic workflows locally using models like Gemma…",
           "content": "The Google Antigravity SDK now empowers developers to execute offline, agentic workflows locally using models like Gemma 4 26B A4B via LiteRT. This update facilitates powerful hybrid orchestration architectures, allowing a cloud model to act as a lightweight planner while local models securely handle token-intensive tasks—like code auditing and patching—directly on-device. Furthermore, the SDK provides drop-in support for OpenAI-compatible inference servers like Ollama and vLLM, enabling the seamless creation of privacy-first, autonomous local utilities."
+        },
+        {
+          "title": "Turn your REST APIs into MCP tools with Google Cloud API Gateway",
+          "link": "https://developers.googleblog.com/turn-your-rest-apis-into-mcp-tools-with-google-cloud-api-gateway/",
+          "date": "",
+          "summary": "Google Cloud API Gateway now acts as a native remote Model Context Protocol (MCP) server, eliminating the need to build …",
+          "content": "Google Cloud API Gateway now acts as a native remote Model Context Protocol (MCP) server, eliminating the need to build and maintain custom middleware to expose REST APIs to AI agents. By simply adding specific annotations (like x-google-api-management.mcp) to existing OpenAPI 3.x specifications, developers can instantly convert standard REST operations into discoverable, agent-ready tools. The gateway automatically transcodes incoming MCP JSON-RPC requests into REST calls, ensuring that your existing authentication, quotas, and logging policies apply seamlessly to agent traffic without requiring new infrastructure."
+        },
+        {
+          "title": "Reproducing OLMo 3 7B Pre-training in MaxText: case study of large scale training on TPUs",
+          "link": "https://developers.googleblog.com/reproducing-olmo-3-7b-pre-training-in-maxtext-case-study-of-large-scale-training-on-tpus/",
+          "date": "",
+          "summary": "The MaxText team successfully reproduced AI2’s OLMo 3 7B language model from scratch on Google Cloud TPUs using JAX/XLA,…",
+          "content": "The MaxText team successfully reproduced AI2’s OLMo 3 7B language model from scratch on Google Cloud TPUs using JAX/XLA, precisely matching the original PyTorch-on-GPU reference across pre-training and mid-training stages on all held-out evaluations. The implementation achieved up to 57.4% Model Flops Utilization (MFU) and demonstrated robust infrastructure portability by surviving mid-run cluster resizes and cross-generation TPU shifts without requiring recipe alterations. Crucially, the exercise proved the necessity of comprehensive held-out validation by catching a silent data-loader memorization bug that artificially depressed training loss and would have otherwise faked a performance win."
         }
       ]
     },
@@ -3877,6 +3905,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Accelerating vision-language models with LFM2.5-VL-DSpark",
+          "link": "https://huggingface.co/blog/LiquidAI/lfm2-5-vl-dspark",
+          "date": "2026-09-24T14:08:57.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows",
           "link": "https://huggingface.co/blog/nvidia/how-to-use-nvidia-warp-and-mjwarp",
