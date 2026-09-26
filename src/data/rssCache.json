@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T04:19:08.909Z",
+  "generatedAt": "2026-09-26T04:23:35.492Z",
   "feeds": [
     {
       "id": 1,
@@ -9,11 +9,25 @@
       "ok": true,
       "items": [
         {
+          "title": "Build plugins for Claude",
+          "link": "https://claude.com/blog/build-plugins-for-claude",
+          "date": "2026-09-25T00:00:00.000Z",
+          "summary": "Build plugins for Claude",
+          "content": "Build plugins for Claude"
+        },
+        {
           "title": "Coding sessions are longer and use more context. Claude Opus 5.5 is built with that in mind.",
           "link": "https://claude.com/blog/claude-opus-5-5-built-for-coding-sessions-that-use-more-context",
           "date": "2026-09-24T00:00:00.000Z",
           "summary": "Coding sessions are longer and use more context. Claude Opus 5.5 is built with that in mind.",
           "content": "Coding sessions are longer and use more context. Claude Opus 5.5 is built with that in mind."
+        },
+        {
+          "title": "Claude Tag now supports personal connectors in channels",
+          "link": "https://claude.com/blog/claude-tag-now-supports-personal-connectors-in-channels",
+          "date": "2026-09-24T00:00:00.000Z",
+          "summary": "Claude Tag now supports personal connectors in channels",
+          "content": "Claude Tag now supports personal connectors in channels"
         },
         {
           "title": "Claude Marketplace: one place to discover plugins, agents, and services from our partners",
@@ -698,6 +712,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Proaction boosts sales 60% and saves 75+ hours with Codex",
+          "link": "https://openai.com/index/proaction",
+          "date": "2026-09-25T19:00:00.000Z",
+          "summary": "With Codex, GPT-Live-1, and GPT-6 Astra, Proaction builds, operates, and sells modern fleet management faster.",
+          "content": "With Codex, GPT-Live-1, and GPT-6 Astra, Proaction builds, operates, and sells modern fleet management faster."
+        },
         {
           "title": "Two years of OpenAI Academy",
           "link": "https://openai.com/index/two-years-of-openai-academy",
@@ -2485,6 +2506,13 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "Sep 24, 2026EconomicsProject Swap: What happens when agents trade for us?",
+          "link": "https://www.anthropic.com/research/project-swap",
+          "date": "2026-09-24T00:00:00.000Z",
+          "summary": "Sep 24, 2026EconomicsProject Swap: What happens when agents trade for us?",
+          "content": "Sep 24, 2026EconomicsProject Swap: What happens when agents trade for us?"
+        },
         {
           "title": "Sep 17, 2026ScienceHow Claude is uplifting biomolecular modeling",
           "link": "https://www.anthropic.com/research/claude-uplifts-biomolecular-modeling",
