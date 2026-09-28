@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T04:40:47.347Z",
+  "generatedAt": "2026-09-28T04:42:28.071Z",
   "feeds": [
     {
       "id": 1,
@@ -3850,6 +3850,13 @@
       "link": "https://hellogithub.com",
       "ok": true,
       "items": [
+        {
+          "title": "HelloGitHub 第 126 期",
+          "link": "https://hellogithub.com/periodical/volume/126",
+          "date": "2026-09-28T00:05:08.000Z",
+          "summary": "本期共有 39 个项目，包含 C 项目 (1)，C# 项目 (3)，C++ 项目 (1)，Go 项目 (4)，JavaScript 项目 (5)，Python 项目 (5)，Rust 项目 (3)，Skills (4)，Swift 项目 (…",
+          "content": "本期共有 39 个项目，包含 C 项目 (1)，C# 项目 (3)，C++ 项目 (1)，Go 项目 (4)，JavaScript 项目 (5)，Python 项目 (5)，Rust 项目 (3)，Skills (4)，Swift 项目 (4)，人工智能 (5)，其它 (4)"
+        },
         {
           "title": "HelloGitHub 第 125 期",
           "link": "https://hellogithub.com/periodical/volume/125",
