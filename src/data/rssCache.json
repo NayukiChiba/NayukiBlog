@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T05:09:10.845Z",
+  "generatedAt": "2026-09-30T04:56:28.551Z",
   "feeds": [
     {
       "id": 1,
@@ -720,11 +720,39 @@
       "ok": true,
       "items": [
         {
+          "title": "Introducing GPT-6.1 Sol",
+          "link": "https://openai.com/index/introducing-gpt-6-1-sol",
+          "date": "2026-09-29T10:00:00.000Z",
+          "summary": "Meet GPT-6.1 Sol: near-Astra intelligence for coding, computer use, and professional work at one-fifth of Astra’s standa…",
+          "content": "Meet GPT-6.1 Sol: near-Astra intelligence for coding, computer use, and professional work at one-fifth of Astra’s standard API input and output token prices."
+        },
+        {
+          "title": "DevDay 2026 Recap",
+          "link": "https://openai.com/index/devday-2026-recap",
+          "date": "2026-09-29T10:00:00.000Z",
+          "summary": "Explore more than 20 announcements from OpenAI DevDay 2026, including GPT-6 Astra, ChatGPT, Codex, APIs, security, and n…",
+          "content": "Explore more than 20 announcements from OpenAI DevDay 2026, including GPT-6 Astra, ChatGPT, Codex, APIs, security, and new tools for builders."
+        },
+        {
+          "title": "Introducing dots",
+          "link": "https://openai.com/index/introducing-dots",
+          "date": "2026-09-29T00:00:00.000Z",
+          "summary": "Dots by OpenAI are proactive assistants that can keep working across complex projects and everyday tasks. Learn how dots…",
+          "content": "Dots by OpenAI are proactive assistants that can keep working across complex projects and everyday tasks. Learn how dots help you stay in control while work moves forward."
+        },
+        {
           "title": "How we will do better for Australia",
           "link": "https://openai.com/index/how-we-will-do-better-for-australia",
           "date": "2026-09-28T19:00:00.000Z",
           "summary": "OpenAI apologises for incidents involving Australian government websites and outlines stronger safeguards and support to…",
           "content": "OpenAI apologises for incidents involving Australian government websites and outlines stronger safeguards and support to strengthen Australia’s cyber defences."
+        },
+        {
+          "title": "Towards safety cases for frontier AI training",
+          "link": "https://openai.com/index/towards-safety-cases-for-frontier-ai-training",
+          "date": "2026-09-28T19:00:00.000Z",
+          "summary": "Our early guidelines for safety cases in frontier AI training cover technical safeguards, operational practices, and inv…",
+          "content": "Our early guidelines for safety cases in frontier AI training cover technical safeguards, operational practices, and investigating misalignment incidents"
         },
         {
           "title": "The Lenfest Institute grows landmark program with expanded OpenAI support",
@@ -2431,6 +2459,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Ollama now supports Jev-style decision models",
+          "link": "https://ollama.com/blog/ollama-now-supports-jev-style-decision-models",
+          "date": "2026-09-29T00:00:00.000Z",
+          "summary": "Ollama now supports decision models, based on TypeSafe's Jev API for fast, typed decisions. Decision models can now be r…",
+          "content": "Ollama now supports decision models, based on TypeSafe's Jev API for fast, typed decisions. Decision models can now be run at no cost with low latency. Based on text, decision models answer yes-or-no questions, choices and scores about it, with a probability for every option."
+        },
+        {
           "title": "Ollama's transparent pricing",
           "link": "https://ollama.com/blog/transparent-pricing",
           "date": "2026-08-31T00:00:00.000Z",
@@ -2541,6 +2576,20 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "Sep 29, 2026Frontier Red TeamGLM-5.3 and the spread of advanced cyber capabilities",
+          "link": "https://www.anthropic.com/research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities",
+          "date": "2026-09-29T00:00:00.000Z",
+          "summary": "Sep 29, 2026Frontier Red TeamGLM-5.3 and the spread of advanced cyber capabilities",
+          "content": "Sep 29, 2026Frontier Red TeamGLM-5.3 and the spread of advanced cyber capabilities"
+        },
+        {
+          "title": "Sep 29, 2026Societal ImpactsWhat do you want from AI?",
+          "link": "https://www.anthropic.com/research/your-thoughts-on-ai",
+          "date": "2026-09-29T00:00:00.000Z",
+          "summary": "Sep 29, 2026Societal ImpactsWhat do you want from AI?",
+          "content": "Sep 29, 2026Societal ImpactsWhat do you want from AI?"
+        },
         {
           "title": "Sep 25, 2026ScienceYes, Claude can do Nine Loops",
           "link": "https://www.anthropic.com/research/yes-claude-can-do-nine-loops",
@@ -3989,6 +4038,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
+          "link": "https://huggingface.co/blog/nvidia/kumo-tabular",
+          "date": "2026-09-29T15:30:38.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents",
+          "link": "https://huggingface.co/blog/MultiverseComputingCAI/getting-the-source-right-not-just-the-fact-source",
+          "date": "2026-09-29T13:07:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Holo4: powering generalist computer-use agents",
           "link": "https://huggingface.co/blog/Hcompany/holo4",
