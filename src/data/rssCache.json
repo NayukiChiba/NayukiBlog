@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T05:09:30.640Z",
+  "generatedAt": "2026-10-02T04:58:32.641Z",
   "feeds": [
     {
       "id": 1,
@@ -9,11 +9,25 @@
       "ok": true,
       "items": [
         {
+          "title": "Customize Claude Code with mods",
+          "link": "https://claude.com/blog/claude-code-mods",
+          "date": "2026-10-01T00:00:00.000Z",
+          "summary": "Customize Claude Code with mods",
+          "content": "Customize Claude Code with mods"
+        },
+        {
           "title": "How Anthropic's sales team rebuilt inbound with Claude Managed Agents",
           "link": "https://claude.com/blog/how-anthropics-sales-team-rebuilt-inbound-with-claude-managed-agents",
           "date": "2026-09-30T00:00:00.000Z",
           "summary": "How Anthropic's sales team rebuilt inbound with Claude Managed Agents",
           "content": "How Anthropic's sales team rebuilt inbound with Claude Managed Agents"
+        },
+        {
+          "title": "Claude for Government is now generally available",
+          "link": "https://claude.com/blog/claude-for-government-is-now-generally-available",
+          "date": "2026-09-30T00:00:00.000Z",
+          "summary": "Claude for Government is now generally available",
+          "content": "Claude for Government is now generally available"
         },
         {
           "title": "Agents you can coach: how Asana builds human-agent teams with Claude",
@@ -733,6 +747,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "The eternal complement",
+          "link": "https://openai.com/index/the-eternal-complement",
+          "date": "2026-10-01T17:00:00.000Z",
+          "summary": "Advanced AI may matter most for the routine work behind breakthrough ideas. Explore why execution could shape the next e…",
+          "content": "Advanced AI may matter most for the routine work behind breakthrough ideas. Explore why execution could shape the next economy and the pace of progress."
+        },
+        {
+          "title": "How Albertsons Companies is reimagining retail from the inside out",
+          "link": "https://openai.com/index/albertsons-reimagining-retail",
+          "date": "2026-10-01T16:00:00.000Z",
+          "summary": "Albertsons Cos. is using ChatGPT Enterprise and the OpenAI API to help teams work faster and make grocery shopping easie…",
+          "content": "Albertsons Cos. is using ChatGPT Enterprise and the OpenAI API to help teams work faster and make grocery shopping easier for millions of customers."
+        },
+        {
+          "title": "The Den frees up 10-15 hours a week to grow with ChatGPT Work",
+          "link": "https://openai.com/index/the-den-family-social",
+          "date": "2026-10-01T00:00:00.000Z",
+          "summary": "As it opens a new location, the social club prepares grant applications in 2 hours instead of 3 days and liquor-license …",
+          "content": "As it opens a new location, the social club prepares grant applications in 2 hours instead of 3 days and liquor-license materials in 3 hours instead of 4 days."
+        },
         {
           "title": "Disrupting a coordinated model-distillation campaign",
           "link": "https://openai.com/index/disrupting-a-coordinated-model-distillation-campaign",
@@ -2605,6 +2640,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Oct 1, 2026ScienceClaude-shaped science",
+          "link": "https://www.anthropic.com/research/claude-shaped-science",
+          "date": "2026-10-01T00:00:00.000Z",
+          "summary": "Oct 1, 2026ScienceClaude-shaped science",
+          "content": "Oct 1, 2026ScienceClaude-shaped science"
+        },
+        {
           "title": "Sep 30, 2026EconomicsWhat work can robots do?",
           "link": "https://www.anthropic.com/research/what-work-can-robots-do",
           "date": "2026-09-30T00:00:00.000Z",
@@ -4094,6 +4136,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "AutoSynthData: Generating Training Data for Enterprise Agents",
+          "link": "https://huggingface.co/blog/ServiceNow-AI/autosynthdata",
+          "date": "2026-10-02T04:01:31.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
+          "link": "https://huggingface.co/blog/allenai/olmocore3",
+          "date": "2026-10-01T15:01:43.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning",
           "link": "https://huggingface.co/blog/open-tts-leaderboard",
