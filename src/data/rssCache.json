@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-03T04:42:11.814Z",
+  "generatedAt": "2026-10-04T05:13:42.365Z",
   "feeds": [
     {
       "id": 1,
@@ -4157,6 +4157,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "The Agent Said It Was Done. The Database Disagreed.",
+          "link": "https://huggingface.co/blog/microsoft/thinkingbox",
+          "date": "2026-10-03T22:56:48.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Open-sourcing AstaBrief, the fast report-generation model in Asta",
           "link": "https://huggingface.co/blog/allenai/astabrief",
