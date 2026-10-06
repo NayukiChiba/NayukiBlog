@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T04:57:28.625Z",
+  "generatedAt": "2026-10-06T05:45:21.518Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "How Cresta turned CX expertise into an agent builder on the Claude Agent SDK",
+          "link": "https://claude.com/blog/how-cresta-turned-cx-expertise-into-an-agent-builder-on-the-claude-agent-sdk",
+          "date": "2026-10-05T00:00:00.000Z",
+          "summary": "How Cresta turned CX expertise into an agent builder on the Claude Agent SDK",
+          "content": "How Cresta turned CX expertise into an agent builder on the Claude Agent SDK"
+        },
         {
           "title": "Customize Claude Code with mods",
           "link": "https://claude.com/blog/claude-code-mods",
@@ -747,6 +754,20 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Our approach to EU text provenance rules",
+          "link": "https://openai.com/index/eu-text-provenance",
+          "date": "2026-10-05T15:00:00.000Z",
+          "summary": "How OpenAI is approaching text watermarking under EU rules. Learn where watermarks apply, how detection works, and why a…",
+          "content": "How OpenAI is approaching text watermarking under EU rules. Learn where watermarks apply, how detection works, and why access starts with researchers."
+        },
+        {
+          "title": "Building advertising for the way people use AI",
+          "link": "https://openai.com/index/new-chatgpt-ads-format-and-measurement",
+          "date": "2026-10-05T10:00:00.000Z",
+          "summary": "OpenAI introduces a new visual ad format in ChatGPT and expands measurement tools, attribution partnerships, and brand s…",
+          "content": "OpenAI introduces a new visual ad format in ChatGPT and expands measurement tools, attribution partnerships, and brand suitability for advertisers."
+        },
         {
           "title": "A model guide for the GPT-6 family",
           "link": "https://openai.com/index/practical-guide-building-gpt-6",
@@ -4224,6 +4245,13 @@
           "title": "Holo4: powering generalist computer-use agents",
           "link": "https://huggingface.co/blog/Hcompany/holo4",
           "date": "2026-09-28T09:44:05.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Welcome RL Environments to the hub",
+          "link": "https://huggingface.co/blog/rl-environments",
+          "date": "2026-09-28T00:00:00.000Z",
           "summary": "",
           "content": ""
         },
