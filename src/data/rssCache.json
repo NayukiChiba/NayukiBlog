@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-06T05:45:21.518Z",
+  "generatedAt": "2026-10-07T05:16:45.115Z",
   "feeds": [
     {
       "id": 1,
@@ -754,6 +754,34 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Atlassian and OpenAI expand partnership to turn enterprise knowledge into action",
+          "link": "https://openai.com/index/atlassian-partnership",
+          "date": "2026-10-06T16:00:00.000Z",
+          "summary": "Atlassian and OpenAI are expanding their partnership to connect frontier models with enterprise knowledge and help teams…",
+          "content": "Atlassian and OpenAI are expanding their partnership to connect frontier models with enterprise knowledge and help teams plan, build, and deliver work."
+        },
+        {
+          "title": "How Jump Trading is scaling quant research with ChatGPT",
+          "link": "https://openai.com/index/jump-trading",
+          "date": "2026-10-06T12:00:00.000Z",
+          "summary": "Jump Trading uses OpenAI to expand quantitative research. See how longer-running AI workflows combine multiple data sour…",
+          "content": "Jump Trading uses OpenAI to expand quantitative research. See how longer-running AI workflows combine multiple data sources with human review."
+        },
+        {
+          "title": "Sharing AI progress in mathematics",
+          "link": "https://openai.com/index/sharing-ai-progress-in-mathematics",
+          "date": "2026-10-06T12:00:00.000Z",
+          "summary": "OpenAI publishes new results on open problems in mathematics from an internal frontier model and shares Lean proof forma…",
+          "content": "OpenAI publishes new results on open problems in mathematics from an internal frontier model and shares Lean proof formalizations and research details on GitHub."
+        },
+        {
+          "title": "Advancing computer use with Ironclad",
+          "link": "https://openai.com/index/advancing-computer-use-with-ironclad",
+          "date": "2026-10-06T10:00:00.000Z",
+          "summary": "Learn how OpenAI and Ironclad are training and evaluating AI agents on complex contracting workflows to advance computer…",
+          "content": "Learn how OpenAI and Ironclad are training and evaluating AI agents on complex contracting workflows to advance computer use for professional work."
+        },
         {
           "title": "Our approach to EU text provenance rules",
           "link": "https://openai.com/index/eu-text-provenance",
@@ -2216,6 +2244,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Sharing AI progress in mathematics",
+          "link": "https://openai.com/index/sharing-ai-progress-in-mathematics",
+          "date": "2026-10-06T12:00:00.000Z",
+          "summary": "OpenAI publishes new results on open problems in mathematics from an internal frontier model and shares Lean proof forma…",
+          "content": "OpenAI publishes new results on open problems in mathematics from an internal frontier model and shares Lean proof formalizations and research details on GitHub."
+        },
+        {
           "title": "Our framework for reporting model misalignment",
           "link": "https://openai.com/index/model-misalignment-reporting-framework",
           "date": "2026-09-16T17:00:00.000Z",
@@ -3024,6 +3059,13 @@
       "link": "https://deepmind.google/blog/",
       "ok": true,
       "items": [
+        {
+          "title": "EmbeddingGemma 2: an open, lightweight multimodal embedding model",
+          "link": "https://deepmind.google/blog/embeddinggemma-2-an-open-lightweight-multimodal-embedding-model/",
+          "date": "2026-10-06T19:57:04.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Gemini 4 Argon: our next era of frontier intelligence",
           "link": "https://deepmind.google/blog/gemini-4-argon-our-next-era-of-frontier-intelligence/",
@@ -4085,6 +4127,20 @@
           "date": "",
           "summary": "To address the quadratic latency bottleneck of self-attention in high-resolution video diffusion models, developers impl…",
           "content": "To address the quadratic latency bottleneck of self-attention in high-resolution video diffusion models, developers implemented Sparse VideoGen (SVG) to dynamically route attention heads to highly structured spatial or temporal sparse masks. Translating this algorithmic sparsity into physical hardware speedups on TPUs required optimizing the Splash Attention kernel by bypassing empty memory tiles, restricting exact coordinate masking strictly to boundary tiles, and permuting token memory layouts into temporal-major order for contiguous access. By aligning these sparse masks with actual hardware tile execution, the combined optimizations significantly reduced wasted matrix operations and achieved up to a 1.69x end-to-end inference speedup for 1440p video generation."
+        },
+        {
+          "title": "Bring multimodal semantic search to the edge with EmbeddingGemma 2",
+          "link": "https://developers.googleblog.com/google-ai-edge-with-embeddinggemma-2/",
+          "date": "",
+          "summary": "EmbeddingGemma 2 is a new 740M open-weight multimodal model that maps text, images, video, and audio into a unified vect…",
+          "content": "EmbeddingGemma 2 is a new 740M open-weight multimodal model that maps text, images, video, and audio into a unified vector space for privacy-first, on-device retrieval. Developers can easily integrate these capabilities cross-platform using MediaPipe Tasks or optimize fine-grained performance across CPU, GPU, and NPU accelerators with LiteRT. The model enables ultra-low-latency local solutions like search-as-you-type media retrieval, keyframe video moments finding, and zero-shot intent routing."
+        },
+        {
+          "title": "EmbeddingGemma 2: The Developer Guide",
+          "link": "https://developers.googleblog.com/embeddinggemma-2-the-developer-guide/",
+          "date": "",
+          "summary": "EmbeddingGemma 2 is a compact, open-source multimodal embedding model that maps text, code, images, video, and audio int…",
+          "content": "EmbeddingGemma 2 is a compact, open-source multimodal embedding model that maps text, code, images, video, and audio into a unified 768-dimensional space. Developers can use the sentence-transformers library to selectively load modular modality encoders—ranging from 270M to 740M parameters—to optimize memory usage. Additionally, Matryoshka Representation Learning enables dynamic dimension truncation down to 128d, significantly reducing vector database storage requirements while maintaining high retrieval performance."
         }
       ]
     },
@@ -4192,6 +4248,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Falcon-Emirati: When an LLM Learns the Dialect, the Culture, and the Nuance",
+          "link": "https://huggingface.co/blog/tiiuae/falcon-emirati",
+          "date": "2026-10-06T06:44:39.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "The Agent Said It Was Done. The Database Disagreed.",
           "link": "https://huggingface.co/blog/microsoft/thinkingbox",
