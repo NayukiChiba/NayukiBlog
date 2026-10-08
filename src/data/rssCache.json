@@ -1,13 +1,62 @@
 {
-  "generatedAt": "2026-10-07T05:16:45.115Z",
+  "generatedAt": "2026-10-08T05:26:56.841Z",
   "feeds": [
     {
       "id": 1,
       "title": "Claude Blog",
       "category": "AI",
-      "link": "https://claude.com/blog",
+      "link": "https://claude.com/resources/articles",
       "ok": true,
       "items": [
+        {
+          "title": "Claude Haiku 5.5",
+          "link": "https://www.anthropic.com/claude-haiku-5-5",
+          "date": "2026-10-07T00:00:00.000Z",
+          "summary": "Introducing Claude Haiku 5.5: the cheapest, fastest, and most capable small model we’ve ever released.",
+          "content": "Introducing Claude Haiku 5.5: the cheapest, fastest, and most capable small model we’ve ever released."
+        },
+        {
+          "title": "Automating eval design and hillclimbing with Claude",
+          "link": "https://claude.dev/blog/automating-eval-design-and-hillclimbing/",
+          "date": "2026-10-07T00:00:00.000Z",
+          "summary": "Principles for designing evals and hillclimbing against them without fooling yourself, and how the claude-api skill's bu…",
+          "content": "Principles for designing evals and hillclimbing against them without fooling yourself, and how the claude-api skill's build-eval and hillclimb commands put them to work."
+        },
+        {
+          "title": "Expanding the Cyber Verification Program",
+          "link": "https://www.anthropic.com/news/cyber-verification-program",
+          "date": "2026-10-06T00:00:00.000Z",
+          "summary": "We’re launching a new, expanded version of our Cyber Verification Program (CVP), which makes advanced cyber capabilities…",
+          "content": "We’re launching a new, expanded version of our Cyber Verification Program (CVP), which makes advanced cyber capabilities and reduced blocking classifiers available to qualifying security professionals."
+        },
+        {
+          "title": "Claude Code in the cloud: a field guide to cloud sessions",
+          "link": "https://claude.dev/blog/claude-code-in-the-cloud/",
+          "date": "2026-10-06T00:00:00.000Z",
+          "summary": "What changes when Claude Code runs on its own machine, the workflows where that pays off, and how to connect GitHub on t…",
+          "content": "What changes when Claude Code runs on its own machine, the workflows where that pays off, and how to connect GitHub on the first try."
+        },
+        {
+          "title": "We’re expanding the Claude Startups program to help founders build",
+          "link": "https://claude.com/resources/articles/were-expanding-the-claude-startups-program-to-help-founders-build",
+          "date": "2026-10-06T00:00:00.000Z",
+          "summary": "We’re expanding the Claude Startups program to help founders build",
+          "content": "We’re expanding the Claude Startups program to help founders build"
+        },
+        {
+          "title": "How Comcast and Booz Allen use Claude Mythos to find exploit chains and secure their codebases",
+          "link": "https://claude.com/resources/articles/how-comcast-booz-allen-use-claude-mythos-to-secure-their-codebases",
+          "date": "2026-10-06T00:00:00.000Z",
+          "summary": "Security teams at Comcast and Booz Allen used Claude Mythos-class models through Project Glasswing to find, validate, an…",
+          "content": "Security teams at Comcast and Booz Allen used Claude Mythos-class models through Project Glasswing to find, validate, and fix vulnerabilities their existing scanners missed."
+        },
+        {
+          "title": "Claude now works with Google Docs, Sheets, and Slides",
+          "link": "https://claude.com/resources/articles/claude-now-works-in-google-docs-sheets-and-slides",
+          "date": "2026-10-06T00:00:00.000Z",
+          "summary": "Teams that run on Google Workspace can now bring Claude into their files or work on their files directly from Claude, wi…",
+          "content": "Teams that run on Google Workspace can now bring Claude into their files or work on their files directly from Claude, with our new add-on and Google Docs, Sheets, and Slides connectors (in beta)."
+        },
         {
           "title": "How Cresta turned CX expertise into an agent builder on the Claude Agent SDK",
           "link": "https://claude.com/blog/how-cresta-turned-cx-expertise-into-an-agent-builder-on-the-claude-agent-sdk",
@@ -16,11 +65,32 @@
           "content": "How Cresta turned CX expertise into an agent builder on the Claude Agent SDK"
         },
         {
+          "title": "How Cresta turned CX expertise into an agent builder on the Claude Agent SDK",
+          "link": "https://claude.com/resources/articles/how-cresta-turned-cx-expertise-into-an-agent-builder-on-the-claude-agent-sdk",
+          "date": "2026-10-05T00:00:00.000Z",
+          "summary": "See how Cresta built Conductor, an agent that builds other agents, on the Claude Agent SDK, and how the team evaluates i…",
+          "content": "See how Cresta built Conductor, an agent that builds other agents, on the Claude Agent SDK, and how the team evaluates it with every new Claude model."
+        },
+        {
           "title": "Customize Claude Code with mods",
           "link": "https://claude.com/blog/claude-code-mods",
           "date": "2026-10-01T00:00:00.000Z",
           "summary": "Customize Claude Code with mods",
           "content": "Customize Claude Code with mods"
+        },
+        {
+          "title": "Getting started with Claude Code mods",
+          "link": "https://claude.dev/blog/getting-started-with-claude-code-mods/",
+          "date": "2026-10-01T00:00:00.000Z",
+          "summary": "Getting started with Claude Code mods",
+          "content": "Getting started with Claude Code mods"
+        },
+        {
+          "title": "Customize Claude Code with mods",
+          "link": "https://claude.com/resources/articles/claude-code-mods",
+          "date": "2026-10-01T00:00:00.000Z",
+          "summary": "Change how Claude Code behaves and looks with a few lines of TypeScript.",
+          "content": "Change how Claude Code behaves and looks with a few lines of TypeScript."
         },
         {
           "title": "How Anthropic's sales team rebuilt inbound with Claude Managed Agents",
@@ -754,6 +824,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Helping teens learn, plan, and shape the future of AI",
+          "link": "https://openai.com/index/teens-learn-and-plan",
+          "date": "2026-10-07T12:00:00.000Z",
+          "summary": "College Planner is coming to ChatGPT for Teens to help students manage college applications, alongside new flashcards, q…",
+          "content": "College Planner is coming to ChatGPT for Teens to help students manage college applications, alongside new flashcards, quizzes, and a teen AI council."
+        },
+        {
+          "title": "Radisson Hotel Group brings hotel discovery into ChatGPT",
+          "link": "https://openai.com/index/radisson",
+          "date": "2026-10-07T07:00:00.000Z",
+          "summary": "Radisson partnered with Accenture to build a ChatGPT plugin using OpenAI technology, helping travelers find, compare, an…",
+          "content": "Radisson partnered with Accenture to build a ChatGPT plugin using OpenAI technology, helping travelers find, compare, and book hotels while planning their trips."
+        },
+        {
+          "title": "GPT-6 and Intelligent UI for everyone",
+          "link": "https://openai.com/index/gpt-6-for-everyone",
+          "date": "2026-10-07T00:00:00.000Z",
+          "summary": "GPT‑6 is rolling out globally in ChatGPT with Intelligent UI, delivering faster responses with visuals and interactive e…",
+          "content": "GPT‑6 is rolling out globally in ChatGPT with Intelligent UI, delivering faster responses with visuals and interactive experiences you can explore and use directly."
+        },
         {
           "title": "Atlassian and OpenAI expand partnership to turn enterprise knowledge into action",
           "link": "https://openai.com/index/atlassian-partnership",
@@ -3358,6 +3449,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Introducing Playground: Create and play custom games",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/playground-experimental-gaming-platform/",
+          "date": "2026-10-07T12:00:00.000Z",
+          "summary": "Playground is a new experimental gaming platform that lets you create, play, and share custom games.",
+          "content": "Playground is a new experimental gaming platform that lets you create, play, and share custom games."
+        },
+        {
           "title": "The latest AI news we announced in September 2026",
           "link": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-september-2026/",
           "date": "2026-10-02T15:00:00.000Z",
@@ -4141,6 +4239,13 @@
           "date": "",
           "summary": "EmbeddingGemma 2 is a compact, open-source multimodal embedding model that maps text, code, images, video, and audio int…",
           "content": "EmbeddingGemma 2 is a compact, open-source multimodal embedding model that maps text, code, images, video, and audio into a unified 768-dimensional space. Developers can use the sentence-transformers library to selectively load modular modality encoders—ranging from 270M to 740M parameters—to optimize memory usage. Additionally, Matryoshka Representation Learning enables dynamic dimension truncation down to 128d, significantly reducing vector database storage requirements while maintaining high retrieval performance."
+        },
+        {
+          "title": "Supercharge your development with the Google Developer Knowledge API ecosystem",
+          "link": "https://developers.googleblog.com/supercharge-your-development-with-the-google-developer-knowledge-api-ecosystem/",
+          "date": "",
+          "summary": "Google is launching the Developer Knowledge API and MCP Server in public preview. This new toolset provides a canonical,…",
+          "content": "Google is launching the Developer Knowledge API and MCP Server in public preview. This new toolset provides a canonical, machine-readable way for AI assistants and agentic platforms to search and retrieve up-to-date documentation across Firebase, Google Cloud, Android, and more. By using the official MCP server, developers can connect tools directly to Google’s documentation corpus, ensuring that AI-generated code and guidance are based on authoritative, real-time context."
         }
       ]
     },
@@ -4248,6 +4353,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Multimodal open d1 decision models for the edge",
+          "link": "https://huggingface.co/blog/LiquidAI/open-d1",
+          "date": "2026-10-07T16:54:33.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI and IMO",
+          "link": "https://huggingface.co/blog/nvidia/nemotron-ioi-and-imo-2026",
+          "date": "2026-10-07T12:45:31.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Falcon-Emirati: When an LLM Learns the Dialect, the Culture, and the Nuance",
           "link": "https://huggingface.co/blog/tiiuae/falcon-emirati",
