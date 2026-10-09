@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T05:26:56.841Z",
+  "generatedAt": "2026-10-09T05:29:56.040Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,20 @@
       "link": "https://claude.com/resources/articles",
       "ok": true,
       "items": [
+        {
+          "title": "How Block orchestrates Claude Fable across thousands of pull requests",
+          "link": "https://claude.com/resources/articles/how-block-orchestrates-claude-fable-across-thousands-of-pull-requests",
+          "date": "2026-10-08T00:00:00.000Z",
+          "summary": "Bradley Axen, Head of AI Capabilities at Block, on how his team evaluates new large language models, how Claude Fable 5 …",
+          "content": "Bradley Axen, Head of AI Capabilities at Block, on how his team evaluates new large language models, how Claude Fable 5 orchestrates company-wide code migrations, and why safeguards are a critical part of deploying frontier intelligence responsibly, at scale."
+        },
+        {
+          "title": "Build live dashboards and animate explainers with Claude",
+          "link": "https://claude.com/resources/articles/dashboards-and-motion",
+          "date": "2026-10-08T00:00:00.000Z",
+          "summary": "Claude Dashboards and Claude Motion are now in beta. Docs, Slides, and Design are out of beta and on every Claude plan, …",
+          "content": "Claude Dashboards and Claude Motion are now in beta. Docs, Slides, and Design are out of beta and on every Claude plan, including Free."
+        },
         {
           "title": "Claude Haiku 5.5",
           "link": "https://www.anthropic.com/claude-haiku-5-5",
@@ -824,6 +838,34 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "How Oracle turns days of work into minutes with ChatGPT and Codex",
+          "link": "https://openai.com/index/oracle",
+          "date": "2026-10-08T16:00:00.000Z",
+          "summary": "Across recruiting, engineering, and operations, Oracle turns specialist knowledge into fast, repeatable workflows with C…",
+          "content": "Across recruiting, engineering, and operations, Oracle turns specialist knowledge into fast, repeatable workflows with ChatGPT Work and Codex."
+        },
+        {
+          "title": "Pollo AI turns creative ideas into campaigns with OpenAI",
+          "link": "https://openai.com/index/pollo-ai",
+          "date": "2026-10-08T12:00:00.000Z",
+          "summary": "With GPT-5.6, GPT-6 Astra, and GPT‑Image‑2.5, Pollo AI helps creators turn bold ideas into detailed images and cinematic…",
+          "content": "With GPT-5.6, GPT-6 Astra, and GPT‑Image‑2.5, Pollo AI helps creators turn bold ideas into detailed images and cinematic video ads."
+        },
+        {
+          "title": "LegalOn halves Codex costs while maintaining development speed",
+          "link": "https://openai.com/index/legalon-halves-codex-costs",
+          "date": "2026-10-08T12:00:00.000Z",
+          "summary": "LegalOn cut estimated daily Codex costs by 65% while maintaining development speed. It matched Astra, Sol, and Luna to t…",
+          "content": "LegalOn cut estimated daily Codex costs by 65% while maintaining development speed. It matched Astra, Sol, and Luna to tasks and managed budgets strategically."
+        },
+        {
+          "title": "Disrupting AI-enabled “false front” operations",
+          "link": "https://openai.com/index/disrupting-ai-enabled-false-front-operations",
+          "date": "2026-10-08T00:00:00.000Z",
+          "summary": "OpenAI disrupted two AI-enabled influence operations that used false-front journalists and a think tank to spread geopol…",
+          "content": "OpenAI disrupted two AI-enabled influence operations that used false-front journalists and a think tank to spread geopolitical messaging."
+        },
         {
           "title": "Helping teens learn, plan, and shape the future of AI",
           "link": "https://openai.com/index/teens-learn-and-plan",
@@ -2801,6 +2843,20 @@
       "ok": true,
       "items": [
         {
+          "title": "The missing map of the sky",
+          "link": "https://www.anthropic.com/research/the-missing-map-of-the-sky",
+          "date": "2026-10-08T00:00:00.000Z",
+          "summary": "The missing map of the sky",
+          "content": "The missing map of the sky"
+        },
+        {
+          "title": "Launching an opt-in vulnerability-finding service for open-source software",
+          "link": "https://www.anthropic.com/research/launching-opt-in-vuln-finding-service-for-open-source",
+          "date": "2026-10-08T00:00:00.000Z",
+          "summary": "Launching an opt-in vulnerability-finding service for open-source software",
+          "content": "Launching an opt-in vulnerability-finding service for open-source software"
+        },
+        {
           "title": "Oct 1, 2026ScienceClaude-shaped science",
           "link": "https://www.anthropic.com/research/claude-shaped-science",
           "date": "2026-10-01T00:00:00.000Z",
@@ -4246,6 +4302,20 @@
           "date": "",
           "summary": "Google is launching the Developer Knowledge API and MCP Server in public preview. This new toolset provides a canonical,…",
           "content": "Google is launching the Developer Knowledge API and MCP Server in public preview. This new toolset provides a canonical, machine-readable way for AI assistants and agentic platforms to search and retrieve up-to-date documentation across Firebase, Google Cloud, Android, and more. By using the official MCP server, developers can connect tools directly to Google’s documentation corpus, ensuring that AI-generated code and guidance are based on authoritative, real-time context."
+        },
+        {
+          "title": "The Outer Loop, Insights First: An Ambient Quality Agent That Diagnoses Your Production Agent",
+          "link": "https://developers.googleblog.com/the-outer-loop-insights-first-an-ambient-quality-agent-that-diagnoses-your-production-agent/",
+          "date": "",
+          "summary": "How do you keep improving an AI agent after the first 80%, once it serves real production traffic and silent quality reg…",
+          "content": "How do you keep improving an AI agent after the first 80%, once it serves real production traffic and silent quality regressions return HTTP 200 OK? We are open-sourcing AQuA (Ambient Quality Agent), a reference implementation that runs beside your production agent in Google Cloud, sweeps and verifies failure clusters against conversation transcripts, and diagnoses root causes anchored to the exact deployed source snapshot."
+        },
+        {
+          "title": "ML Drift: Next-Gen GPU AI/ML Inference at the Edge",
+          "link": "https://developers.googleblog.com/ml-drift-next-gen-gpu-aiml-inference-at-the-edge/",
+          "date": "",
+          "summary": "Google AI Edge has introduced ML Drift, a high-performance, universal GPU compute framework designed to accelerate on-de…",
+          "content": "Google AI Edge has introduced ML Drift, a high-performance, universal GPU compute framework designed to accelerate on-device AI and machine learning inference. By abstracting the complexities of hardware and low-level APIs—including OpenGL ES, OpenCL, Metal, and WebGPU—ML Drift enables developers to build real-time, interactive ML experiences, from sophisticated video effects to generative AI, across mobile and desktop platforms."
         }
       ]
     },
@@ -4354,9 +4424,23 @@
       "ok": true,
       "items": [
         {
+          "title": "The model that didn&apos;t exist, so you made it yourself",
+          "link": "https://huggingface.co/blog/building-with-ml-intern",
+          "date": "2026-10-08T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "Multimodal open d1 decision models for the edge",
           "link": "https://huggingface.co/blog/LiquidAI/open-d1",
           "date": "2026-10-07T16:54:33.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Introducing Falcon ASR",
+          "link": "https://huggingface.co/blog/tiiuae/falcon-asr",
+          "date": "2026-10-07T13:21:03.000Z",
           "summary": "",
           "content": ""
         },
