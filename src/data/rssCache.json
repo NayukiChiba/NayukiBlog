@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T05:18:31.502Z",
+  "generatedAt": "2026-10-13T06:17:15.599Z",
   "feeds": [
     {
       "id": 1,
@@ -2863,6 +2863,13 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "AI models may be capable of self-replicating without access to a datacenter",
+          "link": "https://www.anthropic.com/research/self-replicating-ai",
+          "date": "2026-10-12T00:00:00.000Z",
+          "summary": "AI models may be capable of self-replicating without access to a datacenter",
+          "content": "AI models may be capable of self-replicating without access to a datacenter"
+        },
         {
           "title": "Investigating unintended model actions in our evaluations and internal use",
           "link": "https://www.anthropic.com/research/investigating-unintended-model-actions",
