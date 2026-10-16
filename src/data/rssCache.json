@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-15T04:01:13.806Z",
+  "generatedAt": "2026-10-16T03:58:04.163Z",
   "feeds": [
     {
       "id": 1,
@@ -859,6 +859,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Bringing GPT-Rosalind to academic research labs",
+          "link": "https://openai.com/index/introducing-the-rosalind-academic-plan",
+          "date": "2026-10-15T19:00:00.000Z",
+          "summary": "Introducing the Rosalind Academic Plan, offering eligible academic labs sponsored access to GPT-Rosalind and tools to ad…",
+          "content": "Introducing the Rosalind Academic Plan, offering eligible academic labs sponsored access to GPT-Rosalind and tools to advance life sciences research."
+        },
+        {
+          "title": "Teaching students to think and learn through questions",
+          "link": "https://openai.com/index/teaching-students-to-think-and-learn-through-questions",
+          "date": "2026-10-15T13:00:00.000Z",
+          "summary": "Celebrate Teachers’ Day with AI for Educators in Brazilian Portuguese and see how Study Mode can help teachers support a…",
+          "content": "Celebrate Teachers’ Day with AI for Educators in Brazilian Portuguese and see how Study Mode can help teachers support active, step-by-step learning."
+        },
+        {
+          "title": "Sullivan & Cromwell brings legal expertise into agreement review",
+          "link": "https://openai.com/index/sullivan-cromwell",
+          "date": "2026-10-15T00:00:00.000Z",
+          "summary": "In collaboration with OpenAI, Sullivan & Cromwell developed Agreement Analyzer, an AI tool for identifying issues in a d…",
+          "content": "In collaboration with OpenAI, Sullivan & Cromwell developed Agreement Analyzer, an AI tool for identifying issues in a draft agreement."
+        },
         {
           "title": "Amp puts AI agents to work beyond code with OpenAI models",
           "link": "https://openai.com/index/amp-beyond-coding",
@@ -3319,6 +3340,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Accelerating the search for antimicrobial peptides with Google Antigravity",
+          "link": "https://deepmind.google/blog/accelerating-antimicrobial-discovery/",
+          "date": "2026-10-15T16:08:03.000Z",
+          "summary": "Accelerating the search for novel antimicrobial peptides using Google Antigravity for Science.",
+          "content": "Accelerating the search for novel antimicrobial peptides using Google Antigravity for Science."
+        },
+        {
           "title": "Google DeepMind and Singapore Government announce new AI tool to protect citizens against scams",
           "link": "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/",
           "date": "2026-10-14T02:00:14.000Z",
@@ -4484,6 +4512,27 @@
           "date": "",
           "summary": "Apigee hybrid 1.17.0 introduces native Model Context Protocol (MCP) support, enabling the MCP data plane to run directly…",
           "content": "Apigee hybrid 1.17.0 introduces native Model Context Protocol (MCP) support, enabling the MCP data plane to run directly within your own Kubernetes cluster. This architecture ensures that AI agent request traffic and tool execution remain entirely inside your infrastructure while pulling configuration updates from the control plane. Developers can expose OpenAPI 3.0.x specifications as discoverable MCP tools, leverage existing security policies and API products, and trace end-to-end requests using W3C trace context headers."
+        },
+        {
+          "title": "Announcing DPoP Support for Google OAuth: Securing Refresh Tokens",
+          "link": "https://developers.googleblog.com/announcing-dpop-support-for-google-oauth-securing-refresh-tokens/",
+          "date": "",
+          "summary": "Google OAuth Platform now supports DPoP (Demonstrating Proof-of-Possession) to sender-constrain refresh tokens, neutrali…",
+          "content": "Google OAuth Platform now supports DPoP (Demonstrating Proof-of-Possession) to sender-constrain refresh tokens, neutralizing Infostealer malware and adversary-in-the-middle attacks. By cryptographically binding long-lived refresh tokens while maintaining short-lived access tokens as standard Bearer tokens, developers achieve robust credential security without incurring high-QPS API performance overhead. Additionally, developers integrating multi-agent or Model Context Protocol (MCP) workloads can use Google Cloud Secure Token Service (STS) to handle secure token delegation across agent chains."
+        },
+        {
+          "title": "Three layers, one repo: a tour of google/adk-recipes",
+          "link": "https://developers.googleblog.com/three-layers-one-repo-a-tour-of-googleadk-recipes/",
+          "date": "",
+          "summary": "The google/adk-recipes repository unifies Agent Development Kit (ADK) resources into three structured layers—core/, plug…",
+          "content": "The google/adk-recipes repository unifies Agent Development Kit (ADK) resources into three structured layers—core/, plugins/, and contrib/—serving as a single source of truth for building AI agents. Developers can leverage reference patterns, install modular vertical skills (such as retail product search and virtual try-on) directly into their coding assistants, and deploy production-ready services across multiple languages. This cohesive structure streamlines the entire workflow from initial scaffolding to full deployment on Google Cloud infrastructure."
+        },
+        {
+          "title": "Evaluating AI agents: moving past the vibe check",
+          "link": "https://developers.googleblog.com/evaluating-ai-agents-moving-past-the-vibe-check/",
+          "date": "",
+          "summary": "A practical engineering guide and reference architecture for establishing continuous evaluation pipelines for multi-turn…",
+          "content": "A practical engineering guide and reference architecture for establishing continuous evaluation pipelines for multi-turn AI agents using Gemini Enterprise Agent Platform, Google ADK, and OpenInference standards."
         }
       ]
     },
@@ -4591,6 +4640,34 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Generation Pipeline",
+          "link": "https://huggingface.co/blog/nvidia/scaling-indic-pretraining",
+          "date": "2026-10-16T01:44:47.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Granite Switch 4.1: Chat, Decisions, and Speech from One Endpoint",
+          "link": "https://huggingface.co/blog/ibm-granite/granite-switch-4-1",
+          "date": "2026-10-15T20:34:01.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta",
+          "link": "https://huggingface.co/blog/meta-muse-spark-open",
+          "date": "2026-10-15T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Welcome FLUX.3 Image Klein in Diffusers",
+          "link": "https://huggingface.co/blog/flux-3",
+          "date": "2026-10-15T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "HiRO-ACEv2: Simulating extreme weather at 3 km resolution for a fraction of the cost",
           "link": "https://huggingface.co/blog/allenai/hiro-acev2",
