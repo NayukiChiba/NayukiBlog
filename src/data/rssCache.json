@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T04:03:13.975Z",
+  "generatedAt": "2026-10-20T04:16:31.610Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/resources/articles",
       "ok": true,
       "items": [
+        {
+          "title": "Redesigning source control at Anthropic",
+          "link": "https://www.anthropic.com/engineering/redesigning-source-control",
+          "date": "2026-10-19T00:00:00.000Z",
+          "summary": "As merges to Anthropic's monorepo grew from about 2,500 to more than 30,000 a day, source control became the biggest dev…",
+          "content": "As merges to Anthropic's monorepo grew from about 2,500 to more than 30,000 a day, source control became the biggest development bottleneck. Here is how the team built Scion, an in-house version control system designed for always-online agents, and migrated off git in five months."
+        },
         {
           "title": "How the Claude Code team does code review",
           "link": "https://claude.dev/blog/solving-code-review-at-anthropic/",
@@ -880,6 +887,13 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Advancing coding in low‑resource programming languages",
+          "link": "https://openai.com/index/low-resource-programming-languages",
+          "date": "2026-10-19T12:00:00.000Z",
+          "summary": "Learn how OpenAI is improving ChatGPT across low-resource programming languages, with new evaluations for software engin…",
+          "content": "Learn how OpenAI is improving ChatGPT across low-resource programming languages, with new evaluations for software engineering, SQLite, and COBOL migration."
+        },
         {
           "title": "How Itaú is building generative AI for its entire customer base",
           "link": "https://openai.com/index/itau-generative-ai",
@@ -2872,6 +2886,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Clef is available on Ollama's cloud",
+          "link": "https://ollama.com/blog/clef",
+          "date": "2026-10-19T00:00:00.000Z",
+          "summary": "Clef, a 27B multimodal decision model from Cloudflare, is now available on Ollama. Run it locally or on Ollama's cloud.",
+          "content": "Clef, a 27B multimodal decision model from Cloudflare, is now available on Ollama. Run it locally or on Ollama's cloud."
+        },
+        {
           "title": "Reflection's Beam is freely available on Ollama for a limited time",
           "link": "https://ollama.com/blog/reflection-beam",
           "date": "2026-10-16T00:00:00.000Z",
@@ -4624,6 +4645,20 @@
           "date": "",
           "summary": "A practical engineering guide and reference architecture for establishing continuous evaluation pipelines for multi-turn…",
           "content": "A practical engineering guide and reference architecture for establishing continuous evaluation pipelines for multi-turn AI agents using Gemini Enterprise Agent Platform, Google ADK, and OpenInference standards."
+        },
+        {
+          "title": "Step by Step guide: Build a Voice Agent That Never Goes Silent using ADK",
+          "link": "https://developers.googleblog.com/step-by-step-guide-build-a-voice-agent-that-never-goes-silent-using-adk/",
+          "date": "",
+          "summary": "The open-source Agent Development Kit (ADK) and gemini-3.8-live enable developers to build responsive voice agents by im…",
+          "content": "The open-source Agent Development Kit (ADK) and gemini-3.8-live enable developers to build responsive voice agents by implementing non-blocking tools in Python. Developers can use streaming tools to yield progress updates or background execution patterns to keep conversations fluid during long-running backend queries. Additionally, configuring response scheduling behaviors such as WHEN_IDLE, INTERRUPT, or SILENT gives developers precise control over when and how tool results are delivered into the conversation."
+        },
+        {
+          "title": "Native Model Authoring for Edge with LiteRT Tensor API",
+          "link": "https://developers.googleblog.com/native-model-authoring-for-edge-with-litert-tensor-api/",
+          "date": "",
+          "summary": "Meet the LiteRT Tensor API: giving developers native C++ control over the model graph to unify end-to-end ML computation…",
+          "content": "Meet the LiteRT Tensor API: giving developers native C++ control over the model graph to unify end-to-end ML computations on heterogeneous edge hardware."
         }
       ]
     },
@@ -4732,6 +4767,13 @@
       "ok": true,
       "items": [
         {
+          "title": "TorchNeuron: running HF models on AWS Trainium is easier than ever",
+          "link": "https://huggingface.co/blog/hf-torchneuron",
+          "date": "2026-10-19T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
           "title": "Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Generation Pipeline",
           "link": "https://huggingface.co/blog/nvidia/scaling-indic-pretraining",
           "date": "2026-10-16T01:44:47.000Z",
@@ -4749,6 +4791,13 @@
           "title": "Granite Switch 4.1: Chat, Decisions, and Speech from One Endpoint",
           "link": "https://huggingface.co/blog/ibm-granite/granite-switch-4-1",
           "date": "2026-10-15T20:34:01.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Apertus 1.5 Release Notes",
+          "link": "https://huggingface.co/blog/swiss-ai/apertus-v15-release-notes",
+          "date": "2026-10-15T09:08:45.000Z",
           "summary": "",
           "content": ""
         },
