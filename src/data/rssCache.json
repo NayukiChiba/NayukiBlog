@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T04:16:31.610Z",
+  "generatedAt": "2026-10-21T04:04:43.218Z",
   "feeds": [
     {
       "id": 1,
@@ -887,6 +887,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Franchisee reconciles cash in 94% less time with ChatGPT Work",
+          "link": "https://openai.com/index/ted-taylor-restaurant",
+          "date": "2026-10-20T10:00:00.000Z",
+          "summary": "An independent Schlotzsky’s and Cinnabon franchisee cut menu repricing time by 95% and built a workflow that could free …",
+          "content": "An independent Schlotzsky’s and Cinnabon franchisee cut menu repricing time by 95% and built a workflow that could free up $100K in cash flow."
+        },
+        {
+          "title": "Terminal X matches senior investor judgment 88.6% with GPT-6.1",
+          "link": "https://openai.com/index/terminal-x",
+          "date": "2026-10-20T07:00:00.000Z",
+          "summary": "Terminal X’s Eval Agent grades outputs against a 54-criterion rubric, catching 25% more deviances from a fund’s mandate …",
+          "content": "Terminal X’s Eval Agent grades outputs against a 54-criterion rubric, catching 25% more deviances from a fund’s mandate with GPT-6.1 Sol."
+        },
+        {
+          "title": "OpenAI acquires Orchestra Bio",
+          "link": "https://openai.com/index/openai-to-acquire-orchestra-bio",
+          "date": "2026-10-20T00:00:00.000Z",
+          "summary": "OpenAI is acquiring Orchestra Bio to bring AI-powered operations to life sciences R&D, helping biopharma teams accelerat…",
+          "content": "OpenAI is acquiring Orchestra Bio to bring AI-powered operations to life sciences R&D, helping biopharma teams accelerate drug development and advance new treatments."
+        },
         {
           "title": "Advancing coding in low‑resource programming languages",
           "link": "https://openai.com/index/low-resource-programming-languages",
@@ -3785,6 +3806,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Southeast Asia’s digital economy to hit $368 billion",
+          "link": "https://blog.google/company-news/inside-google/around-the-globe/google-asia/e-conomy-sea-report-2026/",
+          "date": "2026-10-21T04:00:00.000Z",
+          "summary": "Widespread AI adoption is propelling Southeast Asia's digital economy to a projected $368 billion in 2026 and $1 trillio…",
+          "content": "Widespread AI adoption is propelling Southeast Asia's digital economy to a projected $368 billion in 2026 and $1 trillion by 2035."
+        },
+        {
           "title": "Gemini 4 Argon: Built to solve your hardest problems",
           "link": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
           "date": "2026-10-13T16:00:00.000Z",
@@ -4659,6 +4687,34 @@
           "date": "",
           "summary": "Meet the LiteRT Tensor API: giving developers native C++ control over the model graph to unify end-to-end ML computation…",
           "content": "Meet the LiteRT Tensor API: giving developers native C++ control over the model graph to unify end-to-end ML computations on heterogeneous edge hardware."
+        },
+        {
+          "title": "Unifying Edge AI: How Coral NPU’s open standard brings portable, energy-viable intelligence from model to silicon",
+          "link": "https://developers.googleblog.com/unifying-edge-ai-how-coral-npus-open-standard-brings-portable-energy-viable-intelligence-from-model-to-silicon/",
+          "date": "",
+          "summary": "Google Research has completed the 32-bit open-source Coral NPU RISC-V architecture with the introduction of its Matrix E…",
+          "content": "Google Research has completed the 32-bit open-source Coral NPU RISC-V architecture with the introduction of its Matrix Execution Unit, which delivers up to 1 TOPS while targeting 10 mW average power for edge inference. Alongside this architecture, the release of the v1.0 open-source IREE/MLIR compiler allows developers to take models from JAX, PyTorch, and TensorFlow straight to Coral NPU hardware without writing custom assembly. Developers can now prototype and deploy these multimodal edge applications using new hardware options like the Synaptics Astra SR200 MCU series and globally available Coralboard devkits.12"
+        },
+        {
+          "title": "Bringing Visual Graph Debugging to Custom Edge Compilers with Model Explorer",
+          "link": "https://developers.googleblog.com/bringing-visual-graph-debugging-to-custom-edge-compilers-with-model-explorer/",
+          "date": "",
+          "summary": "Google AI Edge Model Explorer now supports custom compiler intermediate representations and open-source adapters like TO…",
+          "content": "Google AI Edge Model Explorer now supports custom compiler intermediate representations and open-source adapters like TOSA, VGF, and PTE for on-device machine learning. Developers can leverage hierarchical graph visualization, split-pane views, and per-node trace overlays to catch export regressions and verify hardware delegation. These tools enable engineering teams to transparently debug execution graphs and pinpoint cycle-level latency bottlenecks locally."
+        },
+        {
+          "title": "Integrating TorchTPU into TorchTitan and Optimizing Models for TPU",
+          "link": "https://developers.googleblog.com/integrating-torchtpu-into-torchtitan-and-optimizing-models-for-tpu/",
+          "date": "",
+          "summary": "TorchTPU integrates a native torch.device(\"tpu\") backend directly into PyTorch, allowing developers to train large-scale…",
+          "content": "TorchTPU integrates a native torch.device(\"tpu\") backend directly into PyTorch, allowing developers to train large-scale models on Google Cloud TPUs without rewriting code in JAX. The TorchTitan TPU fork enhances this with production-grade scaling primitives like SimpleFSDP, Graph Trainer, and custom Pallas kernels that achieve high Model Flops Utilization (MFU) across dense and MoE architectures. Developers can leverage these battle-tested optimization playbooks, recipes, and the Hugging Face modeling backend to efficiently scale their own workloads on TPU infrastructure."
+        },
+        {
+          "title": "Announcing New vLLM and SGLang Inference Engines on TPU",
+          "link": "https://developers.googleblog.com/announcing-new-vllm-and-sglang-inference-engines-on-tpu/",
+          "date": "",
+          "summary": "This post announces native PyTorch backends for vLLM and SGLang powered by TorchTPU, enabling developers to run and opti…",
+          "content": "This post announces native PyTorch backends for vLLM and SGLang powered by TorchTPU, enabling developers to run and optimize serving workloads using familiar PyTorch tools. Built in collaboration with open-source project maintainers, these engines include optimized TPU kernel implementations, production-ready features like KV cache management with TPU Sync, and disaggregated serving. Public benchmarks demonstrate state-of-the-art performance and industry-leading cost efficiency on Ironwood TPU across long-context and agentic workloads."
         }
       ]
     },
@@ -4766,6 +4822,48 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Generative Simulation",
+          "link": "https://huggingface.co/blog/nvidia/cosmos3-h-dreams",
+          "date": "2026-10-20T18:17:47.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "FairStress: A deeper evaluation of fairness in LLM decision-making",
+          "link": "https://huggingface.co/blog/allenai/fairstress",
+          "date": "2026-10-20T16:09:19.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on customer service tasks without a frontier model",
+          "link": "https://huggingface.co/blog/ibm-research/altk-evolve-bc",
+          "date": "2026-10-20T15:19:48.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Hugging Face ❤️ TorchTPU: TPUs, Natively",
+          "link": "https://huggingface.co/blog/hf-torchtpu",
+          "date": "2026-10-20T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms",
+          "link": "https://huggingface.co/blog/anylanguagemodel-1-0",
+          "date": "2026-10-20T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "MPS in PyTorch 2.15",
+          "link": "https://huggingface.co/blog/mps-pytorch-2-15",
+          "date": "2026-10-20T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "TorchNeuron: running HF models on AWS Trainium is easier than ever",
           "link": "https://huggingface.co/blog/hf-torchneuron",
