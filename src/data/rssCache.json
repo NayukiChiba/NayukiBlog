@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T04:04:43.218Z",
+  "generatedAt": "2026-10-22T04:05:43.650Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,27 @@
       "link": "https://claude.com/resources/articles",
       "ok": true,
       "items": [
+        {
+          "title": "HCLTech joins the Claude Partner Network as a Global Premier partner",
+          "link": "https://claude.com/resources/articles/hcltech-joins-claude-partner-network",
+          "date": "2026-10-21T00:00:00.000Z",
+          "summary": "HCLTech will bring Claude into the solutions it provides for banks, hospitals, telecom companies, and manufacturers.",
+          "content": "HCLTech will bring Claude into the solutions it provides for banks, hospitals, telecom companies, and manufacturers."
+        },
+        {
+          "title": "Claude Security now scans continuously and tracks fixes",
+          "link": "https://claude.com/resources/articles/claude-security-now-scans-continuously-and-tracks-fixes",
+          "date": "2026-10-21T00:00:00.000Z",
+          "summary": "Claude Security now keeps up with your repositories as code changes, tracks findings until they’re fixed, learns from th…",
+          "content": "Claude Security now keeps up with your repositories as code changes, tracks findings until they’re fixed, learns from the context your team adds, and connects to your tools through an API and MCP. Available in public beta for Claude Enterprise customers."
+        },
+        {
+          "title": "Introducing Claude Duet",
+          "link": "https://claude.com/resources/articles/claude-duet",
+          "date": "2026-10-21T00:00:00.000Z",
+          "summary": "A research preview is available by waitlist today, starting with US Pro and Max subscribers.",
+          "content": "A research preview is available by waitlist today, starting with US Pro and Max subscribers."
+        },
         {
           "title": "Redesigning source control at Anthropic",
           "link": "https://www.anthropic.com/engineering/redesigning-source-control",
@@ -887,6 +908,69 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Broad access through consistent standards",
+          "link": "https://openai.com/index/broad-access-through-consistent-standards",
+          "date": "2026-10-21T21:00:00.000Z",
+          "summary": "How OpenAI works with distribution partners to uphold consistent safeguards, support responsible access, and clarify exp…",
+          "content": "How OpenAI works with distribution partners to uphold consistent safeguards, support responsible access, and clarify expectations in our Usage Policies."
+        },
+        {
+          "title": "How AT&T is rethinking in-house legal work with OpenAI",
+          "link": "https://openai.com/index/att-legal",
+          "date": "2026-10-21T17:00:00.000Z",
+          "summary": "AT&T is working with OpenAI to make legal knowledge easier to access. Learn how its LegalEdge team is rethinking intake …",
+          "content": "AT&T is working with OpenAI to make legal knowledge easier to access. Learn how its LegalEdge team is rethinking intake and scaling legal judgment."
+        },
+        {
+          "title": "ChatGPT Ads expands to 26 new countries as over 100,000 advertisers have used the platform",
+          "link": "https://openai.com/index/chatgpt-ads-expands-26-new-countries",
+          "date": "2026-10-21T13:00:00.000Z",
+          "summary": "From local businesses to global brands, more advertisers can now reach people as they explore, compare and decide what t…",
+          "content": "From local businesses to global brands, more advertisers can now reach people as they explore, compare and decide what to buy in ChatGPT."
+        },
+        {
+          "title": "OpenAI models are coming to Google Cloud",
+          "link": "https://openai.com/index/openai-models-google-cloud",
+          "date": "2026-10-21T12:00:00.000Z",
+          "summary": "OpenAI and Google Cloud are bringing frontier models and Codex workflows to Gemini’s Model Garden, available through Goo…",
+          "content": "OpenAI and Google Cloud are bringing frontier models and Codex workflows to Gemini’s Model Garden, available through Google Cloud Marketplace."
+        },
+        {
+          "title": "Patch the Planet: global response coordination as agents uncover critical vulnerabilities",
+          "link": "https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities",
+          "date": "2026-10-21T07:00:00.000Z",
+          "summary": "Patch the Planet connects security researchers, maintainers, and incident responders to help address critical vulnerabil…",
+          "content": "Patch the Planet connects security researchers, maintainers, and incident responders to help address critical vulnerabilities across open source."
+        },
+        {
+          "title": "How we built ChatGPT’s novel ad stack for user trust and relevance",
+          "link": "https://openai.com/index/building-chatgpt-ad-stack",
+          "date": "2026-10-21T07:00:00.000Z",
+          "summary": "Learn how OpenAI built ChatGPT’s LLM-powered ad stack to understand conversational intent, keep ads separate from answer…",
+          "content": "Learn how OpenAI built ChatGPT’s LLM-powered ad stack to understand conversational intent, keep ads separate from answers, and deliver relevant ads at scale."
+        },
+        {
+          "title": "Using thousands of AI agents to uncover new leads in biological data",
+          "link": "https://openai.com/index/scaling-ai-research-for-complex-biological-data",
+          "date": "2026-10-21T04:50:00.000Z",
+          "summary": "See how OpenAI, PerturbAI, and Scripps Research used distributed AI agents to uncover promising research leads in data f…",
+          "content": "See how OpenAI, PerturbAI, and Scripps Research used distributed AI agents to uncover promising research leads in data from millions of brain cells."
+        },
+        {
+          "title": "Cloudflare links vulnerability discovery to defense with OpenAI",
+          "link": "https://openai.com/index/cloudflare-cyber",
+          "date": "2026-10-21T00:00:00.000Z",
+          "summary": "Cloudflare uses OpenAI Daybreak to investigate vulnerabilities and propose fixes for review. Its developers use Codex to…",
+          "content": "Cloudflare uses OpenAI Daybreak to investigate vulnerabilities and propose fixes for review. Its developers use Codex to build faster and improve code quality."
+        },
+        {
+          "title": "Democratic governance of frontier AI, part II: Empowering cyber defenders",
+          "link": "https://openai.com/index/empowering-cyber-defenders",
+          "date": "2026-10-21T00:00:00.000Z",
+          "summary": "OpenAI outlines a blueprint for empowering cyber defenders with frontier AI, stronger safeguards, modernized cybersecuri…",
+          "content": "OpenAI outlines a blueprint for empowering cyber defenders with frontier AI, stronger safeguards, modernized cybersecurity, and more resilient public institutions."
+        },
         {
           "title": "Franchisee reconciles cash in 94% less time with ChatGPT Work",
           "link": "https://openai.com/index/ted-taylor-restaurant",
@@ -3046,6 +3130,13 @@
       "ok": true,
       "items": [
         {
+          "title": "How Claude designed protein binders against scorpion neurotoxins",
+          "link": "https://www.anthropic.com/research/claude-scorpion-toxin-binder-design",
+          "date": "2026-10-20T00:00:00.000Z",
+          "summary": "We asked an internal research Claude model to design minibinders (small proteins that attach tightly to a target) agains…",
+          "content": "We asked an internal research Claude model to design minibinders (small proteins that attach tightly to a target) against scorpion neurotoxins."
+        },
+        {
           "title": "Working at the frontier shapes expectations for the future",
           "link": "https://www.anthropic.com/research/expectations-for-the-future",
           "date": "2026-10-16T00:00:00.000Z",
@@ -3079,6 +3170,13 @@
           "date": "2026-10-16T00:00:00.000Z",
           "summary": "The AI expectations gap",
           "content": "The AI expectations gap"
+        },
+        {
+          "title": "Redesigning source control at Anthropic",
+          "link": "https://www.anthropic.com/research/redesigning-source-control",
+          "date": "2026-10-13T00:00:00.000Z",
+          "summary": "As our merges per day grew more than tenfold, source control became our biggest development bottleneck. Here, we share h…",
+          "content": "As our merges per day grew more than tenfold, source control became our biggest development bottleneck. Here, we share how we migrated to an in-house version control system in five months."
         },
         {
           "title": "AI models may be capable of self-replicating without access to a datacenter",
@@ -3404,10 +3502,24 @@
           "content": "As our merges per day grew more than tenfold, source control became our biggest development bottleneck. Here, we share how we migrated to an in-house version control system in five months."
         },
         {
+          "title": "Redesigning source control at Anthropic",
+          "link": "https://www.anthropic.com/research/redesigning-source-control",
+          "date": "2026-10-13T00:00:00.000Z",
+          "summary": "As our merges per day grew more than tenfold, source control became our biggest development bottleneck. Here, we share h…",
+          "content": "As our merges per day grew more than tenfold, source control became our biggest development bottleneck. Here, we share how we migrated to an in-house version control system in five months."
+        },
+        {
           "title": "How we contain Claude across products",
           "link": "https://www.anthropic.com/engineering/how-we-contain-claude",
           "date": "2026-05-25T00:00:00.000Z",
           "summary": "As agents grow more capable, so does their potential blast radius. The engineering question is how to cap it. Here’s wha…"
+        },
+        {
+          "title": "How we contain Claude across products",
+          "link": "https://www.anthropic.com/research/how-we-contain-claude",
+          "date": "2026-05-25T00:00:00.000Z",
+          "summary": "As agents grow more capable, so does their potential blast radius. The engineering question is how to cap it. Here’s wha…",
+          "content": "As agents grow more capable, so does their potential blast radius. The engineering question is how to cap it. Here’s what we’ve learned building containment for claude.ai, Claude Code, and Cowork."
         },
         {
           "title": "An update on recent Claude Code quality reports",
@@ -3416,10 +3528,24 @@
           "summary": "We traced recent reports of Claude Code quality issues to three separate changes. Here's what happened and what we're ch…"
         },
         {
+          "title": "An update on recent Claude Code quality reports",
+          "link": "https://www.anthropic.com/research/april-23-postmortem",
+          "date": "2026-04-23T00:00:00.000Z",
+          "summary": "We traced recent reports of Claude Code quality issues to three separate changes. Here's what happened and what we're ch…",
+          "content": "We traced recent reports of Claude Code quality issues to three separate changes. Here's what happened and what we're changing."
+        },
+        {
           "title": "Scaling Managed Agents: Decoupling the brain from the hands",
           "link": "https://www.anthropic.com/engineering/managed-agents",
           "date": "2026-04-08T00:00:00.000Z",
           "summary": "Harnesses encode assumptions that go stale as models improve. Managed Agents—our hosted service for long-horizon agent w…"
+        },
+        {
+          "title": "Scaling Managed Agents: Decoupling the brain from the hands",
+          "link": "https://www.anthropic.com/research/managed-agents",
+          "date": "2026-04-08T00:00:00.000Z",
+          "summary": "Harnesses encode assumptions that go stale as models improve. Managed Agents—our hosted service for long-horizon agent w…",
+          "content": "Harnesses encode assumptions that go stale as models improve. Managed Agents—our hosted service for long-horizon agent work—is built around interfaces that stay stable as harnesses change."
         },
         {
           "title": "How we built Claude Code auto mode: a safer way to skip permissions",
@@ -3428,16 +3554,37 @@
           "summary": "Claude Code users approve 93% of permission prompts. We built classifiers to automate some decisions, increasing safety …"
         },
         {
+          "title": "How we built Claude Code auto mode: a safer way to skip permissions",
+          "link": "https://www.anthropic.com/research/claude-code-auto-mode",
+          "date": "2026-03-25T00:00:00.000Z",
+          "summary": "Claude Code users approve 93% of permission prompts. We built classifiers to automate some decisions, increasing safety …",
+          "content": "Claude Code users approve 93% of permission prompts. We built classifiers to automate some decisions, increasing safety while reducing approval fatigue. Here's what it catches, and what it misses."
+        },
+        {
           "title": "Harness design for long-running application development",
           "link": "https://www.anthropic.com/engineering/harness-design-long-running-apps",
           "date": "2026-03-24T00:00:00.000Z",
           "summary": "Harness design is key to performance at the frontier of agentic coding. Here's how we pushed Claude further in frontend …"
         },
         {
+          "title": "Harness design for long-running application development",
+          "link": "https://www.anthropic.com/research/harness-design-long-running-apps",
+          "date": "2026-03-24T00:00:00.000Z",
+          "summary": "Harness design is key to performance at the frontier of agentic coding. Here's how we pushed Claude further in frontend …",
+          "content": "Harness design is key to performance at the frontier of agentic coding. Here's how we pushed Claude further in frontend design and long-running autonomous software engineering."
+        },
+        {
           "title": "Eval awareness in Claude Opus 4.6’s BrowseComp performance",
           "link": "https://www.anthropic.com/engineering/eval-awareness-browsecomp",
           "date": "2026-03-06T00:00:00.000Z",
           "summary": "Evaluating Opus 4.6 on BrowseComp, we found cases where the model recognized the test, then found and decrypted answers …"
+        },
+        {
+          "title": "Eval awareness in Claude Opus 4.6’s BrowseComp performance",
+          "link": "https://www.anthropic.com/research/eval-awareness-browsecomp",
+          "date": "2026-03-06T00:00:00.000Z",
+          "summary": "Evaluating Opus 4.6 on BrowseComp, we found cases where the model recognized the test, then found and decrypted answers …",
+          "content": "Evaluating Opus 4.6 on BrowseComp, we found cases where the model recognized the test, then found and decrypted answers to it—raising questions about eval integrity in web-enabled environments."
         },
         {
           "title": "Building a C compiler with a team of parallel Claudes",
@@ -3452,10 +3599,31 @@
           "summary": "Infrastructure configuration can swing agentic coding benchmarks by several percentage points—sometimes more than the le…"
         },
         {
+          "title": "Quantifying infrastructure noise in agentic coding evals",
+          "link": "https://www.anthropic.com/research/infrastructure-noise",
+          "date": "2026-02-05T00:00:00.000Z",
+          "summary": "Agentic coding benchmarks are often treated as precise measurements of relative model capability. However, we’ve found t…",
+          "content": "Agentic coding benchmarks are often treated as precise measurements of relative model capability. However, we’ve found that infrastructure configuration alone can produce meaningful differences in the scores."
+        },
+        {
+          "title": "Building a C compiler with a team of parallel Claudes",
+          "link": "https://www.anthropic.com/research/building-c-compiler",
+          "date": "2026-02-05T00:00:00.000Z",
+          "summary": "Nicholas Carlini, a researcher on our Safeguards team, explains how he tasked 16 agents with writing a Rust-based C comp…",
+          "content": "Nicholas Carlini, a researcher on our Safeguards team, explains how he tasked 16 agents with writing a Rust-based C compiler, from scratch, capable of compiling the Linux kernel."
+        },
+        {
           "title": "Designing AI-resistant technical evaluations",
           "link": "https://www.anthropic.com/engineering/AI-resistant-technical-evaluations",
           "date": "2026-01-21T00:00:00.000Z",
           "summary": "What we learned from three iterations of a performance engineering take-home that Claude keeps beating."
+        },
+        {
+          "title": "Designing AI-resistant technical evaluations",
+          "link": "https://www.anthropic.com/research/AI-resistant-technical-evaluations",
+          "date": "2026-01-21T00:00:00.000Z",
+          "summary": "What we learned from three iterations of a performance engineering take-home that Claude keeps beating.",
+          "content": "What we learned from three iterations of a performance engineering take-home that Claude keeps beating."
         },
         {
           "title": "Demystifying evals for AI agents",
@@ -4715,6 +4883,13 @@
           "date": "",
           "summary": "This post announces native PyTorch backends for vLLM and SGLang powered by TorchTPU, enabling developers to run and opti…",
           "content": "This post announces native PyTorch backends for vLLM and SGLang powered by TorchTPU, enabling developers to run and optimize serving workloads using familiar PyTorch tools. Built in collaboration with open-source project maintainers, these engines include optimized TPU kernel implementations, production-ready features like KV cache management with TPU Sync, and disaggregated serving. Public benchmarks demonstrate state-of-the-art performance and industry-leading cost efficiency on Ironwood TPU across long-context and agentic workloads."
+        },
+        {
+          "title": "Powering the Agent Development Lifecycle with any framework, from ADK to LangChain and beyond",
+          "link": "https://developers.googleblog.com/powering-the-agent-development-lifecycle-with-any-framework-from-adk-to-langchain-and-beyond/",
+          "date": "",
+          "summary": "The Agents CLI Extension System enables developers to use frameworks like LangChain, LangGraph, or custom enterprise sta…",
+          "content": "The Agents CLI Extension System enables developers to use frameworks like LangChain, LangGraph, or custom enterprise stacks while retaining a unified deployment and evaluation workflow. It details a first-party LangChain template that scaffolds, runs, and deploys agents without requiring the Agent Development Kit (ADK). Additionally, it demonstrates how platform teams can author custom extensions to enforce policies such as automated software bill of materials (SBOM) scans during deployment."
         }
       ]
     },
@@ -4822,6 +4997,34 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "NVIDIA Kumo Relational Outperforms Supervised Machine Learning on Relational Data, No Training Required",
+          "link": "https://huggingface.co/blog/nvidia/kumo-relational",
+          "date": "2026-10-21T18:26:30.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% in Real Applications",
+          "link": "https://huggingface.co/blog/Dharma-AI/vocabx-vocabulary-specialization",
+          "date": "2026-10-21T17:35:36.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Profiling TorchNeuron (Part 1): System-level profiling on AWS Trainium.",
+          "link": "https://huggingface.co/blog/amazon/profiling-torchneuron-part-1",
+          "date": "2026-10-21T16:04:43.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Granite Speech 5.0: Transcribe, Translate, and Attribute more Accurately and Faster",
+          "link": "https://huggingface.co/blog/ibm-granite/granite-speech-5",
+          "date": "2026-10-21T14:58:18.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Generative Simulation",
           "link": "https://huggingface.co/blog/nvidia/cosmos3-h-dreams",
