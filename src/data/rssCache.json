@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T04:05:43.650Z",
+  "generatedAt": "2026-10-23T04:09:07.056Z",
   "feeds": [
     {
       "id": 1,
@@ -908,6 +908,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Build more responsive apps with the Decisions API",
+          "link": "https://openai.com/index/decisions-api",
+          "date": "2026-10-22T19:00:00.000Z",
+          "summary": "Fast, focused, low-cost decisions for any application.",
+          "content": "Fast, focused, low-cost decisions for any application."
+        },
+        {
+          "title": "What FDE means at OpenAI",
+          "link": "https://openai.com/index/forward-deployed-engineering-means",
+          "date": "2026-10-22T06:00:00.000Z",
+          "summary": "What forward deployed engineering means at OpenAI",
+          "content": "What forward deployed engineering means at OpenAI"
+        },
+        {
+          "title": "Uber brings ChatGPT Work to all employees with OpenAI",
+          "link": "https://openai.com/index/uber-chatgpt-work-rollout",
+          "date": "2026-10-22T00:00:00.000Z",
+          "summary": "Uber is rolling out ChatGPT Work to more than 30,000 employees, helping teams research, analyze data, create presentatio…",
+          "content": "Uber is rolling out ChatGPT Work to more than 30,000 employees, helping teams research, analyze data, create presentations, and complete complex workflows."
+        },
         {
           "title": "Broad access through consistent standards",
           "link": "https://openai.com/index/broad-access-through-consistent-standards",
@@ -3130,6 +3151,13 @@
       "ok": true,
       "items": [
         {
+          "title": "LLMs are making formal software verification feasible at a much larger scale",
+          "link": "https://www.anthropic.com/research/formal-verification",
+          "date": "2026-10-22T00:00:00.000Z",
+          "summary": "Formal verification can prove that code is free of certain bugs, but historically it has only been feasible for small co…",
+          "content": "Formal verification can prove that code is free of certain bugs, but historically it has only been feasible for small codebases. With AI models, however, this is beginning to change. Here, we used Claude to prove security properties in over one hundred real-world open-source libraries over the span of a few weeks."
+        },
+        {
           "title": "How Claude designed protein binders against scorpion neurotoxins",
           "link": "https://www.anthropic.com/research/claude-scorpion-toxin-binder-design",
           "date": "2026-10-20T00:00:00.000Z",
@@ -3640,6 +3668,13 @@
       "link": "https://deepmind.google/blog/",
       "ok": true,
       "items": [
+        {
+          "title": "Beyond tree cover: mapping the world’s forest types",
+          "link": "https://deepmind.google/blog/beyond-tree-cover-mapping-the-worlds-forest-types/",
+          "date": "2026-10-22T14:30:24.000Z",
+          "summary": "A global map categorizing every 10-meter patch of land on Earth into distinct forest types.",
+          "content": "A global map categorizing every 10-meter patch of land on Earth into distinct forest types."
+        },
         {
           "title": "Accelerating the search for antimicrobial peptides with Google Antigravity",
           "link": "https://deepmind.google/blog/accelerating-antimicrobial-discovery/",
@@ -4890,6 +4925,20 @@
           "date": "",
           "summary": "The Agents CLI Extension System enables developers to use frameworks like LangChain, LangGraph, or custom enterprise sta…",
           "content": "The Agents CLI Extension System enables developers to use frameworks like LangChain, LangGraph, or custom enterprise stacks while retaining a unified deployment and evaluation workflow. It details a first-party LangChain template that scaffolds, runs, and deploys agents without requiring the Agent Development Kit (ADK). Additionally, it demonstrates how platform teams can author custom extensions to enforce policies such as automated software bill of materials (SBOM) scans during deployment."
+        },
+        {
+          "title": "Streaming comes to API Gateway: real-time and AI-ready APIs, without changing your spec",
+          "link": "https://developers.googleblog.com/streaming-comes-to-api-gateway-real-time-and-ai-ready-apis-without-changing-your-spec/",
+          "date": "",
+          "summary": "API Gateway now supports real-time streaming—including Server-Sent Events, WebSockets, gRPC, and chunked transfer encodi…",
+          "content": "API Gateway now supports real-time streaming—including Server-Sent Events, WebSockets, gRPC, and chunked transfer encoding—in Public Preview without requiring changes to your existing API specifications. This update allows developers to route long-lived, bi-directional streams and AI workloads directly through the gateway while maintaining consistent authentication, rate limiting, and observability. Additionally, gateways now feature deterministic default hostnames, simplifying environment provisioning and infrastructure-as-code management."
+        },
+        {
+          "title": "Architecting Governed, Self-Evolving AI Agents on Google Cloud",
+          "link": "https://developers.googleblog.com/architecting-governed-self-evolving-ai-agents-on-gemini-agent-platform/",
+          "date": "",
+          "summary": "Learn how Project Chrysalis combines Google Cloud's Gemini Enterprise Agent Platform, Agent Development Kit (ADK), BigQu…",
+          "content": "Learn how Project Chrysalis combines Google Cloud's Gemini Enterprise Agent Platform, Agent Development Kit (ADK), BigQuery, and a four-gate defense-in-depth security stack (Model Armor, Cloud KMS, Binary Authorization, and OPA) to build governed, self-evolving AI agents that remediate live production outages in 1.8 seconds."
         }
       ]
     },
@@ -4997,6 +5046,27 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Turning Database Grading into RL Rewards: Post-Training Agents with ThinkingBox",
+          "link": "https://huggingface.co/blog/microsoft/thinkingbox-training",
+          "date": "2026-10-22T22:24:34.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "OlmoEarth v1.3: State-of-the-art embeddings for the whole planet",
+          "link": "https://huggingface.co/blog/allenai/olmoearth-v1-3",
+          "date": "2026-10-22T16:11:31.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Ensemble forecasting with IBM Granite time-series models",
+          "link": "https://huggingface.co/blog/ibm-research/granite-timeseries-ensemble-r1",
+          "date": "2026-10-22T07:51:31.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "NVIDIA Kumo Relational Outperforms Supervised Machine Learning on Relational Data, No Training Required",
           "link": "https://huggingface.co/blog/nvidia/kumo-relational",
