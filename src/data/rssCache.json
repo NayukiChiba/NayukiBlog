@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T04:09:07.056Z",
+  "generatedAt": "2026-10-24T04:01:29.778Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,34 @@
       "link": "https://claude.com/resources/articles",
       "ok": true,
       "items": [
+        {
+          "title": "Claude Cowork and chat come together for Enterprise",
+          "link": "https://claude.com/resources/articles/unified-claude-enterprise",
+          "date": "2026-10-23T00:00:00.000Z",
+          "summary": "Claude Cowork and chat come together for Enterprise",
+          "content": "Claude Cowork and chat come together for Enterprise"
+        },
+        {
+          "title": "Claude Duet Safety, Privacy, and Security",
+          "link": "https://claude.com/resources/articles/claude-duet-safety-privacy-and-security",
+          "date": "2026-10-23T00:00:00.000Z",
+          "summary": "Claude Duet is a proactive agent that works for you, even while you’re away. It builds on two layers of protection: safe…",
+          "content": "Claude Duet is a proactive agent that works for you, even while you’re away. It builds on two layers of protection: safety training in the Claude model itself and the safeguards that exist in products like Claude Code and Claude Managed Agents. On top of those, we added new protections for working across your accounts and acting on your behalf."
+        },
+        {
+          "title": "The full Claude Platform, available on Google Cloud",
+          "link": "https://claude.com/resources/articles/claude-models-on-google-cloud-anthropic-managed",
+          "date": "2026-10-22T00:00:00.000Z",
+          "summary": "Use Claude Models on Google Cloud (Anthropic managed) to access Claude Platform features with Google Cloud authenticatio…",
+          "content": "Use Claude Models on Google Cloud (Anthropic managed) to access Claude Platform features with Google Cloud authentication, billing, and commitment retirement."
+        },
+        {
+          "title": "Building agents: When to fold subagents into your main agent loop",
+          "link": "https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop",
+          "date": "2026-10-22T00:00:00.000Z",
+          "summary": "When building agents in Claude Platform, using fewer subagents in favor of progressively disclosed context and tools can…",
+          "content": "When building agents in Claude Platform, using fewer subagents in favor of progressively disclosed context and tools can improve quality while reducing cost and latency. Here’s when and how to migrate."
+        },
         {
           "title": "HCLTech joins the Claude Partner Network as a Global Premier partner",
           "link": "https://claude.com/resources/articles/hcltech-joins-claude-partner-network",
@@ -908,6 +936,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)",
+          "link": "https://openai.com/index/scaling-storage-one-billion-users-part-two",
+          "date": "2026-10-23T17:00:00.000Z",
+          "summary": "Learn how OpenAI scaled Habitat with reliable multi-tenancy, global caching, and Azure Cosmos DB to deliver 12× faster r…",
+          "content": "Learn how OpenAI scaled Habitat with reliable multi-tenancy, global caching, and Azure Cosmos DB to deliver 12× faster reads for ChatGPT."
+        },
+        {
+          "title": "Securing our frontier model training environment",
+          "link": "https://openai.com/index/securing-our-frontier-model-training-environment",
+          "date": "2026-10-23T10:00:00.000Z",
+          "summary": "OpenAI explains how we strengthened containment for frontier model training and evaluation, including offline environmen…",
+          "content": "OpenAI explains how we strengthened containment for frontier model training and evaluation, including offline environments and high-compute red-teaming."
+        },
+        {
+          "title": "OpenAI and Poland’s NASK partner to advance AI safety and security",
+          "link": "https://openai.com/index/openai-nask-ai-safety-security-partnership",
+          "date": "2026-10-23T00:00:00.000Z",
+          "summary": "OpenAI and Poland’s NASK are partnering on AI safety, security, and technical research to strengthen safeguards and supp…",
+          "content": "OpenAI and Poland’s NASK are partnering on AI safety, security, and technical research to strengthen safeguards and support a more resilient digital ecosystem."
+        },
         {
           "title": "Build more responsive apps with the Decisions API",
           "link": "https://openai.com/index/decisions-api",
@@ -3151,6 +3200,13 @@
       "ok": true,
       "items": [
         {
+          "title": "An alignment assessment of the UK AISI cybertesting incident",
+          "link": "https://www.anthropic.com/research/alignment-assessment-ukaisi",
+          "date": "2026-10-23T00:00:00.000Z",
+          "summary": "In a UK AISI evaluation, Mythos 5 took unsanctioned actions that impacted real people and organizations. In this post, w…",
+          "content": "In a UK AISI evaluation, Mythos 5 took unsanctioned actions that impacted real people and organizations. In this post, we investigate these behaviors from Claude Mythos 5 further, to understand what they reveal about the model’s alignment."
+        },
+        {
           "title": "LLMs are making formal software verification feasible at a much larger scale",
           "link": "https://www.anthropic.com/research/formal-verification",
           "date": "2026-10-22T00:00:00.000Z",
@@ -5046,6 +5102,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "LitPivot: Developing research ideas through dynamic contextualization within the literature landscape",
+          "link": "https://huggingface.co/blog/allenai/litpivot",
+          "date": "2026-10-23T16:15:50.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Does Your Model Run on AWS Trainium? Look It Up",
+          "link": "https://huggingface.co/blog/torch-neuronx-model-support",
+          "date": "2026-10-23T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Turning Database Grading into RL Rewards: Post-Training Agents with ThinkingBox",
           "link": "https://huggingface.co/blog/microsoft/thinkingbox-training",
