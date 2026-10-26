@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T04:02:33.927Z",
+  "generatedAt": "2026-10-26T04:06:54.922Z",
   "feeds": [
     {
       "id": 1,
@@ -3060,6 +3060,13 @@
       "link": "https://ollama.com/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Speech models in Ollama",
+          "link": "https://ollama.com/blog/speech-models",
+          "date": "2026-10-24T00:00:00.000Z",
+          "summary": "Ollama now supports speech models, starting with Phonon from Gradium. Read text aloud in five languages and dozens of vo…",
+          "content": "Ollama now supports speech models, starting with Phonon from Gradium. Read text aloud in five languages and dozens of voices, streamed as it is generated, over 100 times faster than real time on Apple Silicon."
+        },
         {
           "title": "Clef is available on Ollama's cloud",
           "link": "https://ollama.com/blog/clef",
