@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T04:57:41.655Z",
+  "generatedAt": "2026-10-29T05:09:28.268Z",
   "feeds": [
     {
       "id": 1,
@@ -9,11 +9,39 @@
       "ok": true,
       "items": [
         {
+          "title": "Smart reports, surveys, and pooled group budgets for Claude Enterprise",
+          "link": "https://claude.com/resources/articles/smart-reports-surveys-pooled-budgets",
+          "date": "2026-10-28T00:00:00.000Z",
+          "summary": "In many organizations, members have identified the unique work that Claude can unlock. The next step is expanding that w…",
+          "content": "In many organizations, members have identified the unique work that Claude can unlock. The next step is expanding that work to every team."
+        },
+        {
+          "title": "Introducing artifacts for legal work",
+          "link": "https://claude.com/resources/articles/introducing-artifacts-for-legal-work",
+          "date": "2026-10-28T00:00:00.000Z",
+          "summary": "Claude for Legal now includes ready-to-use artifacts for legal work that teams can adapt with their own data and connect…",
+          "content": "Claude for Legal now includes ready-to-use artifacts for legal work that teams can adapt with their own data and connectors, and share across the business."
+        },
+        {
+          "title": "IDC brings Quanta into Claude and adopts Claude across the company",
+          "link": "https://claude.com/resources/articles/idc-brings-quanta-into-claude-and-adopts-claude-across-the-company",
+          "date": "2026-10-28T00:00:00.000Z",
+          "summary": "IDC integrated Claude as part of its Quanta platform, and it has rolled Claude out across its own business",
+          "content": "IDC integrated Claude as part of its Quanta platform, and it has rolled Claude out across its own business"
+        },
+        {
           "title": "Manage costs and demonstrate ROI for Claude Code on Google Cloud",
           "link": "https://claude.com/resources/articles/how-to-manage-costs-and-demonstrate-roi-for-claude-code-on-google-cloud",
           "date": "2026-10-27T00:00:00.000Z",
           "summary": "Best practices for managing costs and measuring return on investment for Claude Code on Google Cloud.",
           "content": "Best practices for managing costs and measuring return on investment for Claude Code on Google Cloud."
+        },
+        {
+          "title": "Claude for Financial Advisors",
+          "link": "https://claude.com/resources/articles/claude-for-financial-advisors",
+          "date": "2026-10-27T00:00:00.000Z",
+          "summary": "Financial advisors can now connect Claude to the custodians, portfolio platforms, CRMs, and planning tools they depend o…",
+          "content": "Financial advisors can now connect Claude to the custodians, portfolio platforms, CRMs, and planning tools they depend on, along with new skills tailored to the daily work of a financial advisor."
         },
         {
           "title": "Expanding Claude for Nonprofits",
@@ -957,6 +985,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "OpenAI and ServiceNow expand partnership across enterprise workflows",
+          "link": "https://openai.com/index/openai-servicenow-partnership-expansion",
+          "date": "2026-10-28T13:15:00.000Z",
+          "summary": "OpenAI and ServiceNow expand their partnership to bring OpenAI models and agents into ServiceNow and ServiceNow workflow…",
+          "content": "OpenAI and ServiceNow expand their partnership to bring OpenAI models and agents into ServiceNow and ServiceNow workflows into ChatGPT and Codex."
+        },
+        {
+          "title": "The future of the firm",
+          "link": "https://openai.com/index/the-future-of-the-firm",
+          "date": "2026-10-28T10:00:00.000Z",
+          "summary": "How AI might enter the org chart—beneath, beside, and between us.",
+          "content": "How AI might enter the org chart—beneath, beside, and between us."
+        },
+        {
+          "title": "Legora is building the agentic operating system for legal work",
+          "link": "https://openai.com/index/legora",
+          "date": "2026-10-28T09:30:00.000Z",
+          "summary": "See how Legora uses OpenAI models, ChatGPT, and Codex to accelerate legal workflows, expand contract analysis, and free …",
+          "content": "See how Legora uses OpenAI models, ChatGPT, and Codex to accelerate legal workflows, expand contract analysis, and free lawyers to focus on higher-value work."
+        },
         {
           "title": "Retell uses OpenAI models to help power 100M monthly calls",
           "link": "https://openai.com/index/retell-ai",
@@ -3312,6 +3361,20 @@
       "ok": true,
       "items": [
         {
+          "title": "Early progress on accelerating drug development with Claude",
+          "link": "https://www.anthropic.com/research/early-progress-drug-development",
+          "date": "2026-10-27T00:00:00.000Z",
+          "summary": "We're at the start of a major effort to speed up drug development with Claude. Over the past several months, our scienti…",
+          "content": "We're at the start of a major effort to speed up drug development with Claude. Over the past several months, our scientists have engaged in deep research partnerships with six organizations developing new medicines."
+        },
+        {
+          "title": "How AI agents shape experts’ judgment calls",
+          "link": "https://www.anthropic.com/research/agents-judgment-calls",
+          "date": "2026-10-27T00:00:00.000Z",
+          "summary": "As AI does more of the hands-on work, the hope is that experts still make the judgment calls, meaning the decisions with…",
+          "content": "As AI does more of the hands-on work, the hope is that experts still make the judgment calls, meaning the decisions with more than one defensible answer. We tested this with 50 professional analysts who did a statistical analysis with Claude Code. On each key decision, we randomly assigned which of two defensible options the agent would favor. Analysts mostly went with the agent’s side, and few named the agent as a reason afterward."
+        },
+        {
           "title": "An alignment assessment of the UK AISI cybertesting incident",
           "link": "https://www.anthropic.com/research/alignment-assessment-ukaisi",
           "date": "2026-10-23T00:00:00.000Z",
@@ -3836,6 +3899,13 @@
       "link": "https://deepmind.google/blog/",
       "ok": true,
       "items": [
+        {
+          "title": "Gemini 4 Carbon: Our next frontier model",
+          "link": "https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model/",
+          "date": "2026-10-28T17:00:58.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Genie 4: A new generation of world simulation",
           "link": "https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/",
@@ -5142,6 +5212,20 @@
           "date": "",
           "summary": "This document provides a publication template and metadata structure for a technical blog post focused on building Conve…",
           "content": "This document provides a publication template and metadata structure for a technical blog post focused on building Conversational User Interfaces (CUIs) using AI. It outlines key developer focus areas, product stacks, and approval workflows required for publishing technical content through Google Developer Studio. The framework helps engineers organize their guides and solutions to effectively share AI-driven conversational interface designs with the developer community."
+        },
+        {
+          "title": "Hill-Climbing Agent Quality with Agents CLI Evaluation",
+          "link": "https://developers.googleblog.com/hill-climbing-agent-quality-with-agents-cli-evaluation/",
+          "date": "",
+          "summary": "This post walks through the Agents CLI evaluation loop for systematically improving agent performance through continuous…",
+          "content": "This post walks through the Agents CLI evaluation loop for systematically improving agent performance through continuous testing and grading. It demonstrates how to catch prompt regressions, evaluate model backend swaps using side-by-side trace comparisons, and automate evaluation passes. Developers will also learn how to integrate nightly scheduled runs with threshold-based alerting to track quality over time."
+        },
+        {
+          "title": "Smaller apps and faster GPU inference with LiteRT in Google Play services",
+          "link": "https://developers.googleblog.com/smaller-apps-and-faster-gpu-inference-with-litert-in-google-play-services/",
+          "date": "",
+          "summary": "LiteRT in Google Play services now offers GPU inference powered by ML Drift, delivering about 1.4x faster performance al…",
+          "content": "LiteRT in Google Play services now offers GPU inference powered by ML Drift, delivering about 1.4x faster performance alongside the new CompiledModel API. Switching from bundled binaries reduces app size by approximately 8 MB while enabling seamless, automatic runtime updates across billions of devices. Developers can easily adopt these updates by updating their dependencies and utilizing the new Android Studio LiteRT skill for automated migration."
         }
       ]
     },
@@ -5256,6 +5340,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt",
+          "link": "https://huggingface.co/blog/nvidia/nemotron-transcribe-granary",
+          "date": "2026-10-28T14:58:17.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Build specialized multimodal models with LFM3",
           "link": "https://huggingface.co/blog/LiquidAI/lfm3",
