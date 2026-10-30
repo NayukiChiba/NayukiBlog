@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T05:09:28.268Z",
+  "generatedAt": "2026-10-30T05:08:54.966Z",
   "feeds": [
     {
       "id": 1,
@@ -985,6 +985,27 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "An updated Model Spec for more capable and beneficial AI",
+          "link": "https://openai.com/index/updated-model-spec",
+          "date": "2026-10-29T17:00:00.000Z",
+          "summary": "OpenAI’s updated Model Spec outlines five core values to guide more capable AI toward sound judgment, human agency, and …",
+          "content": "OpenAI’s updated Model Spec outlines five core values to guide more capable AI toward sound judgment, human agency, and faithfulness to human intent."
+        },
+        {
+          "title": "How we detect frontier model misalignment",
+          "link": "https://openai.com/index/how-we-detect-frontier-model-misalignment",
+          "date": "2026-10-29T09:00:00.000Z",
+          "summary": "OpenAI uses layered monitoring to detect frontier model misalignment and unauthorized agent behavior so responders can i…",
+          "content": "OpenAI uses layered monitoring to detect frontier model misalignment and unauthorized agent behavior so responders can intervene before incidents escalate."
+        },
+        {
+          "title": "How Ropes & Gray is developing AI for transactional diligence",
+          "link": "https://openai.com/index/ropes-gray-ai-diligence",
+          "date": "2026-10-29T07:00:00.000Z",
+          "summary": "Ropes & Gray is developing AI for transactional diligence with OpenAI. Lawyers review grouped documents, summaries, and …",
+          "content": "Ropes & Gray is developing AI for transactional diligence with OpenAI. Lawyers review grouped documents, summaries, and reports before advising clients."
+        },
         {
           "title": "OpenAI and ServiceNow expand partnership across enterprise workflows",
           "link": "https://openai.com/index/openai-servicenow-partnership-expansion",
@@ -5226,6 +5247,13 @@
           "date": "",
           "summary": "LiteRT in Google Play services now offers GPU inference powered by ML Drift, delivering about 1.4x faster performance al…",
           "content": "LiteRT in Google Play services now offers GPU inference powered by ML Drift, delivering about 1.4x faster performance alongside the new CompiledModel API. Switching from bundled binaries reduces app size by approximately 8 MB while enabling seamless, automatic runtime updates across billions of devices. Developers can easily adopt these updates by updating their dependencies and utilizing the new Android Studio LiteRT skill for automated migration."
+        },
+        {
+          "title": "Build Generative UI Apps with A2UI & CopilotKit Agents",
+          "link": "https://developers.googleblog.com/build-generative-ui-apps-with-a2ui-copilotkit-agents/",
+          "date": "",
+          "summary": "See Google A2Ui in action! Learn how to natively render agentic UIs across Langchain, AWS Strands, Microsoft agents, and…",
+          "content": "See Google A2Ui in action! Learn how to natively render agentic UIs across Langchain, AWS Strands, Microsoft agents, and Google ADK using CopilotKit SDKs for A2UI."
         }
       ]
     },
@@ -5340,6 +5368,34 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Granite Switch 4.1.1 — Update models like you update software",
+          "link": "https://huggingface.co/blog/ibm-granite/granite-switch-4-1-1",
+          "date": "2026-10-29T13:37:07.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready",
+          "link": "https://huggingface.co/blog/announcing-project-protostar",
+          "date": "2026-10-29T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
+          "link": "https://huggingface.co/blog/mistral-large4",
+          "date": "2026-10-29T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms",
+          "link": "https://huggingface.co/blog/anydecisionmodel",
+          "date": "2026-10-29T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt",
           "link": "https://huggingface.co/blog/nvidia/nemotron-transcribe-granary",
