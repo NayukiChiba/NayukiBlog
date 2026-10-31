@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T06:28:32.127Z",
+  "generatedAt": "2026-10-31T04:54:46.929Z",
   "feeds": [
     {
       "id": 1,
@@ -986,6 +986,27 @@
       "ok": true,
       "items": [
         {
+          "title": "Making it easier for websites to express AI training preferences",
+          "link": "https://openai.com/index/helping-websites-express-ai-training-preferences",
+          "date": "2026-10-30T09:30:00.000Z",
+          "summary": "OpenAI will honor a shared robots.txt signal to help website operators communicate their AI training preferences to part…",
+          "content": "OpenAI will honor a shared robots.txt signal to help website operators communicate their AI training preferences to participating providers."
+        },
+        {
+          "title": "Community safety report and new protections for teens",
+          "link": "https://openai.com/index/community-safety-report-and-new-protections-for-teens",
+          "date": "2026-10-30T09:00:00.000Z",
+          "summary": "OpenAI is strengthening violence prevention in ChatGPT with expanded safeguards, earlier interventions, and a new commit…",
+          "content": "OpenAI is strengthening violence prevention in ChatGPT with expanded safeguards, earlier interventions, and a new commitment to public safety reporting."
+        },
+        {
+          "title": "Fair use benefits everyone",
+          "link": "https://openai.com/index/fair-use-benefits-everyone",
+          "date": "2026-10-30T00:00:00.000Z",
+          "summary": "OpenAI shares excerpts from court briefs by creators, academics, accessibility advocates, and legal experts, among other…",
+          "content": "OpenAI shares excerpts from court briefs by creators, academics, accessibility advocates, and legal experts, among others, on how fair use supports AI training and innovation."
+        },
+        {
           "title": "An updated Model Spec for more capable and beneficial AI",
           "link": "https://openai.com/index/updated-model-spec",
           "date": "2026-10-29T17:00:00.000Z",
@@ -1005,6 +1026,13 @@
           "date": "2026-10-29T07:00:00.000Z",
           "summary": "Ropes & Gray is developing AI for transactional diligence with OpenAI. Lawyers review grouped documents, summaries, and …",
           "content": "Ropes & Gray is developing AI for transactional diligence with OpenAI. Lawyers review grouped documents, summaries, and reports before advising clients."
+        },
+        {
+          "title": "Credit Saison achieves 954% ROI in a ChatGPT Enterprise pilot",
+          "link": "https://openai.com/index/credit-saison",
+          "date": "2026-10-29T00:00:00.000Z",
+          "summary": "Credit Saison’s ChatGPT Enterprise pilot delivered 954% ROI. See how leaders and employees helped turn the results into …",
+          "content": "Credit Saison’s ChatGPT Enterprise pilot delivered 954% ROI. See how leaders and employees helped turn the results into companywide adoption."
         },
         {
           "title": "OpenAI and ServiceNow expand partnership across enterprise workflows",
@@ -5254,6 +5282,13 @@
           "date": "",
           "summary": "See Google A2Ui in action! Learn how to natively render agentic UIs across Langchain, AWS Strands, Microsoft agents, and…",
           "content": "See Google A2Ui in action! Learn how to natively render agentic UIs across Langchain, AWS Strands, Microsoft agents, and Google ADK using CopilotKit SDKs for A2UI."
+        },
+        {
+          "title": "DevFest is back!",
+          "link": "https://developers.googleblog.com/devfest-is-back/",
+          "date": "",
+          "summary": "DevFest 2026 runs from October 1 to December 31, bringing together nearly a million developers across more than 800 glob…",
+          "content": "DevFest 2026 runs from October 1 to December 31, bringing together nearly a million developers across more than 800 global events centered on the agentic AI era. Under the theme \"Build, Secure, Scale,\" participants gain hands-on experience with Google’s developer stack—including Gemini, Google AI Studio, Google Antigravity, and Web MCP—through live workshops and codelabs. The conference focuses on enabling developers to prototype rapidly, ensure secure and private deployments, and leverage production-ready infrastructure."
         }
       ]
     },
@@ -5368,6 +5403,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "nemotron-halloween",
+          "link": "https://huggingface.co/blog/nvidia/nemotron-halloween",
+          "date": "2026-10-30T17:57:24.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "Granite Switch 4.1.1 — Update models like you update software",
           "link": "https://huggingface.co/blog/ibm-granite/granite-switch-4-1-1",
