@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T05:21:13.250Z",
+  "generatedAt": "2026-11-03T06:00:12.451Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/resources/articles",
       "ok": true,
       "items": [
+        {
+          "title": "Make long-running agents faster with message threads",
+          "link": "https://claude.com/resources/articles/message-threads",
+          "date": "2026-11-02T00:00:00.000Z",
+          "summary": "New in the Messages API, send your conversation once, and the API receives only what’s new with every turn.",
+          "content": "New in the Messages API, send your conversation once, and the API receives only what’s new with every turn."
+        },
         {
           "title": "Smart reports, surveys, and pooled group budgets for Claude Enterprise",
           "link": "https://claude.com/resources/articles/smart-reports-surveys-pooled-budgets",
@@ -985,6 +992,55 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Rewarding defenders with bigger bug bounties",
+          "link": "https://openai.com/index/rewarding-defenders-with-bigger-bug-bounties",
+          "date": "2026-11-02T18:00:00.000Z",
+          "summary": "OpenAI is raising Security Bug Bounty rewards and introducing report quality, loyalty, and priority campaign bonuses for…",
+          "content": "OpenAI is raising Security Bug Bounty rewards and introducing report quality, loyalty, and priority campaign bonuses for independent security researchers."
+        },
+        {
+          "title": "Preparing our next security sprint to harden OpenAI",
+          "link": "https://openai.com/index/preparing-our-next-security-sprint-to-harden-openai",
+          "date": "2026-11-02T18:00:00.000Z",
+          "summary": "OpenAI is preparing its next internal security sprint with Cathedral Systems to test and strengthen its defenses using A…",
+          "content": "OpenAI is preparing its next internal security sprint with Cathedral Systems to test and strengthen its defenses using AI."
+        },
+        {
+          "title": "Scaling Git at OpenAI",
+          "link": "https://openai.com/index/scaling-git-at-openai",
+          "date": "2026-11-02T15:30:00.000Z",
+          "summary": "How OpenAI built Pando, a Git-compatible backend designed for the scale of development that Codex makes possible.",
+          "content": "How OpenAI built Pando, a Git-compatible backend designed for the scale of development that Codex makes possible."
+        },
+        {
+          "title": "Introducing the Grid Protectors Program",
+          "link": "https://openai.com/index/grid-protectors-program",
+          "date": "2026-11-02T15:00:00.000Z",
+          "summary": "OpenAI’s Grid Protectors Program will work with utilities to help future compute campuses support grid reliability and p…",
+          "content": "OpenAI’s Grid Protectors Program will work with utilities to help future compute campuses support grid reliability and protect consumer electricity costs."
+        },
+        {
+          "title": "LifeVal",
+          "link": "https://openai.com/index/lifeval",
+          "date": "2026-11-02T09:00:00.000Z",
+          "summary": "Introducing LifeVal, a benchmark measuring how well AI helps people complete everyday tasks, from finding childcare to m…",
+          "content": "Introducing LifeVal, a benchmark measuring how well AI helps people complete everyday tasks, from finding childcare to managing finances and government paperwork."
+        },
+        {
+          "title": "Qodo builds context into AI code review with Codex",
+          "link": "https://openai.com/index/qodo-codex-plugin",
+          "date": "2026-11-02T00:00:00.000Z",
+          "summary": "Qodo brings company knowledge and coding standards into Codex, helping developers catch P0 issues across repositories be…",
+          "content": "Qodo brings company knowledge and coding standards into Codex, helping developers catch P0 issues across repositories before opening a pull request."
+        },
+        {
+          "title": "OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization",
+          "link": "https://openai.com/index/dan-driscoll-joins-openai",
+          "date": "2026-11-02T00:00:00.000Z",
+          "summary": "OpenAI appoints Dan Driscoll to advise on responsible AI for national security modernization, cyber resilience, and coll…",
+          "content": "OpenAI appoints Dan Driscoll to advise on responsible AI for national security modernization, cyber resilience, and collaboration with U.S. allies."
+        },
         {
           "title": "Making it easier for websites to express AI training preferences",
           "link": "https://openai.com/index/helping-websites-express-ai-training-preferences",
@@ -2895,6 +2951,13 @@
       "ok": true,
       "items": [
         {
+          "title": "LifeVal",
+          "link": "https://openai.com/index/lifeval",
+          "date": "2026-11-02T09:00:00.000Z",
+          "summary": "Introducing LifeVal, a benchmark measuring how well AI helps people complete everyday tasks, from finding childcare to m…",
+          "content": "Introducing LifeVal, a benchmark measuring how well AI helps people complete everyday tasks, from finding childcare to managing finances and government paperwork."
+        },
+        {
           "title": "Working with academic communities to build scientific understanding",
           "link": "https://openai.com/index/building-scientific-understanding-with-academic-communities",
           "date": "2026-10-26T14:30:00.000Z",
@@ -3949,6 +4012,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Speeding up planning decisions with AI",
+          "link": "https://deepmind.google/blog/speeding-up-planning-decisions-with-ai/",
+          "date": "2026-10-30T14:18:30.000Z",
+          "summary": "Google DeepMind and UK government work together to reduce planning assessment times",
+          "content": "Google DeepMind and UK government work together to reduce planning assessment times"
+        },
+        {
           "title": "Gemini 4 Carbon: Our next frontier model",
           "link": "https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model/",
           "date": "2026-10-28T17:00:58.000Z",
@@ -4302,6 +4372,13 @@
       "link": "https://blog.google/innovation-and-ai/technology/ai/",
       "ok": true,
       "items": [
+        {
+          "title": "The latest AI news we announced in October 2026",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-october-2026/",
+          "date": "2026-11-02T17:45:00.000Z",
+          "summary": "Here are Google’s latest AI updates from October 2026",
+          "content": "Here are Google’s latest AI updates from October 2026"
+        },
         {
           "title": "Our newest AI Quest: Mapping the human brain",
           "link": "https://blog.google/products-and-platforms/products/education/ai-quests-polar-peaks/",
