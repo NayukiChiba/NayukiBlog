@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T06:00:12.451Z",
+  "generatedAt": "2026-11-04T05:40:03.890Z",
   "feeds": [
     {
       "id": 1,
@@ -992,6 +992,34 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Accelerating engineering for the physical world",
+          "link": "https://openai.com/index/accelerating-engineering-for-the-physical-world",
+          "date": "2026-11-03T12:00:00.000Z",
+          "summary": "Discover how ChatGPT and Codex are helping engineers accelerate CAD, PCB design, simulation, and other workflows across …",
+          "content": "Discover how ChatGPT and Codex are helping engineers accelerate CAD, PCB design, simulation, and other workflows across the physical world."
+        },
+        {
+          "title": "How Cisco defends at machine speed with OpenAI",
+          "link": "https://openai.com/index/cisco-cyber",
+          "date": "2026-11-03T08:00:00.000Z",
+          "summary": "Cisco combines network intelligence with OpenAI models to strengthen enterprise security. Learn how it is building more …",
+          "content": "Cisco combines network intelligence with OpenAI models to strengthen enterprise security. Learn how it is building more adaptive defenses."
+        },
+        {
+          "title": "Heimstaden is changing residential real estate management with AI",
+          "link": "https://openai.com/index/heimstaden",
+          "date": "2026-11-03T08:00:00.000Z",
+          "summary": "Discover how Heimstaden uses OpenAI’s ChatGPT Enterprise and Codex to transform property management, cut costs, and empo…",
+          "content": "Discover how Heimstaden uses OpenAI’s ChatGPT Enterprise and Codex to transform property management, cut costs, and empower employees across Europe."
+        },
+        {
+          "title": "OpenAI appoints Jill Hazelbaker as Chief Corporate Affairs Officer",
+          "link": "https://openai.com/index/jill-hazelbaker-chief-corporate-affairs-officer",
+          "date": "2026-11-03T00:00:00.000Z",
+          "summary": "Jill Hazelbaker will join OpenAI as Chief Corporate Affairs Officer, leading the company’s global communications and cor…",
+          "content": "Jill Hazelbaker will join OpenAI as Chief Corporate Affairs Officer, leading the company’s global communications and corporate positioning."
+        },
         {
           "title": "Rewarding defenders with bigger bug bounties",
           "link": "https://openai.com/index/rewarding-defenders-with-bigger-bug-bounties",
@@ -2951,6 +2979,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Accelerating engineering for the physical world",
+          "link": "https://openai.com/index/accelerating-engineering-for-the-physical-world",
+          "date": "2026-11-03T12:00:00.000Z",
+          "summary": "Discover how ChatGPT and Codex are helping engineers accelerate CAD, PCB design, simulation, and other workflows across …",
+          "content": "Discover how ChatGPT and Codex are helping engineers accelerate CAD, PCB design, simulation, and other workflows across the physical world."
+        },
+        {
           "title": "LifeVal",
           "link": "https://openai.com/index/lifeval",
           "date": "2026-11-02T09:00:00.000Z",
@@ -3472,6 +3507,13 @@
       "link": "https://www.anthropic.com/research",
       "ok": true,
       "items": [
+        {
+          "title": "Progress on provable inference for large language models",
+          "link": "https://www.anthropic.com/research/provable-inference",
+          "date": "2026-11-02T00:00:00.000Z",
+          "summary": "We have made progress on a type of cryptographic proof known as a “zkSNARK.” In this post, we share some of that progres…",
+          "content": "We have made progress on a type of cryptographic proof known as a “zkSNARK.” In this post, we share some of that progress, primarily through a system we call FlashProve."
+        },
         {
           "title": "Early progress on accelerating drug development with Claude",
           "link": "https://www.anthropic.com/research/early-progress-drug-development",
@@ -4011,6 +4053,13 @@
       "link": "https://deepmind.google/blog/",
       "ok": true,
       "items": [
+        {
+          "title": "Agentic cheminformatics with Google Antigravity",
+          "link": "https://deepmind.google/blog/agentic-cheminformatics-with-google-antigravity/",
+          "date": "2026-11-03T17:01:49.000Z",
+          "summary": "Learn how Google Antigravity and our Cheminformatics Skills accelerate drug discovery workflows, search compounds, and p…",
+          "content": "Learn how Google Antigravity and our Cheminformatics Skills accelerate drug discovery workflows, search compounds, and propose novel rigidified macrocycles."
+        },
         {
           "title": "Speeding up planning decisions with AI",
           "link": "https://deepmind.google/blog/speeding-up-planning-decisions-with-ai/",
@@ -5366,6 +5415,13 @@
           "date": "",
           "summary": "DevFest 2026 runs from October 1 to December 31, bringing together nearly a million developers across more than 800 glob…",
           "content": "DevFest 2026 runs from October 1 to December 31, bringing together nearly a million developers across more than 800 global events centered on the agentic AI era. Under the theme \"Build, Secure, Scale,\" participants gain hands-on experience with Google’s developer stack—including Gemini, Google AI Studio, Google Antigravity, and Web MCP—through live workshops and codelabs. The conference focuses on enabling developers to prototype rapidly, ensure secure and private deployments, and leverage production-ready infrastructure."
+        },
+        {
+          "title": "Cost per task: Using cheap classifiers to route across Gemini models and thinking levels",
+          "link": "https://developers.googleblog.com/cost-per-task-using-cheap-classifiers-to-route-across-gemini-models-and-thinking-levels/",
+          "date": "",
+          "summary": "Per-token API prices keep falling, yet engineering bills for autonomous coding agents keep climbing....",
+          "content": "Per-token API prices keep falling, yet engineering bills for autonomous coding agents keep climbing...."
         }
       ]
     },
@@ -5480,6 +5536,34 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "StateBench: Testing how language models track state changes over long documents",
+          "link": "https://huggingface.co/blog/allenai/statebench",
+          "date": "2026-11-03T17:15:21.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Palette: teaching a small model to build decks in your design language",
+          "link": "https://huggingface.co/blog/ibm-research/palette-deck-building",
+          "date": "2026-11-03T16:35:36.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "CWE-bench v2: More coverage, quality, and transparency",
+          "link": "https://huggingface.co/blog/cwe-bench",
+          "date": "2026-11-03T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Transformers Model Integration Contracts",
+          "link": "https://huggingface.co/blog/transformers-mic",
+          "date": "2026-11-03T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "nemotron-halloween",
           "link": "https://huggingface.co/blog/nvidia/nemotron-halloween",
