@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-04T05:40:03.890Z",
+  "generatedAt": "2026-11-05T05:57:49.852Z",
   "feeds": [
     {
       "id": 1,
@@ -8,6 +8,13 @@
       "link": "https://claude.com/resources/articles",
       "ok": true,
       "items": [
+        {
+          "title": "New agents and products for security, productivity, and creative work on Claude Marketplace",
+          "link": "https://claude.com/resources/articles/new-agents-and-products-claude-marketplace",
+          "date": "2026-11-04T00:00:00.000Z",
+          "summary": "New agents and products for security, productivity, and creative work on Claude Marketplace",
+          "content": "New agents and products for security, productivity, and creative work on Claude Marketplace"
+        },
         {
           "title": "Make long-running agents faster with message threads",
           "link": "https://claude.com/resources/articles/message-threads",
@@ -992,6 +999,41 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "link": "https://openai.com/index/openai-to-acquire-pierre",
+          "date": "2026-11-04T14:30:00.000Z",
+          "summary": "OpenAI will acquire Pierre Computer Company, expanding Codex’s tools for building, understanding, and reviewing code.",
+          "content": "OpenAI will acquire Pierre Computer Company, expanding Codex’s tools for building, understanding, and reviewing code."
+        },
+        {
+          "title": "A thousand fewer paths to root",
+          "link": "https://openai.com/index/a-thousand-fewer-paths-to-root",
+          "date": "2026-11-04T08:00:00.000Z",
+          "summary": "OpenAI built an autonomous pipeline that found, validated, and generated patches for 948 local privilege-escalation vuln…",
+          "content": "OpenAI built an autonomous pipeline that found, validated, and generated patches for 948 local privilege-escalation vulnerabilities in the Linux kernel."
+        },
+        {
+          "title": "Daybreak Red is now available in AWS GovCloud (US-East)",
+          "link": "https://openai.com/index/daybreak-red-aws-govcloud",
+          "date": "2026-11-04T07:00:00.000Z",
+          "summary": "Daybreak Red brings GPT-5.6 Cyber to approved customers in AWS GovCloud (US-East) through Amazon Bedrock for authorized …",
+          "content": "Daybreak Red brings GPT-5.6 Cyber to approved customers in AWS GovCloud (US-East) through Amazon Bedrock for authorized cybersecurity work."
+        },
+        {
+          "title": "Introducing Images 2.6",
+          "link": "https://openai.com/index/introducing-images-2-6",
+          "date": "2026-11-04T00:00:00.000Z",
+          "summary": "Images 2.6 brings faster image generation, GIF creation, more precise editing, and new API controls across ChatGPT, Code…",
+          "content": "Images 2.6 brings faster image generation, GIF creation, more precise editing, and new API controls across ChatGPT, Codex, and the API."
+        },
+        {
+          "title": "DevRev delivers autonomous self-service with GPT-6.1 Sol",
+          "link": "https://openai.com/index/devrev-enterprise-self-service",
+          "date": "2026-11-04T00:00:00.000Z",
+          "summary": "DevRev uses GPT-6.1 Sol to power Computer and Operator, balancing reasoning, speed, and cost for enterprise service.",
+          "content": "DevRev uses GPT-6.1 Sol to power Computer and Operator, balancing reasoning, speed, and cost for enterprise service."
+        },
         {
           "title": "Accelerating engineering for the physical world",
           "link": "https://openai.com/index/accelerating-engineering-for-the-physical-world",
@@ -3508,6 +3550,13 @@
       "ok": true,
       "items": [
         {
+          "title": "Investigating vault particles with Claude",
+          "link": "https://www.anthropic.com/research/investigating-vault-particles-with-claude",
+          "date": "2026-11-04T00:00:00.000Z",
+          "summary": "We’re sharing another finding from Anthropic’s biology research lab: the first 3D structure of a vault particle found in…",
+          "content": "We’re sharing another finding from Anthropic’s biology research lab: the first 3D structure of a vault particle found in prokaryotic cells. Here, we describe how Claude helped at each step of this research."
+        },
+        {
           "title": "Progress on provable inference for large language models",
           "link": "https://www.anthropic.com/research/provable-inference",
           "date": "2026-11-02T00:00:00.000Z",
@@ -5536,6 +5585,13 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "Dharma Field Extractor: Any Document In, Structured Fields in JSON Out",
+          "link": "https://huggingface.co/blog/Dharma-AI/dharma-field-extractor",
+          "date": "2026-11-04T17:50:10.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "StateBench: Testing how language models track state changes over long documents",
           "link": "https://huggingface.co/blog/allenai/statebench",
