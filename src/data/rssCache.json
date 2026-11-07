@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T05:54:26.468Z",
+  "generatedAt": "2026-11-07T05:26:17.208Z",
   "feeds": [
     {
       "id": 1,
@@ -1013,6 +1013,20 @@
       "link": "https://openai.com/news",
       "ok": true,
       "items": [
+        {
+          "title": "Partnering with Hacktron to find vulnerabilities in OpenAI’s systems",
+          "link": "https://openai.com/index/partnering-with-hacktron",
+          "date": "2026-11-06T08:00:00.000Z",
+          "summary": "OpenAI is partnering with Hacktron to find vulnerabilities, test connections with third-party services, and strengthen d…",
+          "content": "OpenAI is partnering with Hacktron to find vulnerabilities, test connections with third-party services, and strengthen defenses with frontier AI."
+        },
+        {
+          "title": "Measuring how AI agents handle everyday wet-lab science",
+          "link": "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science",
+          "date": "2026-11-06T00:00:00.000Z",
+          "summary": "OpenAI introduces BioBasicsBench, a 100-task benchmark measuring how well AI agents interpret raw experimental data and …",
+          "content": "OpenAI introduces BioBasicsBench, a 100-task benchmark measuring how well AI agents interpret raw experimental data and handle everyday wet-lab science."
+        },
         {
           "title": "Cult.fit builds operational muscle with Codex",
           "link": "https://openai.com/index/cultfit-builds-with-codex",
@@ -3613,6 +3627,20 @@
       "ok": true,
       "items": [
         {
+          "title": "Teaching AI to build scientific models",
+          "link": "https://www.anthropic.com/research/teaching-ai-to-build-scientific-models",
+          "date": "2026-11-06T00:00:00.000Z",
+          "summary": "In this guest post, Jakob Macke, Daniel Gedon, and Stefan Wahl discuss how AI is starting to change the scientific model…",
+          "content": "In this guest post, Jakob Macke, Daniel Gedon, and Stefan Wahl discuss how AI is starting to change the scientific modeling process, from construction to interpretation."
+        },
+        {
+          "title": "The components of agent memory",
+          "link": "https://www.anthropic.com/research/components-of-agent-memory",
+          "date": "2026-11-06T00:00:00.000Z",
+          "summary": "For Claude to learn from experience, it has to decide what’s worth remembering before it knows what’s next. Here’s how “…",
+          "content": "For Claude to learn from experience, it has to decide what’s worth remembering before it knows what’s next. Here’s how “dreaming” helps it organize memory and correct mistakes."
+        },
+        {
           "title": "AI for scientific discovery: How researchers use Claude",
           "link": "https://www.anthropic.com/research/how-researchers-use-claude",
           "date": "2026-11-05T00:00:00.000Z",
@@ -3660,6 +3688,13 @@
           "date": "2026-10-22T00:00:00.000Z",
           "summary": "Formal verification can prove that code is free of certain bugs, but historically it has only been feasible for small co…",
           "content": "Formal verification can prove that code is free of certain bugs, but historically it has only been feasible for small codebases. With AI models, however, this is beginning to change. Here, we used Claude to prove security properties in over one hundred real-world open-source libraries over the span of a few weeks."
+        },
+        {
+          "title": "Open call for guest investigators in the life sciences",
+          "link": "https://www.anthropic.com/news/open-call-guest-investigators-life-sciences",
+          "date": "2026-10-22T00:00:00.000Z",
+          "summary": "Today, we’re inviting members of the life sciences community to apply to work with us on special projects.",
+          "content": "Today, we’re inviting members of the life sciences community to apply to work with us on special projects."
         },
         {
           "title": "How Claude designed protein binders against scorpion neurotoxins",
@@ -4026,6 +4061,13 @@
       "link": "https://www.anthropic.com/engineering",
       "ok": true,
       "items": [
+        {
+          "title": "The components of agent memory",
+          "link": "https://www.anthropic.com/research/components-of-agent-memory",
+          "date": "2026-11-06T00:00:00.000Z",
+          "summary": "For Claude to learn from experience, it has to decide what’s worth remembering before it knows what’s next. Here’s how “…",
+          "content": "For Claude to learn from experience, it has to decide what’s worth remembering before it knows what’s next. Here’s how “dreaming” helps it organize memory and correct mistakes."
+        },
         {
           "title": "Redesigning source control at Anthropic",
           "link": "https://www.anthropic.com/engineering/redesigning-source-control",
@@ -5555,6 +5597,13 @@
           "date": "",
           "summary": "Per-token API prices keep falling, yet engineering bills for autonomous coding agents keep climbing....",
           "content": "Per-token API prices keep falling, yet engineering bills for autonomous coding agents keep climbing...."
+        },
+        {
+          "title": "Agent Distraction",
+          "link": "https://developers.googleblog.com/agent-distraction/",
+          "date": "",
+          "summary": "Analysis of over 913,000 coding agent sessions reveals that 13% expose agents to inline TODO(b/...) comments. In 6% of e…",
+          "content": "Analysis of over 913,000 coding agent sessions reveals that 13% expose agents to inline TODO(b/...) comments. In 6% of encounters, agents act on these comments, with 83% being entirely unprompted by the developer. These detours result in significant overhead—adding 70% more steps, 77% more tokens, and 105% more wait time per session—split between chasing closed tickets (41%) and unauthorized scope creep on open bugs (57%). Higher-capability models show higher distraction rates, highlighting the need for automated cleanup and linters to maintain agent-friendly codebases"
         }
       ]
     },
@@ -5669,6 +5718,20 @@
       "link": "https://huggingface.co/blog",
       "ok": true,
       "items": [
+        {
+          "title": "ToyBlocks: A controlled world for robot learning and evaluation",
+          "link": "https://huggingface.co/blog/allenai/toyblocks",
+          "date": "2026-11-06T14:00:48.000Z",
+          "summary": "",
+          "content": ""
+        },
+        {
+          "title": "Egyptian and Nigerian English join the Open ASR Leaderboard",
+          "link": "https://huggingface.co/blog/open-asr-leaderboard-liva",
+          "date": "2026-11-06T00:00:00.000Z",
+          "summary": "",
+          "content": ""
+        },
         {
           "title": "New NVIDIA Cosmos 3 Open Models for Interactive World Simulation",
           "link": "https://huggingface.co/blog/nvidia/cosmos-interactive-world-simulation",
